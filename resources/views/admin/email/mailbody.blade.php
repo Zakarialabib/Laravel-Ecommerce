@@ -1,0 +1,1 @@
+{!! clean($email_body, array('Attr.EnableID' => true)) !!}

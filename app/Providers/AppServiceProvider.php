@@ -3,6 +3,9 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
+use App\Models\Settings;
+use Illuminate\Contracts\View\View as ViewView;
+use Illuminate\Support\Facades\View;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -23,6 +26,12 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+
+        // cache()->rememberForever('settings', function () {
+        //     return Settings::all();
+        // });
+
+        // View::share('settings', cache('settings'));
+        
     }
 }
