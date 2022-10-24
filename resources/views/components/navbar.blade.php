@@ -19,45 +19,7 @@
     <div class="flex items-center gap-3">
 
         <div class="md:flex hidden flex-wrap items-center">
-            @can('show_notifications')
-                <div class="px-3">
-                    <x-dropdown align="right" class="w-auto">
-                        <x-slot name="trigger" class="inline-flex">
-                            <x-button type="button" iconOnly secondary srText="Open notifications">
-                                @php
-                                    $low_quantity_products = \App\Models\Product::select('id', 'quantity', 'stock_alert', 'code')
-                                        ->whereColumn('quantity', '<=', 'stock_alert')
-                                        ->get();
-                                @endphp
-                                <div
-                                    class="text-xs font-semibold text-white justify-center">
-                                    <i class="fas fa-bell" aria-hidden="true"></i>
-                                    <span class="pl-2">{{ $low_quantity_products->count() }}</span>
-                            </div>
-                            </x-button>
-                        </x-slot>
-
-                        <x-slot name="content">
-                            @forelse($low_quantity_products as $product)
-                                <x-dropdown-link href="{{ route('products.show', $product->id) }}">
-                                    <i class="fas fa-bell w-5 h-5" aria-hidden="true"></i>
-                                    <span class="ml-2">{{ __('Product') }}: "{{ $product->code }}"
-                                        {{ __('is low in quantity !') }}</span>
-                                </x-dropdown-link>
-                            @empty
-                                <x-dropdown-link href="#">
-                                    <i class="fas fa-bell w-5 h-5" aria-hidden="true"></i>
-                                    <span class="ml-2">{{ __('No notifications') }}</span>
-                                </x-dropdown-link>
-                            @endforelse
-                        </x-slot>
-                    </x-dropdown>
-                </div>
-            @endcan
-
-            <x-button primary :href="route('app.pos.index')">
-                 {{ __('POS') }}
-            </x-button>
+            
             {{-- @livewire('admin.cache') --}}
         </div>
 
@@ -82,7 +44,7 @@
                 </x-slot>
 
                 <x-slot name="content">
-                    <x-dropdown-link :href="route('settings.index')">
+                    <x-dropdown-link :href="route('admin.settings')">
                         {{ __('Settings') }}
                     </x-dropdown-link>
 

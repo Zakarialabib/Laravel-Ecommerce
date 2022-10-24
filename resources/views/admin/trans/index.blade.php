@@ -12,7 +12,7 @@
                             <a href="{{ route('admin.dashboard') }}">{{ __('Dashboard') }} </a>
                         </li>
                         <li>
-                            <a href="{{ route('admin-user-index') }}">{{ __('Customers') }}</a>
+                            <a href="{{ route('admin.users') }}">{{ __('Customers') }}</a>
                         </li>
                         <li>
                             <a href="{{ route('admin-trans-index') }}">{{ __('Transactions') }}</a>

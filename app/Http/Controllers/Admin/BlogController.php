@@ -75,7 +75,7 @@ class BlogController extends AdminBaseController
         //--- Logic Section Ends
 
         //--- Redirect Section
-        $msg = __('New Data Added Successfully.').'<a href="'.route("admin-blog-index").'">'.__("View Post Lists").'</a>';
+        $msg = __('New Data Added Successfully.').'<a href="'.route("admin.blogs").'">'.__("View Post Lists").'</a>';
         return response()->json($msg);
         //--- Redirect Section Ends
     }
@@ -142,7 +142,7 @@ class BlogController extends AdminBaseController
         //--- Logic Section Ends
 
         //--- Redirect Section
-        $msg = __('Data Updated Successfully.').'<a href="'.route("admin-blog-index").'">'.__("View Post Lists").'</a>';
+        $msg = __('Data Updated Successfully.').'<a href="'.route("admin.blogs").'">'.__("View Post Lists").'</a>';
         return response()->json($msg);
         //--- Redirect Section Ends
     }

@@ -9,16 +9,16 @@ class Slider extends Model
 {
     use HasAdvancedFilter;
 
-    protected $filterable = [
-        'id','subtitle_text','subtitle_size','subtitle_color','subtitle_anime','title_text','title_size','title_color','title_anime','details_text','details_size','details_color','details_anime','photo','position','link','language_id'
+    protected $orderable = [
+        'id','title','subtitle','details','photo','position','link','language_id','bg_color'
     ];
 
-    public $orderable = [
-    'id','subtitle_text','subtitle_size','subtitle_color','subtitle_anime','title_text','title_size','title_color','title_anime','details_text','details_size','details_color','details_anime','photo','position','link','language_id'
+    public $filtrable = [
+         'id','title','subtitle','details','photo','position','link','language_id','bg_color'
     ];
 
     protected $fillable = [
-        'subtitle_text','subtitle_size','subtitle_color','subtitle_anime','title_text','title_size','title_color','title_anime','details_text','details_size','details_color','details_anime','photo','position','link','language_id'
+       'title','subtitle','details','photo','position','link','language_id','bg_color'
     ];
     
     public $timestamps = false;

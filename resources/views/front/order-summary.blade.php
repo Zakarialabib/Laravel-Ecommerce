@@ -4,7 +4,7 @@
 
 @section('content')
                 
-      <section class="relative py-20 bg-gray-100">
+      <section class="relative py-10 bg-gray-100">
         <div class="absolute top-0 left-0 w-full lg:w-2/5 h-64 lg:h-full bottom-0 bg-blue-300">
           <img class="absolute bottom-0 left-0 w-1/2 lg:w-auto" src="yofte-assets/elements/lines-order.svg" alt="">
           <img class="w-1/2 ml-auto lg:ml-0 lg:w-full h-full lg:h-auto object-cover" src="yofte-assets/images/placeholder-order.png" alt="">

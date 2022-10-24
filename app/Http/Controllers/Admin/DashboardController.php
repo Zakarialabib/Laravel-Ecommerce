@@ -38,7 +38,7 @@ class DashboardController extends AdminBaseController
         $data['blogs'] = Blog::all();
         $data['pproducts'] = Product::latest('id')->take(5)->get();
         $data['rorders'] = Order::latest('id')->take(5)->get();
-        $data['poproducts'] = Product::latest('views')->take(5)->get();
+        $data['poproducts'] = Product::latest('id')->take(5)->get();
         $data['rusers'] = User::latest('id')->take(5)->get();
 
         return view('admin.dashboard',$data);
@@ -46,7 +46,7 @@ class DashboardController extends AdminBaseController
 
     public function profile()
     {
-        $data = Auth::guard('admin')->user();
+        $data = Auth::user();
         return view('admin.profile',compact('data'));
     }
 
@@ -57,7 +57,7 @@ class DashboardController extends AdminBaseController
         $rules =
         [
             'photo' => 'mimes:jpeg,jpg,png,svg',
-            'email' => 'unique:admins,email,'.Auth::guard('admin')->user()->id
+            'email' => 'unique:admins,email,'.Auth::user()->id
         ];
 
 
@@ -68,7 +68,7 @@ class DashboardController extends AdminBaseController
         }
         //--- Validation Section Ends
         $input = $request->all();
-        $data = Auth::guard('admin')->user();
+        $data = Auth::user();
             if ($file = $request->file('photo'))
             {
                 $name = \PriceHelper::ImageCreateName($file);
@@ -88,13 +88,13 @@ class DashboardController extends AdminBaseController
 
     public function passwordreset()
     {
-        $data = Auth::guard('admin')->user();
+        $data = Auth::user();
         return view('admin.password',compact('data'));
     }
 
     public function changepass(Request $request)
     {
-        $admin = Auth::guard('admin')->user();
+        $admin = Auth::user();
         if ($request->cpass){
             if (Hash::check($request->cpass, $admin->password)){
                 if ($request->newpass == $request->renewpass){

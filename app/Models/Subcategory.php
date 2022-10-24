@@ -9,7 +9,9 @@ class Subcategory extends Model
 {
     use HasAdvancedFilter;
     
-    protected $fillable = ['category_id','name','slug','language_id'];
+    protected $fillable = [
+        'category_id','name','slug','language_id'
+    ];
     
     protected $filterable = [
         'id','category_id','name','slug','language_id'

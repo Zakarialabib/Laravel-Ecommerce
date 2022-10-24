@@ -11,7 +11,6 @@ use App\{
 };
 use Illuminate\Http\Response;
 use Livewire\WithPagination;
-use App\Http\Livewire\WithConfirmation;
 use App\Http\Livewire\WithSorting;
 use Str;
 
@@ -19,7 +18,6 @@ class Index extends Component
 {
     use WithPagination;
     use WithSorting;
-    use WithConfirmation;
 
     public int $perPage;
 

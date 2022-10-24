@@ -4,7 +4,7 @@
 
 @section('content')
 
-    <section class="py-20 bg-gray-100 overflow-x-hidden">
+    <section class="py-10 bg-gray-100 overflow-x-hidden">
         <div class="relative container px-4 mx-auto">
             <div class="absolute inset-0 my-24 -ml-4 bg-orange-300"></div>
             <div class="relative flex flex-wrap bg-white">

@@ -17,7 +17,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [FrontController::class, 'index'])->name('front.index');
 Route::get('/catalog', [FrontController::class, 'catalog'])->name('front.catalog');
-Route::get('/catalog/{slug}', [FrontController::class, 'catalog'])->name('front.catalog');
+// Route::get('/catalog/{slug}', [FrontController::class, 'catalog'])->name('front.catalog');
 Route::get('/product/{slug}', [FrontController::class, 'product'])->name('front.product');
 Route::get('/cart', [FrontController::class, 'cart'])->name('front.cart');
 Route::get('/checkout', [FrontController::class, 'checkout'])->name('front.checkout');
@@ -29,3 +29,4 @@ Route::get('/faq', [FrontController::class, 'faq'])->name('front.faq');
 
 
 require __DIR__.'/auth.php';
+require __DIR__.'/admin.php';

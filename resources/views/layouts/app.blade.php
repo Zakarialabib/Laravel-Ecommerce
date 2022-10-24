@@ -26,35 +26,18 @@
     @else
     <meta name="title" content="@yield('meta_title')">
     @endif
-    @if($site_description)
-        <meta name="description" content="{{ $site_description }}">
-    @else
-    <meta name="description" content="@yield('meta_description')">
-    @endif
-    @if($site_keywords)
-        <meta name="keywords" content="{{ $site_keywords }}">
-    @else
-    <meta name="keywords" content="@yield('keywords')">
-    @endif
-    <meta name="robots" content="index, follow">
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    
-    <meta name="language" content="French">
-    {{-- <meta name="revisit-after" content="1 days"> --}}
-    <meta name="author" content="Zakaria Labib">
+  
     @if($site_favicon)
         <link rel="icon" href="{{ asset('storage/'.$site_favicon) }}" type="image/x-icon">
     @else
     <link rel="icon" type="image/png" sizes="32x32" href="shuffle-for-tailwind.png">
     @endif
-    
-    <script src="{{ asset('js/app.js') }}"></script>
 
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
+    {{-- Styles --}}
+    @vite('resources/css/app.css')
     @livewireStyles
-    @livewireScripts
-    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <x-livewire-alert::scripts />
+    @stack('styles')
+    
     
 </head>
 <body class="antialiased bg-body text-body font-body">
@@ -64,11 +47,20 @@
        <x-header />
 
        @yield('content')
+
+       @isset($slot)
+       {{ $slot }}
+        @endisset
        
        <x-footer />
 
         </section>
     </div>
+    @vite('resources/js/app.js')
+    @livewireScripts
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <x-livewire-alert::scripts />
+    @stack('scripts')
 </body>
 </html>
         

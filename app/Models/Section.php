@@ -23,40 +23,52 @@ class Section extends Model
 
     public $orderable = [
         'id',
-        'language_id',
-        'page',
-        'title',
-        'subtitle',
-        'content',
-        'custom_html_1',
-        'video',
-        'image',
+        'featured_title',
+        'label',
         'status',
+        'subtitle',
+        'title',
+        'featured_title',
+        'description',
+        'image',
+        'bg_color',
+        'position',
+        'page',
+        'link',
+        'language_id'
     ];
 
     public $filterable = [
         'id',
-        'language_id',
-        'page',
-        'title',
-        'subtitle',
-        'custom_html_1',
-        'content',
-        'video',
-        'image',
+        'featured_title',
+        'label',
         'status',
+        'subtitle',
+        'title',
+        'featured_title',
+        'description',
+        'image',
+        'bg_color',
+        'position',
+        'page',
+        'link',
+        'language_id'
     ];
 
-    protected $fillable = [
-        'language_id',
-        'page',
-        'title',
-        'subtitle',
-        'custom_html_1',
-        'content',
-        'video',
-        'image',
+    protected $fillable = [        
+        'featured_title',
+        'label',
         'status',
+        'subtitle',
+        'title',
+        'featured_title',
+        'description',
+        'image',
+        'bg_color',
+        'position',
+        'page',
+        'link',
+        'language_id'
     ];
 
     

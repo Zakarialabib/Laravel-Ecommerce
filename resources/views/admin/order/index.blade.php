@@ -21,7 +21,7 @@
                             <a href="{{ route('admin.dashboard') }}">{{ __('Dashboard') }} </a>
                         </li>
                         <li>
-                            <a href="{{ route('admin-orders-index') }}">{{ __('All Orders') }}</a>
+                            <a href="{{ route('admin.orders') }}">{{ __('All Orders') }}</a>
                         </li>
                     </ul>
                 </div>

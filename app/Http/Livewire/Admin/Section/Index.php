@@ -6,15 +6,13 @@ use Livewire\Component;
 use App\Models\Language;
 use App\Models\Section;
 use Illuminate\Http\Response;
-use Livewire\WithPagination;
-use App\Http\Livewire\WithConfirmation;
+use Livewire\WithPagination;;
 use App\Http\Livewire\WithSorting;
 
 class Index extends Component
 {
     use WithPagination;
     use WithSorting;
-    use WithConfirmation;
 
     public int $perPage;
 

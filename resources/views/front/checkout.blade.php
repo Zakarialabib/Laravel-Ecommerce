@@ -127,7 +127,7 @@
         </div>
       </section>
                 
-      <section class="py-20 bg-gray-100">
+      <section class="py-10 bg-gray-100">
         <div class="container mx-auto px-4">
           <h2 class="mb-14 text-5xl font-bold font-heading">Checkout</h2>
           <div class="flex flex-wrap -mx-4">

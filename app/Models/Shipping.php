@@ -10,19 +10,17 @@ class Shipping extends Model
     use HasAdvancedFilter;
 
     protected $filterable = [
-        'id','user_id', 'title', 'subtitle', 'price','language_id'
+        'id','is_pickup', 'title', 'subtitle', 'cost','language_id','status'
     ];
 
     public $orderable = [
-    'id','user_id', 'title', 'subtitle', 'price','language_id'
+        'id','is_pickup', 'title', 'subtitle', 'cost','language_id','status'
     ];
-    protected $fillable = ['user_id', 'title', 'subtitle', 'price','language_id'];
+    protected $fillable = [ 
+        'is_pickup', 'title', 'subtitle', 'cost','language_id','status'
+    ];
 
     public $timestamps = false;
 
-    public function language()
-    {
-    	return $this->belongsTo('App\Models\Language','language_id')->withDefault();
-    }  
 
 }

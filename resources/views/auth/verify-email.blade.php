@@ -1,17 +1,17 @@
-<x-guest-layout>
-    <x-auth-card>
-        <x-slot name="logo">
-            <a href="/">
-                <x-application-logo class="h-20 text-gray-500" />
-            </a>
-        </x-slot>
-
-        <div class="mb-4 text-sm text-gray-600">
-            {{ __('Thanks for signing up! Before getting started, could you verify your email address by clicking on the link we just emailed to you? If you didn\'t receive the email, we will gladly send you another.') }}
+<x-app-layout>
+    @section('title', __('Verify your email'))
+    <div class="search-nav">
+        <div class="container">
+            <h3 class="text-center">{{ __('Verify your email') }}</h3>
+            <p class="my-2 px-4 text-xl text-center text-zinc-600">
+                {{ __('Thanks for signing up! Before getting started, could you verify your email address by clicking on the link we just emailed to you? If you didn\'t receive the email, we will gladly send you another.') }}
+            </p>
         </div>
+    </div>
+    <x-auth-card>
 
         @if (session('status') == 'verification-link-sent')
-            <div class="mb-4 font-medium text-sm text-green-600">
+            <div class="mb-4 font-medium text-sm text-red-600">
                 {{ __('A new verification link has been sent to the email address you provided during registration.') }}
             </div>
         @endif
@@ -21,19 +21,19 @@
                 @csrf
 
                 <div>
-                    <x-primary-button>
+                    <x-button>
                         {{ __('Resend Verification Email') }}
-                    </x-primary-button>
+                    </x-button>
                 </div>
             </form>
 
             <form method="POST" action="{{ route('logout') }}">
                 @csrf
 
-                <x-button type="submit"  primary class="ml-3">
+                <button type="submit" class="underline text-sm text-zinc-600 hover:text-zinc-900">
                     {{ __('Log Out') }}
-                </x-button>
+                </button>
             </form>
         </div>
     </x-auth-card>
-</x-guest-layout>
+</x-app-layout>

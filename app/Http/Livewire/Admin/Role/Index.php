@@ -7,14 +7,12 @@ use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Gate;
 use Livewire\Component;
 use Livewire\WithPagination;
-use App\Http\Livewire\WithConfirmation;
 use App\Http\Livewire\WithSorting;
 
 class Index extends Component
 {
     use WithPagination;
     use WithSorting;
-    use WithConfirmation;
 
     public int $perPage;
 

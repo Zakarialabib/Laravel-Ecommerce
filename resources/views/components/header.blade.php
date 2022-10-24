@@ -29,10 +29,9 @@
                 </select>
             </div>
             <ul class="hidden xl:flex px-4 mx-auto font-semibold font-heading">
-                <li class="mr-12"><a class="hover:text-gray-600" href="#">Category</a></li>
+                <li class="mr-12"><a class="hover:text-gray-600" href="#">{{__('Categories')}}</a></li>
                 <li class="mr-12"><a class="hover:text-gray-600" href="{{ route('front.catalog')}}">{{__('Catalog')}}</a></li>
-                <li class="mr-12"><a class="hover:text-gray-600" href="#">Story</a></li>
-                <li><a class="hover:text-gray-600" href="#">Brand</a></li>
+                <li><a class="hover:text-gray-600" href="#">{{__('Brands')}}</a></li>
             </ul>
             <div class="hidden xl:flex items-center">
                 <a class="mr-10 hover:text-gray-600" href="#">
@@ -154,10 +153,9 @@
             </div>
             <livewire:front.search-box />
             <ul class="text-3xl font-bold font-heading">
-                <li class="mb-8"><a href="#">Category</a></li>
-                <li class="mb-8"><a href="#">Collection</a></li>
-                <li class="mb-8"><a href="#">Story</a></li>
-                <li><a href="#">Brand</a></li>
+                <li class="mb-8"><a href="#">{{__('Categories')}}</a></li>
+                <li class="mb-8"><a href="{{ route('front.catalog')}}">{{__('Collection')}}</a></li>
+                <li><a href="#">{{__('Brands')}}</a></li>
             </ul>
         </nav>
     </div>

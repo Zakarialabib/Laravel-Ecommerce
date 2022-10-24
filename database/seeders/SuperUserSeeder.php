@@ -1,0 +1,42 @@
+<?php
+
+namespace Database\Seeders;
+
+use App\Models\User;
+use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Hash;
+use Spatie\Permission\Models\Role;
+
+class SuperUserSeeder extends Seeder
+{
+    /**
+     * Run the database seeds.
+     *
+     * @return void
+     */
+    public function run()
+    {
+        $user = User::create([
+            'id'             => 999,
+			'first_name'     => 'Admin',
+            'last_name'      => 'Admin',
+			'email'      => 'admin@gmail.com',
+            'password'       => bcrypt('password'),
+			'zip'            => '12345',
+            'city'           => 'Casablanca',
+            'state'          => 'Casablanca',
+            'country'            => 'Morocco',
+            'address'            => 'Casablanca',
+            'phone'          => '123456789',
+			'statut'    => 1,
+            'remember_token' => null,
+            'created_at' => now(),
+        ]);
+
+        $superAdmin = Role::create([
+            'name' => 'Super Admin'
+        ]);
+
+        $user->assignRole($superAdmin);
+    }
+}

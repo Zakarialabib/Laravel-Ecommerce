@@ -3,7 +3,7 @@
 @section('title', __('Catalog'))
 
 @section('content')
-      <section class="py-20 bg-gray-100">
+      <section class="py-10 bg-gray-100">
         <div class="container mx-auto px-4">
           <div class="flex flex-wrap -mx-4 mb-20 items-center justify-between">
             <div class="w-full lg:w-auto px-4 mb-12 xl:mb-0">
@@ -410,7 +410,7 @@
         </div>
       </section>
                 
-      <section class="py-20 bg-gray-100">
+      <section class="py-10 bg-gray-100">
         <div class="container mx-auto px-4">
           <h2 class="mb-16 md:mb-24 text-4xl md:text-5xl font-bold font-heading">Discover our products</h2>
           <div class="flex flex-wrap -mx-3 mb-24">

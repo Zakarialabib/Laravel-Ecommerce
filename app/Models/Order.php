@@ -1,7 +1,6 @@
 <?php
 
 namespace App\Models;
-use DB;
 
 use Illuminate\Database\Eloquent\Model;
 use App\Support\HasAdvancedFilter;
@@ -10,46 +9,51 @@ class Order extends Model
 {
     use HasAdvancedFilter;
     
+    const STATUS_PENDING = 1;
+    const STATUS_PROCESSING = 2;
+    const STATUS_COMPLETED = 3;
+    const STATUS_CANCELLED = 4;
+    const STATUS_REFUNDED = 5;
+
+    const PAYMENT_STATUS_PENDING = 1;
+    const PAYMENT_STATUS_PROCESSING = 2;
+    const PAYMENT_STATUS_COMPLETED = 3;
+    const PAYMENT_STATUS_CANCELLED = 4;
+    const PAYMENT_STATUS_REFUNDED = 5;
+
 	protected $fillable = [
-        'user_id', 'cart', 'method','shipping', 'pickup_location', 'totalQty',
-        'pay_amount', 'txnid', 'charge_id', 'order_number', 'payment_status',
-        'customer_name','customer_lastname', 'customer_email', 'customer_phone', 'customer_address',
-        'customer_city', 'customer_zip','customer_state', 'customer_country',
+        'user_id','reference','status','currency_id', 'shipping_id',
+        'cart', 'delivery_method','payment_method','totalQty','payment_status',
+        'packaging_id','order_note','products','total','subtotal','tax',
         'shipping_name', 'shipping_email', 'shipping_phone', 'shipping_address',
         'shipping_city', 'shipping_zip','shipping_state','shipping_country',
-        'order_note','coupon_code','coupon_discount','status','affilate_user',
-        'affilate_charge','currency_sign','currency_name','currency_value',
-        'shipping_cost','packing_cost','tax','tax_location','dp','pay_id',
-        'vendor_shipping_id','vendor_packing_id','wallet_price','shipping_title',
-        'packing_title','affilate_users','commission'
     ];
 
     public $orderable = [
-    'id','user_id', 'cart', 'method','shipping', 'pickup_location', 
-    'totalQty', 'pay_amount', 'txnid', 'charge_id', 'order_number', 
-    'payment_status', 'customer_name', 'customer_email', 'customer_phone', 
-    'customer_address', 'customer_city', 'customer_zip','customer_state',
-    'customer_country','shipping_name', 'shipping_email', 'shipping_phone',
-    'shipping_address', 'shipping_city', 'shipping_zip','shipping_state',
-    'shipping_country', 'order_note','coupon_code','coupon_discount',
-    'status','currency_sign','tax','tax_location','shipping_title','packing_title',
-      'currency_name','currency_value','shipping_cost','packing_cost',
+        'id','user_id','reference','status','currency_id', 'shipping_id',
+        'cart', 'delivery_method','payment_method','totalQty','payment_status',
+        'packaging_id','order_note','products','total','subtotal','tax',
+        'shipping_name', 'shipping_email', 'shipping_phone', 'shipping_address',
+        'shipping_city', 'shipping_zip','shipping_state','shipping_country',
     ];    
     protected $filterable = [
-        'id','user_id', 'cart', 'method','shipping', 'pickup_location', 
-        'totalQty', 'pay_amount', 'txnid', 'charge_id', 'order_number', 
-        'payment_status', 'customer_name', 'customer_email', 'customer_phone', 
-        'customer_address', 'customer_city', 'customer_zip','customer_state',
-        'customer_country','shipping_name', 'shipping_email', 'shipping_phone',
-        'shipping_address', 'shipping_city', 'shipping_zip','shipping_state',
-        'shipping_country', 'order_note','coupon_code','coupon_discount',
-        'status','currency_sign','tax','tax_location','shipping_title','packing_title',
-          'currency_name','currency_value','shipping_cost','packing_cost',
+        'id','user_id','reference','status','currency_id', 'shipping_id',
+        'cart', 'delivery_method','payment_method','totalQty','payment_status',
+        'packaging_id','order_note','products','total','subtotal','tax',
+        'shipping_name', 'shipping_email', 'shipping_phone', 'shipping_address',
+        'shipping_city', 'shipping_zip','shipping_state','shipping_country',
     ];
 
-    public function vendororders()
+
+    public static function generateReference()
     {
-        return $this->hasMany('App\Models\VendorOrder','order_id');
+        $lastOrder = self::latest()->first();
+        if ($lastOrder) {
+            $number = substr($lastOrder->reference, -6) + 1;
+        } else {
+            $number = 1;
+        }
+        return date('Ymd') . '-' . sprintf('%06d', $number);
     }
 
     public function notifications()
@@ -62,56 +66,30 @@ class Order extends Model
         return $this->hasMany('App\Models\OrderTrack','order_id');
     }
 
-    public static function getShipData($cart,$language_id)
+    public function user()
     {
-        $vendor_shipping_id = 0;
-        $user = array();
-        foreach ($cart->items as $prod) {
-                $user[] = $prod['item']['user_id'];
-        }
-        $users = array_unique($user);
-        if(count($users) == 1)
-        {
-            $shipping_data  = DB::table('shippings')->whereLanguageId($language_id)->whereUserId($users[0])->get();
-            if(count($shipping_data) == 0){
-                $shipping_data  = DB::table('shippings')->whereLanguageId($language_id)->whereUserId(0)->get();
-            }
-            else{
-                $vendor_shipping_id = $users[0];
-            }
-        }
-        else {
-            $shipping_data  = DB::table('shippings')->whereLanguageId($language_id)->whereUserId(0)->get();
-        }
-        $data['shipping_data'] = $shipping_data;
-        $data['vendor_shipping_id'] = $vendor_shipping_id;
-        return $data; 
+        return $this->belongsTo(User::class);
     }
 
-    public static function getPackingData($cart,$language_id)
+    public function currency()
     {
-        $vendor_packing_id = 0;
-        $user = array();
-        foreach ($cart->items as $prod) {
-                $user[] = $prod['item']['user_id'];
-        }
-        $users = array_unique($user);
-        if(count($users) == 1)
-        {
-            $package_data  = DB::table('packages')->whereLanguageId($language_id)->whereUserId($users[0])->get();
-
-            if(count($package_data) == 0){
-                $package_data  = DB::table('packages')->whereLanguageId($language_id)->whereUserId(0)->get();
-            }
-            else{
-                $vendor_packing_id = $users[0];
-            }  
-        }
-        else {
-            $package_data  = DB::table('packages')->whereLanguageId($language_id)->whereUserId(0)->get();
-        }
-        $data['package_data'] = $package_data;
-        $data['vendor_packing_id'] = $vendor_packing_id;
-        return $data; 
+        return $this->belongsTo(Currency::class);
     }
+
+    public function shipping()
+    {
+        return $this->belongsTo(Shipping::class);
+    }
+
+    public function packaging()
+    {
+        return $this->belongsTo(Packaging::class);
+    }
+
+    public function products()
+    {
+        return $this->belongsToMany(Product::class, 'order_products')->withPivot('qty', 'price', 'tax', 'total');
+    }
+
+
 }

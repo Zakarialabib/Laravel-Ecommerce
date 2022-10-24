@@ -15,7 +15,7 @@
                             <a href="javascript:;">{{ __('Blog') }} </a>
                         </li>
                         <li>
-                            <a href="{{ route('admin-blog-index') }}">{{ __('Posts') }}</a>
+                            <a href="{{ route('admin.blogs') }}">{{ __('Posts') }}</a>
                         </li>
                     </ul>
                 </div>

@@ -15,7 +15,7 @@
                             <a href="javascript:;">{{ __('Home Page Settings') }} </a>
                         </li>
                         <li>
-                            <a href="{{ route('admin-blog-index') }}">{{ __('Reviews') }}</a>
+                            <a href="{{ route('admin.blogs') }}">{{ __('Reviews') }}</a>
                         </li>
                     </ul>
                 </div>

@@ -6,14 +6,14 @@
               <div class="mr-breadcrumb">
                 <div class="row">
                   <div class="col-lg-12">
-                      <h4 class="heading">{{ __('Add New Post') }} <a class="add-btn" href="{{route('admin-blog-index')}}"><i class="fas fa-arrow-left"></i> {{ __('Back') }}</a></h4>
+                      <h4 class="heading">{{ __('Add New Post') }} <a class="add-btn" href="{{route('admin.blogs')}}"><i class="fas fa-arrow-left"></i> {{ __('Back') }}</a></h4>
                       <ul class="links">
                         <li>
                           <a href="{{ route('admin.dashboard') }}">{{ __('Dashboard') }} </a>
                         </li>
                         <li><a href="javascript:;">{{ __('Blog') }}</a></li>
                         <li>
-                          <a href="{{ route('admin-blog-index') }}">{{ __('Posts') }}</a>
+                          <a href="{{ route('admin.blogs') }}">{{ __('Posts') }}</a>
                         </li>
                         <li>
                           <a href="{{ route('admin-blog-create') }}">{{ __('Add New Post') }}</a>

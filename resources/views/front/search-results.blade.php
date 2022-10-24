@@ -127,7 +127,7 @@
         </div>
       </section>
                 
-      <section class="py-20 bg-gray-100">
+      <section class="py-10 bg-gray-100">
         <div class="container mx-auto px-4">
           <div class="flex flex-wrap -mx-4 mb-20 items-center justify-between bg-gray-100 py-5">
             <div class="w-full lg:w-auto px-4 mb-12 xl:mb-0">

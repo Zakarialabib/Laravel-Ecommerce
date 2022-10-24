@@ -39,7 +39,7 @@ class LoginController extends Controller
         //--- Validation Section Ends
 
       // Attempt to log the user in
-      if (Auth::guard('admin')->attempt(['email' => $request->email, 'password' => $request->password], $request->remember)) {
+      if (Auth::guard('web')->attempt(['email' => $request->email, 'password' => $request->password], $request->remember)) {
         // if successful, then redirect to their intended location
         return response()->json(route('admin.dashboard'));
       }
@@ -126,7 +126,7 @@ class LoginController extends Controller
 
     public function logout()
     {
-        Auth::guard('admin')->logout();
+        Auth::guard('web')->logout();
         return redirect('/');
     }
 }

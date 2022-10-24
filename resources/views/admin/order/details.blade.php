@@ -32,8 +32,6 @@
         </div>
 
         <div class="order-table-wrap">
-            @include('alerts.admin.form-both')
-            @include('alerts.form-success')
             <div class="row">
 
                 <div class="col-lg-6">

@@ -11,7 +11,7 @@ class FrontController extends Controller
     public function index()
     {
         $products = Product::where('status', 1)->paginate(3);
-
+        
         return view('front.index',compact('products'));
 
     }

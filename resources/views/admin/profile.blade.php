@@ -80,7 +80,7 @@
 													</div>
 												</div>
 
-											@if(Auth::guard('admin')->user()->id == 1)
+											@if(Auth::user()->id == 1)
 												<div class="row">
 													<div class="col-lg-4">
 														<div class="left-area">

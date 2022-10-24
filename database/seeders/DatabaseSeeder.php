@@ -17,10 +17,18 @@ class DatabaseSeeder extends Seeder
         \App\Models\User::factory(10)->create();
 
         $this->call([
+            SuperUserSeeder::class,
+            CurrenciesSeeder::class,
+            LanguagesSeeder::class,
             BrandSeeder::class,
             CategorySeeder::class,
             ProductSeeder::class,
             SettingSeeder::class,
+            FeaturedBannerSeeder::class,
+            BlogSeeder::class,
+            SliderSeeder::class,
+            RolesSeeder::class,
+            RoleUserSeeder::class,
         ]);
     }
 }
