@@ -16,13 +16,13 @@ use Illuminate\{
     Http\Request,
     Support\Str
 };
-
+use App\Http\Controllers\Controller;
 use DB;
 use Image;
 use Validator;
-use Datatables;
 
-class ProductController extends AdminBaseController
+
+class ProductController extends Controller
 {
   
     public function index(){

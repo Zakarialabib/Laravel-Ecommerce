@@ -9,9 +9,9 @@ use App\{
     Models\User
 };
 use Illuminate\Http\Request;
-use Datatables;
+use App\Http\Controllers\Controller;
 
-class EmailController extends AdminBaseController
+class EmailController extends Controller
 {
 
     public function index(){

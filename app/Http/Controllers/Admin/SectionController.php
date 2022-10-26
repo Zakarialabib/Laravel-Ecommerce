@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Models\Section;
 use App\Http\Controllers\Controller;
 
-class SectionController extends AdminBaseController
+class SectionController extends Controller
 {
     // Index Section 
     public function index()

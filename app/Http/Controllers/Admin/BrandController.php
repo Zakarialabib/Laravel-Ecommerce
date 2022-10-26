@@ -7,8 +7,9 @@ use App\{
 };
 use Illuminate\Http\Request;
 use Validator;
+use App\Http\Controllers\Controller;
 
-class BrandController extends AdminBaseController
+class BrandController extends Controller
 {
 
     public function index(){

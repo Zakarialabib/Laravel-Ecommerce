@@ -3,9 +3,9 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Models\Report;
-use Datatables;
+use App\Http\Controllers\Controller;
 
-class ReportController extends AdminBaseController
+class ReportController extends Controller
 {
 
 	    //*** JSON Request

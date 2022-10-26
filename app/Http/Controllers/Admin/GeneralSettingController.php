@@ -2,16 +2,16 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Http\Controllers\Controller;
 use App\Models\Generalsetting;
 use Illuminate\{
     Http\Request,
     Support\Facades\Mail
 };
-
 use Config;
 use Validator;
 
-class GeneralSettingController extends AdminBaseController
+class GeneralSettingController extends Controller
 {
     protected $rules =
     [

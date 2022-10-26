@@ -4,14 +4,15 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Support\HasAdvancedFilter;
 
 class Brand extends Model
 {
-    use HasFactory;
+    use HasAdvancedFilter, HasFactory;
 
     protected $fillable = [
         'name',
-        'description',
+        'link',
         'image',
         'status',
     ];

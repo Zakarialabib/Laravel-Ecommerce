@@ -9,9 +9,9 @@ use App\{
 };
 use Illuminate\Http\Request;
 use Validator;
-use Datatables;
+use App\Http\Controllers\Controller;
 
-class SubCategoryController extends AdminBaseController
+class SubCategoryController extends Controller
 {
 
     public function index(){

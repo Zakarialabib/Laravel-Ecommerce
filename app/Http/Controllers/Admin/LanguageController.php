@@ -8,10 +8,9 @@ use Illuminate\{
     Support\Str
 };
 use Validator;
-use Datatables;
+use App\Http\Controllers\Controller;
 
-
-class LanguageController extends AdminBaseController
+class LanguageController extends Controller
 {
     //*** JSON Request
     public function datatables()

@@ -5,9 +5,9 @@ namespace App\Http\Controllers\Admin;
 use App\Models\Currency;
 use Illuminate\Http\Request;
 use Validator;
-use Datatables;
+use App\Http\Controllers\Controller;
 
-class CurrencyController extends AdminBaseController
+class CurrencyController extends Controller
 {
 
     public function index(){

@@ -5,9 +5,9 @@ namespace App\Http\Controllers\Admin;
 use App\Models\BlogCategory;
 use Illuminate\Http\Request;
 use Validator;
-use Datatables;
+use App\Http\Controllers\Controller;
 
-class BlogCategoryController extends AdminBaseController
+class BlogCategoryController extends Controller
 {
     public function index(){
         return view('admin.blog.category.index');

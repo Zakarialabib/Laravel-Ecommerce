@@ -8,10 +8,10 @@ use App\{
 };
 use Illuminate\Http\Request;
 use Validator;
-use Datatables;
 use Illuminate\Support\Str;
+use App\Http\Controllers\Controller;
 
-class BlogController extends AdminBaseController
+class BlogController extends Controller
 {
    
     public function index(){

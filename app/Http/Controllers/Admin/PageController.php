@@ -2,13 +2,13 @@
 
 namespace App\Http\Controllers\Admin;
 
-use Datatables;
+
 use App\Models\Page;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Validator;
 
-class PageController extends AdminBaseController
+class PageController extends Controller
 {
 
     public function index(){

@@ -3,9 +3,9 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Models\Subscriber;
-use Datatables;
+use App\Http\Controllers\Controller;
 
-class SubscriberController extends AdminBaseController
+class SubscriberController extends Controller
 {
     //*** JSON Request
     public function datatables()

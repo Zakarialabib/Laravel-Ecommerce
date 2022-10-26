@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Models\Banner;
 use Illuminate\Http\Request;
 use Validator;
-use Datatables;
+
 
 class BannerController extends AdminBaseController
 {

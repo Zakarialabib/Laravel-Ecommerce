@@ -5,9 +5,9 @@ namespace App\Http\Controllers\Admin;
 use App\Models\Category;
 use Illuminate\Http\Request;
 use Validator;
-use Datatables;
+use App\Http\Controllers\Controller;
 
-class CategoryController extends AdminBaseController
+class CategoryController extends Controller
 {
 
     public function index(){

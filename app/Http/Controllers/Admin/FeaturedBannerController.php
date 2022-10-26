@@ -2,11 +2,10 @@
 
 namespace App\Http\Controllers\Admin;
 
-use Datatables;
+
 use App\Models\FeaturedBanner;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-
 use Validator;
 
 class FeaturedBannerController extends Controller

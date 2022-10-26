@@ -12,10 +12,10 @@ use App\{
     Models\Generalsetting
 };
 use Illuminate\Http\Request;
-use Datatables;
+use App\Http\Controllers\Controller;
 use Session;
 
-class OrderController extends AdminBaseController
+class OrderController extends Controller
 {
     //*** GET Request
     public function index(Request $request)

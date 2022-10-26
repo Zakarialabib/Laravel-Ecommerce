@@ -62,7 +62,7 @@ class Index extends Component
 
     public array $rules = [
         'brand.name' => ['required', 'string', 'max:255'],
-        'brand.description' => ['nullable', 'string'],
+        'brand.link' => ['nullable', 'string'],
     ];
 
     public function getSelectedCountProperty()

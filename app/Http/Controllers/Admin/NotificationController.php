@@ -4,8 +4,9 @@ namespace App\Http\Controllers\Admin;
 
 use App\Models\Notification;
 use DB;
+use App\Http\Controllers\Controller;
 
-class NotificationController extends AdminBaseController
+class NotificationController extends Controller
 {
   public function all_notf_count()
   {

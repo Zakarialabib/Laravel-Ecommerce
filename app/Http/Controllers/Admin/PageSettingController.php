@@ -5,8 +5,9 @@ namespace App\Http\Controllers\Admin;
 use App\Models\Pagesetting;
 use Illuminate\Http\Request;
 use Validator;
+use App\Http\Controllers\Controller;
 
-class PageSettingController extends AdminBaseController
+class PageSettingController extends Controller
 {
     protected $rules =
     [

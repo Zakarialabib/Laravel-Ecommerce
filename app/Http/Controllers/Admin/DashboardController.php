@@ -16,8 +16,9 @@ use Illuminate\{
 use Auth;
 use Validator;
 use InvalidArgumentException;
+use App\Http\Controllers\Controller;
 
-class DashboardController extends AdminBaseController
+class DashboardController extends Controller
 {
 
     public function index()

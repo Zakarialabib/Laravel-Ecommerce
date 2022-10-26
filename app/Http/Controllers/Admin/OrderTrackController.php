@@ -8,8 +8,9 @@ use App\{
 };
 use Illuminate\Http\Request;
 use Validator;
+use App\Http\Controllers\Controller;
 
-class OrderTrackController extends AdminBaseController
+class OrderTrackController extends Controller
 {
 
    //*** GET Request

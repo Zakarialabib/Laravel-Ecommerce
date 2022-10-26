@@ -5,9 +5,9 @@ namespace App\Http\Controllers\Admin;
 use App\Models\Review;
 use Illuminate\Http\Request;
 use Validator;
-use Datatables;
+use App\Http\Controllers\Controller;
 
-class ReviewController extends AdminBaseController
+class ReviewController extends Controller
 {
     //*** JSON Request
     public function datatables()

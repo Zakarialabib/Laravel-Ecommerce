@@ -5,9 +5,9 @@ namespace App\Http\Controllers\Admin;
 use App\Models\Slider;
 use Illuminate\Http\Request;
 use Validator;
-use Datatables;
+use App\Http\Controllers\Controller;
 
-class SliderController extends AdminBaseController
+class SliderController extends Controller
 {
     
     public function index(){

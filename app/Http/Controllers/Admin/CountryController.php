@@ -7,7 +7,6 @@ use App\Models\Country;
 use App\Models\Currency;
 use App\Models\State;
 use Illuminate\Http\Request;
-use Yajra\DataTables\Facades\DataTables;
 
 class CountryController extends Controller
 {

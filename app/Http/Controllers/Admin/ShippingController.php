@@ -8,9 +8,9 @@ use App\{
 };
 use Illuminate\Http\Request;
 use Validator;
-use Datatables;
+use App\Http\Controllers\Controller;
 
-class ShippingController extends AdminBaseController
+class ShippingController extends Controller
 {
     //*** JSON Request
     public function datatables()
