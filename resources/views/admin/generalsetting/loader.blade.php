@@ -1,4 +1,4 @@
-@extends('layouts.admin')
+@extends('layouts.dashboard')
 @section('content')
 
           <div class="content-area">
@@ -21,7 +21,7 @@
               </div>
             </div>
             <div class="add-logo-area">
-                @include('alerts.admin.form-both')  
+                <x-form-alert />  
               <div class="gocover" style="background: url({{asset('assets/images/'.$gs->admin_loader)}}) no-repeat scroll center center rgba(45, 45, 45, 0.5);"></div>
               <div class="row justify-content-center">
                 <div class="col-lg-6">
@@ -34,7 +34,7 @@
 
                         <form class="uplogo-form" id="geniusform" action="{{ route('admin-gs-update') }}" method="POST" enctype="multipart/form-data">
                           {{csrf_field()}}   
-                          @include('alerts.admin.form-both') 
+                          <x-form-alert /> 
                           <div class="loader-switcher">
                             <h4 class="title" style="margin-left: 80px;">
                                 {{ __('Loader') }} :
@@ -75,7 +75,7 @@
 
                         <form class="uplogo-form" id="geniusform" action="{{ route('admin-gs-update') }}" method="POST" enctype="multipart/form-data">
                           {{csrf_field()}}   
-                          @include('alerts.admin.form-both') 
+                          <x-form-alert /> 
                           <div class="loader-switcher">
                             <h4 class="title" style="margin-left: 80px;">
                                 {{ __('Loader') }} :

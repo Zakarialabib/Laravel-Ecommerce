@@ -13,7 +13,7 @@
                                             <input type="hidden" id="track-store" value="{{route('admin-order-track-store')}}">
                                             <form id="trackform" action="{{route('admin-order-track-store')}}" method="POST" enctype="multipart/form-data">
                                                 {{csrf_field()}}
-                                                @include('alerts.admin.form-both')  
+                                                <x-form-alert />  
 
                                                 <input type="hidden" name="order_id" value="{{ $order->id }}">
 

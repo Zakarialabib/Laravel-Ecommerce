@@ -50,11 +50,23 @@
         </x-slot>
         <x-sidebar.sublink title="{{ __('All Orders') }}" href="{{ route('admin.orders') }}" :active="request()->routeIs('admin.orders')" />
     </x-sidebar.dropdown>
-
     
-
-
-
+    <x-sidebar.dropdown title="{{('Blog')}}" :active="Str::startsWith(
+        request()
+            ->route()
+            ->uri(),
+        'Blog',
+    )">
+        <x-slot name="icon">
+            <span class="inline-block mr-3">
+                <i class="fas fa-blog w-5 h-5"></i>
+            </span>
+        </x-slot>
+        <x-sidebar.sublink title="{{ __('All Blog') }}" href="{{ route('admin.blogs') }}" :active="request()->routeIs('admin.blogs')" />
+        <x-sidebar.sublink title="{{ __('Blog Settings') }}" href="{{ route('admin.blog.settings') }}" :active="request()->routeIs('admin.blog.settings')" />
+        <x-sidebar.sublink title="{{ __('Blog Categories') }}" href="{{ route('admin.blogcategories') }}" :active="request()->routeIs('admin.blogcategories')" />
+    </x-sidebar.dropdown>
+{{-- Settings --}}
 
     @can('access_user_management')
         <x-sidebar.dropdown title="{{ __('People') }}" :active="Str::startsWith(
@@ -80,7 +92,20 @@
             @endcan
         </x-sidebar.dropdown>
     @endcan
-    @can('access_currencies|access_settings')
+
+    <x-sidebar.dropdown title="{{ __('Pages Settings') }}" :active="Str::startsWith( request()->route()->uri(), 'pages', )">
+        <x-slot name="icon">
+            <span class="inline-block mr-3">
+                <i class="fas fa-file-alt w-5 h-5"></i>
+            </span>
+        </x-slot>
+        <x-sidebar.sublink title="{{ __('Sections') }}" href="{{ route('admin.sections') }}" :active="request()->routeIs('admin.sections')" />
+        <x-sidebar.sublink title="{{ __('Contact Us Page') }}" href="{{ route('admin.page.contact') }}" :active="request()->routeIs('admin.page.contact')" />
+        <x-sidebar.sublink title="{{ __('Other Pages') }}" href="{{ route('admin.pages') }}" :active="request()->routeIs('admin.pages')" />
+        <x-sidebar.sublink title="{{ __('Other Page Banner') }}" href="{{ route('admin.page.banners') }}" :active="request()->routeIs('admin.page.banners')" />
+        <x-sidebar.sublink title="{{ __('Customize Menu Links') }}" href="{{ route('admin.page.menulinks') }}" :active="request()->routeIs('admin.page.menulinks')" />
+    </x-sidebar.dropdown>
+
         <x-sidebar.dropdown title="{{ __('Settings') }}" :active="Str::startsWith(
             request()
                 ->route()
@@ -92,14 +117,15 @@
                     <i class="fas fa-cog w-5 h-5"></i>
                 </span>
             </x-slot>
-            @can('access_currencies')
-                <x-sidebar.sublink title="{{ __('Currencies') }}" href="{{ route('admin.currencies') }}" :active="request()->routeIs('admin.currencies')" />
-            @endcan
-            @can('access_settings')
-                <x-sidebar.sublink title="{{ __('Settings') }}" href="{{ route('admin.settings') }}" :active="request()->routeIs('admin.settings')" />
-            @endcan
+            
+            <x-sidebar.sublink title="{{ __('Settings') }}" href="{{ route('admin.settings') }}" :active="request()->routeIs('admin.settings')" />
+            <x-sidebar.sublink title="{{ __('Site Content') }}" href="{{ route('admin.setting.content') }}" :active="request()->routeIs('admin.setting.content')" />
+            <x-sidebar.sublink title="{{ __('Home Page Customization') }}" href="{{ route('admin.setting.customize') }}" :active="request()->routeIs('admin.setting.customize')" />
+            <x-sidebar.sublink title="{{ __('Shipping Methode') }}" href="{{ route('admin.setting.shipping') }}" :active="request()->routeIs('admin.shipping')" />
+            <x-sidebar.sublink title="{{ __('Sliders')}}" href="{{ route('admin.setting.sliders') }}" :active="request()->routeIs('admin.setting.sliders')" />
+
         </x-sidebar.dropdown>
-    @endcan
+
 
     <x-sidebar.link title="{{ __('Logout') }}"
         onclick="event.preventDefault();

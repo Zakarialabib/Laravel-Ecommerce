@@ -1,4 +1,4 @@
-@extends('layouts.admin')
+@extends('layouts.dashboard')
 @section('styles')
     <link href="{{ asset('assets/admin/css/product.css') }}" rel="stylesheet" />
     <link href="{{ asset('assets/admin/css/jquery.Jcrop.css') }}" rel="stylesheet" />
@@ -16,7 +16,7 @@
                             <a href="{{ route('admin.dashboard') }}">{{ __('Dashboard') }} </a>
                         </li>
                         <li>
-                            <a href="{{ route('admin-prod-index') }}">{{ __('Products') }} </a>
+                            <a href="{{ route('admin.products') }}">{{ __('Products') }} </a>
                         </li>
                         <li>
                             <a href="javascript:;">{{ __('Edit') }}</a>
@@ -28,7 +28,7 @@
         <form id="geniusform" action="{{ route('admin-prod-update', $data->id) }}" method="POST"
             enctype="multipart/form-data">
             {{ csrf_field() }}
-            @include('alerts.admin.form-both')
+            <x-form-alert />
             <div class="row">
                 <div class="col-lg-8">
                     <div class="add-product-content">
@@ -36,9 +36,7 @@
                             <div class="col-lg-12">
                                 <div class="product-description">
                                     <div class="body-area">
-                                        <div class="gocover"
-                                            style="background: url({{ asset('assets/images/' . $gs->admin_loader) }}) no-repeat scroll center center rgba(45, 45, 45, 0.5);">
-                                        </div>
+                                        <x-loader />
                                         <div class="row">
                                             <div class="col-lg-12">
                                                 <div class="left-area">

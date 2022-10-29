@@ -1,4 +1,4 @@
-@extends('layouts.admin')
+@extends('layouts.dashboard')
 @section('content')
     <div class="content-area">
         <div class="mr-breadcrumb">
@@ -26,7 +26,7 @@
                                 style="background: url({{ asset('assets/images/' . $gs->admin_loader) }}) no-repeat scroll center center rgba(45, 45, 45, 0.5);">
                             </div>
 
-                            @include('alerts.admin.form-both')
+                            <x-form-alert />
 
                             <div style="padding: 10px;" class="text-center">
                                 @if ($bkuplink == '')

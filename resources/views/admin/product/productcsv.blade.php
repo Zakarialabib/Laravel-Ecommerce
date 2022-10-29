@@ -1,4 +1,4 @@
-@extends('layouts.admin')
+@extends('layouts.dashboard')
 @section('styles')
 
 <link href="{{asset('assets/admin/css/product.css')}}" rel="stylesheet"/>
@@ -19,7 +19,7 @@
 												<a href="javascript:;">{{ __("Products") }} </a>
 											</li>
 											<li>
-												<a href="{{ route('admin-prod-index') }}">{{ __("All Products") }}</a>
+												<a href="{{ route('admin.products') }}">{{ __("All Products") }}</a>
 											</li>
 												<li>
 													<a href="{{ route('admin-prod-import') }}">{{ __("Bulk Upload") }}</a>
@@ -36,7 +36,7 @@
 					                      <form id="geniusform" action="{{route('admin-prod-importsubmit')}}" method="POST" enctype="multipart/form-data">
 					                        {{csrf_field()}}
 
-                        						@include('alerts.admin.form-both')  
+                        						<x-form-alert />  
 
 											  <div class="row">
 												  <div class="col-lg-12 text-right">

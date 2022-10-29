@@ -1,48 +1,20 @@
 <section class="relative">
     <nav class="flex justify-between bg-gray-100 border-b">
         <div class="px-12 py-8 flex w-full items-center">
-            <a class="lg:mr-8 2xl:mr-20 text-3xl font-bold font-heading" href="#">
-                {{-- @if($site_title)
-                    {{ $site_title }}
-                @else
+            <a class="lg:mr-8 2xl:mr-20 text-3xl font-bold font-heading" href="{{ route('front.index') }}">
                     {{ config('app.name') }}
-                @endif --}}
-                <img class="h-9" src="yofte-assets/logos/yofte-logo.svg" alt="" width="auto">
+                {{-- <img class="h-9" src="yofte-assets/logos/yofte-logo.svg" alt="" width="auto"> --}}
             </a>
-            <div class="hidden xl:flex max-w-xs py-3 pl-8 pr-2 bg-white rounded-lg">
-                <svg class="w-8 h-10 mr-2" width="18" height="18" viewbox="0 0 18 18" fill="none"
-                    xmlns="http://www.w3.org/2000/svg">
-                    <path d="M17.5 17.1309L12.5042 11.9551" stroke="black" stroke-miterlimit="10" stroke-linecap="round"
-                        stroke-linejoin="round"></path>
-                    <path
-                        d="M7.27524 13.8672C10.8789 13.8672 13.8002 10.945 13.8002 7.34033C13.8002 3.73565 10.8789 0.813477 7.27524 0.813477C3.67159 0.813477 0.750244 3.73565 0.750244 7.34033C0.750244 10.945 3.67159 13.8672 7.27524 13.8672Z"
-                        stroke="black" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"></path>
-                </svg>
-                <input class="w-full border-0 focus:ring-transparent focus:outline-none py-2" type="text"
-                    placeholder="">
-                <select
-                    class="pl-6 pr-6 border-0 border-l border-gray-100 focus:border-gray-100 focus:ring-transparent focus:outline-none cursor-pointer"
-                    name="" id="">
-                    <option>All items</option>
-                    <option>Collection</option>
-                    <option>Option</option>
-                </select>
-            </div>
+            
             <ul class="hidden xl:flex px-4 mx-auto font-semibold font-heading">
                 <li class="mr-12"><a class="hover:text-gray-600" href="#">{{__('Categories')}}</a></li>
                 <li class="mr-12"><a class="hover:text-gray-600" href="{{ route('front.catalog')}}">{{__('Catalog')}}</a></li>
                 <li><a class="hover:text-gray-600" href="#">{{__('Brands')}}</a></li>
             </ul>
             <div class="hidden xl:flex items-center">
-                <a class="mr-10 hover:text-gray-600" href="#">
-                    <svg width="23" height="20" viewbox="0 0 23 20" fill="none"
-                        xmlns="http://www.w3.org/2000/svg">
-                        <path
-                            d="M11.4998 19.2061L2.70115 9.92527C1.92859 9.14433 1.41864 8.1374 1.24355 7.04712C1.06847 5.95684 1.23713 4.8385 1.72563 3.85053V3.85053C2.09464 3.10462 2.63366 2.45803 3.29828 1.96406C3.9629 1.47008 4.73408 1.14284 5.5483 1.00931C6.36252 0.875782 7.19647 0.939779 7.98144 1.19603C8.7664 1.45228 9.47991 1.89345 10.0632 2.48319L11.4998 3.93577L12.9364 2.48319C13.5197 1.89345 14.2332 1.45228 15.0182 1.19603C15.8031 0.939779 16.6371 0.875782 17.4513 1.00931C18.2655 1.14284 19.0367 1.47008 19.7013 1.96406C20.3659 2.45803 20.905 3.10462 21.274 3.85053V3.85053C21.7625 4.8385 21.9311 5.95684 21.756 7.04712C21.581 8.1374 21.071 9.14433 20.2984 9.92527L11.4998 19.2061Z"
-                            stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                        </path>
-                    </svg>
-                </a>
+
+                @include('partials.front.search-box')
+
                 <a class="flex items-center hover:text-gray-600" href="#">
                     <svg class="mr-3" width="23" height="23" viewbox="0 0 23 23" fill="none"
                         xmlns="http://www.w3.org/2000/svg">
@@ -60,10 +32,13 @@
                 </a>
             </div>
         </div>
+        @if (Auth::check())
         <button class="flex-shrink-0 hidden xl:block px-8 border-l">
             <div class="flex items-center">
                 <img class="w-9 h-9 object-cover mr-2" src="yofte-assets/elements/avatar.svg" alt="">
-                <span class="mr-2 font-medium">Robert</span>
+                <span class="mr-2 font-medium">
+                    {{ Auth::user()->name }}
+                </span>
                 <span>
                     <svg width="10" height="6" viewbox="0 0 10 6" fill="none"
                         xmlns="http://www.w3.org/2000/svg">
@@ -73,6 +48,15 @@
                 </span>
             </div>
         </button>
+        @else
+        <button class="flex-shrink-0 hidden xl:block px-8 border-l">
+            <div class="flex items-center">
+                <a href="{{ route('login') }}" class="mr-2 font-medium">{{__('Login')}} </a>
+                {{__('or')}}
+                <a href="{{ route('register') }}" class="ml-2 font-medium"> {{__('Register')}}</a>
+            </div>
+        </button>
+        @endif
         <a class="xl:hidden flex mr-6 items-center text-gray-600" href="#">
             <svg class="mr-2" width="23" height="23" viewbox="0 0 23 23" fill="none"
                 xmlns="http://www.w3.org/2000/svg">
@@ -111,10 +95,13 @@
                 </button>
             </div>
             <div class="flex mb-8 justify-between">
+                @if(Auth::check())
                 <button>
                     <div class="flex items-center">
                         <img class="w-9 h-9 object-cover mr-2" src="yofte-assets/elements/avatar.svg" alt="">
-                        <span class="mr-2 font-medium">Robert</span>
+                        <span class="mr-2 font-medium">
+                            {{ Auth::user()->name }}
+                        </span>
                         <span>
                             <svg width="10" height="6" viewbox="0 0 10 6" fill="none"
                                 xmlns="http://www.w3.org/2000/svg">
@@ -124,6 +111,14 @@
                         </span>
                     </div>
                 </button>
+                @else
+                    <div class="flex items-center">
+                        <img class="w-9 h-9 object-cover mr-2" src="yofte-assets/elements/avatar.svg" alt="">
+                        <span class="mr-2 font-medium">
+                            <a href="{{ route('login') }}">{{__('Login')}}</a>
+                        </span>
+                    </div>
+                @endif
                 <div class="flex items-center">
                     <a class="mr-10" href="#">
                         <svg width="23" height="20" viewbox="0 0 23 20" fill="none"

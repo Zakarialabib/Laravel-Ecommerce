@@ -1,6 +1,6 @@
-@extends('layouts.admin')
+@section('title', __('Products'))
 
-@section('content')
+<x-dashboard-layout>
     <input type="hidden" id="headerdata" value="{{ __('PRODUCT') }}">
     <div class="content-area">
         <div class="mr-breadcrumb">
@@ -15,12 +15,12 @@
                             <a href="javascript:;">{{ __('Products') }} </a>
                         </li>
                         <li>
-                            <a href="{{ route('admin-prod-index') }}">{{ __('All Products') }}</a>
+                            <a href="{{ route('admin.products') }}">{{ __('All Products') }}</a>
                         </li>
                     </ul>
                 </div>
                 <div class="col-lg-4 table-contents">
-                    <a class="add-btn" href="{{ route('admin-prod-create','Physical') }}">
+                    <a class="add-btn" href="{{ route('admin.product.create') }}">
                         <i class="fas fa-plus "></i>
                         <span class="remove-mobile">
                             {{__('Create product')}}
@@ -41,9 +41,7 @@
 
         <div class="modal-dialog highlight" role="document">
             <div class="modal-content">
-                <div class="submit-loader">
-                    <img src="{{ asset('assets/images/' . $gs->admin_loader) }}" alt="">
-                </div>
+                
                 <div class="modal-header">
                     <h5 class="modal-title"></h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -145,7 +143,7 @@
     </div>
 
     {{-- GALLERY MODAL ENDS --}}
-@endsection
+</x-dashboard-layout>
 
 @section('scripts')
 

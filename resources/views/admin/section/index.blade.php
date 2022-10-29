@@ -1,4 +1,4 @@
-@extends('layouts.admin')
+@extends('layouts.dashboard')
 @section('title', __('Section List'))
 @section('content')
     <div class="content-area">

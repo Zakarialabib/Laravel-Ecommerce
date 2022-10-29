@@ -1,4 +1,4 @@
-@extends('layouts.admin')
+@extends('layouts.dashboard')
 
 @section('styles')
     <style type="text/css">
@@ -437,9 +437,7 @@
 
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
-                <div class="submit-loader">
-                    <img src="{{ asset('assets/images/' . $gs->admin_loader) }}" alt="">
-                </div>
+                
                 <div class="modal-header">
                     <h5 class="modal-title">
                         {{ __('Edit Item') }}
@@ -552,9 +550,7 @@
         aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
-                <div class="submit-loader">
-                    <img src="{{ asset('assets/images/' . $gs->admin_loader) }}" alt="">
-                </div>
+                
                 <div class="modal-header d-block text-center">
                     <h4 class="modal-title d-inline-block">{{ __('Update Status') }}</h4>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">

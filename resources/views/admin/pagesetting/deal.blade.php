@@ -1,4 +1,4 @@
-@extends('layouts.admin')
+@extends('layouts.dashboard')
 
 @section('content')
     <div class="content-area">
@@ -35,7 +35,7 @@
                             <form id="geniusform" action="{{ route('admin-gs-update') }}" method="POST"
                                 enctype="multipart/form-data">
                                 {{ csrf_field() }}
-                                @include('alerts.admin.form-both')
+                                <x-form-alert />
                                 {{-- Sub Title Section --}}
                                 <div class="form-group">
                                     <div class="col-sm-12">

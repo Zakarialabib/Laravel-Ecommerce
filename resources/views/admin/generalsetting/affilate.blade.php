@@ -1,4 +1,4 @@
-@extends('layouts.admin')
+@extends('layouts.dashboard')
 
 @section('content')
 
@@ -30,7 +30,7 @@
                         <form action="{{ route('admin-gs-update') }}" id="geniusform" method="POST" enctype="multipart/form-data">
                           @csrf
 
-                        @include('alerts.admin.form-both')  
+                        <x-form-alert />  
 
                         <div class="row justify-content-center">
                             <div class="col-lg-3">

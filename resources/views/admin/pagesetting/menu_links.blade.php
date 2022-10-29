@@ -1,4 +1,4 @@
-@extends('layouts.admin')
+@extends('layouts.dashboard')
 
 @section('content')
 
@@ -33,7 +33,7 @@
               enctype="multipart/form-data">
               @csrf
 
-              @include('alerts.admin.form-both')
+              <x-form-alert />
 
               <div class="row justify-content-center">
 

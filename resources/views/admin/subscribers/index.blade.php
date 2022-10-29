@@ -1,4 +1,4 @@
-@extends('layouts.admin')
+@extends('layouts.dashboard')
 
 @section('content')
     <div class="content-area">
@@ -21,7 +21,7 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div class="mr-table allproduct">
-                        @include('alerts.admin.form-both')
+                        <x-form-alert />
                         <div class="table-responsive">
                             <table id="geniustable" class="table table-hover dt-responsive" cellspacing="0" width="100%">
                                 <thead>

@@ -36,18 +36,34 @@ Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
 Route::get('/categories', [CategoryController::class, 'index'])->name('categories');
 Route::get('/subcategories', [CategoryController::class, 'subcategories'])->name('subcategories');
 Route::get('/brand', [BrandController::class, 'index'])->name('brands');
-Route::get('/product', [ProductController::class, 'index'])->name('products');
+Route::get('/products', [ProductController::class, 'index'])->name('products');
+Route::get('/product/create', [ProductController::class, 'create'])->name('product.create');
+Route::post('/product/store', [ProductController::class, 'store'])->name('product.store');
+Route::get('/product/edit/{id}', [ProductController::class, 'edit'])->name('product.edit');
+Route::post('/product/update/{id}', [ProductController::class, 'update'])->name('product.update');
+
 Route::get('/orders', [OrderController::class, 'index'])->name('orders');
+
 Route::get('/users', [UserController::class, 'index'])->name('users');
 
 Route::get('/sections', [SectionController::class, 'index'])->name('sections');
 Route::get('/featuredBanners', [FeaturedBannerController::class, 'index'])->name('featuredBanners');
 Route::get('/pages', [PageController::class, 'index'])->name('pages');
+Route::get('/contact', [PageController::class, 'index'])->name('page.contact');
+Route::get('/pagebanners', [SliderController::class, 'index'])->name('page.banners');
+Route::get('/menulinks', [SettingController::class, 'index'])->name('page.menulinks');
+
 Route::get('/blogs', [BlogController::class, 'index'])->name('blogs');
-Route::get('sliders', [SliderController::class, 'index'])->name('sliders');
+Route::get('/blog/settings', [BlogController::class, 'index'])->name('blog.settings');
+Route::get('/blog/category', [BlogController::class, 'index'])->name('blogcategories');
+
 Route::get('/settings', [SettingController::class, 'index'])->name('settings');
+Route::get('/shipping', [SettingController::class, 'index'])->name('setting.shipping');
+Route::get('/home-customization', [SettingController::class, 'index'])->name('setting.customize');
+Route::get('/content', [SettingController::class, 'index'])->name('setting.content');
+Route::get('sliders', [SliderController::class, 'index'])->name('setting.sliders');
 Route::get('/report', [ReportController::class, 'index'])->name('report');
-Route::get('/contact', [ContactController::class, 'index'])->name('contact');
+
 Route::get('/notification', [NotificationController::class, 'index'])->name('notification');
 Route::get('/smpt', [SmptController::class, 'index'])->name('smpt');
 Route::get('/language', [LanguageController::class, 'index'])->name('language');

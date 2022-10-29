@@ -1,4 +1,4 @@
-@extends('layouts.admin')
+@extends('layouts.dashboard')
 
 @section('content')
 
@@ -34,7 +34,7 @@
 
                         <div class="gocover" style="background: url({{asset('assets/images/'.$gs->admin_loader)}}) no-repeat scroll center center rgba(45, 45, 45, 0.5);"></div>
 
-                        @include('alerts.admin.form-both')
+                        <x-form-alert />
 
                       <form id="geniusform" action="{{route('admin-page-create')}}" method="POST" enctype="multipart/form-data">
 

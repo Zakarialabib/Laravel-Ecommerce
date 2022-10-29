@@ -1,4 +1,4 @@
-@extends('layouts.admin') 
+@extends('layouts.dashboard') 
 
 @section('content')  
           <input type="hidden" id="headerdata" value="BANNER">

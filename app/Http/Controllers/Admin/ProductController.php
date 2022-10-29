@@ -21,7 +21,6 @@ use DB;
 use Image;
 use Validator;
 
-
 class ProductController extends Controller
 {
   
@@ -35,14 +34,12 @@ class ProductController extends Controller
 
 
     //*** GET Request
-    public function create($slug)
+    public function create()
     {
         $cats = Category::all();
-        $sign = $this->curr;
+        $subcategories = Subcategory::all();
         
-        if($slug == 'physical'){
-            return view('admin.product.create',compact('cats','sign'));
-        }
+        return view('admin.product.create',compact('cats','subcategories'));
     }
 
     //*** GET Request
@@ -373,7 +370,7 @@ class ProductController extends Controller
         //logic Section Ends
 
         //--- Redirect Section
-        $msg = __("New Product Added Successfully.").'<a href="'.route('admin-prod-index').'">'.__("View Product Lists.").'</a>';
+        $msg = __("New Product Added Successfully.").'<a href="'.route('admin.products').'">'.__("View Product Lists.").'</a>';
         return response()->json($msg);
         //--- Redirect Section Ends
     }
@@ -542,268 +539,270 @@ class ProductController extends Controller
         return view('admin.product.edit',compact('cats','data','sign'));
     }
 
-    //*** POST Request
-    public function update(Request $request, $id)
-    {
-      // return $request;
-        //--- Validation Section
-        $rules = [
-               'file'       => 'mimes:zip'
-                ];
+  //*** POST Request
+  public function update(Request $request, $id)
+  {
+    // return $request;
+      //--- Validation Section
+      $rules = [
+             'file'       => 'mimes:zip'
+              ];
 
-        $validator = Validator::make($request->all(), $rules);
+      $validator = Validator::make($request->all(), $rules);
 
-        if ($validator->fails()) {
-          return response()->json(array('errors' => $validator->getMessageBag()->toArray()));
-        }
-        //--- Validation Section Ends
+      if ($validator->fails()) {
+        return response()->json(array('errors' => $validator->getMessageBag()->toArray()));
+      }
+      //--- Validation Section Ends
 
-        //-- Logic Section
-        $data = Product::findOrFail($id);
-        $sign = $this->curr;
-        $input = $request->all();
+      //-- Logic Section
+      $data = Product::findOrFail($id);
+      $sign = $this->curr;
+      $input = $request->all();
 
-            //Check Types
-            if($request->type_check == 1)
-            {
-                $input['link'] = null;
-            }
-            else
-            {
-                if($data->file!=null){
-                        if (file_exists(public_path().'/assets/files/'.$data->file)) {
-                        unlink(public_path().'/assets/files/'.$data->file);
-                    }
-                }
-                $input['file'] = null;
-            }
+          //Check Types
+          if($request->type_check == 1)
+          {
+              $input['link'] = null;
+          }
+          else
+          {
+              if($data->file!=null){
+                      if (file_exists(public_path().'/assets/files/'.$data->file)) {
+                      unlink(public_path().'/assets/files/'.$data->file);
+                  }
+              }
+              $input['file'] = null;
+          }
 
-            // Check Physical
-            if($data->type == "Physical")
-            {
-            //--- Validation Section
-            $rules = ['sku' => 'min:8|unique:products,sku,'.$id];
+          // Check Physical
+          if($data->type == "Physical")
+          {
+          //--- Validation Section
+          $rules = ['sku' => 'min:8|unique:products,sku,'.$id];
 
-            $validator = Validator::make($request->all(), $rules);
+          $validator = Validator::make($request->all(), $rules);
 
-            if ($validator->fails()) {
-                return response()->json(array('errors' => $validator->getMessageBag()->toArray()));
-            }
-            //--- Validation Section Ends
+          if ($validator->fails()) {
+              return response()->json(array('errors' => $validator->getMessageBag()->toArray()));
+          }
+          //--- Validation Section Ends
 
-            // Check Condition
-            if ($request->product_condition_check == ""){
-                $input['product_condition'] = 0;
-            }
+          // Check Condition
+          if ($request->product_condition_check == ""){
+              $input['product_condition'] = 0;
+          }
 
-            // Check Minimum Qty
-            if ($request->minimum_qty_check == ""){
-            $input['minimum_qty'] = null;
-            }
+          // Check Minimum Qty
+          if ($request->minimum_qty_check == ""){
+          $input['minimum_qty'] = null;
+          }
 
-            // Check Shipping Time
-            if ($request->shipping_time_check == ""){
-                $input['ship'] = null;
-            }
+          // Check Shipping Time
+          if ($request->shipping_time_check == ""){
+              $input['ship'] = null;
+          }
 
-            // Check Size
-            if(empty($request->stock_check ))
-            {
-                $input['stock_check'] = 0;
-                $input['size'] = null;
-                $input['size_qty'] = null;
-                $input['size_price'] = null;
-                $input['color'] = null;
-            } else {
-                    if(in_array(null, $request->size) || in_array(null, $request->size_qty) || in_array(null, $request->size_price))
-                    {
-                        $input['stock_check'] = 0;
-                        $input['size'] = null;
-                        $input['size_qty'] = null;
-                        $input['size_price'] = null;
-                        $input['color'] = null;
-                    }
-                    else
-                    {
-                        $input['stock_check'] = 1;
-                        $input['color'] = implode(',', $request->color);
-                        $input['size'] = implode(',', $request->size);
-                        $input['size_qty'] = implode(',', $request->size_qty);
-                        $size_prices = $request->size_price;
-                        $s_price = array();
-                        foreach($size_prices as $key => $sPrice){
-                            $s_price[$key] = $sPrice / $sign->value;
-                        }
+          // Check Size
+          if(empty($request->stock_check ))
+          {
+              $input['stock_check'] = 0;
+              $input['size'] = null;
+              $input['size_qty'] = null;
+              $input['size_price'] = null;
+              $input['color'] = null;
+          } else {
+                  if(in_array(null, $request->size) || in_array(null, $request->size_qty) || in_array(null, $request->size_price))
+                  {
+                      $input['stock_check'] = 0;
+                      $input['size'] = null;
+                      $input['size_qty'] = null;
+                      $input['size_price'] = null;
+                      $input['color'] = null;
+                  }
+                  else
+                  {
+                      $input['stock_check'] = 1;
+                      $input['color'] = implode(',', $request->color);
+                      $input['size'] = implode(',', $request->size);
+                      $input['size_qty'] = implode(',', $request->size_qty);
+                      $size_prices = $request->size_price;
+                      $s_price = array();
+                      foreach($size_prices as $key => $sPrice){
+                          $s_price[$key] = $sPrice / $sign->value;
+                      }
 
-                        $input['size_price'] = implode(',', $s_price);
-                    }
-            }
+                      $input['size_price'] = implode(',', $s_price);
+                  }
+          }
 
-            // Check Color
-            if(empty($request->color_check))
-            {
-                $input['color_all'] = null;
-            }
-            else{
-                $input['color_all'] = implode(',', $request->color_all);
-            }
+          // Check Color
+          if(empty($request->color_check))
+          {
+              $input['color_all'] = null;
+          }
+          else{
+              $input['color_all'] = implode(',', $request->color_all);
+          }
 
-            // Check Size
-            if(empty($request->size_check))
-            {
-                $input['size_all'] = null;
-            }
-            else{
-                $input['size_all'] = implode(',', $request->size_all);
-            }
+          // Check Size
+          if(empty($request->size_check))
+          {
+              $input['size_all'] = null;
+          }
+          else{
+              $input['size_all'] = implode(',', $request->size_all);
+          }
 
-            // Check Seo
-        if (empty($request->seo_check))
-         {
-            $input['meta_tag'] = null;
-            $input['meta_description'] = null;
-         }
-         else {
-            if (!empty($request->meta_tag))
-            {
-                $input['meta_tag'] = implode(',', $request->meta_tag);
-            }
-         }
+      }
+
+          // Check Seo
+      if (empty($request->seo_check))
+       {
+          $input['meta_tag'] = null;
+          $input['meta_description'] = null;
+       }
+       else {
+          if (!empty($request->meta_tag))
+          {
+              $input['meta_tag'] = implode(',', $request->meta_tag);
+          }
+       }
 
 
-        // Check License
-        if($data->type == "License")
-        {
+      // Check License
+      if($data->type == "License")
+      {
 
-        if(!in_array(null, $request->license) && !in_array(null, $request->license_qty))
-        {
-            $input['license'] = implode(',,', $request->license);
-            $input['license_qty'] = implode(',', $request->license_qty);
-        }
-        else
-        {
-            if(in_array(null, $request->license) || in_array(null, $request->license_qty))
-            {
-                $input['license'] = null;
-                $input['license_qty'] = null;
-            }
-            else
-            {
-                $license = explode(',,', $data->license);
-                $license_qty = explode(',', $data->license_qty);
-                $input['license'] = implode(',,', $license);
-                $input['license_qty'] = implode(',', $license_qty);
-            }
-        }
+      if(!in_array(null, $request->license) && !in_array(null, $request->license_qty))
+      {
+          $input['license'] = implode(',,', $request->license);
+          $input['license_qty'] = implode(',', $request->license_qty);
+      }
+      else
+      {
+          if(in_array(null, $request->license) || in_array(null, $request->license_qty))
+          {
+              $input['license'] = null;
+              $input['license_qty'] = null;
+          }
+          else
+          {
+              $license = explode(',,', $data->license);
+              $license_qty = explode(',', $data->license_qty);
+              $input['license'] = implode(',,', $license);
+              $input['license_qty'] = implode(',', $license_qty);
+          }
+      }
 
-        }
-            // Check Features
-            if(!in_array(null, $request->features) && !in_array(null, $request->colors))
-            {
-                    $input['features'] = implode(',', str_replace(',',' ',$request->features));
-                    $input['colors'] = implode(',', str_replace(',',' ',$request->colors));
-            }
-            else
-            {
-                if(in_array(null, $request->features) || in_array(null, $request->colors))
-                {
-                    $input['features'] = null;
-                    $input['colors'] = null;
-                }
-                else
-                {
-                    $features = explode(',', $data->features);
-                    $colors = explode(',', $data->colors);
-                    $input['features'] = implode(',', $features);
-                    $input['colors'] = implode(',', $colors);
-                }
-            }
+      }
+          // Check Features
+          if(!in_array(null, $request->features) && !in_array(null, $request->colors))
+          {
+                  $input['features'] = implode(',', str_replace(',',' ',$request->features));
+                  $input['colors'] = implode(',', str_replace(',',' ',$request->colors));
+          }
+          else
+          {
+              if(in_array(null, $request->features) || in_array(null, $request->colors))
+              {
+                  $input['features'] = null;
+                  $input['colors'] = null;
+              }
+              else
+              {
+                  $features = explode(',', $data->features);
+                  $colors = explode(',', $data->colors);
+                  $input['features'] = implode(',', $features);
+                  $input['colors'] = implode(',', $colors);
+              }
+          }
 
-        //Product Tags
-        if (!empty($request->tags))
-         {
-            $input['tags'] = implode(',', $request->tags);
-         }
-        if (empty($request->tags))
-         {
-            $input['tags'] = null;
-         }
+      //Product Tags
+      if (!empty($request->tags))
+       {
+          $input['tags'] = implode(',', $request->tags);
+       }
+      if (empty($request->tags))
+       {
+          $input['tags'] = null;
+       }
 
-         $input['price'] = $input['price'] / $sign->value;
-         $input['previous_price'] = $input['previous_price'] / $sign->value;
+       $input['price'] = $input['price'] / $sign->value;
+       $input['previous_price'] = $input['previous_price'] / $sign->value;
 
-         // store filtering attributes for physical product
-         $attrArr = [];
-         if (!empty($request->category_id)) {
-           $catAttrs = Attribute::where('attributable_id', $request->category_id)->where('attributable_type', 'App\Models\Category')->get();
-           if (!empty($catAttrs)) {
-             foreach ($catAttrs as $key => $catAttr) {
-               $in_name = $catAttr->input_name;
-               if ($request->has("$in_name")) {
-                 $attrArr["$in_name"]["values"] = $request["$in_name"];
-                 $attrArr["$in_name"]["prices"] = $request["$in_name"."_price"];
-                 if ($catAttr->details_status) {
-                   $attrArr["$in_name"]["details_status"] = 1;
-                 } else {
-                   $attrArr["$in_name"]["details_status"] = 0;
-                 }
+       // store filtering attributes for physical product
+       $attrArr = [];
+       if (!empty($request->category_id)) {
+         $catAttrs = Attribute::where('attributable_id', $request->category_id)->where('attributable_type', 'App\Models\Category')->get();
+         if (!empty($catAttrs)) {
+           foreach ($catAttrs as $key => $catAttr) {
+             $in_name = $catAttr->input_name;
+             if ($request->has("$in_name")) {
+               $attrArr["$in_name"]["values"] = $request["$in_name"];
+               $attrArr["$in_name"]["prices"] = $request["$in_name"."_price"];
+               if ($catAttr->details_status) {
+                 $attrArr["$in_name"]["details_status"] = 1;
+               } else {
+                 $attrArr["$in_name"]["details_status"] = 0;
                }
              }
            }
          }
+       }
 
-         if (!empty($request->subcategory_id)) {
-           $subAttrs = Attribute::where('attributable_id', $request->subcategory_id)->where('attributable_type', 'App\Models\Subcategory')->get();
-           if (!empty($subAttrs)) {
-             foreach ($subAttrs as $key => $subAttr) {
-               $in_name = $subAttr->input_name;
-               if ($request->has("$in_name")) {
-                 $attrArr["$in_name"]["values"] = $request["$in_name"];
-                 $attrArr["$in_name"]["prices"] = $request["$in_name"."_price"];
-                 if ($subAttr->details_status) {
-                   $attrArr["$in_name"]["details_status"] = 1;
-                 } else {
-                   $attrArr["$in_name"]["details_status"] = 0;
-                 }
+       if (!empty($request->subcategory_id)) {
+         $subAttrs = Attribute::where('attributable_id', $request->subcategory_id)->where('attributable_type', 'App\Models\Subcategory')->get();
+         if (!empty($subAttrs)) {
+           foreach ($subAttrs as $key => $subAttr) {
+             $in_name = $subAttr->input_name;
+             if ($request->has("$in_name")) {
+               $attrArr["$in_name"]["values"] = $request["$in_name"];
+               $attrArr["$in_name"]["prices"] = $request["$in_name"."_price"];
+               if ($subAttr->details_status) {
+                 $attrArr["$in_name"]["details_status"] = 1;
+               } else {
+                 $attrArr["$in_name"]["details_status"] = 0;
                }
              }
            }
          }
-         if (!empty($request->childcategory_id)) {
-           $childAttrs = Attribute::where('attributable_id', $request->childcategory_id)->where('attributable_type', 'App\Models\Childcategory')->get();
-           if (!empty($childAttrs)) {
-             foreach ($childAttrs as $key => $childAttr) {
-               $in_name = $childAttr->input_name;
-               if ($request->has("$in_name")) {
-                 $attrArr["$in_name"]["values"] = $request["$in_name"];
-                 $attrArr["$in_name"]["prices"] = $request["$in_name"."_price"];
-                 if ($childAttr->details_status) {
-                   $attrArr["$in_name"]["details_status"] = 1;
-                 } else {
-                   $attrArr["$in_name"]["details_status"] = 0;
-                 }
+       }
+       if (!empty($request->childcategory_id)) {
+         $childAttrs = Attribute::where('attributable_id', $request->childcategory_id)->where('attributable_type', 'App\Models\Childcategory')->get();
+         if (!empty($childAttrs)) {
+           foreach ($childAttrs as $key => $childAttr) {
+             $in_name = $childAttr->input_name;
+             if ($request->has("$in_name")) {
+               $attrArr["$in_name"]["values"] = $request["$in_name"];
+               $attrArr["$in_name"]["prices"] = $request["$in_name"."_price"];
+               if ($childAttr->details_status) {
+                 $attrArr["$in_name"]["details_status"] = 1;
+               } else {
+                 $attrArr["$in_name"]["details_status"] = 0;
                }
              }
            }
          }
+       }
 
-         if (empty($attrArr)) {
-           $input['attributes'] = NULL;
-         } else {
-           $jsonAttr = json_encode($attrArr);
-           $input['attributes'] = $jsonAttr;
-         }
+       if (empty($attrArr)) {
+         $input['attributes'] = NULL;
+       } else {
+         $jsonAttr = json_encode($attrArr);
+         $input['attributes'] = $jsonAttr;
+       }
 
-         $data->slug = Str::slug($data->name,'-').'-'.strtolower($data->sku);
+       $data->slug = Str::slug($data->name,'-').'-'.strtolower($data->sku);
 
-         $data->update($input);
-        //-- Logic Section Ends
+       $data->update($input);
+      //-- Logic Section Ends
 
-        //--- Redirect Section
-        $msg = __("Product Updated Successfully.").'<a href="'.route('admin-prod-index').'">'.__("View Product Lists.").'</a>';
-        return response()->json($msg);
-        //--- Redirect Section Ends
-    }
+      //--- Redirect Section
+      $msg = __("Product Updated Successfully.").'<a href="'.route('admin.products').'">'.__("View Product Lists.").'</a>';
+      return response()->json($msg);
+      //--- Redirect Section Ends
+  }
 
     //*** GET Request
     public function feature($id)

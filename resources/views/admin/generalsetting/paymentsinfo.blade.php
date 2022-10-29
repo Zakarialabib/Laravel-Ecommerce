@@ -1,4 +1,4 @@
-@extends('layouts.admin')
+@extends('layouts.dashboard')
 
 @section('styles')
     <style type="text/css">
@@ -40,7 +40,7 @@
                                 enctype="multipart/form-data">
                                 @csrf
 
-                                @include('alerts.admin.form-both')
+                                <x-form-alert />
 
                                 <div class="row add_lan_tab justify-content-center">
                                     <div class="col-lg-12">

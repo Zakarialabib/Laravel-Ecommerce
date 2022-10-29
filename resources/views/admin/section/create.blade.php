@@ -1,4 +1,4 @@
-@extends('layouts.admin')
+@extends('layouts.dashboard')
 @section('title', __('Create Section'))
 @section('content')
 <div class="card bg-white dark:bg-dark-eval-1">

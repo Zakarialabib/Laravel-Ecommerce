@@ -1,4 +1,4 @@
-@extends('layouts.admin')
+@extends('layouts.dashboard')
 
 @section('content')
     <input type="hidden" id="headerdata" value="{{ __('TRANSACTION') }}">
@@ -51,9 +51,7 @@
 
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
-                <div class="submit-loader">
-                    <img src="{{ asset('assets/images/' . $gs->admin_loader) }}" alt="">
-                </div>
+                
                 <div class="modal-header">
                     <h5 class="modal-title"></h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">

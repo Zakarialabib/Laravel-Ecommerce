@@ -1,4 +1,4 @@
-@extends('layouts.admin')
+@extends('layouts.dashboard')
 
 @section('content')
 
@@ -15,7 +15,7 @@
                         <a href="javascript:;">{{ __("Products") }} </a>
                       </li>
                       <li>
-                        <a href="{{ route('admin-prod-index') }}">{{ __("All Products") }}</a>
+                        <a href="{{ route('admin.products') }}">{{ __("All Products") }}</a>
                       </li>
                       <li>
                         <a href="{{ route('admin-prod-types') }}">{{ __("Add Product") }}</a>
@@ -39,7 +39,7 @@
               <div class="ap-product-categories">
                 <div class="row">
                   <div class="col-lg-4">
-                    <a href="{{ route('admin-prod-create','physical') }}">
+                    <a href="{{ route('admin.product.create') }}">
                     <div class="cat-box box1">
                       <div class="icon">
                         <i class="fas fa-tshirt"></i>

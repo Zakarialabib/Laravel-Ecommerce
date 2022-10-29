@@ -1,4 +1,4 @@
-@extends('layouts.admin')
+@extends('layouts.dashboard')
 @section('content')
     <div class="content-area">
         <div class="mr-breadcrumb">
@@ -37,7 +37,7 @@
                             enctype="multipart/form-data">
                             {{ csrf_field() }}
 
-                            @include('alerts.admin.form-both')
+                            <x-form-alert />
                             <div class="currrent-logo">
                                 <img src="{{ $gs->logo ? asset('assets/images/' . $gs->logo) : asset('assets/images/noimage.png') }}"
                                     alt="">
@@ -64,7 +64,7 @@
                             enctype="multipart/form-data">
                             {{ csrf_field() }}
 
-                            @include('alerts.admin.form-both')
+                            <x-form-alert />
                             <div class="currrent-logo">
                                 <img src="{{ $gs->footer_logo ? asset('assets/images/' . $gs->footer_logo) : asset('assets/images/noimage.png') }}"
                                     alt="">
@@ -91,7 +91,7 @@
                             enctype="multipart/form-data">
                             {{ csrf_field() }}
 
-                            @include('alerts.admin.form-both')
+                            <x-form-alert />
 
                             <div class="currrent-logo">
                                 <img src="{{ $gs->invoice_logo ? asset('assets/images/' . $gs->invoice_logo) : asset('assets/images/noimage.png') }}"

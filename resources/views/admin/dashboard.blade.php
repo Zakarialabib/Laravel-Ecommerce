@@ -11,7 +11,7 @@
         @endif
 
         <div class="flex flex-wrap -m-4 py-4">
-            <div class="w-full md:w-1/2 lg:w-1/5">
+            <div class="w-full md:w-1/2 lg:w-1/4">
                 <div class="p-6 rounded bg-white shadow-md">
                     <div class="flex mb-2">
                         <span class="inline-block mr-2">
@@ -26,7 +26,7 @@
                     <h2 class="mb-2 text-3xl font-bold">{{ count($pending) }}</h2>
                 </div>
             </div>
-            <div class="w-full md:w-1/2 lg:w-1/5">
+            <div class="w-full md:w-1/2 lg:w-1/4">
                 <div class="p-6 rounded bg-white shadow-md">
                     <div class="flex mb-2">
                         <span class="inline-block mr-2">
@@ -41,7 +41,7 @@
                     <h2 class="mb-2 text-3xl font-bold">{{ count($processing) }}</h2>
                 </div>
             </div>
-            <div class="w-full md:w-1/2 lg:w-1/5">
+            <div class="w-full md:w-1/2 lg:w-1/4">
                 <div class="p-6 rounded bg-white shadow-md">
                     <div class="flex mb-2">
                         <span class="inline-block mr-2">
@@ -56,7 +56,9 @@
                     <h2 class="mb-2 text-3xl font-bold">{{ count($completed) }}</h2>
                 </div>
             </div>
-            <div class="w-full md:w-1/2 lg:w-1/5">
+        </div>
+        <div class="flex flex-wrap -m-4 py-4">
+            <div class="w-full md:w-1/2 lg:w-1/4">
                 <div class="p-6 rounded bg-white shadow-md">
                     <div class="flex mb-2">
                         <span class="inline-block mr-2">
@@ -71,7 +73,7 @@
                     <h2 class="mb-2 text-3xl font-bold">{{ count($users) }}</h2>
                 </div>
             </div>
-            <div class="w-full md:w-1/2 lg:w-1/5">
+            <div class="w-full md:w-1/2 lg:w-1/4">
                 <div class="p-6 rounded bg-white shadow-md">
                     <div class="flex mb-2">
                         <span class="inline-block mr-2">
@@ -86,7 +88,8 @@
                     <h2 class="mb-2 text-3xl font-bold">{{ count($users) }}</h2>
                 </div>
             </div>
-            <div class="w-full md:w-1/2 lg:w-1/5">
+
+            <div class="w-full md:w-1/2 lg:w-1/4">
                 <div class="p-6 rounded bg-white shadow-md">
                     <div class="flex mb-2">
                         <span class="inline-block mr-2">
@@ -101,14 +104,15 @@
                     <h2 class="mb-2 text-3xl font-bold">{{ count($blogs) }}</h2>
                 </div>
             </div>
-
-            <div class="w-full md:w-1/2 lg:w-1/5">
+            </div>
+            <div class="flex flex-wrap -m-4 py-4">
+            <div class="w-full md:w-1/2 lg:w-1/4">
                 <div class="p-6 rounded bg-white shadow-md">
                     <div class="flex mb-2">
                         <span class="inline-block mr-2">
                             <i class="bi bi-bar-chart font-2xl"></i>
                         </span>
-                        <a href="{{ route('admin.blogs') }}">
+                        <a href="{{ route('admin.users') }}">
                             <h3 class="text-sm text-gray-600">
                                 {{ __('New Customers!') }}
                             </h3>
@@ -124,7 +128,7 @@
                 </div>
             </div>
 
-            <div class="w-full md:w-1/2 lg:w-1/5">
+            <div class="w-full md:w-1/2 lg:w-1/4">
                 <div class="p-6 rounded bg-white shadow-md">
                     <div class="flex mb-2">
                         <span class="inline-block mr-2">
@@ -145,7 +149,7 @@
                     </h2>
                 </div>
             </div>
-            <div class="w-full md:w-1/2 lg:w-1/5">
+            <div class="w-full md:w-1/2 lg:w-1/4">
                 <div class="p-6 rounded bg-white shadow-md">
                     <div class="flex mb-2">
                         <span class="inline-block mr-2">
@@ -166,7 +170,7 @@
                     </h2>
                 </div>
             </div>
-            <div class="w-full md:w-1/2 lg:w-1/5">
+            <div class="w-full md:w-1/2 lg:w-1/4">
                 <div class="p-6 rounded bg-white shadow-md">
                     <div class="flex mb-2">
                         <span class="inline-block mr-2">
@@ -189,29 +193,28 @@
             </div>
         </div>
 
-        <div class="flex flex-row">
+        <div class="flex flex-row my-4">
 
             <div class="lg:w-1/2 md:w-full6">
                 <x-card>
-                    <h5 class="card-header">{{ __('Recent Order(s)') }}</h5>
+                    <h5 class="font-bold py-2 text-xl">{{ __('Recent Order(s)') }}</h5>
                     <div class="card-body">
 
-                        <div class="table-responsive  dashboard-home-table">
-                            <table id="poproducts" class="table table-hover dt-responsive" cellspacing="0"
-                                width="100%">
-                                <thead>
-                                    <tr>
-                                        <th>{{ __('Order Number') }}</th>
-                                        <th>{{ __('Order Date') }}</th>
-                                    </tr>
+                        <div class="">
+                            <x-table>
+                                <x-slot name="thead">
+                                    <x-table.tr>
+                                        <x-table.th>{{ __('Order Number') }}</x-table.th>
+                                        <x-table.th>{{ __('Order Date') }}</x-table.th>
+                                    </x-table.tr>
                                     @foreach ($rorders as $data)
-                                        <tr>
-                                            <td>{{ $data->order_number }}</td>
-                                            <td>{{ date('Y-m-d', strtotime($data->created_at)) }}</td>
-                                        </tr>
+                                        <x-table.tr>
+                                            <x-table.td>{{ $data->order_number }}</x-table.td>
+                                            <x-table.td>{{ date('Y-m-d', strtotime($data->created_at)) }}</x-table.td>
+                                        </x-table.tr>
                                     @endforeach
-                                </thead>
-                            </table>
+                                </x-slot>
+                            </x-table>
                         </div>
 
                     </div>
@@ -221,25 +224,24 @@
 
             <div class="lg:w-1/2 md:w-full6">
                 <x-card>
-                    <h5 class="card-header">{{ __('Recent Customer(s)') }}</h5>
+                    <h5 class="font-bold py-2 text-xl">{{ __('Recent Customer(s)') }}</h5>
                     <div class="card-body">
 
                         <div class="table-responsive  dashboard-home-table">
-                            <table id="poproducts" class="table table-hover dt-responsive" cellspacing="0"
-                                width="100%">
-                                <thead>
-                                    <tr>
-                                        <th>{{ __('Customer Email') }}</th>
-                                        <th>{{ __('Joined') }}</th>
-                                    </tr>
+                            <x-table>
+                                <x-slot name="thead">
+                                    <x-table.tr>
+                                        <x-table.th>{{ __('Customer Email') }}</x-table.th>
+                                        <x-table.th>{{ __('Joined') }}</x-table.th>
+                                    </x-table.tr>
                                     @foreach ($rusers as $data)
-                                        <tr>
-                                            <td>{{ $data->email }}</td>
-                                            <td>{{ $data->created_at }}</td>
-                                        </tr>
+                                        <x-table.tr>
+                                            <x-table.td>{{ $data->email }}</x-table.td>
+                                            <x-table.td>{{ $data->created_at }}</x-table.td>
+                                        </x-table.tr>
                                     @endforeach
-                                </thead>
-                            </table>
+                                </x-slot>
+                            </x-table.table>
                         </div>
 
                     </div>
@@ -247,90 +249,85 @@
             </div>
         </div>
 
-        <div class="flex flex-row">
+        <div class="flex flex-row my-4">
 
             <div class="md:w-full">
                 <x-card>
-                    <h5 class="card-header">{{ __('Popular Product(s)') }}</h5>
+                    <h5 class="font-bold py-2 text-xl">{{ __('Popular Product(s)') }}</h5>
                     <div class="card-body">
 
-                        <div class="table-responsive  dashboard-home-table">
-                            <table id="poproducts" class="table table-hover dt-responsive" cellspacing="0"
-                                width="100%">
-                                <thead>
-                                    <tr>
-                                        <th>{{ __('Featured Image') }}</th>
-                                        <th>{{ __('Name') }}</th>
-                                        <th>{{ __('Category') }}</th>
-                                        <th>{{ __('Price') }}</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
+                        <div class="">
+                            <x-table>
+                                <x-slot name="thead">
+                                        <x-table.th>{{ __('Featured Image') }}</x-table.th>
+                                        <x-table.th>{{ __('Name') }}</x-table.th>
+                                        <x-table.th>{{ __('Category') }}</x-table.th>
+                                        <x-table.th>{{ __('Price') }}</x-table.th>
+                                </x-slot>
+                                <x-table.tbody>
                                     @foreach ($poproducts as $data)
-                                        <tr>
-                                            <td><img src="{{ asset('/upload/products/' . $data->feature_image) }}"
-                                                    alt="{{ $data->name }}" width="50"></td>
-                                            </td>
-                                            <td>{{ $data->name }}</td>
-                                            </td>
-                                            <td>{{ $data->category->name }}
+                                        <x-table.tr>
+                                            <x-table.td><img src="{{ asset('/upload/products/' . $data->feature_image) }}"
+                                                    alt="{{ $data->name }}" width="50"></x-table.td>
+                                            <x-table.td>{{ $data->name }}</x-table.td>
+                                            <x-table.td>
+                                                {{ $data->category->name }}
                                                 @if (isset($data->subcategory))
                                                     <br>
                                                     {{ $data->subcategory->name }}
                                                 @endif
-                                            </td>
+                                            </x-table.td>
 
-                                            <td> {{ $data->price }} </td>
+                                            <x-table.td> {{ $data->price }} </x-table.td>
 
-                                        </tr>
+                                        </x-table.tr>
                                     @endforeach
-                                </tbody>
-                            </table>
+                                </x-table.tbody>
+                            </x-table>
                         </div>
                     </div>
                 </x-card>
             </div>
         </div>
 
-        <div class="flex flex-row">
+        <div class="flex flex-row my-4">
 
             <div class="md:w-full">
                 <x-card>
-                    <h5 class="card-header">{{ __('Recent Product(s)') }}</h5>
+                    <h5 class="font-bold py-2 text-xl">{{ __('Recent Product(s)') }}</h5>
                     <div class="card-body">
 
-                        <div class="table-responsive dashboard-home-table">
-                            <table id="pproducts" class="table table-hover dt-responsive" cellspacing="0"
-                                width="100%">
-                                <thead>
-                                    <tr>
-                                        <th>{{ __('Featured Image') }}</th>
-                                        <th>{{ __('Name') }}</th>
-                                        <th>{{ __('Category') }}</th>
-                                        <th>{{ __('Price') }}</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
+                        <div class="">
+                            <x-table>
+                                <x-slot name="thead">
+                                        <x-table.th>{{ __('Featured Image') }}</x-table.th>
+                                        <x-table.th>{{ __('Name') }}</x-table.th>
+                                        <x-table.th>{{ __('Category') }}</x-table.th>
+                                        <x-table.th>{{ __('Price') }}</x-table.th>
+                                </x-slot>
+                                <x-table.tbody>
                                     @foreach ($pproducts as $data)
-                                        <tr>
-                                            <td><img src="{{ asset('/upload/products/' . $data->feature_image) }}"
-                                                    alt="{{ $data->name }}" width="50"></td>
-                                            </td>
-                                            <td>
+                                        <x-table.tr>
+                                            <x-table.td>
+                                            <img src="{{ asset('/upload/products/' . $data->feature_image) }}"
+                                                    alt="{{ $data->name }}" width="50">
+                                            </x-table.td>
+                                            <x-table.td>
                                                 {{ $data->name }}
-                                            </td>
-                                            <td>{{ $data->category->name }}
+                                            </x-table.td>
+                                            <x-table.td>
+                                                {{ $data->category->name }}
                                                 @if (isset($data->subcategory))
                                                     <br>
                                                     {{ $data->subcategory->name }}
                                                 @endif
-                                            </td>
-                                            <td> {{ $data->price }} </td>
+                                            </x-table.td>
+                                            <x-table.td> {{ $data->price }} </x-table.td>
 
-                                        </tr>
+                                        </x-table.tr>
                                     @endforeach
-                                </tbody>
-                            </table>
+                                </x-table.tbody>
+                            </x-table>
                         </div>
 
                     </div>
@@ -344,9 +341,8 @@
 
             <div class="md:w-full">
                 <x-card>
-                    <h5 class="card-header">{{ __('Total Sales in Last 30 Days') }}</h5>
+                    <h5 class="font-bold py-2 text-xl">{{ __('Total Sales in Last 30 Days') }}</h5>
                     <div class="card-body">
-
                         <canvas id="lineChart"></canvas>
                     </div>
                 </x-card>

@@ -1,4 +1,4 @@
-@extends('layouts.admin')
+@extends('layouts.dashboard')
 @section('content')
 
 
@@ -26,7 +26,7 @@
               <div class="row justify-content-center">
                 <div class="col-lg-6">
 
-                        @include('alerts.admin.form-both')  
+                        <x-form-alert />  
 
                   <form class="uplogo-form" id="geniusform"  action="{{ route('admin-gs-update') }}" method="POST" enctype="multipart/form-data">
                     {{csrf_field()}}
