@@ -17,8 +17,11 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->text('link')->nullable();
+            $table->text('description')->nullable();
             $table->string('image')->nullable();
             $table->tinyInteger('status')->default(1);
+            $table->string('meta_title')->nullable();
+            $table->string('meta_description')->nullable();
             $table->timestamps();
         });
     }

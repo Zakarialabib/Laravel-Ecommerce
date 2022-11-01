@@ -1,10 +1,10 @@
 <?php
 
-use Illuminate\Database\Migrations\Migration;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Database\Migrations\Migration;
 
-return new class extends Migration
+class CreateSettingsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -14,10 +14,10 @@ return new class extends Migration
     public function up()
     {
         Schema::create('settings', function (Blueprint $table) {
-            $table->id();
-            $table->string('key');
-            $table->string('value');
-            
+            $table->bigIncrements('id');
+            $table->string('key')->unique();
+            $table->text('value')->nullable();
+            $table->timestamps();
         });
     }
 
@@ -30,4 +30,4 @@ return new class extends Migration
     {
         Schema::dropIfExists('settings');
     }
-};
+}

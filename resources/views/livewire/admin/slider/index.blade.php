@@ -44,34 +44,27 @@
                         {{ $id }}
                     </x-table.td>
                     <x-table.td>
-                        @php($photo = $slider->photo ? url('assets/images/sliders/'.$slider->photo):url('assets/images/noimage.png'))
-                        <img src="{{ $photo }}" alt="">
+                        @if ($brand->image)
+                        <img src="{{ asset('images/sliders/' . $slider->image) }}" alt="{{ $slider->name }}"
+                            class="w-10 h-10 rounded-full">
+                        @else
+                        {{__('No image')}}
+                        @endif
                     </x-table.td>
                     <x-table.td>
-                        @php($title = mb_strlen(strip_tags($slider->title_text),'UTF-8') > 250 ? mb_substr(strip_tags($slider->title_text),0,250,'UTF-8').'...' : strip_tags($slider->title_text))
-                        {{ $title }}
+                        {{ $slider->title }}
                     </x-table.td>
                     <x-table.td>
-                        <x-dropdown
-                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-32 p-1 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                            <x-slot name="trigger">
-                                <button type="button"
-                                    class="px-4 text-base font-semibold text-gray-500 hover:text-sky-800 dark:text-slate-400 dark:hover:text-sky-400">
-                                    <i class="fas fa-angle-double-down"></i>
-                                </button>
-                            </x-slot>
-                            <x-slot name="content">
-                                <x-dropdown-link href="{{ route('admin-sl-edit', $slider->id) }}" >
-                                     <i class="fas fa-edit"></i>
-                                    {{ __('Edit') }}
-                                </x-dropdown-link>
-                                <x-dropdown-link href="javascript:;"
-                                    data-href="{{ route('admin-sl-delete', $slider->id) }}" data-toggle="modal"
-                                    data-target="#confirm-delete" class="delete"><i
-                                        class="fas fa-trash-alt"></i>{{ __('Delete') }}
-                                </x-dropdown-link>
-                            </x-slot>
-                        </x-dropdown>
+                        <div class="flex justify-start space-x-2">
+                            <x-button primary wire:click="$emit('editModal', {{ $slider->id }})"
+                                wire:loading.attr="disabled">
+                                <i class="fas fa-edit"></i>
+                            </x-button>
+                            <x-button danger wire:click="$emit('deleteModal', {{ $slider->id }})"
+                                wire:loading.attr="disabled">
+                                <i class="fas fa-trash"></i>
+                            </x-button>
+                        </div>
                     </x-table.td>
                 </x-table.tr>
             @empty
@@ -97,4 +90,101 @@
             {{ $sliders->links() }}
         </div>
     </div>
+
+    <div>
+        <!-- Edit Modal -->
+        <x-modal wire:model="editModal">
+            <x-slot name="title">
+                {{ __('Create Slider') }}
+            </x-slot>
+    
+            <x-slot name="content">
+                <!-- Validation Errors -->
+                <x-auth-validation-errors class="mb-4" :errors="$errors" />
+    
+                <form wire:submit.prevent="update">
+                    <div class="flex flex-wrap -mx-3 space-y-0">
+                        <div class="xl:w-1/2 md:w-1/2 px-3">
+                            <x-label for="title" :value="__('Title')" />
+                            <x-input id="title" class="block mt-1 w-full" type="text" name="title"
+                                wire:model.defer="slider.title" />
+                            <x-input-error :messages="$errors->get('slider.title')" for="slider.title" class="mt-2" />
+                        </div>
+                        <div class="xl:w-1/2 md:w-1/2 px-3">
+                            <x-label for="language_id" :value="__('Language')" />
+                            <x-input id="language_id" class="block mt-1 w-full" type="text" name="language_id"
+                                wire:model.defer="slider.language_id" />
+                            <x-input-error :messages="$errors->get('slider.language_id')" for="slider.language_id" class="mt-2" />
+                        </div>
+                        <div class="xl:w-1/2 md:w-1/2 px-3">
+                            <x-label for="subtitle" :value="__('Subtitle')" />
+                            <x-input id="subtitle" class="block mt-1 w-full" type="text" name="subtitle"
+                                wire:model.defer="slider.subtitle" />
+                            <x-input-error :messages="$errors->get('slider.subtitle')" for="slider.subtitle" class="mt-2" />
+                        </div>
+                        <div class="xl:w-1/2 md:w-1/2 px-3">
+                            <x-label for="details" :value="__('Details')" />
+                            <x-input id="details" class="block mt-1 w-full" type="text" name="details"
+                                wire:model.defer="slider.details" />
+                            <x-input-error :messages="$errors->get('slider.details')" for="slider.details" class="mt-2" />
+                        </div>
+                        <div class="xl:w-1/2 md:w-1/2 px-3">
+                            <x-label for="position" :value="__('Position')" />
+                            <x-input id="position" class="block mt-1 w-full" type="text" name="position"
+                                wire:model.defer="slider.position" />
+                            <x-input-error :messages="$errors->get('slider.position')" for="slider.position" class="mt-2" />
+                        </div>
+                        <div class="xl:w-1/2 md:w-1/2 px-3">
+                            <x-label for="bg_color" :value="__('Background Color')" />
+                            <x-input id="bg_color" class="block mt-1 w-full" type="color" name="bg_color"
+                                wire:model.defer="slider.bg_color" />
+                            <x-input-error :messages="$errors->get('slider.bg_color')" for="slider.bg_color" class="mt-2" />
+                        </div>
+                        
+                        <div class="xl:w-1/2 md:w-1/2 px-3">
+                            <x-label for="link" :value="__('Link')" />
+                            <x-input id="link" class="block mt-1 w-full" type="text" name="link"
+                                wire:model.defer="slider.link" />
+                            <x-input-error :messages="$errors->get('slider.link')" for="slider.link" class="mt-2" />
+                        </div>
+                        <div class="w-full py-2 px-3">
+                            <x-label for="image" :value="__('Image')" />
+                            <x-fileupload wire:model="image" :file="$image" accept="image/jpg,image/jpeg,image/png" />
+                            <x-input-error :messages="$errors->get('image')" for="image" class="mt-2" />
+                        </div>
+                        <div class="w-full flex justify-start space-x-2">
+                            <x-button primary wire:click="update" wire:loading.attr="disabled">
+                                {{ __('Update') }}
+                            </x-button>
+                        </div>
+                    </div>
+                </form>
+            </x-slot>
+        </x-modal>
+        <!-- End Edit Modal -->
+    </div>
+    <livewire:sliders.create />
+
 </div>
+
+@push('scripts')
+    <script>
+        document.addEventListener('livewire:load', function() {
+            window.livewire.on('deleteModal', sliderId => {
+                Swal.fire({
+                    title: 'Are you sure?',
+                    text: "You won't be able to revert this!",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Yes, delete it!'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        window.livewire.emit('delete', sliderId)
+                    }
+                })
+            })
+        })
+    </script>
+@endpush

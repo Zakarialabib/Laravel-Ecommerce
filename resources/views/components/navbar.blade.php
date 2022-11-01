@@ -15,6 +15,7 @@
             <x-icons.sun x-show="isDarkMode" aria-hidden="true" class="w-5 h-5" />
         </x-button>
     </div>
+    
 
     <div class="flex items-center gap-3">
 
@@ -29,18 +30,24 @@
             <x-icons.sun x-show="isDarkMode" aria-hidden="true" class="w-5 h-5" />
         </x-button>
 
+        
+        <x-button type="button" class="hidden md:inline-flex"  iconOnly primary srText="Toggle RTL mode" @click="toggleRtl">
+            <a x-show="!isRtl" aria-hidden="true"  class="font-bold text-md" > LTR </a>
+            <a x-show="isRtl" aria-hidden="true" class="font-bold text-md" > RTL </a>
+        </x-button>
+
         {{-- @livewire('admin.cache') --}}
 
         <ul class="flex-col md:flex-row list-none items-center md:flex">
             <x-dropdown align="right" width="60">
                 <x-slot name="trigger">
-                    {{ Auth::user()->name }}
+                    {{-- {{ Auth::user()->first_name }} --}}
 
-                    <button
+                    {{-- <button
                         class="flex text-sm border-2 border-transparent rounded-full focus:outline-none focus:border-gray-300 transition duration-150 ease-in-out">
                         <img class="h-8 w-8 rounded-full" src="{{ auth()->user()->profile_photo_url }}"
-                            alt="{{ auth()->user()->name }}" />
-                    </button>
+                            alt="{{ auth()->user()->first_name }}" />
+                    </button> --}}
                 </x-slot>
 
                 <x-slot name="content">

@@ -19,27 +19,27 @@ class CategorySeeder extends Seeder
         Category::insert([
             [
                 'id' => 1,
+                'code' => 1,
                 'name'       => 'Mobile',
-                'description' => 'Mobile Phones',
-                'status'      => 1,
+                'image'      => 'https://via.placeholder.com/150',
             ],
             [
                 'id'     => 2,
+                'code' => 2,
                 'name'       => 'Laptop',
-                'description' => 'Laptops',
-                'status'      => 1,
+                'image'      => 'https://via.placeholder.com/150',
             ],
             [
                 'id'        => 3,
+                'code' => 3,
                 'name'       => 'Tablet',
-                'description' => 'Tablets',
-                'status'      => 1,
+                'image'      => 'https://via.placeholder.com/150',
             ],
             [
                 'id'       => 4,
+                'code' => 4,
                 'name'       => 'Camera',
-                'description' => 'Cameras',
-                'status'      => 1,
+                'image'      => 'https://via.placeholder.com/150',
             ]
     ]);
     }

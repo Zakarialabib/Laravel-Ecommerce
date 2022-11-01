@@ -59,6 +59,8 @@ class User extends Authenticatable
     {
         return $this->first_name . ' ' . $this->last_name;
     }
+    // usage 
+    
 
     public function isAdmin() {
         return $this->roles->pluck('title')->contains(Role::ROLE_ADMIN);

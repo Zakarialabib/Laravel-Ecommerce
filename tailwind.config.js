@@ -1,13 +1,27 @@
+const defaultTheme = require('tailwindcss/defaultTheme');
+
 /** @type {import('tailwindcss').Config} */
+
 module.exports = {
-  content: [
-    "./resources/**/*.blade.php",
-    "./resources/**/*.php",
+    mode: 'jit',
+    darkMode: "class",
+    // rtl : 'class',
+    content: [
+    './vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php',
+    './storage/framework/views/*.php',
+    './resources/views/**/*.blade.php',
+    './public/*.html',
+    "./app/**/*.php",
     "./resources/**/*.html",
     "./resources/**/*.js",
-    "./resources/**/*.vue",
-  ],
-  theme: {
+    "./resources/**/*.jsx",
+    "./resources/**/*.ts",
+    "./resources/**/*.tsx",
+    "./resources/**/*.php",
+    ],
+
+    theme: {
+    darkMode: "class",
     screens: {
         sm: '640px',
         md: '768px',
@@ -621,5 +635,15 @@ variants: {
     wordBreak: ['responsive'],
     zIndex: ['responsive', 'focus-within', 'focus'],
 },
-  plugins: [],
+plugins: [
+    require('@tailwindcss/forms',
+    require('tailwindcss-tables')({
+      cellPadding: '.75rem',  // default: .75rem
+      tableBorderColor: '#dee2e6',  // default: #dee2e6
+      tableStripedBackgroundColor: 'rgba(0,0,0,.05)',  // default: rgba(0,0,0,.05)
+      tableHoverBackgroundColor: 'rgba(0,0,0,.075)',  // default: rgba(0,0,0,.075)
+      tableBodyBorder: true, // default: true. If set to false, borders for the table body will be removed. Only works for normal tables (i.e. does not apply to .table-bordered)
+      verticalAlign: 'top', // default: 'top'
+    }),
+  )]
 }

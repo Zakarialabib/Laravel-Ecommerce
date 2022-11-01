@@ -8,7 +8,6 @@ use App\Http\Livewire\WithSorting;
 use Illuminate\Support\Facades\Gate;
 use Livewire\WithPagination;
 use App\Models\Brand;
-use App\Support\HasAdvancedFilter;
 use Livewire\WithFileUploads;
 use Illuminate\Support\Str;
 use Maatwebsite\Excel\Facades\Excel;
@@ -17,7 +16,7 @@ use App\Imports\BrandsImport;
 class Index extends Component
 {
     use WithPagination, WithSorting,
-         LivewireAlert, HasAdvancedFilter, WithFileUploads;
+         LivewireAlert, WithFileUploads;
 
     public $brand;
 

@@ -11,26 +11,54 @@ class Product extends Model
 {
     use HasAdvancedFilter;
 
-    protected $ordrable = [
-        'id','name','slug','details','price','photo','status','created_at','updated_at'
+    public $orderable = [
+        'id',
+         'name',
+        'description',
+        'price',
+        'code',
+        'category_id',
+        'brand_id',
+        'status',
     ];
 
-    protected $filterable = [
-        'id','name','slug','details','price','photo','status','created_at','updated_at'
+    public $filterable = [
+        'id',
+        'name',
+       'description',
+       'price',
+       'code',
+       'category_id',
+       'brand_id',
+       'status',
     ];
 
     protected $fillable = [
         'name',
         'description',
         'price',
+        'old_price',
+        'slug',
+        'code',
         'image',
         'gallery',
         'category_id',
+        'subcategory_id',
         'brand_id',
         'meta_title',
         'meta_description',
         'meta_keywords',
         'status',
+        'featured',
+        'hot',
+        'best',
+        'top',
+        'latest',
+        'big',
+        'trending',
+        'sale',
+        'is_discount',
+        'discount_date',
     ];
 
     // get name set slug with Str::

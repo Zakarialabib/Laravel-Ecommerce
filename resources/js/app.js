@@ -65,15 +65,38 @@ Alpine.data("mainState", () => {
             window.matchMedia("(prefers-color-scheme: dark)").matches
         );
     };
+
+    const RTL = () => {
+        if (window.localStorage.getItem("rtl")) {
+            return JSON.parse(window.localStorage.getItem("rtl"));
+        }
+        return false;
+    };
+
+    const enableTheme = (isRtl) => {
+        if (isRtl) {
+            document.body.dir = "rtl";
+        } else {
+            document.body.dir = "ltr";
+        }
+    };
+
     const setTheme = (value) => {
         window.localStorage.setItem("dark", value);
     };
+
     return {
         init,
         isDarkMode: getTheme(),
         toggleTheme() {
             this.isDarkMode = !this.isDarkMode;
             setTheme(this.isDarkMode);
+        },
+        // enableRtl
+       isRtl : RTL(),
+         toggleRtl() {
+            this.isRtl = !this.isRtl;
+            enableTheme(this.isRtl);
         },
         isSidebarOpen: window.innerWidth > 1024,
         isSidebarHovered: false,
