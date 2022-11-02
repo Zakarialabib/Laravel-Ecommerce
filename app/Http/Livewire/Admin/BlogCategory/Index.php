@@ -5,19 +5,33 @@ namespace App\Http\Livewire\Admin\BlogCategory;
 use Livewire\Component;
 use App\{
     Models\BlogCategory,
-    Models\User
+    Models\Language
 };
-use Illuminate\Http\Response;
 use Livewire\WithPagination;
 use App\Http\Livewire\WithSorting;
-use Str;
+use Jantinnerezo\LivewireAlert\LivewireAlert;
+use Illuminate\Support\Facades\Gate;
 
 class Index extends Component
 {
     use WithPagination;
     use WithSorting;
+    use LivewireAlert;
+
+    public $listeners = [
+    
+        'confirmDelete', 'delete', 'editModal',         
+        'refreshIndex',
+    
+    ];
 
     public int $perPage;
+
+    public $editModal;
+
+    public $confirmDelete;
+
+    public $refreshIndex;
 
     public array $orderable;
 
@@ -61,6 +75,20 @@ class Index extends Component
         $this->selected = [];
     }
 
+    public function refreshIndex()
+    {
+        $this->resetPage();
+    }
+
+    public array $rules = [
+        'blogcategory.title' => ['required', 'string', 'max:255'],
+        'blogcategory.description' => ['nullable'],
+        'blogcategory.meta_tag' => ['nullable'],
+        'blogcategory.meta_description' => ['nullable'],
+        'blogcategory.featured' => ['nullable'],
+        'blogcategory.language_id' => ['required', 'integer'],
+    ];
+
     public function mount()
     {
         $this->sortBy            = 'id';
@@ -68,6 +96,7 @@ class Index extends Component
         $this->perPage           = 25;
         $this->paginationOptions = [25, 50, 100];
         $this->orderable         = (new BlogCategory())->orderable;
+        $this->initListsForFields();
     }
 
     public function render()
@@ -82,5 +111,50 @@ class Index extends Component
 
         return view('livewire.admin.blog-category.index', compact('blogcategories'));
     }
+
+    public function editModal(BlogCategory $blogcategory)
+    {
+        abort_if(Gate::denies('edit_subcategories'), 403);
+
+        $this->resetErrorBag();
+
+        $this->resetValidation();
+
+        $this->blogcategory = $blogcategory;
+
+        $this->editModal = true;  
+    }
+
+    public function update()
+    {
+        abort_if(Gate::denies('edit_subcategories'), 403);
+
+        $this->validate();
+        // condition if save close modal if not stay
+        if ($this->blogcategory->save()) {
+            $this->editModal = false;
+            $this->alert('success', __('BlogCategory updated successfully'));
+            $this->emit('refreshIndex');
+        } else {
+            $this->alert('error', __('BlogCategory not updated'));
+        }
+    }
+
+
+    public function delete(BlogCategory $blogcategory)
+    {
+        abort_if(Gate::denies('delete_subcategories'), 403);
+
+        $blogcategory->delete();
+
+        $this->alert('success', __('BlogCategory deleted successfully.'));
+
+    }
+
+    protected function initListsForFields(): void
+    {
+        $this->listsForFields['languages'] = Language::pluck('name', 'id')->toArray();
+    }
+
 
 }

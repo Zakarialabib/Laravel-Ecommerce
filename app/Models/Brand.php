@@ -2,18 +2,25 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Support\HasAdvancedFilter;
 
 class Brand extends Model
 {
-    use HasAdvancedFilter, HasFactory;
+    use HasAdvancedFilter;
+
+    public $orderable = [
+       'id', 'name', 'description', 'image','link','status',
+    ];
+
+    public $filterable = [
+        'id', 'name', 'description', 'image','link','status',
+    ];
+
 
     protected $fillable = [
-        'name',
-        'link',
-        'image',
-        'status',
+        'name', 'description', 'image','link','status',
     ];
+
+   
 }

@@ -29,7 +29,7 @@ class Create extends Component
     {
         abort_if(Gate::denies('access_product_categories'), 403);
 
-        return view('livewire.categories.create');
+        return view('livewire.admin.categories.create');
     }
 
     public function createCategory()

@@ -126,9 +126,6 @@
                         <x-button primary wire:click="update" wire:loading.attr="disabled">
                             {{ __('Update') }}
                         </x-button>
-                        <x-button primary type="button" wire:click="$set('editModal', false)">
-                            {{ __('Cancel') }}
-                        </x-button>
                     </div>
                 </div>
             </form>
@@ -186,9 +183,6 @@
                         <x-button primary wire:click="import" type="button" wire:loading.attr="disabled">
                             {{ __('Import') }}
                         </x-button>
-                        <x-button primary type="button" wire:loading.attr="disabled" wire:click="$set('import', false)">
-                            {{ __('Cancel') }}
-                        </x-button>
                     </div>
                 </div>
             </form>
@@ -197,7 +191,7 @@
 
     {{-- End Import modal --}}
 
-    <livewire:categories.create />
+    <livewire:admin.categories.create />
 </div>
 
 @push('page_scripts')

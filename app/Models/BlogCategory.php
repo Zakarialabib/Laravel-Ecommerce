@@ -9,14 +9,33 @@ class BlogCategory extends Model
 {
     use HasAdvancedFilter;
     
-    protected $fillable = ['name','status', 'slug','language_id'];
+    protected $fillable = [
+        'title',
+        'description',
+        'meta_tag',
+        'meta_description',
+        'featured',
+        'language_id'
+    ];
 
     protected $filterable = [
-        'id','name','slug','language_id'
+        'id',
+        'title',
+        'description',
+        'meta_tag',
+        'meta_description',
+        'featured',
+        'language_id'
     ];
 
     public $orderable = [
-        'id','name','slug','language_id'
+        'id',
+        'title',
+        'description',
+        'meta_tag',
+        'meta_description',
+        'featured',
+        'language_id'
     ];
 
     public $timestamps = false;

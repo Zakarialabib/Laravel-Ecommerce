@@ -18,7 +18,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', [FrontController::class, 'index'])->name('front.index');
 Route::get('/catalog', [FrontController::class, 'catalog'])->name('front.catalog');
 // Route::get('/catalog/{slug}', [FrontController::class, 'catalog'])->name('front.catalog');
-Route::get('/product/{slug}', [FrontController::class, 'product'])->name('front.product');
+Route::get('/product/{slug}', [FrontController::class, 'productShow'])->name('front.product');
 Route::get('/cart', [FrontController::class, 'cart'])->name('front.cart');
 Route::get('/checkout', [FrontController::class, 'checkout'])->name('front.checkout');
 Route::get('/contact', [FrontController::class, 'contact'])->name('front.contact');

@@ -1,6 +1,5 @@
-@extends('layouts.dashboard')
-@section('title', __('General Settings'))
-@section('content')
+@section('title', __('Products'))
+<x-dashboard-layout>
     <section class="py-3 px-4">
         <div class="flex flex-wrap items-center justify-between">
             <div class="mb-5 lg:mb-0">
@@ -59,4 +58,4 @@
         </div>
     </x-card>
     
-@endsection
+</x-dashboard-layout>

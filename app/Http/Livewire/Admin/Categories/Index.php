@@ -93,7 +93,7 @@ class Index extends Component
         $this->sortBy            = 'id';
         $this->sortDirection     = 'desc';
         $this->perPage           = 100;
-        $this->paginationOptions = config('project.pagination.options');
+        $this->paginationOptions = [25, 50, 100];
         $this->orderable         = (new Category())->orderable;
     }
 
@@ -109,7 +109,7 @@ class Index extends Component
 
         $categories = $query->paginate($this->perPage);
 
-        return view('livewire.categories.index', compact('categories'));
+        return view('livewire.admin.categories.index', compact('categories'));
     }
 
     public function editModal(Category $category)

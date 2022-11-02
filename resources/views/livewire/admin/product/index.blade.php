@@ -40,6 +40,9 @@
                 @include('components.table.sort', ['field' => 'status'])
             </x-table.th>
             <x-table.th>
+                {{ __('Gallery') }}
+            </x-table.th>
+            <x-table.th>
                 {{ __('Actions') }}
             </x-table.th>
         </x-slot>
@@ -55,8 +58,15 @@
                     <x-table.td>
                         {{ $product->price }}
                     </x-table.td>
+                    
                     <x-table.td>
                         <livewire:toggle-button :model="$product" field="status" key="{{ $product->id }}" />
+                    </x-table.td>
+                    <x-table.td>
+                        <x-button type="button" primary 
+                        wire:click="showUploader({{ $product->id }})">
+                            {{ __('Upload') }}
+                        </x-button>
                     </x-table.td>
                     <x-table.td>
                         <x-dropdown
@@ -140,10 +150,6 @@
                                         <td>{{ $product->code }}</td>
                                     </tr>
                                     <tr>
-                                        <th>{{ __('Barcode Symbology') }}</th>
-                                        <td>{{ $product->barcode_symbology }}</td>
-                                    </tr>
-                                    <tr>
                                         <th>{{ __('Name') }}</th>
                                         <td>{{ $product->name }}</td>
                                     </tr>
@@ -152,40 +158,17 @@
                                         <td>{{ $product->category->name }}</td>
                                     </tr>
                                     <tr>
-                                        <th>{{ __('Cost') }}</th>
-                                        {{-- <td>{{ format_currency($product->old_price) }}</td> --}}
+                                        <th>{{ __('Old Price') }}</th>
+                                        <td>{{ format_currency($product->old_price) }}</td>
                                     </tr>
                                     <tr>
                                         <th>{{ __('Price') }}</th>
                                         <td>{{ $product->price }}</td>
                                     </tr>
-                                    <tr>
-                                        <th>{{ __('Quantity') }}</th>
-                                        <td>{{ $product->quantity . ' ' . $product->unit }}</td>
-                                    </tr>
-                                    <tr>
-                                        <th>{{ __('Alert Quantity') }}</th>
-                                        <td>{{ $product->stock_alert }}</td>
-                                    </tr>
-                                    <tr>
-                                        <th>{{ __('Tax (%)') }}</th>
-                                        <td>{{ $product->order_tax ?? 'N/A' }}</td>
-                                    </tr>
-                                    <tr>
-                                        <th>{{ __('Tax Type') }}</th>
-                                        <td>
-                                            @if ($product->tax_type == 1)
-                                                {{ __('Exclusive') }}
-                                            @elseif($product->tax_type == 2)
-                                                {{ __('Inclusive') }}
-                                            @else
-                                                N/A
-                                            @endif
-                                        </td>
-                                    </tr>
+                                  
                                     <tr>
                                         <th>{{ __('Description') }}</th>
-                                        <td>{{ $product->note ?? 'N/A' }}</td>
+                                        <td>{{ $product->description ?? 'N/A' }}</td>
                                     </tr>
                                 </table>
                             </div>
@@ -274,8 +257,8 @@
                         <div class="flex flex-wrap -mx-2 mb-3">
 
                             <div class="w-full mb-4">
-                                <x-label for="note" :value="__('Description')" />
-                                <textarea rows="4" wire:model="product.note" name="note"
+                                <x-label for="description" :value="__('Description')" />
+                                <textarea rows="4" wire:model="product.description" name="description"
                                     class="block w-full px-4 py-3 mb-2 text-sm placeholder-gray-500 bg-white border rounded">
                                         </textarea>
                             </div>

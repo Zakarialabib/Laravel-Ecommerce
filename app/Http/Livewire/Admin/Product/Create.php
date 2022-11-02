@@ -12,6 +12,7 @@ use Illuminate\Support\Str;
 use Livewire\WithFileUploads;
 use App\Models\Warehouse;
 
+
 class Create extends Component
 {
     use LivewireAlert, WithFileUploads;
@@ -31,25 +32,25 @@ class Create extends Component
         $this->resetPage();
     }
 
-    public array $listsForFields = [];
-
-    protected $rules = [
-        'name' => ['required', 'string', 'max:255'],
-        'price' => ['required', 'numeric', 'max:2147483647'],
-        'old_price' => ['required', 'numeric', 'max:2147483647'],
-        'description' => ['nullable'],
-        'meta_title' => ['nullable', 'string', 'max:255'],
-        'meta_description' => ['nullable', 'string', 'max:255'],
-        'meta_keywords' => ['nullable', 'string', 'min:1'],
-        'category_id' => ['required', 'integer'],
-        'subcategory_id' => ['required', 'integer'],
-        'brand_id' => ['required', 'integer'],
-    ];
-
     public function updated($propertyName)
     {
         $this->validateOnly($propertyName);
     }
+
+    public array $listsForFields = [];
+
+    protected $rules = [
+        'product.name' => ['required', 'string', 'max:255'],
+        'product.price' => ['required', 'numeric', 'max:2147483647'],
+        'product.old_price' => ['required', 'numeric', 'max:2147483647'],
+        'product.description' => ['nullable'],
+        'product.meta_title' => ['nullable', 'string', 'max:255'],
+        'product.meta_description' => ['nullable', 'string', 'max:255'],
+        'product.meta_keywords' => ['nullable', 'string', 'min:1'],
+        'product.category_id' => ['required', 'integer'],
+        'product.subcategory_id' => ['required', 'integer'],
+        'product.brand_id' => ['required', 'integer'],
+    ];
 
     public function mount(Product $product)
     {
@@ -75,7 +76,7 @@ class Create extends Component
 
     public function create()
     {
-        $validatedData = $this->validate();
+        $this->validate();
 
         // generate code
         $this->product->code = Str::random(10);
@@ -99,16 +100,26 @@ class Create extends Component
             }
             $this->product->gallery = json_encode($gallery);
         }
-        
-        Product::create($validatedData);
-        
-        $this->alert('success', 'Product created successfully');
+        if($this->product->save())
+        {
+            $this->product->save();
+            $this->alert('success', 'Product created successfully');
 
-        $this->emit('refreshIndex');
+            $this->emit('refreshIndex');
+    
+            $this->createProduct = false;
+        }
+        else
+        {
+            $this->alert('error', __('Something went wrong'));
+        }
+        
+        
 
-        $this->createProduct = false;
 
     }
+
+    
 
     protected function initListsForFields(): void
     {

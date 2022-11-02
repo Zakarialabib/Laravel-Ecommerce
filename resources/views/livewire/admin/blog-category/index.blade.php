@@ -45,10 +45,10 @@
                         {{ $id }}
                     </x-table.td>
                     <x-table.td>
-                        {{ $blogcategory->name }}
+                        {{ $blogcategory->title }}
                     </x-table.td>
                     <x-table.td>
-                        {{ $blogcategory->slug }}
+                        {{ $blogcategory->featured }}
                     </x-table.td>
                     <x-table.td>
                         <x-dropdown
@@ -60,16 +60,14 @@
                                 </button>
                             </x-slot>
                             <x-slot name="content">
-                                <x-dropdown-link data-href="{{ route('admin-cblog-edit', $blogcategory->id) }}"
-                                    class="edit" data-toggle="modal" data-target="#modal1"> <i
-                                        class="fas fa-edit"></i>
-                                    {{ __('Edit') }}
-                                </x-dropdown-link>
-                                <x-dropdown-link href="javascript:;"
-                                    data-href="{{ route('admin-cblog-delete', $blogcategory->id) }}"
-                                    data-toggle="modal" data-target="#confirm-delete" class="delete"><i
-                                        class="fas fa-trash-alt"></i>{{ __('Delete') }}
-                                </x-dropdown-link>
+                                <x-button primary wire:click="$emit('editModal', {{ $blogcategory->id }})"
+                                    wire:loading.attr="disabled">
+                                    <i class="fas fa-edit"></i>
+                                </x-button>
+                                <x-button danger wire:click="$emit('deleteModal', {{ $blogcategory->id }})"
+                                    wire:loading.attr="disabled">
+                                    <i class="fas fa-trash"></i>
+                                </x-button>
                             </x-slot>
                         </x-dropdown>
                     </x-table.td>
@@ -97,4 +95,82 @@
             {{ $blogcategories->links() }}
         </div>
     </div>
+
+    
+    <!-- Edit Modal -->
+    <x-modal wire:model="editModal">
+        <x-slot name="title">
+            {{ __('Edit Blog Category') }}
+        </x-slot>
+
+        <x-slot name="content">
+            <!-- Validation Errors -->
+            <x-auth-validation-errors class="mb-4" :errors="$errors" />
+            <form wire:submit.prevent="update">
+                <div class="flex flex-wrap -mx-3 space-y-0">
+                    <div class="xl:w-1/2 md:w-1/2 px-3">
+                        <x-label for="title" :value="__('Title')" />
+                        <x-input id="title" class="block mt-1 w-full" type="text" name="title"
+                            wire:model.defer="blogcategory.title" />
+                        <x-input-error :messages="$errors->get('blogcategory.title')" for="blogcategory.title" class="mt-2" />
+                    </div>
+                    <div class="w-full py-2 px-3">
+                        <x-label for="description" :value="__('Description')" />
+                        <x-input id="description" class="block mt-1 w-full" type="text" name="description"
+                            wire:model.defer="blogcategory.description" />
+                        <x-input-error :messages="$errors->get('blogcategory.description')" for="blogcategory.description" class="mt-2" />
+                        </div>
+                    <div class="xl:w-1/2 md:w-1/2 px-3">
+                        <x-label for="meta_title" :value="__('Meta Tag')" />
+                        <x-input id="meta_title" class="block mt-1 w-full" type="text" name="meta_title"
+                            wire:model.defer="blogcategory.meta_title" />
+                        <x-input-error :messages="$errors->get('blogcategory.meta_title')" for="blogcategory.meta_title" class="mt-2" />
+                    </div>
+                    <div class="xl:w-1/2 md:w-1/2 px-3">
+                        <x-label for="meta_description" :value="__('Meta Description')" />
+                        <x-input id="meta_description" class="block mt-1 w-full" type="text" name="meta_description"
+                            wire:model.defer="blogcategory.meta_description" />
+                        <x-input-error :messages="$errors->get('blogcategory.meta_description')" for="blogcategory.meta_description" class="mt-2" />
+                    </div>
+                    <div class="xl:w-1/2 md:w-1/2 px-3">
+                        <x-label for="featured" :value="__('Featured')" />
+                        <input type="checkbox" name="featured" wire:model.defer="blogcategory.featured" />
+                    </div>
+                   
+                </div>
+
+                <div class="w-full flex justify-end">
+                    <x-button primary wire:click="update" wire:loading.attr="disabled">
+                        {{ __('Update') }}
+                    </x-button>
+                </div>
+            </form>
+        </x-slot>
+    </x-modal>
+    <!-- End Edit Modal -->
+
+    <livewire:admin.blog-category.create />
+
 </div>
+
+@push('page_scripts')
+    <script>
+        document.addEventListener('livewire:load', function() {
+            window.livewire.on('deleteModal', categoryId => {
+                Swal.fire({
+                    title: 'Are you sure?',
+                    text: "You won't be able to revert this!",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Yes, delete it!'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        window.livewire.emit('delete', categoryId)
+                    }
+                })
+            })
+        })
+    </script>
+@endpush

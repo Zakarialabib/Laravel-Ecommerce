@@ -16,6 +16,7 @@ use Str;
 use Illuminate\Support\Facades\Gate;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Livewire\WithFileUploads;
+use App\Trait\WithMediaManager;
 
 class Index extends Component
 {
@@ -44,8 +45,11 @@ class Index extends Component
     public $importModal;
     
     public $refreshIndex;
-
+    
     public array $orderable;
+    
+    public $file ;
+    public $metadata ;
 
     public $image;
 
@@ -95,18 +99,18 @@ class Index extends Component
     {
         $this->resetPage();
     }
-
-    public array $rules = [
-        'name' => ['required', 'string', 'max:255'],
-        'price' => ['required', 'numeric', 'max:2147483647'],
-        'old_price' => ['required', 'numeric', 'max:2147483647'],
-        'description' => ['nullable'],
-        'meta_title' => ['nullable', 'string', 'max:255'],
-        'meta_description' => ['nullable', 'string', 'max:255'],
-        'meta_keywords' => ['nullable', 'string', 'min:1'],
-        'category_id' => ['required', 'integer'],
-        'subcategory_id' => ['required', 'integer'],
-        'brand_id' => ['required', 'integer'],
+    
+    protected $rules = [
+        'product.name' => ['required', 'string', 'max:255'],
+        'product.price' => ['required', 'numeric', 'max:2147483647'],
+        'product.old_price' => ['required', 'numeric', 'max:2147483647'],
+        'product.description' => ['nullable'],
+        'product.meta_title' => ['nullable', 'string', 'max:255'],
+        'product.meta_description' => ['nullable', 'string', 'max:255'],
+        'product.meta_keywords' => ['nullable', 'string', 'min:1'],
+        'product.category_id' => ['required', 'integer'],
+        'product.subcategory_id' => ['required', 'integer'],
+        'product.brand_id' => ['required', 'integer'],
     ];
 
     public function mount()
@@ -116,6 +120,8 @@ class Index extends Component
         $this->perPage           = 100;
         $this->paginationOptions = [25, 50, 100];
         $this->orderable         = (new Product())->orderable;
+        $this->file = null;
+        $this->metadata = null;
         $this->initListsForFields();
     }
 
@@ -289,6 +295,13 @@ class Index extends Component
         $this->highlightModal = false;
 
         $this->alert('success', 'Product highlighted successfully.');
+    }
+
+    public function showUploader() 
+    {
+        $this->file = null;
+        $this->metadata = null; 
+        $this->showFileManager('gallery', $file, $metadata);
     }
 
     protected function initListsForFields(): void

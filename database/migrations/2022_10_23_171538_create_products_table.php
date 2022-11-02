@@ -23,6 +23,7 @@ return new class extends Migration
             $table->text('gallery')->nullable();
             $table->string('code');
             $table->string('slug');
+            $table->tinyInteger('stock_status')->default(1);
             $table->tinyInteger('status')->default(1);
             $table->foreignId('category_id')->nullable()->constrained('categories')->nullOnDelete();
             $table->foreignId('subcategory_id')->nullable()->constrained('subcategories')->nullOnDelete();

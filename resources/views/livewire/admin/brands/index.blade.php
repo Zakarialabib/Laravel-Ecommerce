@@ -101,7 +101,7 @@
     <!-- Edit Modal -->
     <x-modal wire:model="editModal">
         <x-slot name="title">
-            {{ __('Edit Category') }}
+            {{ __('Edit Brand') }}
         </x-slot>
 
         <x-slot name="content">
@@ -135,9 +135,6 @@
                         <x-button primary wire:click="update" wire:loading.attr="disabled">
                             {{ __('Update') }}
                         </x-button>
-                        <x-button primary type="button" wire:click="$set('editModal', false)">
-                            {{ __('Cancel') }}
-                        </x-button>
                     </div>
                 </div>
             </form>
@@ -145,7 +142,7 @@
     </x-modal>
     <!-- End Edit Modal -->
 
-    <livewire:brands.create />
+    <livewire:admin.brands.create />
 
 </div>
 

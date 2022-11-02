@@ -92,7 +92,6 @@ Alpine.data("mainState", () => {
             this.isDarkMode = !this.isDarkMode;
             setTheme(this.isDarkMode);
         },
-        // enableRtl
        isRtl : RTL(),
          toggleRtl() {
             this.isRtl = !this.isRtl;

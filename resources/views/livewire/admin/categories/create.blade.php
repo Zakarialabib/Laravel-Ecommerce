@@ -25,11 +25,6 @@
                         <x-button primary wire:click="create" wire:loading.attr="disabled" type="button">
                             {{ __('Create') }}
                         </x-button>
-
-                        <x-button secondary type="button" wire:loading.attr="disabled" wire:click="$set('createCategory', false)">
-                            {{ __('Cancel') }}
-                        </x-button>
-
                         <span class="sr-only" wire:loading wire:target="create">
                             {{ __('Creating...') }}
                         </span>

@@ -22,9 +22,7 @@
         </div>
     </div>
 
-    <div wire:loading.delay>
-        <img src="{{ asset('assets/images/' . $gs->admin_loader) }}">
-    </div>
+    
 
     <x-table>
         <x-slot name="thead">

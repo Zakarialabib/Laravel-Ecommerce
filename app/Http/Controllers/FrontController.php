@@ -21,10 +21,8 @@ class FrontController extends Controller
         return view('front.catalog');
     }
 
-    public function product(Product $id)
+    public function productShow(Product $product)
     {
-        $product = Product::findorfail($id);
-
         return view('front.product', compact('product'));
     }
 

@@ -40,7 +40,7 @@
     
     
 </head>
-<body class="antialiased bg-body text-body font-body" dir="rtl">
+<body class="antialiased bg-body text-body font-body">
     <div class="">
                 
       <section class="relative">

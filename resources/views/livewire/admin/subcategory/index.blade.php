@@ -22,9 +22,6 @@
         </div>
     </div>
 
-    <div wire:loading.delay>
-        <img src="{{ asset('assets/images/' . $gs->admin_loader) }}">
-    </div>
 
     <x-table>
         <x-slot name="thead">
@@ -36,12 +33,7 @@
             <x-table.th>
                 {{ __('Category') }}
             </x-table.th>
-            <x-table.th>
-                {{ __('Attribute') }}
-            </x-table.th>
-            <x-table.th>
-                {{ __('Status') }}
-            </x-table.th>
+          
             <x-table.th>
                 {{ __('Actions') }}
             </x-table.th>
@@ -53,29 +45,10 @@
                         {{ $id }}
                     </x-table.td>
                     <x-table.td>
-                        {{ $subcategory->category->name }}
-                    </x-table.td>
-                    <x-table.td>
                         {{ $subcategory->name }}
                     </x-table.td>
                     <x-table.td>
-                        <div class="action-list">
-                            <a href="javascript;;"
-                                data-href="'{{ route('admin-attr-createForSubcategory', $subcategory->id) }}"
-                                class="attribute text-white" data-toggle="modal" data-target="#attribute"> <i
-                                    class="fas fa-edit"></i>{{ __('Create') }}</a>
-                            @if ($subcategory->attributes()->count() > 0)
-                                <a href="{{ route('admin-attr-manage', $subcategory->id), '?type=subcategory' }}"
-                                    class="edit">
-                                    <i class="fas fa-edit"></i>
-                                    {{ __('Manage') }}
-                                </a>
-                            @endif
-                        </div>
-                    </x-table.td>
-
-                    <x-table.td>
-                            <livewire:toggle-button :model="$subcategory" field="status" key="{{ $subcategory->id }}" />
+                        {{ $subcategory->category->name }}
                     </x-table.td>
                     <x-table.td>
                         <x-dropdown
@@ -87,15 +60,14 @@
                                 </button>
                             </x-slot>
                             <x-slot name="content">
-                                <x-dropdown-link data-href="{{ route('admin-subcat-edit', $subcategory->id) }}" class="edit"
-                                    data-toggle="modal" data-target="#modal1"> <i class="fas fa-edit"></i>
-                                    {{ __('Edit') }}
-                                </x-dropdown-link>
-                                <x-dropdown-link href="javascript:;"
-                                    data-href="{{ route('admin-subcat-delete', $subcategory->id) }}" data-toggle="modal"
-                                    data-target="#confirm-delete" class="delete"><i
-                                        class="fas fa-trash-alt"></i>{{ __('Delete') }}
-                                </x-dropdown-link>
+                                <x-button primary wire:click="$emit('editModal', {{ $subcategory->id }})"
+                                    wire:loading.attr="disabled">
+                                    <i class="fas fa-edit"></i>
+                                </x-button>
+                                <x-button danger wire:click="$emit('deleteModal', {{ $subcategory->id }})"
+                                    wire:loading.attr="disabled">
+                                    <i class="fas fa-trash"></i>
+                                </x-button>
                             </x-slot>
                         </x-dropdown>
                     </x-table.td>
@@ -123,4 +95,78 @@
             {{ $subcategories->links() }}
         </div>
     </div>
+    <!-- Edit Modal -->
+    <x-modal wire:model="editModal">
+        <x-slot name="title">
+            {{ __('Edit Category') }}
+        </x-slot>
+
+        <x-slot name="content">
+            <!-- Validation Errors -->
+            <x-auth-validation-errors class="mb-4" :errors="$errors" />
+            <form wire:submit.prevent="update">
+                <div class="space-y-4 px-4">
+                   
+                    <div class="mt-4 p w-full">
+                        <x-label for="name" :value="__('Name')" />
+                        <x-input id="name" class="block mt-1 w-full" type="text" name="name"
+                            wire:model.defer="subcategory.name" />
+                        <x-input-error :messages="$errors->get('subcategory.name')" for="subcategory.name" class="mt-2" />
+                    </div>
+
+                    <div class="mt-4 p w-full">
+                        <x-label for="category_id" :value="__('Category')" required />
+                            <x-select-list
+                                class="block bg-white dark:bg-dark-eval-2 text-gray-700 dark:text-gray-300 rounded border border-gray-300 mb-1 text-sm w-full focus:shadow-outline-blue focus:border-blue-500"
+                                id="category_id" name="category_id" wire:model="subcategory.category_id"
+                                :options="$this->listsForFields['categories']" />
+                        <x-input-error :messages="$errors->get('subcategory.category_id')" for="subcategory.category_id"
+                            class="mt-2" />
+                    </div>
+
+                    <div class="mt-4 p w-full">
+                        <x-label for="language_id" :value="__('Language')" required />
+                        <x-select-list
+                            class="block bg-white dark:bg-dark-eval-2 text-gray-700 dark:text-gray-300 rounded border border-gray-300 mb-1 text-sm w-full focus:shadow-outline-blue focus:border-blue-500"
+                            id="language_id" name="language_id" wire:model="subcategory.language_id"
+                            :options="$this->listsForFields['languages']" />
+                        <x-input-error :messages="$errors->get('subcategory.language_id')" for="subcategory.language_id"
+                            class="mt-2" />
+                    </div>
+
+                    <div class="w-full flex justify-end">
+                        <x-button primary wire:click="update" wire:loading.attr="disabled">
+                            {{ __('Update') }}
+                        </x-button>
+                    </div>
+                </div>
+            </form>
+        </x-slot>
+    </x-modal>
+    <!-- End Edit Modal -->
+
+
+    <livewire:admin.subcategory.create />
 </div>
+
+@push('page_scripts')
+    <script>
+        document.addEventListener('livewire:load', function() {
+            window.livewire.on('deleteModal', categoryId => {
+                Swal.fire({
+                    title: 'Are you sure?',
+                    text: "You won't be able to revert this!",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Yes, delete it!'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        window.livewire.emit('delete', categoryId)
+                    }
+                })
+            })
+        })
+    </script>
+@endpush

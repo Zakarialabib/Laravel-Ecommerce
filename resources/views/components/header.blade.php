@@ -2,14 +2,15 @@
     <nav class="flex justify-between bg-gray-100 border-b">
         <div class="px-12 py-8 flex w-full items-center">
             <a class="lg:mr-8 2xl:mr-20 text-3xl font-bold font-heading" href="{{ route('front.index') }}">
-                    {{ config('app.name') }}
+                {{ config('app.name') }}
                 {{-- <img class="h-9" src="yofte-assets/logos/yofte-logo.svg" alt="" width="auto"> --}}
             </a>
-            
+
             <ul class="hidden xl:flex px-4 mx-auto font-semibold font-heading">
-                <li class="mr-12"><a class="hover:text-gray-600" href="#">{{__('Categories')}}</a></li>
-                <li class="mr-12"><a class="hover:text-gray-600" href="{{ route('front.catalog')}}">{{__('Catalog')}}</a></li>
-                <li><a class="hover:text-gray-600" href="#">{{__('Brands')}}</a></li>
+                <li class="mr-12"><a class="hover:text-gray-600" href="#">{{ __('Categories') }}</a></li>
+                <li class="mr-12"><a class="hover:text-gray-600"
+                        href="{{ route('front.catalog') }}">{{ __('Catalog') }}</a></li>
+                <li><a class="hover:text-gray-600" href="#">{{ __('Brands') }}</a></li>
             </ul>
             <div class="hidden xl:flex items-center">
 
@@ -33,29 +34,52 @@
             </div>
         </div>
         @if (Auth::check())
-        <button class="flex-shrink-0 hidden xl:block px-8 border-l">
-            <div class="flex items-center">
-                <img class="w-9 h-9 object-cover mr-2" src="yofte-assets/elements/avatar.svg" alt="">
-                <span class="mr-2 font-medium">
-                    {{ Auth::user()->name }}
-                </span>
-                <span>
-                    <svg width="10" height="6" viewbox="0 0 10 6" fill="none"
-                        xmlns="http://www.w3.org/2000/svg">
-                        <path d="M1.66797 1.66699L5.0013 5.00033L8.33464 1.66699" stroke="black" stroke-width="1.5"
-                            stroke-linecap="round" stroke-linejoin="round"></path>
-                    </svg>
-                </span>
-            </div>
-        </button>
+            <x-dropdown align="right" width="60">
+                <x-slot name="trigger">
+                    <div class="py-8 px-6 flex items-center">
+                    <span class="bg-orange-500 rounded-md text-center text-white">
+                        {{ Auth::user()->first_name }}
+                    </span>
+                    </div>
+                </x-slot>
+
+                <x-slot name="content">
+                    {{-- if admin show dashboard and settings else show logout --}}
+                    @if (auth()->user()->is_admin)
+                        <x-dropdown-link href="{{ route('admin.dashboard') }}">
+                            {{ __('Dashboard') }}
+                        </x-dropdown-link>
+
+                        <x-dropdown-link :href="route('admin.settings')">
+                            {{ __('Settings') }}
+                        </x-dropdown-link>
+                    @endif
+
+                    {{-- <x-dropdown-link href="{{ route('profile.show') }}">
+                    {{ __('Profile') }}
+                </x-dropdown-link> --}}
+
+                    <div class="border-t border-gray-100"></div>
+
+                    <!-- Authentication -->
+                    <form method="POST" action="{{ route('logout') }}">
+                        @csrf
+                        <x-dropdown-link :href="route('logout')"
+                            onclick="event.preventDefault();
+                                    this.closest('form').submit();">
+                            {{ __('Log Out') }}
+                        </x-dropdown-link>
+                    </form>
+                </x-slot>
+            </x-dropdown>
         @else
-        <button class="flex-shrink-0 hidden xl:block px-8 border-l">
-            <div class="flex items-center">
-                <a href="{{ route('login') }}" class="mr-2 font-medium">{{__('Login')}} </a>
-                {{__('or')}}
-                <a href="{{ route('register') }}" class="ml-2 font-medium"> {{__('Register')}}</a>
-            </div>
-        </button>
+            <button class="flex-shrink-0 hidden xl:block px-8 border-l">
+                <div class="flex items-center">
+                    <a href="{{ route('login') }}" class="mr-2 font-medium">{{ __('Login') }} </a>
+                    {{ __('or') }}
+                    <a href="{{ route('register') }}" class="ml-2 font-medium"> {{ __('Register') }}</a>
+                </div>
+            </button>
         @endif
         <a class="xl:hidden flex mr-6 items-center text-gray-600" href="#">
             <svg class="mr-2" width="23" height="23" viewbox="0 0 23 23" fill="none"
@@ -70,8 +94,7 @@
             <span class="inline-block w-6 h-6 text-center bg-white rounded-full font-semibold font-heading">3</span>
         </a>
         <a class="navbar-burger self-center mr-12 xl:hidden" href="#">
-            <svg width="20" height="12" viewbox="0 0 20 12" fill="none"
-                xmlns="http://www.w3.org/2000/svg">
+            <svg width="20" height="12" viewbox="0 0 20 12" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path
                     d="M1 2H19C19.2652 2 19.5196 1.89464 19.7071 1.70711C19.8946 1.51957 20 1.26522 20 1C20 0.734784 19.8946 0.48043 19.7071 0.292893C19.5196 0.105357 19.2652 0 19 0H1C0.734784 0 0.48043 0.105357 0.292893 0.292893C0.105357 0.48043 0 0.734784 0 1C0 1.26522 0.105357 1.51957 0.292893 1.70711C0.48043 1.89464 0.734784 2 1 2ZM19 10H1C0.734784 10 0.48043 10.1054 0.292893 10.2929C0.105357 10.4804 0 10.7348 0 11C0 11.2652 0.105357 11.5196 0.292893 11.7071C0.48043 11.8946 0.734784 12 1 12H19C19.2652 12 19.5196 11.8946 19.7071 11.7071C19.8946 11.5196 20 11.2652 20 11C20 10.7348 19.8946 10.4804 19.7071 10.2929C19.5196 10.1054 19.2652 10 19 10ZM19 5H1C0.734784 5 0.48043 5.10536 0.292893 5.29289C0.105357 5.48043 0 5.73478 0 6C0 6.26522 0.105357 6.51957 0.292893 6.70711C0.48043 6.89464 0.734784 7 1 7H19C19.2652 7 19.5196 6.89464 19.7071 6.70711C19.8946 6.51957 20 6.26522 20 6C20 5.73478 19.8946 5.48043 19.7071 5.29289C19.5196 5.10536 19.2652 5 19 5Z"
                     fill="#8594A5"></path>
@@ -87,37 +110,61 @@
                     <img class="h-9" src="yofte-assets/logos/yofte-logo.svg" alt="" width="auto">
                 </a>
                 <button class="navbar-close">
-                    <svg class="h-2 w-2 text-gray-500 cursor-pointer" width="10" height="10"
-                        viewbox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <svg class="h-2 w-2 text-gray-500 cursor-pointer" width="10" height="10" viewbox="0 0 10 10"
+                        fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M9.00002 1L1 9.00002M1.00003 1L9.00005 9.00002" stroke="black" stroke-width="1.5"
                             stroke-linecap="round" stroke-linejoin="round"></path>
                     </svg>
                 </button>
             </div>
             <div class="flex mb-8 justify-between">
-                @if(Auth::check())
-                <button>
-                    <div class="flex items-center">
-                        <img class="w-9 h-9 object-cover mr-2" src="yofte-assets/elements/avatar.svg" alt="">
-                        <span class="mr-2 font-medium">
-                            {{ Auth::user()->name }}
-                        </span>
-                        <span>
-                            <svg width="10" height="6" viewbox="0 0 10 6" fill="none"
-                                xmlns="http://www.w3.org/2000/svg">
-                                <path d="M1.66797 1.66699L5.0013 5.00033L8.33464 1.66699" stroke="black"
-                                    stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
-                            </svg>
-                        </span>
-                    </div>
-                </button>
-                @else
-                    <div class="flex items-center">
-                        <img class="w-9 h-9 object-cover mr-2" src="yofte-assets/elements/avatar.svg" alt="">
-                        <span class="mr-2 font-medium">
-                            <a href="{{ route('login') }}">{{__('Login')}}</a>
-                        </span>
-                    </div>
+                @if (Auth::check())
+                    <ul class="flex-col md:flex-row list-none items-center md:flex">
+                        <x-dropdown align="left" width="60">
+                            <x-slot name="trigger">
+                                <div class="py-8 px-6 flex items-center">
+                                    <span class="bg-orange-500 rounded-md text-center text-white">
+                                        {{ Auth::user()->first_name }}
+                                    </span>
+                                </div>
+                            </x-slot>
+                            <x-slot name="content">
+                                {{-- if admin show dashboard and settings else show logout --}}
+                                @if (auth()->user()->is_admin)
+                                    <x-dropdown-link href="{{ route('admin.dashboard') }}">
+                                        {{ __('Dashboard') }}
+                                    </x-dropdown-link>
+
+                                    <x-dropdown-link :href="route('admin.settings')">
+                                        {{ __('Settings') }}
+                                    </x-dropdown-link>
+                                @endif
+
+                                {{-- <x-dropdown-link href="{{ route('profile.show') }}">
+                                {{ __('Profile') }}
+                            </x-dropdown-link> --}}
+
+                                <div class="border-t border-gray-100"></div>
+
+                                <!-- Authentication -->
+                                <form method="POST" action="{{ route('logout') }}">
+                                    @csrf
+                                    <x-dropdown-link :href="route('logout')"
+                                        onclick="event.preventDefault();
+                                                this.closest('form').submit();">
+                                        {{ __('Log Out') }}
+                                    </x-dropdown-link>
+                                </form>
+                            </x-slot>
+                        </x-dropdown>
+                    @else
+                        <div class="flex items-center">
+                            <img class="w-9 h-9 object-cover mr-2" src="yofte-assets/elements/avatar.svg"
+                                alt="">
+                            <span class="mr-2 font-medium">
+                                <a href="{{ route('login') }}">{{ __('Login') }}</a>
+                            </span>
+                        </div>
                 @endif
                 <div class="flex items-center">
                     <a class="mr-10" href="#">
@@ -148,9 +195,9 @@
             </div>
             <livewire:front.search-box />
             <ul class="text-3xl font-bold font-heading">
-                <li class="mb-8"><a href="#">{{__('Categories')}}</a></li>
-                <li class="mb-8"><a href="{{ route('front.catalog')}}">{{__('Collection')}}</a></li>
-                <li><a href="#">{{__('Brands')}}</a></li>
+                <li class="mb-8"><a href="#">{{ __('Categories') }}</a></li>
+                <li class="mb-8"><a href="{{ route('front.catalog') }}">{{ __('Collection') }}</a></li>
+                <li><a href="#">{{ __('Brands') }}</a></li>
             </ul>
         </nav>
     </div>

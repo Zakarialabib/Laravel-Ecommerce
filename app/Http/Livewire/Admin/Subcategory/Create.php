@@ -16,8 +16,6 @@ class Create extends Component
     use LivewireAlert , WithFileUploads;
 
     public $createSubcategory;
-    
-    public $image;
 
     public $listeners = ['createSubcategory'];
     
@@ -34,15 +32,15 @@ class Create extends Component
 
     public array $rules = [
         'subcategory.name' => ['required', 'string', 'max:255'],
-        'subcategory.category_id' => ['required', 'string'],
-        'subcategory.language_id' => ['required', 'string'],
+        'subcategory.category_id' => ['required'],
+        'subcategory.language_id' => ['required'],
     ];
 
     public function render()
     {
         abort_if(Gate::denies('subcategory_create'), 403);
 
-        return view('livewire.subcategorys.create');
+        return view('livewire.admin.subcategory.create');
     }
 
     public function createSubcategory()
@@ -58,21 +56,16 @@ class Create extends Component
     {
         $this->validate();
 
-        $this->product->slug = Str::slug($this->product->name);
-
-        if($this->image){
-            $imageName = Str::slug($this->subcategory->name).'.'.$this->image->extension();
-            $this->image->storeAs('subcategorys',$imageName);
-            $this->subcategory->image = $imageName;
+        $this->subcategory->slug = Str::slug($this->subcategory->name);
+        
+        if($this->subcategory->save()){
+            $this->alert('success', __('Subcategory created successfully.'));
+            $this->createSubcategory = false;
+            $this->emit('refreshIndex');
+        } else {
+            $this->alert('error', __('Subcategory not created'));
         }
 
-        $this->subcategory->save();
-
-        $this->emit('refreshIndex');
-        
-        $this->alert('success', 'Subcategory created successfully.');
-        
-        $this->createSubcategory = false;
     }
 
     protected function initListsForFields(): void

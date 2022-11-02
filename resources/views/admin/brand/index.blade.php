@@ -1,6 +1,5 @@
-@extends('layouts.dashboard')
-
-@section('content')
+@section('title', __('Brands'))
+<x-dashboard-layout>
     <input type="hidden" id="headerdata" value="{{ __('PARTNER') }}">
     <div class="content-area">
         <div class="mr-breadcrumb">
@@ -15,7 +14,7 @@
                             <a href="javascript:;">{{ __('Home Page Settings') }} </a>
                         </li>
                         <li>
-                            <a href="{{ route('admin-brand-index') }}">{{ __('Brands') }}</a>
+                            <a href="{{ route('admin.brands') }}">{{ __('Brands') }}</a>
                         </li>
                     </ul>
                 </div>
@@ -29,4 +28,4 @@
         </div>
         @livewire('admin.brands.index')
     </div>
-@endsection
+</x-dashboard-layout>

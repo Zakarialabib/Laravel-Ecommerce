@@ -32,7 +32,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
 
-Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
+Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 Route::get('/categories', [CategoryController::class, 'index'])->name('categories');
 Route::get('/subcategories', [CategoryController::class, 'subcategories'])->name('subcategories');
 Route::get('/brand', [BrandController::class, 'index'])->name('brands');
@@ -54,8 +54,8 @@ Route::get('/pagebanners', [SliderController::class, 'index'])->name('page.banne
 Route::get('/menulinks', [SettingController::class, 'index'])->name('page.menulinks');
 
 Route::get('/blogs', [BlogController::class, 'index'])->name('blogs');
-Route::get('/blog/settings', [BlogController::class, 'index'])->name('blog.settings');
-Route::get('/blog/category', [BlogController::class, 'index'])->name('blogcategories');
+Route::get('/blog/settings', [BlogController::class, 'settings'])->name('blog.settings');
+Route::get('/blog/category', [BlogController::class, 'blogcategories'])->name('blogcategories');
 
 Route::get('/settings', [SettingController::class, 'index'])->name('settings');
 Route::get('/shipping', [SettingController::class, 'index'])->name('setting.shipping');

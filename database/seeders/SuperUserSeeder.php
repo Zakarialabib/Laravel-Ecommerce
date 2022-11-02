@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\User;
+use App\Models\Role as RoleModel;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
 use Spatie\Permission\Models\Role;
@@ -34,7 +35,8 @@ class SuperUserSeeder extends Seeder
         ]);
 
         $superAdmin = Role::create([
-            'name' => 'Super Admin'
+            'name' => 'Super Admin',
+            'guard_name' => 'web'
         ]);
 
         $user->assignRole($superAdmin);

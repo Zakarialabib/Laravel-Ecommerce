@@ -33,7 +33,7 @@ class Create extends Component
     {
         abort_if(Gate::denies('brand_create'), 403);
 
-        return view('livewire.brands.create');
+        return view('livewire.admin.brands.create');
     }
 
     public function createBrand()
