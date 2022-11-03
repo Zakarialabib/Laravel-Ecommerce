@@ -101,9 +101,10 @@ class Index extends Component
     }
     
     protected $rules = [
+        'product.code' => ['nullable'],
         'product.name' => ['required', 'string', 'max:255'],
         'product.price' => ['required', 'numeric', 'max:2147483647'],
-        'product.old_price' => ['required', 'numeric', 'max:2147483647'],
+        'product.old_price' => ['nullable', 'numeric', 'max:2147483647'],
         'product.description' => ['nullable'],
         'product.meta_title' => ['nullable', 'string', 'max:255'],
         'product.meta_description' => ['nullable', 'string', 'max:255'],
@@ -183,6 +184,17 @@ class Index extends Component
             $imageName = Str::slug($this->product->name).'.'.$this->image->extension();
             $this->image->storeAs('products',$imageName);
             $this->product->image = $imageName;
+        }
+
+        // gallery image
+        if ($this->product->gallery != null) {
+            $gallery = [];
+            foreach ($this->gallery as $key => $value) {
+                $galleryName = Str::slug($this->product->name).'-'.$key.'.'.$value->extension();
+                $value->storeAs('products',$galleryName);
+                $gallery[] = $galleryName;
+            }
+            $this->product->gallery = json_encode($gallery);
         }
 
         $this->product->save();

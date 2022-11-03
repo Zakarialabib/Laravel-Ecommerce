@@ -1,6 +1,6 @@
 <div>
     <section class="py-20">
-        <div class="container mx-auto px-4">
+        <div class="container mx-auto px-10">
             <div class="flex flex-wrap -mx-4 mb-24">
                 <div class="w-full md:w-1/2 px-4 mb-8 md:mb-0">
                     <div class="relative mb-10" style="height: 564px;">

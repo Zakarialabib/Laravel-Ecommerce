@@ -1,11 +1,9 @@
     @section('title', __('Sign up to our services'))
 <x-app-layout>
     <div class="flex flex-wrap">
-        <div class="lg:w-1/2 ">
-            <x-auth-card>
-                <x-slot name="title">
-                    <h3 class="mb-0">{{ __('Sign up now') }}</h3>
-                </x-slot>
+        <div class="lg:w-1/2 py-10 px-5">
+
+            <h3 class="text-xl font-bold text-center mb-4">{{ __('Sign up now') }}</h3>
                 <!-- Validation Errors -->
                 <x-auth-validation-errors class="mb-4" :errors="$errors" />
 

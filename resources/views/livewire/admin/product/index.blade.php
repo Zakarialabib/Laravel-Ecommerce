@@ -137,7 +137,7 @@
                 <div class="px-4 mx-auto mb-4">
                     <div class="row mb-3">
                         <div class="xl:w-1/3 lg:w-1/2 sm:w-full px-3">
-                            <img src="{{ asset('images/products/' . $product->image) }}" alt="{{ $product->name }}"
+                            <img src="{{ asset('uploads/products/' . $product->image) }}" alt="{{ $product->name }}"
                                 class="w-32 h-32 rounded-full">
                         </div>
                     </div>
@@ -159,7 +159,7 @@
                                     </tr>
                                     <tr>
                                         <th>{{ __('Old Price') }}</th>
-                                        <td>{{ format_currency($product->old_price) }}</td>
+                                        <td>{{ $product->old_price }}</td>
                                     </tr>
                                     <tr>
                                         <th>{{ __('Price') }}</th>
@@ -223,7 +223,7 @@
                             <x-label for="subcategory" :value="__('Subcategory')" />
                             <x-select-list
                                 class="block bg-white dark:bg-dark-eval-2 text-gray-700 dark:text-gray-300 rounded border border-gray-300 mb-1 text-sm w-full focus:shadow-outline-blue focus:border-blue-500"
-                                id="subcategory_id" name="subcategory_id" wire:model="subcategory_id"
+                                id="subcategory_id" name="subcategory_id" wire:model="product.subcategory_id"
                                 :options="$this->listsForFields['subcategories']" />
                             <x-input-error :messages="$errors->get('subcategory_id')" for="subcategory_id" class="mt-2" />
                         </div>
@@ -237,18 +237,25 @@
                         </div>
 
                         <div class="w-full lg:w-1/2 px-3 mb-6 lg:mb-0">
-                            <x-label for="old_price" :value="__('Old Price')" required />
+                            <x-label for="old_price" :value="__('Old Price')" />
                             <x-input id="old_price" class="block mt-1 w-full" type="number" name="old_price"
-                                wire:model="product.old_price" required />
+                                wire:model="product.old_price" />
                             <x-input-error :messages="$errors->get('product.old_price')" for="product.old_price" class="mt-2" />
 
                         </div>
 
-                        <div class="lg:w-1/3 sm:w-1/2 px-2">
+                        <div class="w-full lg:w-1/2 px-3 mb-6 lg:mb-0">
                             <x-label for="brand_id" :value="__('Brand')" />
                             <x-select-list
                                 class="block bg-white dark:bg-dark-eval-2 text-gray-700 dark:text-gray-300 rounded border border-gray-300 mb-1 text-sm w-full focus:shadow-outline-blue focus:border-blue-500"
                                 id="brand_id" name="brand_id" wire:model="product.brand_id" :options="$this->listsForFields['brands']" />
+                        </div>
+
+                        <div class="w-full mb-4">
+                            <x-label for="description" :value="__('Description')" />
+                            <textarea rows="4" wire:model="product.description" name="description"
+                                class="block w-full px-4 py-3 mb-2 text-sm placeholder-gray-500 bg-white border rounded">
+                                    </textarea>
                         </div>
 
                     </div>
@@ -256,16 +263,9 @@
                     <x-accordion title="{{ 'More Details' }}">
                         <div class="flex flex-wrap -mx-2 mb-3">
 
-                            <div class="w-full mb-4">
-                                <x-label for="description" :value="__('Description')" />
-                                <textarea rows="4" wire:model="product.description" name="description"
-                                    class="block w-full px-4 py-3 mb-2 text-sm placeholder-gray-500 bg-white border rounded">
-                                        </textarea>
-                            </div>
-
                             <div class="lg:w-1/3 sm:w-1/2 px-2">
                                 <x-label for="meta_title" :value="__('Meta Title')" />
-                                <x-input id="meta_title" class="block mt-1 w-full" type="number" name="meta_title"
+                                <x-input id="meta_title" class="block mt-1 w-full" type="text" name="meta_title"
                                     wire:model="product.meta_title" />
                                 <x-input-error :messages="$errors->get('product.meta_title')" for="product.meta_title" class="mt-2" />
 
@@ -273,7 +273,7 @@
 
                             <div class="lg:w-1/3 sm:w-1/2 px-2">
                                 <x-label for="meta_description" :value="__('Meta Description')" />
-                                <x-input id="meta_description" class="block mt-1 w-full" type="number"
+                                <x-input id="meta_description" class="block mt-1 w-full" type="text"
                                     name="meta_description" wire:model="product.meta_description" />
                                 <x-input-error :messages="$errors->get('product.meta_description')" for="product.meta_description" class="mt-2" />
 
@@ -281,14 +281,13 @@
 
                             <div class="lg:w-1/3 sm:w-1/2 px-2">
                                 <x-label for="meta_keywords" :value="__('Meta Keywords')" />
-                                <x-input id="meta_keywords" class="block mt-1 w-full" type="number"
+                                <x-input id="meta_keywords" class="block mt-1 w-full" type="text"
                                     name="meta_keywords" wire:model="product.meta_keywords" />
                                 <x-input-error :messages="$errors->get('product.meta_keywords')" for="product.meta_keywords" class="mt-2" />
                             </div>
                         </div>
 
                     </x-accordion>
-
 
 
                     <div class="w-full px-4 my-4">
@@ -299,7 +298,7 @@
 
                     <div class="w-full px-4 my-4">
                         <x-label for="gallery" :value="__('Product Gallery')" />
-                        <x-fileupload wire:model="gallery[]" :file="$gallery"
+                        <x-fileupload wire:model="gallery" :file="$gallery"
                             accept="image/jpg,image/jpeg,image/png" multiple />
                         <x-input-error :messages="$errors->get('gallery')" for="gallery" class="mt-2" />
                     </div>

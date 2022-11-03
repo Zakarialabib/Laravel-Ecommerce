@@ -11,7 +11,7 @@ class CartCount extends Component
     public function render()
     {
         $cart = session()->get('cart', []);
-        return view('livewire.cart-count');
+        return view('livewire.front.cart-count');
     }
 
 }

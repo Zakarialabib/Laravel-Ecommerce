@@ -1,12 +1,10 @@
+@section('title', __('Reset your password'))
 <x-app-layout>
-    @section('title', __('Reset your password'))
-    <div class="search-nav">
-        <div class="container">
-            <h3 class="mb-0">{{ __('Reset your password') }}</h3>
-        </div>
-    </div>
-    <x-auth-card>
-        
+    <div class="lg:w-1/2 py-10 px-5">
+
+        <h3 class="text-xl font-bold text-center mb-4">{{ __('Reset your password') }}</h3>
+    
+    
         <!-- Validation Errors -->
         <x-auth-validation-errors class="mb-4" :errors="$errors" />
 
@@ -45,5 +43,5 @@
                 </x-button>
             </div>
         </form>
-    </x-auth-card>
+    </div>
 </x-app-layout>

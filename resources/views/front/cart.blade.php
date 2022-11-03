@@ -13,7 +13,7 @@
               </a>
             </div>
             <div class="flex mb-12 items-center">
-              <h3 class="text-4xl font-bold font-heading">Your cart</h3>
+              <h3 class="text-4xl font-bold font-heading">{{__('Your cart')}}</h3>
               <span class="inline-flex ml-4 items-center justify-center w-8 h-8 rounded-full bg-orange-300 text-base font-bold font-heading text-white">2</span>
             </div>
             <div class="flex flex-wrap -mx-4 mb-10 items-center">

@@ -9,15 +9,14 @@ use App\Models\Category;
 use Livewire\WithPagination;
 use App\Http\Livewire\WithSorting;
 
-class Catalog extends Component
+class Brands extends Component
 {
     use WithPagination, WithSorting;
-    
-    public $view;
+    // newest
+    // price
+    // most-popular
 
     public int $perPage;
-
-    protected $listeners = ['changeView','filterCategories','filterSubCategories','filterBrands'];
 
     public array $orderable;
 
@@ -43,23 +42,6 @@ class Catalog extends Component
             'except' => 'desc',
         ],
     ];
-    // filterProducts $category_id,$brand_id,$subcategory_id
-
-    public function filterCategories($category_id)
-    {
-        $this->category_id = $category_id;
-        $this->resetPage();
-    }
-    public function filterSubCategories($subcategory_id)
-    {
-        $this->subcategory_id = $subcategory_id;
-        $this->resetPage();
-    }
-    public function filterBrands($brand_id)
-    {
-        $this->brand_id = $brand_id;
-        $this->resetPage();
-    }
 
       public function updatingSearch()
     {
@@ -68,6 +50,12 @@ class Catalog extends Component
 
     public function updatingPerPage()
     {
+        $this->resetPage();
+    }
+
+    public function filterProducts($brand_id)
+    {
+        $this->brand_id = $brand_id;
         $this->resetPage();
     }
 
@@ -83,22 +71,7 @@ class Catalog extends Component
         $this->paginationOptions = [25, 50, 100];
         $this->orderable         = (new Product())->orderable;
 
-        $this->view = 'grid';
-
     }
-
-    public function changeView($view)
-    {
-
-        $this->view = $view;
-        
-        $this->emit('changeView', $view);
-
-    }
-    // change view grid or list
-    // $this->sorting
-    
-
     public function render()
     {
 
@@ -116,9 +89,6 @@ class Catalog extends Component
             $products = Product::whereBetween('price',[$this->minPrice,$this->maxPrice])->orderBy('created_at', 'desc')->paginate($this->perPage);
         } elseif ($this->brand_id) {
             $products = Product::whereBetween('price',[$this->minPrice,$this->maxPrice])->where('brand_id', $this->brand_id)->paginate($this->perPage);
-        } elseif ($this->category_id) {
-            $products = Product::whereBetween('price',[$this->minPrice,$this->maxPrice])->where('category_id', $this->category_id)->paginate($this->perPage);
-        
         } else {
             $products = Product::whereBetween('price',[$this->minPrice,$this->maxPrice])->paginate($this->perPage);
 
@@ -129,6 +99,6 @@ class Catalog extends Component
         $categories = Category::with('subcategories')->get();
         $brands = Brand::all();
 
-        return view('livewire.front.catalog', compact('products', 'popular_products', 'categories', 'brands'));
+        return view('livewire.front.brands', compact('products', 'popular_products', 'categories', 'brands'));
     }
 }

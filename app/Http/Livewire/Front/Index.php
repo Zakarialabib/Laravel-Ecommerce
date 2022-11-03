@@ -21,7 +21,7 @@ class Index extends Component
 
     public function mount()
     {
-        $this->products = Product::inRandomOrder()->take(3)->get();
+        $this->products = Product::where('featured', 1)->get();
         $this->sliders = Slider::where('status', 1)->take(1)->get();
         $this->blogs = Blog::where('status', 1)->get();
         $this->brands = Brand::where('status', 1)->get();

@@ -13,7 +13,7 @@ class Product extends Model
 
     public $orderable = [
         'id',
-         'name',
+        'name',
         'description',
         'price',
         'code',
@@ -66,6 +66,14 @@ class Product extends Model
     {
         $this->attributes['name'] = $value;
         $this->attributes['slug'] = Str::slug($value);
+    }
+    
+    public function getDiscountAttribute()
+    {
+        if ($this->old_price) {
+            return round((($this->old_price - $this->price) / $this->old_price) * 100);
+        }
+        return null;
     }
 
     public function category()

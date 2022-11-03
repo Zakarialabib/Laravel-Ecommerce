@@ -2,44 +2,39 @@
     <nav class="flex justify-between bg-gray-100 border-b">
         <div class="px-12 py-8 flex w-full items-center">
             <a class="lg:mr-8 2xl:mr-20 text-3xl font-bold font-heading" href="{{ route('front.index') }}">
-                {{ config('app.name') }}
-                {{-- <img class="h-9" src="yofte-assets/logos/yofte-logo.svg" alt="" width="auto"> --}}
+                {{ App\Helpers::settings('site_title') }}
+                {{-- <img class="h-9" src="{{ App\Helpers::settings('site_logo') }}" alt="" width="auto"> --}}
             </a>
 
             <ul class="hidden xl:flex px-4 mx-auto font-semibold font-heading">
-                <li class="mr-12"><a class="hover:text-gray-600" href="#">{{ __('Categories') }}</a></li>
-                <li class="mr-12"><a class="hover:text-gray-600"
-                        href="{{ route('front.catalog') }}">{{ __('Catalog') }}</a></li>
-                <li><a class="hover:text-gray-600" href="#">{{ __('Brands') }}</a></li>
+                <li class="mr-12"><a class="hover:text-gray-600" href="{{ route('front.categories') }}">
+                        {{ __('Categories') }}
+                    </a>
+                </li>
+                <li class="mr-12"><a class="hover:text-gray-600" href="{{ route('front.catalog') }}">
+                        {{ __('Catalog') }}
+                    </a>
+                </li>
+                <li><a class="hover:text-gray-600" href="{{ route('front.brands') }}">
+                        {{ __('Brands') }}
+                    </a>
+                </li>
             </ul>
             <div class="hidden xl:flex items-center">
 
                 @include('partials.front.search-box')
 
-                <a class="flex items-center hover:text-gray-600" href="#">
-                    <svg class="mr-3" width="23" height="23" viewbox="0 0 23 23" fill="none"
-                        xmlns="http://www.w3.org/2000/svg">
-                        <path
-                            d="M18.1159 8.72461H2.50427C1.99709 8.72461 1.58594 9.12704 1.58594 9.62346V21.3085C1.58594 21.8049 1.99709 22.2074 2.50427 22.2074H18.1159C18.6231 22.2074 19.0342 21.8049 19.0342 21.3085V9.62346C19.0342 9.12704 18.6231 8.72461 18.1159 8.72461Z"
-                            stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                        </path>
-                        <path
-                            d="M6.34473 6.34469V4.95676C6.34473 3.85246 6.76252 2.79338 7.5062 2.01252C8.24988 1.23165 9.25852 0.792969 10.3102 0.792969C11.362 0.792969 12.3706 1.23165 13.1143 2.01252C13.858 2.79338 14.2758 3.85246 14.2758 4.95676V6.34469"
-                            stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                        </path>
-                    </svg>
-                    <span
-                        class="inline-block w-6 h-6 text-center bg-white rounded-full font-semibold font-heading">3</span>
-                </a>
+                <livewire:front.cart-count />
+                
             </div>
         </div>
         @if (Auth::check())
             <x-dropdown align="right" width="60">
                 <x-slot name="trigger">
-                    <div class="py-8 px-6 flex items-center">
-                    <span class="bg-orange-500 rounded-md text-center text-white">
-                        {{ Auth::user()->first_name }}
-                    </span>
+                    <div class="py-8 px-6 flex w-full items-center">
+                        <span class="bg-orange-500 rounded-md text-center text-white">
+                            {{ Auth::user()->first_name }}
+                        </span>
                     </div>
                 </x-slot>
 
@@ -122,7 +117,7 @@
                     <ul class="flex-col md:flex-row list-none items-center md:flex">
                         <x-dropdown align="left" width="60">
                             <x-slot name="trigger">
-                                <div class="py-8 px-6 flex items-center">
+                                <div class="py-8 px-6 flex w-full items-center">
                                     <span class="bg-orange-500 rounded-md text-center text-white">
                                         {{ Auth::user()->first_name }}
                                     </span>

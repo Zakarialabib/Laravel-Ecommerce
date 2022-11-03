@@ -1,7 +1,7 @@
 @section('title', __('Home'))
 <x-app-layout>                
       <section class="py-10 bg-gray-100">
-        <div class="container mx-auto px-4">
+        <div class="container mx-auto px-10">
           <h2 class="mb-14 text-5xl font-bold font-heading">Checkout</h2>
           <div class="flex flex-wrap -mx-4">
             <div class="w-full lg:w-1/2 px-4">

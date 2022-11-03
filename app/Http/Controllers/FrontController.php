@@ -26,6 +26,16 @@ class FrontController extends Controller
         return view('front.product', compact('product'));
     }
 
+    public function categories()
+    {
+        return view('front.categories');
+    }
+
+    public function brands()
+    {
+        return view('front.brands');
+    }
+
     public function cart()
     {
         return view('front.cart');
@@ -48,7 +58,9 @@ class FrontController extends Controller
 
     public function blog()
     {
-        return view('front.blog');
+        $blogs = Blog::with('category')->get();
+
+        return view('front.blog', compact('blogs'));
     }
 
     public function blogPage(Blog $id)

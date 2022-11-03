@@ -14,19 +14,6 @@ class Settings extends Model
         'value',
     ];
 
-    public static function get($key)
-    {
-        $setting = self::where('key', $key)->first();
-        if ($setting) {
-            return $setting->value;
-        }
-        return null;
-    }
-    // exmaple usage:
-    // $settings = Settings::get('key');
-    // $settings = Settings::get('key', 'default value');
-    // $site_name = Settings::get('site_name');
-
 
     public static function set($key, $value)
     {

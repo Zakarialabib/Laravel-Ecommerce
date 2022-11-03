@@ -267,7 +267,7 @@
                                 <x-table.tbody>
                                     @foreach ($poproducts as $data)
                                         <x-table.tr>
-                                            <x-table.td><img src="{{ asset('/upload/products/' . $data->feature_image) }}"
+                                            <x-table.td><img src="{{ asset('/uploads/products/' . $data->feature_image) }}"
                                                     alt="{{ $data->name }}" width="50"></x-table.td>
                                             <x-table.td>{{ $data->name }}</x-table.td>
                                             <x-table.td>
@@ -309,7 +309,7 @@
                                     @foreach ($pproducts as $data)
                                         <x-table.tr>
                                             <x-table.td>
-                                            <img src="{{ asset('/upload/products/' . $data->feature_image) }}"
+                                            <img src="{{ asset('/uploads/products/' . $data->feature_image) }}"
                                                     alt="{{ $data->name }}" width="50">
                                             </x-table.td>
                                             <x-table.td>

@@ -8,11 +8,11 @@
                         {{ $slider->title }}
                     </h2>
                     <p class="mb-20 text-lg text-gray-600">
-                        {{ $slider->description }}
+                        {{ $slider->details }}
                     </p>
                     <a class="inline-block hover:bg-orange-400 text-white font-bold font-heading py-6 px-8 rounded-md uppercase transition duration-200 bg-orange-500"
                         href="{{ $slider->link }}">
-                        {{ $slider->button_text }}
+                        {{('Discover now')}}
                     </a>
                 </div>
             </div>
@@ -30,7 +30,7 @@
                                 {{ $banner->title }}
                             </h3>
                             <p class="mb-4 lg:mb-0 text-lg font-semibold font-heading text-blue-500">
-                                {{ $banner->subtitle }}
+                                {{ $banner->details }}
                             </p>
                             <a class="lg:absolute bottom-0 flex items-center justify-center w-12 h-12 lg:-mb-6 hover:bg-orange-400 text-white rounded-md bg-orange-500"
                                 href="#">
@@ -44,14 +44,14 @@
                         </div>
                         <div class="w-auto">
                             <img class="h-full lg:h-36 rounded-xl object-cover"
-                                src="{{ asset('upload/featuredbanners/'.$banner->image) }}" alt="">
+                                src="{{ asset('uploads/featuredbanners/'.$banner->image) }}" alt="">
                         </div>
                     </div>
                 </div>
                 @endforeach
                 @endif
                 <img class="mx-auto h-96 lg:h-auto"
-                    src="{{ asset('upload/sliders/'.$slider->image) }}" alt="">
+                    src="{{ asset('uploads/sliders/'.$slider->photo) }}" alt="">
             </div>
             @endforeach
         </div>
@@ -59,7 +59,7 @@
             <div class="flex flex-wrap items-center justify-center -mx-2 -mb-12">
                 @foreach ($brands as $brand)    
                 <div class="w-1/2 md:w-1/3 lg:w-1/6 px-2 mb-12">
-                    <img class="mx-auto h-6" src="{{ asset('upload/brands'.$brand->image) }}" alt="">
+                    <img class="mx-auto h-6" src="{{ asset('uploads/brands'.$brand->image) }}" alt="">
                 </div>
                 @endforeach
             </div>
@@ -134,7 +134,7 @@
     </section>
     
     <section class="py-10 bg-gray-100 overflow-x-hidden">
-        <div class="container mx-auto px-4">
+        <div class="container mx-auto px-10">
             <h2 class="mb-16 md:mb-24 text-4xl md:text-5xl font-bold font-heading">The Latest And The Greatest</h2>
             <div class="flex mb-16">
                 <div class="flex flex-wrap -mx-3">
@@ -145,7 +145,7 @@
                                 <span
                                     class="absolute bottom-0 left-0 ml-6 mb-6 px-2 py-1 text-xs font-bold font-heading bg-white border-2 border-red-500 rounded-full text-red-500">-15%</span>
                                 <img class="w-full h-96 object-cover"
-                                    src="{{ asset($product->image) }}" alt="">
+                                src="{{ asset('uploads/products/'.$product->image) }}" alt="">
                             </div>
                             <div class="mt-12">
                                 <div class="mb-2">
@@ -169,7 +169,7 @@
     </section>
     
     <section class="py-10 bg-gray-100">
-        <div class="container mx-auto px-4">
+        <div class="container mx-auto px-10">
             <div class="flex flex-wrap -mx-3">
                 <div class="w-full md:w-1/2 lg:w-1/4 px-3 mb-6 lg:mb-0">
                     <div class="relative h-full text-center pt-16 bg-white">
@@ -284,7 +284,7 @@
         <div class="container px-4 mx-auto">
             <div class="relative py-20 md:py-40 bg-orange-300">
                 <img class="hidden md:block absolute inset-0 w-full h-full"
-                    src="yofte-assets/elements/cta-lines-white.svg" alt="">
+                src="{{ asset('uploads/sections'.$section->image) }}" alt="">
                 <div class="relative text-center">
                     <div class="inline-block px-4 relative mb-6">
                         <div class="absolute top-0 left-0 h-1 bg-gray-900 w-full"></div>
