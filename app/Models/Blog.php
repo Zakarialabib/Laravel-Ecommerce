@@ -10,15 +10,41 @@ class Blog extends Model
     use HasAdvancedFilter;
 
     protected $filterable = [
-        'id','title','slug','category_id', 'details', 'photo', 'source', 'views','updated_at', 'status','meta_tag','meta_description','tags','language_id' 
+        'id',
+        'title',
+        'details',
+        'image',
+        'slug',
+        'status',
+        'featured',
+        'meta_title',
+        'meta_desc',
+        'language_id',
     ];
     
     public $orderable = [
-        'id','title','slug','category_id', 'details', 'photo', 'source', 'views','updated_at', 'status','meta_tag','meta_description','tags','language_id' 
+        'id',
+        'title',
+        'details',
+        'image',
+        'slug',
+        'status',
+        'featured',
+        'meta_title',
+        'meta_desc',
+        'language_id',
     ];
 
     protected $fillable = [
-        'title','slug','category_id', 'details', 'photo', 'source', 'views','updated_at', 'status','meta_tag','meta_description','tags','language_id'
+        'title',
+        'details',
+        'image',
+        'slug',
+        'status',
+        'featured',
+        'meta_title',
+        'meta_desc',
+        'language_id',
     ];
 
     protected $dates = ['created_at'];

@@ -42,8 +42,10 @@ class AppServiceProvider extends ServiceProvider
         // }
 
         //  Todo : Share Settings and languages with all views
-        Cache::forever('settings', Settings::all());
-        
+        if (Session::has('settings')) {
+            Cache::forever('settings', Settings::all());
+        } 
+
         if (Session::has('language')) {
         $languages = cache()->rememberForever('languages', function () {
             return Language::pluck('name', 'code')->toArray();
@@ -57,7 +59,7 @@ class AppServiceProvider extends ServiceProvider
         View::share('languages', $languages);
         }
         
-        // Model::shouldBeStrict(! $this->app->isProduction());
+        //  Model::shouldBeStrict(! $this->app->isProduction());
         
     }
 }

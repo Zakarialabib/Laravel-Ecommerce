@@ -44,5 +44,3 @@
         </div>
     </x-modal.card>
 </div>
-
-{{-- Example implementation --}}

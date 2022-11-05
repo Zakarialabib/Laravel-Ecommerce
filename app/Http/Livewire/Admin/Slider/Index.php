@@ -4,18 +4,22 @@ namespace App\Http\Livewire\Admin\Slider;
 
 use Livewire\Component;
 use App\Models\Slider;
+use App\Models\Language;
 use Livewire\WithPagination;
 use App\Http\Livewire\WithSorting;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Livewire\WithFileUploads;
-use Str;
 use Illuminate\Support\Facades\Gate;
+use Str;
 
 class Index extends Component
 {
     use WithPagination, WithSorting,
         LivewireAlert, WithFileUploads;
-
+    
+    public $slider;
+    public $photo;
+    
     public $listeners = [
         'confirmDelete', 'delete','refreshIndex',
         'showModal','editModal'
@@ -76,13 +80,13 @@ class Index extends Component
         $this->resetPage();
     }
 
-    public array $rules = [
+    protected $rules = [
         'slider.title' => ['required', 'string', 'max:255'],
         'slider.subtitle' => ['nullable', 'string'],
         'slider.details' => ['nullable', 'string'],
         'slider.position' => ['nullable', 'string'],
         'slider.link' => ['nullable', 'string'],
-        'slider.language_id' => ['nullable', 'string'],
+        'slider.language_id' => ['required', 'integer'],
         'slider.bg_color' => ['nullable', 'string'],
     ];
 
@@ -93,10 +97,13 @@ class Index extends Component
         $this->perPage           = 25;
         $this->paginationOptions = [25, 50, 100];
         $this->orderable         = (new Slider())->orderable;
+        $this->initListsForFields();
     }
 
     public function render()
     {
+        abort_if(Gate::denies('slider_access'), 403);
+        
         $query = Slider::advancedFilter([
             's'               => $this->search ?: null,
             'order_column'    => $this->sortBy,
@@ -128,17 +135,19 @@ class Index extends Component
         $this->validate();
         // upload image if it does or doesn't exist
 
-        if($this->image){
-            $imageName = Str::slug($this->slider->name).'.'.$this->image->extension();
-            $this->image->storeAs('sliders',$imageName);
-            $this->slider->image = $imageName;
+        if($this->photo){
+            $imageName = Str::slug($this->slider->title).'.'.$this->photo->extension();
+            $this->photo->storeAs('sliders',$imageName);
+            $this->slider->photo = $imageName;
         }
 
         $this->slider->save();
 
-        $this->editModal = false;
+        $this->refreshIndex();
 
         $this->alert('success', __('Slider updated successfully.'));
+        
+        $this->editModal = false;
     }
 
     public function showModal(Slider $slider)
@@ -163,5 +172,10 @@ class Index extends Component
         $this->alert('success', __('Slider deleted successfully.'));
 
     }
+
+    protected function initListsForFields(): void
+    {
+        $this->listsForFields['languages'] = Language::pluck('name', 'id')->toArray();
+    }    
 
 }

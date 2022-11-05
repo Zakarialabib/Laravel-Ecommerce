@@ -35,11 +35,11 @@ class DashboardController extends Controller
             $data['sales'] .=  "'".Order::where('status','=','completed')->whereDate('created_at', '=', date("Y-m-d", strtotime('-'. $i .' days')))->count()."',";
         }
         $data['users'] = User::all();
-        $data['products'] = Product::all();
+        $data['products'] = Product::with('category','brand')->get();
         $data['blogs'] = Blog::all();
-        $data['pproducts'] = Product::latest('id')->take(5)->get();
+        $data['pproducts'] = Product::with('category')->latest('id')->take(5)->get();
         $data['rorders'] = Order::latest('id')->take(5)->get();
-        $data['poproducts'] = Product::latest('id')->take(5)->get();
+        $data['poproducts'] = Product::with('category')->latest('id')->take(5)->get();
         $data['rusers'] = User::latest('id')->take(5)->get();
 
         return view('admin.dashboard',$data);

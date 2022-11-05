@@ -2,7 +2,7 @@
 
 namespace App\Http\Livewire\Admin\Page;
 
-use App\Models\Brand;
+use App\Models\Page;
 use Illuminate\Support\Facades\Gate;
 use Livewire\Component;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
@@ -13,36 +13,36 @@ class Create extends Component
 {
     use LivewireAlert , WithFileUploads;
 
-    public $createBrand;
+    public $createPage;
     
     public $image;
 
-    public $listeners = ['createBrand'];
+    public $listeners = ['createPage'];
 
-    public function mount(Brand $brand)
+    public function mount(Page $page)
     {
-        $this->brand = $brand;
+        $this->page = $page;
     }
 
     public array $rules = [
-        'brand.name' => ['required', 'string', 'max:255'],
-        'brand.link' => ['nullable', 'string'],
+        'page.name' => ['required', 'string', 'max:255'],
+        'page.link' => ['nullable', 'string'],
     ];
 
     public function render()
     {
-        abort_if(Gate::denies('brand_create'), 403);
+        abort_if(Gate::denies('page_create'), 403);
 
-        return view('livewire.admin.brands.create');
+        return view('livewire.admin.pages.create');
     }
 
-    public function createBrand()
+    public function createPage()
     {
         $this->resetErrorBag();
 
         $this->resetValidation();
 
-        $this->createBrand = true;
+        $this->createPage = true;
     }
 
     public function create()
@@ -50,17 +50,17 @@ class Create extends Component
         $this->validate();
 
         if($this->image){
-            $imageName = Str::slug($this->brand->name).'.'.$this->image->extension();
-            $this->image->storeAs('brands',$imageName);
-            $this->brand->image = $imageName;
+            $imageName = Str::slug($this->page->name).'.'.$this->image->extension();
+            $this->image->storeAs('pages',$imageName);
+            $this->page->image = $imageName;
         }
 
-        $this->brand->save();
+        $this->page->save();
 
         $this->emit('refreshIndex');
         
-        $this->alert('success', 'Brand created successfully.');
+        $this->alert('success', 'Page created successfully.');
         
-        $this->createBrand = false;
+        $this->createPage = false;
     }
 }

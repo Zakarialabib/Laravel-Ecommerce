@@ -327,10 +327,10 @@
             <form wire:submit.prevent="import">
                 <div class="space-y-4">
                     <div class="mt-4">
-                        <x-label for="import" :value="__('Import')" />
-                        <x-input id="import" class="block mt-1 w-full" type="file" name="import"
-                            wire:model.defer="import" />
-                        <x-input-error :messages="$errors->get('import')" for="import" class="mt-2" />
+                        <x-label for="import_file" :value="__('Import')" />
+                        <x-input id="import_file" class="block mt-1 w-full" type="file" name="import_file"
+                            wire:model="import_file" />
+                        <x-input-error :messages="$errors->get('import_file')" for="import_file" class="mt-2" />
                     </div>
 
                     <div class="w-full flex justify-start px-3">

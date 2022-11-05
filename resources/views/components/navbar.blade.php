@@ -39,7 +39,7 @@
         {{-- @livewire('admin.cache') --}}
 
         <ul class="flex-col md:flex-row list-none items-center md:flex">
-            <x-dropdown align="right" width="60">
+            <x-dropdown align="right" width="56">
                 <x-slot name="trigger">
                     {{-- {{ Auth::user()->first_name }} --}}
 

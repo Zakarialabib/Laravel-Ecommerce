@@ -9,11 +9,11 @@ class FeaturedBanner extends Model
 {
     use HasAdvancedFilter;
     
-    protected $orderable = [
+    public $orderable = [
        'title','details','image','status','featured','meta_title','meta_desc','language_id'
     ];
 
-    protected $filtrable = [
+    public $filtrable = [
        'title','details','image','status','featured','meta_title','meta_desc','language_id'
     ];
 

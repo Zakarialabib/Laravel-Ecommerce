@@ -14,23 +14,21 @@ use App\Imports\CategoriesImport;
 
 class Index extends Component
 {
-    use WithPagination, WithSorting, LivewireAlert, WithFileUploads;
+    use WithPagination, WithSorting, 
+        LivewireAlert, WithFileUploads;
 
     public $category;
     public $code;
     public $name;
+    public $image;
 
     public $listeners = [
-        'show', 'confirmDelete', 'delete',
-        'refreshIndex','showModal','editModal',
+         'confirmDelete', 'delete',
+        'refreshIndex','editModal',
         'importModal'
     ];
 
     public int $perPage;
-
-    public $show;
-    
-    public $showModal;
     
     public $refreshIndex;
 
@@ -99,8 +97,6 @@ class Index extends Component
 
     public function render()
     {
-        abort_if(Gate::denies('access_product_categories'), 403);
-
         $query = Category::advancedFilter([
                             's'               => $this->search ?: null,
                             'order_column'    => $this->sortBy,
@@ -114,7 +110,7 @@ class Index extends Component
 
     public function editModal(Category $category)
     {
-        abort_if(Gate::denies('access_product_categories'), 403);
+        abort_if(Gate::denies('category_edit'), 403);
 
         $this->resetErrorBag();
 
@@ -127,33 +123,26 @@ class Index extends Component
 
     public function update()
     {
-        abort_if(Gate::denies('access_product_categories'), 403);
+        abort_if(Gate::denies('category_edit'), 403);
 
         $this->validate();
+
+        if($this->image){
+            $imageName = Str::slug($this->category->name).'.'.$this->image->extension();
+            $this->image->storeAs('categories',$imageName);
+            $this->category->image = $imageName;
+        }
 
         $this->category->save();
 
         $this->editModal = false;
 
-        $this->alert('success', 'Category updated successfully.');
-    }
-    
-    public function showModal(Category $category)
-    {
-        abort_if(Gate::denies('access_product_categories'), 403);
-
-        $this->resetErrorBag();
-
-        $this->resetValidation();
-
-        $this->category = $category;
-
-        $this->showModal = true;
+        $this->alert('success', __('Category updated successfully.'));
     }
 
     public function deleteSelected()
     {
-        abort_if(Gate::denies('access_product_categories'), 403);
+        abort_if(Gate::denies('category_delete'), 403);
 
         Category::whereIn('id', $this->selected)->delete();
 
@@ -162,27 +151,27 @@ class Index extends Component
     
     public function delete(Category $category)
     {
-        abort_if(Gate::denies('access_product_categories'), 403);
+        abort_if(Gate::denies('category_delete'), 403);
 
         if ($category->products()->isNotEmpty()) {
             return back()->withErrors('Can\'t delete beacuse there are products associated with this category.');
         } else {
             $category->delete();
 
-            $this->alert('success', 'Category deleted successfully.');
+            $this->alert('success', __('Category deleted successfully.'));
         }
     }
 
     public function importExcel ()
     {
-        abort_if(Gate::denies('access_product_categories'), 403);
+        abort_if(Gate::denies('category_access'), 403);
 
         $this->importModal = true;
     }
 
     public function import()
     {
-        abort_if(Gate::denies('access_product_categories'), 403);
+        abort_if(Gate::denies('category_access'), 403);
 
         $this->validate([
             'file' => 'required|mimes:xlsx,xls,csv,txt'
@@ -192,11 +181,9 @@ class Index extends Component
 
         Excel::import(new CategoriesImport, $file);
 
-        $this->alert('success', 'Categories imported successfully.');
+        $this->alert('success', __('Categories imported successfully.'));
 
         $this->importModal = false;
     }
 
-
 }
-

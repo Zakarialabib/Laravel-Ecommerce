@@ -11,16 +11,16 @@ class Category extends Model
     use HasAdvancedFilter;
 
     public $orderable = [
-        'id' , 'name','description','status','image',
+        'id' , 'name','code','status','image',
     ];
 
     public $filterable = [
-        'id' , 'name','description','status','image'
+        'id' , 'name','code','status','image'
     ];
 
     protected $fillable = [
         'name',
-        'description',
+        'code',
         'status',
         'image'
     ];

@@ -13,8 +13,7 @@ class SettingController extends Controller
 
     public function index(Settings $setting)
     {
-        // abort_if(Gate::denies('admin_settings_management'), Response::HTTP_FORBIDDEN, '403 Forbidden');
-
+    
         return view('admin.settings.index',compact('setting'));
     }
   

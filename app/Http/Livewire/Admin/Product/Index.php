@@ -9,14 +9,16 @@ use App\{
     Models\Category,
     Models\Subcategory,
 };
+use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Http\Response;
 use Livewire\WithPagination;
 use App\Http\Livewire\WithSorting;
-use Str;
+use App\Imports\ProductImport;
 use Illuminate\Support\Facades\Gate;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Livewire\WithFileUploads;
 use App\Trait\WithMediaManager;
+use Str;
 
 class Index extends Component
 {
@@ -49,6 +51,9 @@ class Index extends Component
     public array $orderable;
     
     public $file ;
+    
+    public $import_file ;
+
     public $metadata ;
 
     public $image;
@@ -128,14 +133,13 @@ class Index extends Component
 
     public function delete(Product $product)
     {
-        // abort_if(Gate::denies('delete_products'), 403);
+        abort_if(Gate::denies('product_delete'), 403);
 
         $product->delete();
     }
 
     public function render()
     {
-        // abort_if(Gate::denies('access_products'), 403);
 
         $query = Product::with(['category'=>function($query){
             $query->select('id','name');
@@ -154,7 +158,7 @@ class Index extends Component
 
     public function showModal(Product $product)
     {
-        // abort_if(Gate::denies('show_products'), 403);
+        abort_if(Gate::denies('product_show'), 403);
 
         $this->product = $product;
 
@@ -163,7 +167,7 @@ class Index extends Component
 
     public function editModal(Product $product)
     {
-        // abort_if(Gate::denies('edit_products'), 403);
+        abort_if(Gate::denies('product_edit'), 403);
 
         $this->resetErrorBag();
 
@@ -176,7 +180,7 @@ class Index extends Component
 
     public function update()
     {
-        // abort_if(Gate::denies('edit_products'), 403);
+        abort_if(Gate::denies('product_edit'), 403);
 
         $this->validate();
 
@@ -207,7 +211,7 @@ class Index extends Component
     
     public function importModal()
     {
-        // abort_if(Gate::denies('import_products'), 403);
+        abort_if(Gate::denies('product_access'), 403);
 
         $this->resetErrorBag();
 
@@ -218,39 +222,38 @@ class Index extends Component
 
     public function import()
     {
-        // abort_if(Gate::denies('import_products'), 403);
+        abort_if(Gate::denies('product_access'), 403);
+        // import data
+        
+        // $this->validate([
+        //     'import_file' => 'required|mimes:xlsx,xls,csv|max:2048',
+        // ]);
+        
+        Excel::import(new ProductImport, $this->import_file);
 
-        $this->validate([
-            'import_file' => [
-                'required',
-                'file',
-            ],
-        ]);
 
-        Product::import(new ProductImport, $this->file('import_file'));
-
-        $this->alert('success', 'Products imported successfully');
+        $this->alert('success', __('Products imported successfully'));
 
         $this->importModal = false;
     }
 
     public function exportExcel()
     {
-        abort_if(Gate::denies('export_products'), 403);
+        abort_if(Gate::denies('product_access'), 403);
 
         return (new ProductExport)->download('products.xlsx');
     }
 
     public function exportPdf()
     {
-        abort_if(Gate::denies('export_products'), 403);
+        abort_if(Gate::denies('product_access'), 403);
 
         return (new ProductExport)->download('products.pdf', \Maatwebsite\Excel\Excel::DOMPDF);
     }
 
     public function highlightModal(Product $product)
     {
-        // abort_if(Gate::denies('highlight_products'), 403);
+        abort_if(Gate::denies('product_access'), 403);
 
         $this->product = $product;
 
@@ -259,7 +262,7 @@ class Index extends Component
 
     public function saveHighlight()
     {
-        // abort_if(Gate::denies('highlight_products'), 403);
+        abort_if(Gate::denies('product_access'), 403);
 
         if($this->featured == "")
             {
@@ -312,8 +315,7 @@ class Index extends Component
     public function showUploader() 
     {
         $this->file = null;
-        $this->metadata = null; 
-        $this->showFileManager('gallery', $file, $metadata);
+        $this->showFileManager('gallery', $file);
     }
 
     protected function initListsForFields(): void

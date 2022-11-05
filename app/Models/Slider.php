@@ -9,16 +9,18 @@ class Slider extends Model
 {
     use HasAdvancedFilter;
 
-    protected $orderable = [
-        'id','title','subtitle','details','photo','position','link','language_id','bg_color'
+    public $table = 'sliders';
+
+    public $orderable = [
+        'id','title','subtitle','position','link','language_id'
     ];
 
-    public $filtrable = [
-         'id','title','subtitle','details','photo','position','link','language_id','bg_color'
+    public $filterable = [
+         'id','title','subtitle','position','link','language_id'
     ];
 
     protected $fillable = [
-       'title','subtitle','details','photo','position','link','language_id','bg_color'
+       'title','subtitle','details','photo','position','link','language_id','bg_color','status'
     ];
     
     public $timestamps = false;

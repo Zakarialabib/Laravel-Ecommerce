@@ -1,6 +1,6 @@
 <div>
     <!-- Create Modal -->
-    <x-modal wire:model="createBrand">
+    <x-modal wire:model="createSlider">
         <x-slot name="title">
             {{ __('Create Slider') }}
         </x-slot>
@@ -19,9 +19,10 @@
                         <x-input-error :messages="$errors->get('slider.title')" for="slider.title" class="mt-2" />
                     </div>
                     <div class="xl:w-1/2 md:w-1/2 px-3">
-                        <x-label for="language_id" :value="__('Language')" />
-                        <x-input id="language_id" class="block mt-1 w-full" type="text" name="language_id"
-                            wire:model.defer="slider.language_id" />
+                        <x-label for="language_id" :value="__('Language')" required />
+                        <x-select-list
+                            class="block bg-white dark:bg-dark-eval-2 text-gray-700 dark:text-gray-300 rounded border border-gray-300 mb-1 text-sm w-full focus:shadow-outline-blue focus:border-blue-500"
+                            id="language_id" name="language_id" wire:model="slider.language_id" :options="$this->listsForFields['languages']" />
                         <x-input-error :messages="$errors->get('slider.language_id')" for="slider.language_id" class="mt-2" />
                     </div>
                     <div class="xl:w-1/2 md:w-1/2 px-3">
@@ -56,16 +57,13 @@
                         <x-input-error :messages="$errors->get('slider.link')" for="slider.link" class="mt-2" />
                     </div>
                     <div class="w-full py-2 px-3">
-                        <x-label for="image" :value="__('Image')" />
-                        <x-fileupload wire:model="image" :file="$image" accept="image/jpg,image/jpeg,image/png" />
-                        <x-input-error :messages="$errors->get('image')" for="image" class="mt-2" />
+                        <x-label for="photo" :value="__('Image')" />
+                        <x-fileupload wire:model="photo" :file="$photo" accept="image/jpg,image/jpeg,image/png" />
+                        <x-input-error :messages="$errors->get('photo')" for="photo" class="mt-2" />
                     </div>
                     <div class="w-full flex justify-start space-x-2">
                         <x-button primary wire:click="create" wire:loading.attr="disabled">
                             {{ __('Create') }}
-                        </x-button>
-                        <x-button primary type="button" wire:click="$set('createBrand', false)">
-                            {{ __('Cancel') }}
                         </x-button>
                     </div>
                 </div>

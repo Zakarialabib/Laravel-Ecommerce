@@ -60,8 +60,6 @@ class Create extends Component
     
     public function render()
     {
-        // abort_if(Gate::denies('create_products'), 403);
-
         return view('livewire.admin.product.create');
     }
 

@@ -29,18 +29,20 @@
             </div>
         </div>
         @if (Auth::check())
-            <x-dropdown align="right" width="60">
+            <x-dropdown align="right" width="56">
                 <x-slot name="trigger">
                     <div class="py-8 px-6 flex w-full items-center">
-                        <span class="bg-orange-500 rounded-md text-center text-white">
-                            {{ Auth::user()->first_name }}
-                        </span>
+                        <div class="flex items-center">
+                            <span class="bg-orange-500 rounded-md text-center text-white px-6 py-2 cursor-pointer text-sm font-semibold font-heading">
+                                {{ Auth::user()->first_name }}
+                            </span>
+                        </div>
                     </div>
                 </x-slot>
 
                 <x-slot name="content">
                     {{-- if admin show dashboard and settings else show logout --}}
-                    @if (auth()->user()->is_admin)
+                    @if (Auth::user()->isAdmin())
                         <x-dropdown-link href="{{ route('admin.dashboard') }}">
                             {{ __('Dashboard') }}
                         </x-dropdown-link>
@@ -115,17 +117,19 @@
             <div class="flex mb-8 justify-between">
                 @if (Auth::check())
                     <ul class="flex-col md:flex-row list-none items-center md:flex">
-                        <x-dropdown align="left" width="60">
+                        <x-dropdown align="right" width="56">
                             <x-slot name="trigger">
-                                <div class="py-8 px-6 flex w-full items-center">
-                                    <span class="bg-orange-500 rounded-md text-center text-white">
+                            <div class="py-8 px-6 flex w-full items-center">
+                                <div class="flex items-center">
+                                    <span class="bg-orange-500 rounded-md text-center text-white px-6 py-2">
                                         {{ Auth::user()->first_name }}
                                     </span>
                                 </div>
+                            </div>
                             </x-slot>
                             <x-slot name="content">
                                 {{-- if admin show dashboard and settings else show logout --}}
-                                @if (auth()->user()->is_admin)
+                                @if (Auth::user()->isAdmin())
                                     <x-dropdown-link href="{{ route('admin.dashboard') }}">
                                         {{ __('Dashboard') }}
                                     </x-dropdown-link>

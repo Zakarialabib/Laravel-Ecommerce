@@ -49,8 +49,8 @@ Route::get('/users', [UserController::class, 'index'])->name('users');
 Route::get('/sections', [SectionController::class, 'index'])->name('sections');
 Route::get('/featuredBanners', [FeaturedBannerController::class, 'index'])->name('featuredBanners');
 Route::get('/pages', [PageController::class, 'index'])->name('pages');
+Route::get('sliders', [SliderController::class, 'index'])->name('sliders');
 Route::get('/contact', [PageController::class, 'index'])->name('page.contact');
-Route::get('/pagebanners', [SliderController::class, 'index'])->name('page.banners');
 Route::get('/menulinks', [SettingController::class, 'index'])->name('page.menulinks');
 
 Route::get('/blogs', [BlogController::class, 'index'])->name('blogs');
@@ -61,7 +61,7 @@ Route::get('/settings', [SettingController::class, 'index'])->name('settings');
 Route::get('/shipping', [SettingController::class, 'index'])->name('setting.shipping');
 Route::get('/home-customization', [SettingController::class, 'index'])->name('setting.customize');
 Route::get('/content', [SettingController::class, 'index'])->name('setting.content');
-Route::get('sliders', [SliderController::class, 'index'])->name('setting.sliders');
+
 Route::get('/report', [ReportController::class, 'index'])->name('report');
 
 Route::get('/notification', [NotificationController::class, 'index'])->name('notification');

@@ -18,17 +18,18 @@ class Role extends Model
 
     public $orderable = [
         'id',
-        'title',
+        'name',
     ];
 
     public $filterable = [
         'id',
-        'title',
+        'name',
         'permissions.title',
     ];
 
     protected $fillable = [
-        'title',
+        'name',
+        'guard_name',
     ];
 
     protected $dates = [
@@ -44,5 +45,11 @@ class Role extends Model
     public function users()
     {
         return $this->belongsToMany(User::class, 'role_user', 'role_id', 'user_id');
+    }
+
+    // syncPermissions
+    public function syncPermissions($permissions)
+    {
+        $this->permissions()->sync($permissions);
     }
 }

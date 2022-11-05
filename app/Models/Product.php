@@ -75,6 +75,24 @@ class Product extends Model
         }
         return null;
     }
+    // get image from url and save to uploads/products
+    public function getImageFromUrl($url)
+    {
+        $image = file_get_contents($url);
+        $name = Str::random(10) . '.jpg';
+        $path = local_files('products/' . $name);
+        file_put_contents($path, $image);
+        return $name;
+    }
+    // get gallery from url and save to uploads/products
+    public function getGalleryFromUrl($url)
+    {
+        $gallery = explode(',', $url);
+        $gallery = array_map(function ($item) {
+            return $this->getImageFromUrl($item);
+        }, $gallery);
+        return implode(',', $gallery);
+    }
 
     public function category()
     {

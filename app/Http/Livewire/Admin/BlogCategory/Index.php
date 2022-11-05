@@ -114,7 +114,7 @@ class Index extends Component
 
     public function editModal(BlogCategory $blogcategory)
     {
-        abort_if(Gate::denies('edit_subcategories'), 403);
+        abort_if(Gate::denies('blogcategory_edit'), 403);
 
         $this->resetErrorBag();
 
@@ -127,7 +127,7 @@ class Index extends Component
 
     public function update()
     {
-        abort_if(Gate::denies('edit_subcategories'), 403);
+        abort_if(Gate::denies('blogcategory_edit'), 403);
 
         $this->validate();
         // condition if save close modal if not stay
@@ -143,7 +143,7 @@ class Index extends Component
 
     public function delete(BlogCategory $blogcategory)
     {
-        abort_if(Gate::denies('delete_subcategories'), 403);
+        abort_if(Gate::denies('blogcategory_delete'), 403);
 
         $blogcategory->delete();
 

@@ -11,14 +11,20 @@
 
             <form wire:submit.prevent="create">
                 <div>
-                    <x-input id="code" type="text" name="code"
-                        wire:model.defer="category.code" hidden />
+                    <input id="code" type="text" name="code" class="block mt-1 w-full"
+                        wire:model.defer="category.code" />
 
                     <div class="my-4">
                         <x-label for="name" :value="__('Name')" />
                         <x-input id="name" class="block mt-1 w-full" type="text" name="name"
                             wire:model.defer="category.name" />
                         <x-input-error :messages="$errors->get('category.name')" for="category.name" class="mt-2" />
+                    </div>
+
+                    <div class="w-full py-2 px-3">
+                        <x-label for="image" :value="__('Image')" />
+                        <x-fileupload wire:model="image" :file="$image" accept="image/jpg,image/jpeg,image/png" />
+                        <x-input-error :messages="$errors->get('image')" for="image" class="mt-2" />
                     </div>
 
                     <div class="w-full flex justify-start space-x-2">

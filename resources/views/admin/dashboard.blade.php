@@ -10,8 +10,8 @@
             </div>
         @endif
 
-        <div class="flex flex-wrap -m-4 py-4">
-            <div class="w-full md:w-1/2 lg:w-1/4">
+        <div class="flex flex-wrap -m-4 py-4 justify-center">
+            <div class="w-full md:w-1/2 lg:w-1/4 px-2">
                 <div class="p-6 rounded bg-white shadow-md">
                     <div class="flex mb-2">
                         <span class="inline-block mr-2">
@@ -26,7 +26,7 @@
                     <h2 class="mb-2 text-3xl font-bold">{{ count($pending) }}</h2>
                 </div>
             </div>
-            <div class="w-full md:w-1/2 lg:w-1/4">
+            <div class="w-full md:w-1/2 lg:w-1/4 px-2">
                 <div class="p-6 rounded bg-white shadow-md">
                     <div class="flex mb-2">
                         <span class="inline-block mr-2">
@@ -41,7 +41,7 @@
                     <h2 class="mb-2 text-3xl font-bold">{{ count($processing) }}</h2>
                 </div>
             </div>
-            <div class="w-full md:w-1/2 lg:w-1/4">
+            <div class="w-full md:w-1/2 lg:w-1/4 px-2">
                 <div class="p-6 rounded bg-white shadow-md">
                     <div class="flex mb-2">
                         <span class="inline-block mr-2">
@@ -57,8 +57,8 @@
                 </div>
             </div>
         </div>
-        <div class="flex flex-wrap -m-4 py-4">
-            <div class="w-full md:w-1/2 lg:w-1/4">
+        <div class="flex flex-wrap -m-4 py-4 justify-center">
+            <div class="w-full md:w-1/2 lg:w-1/4 px-2">
                 <div class="p-6 rounded bg-white shadow-md">
                     <div class="flex mb-2">
                         <span class="inline-block mr-2">
@@ -73,7 +73,7 @@
                     <h2 class="mb-2 text-3xl font-bold">{{ count($users) }}</h2>
                 </div>
             </div>
-            <div class="w-full md:w-1/2 lg:w-1/4">
+            <div class="w-full md:w-1/2 lg:w-1/4 px-2">
                 <div class="p-6 rounded bg-white shadow-md">
                     <div class="flex mb-2">
                         <span class="inline-block mr-2">
@@ -89,7 +89,7 @@
                 </div>
             </div>
 
-            <div class="w-full md:w-1/2 lg:w-1/4">
+            <div class="w-full md:w-1/2 lg:w-1/4 px-2">
                 <div class="p-6 rounded bg-white shadow-md">
                     <div class="flex mb-2">
                         <span class="inline-block mr-2">
@@ -105,8 +105,8 @@
                 </div>
             </div>
             </div>
-            <div class="flex flex-wrap -m-4 py-4">
-            <div class="w-full md:w-1/2 lg:w-1/4">
+            <div class="flex flex-wrap -m-4 py-4 justify-center">
+            <div class="w-full md:w-1/2 lg:w-1/4 px-2">
                 <div class="p-6 rounded bg-white shadow-md">
                     <div class="flex mb-2">
                         <span class="inline-block mr-2">
@@ -128,7 +128,7 @@
                 </div>
             </div>
 
-            <div class="w-full md:w-1/2 lg:w-1/4">
+            <div class="w-full md:w-1/2 lg:w-1/4 px-2">
                 <div class="p-6 rounded bg-white shadow-md">
                     <div class="flex mb-2">
                         <span class="inline-block mr-2">
@@ -149,7 +149,7 @@
                     </h2>
                 </div>
             </div>
-            <div class="w-full md:w-1/2 lg:w-1/4">
+            <div class="w-full md:w-1/2 lg:w-1/4 px-2">
                 <div class="p-6 rounded bg-white shadow-md">
                     <div class="flex mb-2">
                         <span class="inline-block mr-2">
@@ -170,7 +170,7 @@
                     </h2>
                 </div>
             </div>
-            <div class="w-full md:w-1/2 lg:w-1/4">
+            <div class="w-full md:w-1/2 lg:w-1/4 px-2">
                 <div class="p-6 rounded bg-white shadow-md">
                     <div class="flex mb-2">
                         <span class="inline-block mr-2">
@@ -267,7 +267,7 @@
                                 <x-table.tbody>
                                     @foreach ($poproducts as $data)
                                         <x-table.tr>
-                                            <x-table.td><img src="{{ asset('/uploads/products/' . $data->feature_image) }}"
+                                            <x-table.td><img src="{{ asset('/uploads/products/' . $data->image) }}"
                                                     alt="{{ $data->name }}" width="50"></x-table.td>
                                             <x-table.td>{{ $data->name }}</x-table.td>
                                             <x-table.td>
@@ -309,7 +309,7 @@
                                     @foreach ($pproducts as $data)
                                         <x-table.tr>
                                             <x-table.td>
-                                            <img src="{{ asset('/uploads/products/' . $data->feature_image) }}"
+                                            <img src="{{ asset('/uploads/products/' . $data->image) }}"
                                                     alt="{{ $data->name }}" width="50">
                                             </x-table.td>
                                             <x-table.td>
@@ -382,28 +382,6 @@
                 };
                 var lineChart = new Chart(ctx).Line(data, options);
             }
-
-            $('#poproducts').dataTable({
-                "ordering": false,
-                'lengthChange': false,
-                'searching': false,
-                'ordering': false,
-                'info': false,
-                'autoWidth': false,
-                'responsive': true,
-                'paging': false
-            });
-
-            $('#pproducts').dataTable({
-                "ordering": false,
-                'lengthChange': false,
-                'searching': false,
-                'ordering': false,
-                'info': false,
-                'autoWidth': false,
-                'responsive': true,
-                'paging': false
-            });
 
         })(jQuery);
     </script>

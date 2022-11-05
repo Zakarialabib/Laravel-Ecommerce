@@ -34,7 +34,7 @@
                 {{ __('Name') }}
             </x-table.th>
             <x-table.th>
-                {{ __('Products count') }}
+                {{ __('Status') }}
             </x-table.th>
             <x-table.th>
                 {{ __('Actions') }}
@@ -54,14 +54,10 @@
                         {{ $category->name }}
                     </x-table.td>
                     <x-table.td>
-                        {{ $category->products_count }}
+                        {{ $category->status}}
                     </x-table.td>
                     <x-table.td>
                         <div class="flex justify-start space-x-2">
-                            <x-button info wire:click="$emit('showModal', {{ $category->id }})"
-                                wire:loading.attr="disabled">
-                                <i class="fas fa-eye"></i>
-                            </x-button>
                             <x-button primary wire:click="$emit('editModal', {{ $category->id }})"
                                 wire:loading.attr="disabled">
                                 <i class="fas fa-edit"></i>
@@ -122,6 +118,12 @@
                         <x-input-error :messages="$errors->get('category.name')" for="category.name" class="mt-2" />
                     </div>
 
+                    <div class="w-full py-2 px-3">
+                        <x-label for="image" :value="__('Image')" />
+                        <x-fileupload wire:model="image" :file="$image" accept="image/jpg,image/jpeg,image/png" />
+                        <x-input-error :messages="$errors->get('image')" for="image" class="mt-2" />
+                    </div>
+
                     <div class="w-full flex justify-end">
                         <x-button primary wire:click="update" wire:loading.attr="disabled">
                             {{ __('Update') }}
@@ -132,35 +134,6 @@
         </x-slot>
     </x-modal>
     <!-- End Edit Modal -->
-
-    <!-- Show Modal -->
-    <x-modal wire:model="showModal">
-        <x-slot name="title">
-            {{ __('Show Category') }}
-        </x-slot>
-
-        <x-slot name="content">
-            <div>
-                <div class="mb-4">
-                    <label for="code">{{ __('Category Code') }} <span class="text-red-500">*</span></label>
-                    <input class="block w-full px-4 py-3 mb-2 text-sm placeholder-gray-500 bg-white border rounded"
-                        type="text" name="code" wire:model.defer="category.code" disabled />
-                </div>
-                <div class="mb-4">
-                    <label for="name">{{ __('Category Name') }} <span class="text-red-500">*</span></label>
-                    <input class="block w-full px-4 py-3 mb-2 text-sm placeholder-gray-500 bg-white border rounded"
-                        type="text" name="name" wire:model.defer="category.name" disabled />
-                </div>
-
-                <div class="w-full flex justify-end">
-                    <x-button primary type="button" wire:loading.attr="disabled"  wire:click="$set('showModal', false)">
-                        {{ __('Close') }}
-                    </x-button>
-                </div>
-            </div>
-        </x-slot>
-    </x-modal>
-    <!-- End Show Modal -->
 
     {{-- Import modal --}}
 

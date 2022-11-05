@@ -119,16 +119,16 @@
         <!-- Validation Errors -->
         <x-auth-validation-errors class="mb-4" :errors="$errors" />
         <form wire:submit.prevent="update">
-            <div class="space-y-4 px-4">
+            <div class="flex flex-wrap px-4">
                
-                <div class="mt-4 p w-full">
+                <div class="xl:w-1/2 md:w-1/2 px-3">
                     <x-label for="title" :value="__('Name')" />
                     <x-input id="title" class="block mt-1 w-full" type="text" name="title"
                         wire:model.defer="blog.title" />
                     <x-input-error :messages="$errors->get('blog.title')" for="blog.title" class="mt-2" />
                 </div>
 
-                <div class="mt-4 p w-full">
+                <div class="xl:w-1/2 md:w-1/2 px-3">
                     <x-label for="category_id" :value="__('Category')" required />
                         <x-select-list
                             class="block bg-white dark:bg-dark-eval-2 text-gray-700 dark:text-gray-300 rounded border border-gray-300 mb-1 text-sm w-full focus:shadow-outline-blue focus:border-blue-500"
@@ -138,7 +138,7 @@
                         class="mt-2" />
                 </div>
 
-                <div class="mt-4 p w-full">
+                <div class="xl:w-1/2 md:w-1/2 px-3">
                     <x-label for="language_id" :value="__('Language')" required />
                     <x-select-list
                         class="block bg-white dark:bg-dark-eval-2 text-gray-700 dark:text-gray-300 rounded border border-gray-300 mb-1 text-sm w-full focus:shadow-outline-blue focus:border-blue-500"

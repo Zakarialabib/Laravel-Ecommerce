@@ -22,7 +22,7 @@
         </div>
     </div>
 
-    <x-loader />
+    {{-- <x-loader /> --}}
 
     <x-table>
         <x-slot name="thead">
@@ -34,33 +34,39 @@
                 {{ __('Title') }}
             </x-table.th>
             <x-table.th>
+                {{ __('Status') }}
+            </x-table.th>
+            <x-table.th>
                 {{ __('Actions') }}
             </x-table.th>
         </x-slot>
         <x-table.tbody>
-            @forelse($sliders as $id=>$slider)
+            @forelse($sliders as $slider)
                 <x-table.tr>
                     <x-table.td>
-                        {{ $id }}
+                        {{-- {{ $id }} --}}
                     </x-table.td>
                     <x-table.td>
-                        @if ($brand->image)
-                        <img src="{{ asset('images/sliders/' . $slider->image) }}" alt="{{ $slider->name }}"
-                            class="w-10 h-10 rounded-full">
+                        @if ($slider->photo)
+                            <img src="{{ asset('uploads/sliders/' . $slider->photo) }}" alt="{{ $slider->title }}"
+                                class="w-10 h-10 rounded-full">
                         @else
-                        {{__('No image')}}
+                            {{ __('No image') }}
                         @endif
                     </x-table.td>
                     <x-table.td>
                         {{ $slider->title }}
                     </x-table.td>
                     <x-table.td>
+                        {{ $slider->status }}
+                    </x-table.td>
+                    <x-table.td>
                         <div class="flex justify-start space-x-2">
-                            <x-button primary wire:click="$emit('editModal', {{ $slider->id }})"
+                            <x-button primary type="button" wire:click="$emit('editModal', {{ $slider->id }})"
                                 wire:loading.attr="disabled">
                                 <i class="fas fa-edit"></i>
                             </x-button>
-                            <x-button danger wire:click="$emit('deleteModal', {{ $slider->id }})"
+                            <x-button danger type="button" wire:click="$emit('deleteModal', {{ $slider->id }})"
                                 wire:loading.attr="disabled">
                                 <i class="fas fa-trash"></i>
                             </x-button>
@@ -97,11 +103,11 @@
             <x-slot name="title">
                 {{ __('Create Slider') }}
             </x-slot>
-    
+
             <x-slot name="content">
                 <!-- Validation Errors -->
                 <x-auth-validation-errors class="mb-4" :errors="$errors" />
-    
+
                 <form wire:submit.prevent="update">
                     <div class="flex flex-wrap -mx-3 space-y-0">
                         <div class="xl:w-1/2 md:w-1/2 px-3">
@@ -111,9 +117,10 @@
                             <x-input-error :messages="$errors->get('slider.title')" for="slider.title" class="mt-2" />
                         </div>
                         <div class="xl:w-1/2 md:w-1/2 px-3">
-                            <x-label for="language_id" :value="__('Language')" />
-                            <x-input id="language_id" class="block mt-1 w-full" type="text" name="language_id"
-                                wire:model.defer="slider.language_id" />
+                            <x-label for="language_id" :value="__('Language')" required />
+                            <x-select-list
+                                class="block bg-white dark:bg-dark-eval-2 text-gray-700 dark:text-gray-300 rounded border border-gray-300 mb-1 text-sm w-full focus:shadow-outline-blue focus:border-blue-500"
+                                id="language_id" name="language_id" wire:model="slider.language_id" :options="$this->listsForFields['languages']" />
                             <x-input-error :messages="$errors->get('slider.language_id')" for="slider.language_id" class="mt-2" />
                         </div>
                         <div class="xl:w-1/2 md:w-1/2 px-3">
@@ -140,7 +147,7 @@
                                 wire:model.defer="slider.bg_color" />
                             <x-input-error :messages="$errors->get('slider.bg_color')" for="slider.bg_color" class="mt-2" />
                         </div>
-                        
+
                         <div class="xl:w-1/2 md:w-1/2 px-3">
                             <x-label for="link" :value="__('Link')" />
                             <x-input id="link" class="block mt-1 w-full" type="text" name="link"
@@ -148,9 +155,10 @@
                             <x-input-error :messages="$errors->get('slider.link')" for="slider.link" class="mt-2" />
                         </div>
                         <div class="w-full py-2 px-3">
-                            <x-label for="image" :value="__('Image')" />
-                            <x-fileupload wire:model="image" :file="$image" accept="image/jpg,image/jpeg,image/png" />
-                            <x-input-error :messages="$errors->get('image')" for="image" class="mt-2" />
+                            <x-label for="photo" :value="__('Image')" />
+                            <x-fileupload wire:model="photo" :file="$photo"
+                                accept="image/jpg,image/jpeg,image/png" />
+                            <x-input-error :messages="$errors->get('photo')" for="photo" class="mt-2" />
                         </div>
                         <div class="w-full flex justify-start space-x-2">
                             <x-button primary wire:click="update" wire:loading.attr="disabled">
@@ -163,7 +171,8 @@
         </x-modal>
         <!-- End Edit Modal -->
     </div>
-    <livewire:sliders.create />
+
+    <livewire:admin.slider.create />
 
 </div>
 

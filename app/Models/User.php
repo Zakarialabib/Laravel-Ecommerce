@@ -15,12 +15,12 @@ class User extends Authenticatable
     use HasAdvancedFilter, HasApiTokens,
          HasFactory, Notifiable, HasRoles;
 
-    protected $orderable = [
+    public $orderable = [
         'id','first_name','last_name',  'zip', 'city', 'state', 'country', 'address',
         'phone', 'email','password',
     ];
 
-    protected $filtrable = [
+    public $filtrable = [
         'first_name','last_name',  'zip', 'city', 'state', 'country', 'address',
         'phone', 'email','password','favorite_brands'
     ];
@@ -53,7 +53,6 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
-
     
     public function getFullNameAttribute()
     {
@@ -61,10 +60,21 @@ class User extends Authenticatable
     }
 
     public function isAdmin() {
-        return $this->roles->pluck('title')->contains(Role::ROLE_ADMIN);
+        return $this->roles->pluck('name')->contains(Role::ROLE_ADMIN);
     }
     
     public function isClient() {
-        return $this->roles->pluck('title')->contains(Role::ROLE_CLIENT);
+        return $this->roles->pluck('name')->contains(Role::ROLE_CLIENT);
     }
+
+    public function roles()
+    {
+        return $this->belongsToMany(Role::class, 'role_user', 'user_id', 'role_id');
+    }
+
+    public function orders()
+    {
+        return $this->hasMany(Order::class);
+    }
+    
 }

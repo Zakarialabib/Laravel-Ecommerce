@@ -30,15 +30,9 @@ class SuperUserSeeder extends Seeder
             'address'            => 'Casablanca',
             'phone'          => '123456789',
 			'statut'    => 1,
+            'role_id'   => 1,
             'remember_token' => null,
             'created_at' => now(),
         ]);
-
-        $superAdmin = Role::create([
-            'name' => 'Super Admin',
-            'guard_name' => 'web'
-        ]);
-
-        $user->assignRole($superAdmin);
     }
 }
