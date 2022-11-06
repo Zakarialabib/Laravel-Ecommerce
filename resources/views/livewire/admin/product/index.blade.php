@@ -137,7 +137,7 @@
                 <div class="px-4 mx-auto mb-4">
                     <div class="row mb-3">
                         <div class="xl:w-1/3 lg:w-1/2 sm:w-full px-3">
-                            <img src="{{ asset('uploads/products/' . $product->image) }}" alt="{{ $product->name }}"
+                            <img src="{{ asset('images/products/' . $product->image) }}" alt="{{ $product->name }}"
                                 class="w-32 h-32 rounded-full">
                         </div>
                     </div>
@@ -357,31 +357,37 @@
             <form wire:submit.prevent="saveHighlight">
                 <div class="flex flex-wrap">
                     <div class="sm:w-1/2 mb-4 px-2">
-                        <x-label for="hot" :value="__('Hot')" />
+                        <x-label for="featured" :value="__('Featured product')" />
+                        <x-input id="featured" class="block mt-1 w-full" type="checkbox" name="featured"
+                            wire:model="featured" />
+                        <x-input-error :messages="$errors->get('featured')" for="featured" class="mt-2" />
+                    </div>
+                    <div class="sm:w-1/2 mb-4 px-2">
+                        <x-label for="hot" :value="__('Hot product')" />
                         <x-input id="hot" class="block mt-1 w-full" type="checkbox" name="hot"
                             wire:model="hot" />
                         <x-input-error :messages="$errors->get('hot')" for="hot" class="mt-2" />
                     </div>
                     <div class="sm:w-1/2 mb-4 px-2">
-                        <x-label for="best" :value="__('Best')" />
+                        <x-label for="best" :value="__('Best product')" />
                         <x-input id="best" class="block mt-1 w-full" type="checkbox" name="best"
                             wire:model="best" />
                         <x-input-error :messages="$errors->get('best')" for="best" class="mt-2" />
                     </div>
                     <div class="sm:w-1/2 mb-4 px-2">
-                        <x-label for="top" :value="__('Top')" />
+                        <x-label for="top" :value="__('Top product')" />
                         <x-input id="top" class="block mt-1 w-full" type="checkbox" name="top"
                             wire:model="top" />
                         <x-input-error :messages="$errors->get('top')" for="top" class="mt-2" />
                     </div>
                     <div class="sm:w-1/2 mb-4 px-2">
-                        <x-label for="latest" :value="__('Latest')" />
+                        <x-label for="latest" :value="__('Latest product')" />
                         <x-input id="latest" class="block mt-1 w-full" type="checkbox" name="latest"
                             wire:model="latest" />
                         <x-input-error :messages="$errors->get('latest')" for="latest" class="mt-2" />
                     </div>
                     <div class="sm:w-1/2 mb-4 px-2">
-                        <x-label for="big" :value="__('Big')" />
+                        <x-label for="big" :value="__('Big saving')" />
                         <x-input id="big" class="block mt-1 w-full" type="checkbox" name="big"
                             wire:model="big" />
                         <x-input-error :messages="$errors->get('big')" for="big" class="mt-2" />

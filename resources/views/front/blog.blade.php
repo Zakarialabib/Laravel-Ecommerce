@@ -21,7 +21,7 @@
                                 </a>
                                 <p class="mb-2 text-sm text-gray-600">{!! $post->content !!}</p>
 
-                                <img src="{{ asset('uploads/blog' . $post->image) }}" class="w-100" alt="{{$post->title}}">
+                                <img src="{{ asset('images/blog' . $post->image) }}" class="w-100" alt="{{$post->title}}">
                             </div>
                         </div>
                         @empty

@@ -21,8 +21,11 @@ class FrontController extends Controller
         return view('front.catalog');
     }
 
-    public function productShow(Product $product)
-    {
+    public function productShow($slug){
+        
+        
+        $product = Product::where('slug', $slug)->first();
+        
         return view('front.product', compact('product'));
     }
 

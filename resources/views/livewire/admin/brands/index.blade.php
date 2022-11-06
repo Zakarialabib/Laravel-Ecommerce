@@ -55,7 +55,7 @@
                     </x-table.td>
                     <x-table.td>
                         @if ($brand->image)
-                        <img src="{{ asset('uploads/brands/' . $brand->image) }}" alt="{{ $brand->name }}"
+                        <img src="{{ asset('images/brands/' . $brand->image) }}" alt="{{ $brand->name }}"
                             class="w-10 h-10 rounded-full">
                         @else
                         {{__('No image')}}

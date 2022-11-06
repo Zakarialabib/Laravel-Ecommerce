@@ -48,7 +48,7 @@
                     </x-table.td>
                     <x-table.td>
                         @if ($slider->photo)
-                            <img src="{{ asset('uploads/sliders/' . $slider->photo) }}" alt="{{ $slider->title }}"
+                            <img src="{{ asset('images/sliders/' . $slider->photo) }}" alt="{{ $slider->title }}"
                                 class="w-10 h-10 rounded-full">
                         @else
                             {{ __('No image') }}

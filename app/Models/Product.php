@@ -2,13 +2,15 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
 use App\Support\HasAdvancedFilter;
+use Gloudemans\Shoppingcart\Contracts\Buyable;
+use Gloudemans\Shoppingcart\CanBeBought;
 
-class Product extends Model
+class Product extends Model implements Buyable 
 {
+    use CanBeBought;
     use HasAdvancedFilter;
 
     public $orderable = [
@@ -84,6 +86,7 @@ class Product extends Model
         file_put_contents($path, $image);
         return $name;
     }
+    
     // get gallery from url and save to uploads/products
     public function getGalleryFromUrl($url)
     {
@@ -104,5 +107,13 @@ class Product extends Model
         return $this->belongsTo(Brand::class , 'brand_id', 'id');
     }
 
-  
+    public function subcategory()
+    {
+        return $this->belongsTo(Subcategory::class , 'subcategory_id', 'id');
+    }
+
+    public function reviews()
+    {
+        return $this->hasMany(Review::class);
+    }
 }

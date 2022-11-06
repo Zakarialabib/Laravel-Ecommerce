@@ -16,7 +16,7 @@
     <meta name="title" content="@yield('meta_title')">
     @endif
 
-    <link rel="icon" href="{{ asset('uploads/settings' . App\Helpers::settings('site_favicon')) }}" type="image/x-icon">
+    <link rel="icon" href="{{ asset('images/settings' . App\Helpers::settings('site_favicon')) }}" type="image/x-icon">
     
     {{-- Styles --}}
     @vite('resources/css/app.css')
@@ -26,7 +26,7 @@
     @stack('styles')
     
 </head>
-<body class="antialiased bg-body text-body font-body">
+<body class="antialiased bg-body text-body font-body" x-data="{ showCart: false }">
     <div class="">
                 
       <section class="relative">

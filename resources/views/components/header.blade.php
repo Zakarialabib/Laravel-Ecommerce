@@ -24,7 +24,7 @@
 
                 @include('partials.front.search-box')
 
-                <livewire:front.cart-count />
+                <livewire:front.cart-count  />
                 
             </div>
         </div>

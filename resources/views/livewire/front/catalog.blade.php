@@ -188,14 +188,14 @@
                                     <div class="w-full md:w-1/4 px-4 mb-4 md:mb-0">
                                         <a href="#">
                                             <img class="mx-auto md:mx-0 w-40 h-52 object-contain"
-                                                src="{{ asset('uploads/products'.$product->image) }}" alt="">
+                                                src="{{ asset('images/products/'.$product->image) }}" alt="">
                                         </a>
                                     </div>
                                     <div class="w-full md:w-3/4 px-4">
                                         <a class="block mb-8" href="{{ route('front.product', $product->slug) }}">
                                             <h3 class="mb-2 text-xl font-bold font-heading">{{ $product->name }}</h3>
                                             <p class="mb-6 text-lg font-bold font-heading text-blue-500">
-                                                <span>{{ $product->price }}</span>
+                                                <span>{{ $product->price }} DH</span>
                                                 <span
                                                     class="text-xs text-gray-500 font-semibold font-heading line-through">{{ $product->old_price }}</span>
                                             </p>
@@ -249,7 +249,7 @@
                                     <a class="block px-2 mt-2 mb-2"
                                         href="{{ route('front.product', $product->slug) }}">
                                         <img class="mb-5 mx-auto h-56 w-full object-contain"
-                                        src="{{ asset('uploads/products'.$product->image) }}" alt="">
+                                        src="{{ asset('images/products/'.$product->image) }}" alt="">
                                         <h3 class="mb-2 text-xl font-bold font-heading">
                                             {{ $product->name }}
                                         </h3>
@@ -296,7 +296,7 @@
                         @endif
                         <a class="block px-2 mt-2 mb-2" href="{{ route('front.product', $product->slug) }}">
                             <img class="mb-5 mx-auto h-56 w-full object-contain"
-                            src="{{ asset('uploads/products'.$product->image) }}" alt="">
+                            src="{{ asset('images/products/'.$product->image) }}" alt="">
                             <h3 class="mb-2 text-xl font-bold font-heading">
                                 {{ $product->name }}
                             </h3>

@@ -58,6 +58,8 @@ class Index extends Component
 
     public $image;
 
+    public $hot,$featured, $best, $top, $latest, $big, $trending, $sale, $is_discount, $discount_date;
+
     public string $search = '';
 
     public array $selected = [];
@@ -184,14 +186,14 @@ class Index extends Component
 
         $this->validate();
 
-        if ($this->product->image != null) {    
+        if($this->image){
             $imageName = Str::slug($this->product->name).'.'.$this->image->extension();
             $this->image->storeAs('products',$imageName);
             $this->product->image = $imageName;
         }
 
         // gallery image
-        if ($this->product->gallery != null) {
+        if ($this->gallery != null) {
             $gallery = [];
             foreach ($this->gallery as $key => $value) {
                 $galleryName = Str::slug($this->product->name).'-'.$key.'.'.$value->extension();
@@ -200,6 +202,8 @@ class Index extends Component
             }
             $this->product->gallery = json_encode($gallery);
         }
+
+        // dd($this->product->image);
 
         $this->product->save();
 
@@ -264,52 +268,46 @@ class Index extends Component
     {
         abort_if(Gate::denies('product_access'), 403);
 
-        if($this->featured == "")
-            {
-                $this->product->featured = 0;
-            }
-            if($this->hot == "")
-            {
-                $this->product->hot = 0;
-            }
-            if($this->best == "")
-            {
-                $this->product->best = 0;
-            }
-            if($this->top == "")
-            {
-                $this->product->top = 0;
-            }
-            if($this->latest == "")
-            {
-                $this->product->latest = 0;
-            }
-            if($this->big == "")
-            {
-                $this->product->big = 0;
-            }
-            if($this->trending == "")
-            {
-                $this->product->trending = 0;
-            }
-            if($this->sale == "")
-            {
-                $this->product->sale = 0;
-            }
-            if($this->is_discount == "")
-            {
-                $this->product->is_discount = 0;
-                $this->product->discount_date = null;
-            }else{
-                $this->product->discount_date = \Carbon\Carbon::parse($input['discount_date'])->format('Y-m-d');
-            }
-
-
+        //  $hot , $featured, $best, $top, $latest, $big, $trending, $sale, $is_discount, $discount_date;
+        if($this->hot){
+            $this->product->hot = $this->hot;
+        }
+        if($this->featured){
+            $this->product->featured = $this->featured;
+        }
+        if($this->best){
+            $this->product->best = $this->best;
+        }
+        if($this->top){
+            $this->product->top = $this->top;
+        }
+        if($this->latest){
+            $this->product->latest = $this->latest;
+        }
+        if($this->big){
+            $this->product->big = $this->big;
+        }
+        if($this->trending){
+            $this->product->trending = $this->trending;
+        }
+        if($this->sale){
+            $this->product->sale = $this->sale;
+        }
+        if($this->is_discount){
+            $this->product->is_discount = $this->is_discount;
+        }
+        if($this->discount_date){
+            $this->product->discount_date = $this->discount_date;
+        }
+        
         $this->product->save();
 
+        $this->alert('success', 'Product highlighted successfully.');
+        
+        $this->refreshIndex();
+        
         $this->highlightModal = false;
 
-        $this->alert('success', 'Product highlighted successfully.');
     }
 
     public function showUploader() 

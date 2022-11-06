@@ -57,7 +57,7 @@
                     <div class="flex flex-col">
                         <div class="w-1/2">
                             @if ($siteImage != null)
-                                <img src="{{ asset('uploads/' . $siteImage) }}" id="logoImg"
+                                <img src="{{ asset('images/' . $siteImage) }}" id="logoImg"
                                     style="width: 200px; height: 150px;">
                             @else
                                 <img src="https://via.placeholder.com/250x150?text=Placeholder+Image" id="logoImg"
@@ -90,7 +90,7 @@
                     <div class="flex flex-col">
                         <div class="w-1/2">
                             @if ($favicon != null)
-                                <img src="{{ asset('uploads/' . $favicon) }}" id="logoImg"
+                                <img src="{{ asset('images/' . $favicon) }}" id="logoImg"
                                     style="width: 200px; height: 150px;">
                             @else
                                 <img src="https://via.placeholder.com/250x150?text=Placeholder+Image" id="logoImg"

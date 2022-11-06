@@ -2,65 +2,65 @@
     <div class="relative container mx-auto px-4">
         <div class="flex flex-wrap -mx-4">
             @foreach ($sliders as $slider)
-            <div class="w-full md:w-1/2 px-4 mb-12 lg:mb-0 pt-20 lg:py-32">
-                <div class="max-w-md">
-                    <h2 class="mb-8 text-5xl lg:text-6xl font-semibold font-heading">
-                        {{ $slider->title }}
-                    </h2>
-                    <p class="mb-20 text-lg text-gray-600">
-                        {{ $slider->details }}
-                    </p>
-                    <a class="inline-block hover:bg-orange-400 text-white font-bold font-heading py-6 px-8 rounded-md uppercase transition duration-200 bg-orange-500"
-                        href="{{ $slider->link }}">
-                        {{('Discover now')}}
-                    </a>
-                </div>
-            </div>
-            <div class="relative w-full md:w-1/2 px-4 mb-12 lg:mb-0">
-                <div class="hidden lg:block absolute top-0 transform translate-y-1/2 right-0 w-1">
-                    <a class="block w-1/2 h-40 bg-blue-600" href="#"></a><a class="block w-1/2 h-40 bg-gray-300"
-                        href="#"></a>
-                </div>
-                @if($featuredbanner)
-                @foreach ($featuredbanner as $banner)
-                <div class="absolute bottom-1/2 -mb-24 lg:right-6 inline-block bg-white rounded-lg">
-                    <div class="flex p-3">
-                        <div class="w-auto pt-5 px-4 lg:px-9">
-                            <h3 class="mb-2 text-xl font-bold font-heading w-32">
-                                {{ $banner->title }}
-                            </h3>
-                            <p class="mb-4 lg:mb-0 text-lg font-semibold font-heading text-blue-500">
-                                {{ $banner->details }}
-                            </p>
-                            <a class="lg:absolute bottom-0 flex items-center justify-center w-12 h-12 lg:-mb-6 hover:bg-orange-400 text-white rounded-md bg-orange-500"
-                                href="#">
-                                <svg class="w-2 h-4" width="8" height="12" viewbox="0 0 8 12" fill="none"
-                                    xmlns="http://www.w3.org/2000/svg">
-                                    <path
-                                        d="M4.97656 6.00252L0.851562 1.87752L2.02957 0.699219L7.33258 6.00252L2.02957 11.3058L0.851562 10.1275L4.97656 6.00252Z"
-                                        fill="white"></path>
-                                </svg>
-                            </a>
-                        </div>
-                        <div class="w-auto">
-                            <img class="h-full lg:h-36 rounded-xl object-cover"
-                                src="{{ asset('uploads/featuredbanners/'.$banner->image) }}" alt="">
-                        </div>
+                <div class="w-full md:w-1/2 px-4 mb-12 lg:mb-0 pt-20 lg:py-32">
+                    <div class="max-w-md">
+                        <h2 class="mb-8 text-5xl lg:text-6xl font-semibold font-heading">
+                            {{ $slider->title }}
+                        </h2>
+                        <p class="mb-20 text-lg text-gray-600">
+                            {{ $slider->details }}
+                        </p>
+                        <a class="inline-block hover:bg-orange-400 text-white font-bold font-heading py-6 px-8 rounded-md uppercase transition duration-200 bg-orange-500"
+                            href="{{ $slider->link }}">
+                            {{ 'Discover now' }}
+                        </a>
                     </div>
                 </div>
-                @endforeach
-                @endif
-                <img class="mx-auto h-96 lg:h-auto"
-                    src="{{ asset('uploads/sliders/'.$slider->photo) }}" alt="">
-            </div>
+                <div class="relative w-full md:w-1/2 px-4 mb-12 lg:mb-0">
+                    <div class="hidden lg:block absolute top-0 transform translate-y-1/2 right-0 w-1">
+                        <a class="block w-1/2 h-40 bg-blue-600" href="#"></a><a
+                            class="block w-1/2 h-40 bg-gray-300" href="#"></a>
+                    </div>
+                    @if ($featuredbanner)
+                        @foreach ($featuredbanner as $banner)
+                            <div class="absolute bottom-1/2 -mb-24 lg:right-6 inline-block bg-white rounded-lg">
+                                <div class="flex p-3">
+                                    <div class="w-auto pt-5 px-4 lg:px-9">
+                                        <h3 class="mb-2 text-xl font-bold font-heading w-32">
+                                            {{ $banner->title }}
+                                        </h3>
+                                        <p class="mb-4 lg:mb-0 text-lg font-semibold font-heading text-blue-500">
+                                            {{ $banner->details }}
+                                        </p>
+                                        <a class="lg:absolute bottom-0 flex items-center justify-center w-12 h-12 lg:-mb-6 hover:bg-orange-400 text-white rounded-md bg-orange-500"
+                                            href="#">
+                                            <svg class="w-2 h-4" width="8" height="12" viewbox="0 0 8 12"
+                                                fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                <path
+                                                    d="M4.97656 6.00252L0.851562 1.87752L2.02957 0.699219L7.33258 6.00252L2.02957 11.3058L0.851562 10.1275L4.97656 6.00252Z"
+                                                    fill="white"></path>
+                                            </svg>
+                                        </a>
+                                    </div>
+                                    <div class="w-auto">
+                                        <img class="h-full lg:h-36 rounded-xl object-cover"
+                                            src="{{ asset('images/featuredbanners/' . $banner->image) }}" alt="">
+                                    </div>
+                                </div>
+                            </div>
+                        @endforeach
+                    @endif
+                    <img class="mx-auto h-96 lg:h-auto" src="{{ asset('images/sliders/' . $slider->photo) }}"
+                        alt="">
+                </div>
             @endforeach
         </div>
         <div class="w-full lg:w-5/6 xl:absolute left-0 bottom-0 right-0 bg-white py-12 px-8 lg:ml-auto">
             <div class="flex flex-wrap items-center justify-center -mx-2 -mb-12">
-                @foreach ($brands as $brand)    
-                <div class="w-1/2 md:w-1/3 lg:w-1/6 px-2 mb-12">
-                    <img class="mx-auto h-6" src="{{ asset('uploads/brands'.$brand->image) }}" alt="">
-                </div>
+                @foreach ($brands as $brand)
+                    <div class="w-1/2 md:w-1/3 lg:w-1/6 px-2 mb-12">
+                        <img class="mx-auto h-6" src="{{ asset('images/brands' . $brand->image) }}" alt="">
+                    </div>
                 @endforeach
             </div>
         </div>
@@ -86,13 +86,14 @@
                         xmlns="http://www.w3.org/2000/svg">
                         <path
                             d="M16.0006 16.3154C19.1303 16.3154 21.6673 13.799 21.6673 10.6948C21.6673 7.59064 19.1303 5.07422 16.0006 5.07422C12.871 5.07422 10.334 7.59064 10.334 10.6948C10.334 13.799 12.871 16.3154 16.0006 16.3154Z"
-                            stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+                            stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                        </path>
                         <path
                             d="M24.4225 23.8963C23.6678 22.3507 22.4756 21.0445 20.9845 20.1298C19.4934 19.2151 17.7647 18.7295 15.9998 18.7295C14.2349 18.7295 12.5063 19.2151 11.0152 20.1298C9.52406 21.0445 8.33179 22.3507 7.57715 23.8963"
                             stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
                         </path>
                     </svg>
-                    <span>Sign In</span>
+                    <span>{{ __('Sign In') }}</span>
                 </a>
                 <div class="flex items-center">
                     <a class="mr-10" href="#">
@@ -109,11 +110,13 @@
                             xmlns="http://www.w3.org/2000/svg">
                             <path
                                 d="M18.1159 8.72461H2.50427C1.99709 8.72461 1.58594 9.12704 1.58594 9.62346V21.3085C1.58594 21.8049 1.99709 22.2074 2.50427 22.2074H18.1159C18.6231 22.2074 19.0342 21.8049 19.0342 21.3085V9.62346C19.0342 9.12704 18.6231 8.72461 18.1159 8.72461Z"
-                                stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                                stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+                                stroke-linejoin="round">
                             </path>
                             <path
                                 d="M6.34473 6.34469V4.95676C6.34473 3.85246 6.76252 2.79338 7.5062 2.01252C8.24988 1.23165 9.25852 0.792969 10.3102 0.792969C11.362 0.792969 12.3706 1.23165 13.1143 2.01252C13.858 2.79338 14.2758 3.85246 14.2758 4.95676V6.34469"
-                                stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                                stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+                                stroke-linejoin="round">
                             </path>
                         </svg>
                         <span
@@ -125,50 +128,57 @@
                 class="block mb-10 py-5 px-8 bg-gray-100 rounded-md border-transparent focus:ring-blue-300 focus:border-blue-300 focus:outline-none"
                 type="search" placeholder="Search">
             <ul class="text-3xl font-bold font-heading">
-                <li class="mb-8"><a href="#">{{__('Category')}}</a></li>
-                <li class="mb-8"><a href="#">{{__('Catalog')}}</a></li>
-                <li><a href="#">{{__('Brand<')}}/a></li>
+                <li class="mb-8"><a href="#">{{ __('Category') }}</a></li>
+                <li class="mb-8"><a href="#">{{ __('Catalog') }}</a></li>
+                <li><a href="#">{{ __('Brand<') }}/a></li>
             </ul>
         </nav>
     </div>
     </section>
-    
+
     <section class="py-10 bg-gray-100 overflow-x-hidden">
         <div class="container mx-auto px-10">
             <h2 class="mb-16 md:mb-24 text-4xl md:text-5xl font-bold font-heading">The Latest And The Greatest</h2>
             <div class="flex mb-16">
-                <div class="flex flex-wrap -mx-3">
+                <div class="w-full flex flex-wrap -mx-3">
                     @foreach ($products as $product)
-                    <div class="w-full lg:w-1/3 px-3 mb-16 lg:mb-0">
-                        <a class="block mb-10" href="">
-                            <div class="relative">
-                                <span
-                                    class="absolute bottom-0 left-0 ml-6 mb-6 px-2 py-1 text-xs font-bold font-heading bg-white border-2 border-red-500 rounded-full text-red-500">-15%</span>
-                                <img class="w-full h-96 object-cover"
-                                src="{{ asset('uploads/products/'.$product->image) }}" alt="">
-                            </div>
-                            <div class="mt-12">
-                                <div class="mb-2">
-                                    <h3 class="mb-3 text-3xl font-bold font-heading text-blue-900">{{ $product->name }}
-                                    </h3>
-                                    <p class="text-xl font-bold font-heading text-white">
-                                        <span class="text-blue-900">{{ $product->price }}</span>
-                                        <span
-                                            class="text-xs text-gray-500 font-semibold font-heading line-through">{{ $product->old_price }}</span>
-                                    </p>
+                        <div class="w-full lg:w-1/3 px-3 mb-16 lg:mb-0">
+                            <a class="block mb-10" href="{{ route('front.product', $product->slug) }}">
+                                <div class="relative">
+                                    @if($product->old_price)
+                                    <span
+                                        class="absolute bottom-0 left-0 ml-6 mb-6 px-2 py-1 text-xs font-bold font-heading bg-white border-2 border-red-500 rounded-full text-red-500">
+                                        -{{ $product->discount }}%
+                                    </span>
+                                    @endif
+                                    <img class="w-full h-96 object-cover"
+                                        src="{{ asset('images/products/' . $product->image) }}" alt="">
                                 </div>
-                            </div>
-                        </a>
-                        <a class="inline-block hover:bg-orange-400 text-white font-bold font-heading py-4 px-8 rounded-md uppercase transition duration-200 bg-orange-500"
-                            href="#">{{__('Buy Now')}}</a>
-                    </div>
+                                <div class="mt-12">
+                                    <div class="mb-2">
+                                        <h3 class="mb-3 text-3xl font-bold font-heading text-blue-900">
+                                            {{ $product->name }}
+                                        </h3>
+                                        <p class="text-xl font-bold font-heading text-white">
+                                            <span class="text-blue-900">{{ $product->price }} DH</span>
+                                            <span
+                                                class="text-xs text-gray-500 font-semibold font-heading line-through">{{ $product->old_price }}</span>
+                                        </p>
+                                    </div>
+                                </div>
+                            </a>
+                            <a class="inline-block hover:bg-orange-400 text-white font-bold font-heading py-4 px-8 rounded-md uppercase transition duration-200 bg-orange-500"
+                                href="{{ route('front.product', $product->slug) }}">
+                                {{ __('Learn more') }}
+                            </a>
+                        </div>
                     @endforeach
                 </div>
             </div>
         </div>
     </section>
-    
-    <section class="py-10 bg-gray-100">
+
+    <section class="py-5 bg-gray-100">
         <div class="container mx-auto px-10">
             <div class="flex flex-wrap -mx-3">
                 <div class="w-full md:w-1/2 lg:w-1/4 px-3 mb-6 lg:mb-0">
@@ -176,7 +186,8 @@
                         <img class="hidden md:block absolute z-10 top-0 left-1/2 ml-16 lg:ml-8 mt-16"
                             src="yofte-assets/elements/dots.svg" alt="">
                         <div class="pb-12 border-b">
-                            <span class="inline-flex mb-16 items-center justify-center w-20 h-20 bg-blue-300 rounded-full">
+                            <span
+                                class="inline-flex mb-16 items-center justify-center w-20 h-20 bg-blue-300 rounded-full">
                                 <svg width="37" height="37" viewbox="0 0 37 37" fill="none"
                                     xmlns="http://www.w3.org/2000/svg">
                                     <path
@@ -222,7 +233,8 @@
                         <img class="hidden md:block absolute z-10 top-0 left-1/2 ml-16 lg:ml-8 mt-16"
                             src="yofte-assets/elements/dots.svg" alt="">
                         <div class="pb-12 border-b">
-                            <span class="inline-flex mb-16 items-center justify-center w-20 h-20 bg-pink-400 rounded-full">
+                            <span
+                                class="inline-flex mb-16 items-center justify-center w-20 h-20 bg-pink-400 rounded-full">
                                 <svg width="31" height="37" viewbox="0 0 31 37" fill="none"
                                     xmlns="http://www.w3.org/2000/svg">
                                     <path
@@ -277,28 +289,29 @@
         </div>
     </section>
     <!-- End Features -->
-    
+
     <!-- Start Sections -->
     @foreach ($sections as $section)
-    <section class="py-10 bg-gray-100 overflow-x-hidden">
-        <div class="container px-4 mx-auto">
-            <div class="relative py-20 md:py-40 bg-orange-300">
-                <img class="hidden md:block absolute inset-0 w-full h-full"
-                src="{{ asset('uploads/sections'.$section->image) }}" alt="">
-                <div class="relative text-center">
-                    <div class="inline-block px-4 relative mb-6">
-                        <div class="absolute top-0 left-0 h-1 bg-gray-900 w-full"></div>
-                        <div class="absolute bottom-0 left-0 h-1 bg-gray-900 w-full"></div>
-                        <h2 class="relative text-7xl font-bold font-heading text-white">{{ $section->title }}</h2>
+        <section class="py-10 bg-gray-100 overflow-x-hidden">
+            <div class="container px-4 mx-auto">
+                <div class="relative py-20 md:py-40 bg-orange-300">
+                    <img class="hidden md:block absolute inset-0 w-full h-full"
+                        src="{{ asset('images/sections' . $section->image) }}" alt="">
+                    <div class="relative text-center">
+                        <div class="inline-block px-4 relative mb-6">
+                            <div class="absolute top-0 left-0 h-1 bg-gray-900 w-full"></div>
+                            <div class="absolute bottom-0 left-0 h-1 bg-gray-900 w-full"></div>
+                            <h2 class="relative text-7xl font-bold font-heading text-white">{{ $section->title }}</h2>
+                        </div>
+                        <p class="mb-12 text-2xl font-bold font-heading text-white uppercase italic">
+                            {{ $section->subtitle }}</p>
+                        <a class="inline-block bg-blue-800 hover:bg-blue-900 text-white font-bold font-heading py-5 px-8 rounded-md uppercase transition duration-200"
+                            href="{{ $section->link }}">{{ $section->link_text }}</a>
+                        {{ __('Get Started') }}
+                        </a>
                     </div>
-                    <p class="mb-12 text-2xl font-bold font-heading text-white uppercase italic">{{ $section->subtitle }}</p>
-                    <a class="inline-block bg-blue-800 hover:bg-blue-900 text-white font-bold font-heading py-5 px-8 rounded-md uppercase transition duration-200"
-                        href="{{ $section->link }}">{{ $section->link_text }}</a>
-                        {{__('Get Started')}}
-                    </a>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
     @endforeach
 </div>

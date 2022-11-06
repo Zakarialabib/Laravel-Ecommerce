@@ -49,7 +49,7 @@
                         @endif
                         <a class="block px-6 mt-6 mb-2" href="{{ route('front.product', $product->slug) }}">
                             <img class="mb-5 mx-auto h-56 w-full object-contain"
-                                src="yofte-assets/images/waterbottle.png" alt="">
+                            src="{{ asset('images/products/' . $product->image) }}" alt="{{ $product->name }}">
                             <h3 class="mb-2 text-xl font-bold font-heading">
                                 {{ $product->name }}
                             </h3>

@@ -1,6 +1,4 @@
-@section('title', __('Cart'))
-
-<x-app-layout>
+<div x-data="{ showCart: false }">
     <div class="relative">
         <div class="navbar-backdrop fixed inset-0 bg-gray-800 opacity-25"></div>
         <div class="z-50 fixed top-0 right-0 bottom-0 w-full max-w-xl bg-white overflow-y-scroll">
@@ -130,4 +128,3 @@
             </div>
         </div>
     </div>
-</x-app-layout>

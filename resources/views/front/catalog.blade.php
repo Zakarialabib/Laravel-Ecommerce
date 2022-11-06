@@ -3,7 +3,7 @@
 @section('title', __('Catalog'))
 
 @section('content')
-      <section class="py-10 bg-gray-100">
+      <section class="py-5 bg-gray-100">
         <livewire:front.catalog />
       </section>
  @endsection
