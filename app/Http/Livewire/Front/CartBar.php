@@ -55,20 +55,7 @@ class CartBar extends Component
         Cart::instance('shopping')->remove($rowId);
     }
 
-    public function updatedShippingId($value)
-    {
-        if ($value) {
-            $this->shipping = Shipping::find($value);
-            if ($this->shipping->is_pickup) {
-                $cartTotal = Cart::instance('shopping')->total();
-            } else {
-                $cartTotal = Cart::instance('shopping')->total() + $this->shipping->cost;
-            }
-        } else {
-            $cartTotal = Cart::instance('shopping')->total();
-        }
-        $this->emit('cartTotalUpdated', $cartTotal);
-    }
+   
 
     public function mount()
     {

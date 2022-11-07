@@ -48,7 +48,7 @@ class ProductShow extends Component
         $this->product_price = $product->price;
         $this->product_qty = $this->quantity;
 
-        Cart::instance('shopping')->add($this->product_id, $this->product_name, $this->product_qty, $this->product_price)->associate('Product');
+        Cart::instance('shopping')->add($this->product_id, $this->product_name, $this->product_qty, $this->product_price)->associate('App\Models\Product');
         
         $this->emit('cartCountUpdated');
 
@@ -59,7 +59,7 @@ class ProductShow extends Component
     {
         $this->product = $product;
 
-
+        $this->brand_products = Product::where('brand_id', $product->brand_id)->take(3)->get();
         $this->relatedProducts = Product::where('category_id', $product->category_id)->where('id', '!=', $product->id)->get();
         $this->brand = Brand::where('id', $product->brand_id)->first();
         $this->category = Category::where('id', $product->category_id)->first();

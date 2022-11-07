@@ -3,7 +3,7 @@
     <h2 class="mb-14 text-5xl font-bold font-heading">{{ __('Checkout') }}</h2>
     <div class="flex flex-wrap -mx-4">
         <div class="w-full lg:w-1/2 px-4">
-            <form action="">
+            <form wire:submit.prevent="checkout">
                 <div class="flex mb-10 items-center">
                     <span
                         class="inline-flex mr-8 items-center justify-center w-12 h-12 rounded-full bg-blue-300 text-white">1</span>
@@ -11,7 +11,7 @@
                 </div>
                 <div class="mb-12">
                     <label class="font-bold font-heading text-gray-600" for="">{{ __('E-mail address') }}</label>
-                    <input
+                    <input wire:model="email"
                         class="block w-full mt-4 py-4 px-4 bg-white border border-gray-200 focus:ring-blue-300 focus:border-blue-300 rounded-md"
                         type="email">
                 </div>
@@ -25,27 +25,27 @@
                         <div class="w-full md:w-1/2 px-4 mb-10 md:mb-0">
                             <label class="font-bold font-heading text-gray-600"
                                 for="">{{ __('First name') }}</label>
-                            <input
+                            <input wire:model="firstname"
                                 class="block w-full mt-4 py-4 px-4 bg-white border border-gray-200 focus:ring-blue-300 focus:border-blue-300 rounded-md"
                                 type="text">
                         </div>
                         <div class="w-full md:w-1/2 px-4">
                             <label class="font-bold font-heading text-gray-600"
                                 for="">{{ __('Last name') }}</label>
-                            <input
+                            <input wire:model="lastname"
                                 class="block w-full mt-4 py-4 px-4 bg-white border border-gray-200 focus:ring-blue-300 focus:border-blue-300 rounded-md"
                                 type="text">
                         </div>
                     </div>
                     <div class="mb-10">
                         <label class="font-bold font-heading text-gray-600" for="">{{ __('Phone') }}</label>
-                        <input
+                        <input wire:model="phone"
                             class="block w-full mt-4 py-4 px-4 bg-white border border-gray-200 focus:ring-blue-300 focus:border-blue-300 rounded-md"
                             type="text">
                     </div>
                     <div class="mb-10">
                         <label class="font-bold font-heading text-gray-600" for="">{{ __('Address') }}</label>
-                        <input
+                        <input wire:model="address"
                             class="block w-full mt-4 py-4 px-4 bg-white border border-gray-200 focus:ring-blue-300 focus:border-blue-300 rounded-md"
                             type="text">
                     </div>
@@ -54,14 +54,14 @@
                         <div class="w-full md:w-2/3 px-4 mb-10 md:mb-0">
                             <label class="font-bold font-heading text-gray-600"
                                 for="">{{ __('Country') }}</label>
-                            <input
+                            <input wire:model="country"
                                 class="block w-full mt-4 py-4 px-4 bg-white border border-gray-200 focus:ring-blue-300 focus:border-blue-300 rounded-md"
                                 type="text">
                         </div>
                         <div class="w-full md:w-2/3 px-4 mb-10 md:mb-0">
                             <label class="font-bold font-heading text-gray-600"
                                 for="">{{ __('City') }}</label>
-                            <input
+                            <input wire:model="city"
                                 class="block w-full mt-4 py-4 px-4 bg-white border border-gray-200 focus:ring-blue-300 focus:border-blue-300 rounded-md"
                                 type="text">
                         </div>
@@ -72,6 +72,46 @@
                         class="inline-flex mr-8 items-center justify-center w-12 h-12 rounded-full bg-orange-300 text-white">3</span>
                     <h3 class="text-2xl font-bold font-heading">{{ __('Shipping methods') }}</h3>
                 </div>
+                {{-- 
+                <div class='flex mb-2 items-center'>
+                    <x-select-list
+                        class="block bg-white dark:bg-dark-eval-2 text-gray-700 dark:text-gray-300 rounded border border-gray-300 mb-1 text-sm w-full focus:shadow-outline-blue focus:border-blue-500"
+                        id="shipping_id" name="shipping_id" wire:model="shipping_id" :options="$this->listsForFields['shippings']" />
+                </div>
+                @if ($shipping_id)
+                    @if ($shipping->is_pickup)
+                        <div class="flex mb-8 items-center justify-between pb-5 border-b border-blue-100">
+                            <span class="text-blue-50">{{ __('Shipping') }}</span>
+                            <span class="text-xl font-bold font-heading text-white">0 DH</span>
+                        </div>
+                        <div class="flex mb-10 justify-between items-center">
+                            <span
+                                class="text-xl font-bold font-heading text-white">{{ __('Order total') }}</span>
+                            <span class="text-xl font-bold font-heading text-white">
+                                {{ $cartTotal }} DH
+                            </span>
+                        </div>
+                    @else
+                        <div class="flex mb-2 justify-between items-center">
+                            <span class="text-blue-50">{{ __('Shipping cost') }}</span>
+                            <span class="text-xl font-bold font-heading text-white">
+                                {{ $shipping->cost }} DH
+                        </div>
+                        <div class="flex mb-10 justify-between items-center">
+                            <span class="text-blue-50">{{ __('Shipping to') }}
+                                {{ $shipping->title }}</span>
+                            </span>
+                            <span class="text-xl font-bold font-heading text-white">-</span>
+                        </div>
+                        <div class="flex mb-10 justify-between items-center">
+                            <span
+                                class="text-xl font-bold font-heading text-white">{{ __('Order total') }}</span>
+                            <span class="text-xl font-bold font-heading text-white">
+                                {{ $cartTotal + $shipping->cost }} DH
+                            </span>
+                        </div>
+                    @endif
+                @endif --}}
                 <div class="mb-12">
                     <div class="mb-2 py-3 px-8 bg-white rounded-full">
                         <div class="flex flex-wrap items-center">
@@ -128,7 +168,7 @@
                 </div>
                 <div class="flex mb-10 items-center">
                     <span
-                        class="inline-flex mr-8 items-center justify-center w-12 h-12 rounded-full bg-pink-300 text-white">4</span>
+                        class="inline-flex mr-8 items-center justify-center w-12 h-12 rounded-full bg-pink-300 text-white">{{ $cartCount }} </span>
                     <h3 class="text-2xl font-bold font-heading">{{ __('Order summary') }}</h3>
                 </div>
                 <div>
@@ -148,97 +188,55 @@
                 <div class="flex mb-12 items-center">
                     <h2 class="text-4xl font-bold font-heading">{{ __('Order summary') }}</h2>
                     <span
-                        class="flex-shrink-0 inline-flex ml-4 w-8 h-8 items-center justify-center rounded-full bg-orange-300 text-white">2</span>
+                        class="flex-shrink-0 inline-flex ml-4 w-8 h-8 items-center justify-center rounded-full bg-orange-300 text-white">{{ $cartCount }}</span>
                 </div>
                 <div class="mb-12 pb-16 border-b">
-                    <div class="flex -mx-4 mb-8 flex-wrap items-center">
-                        <div class="self-stretch w-full lg:w-1/4 px-4">
-                            <img class="mb-4 lg:mb-0 h-32 lg:h-42 object-contain"
-                                src="yofte-assets/images/waterbottle.png" alt="">
-                        </div>
-                        <div class="w-full md:w-3/4 px-4">
-                            <div class="flex justify-between">
-                                <div class="pr-2">
-                                    <h3 class="mb-2 text-xl font-bold font-heading">BRILE water filter carafe
-                                    </h3>
-                                    <p class="mb-8 text-gray-500">Maecenas 0.7 commodo sit</p>
-                                </div>
-                                <span class="text-lg text-blue-300 font-bold font-heading">$29.89</span>
+                    <div class="flex flex-wrap -mx-4 mb-10 items-center">
+                        @foreach ($cartItems as $item)
+                            <div class="self-stretch w-full lg:w-1/4 px-4">
+                                <img class="mb-4 lg:mb-0 h-32 lg:h-42 object-contain"
+                                    src="{{ asset('images/products/' . $item->model->image) }}"
+                                    alt="{{ $item->name }}">
                             </div>
-                            <div class="flex items-center justify-between">
-                                <p class="text-gray-500">In Stock</p>
-                                <div
-                                    class="inline-flex items-center px-4 font-semibold font-heading text-gray-500 border border-gray-200 focus:ring-blue-300 focus:border-blue-300 rounded-md">
-                                    <button class="py-2 hover:text-gray-700">
-                                        <svg width="12" height="2" viewbox="0 0 12 2" fill="none"
-                                            xmlns="http://www.w3.org/2000/svg">
-                                            <g opacity="0.35">
-                                                <rect x="12" width="2" height="12"
-                                                    transform="rotate(90 12 0)" fill="currentColor"></rect>
-                                            </g>
-                                        </svg>
-                                    </button>
-                                    <input
-                                        class="w-12 m-0 px-2 py-4 text-center md:text-right border-0 focus:ring-transparent focus:outline-none rounded-md"
-                                        type="number" placeholder="1">
-                                    <button class="py-2 hover:text-gray-700">
-                                        <svg width="12" height="12" viewbox="0 0 12 12" fill="none"
-                                            xmlns="http://www.w3.org/2000/svg">
-                                            <g opacity="0.35">
-                                                <rect x="5" width="2" height="12"
-                                                    fill="currentColor"></rect>
-                                                <rect x="12" y="5" width="2" height="12"
-                                                    transform="rotate(90 12 5)" fill="currentColor"></rect>
-                                            </g>
-                                        </svg>
-                                    </button>
+                            <div class="w-full md:w-3/4 px-4">
+                                <div class="flex justify-between">
+                                    <div class="pr-2">
+                                        <h3 class="mb-2 text-xl font-bold font-heading">{{ $item->name }}</h3>
+                                    </div>
+                                    <span class="text-lg text-blue-300 font-bold font-heading">
+                                        {{ $item->price }} DH</span>
+                                    </span>
                                 </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="flex -mx-4 mb-8 flex-wrap items-center">
-                        <div class="self-stretch w-full lg:w-1/4 px-4">
-                            <img class="mb-4 lg:mb-0 h-32 lg:h-42 object-contain"
-                                src="yofte-assets/images/basketball.png" alt="">
-                        </div>
-                        <div class="w-full md:w-3/4 px-4">
-                            <div class="flex justify-between">
-                                <div class="pr-2">
-                                    <h3 class="mb-2 text-xl font-bold font-heading">Nike basketball ball</h3>
-                                    <p class="mb-8 text-gray-500">Lorem ipsum dolor L</p>
-                                </div>
-                                <span class="text-lg text-blue-300 font-bold font-heading">$59.78</span>
-                            </div>
-                            <div class="flex items-center justify-between">
-                                <p class="text-gray-500">In Stock</p>
-                                <div
-                                    class="inline-flex items-center px-4 font-semibold font-heading text-gray-500 border border-gray-200 focus:ring-blue-300 focus:border-blue-300 rounded-md">
-                                    <button class="py-2 hover:text-gray-700">
-                                        <svg width="12" height="2" viewbox="0 0 12 2" fill="none"
-                                            xmlns="http://www.w3.org/2000/svg">
-                                            <g opacity="0.35">
-                                                <rect x="12" width="2" height="12"
-                                                    transform="rotate(90 12 0)" fill="currentColor"></rect>
-                                            </g>
-                                        </svg>
-                                    </button>
-                                    <input
-                                        class="w-12 m-0 px-2 py-4 text-center md:text-right border-0 focus:ring-transparent focus:outline-none rounded-md"
-                                        type="number" placeholder="2">
-                                    <button class="py-2 hover:text-gray-700">
-                                        <svg width="12" height="12" viewbox="0 0 12 12" fill="none"
-                                            xmlns="http://www.w3.org/2000/svg">
-                                            <g opacity="0.35">
-                                                <rect x="5" width="2" height="12"
-                                                    fill="currentColor"></rect>
-                                                <rect x="12" y="5" width="2" height="12"
-                                                    transform="rotate(90 12 5)" fill="currentColor"></rect>
-                                            </g>
-                                        </svg>
-                                    </button>
+                                <div class="flex items-center justify-between">
+                                    <p class="text-gray-500">{{ __('In Stock') }}</p>
+                                    <div
+                                        class="inline-flex items-center px-4 font-semibold font-heading text-gray-500 border border-gray-200 focus:ring-blue-300 focus:border-blue-300 rounded-md">
+                                        <div class="flex items-center">
+                                            <button wire:click="decreaseQuantity('{{ $item->model->slug }}')"
+                                                class="text-gray-600 hover:text-gray-700 focus:outline-none focus:text-gray-700">
+                                                <svg class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                                                    <path fill-rule="evenodd"
+                                                        d="M4 10a1 1 0 011-1h10a1 1 0 110 2H5a1 1 0 01-1-1z"
+                                                        clip-rule="evenodd">
+                                                    </path>
+                                                </svg>
+                                            </button>
+                                            <span class="text-gray-700 mx-2">{{ $item->qty }}</span>
+                                            <button wire:click="increaseQuantity('{{ $item->model->slug }}')"
+                                                class="text-gray-600 hover:text-gray-700 focus:outline-none focus:text-gray-700">
+                                                <svg class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                                                    <path fill-rule="evenodd"
+                                                        d="M10 5a1 1 0 011 1v4h4a1 1 0 110 2h-4v4a1 1 0 11-2 0v-4H5a1 1 0 110-2h4V6a1 1 0 011-1z"
+                                                        clip-rule="evenodd">
+                                                    </path>
+                                                </svg>
+                                            </button>
+                                        </div>
+
+                                    </div>
                                 </div>
                             </div>
-                        </div>
+                        @endforeach
                     </div>
                 </div>
                 <div class="mb-12">

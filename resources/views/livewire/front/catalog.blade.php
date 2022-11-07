@@ -83,12 +83,14 @@
                             <a class="font-bold font-heading" href="#">{{ __('Category') }}</a>
                             <ul class="hidden text-left mt-6">
                                 @foreach ($categories as $category)
-                                    <li class="mb-2">    
-                                        <button wire:click="filterCategories({{ $category->id }})" class="bg-gray-200 text-gray-700 text-xs font-bold uppercase px-3 py-1 rounded-full mr-2 mb-2">{{ $category->name }}</button>
+                                    <li class="mb-2">
+                                        <button wire:click="filterCategories({{ $category->id }})"
+                                            class="bg-gray-200 text-gray-700 text-xs font-bold uppercase px-3 py-1 rounded-full mr-2 mb-2">{{ $category->name }}</button>
                                         <ul class="hidden text-left mt-2">
                                             @foreach ($category->subcategories as $subcategory)
                                                 <li class="mb-2">
-                                                    <button wire:click="filterSubCategories({{ $subcategory->id }})" class="bg-gray-200 text-gray-700 text-xs font-bold uppercase px-3 py-1 rounded-full mr-2 mb-2">{{ $subcategory->name }}</button>
+                                                    <button wire:click="filterSubCategories({{ $subcategory->id }})"
+                                                        class="bg-gray-200 text-gray-700 text-xs font-bold uppercase px-3 py-1 rounded-full mr-2 mb-2">{{ $subcategory->name }}</button>
                                                 </li>
                                             @endforeach
                                         </ul>
@@ -119,10 +121,11 @@
                     <div class="w-1/2 md:w-1/3 px-2 mb-4">
                         <div class="py-6 px-4 text-center bg-gray-50">
                             <a class="font-bold font-heading" href="#">{{ __('Brands') }}</a>
-                            <div class="hidden mt-6 flex flex-wrap -mx-2 -mb-2">
+                            <div class="hidden mt-6 -mb-2">
                                 @foreach ($brands as $brand)
                                     <div class="w-1/2 px-2 mb-2">
-                                        <button wire:click="filterBrands({{ $brand->id }})" class="bg-gray-200 text-gray-700 text-xs font-bold uppercase px-3 py-1 rounded-full mr-2 mb-2">{{ $brand->name }}</button>
+                                        <button wire:click="filterBrands({{ $brand->id }})"
+                                            class="bg-gray-200 text-gray-700 text-xs font-bold uppercase px-3 py-1 rounded-full mr-2 mb-2">{{ $brand->name }}</button>
                                     </div>
                                 @endforeach
                             </div>
@@ -135,16 +138,18 @@
                     <h3 class="mb-8 text-2xl font-bold font-heading">{{ __('Category') }}</h3>
                     <ul>
                         @foreach ($categories as $category)
-                        <li class="mb-2">    
-                            <button wire:click="filterCategories({{ $category->id }})" class="bg-gray-200 text-gray-700 text-xs font-bold uppercase px-3 py-1 rounded-full mr-2 mb-2">{{ $category->name }}</button>
-                            <ul class="hidden text-left mt-2">
-                                @foreach ($category->subcategories as $subcategory)
-                                    <li class="mb-2">
-                                        <button wire:click="filterSubCategories({{ $subcategory->id }})" class="bg-gray-200 text-gray-700 text-xs font-bold uppercase px-3 py-1 rounded-full mr-2 mb-2">{{ $subcategory->name }}</button>
-                                    </li>
-                                @endforeach
-                            </ul>
-                        </li>
+                            <li class="mb-2">
+                                <button wire:click="filterCategories({{ $category->id }})"
+                                    class="bg-gray-200 text-gray-700 text-xs font-bold uppercase px-3 py-1 rounded-full mr-2 mb-2">{{ $category->name }}</button>
+                                <ul class="hidden text-left mt-2">
+                                    @foreach ($category->subcategories as $subcategory)
+                                        <li class="mb-2">
+                                            <button wire:click="filterSubCategories({{ $subcategory->id }})"
+                                                class="bg-gray-200 text-gray-700 text-xs font-bold uppercase px-3 py-1 rounded-full mr-2 mb-2">{{ $subcategory->name }}</button>
+                                        </li>
+                                    @endforeach
+                                </ul>
+                            </li>
                         @endforeach
                     </ul>
                 </div>
@@ -155,40 +160,42 @@
                         <input class="w-full mb-4 outline-none appearance-none bg-gray-100 h-1 rounded cursor-pointer"
                             type="range" min="1" max="100" value="50">
                         <div class="flex justify-between">
-                            <span class="inline-block text-lg font-bold font-heading text-blue-300">$0</span>
-                            <span class="inline-block text-lg font-bold font-heading text-blue-300">$289</span>
+                            <span
+                                class="inline-block text-lg font-bold font-heading text-blue-300">{{ $minPrice }}</span>
+                            <span
+                                class="inline-block text-lg font-bold font-heading text-blue-300">{{ $maxPrice }}</span>
                         </div>
                     </div>
                 </div>
                 <div class="mb-6 py-12 pl-12 pr-6 bg-gray-50">
                     <h3 class="mb-8 text-2xl font-bold font-heading">{{ __('Brands') }}</h3>
-                    <div class="flex flex-wrap -mx-2 -mb-2">
+                    <ul class="hidden text-left mt-2">
                         @foreach ($brands as $brand)
-                        <div class="w-1/2 px-2 mb-2">
-                            <x-button type="button" warning class="mx-2" wire:click="filterBrands({{ $brand->id }})" >{{ $brand->name }}</x-button>
-                        </div>
+                            <li class="w-1/2 px-2 mb-2">
+                                <button type="button" warning class="mx-2"
+                                    wire:click="filterBrands({{ $brand->id }})"
+                                    class="bg-gray-200 text-gray-700 text-xs font-bold uppercase px-3 py-1 rounded-full mr-2 mb-2">{{ $brand->name }}</button>
+                            </li>
                         @endforeach
-                    </div>
+                    </ul>
                 </div>
             </div>
             <div class="w-full lg:w-3/4 px-3">
-
-                {{-- Todo : view  --}}
                 @if ($view == 'list')
                     <div class="w-full lg:w-3/4 px-3">
                         @foreach ($products as $product)
                             <div class="relative mb-6 bg-gray-50">
-                                @if($product->old_price)
-                                <span
-                                    class="top-0 left-0 px-2 py-1 text-xs font-bold font-heading bg-white border-2 border-red-500 rounded-full text-red-500">
-                                    -{{ $product->discount }}%
-                                </span>
+                                @if ($product->old_price)
+                                    <span
+                                        class="top-0 left-0 px-2 py-1 text-xs font-bold font-heading bg-white border-2 border-red-500 rounded-full text-red-500">
+                                        -{{ $product->discount }}%
+                                    </span>
                                 @endif
                                 <div class="flex flex-wrap items-center -mx-4 px-8 md:px-20 py-12">
                                     <div class="w-full md:w-1/4 px-4 mb-4 md:mb-0">
                                         <a href="#">
                                             <img class="mx-auto md:mx-0 w-40 h-52 object-contain"
-                                                src="{{ asset('images/products/'.$product->image) }}" alt="">
+                                                src="{{ asset('images/products/' . $product->image) }}" alt="">
                                         </a>
                                     </div>
                                     <div class="w-full md:w-3/4 px-4">
@@ -205,7 +212,7 @@
                                         </a>
                                         <div class="flex flex-wrap items-center justify-between">
                                             <a class="inline-block w-full md:w-auto mb-4 md:mb-0 md:mr-4 text-center bg-orange-300 hover:bg-orange-400 text-white font-bold font-heading py-4 px-8 rounded-md uppercase"
-                                                href="#">Add to cart</a>
+                                                href="#">{{ __('Add to cart') }}</a>
                                             <div class="ml-auto">
                                                 <a class="flex-shrink-0 inline-flex mr-4 items-center justify-center w-14 h-14 rounded-md border hover:border-gray-500"
                                                     href="#">
@@ -240,16 +247,16 @@
                         @foreach ($products as $product)
                             <div class="w-full md:w-1/2 lg:w-1/4 px-3 mb-6 lg:mb-0">
                                 <div class="p-2 bg-gray-50">
-                                    @if($product->old_price)
-                                    <span
-                                        class="top-0 left-0 px-2 py-1 text-xs font-bold font-heading bg-white border-2 border-red-500 rounded-full text-red-500">
-                                        -{{ $product->discount }}%
-                                    </span>
+                                    @if ($product->old_price)
+                                        <span
+                                            class="top-0 left-0 px-2 py-1 text-xs font-bold font-heading bg-white border-2 border-red-500 rounded-full text-red-500">
+                                            -{{ $product->discount }}%
+                                        </span>
                                     @endif
                                     <a class="block px-2 mt-2 mb-2"
                                         href="{{ route('front.product', $product->slug) }}">
                                         <img class="mb-5 mx-auto h-56 w-full object-contain"
-                                        src="{{ asset('images/products/'.$product->image) }}" alt="">
+                                            src="{{ asset('images/products/' . $product->image) }}" alt="">
                                         <h3 class="mb-2 text-xl font-bold font-heading">
                                             {{ $product->name }}
                                         </h3>
@@ -289,24 +296,26 @@
                 <div class="w-full md:w-1/2 lg:w-1/4 px-3 mb-6 lg:mb-0">
                     <div class="p-2 bg-gray-50">
                         @if ($product->old_price)
-                        <span
-                            class="top-0 left-0 px-2 py-1 text-xs font-bold font-heading bg-white border-2 border-red-500 rounded-full text-red-500">
-                            -{{ $product->discount }}%
-                        </span>
+                            <span
+                                class="top-0 left-0 px-2 py-1 text-xs font-bold font-heading bg-white border-2 border-red-500 rounded-full text-red-500">
+                                -{{ $product->discount }}%
+                            </span>
                         @endif
                         <a class="block px-2 mt-2 mb-2" href="{{ route('front.product', $product->slug) }}">
                             <img class="mb-5 mx-auto h-56 w-full object-contain"
-                            src="{{ asset('images/products/'.$product->image) }}" alt="">
+                                src="{{ asset('images/products/' . $product->image) }}" alt="">
                             <h3 class="mb-2 text-xl font-bold font-heading">
                                 {{ $product->name }}
                             </h3>
                             <p class="text-lg font-bold font-heading text-blue-500">
                                 <span>
-                                    {{ $product->price }}
+                                    {{ $product->price }} DH
                                 </span>
-                                <span class="text-xs text-gray-500 font-semibold font-heading line-through">
-                                    {{ $product->old_price }}
-                                </span>
+                                @if ($product->old_price)
+                                    <span class="text-xs text-gray-500 font-semibold font-heading line-through">
+                                        {{ $product->old_price }} DH
+                                    </span>
+                                @endif
                             </p>
                         </a>
                         <a class="ml-auto mr-2 flex items-center justify-center w-12 h-12 border rounded-lg hover:border-gray-500"
