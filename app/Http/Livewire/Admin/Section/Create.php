@@ -56,7 +56,7 @@ class Create extends Component
 
         $this->alert('success', __('Section created successfully!') );
 
-        return redirect()->route('admin.sections.index');
+        return redirect()->route('admin.sections');
     }
   
 }

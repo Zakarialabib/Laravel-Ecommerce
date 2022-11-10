@@ -57,7 +57,7 @@ class Edit extends Component
 
         $this->alert('success', __('Section updated successfully!') );
 
-        return redirect()->route('admin.sections.index');
+        return redirect()->route('admin.sections');
     }
   
 }

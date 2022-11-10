@@ -104,7 +104,7 @@
         <nav class="relative flex flex-col py-6 px-6 w-full h-full bg-white border-r overflow-y-auto">
             <div class="flex items-center mb-8">
                 <a class="mr-auto text-3xl font-bold font-heading" href="#">
-                    <img class="h-9" src="yofte-assets/logos/yofte-logo.svg" alt="" width="auto">
+                    <img class="h-9" src="App\Helpers::settings('site_logo')" alt="" width="auto">
                 </a>
                 <button class="navbar-close">
                     <svg class="h-2 w-2 text-gray-500 cursor-pointer" width="10" height="10" viewbox="0 0 10 10"

@@ -102,7 +102,6 @@ class Index extends Component
 
     public function render()
     {
-        abort_if(Gate::denies('slider_access'), 403);
         
         $query = Slider::advancedFilter([
             's'               => $this->search ?: null,
@@ -117,7 +116,7 @@ class Index extends Component
 
     public function editModal(Slider $slider)
     {
-        abort_if(Gate::denies('slider_edit'), 403);
+        
 
         $this->resetErrorBag();
 
@@ -130,7 +129,7 @@ class Index extends Component
    
     public function update()
     {
-        abort_if(Gate::denies('slider_edit'), 403);
+     
 
         $this->validate();
         // upload image if it does or doesn't exist
@@ -152,7 +151,7 @@ class Index extends Component
 
     public function showModal(Slider $slider)
     {
-        abort_if(Gate::denies('slider_show'), 403);
+        
 
         $this->resetErrorBag();
 
@@ -165,7 +164,7 @@ class Index extends Component
 
     public function delete(Slider $slider)
     {
-        abort_if(Gate::denies('slider_delete'), 403);
+        
        
         $slider->delete();
 

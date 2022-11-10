@@ -44,7 +44,8 @@
                                     </div>
                                     <div class="w-auto">
                                         <img class="h-full lg:h-36 rounded-xl object-cover"
-                                            src="{{ asset('images/featuredbanners/' . $banner->image) }}" alt="">
+                                            src="{{ asset('images/featuredbanners/' . $banner->image) }}"
+                                            alt="">
                                     </div>
                                 </div>
                             </div>
@@ -70,7 +71,7 @@
         <nav class="relative flex flex-col py-6 px-6 w-full h-full bg-white border-r overflow-y-auto">
             <div class="flex items-center mb-8">
                 <a class="mr-auto text-3xl font-bold font-heading" href="#">
-                    <img class="h-9" src="yofte-assets/logos/yofte-logo.svg" alt="" width="auto">
+                    <img class="h-9" src="" alt="" width="auto">
                 </a>
                 <button class="navbar-close">
                     <svg class="h-2 w-2 text-gray-500 cursor-pointer" width="10" height="10" viewbox="0 0 10 10"
@@ -136,47 +137,229 @@
     </div>
     </section>
 
-    <section class="py-10 bg-gray-100 overflow-x-hidden">
-        <div class="container mx-auto px-10">
-            <h2 class="mb-16 md:mb-24 text-4xl md:text-5xl font-bold font-heading">The Latest And The Greatest</h2>
-            <div class="flex mb-16">
-                <div class="w-full flex flex-wrap -mx-3">
-                    @foreach ($products as $product)
-                        <div class="w-full lg:w-1/3 px-3 mb-16 lg:mb-0">
-                            <a class="block mb-10" href="{{ route('front.product', $product->slug) }}">
-                                <div class="relative">
-                                    @if($product->old_price)
-                                    <span
-                                        class="absolute bottom-0 left-0 ml-6 mb-6 px-2 py-1 text-xs font-bold font-heading bg-white border-2 border-red-500 rounded-full text-red-500">
-                                        -{{ $product->discount }}%
-                                    </span>
-                                    @endif
-                                    <img class="w-full h-96 object-cover"
-                                        src="{{ asset('images/products/' . $product->image) }}" alt="">
-                                </div>
-                                <div class="mt-12">
-                                    <div class="mb-2">
-                                        <h3 class="mb-3 text-3xl font-bold font-heading text-blue-900">
-                                            {{ $product->name }}
-                                        </h3>
-                                        <p class="text-xl font-bold font-heading text-white">
-                                            <span class="text-blue-900">{{ $product->price }} DH</span>
-                                            <span
-                                                class="text-xs text-gray-500 font-semibold font-heading line-through">{{ $product->old_price }}</span>
-                                        </p>
+    <div x-data="{ activeTabs: 'featuredProducts' }" class="container mx-auto px-4">
+        <div class="flex flex-wrap justify-center -mx-4 mb-10">
+            <div class="w-1/2 md:w-auto">
+                <button type="button" id="featuredProducts" @click="activeTabs = 'featuredProducts'"
+                    :class="activeTabs === 'featuredProducts' ? 'bg-gray-100' : ''"
+                    class="inline-block py-6 px-10 text-left font-bold font-heading text-gray-500 uppercase border-b-2 border-gray-100 hover:border-gray-500 focus:outline-none focus:border-gray-500">
+                    {{ __('Featured Products') }}
+                </button>
+            </div>
+            <div class="w-1/2 md:w-auto">
+                <button type="button" id="bestOfers" @click="activeTabs = 'bestOfers'"
+                    :class="activeTabs === 'bestOfers' ? 'bg-gray-100' : ''"
+                    class="inline-block py-6 px-10 text-left font-bold font-heading text-gray-500 uppercase border-b-2 border-gray-100 hover:border-gray-500 focus:outline-none focus:border-gray-500">
+                    {{ __('Best Offers') }}
+                </button>
+            </div>
+            <div class="w-1/2 md:w-auto">
+                <button type="button" id="hotProducts" @click="activeTabs = 'hotProducts'"
+                    :class="activeTabs === 'hotProducts' ? 'bg-gray-100' : ''"
+                    class="inline-block py-6 px-10 text-left font-bold font-heading text-gray-500 uppercase border-b-2 border-gray-100 hover:border-gray-500 focus:outline-none focus:border-gray-500">
+                    {{ __('Hot Products') }}
+                </button>
+            </div>
+            <div class="w-1/2 md:w-auto">
+                <button type="button" id="brands" @click="activeTabs = 'brands'"
+                    :class="activeTabs === 'brands' ? 'bg-gray-100' : ''"
+                    class="inline-block py-6 px-10 text-left font-bold font-heading text-gray-500 uppercase border-b-2 border-gray-100 hover:border-gray-500 focus:outline-none focus:border-gray-500">
+                    {{ __('Brands') }}
+                </button>
+            </div>
+        </div>
+        <div x-show="activeTabs === 'featuredProducts'" class="px-5">
+            <div role="featuredProducts" aria-labelledby="tab-0" id="tab-panel-0" tabindex="0">
+                <section>
+                    <div class="container mx-auto px-10">
+                        <div class="flex mb-16">
+                            <div class="w-full flex flex-wrap -mx-3">
+                                @forelse ($featuredProducts as $product)
+                                    <div class="w-full lg:w-1/3 px-3 mb-16 lg:mb-0">
+                                        <a class="block mb-10" href="{{ route('front.product', $product->slug) }}">
+                                            <div class="relative">
+                                                @if ($product->old_price)
+                                                    <span
+                                                        class="absolute bottom-0 left-0 ml-6 mb-6 px-2 py-1 text-xs font-bold font-heading bg-white border-2 border-red-500 rounded-full text-red-500">
+                                                        -{{ $product->discount }}%
+                                                    </span>
+                                                @endif
+                                                <img class="w-full h-96 object-cover"
+                                                    src="{{ asset('images/products/' . $product->image) }}"
+                                                    alt="">
+                                            </div>
+                                            <div class="mt-12">
+                                                <div class="mb-2">
+                                                    <h3 class="mb-3 text-3xl font-bold font-heading text-blue-900">
+                                                        {{ $product->name }}
+                                                    </h3>
+                                                    <p class="text-xl font-bold font-heading text-white">
+                                                        <span class="text-blue-900">{{ $product->price }} DH</span>
+                                                        <span
+                                                            class="text-xs text-gray-500 font-semibold font-heading line-through">{{ $product->old_price }}</span>
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </a>
+                                        <a class="inline-block hover:bg-orange-400 text-white font-bold font-heading py-4 px-8 rounded-md uppercase transition duration-200 bg-orange-500"
+                                            href="{{ route('front.product', $product->slug) }}">
+                                            {{ __('Learn more') }}
+                                        </a>
                                     </div>
-                                </div>
-                            </a>
-                            <a class="inline-block hover:bg-orange-400 text-white font-bold font-heading py-4 px-8 rounded-md uppercase transition duration-200 bg-orange-500"
-                                href="{{ route('front.product', $product->slug) }}">
-                                {{ __('Learn more') }}
-                            </a>
+                                @empty
+                                    <div class="w-full">
+                                        <h3 class="text-3xl font-bold font-heading text-blue-900">
+                                            {{ __('No products found') }}
+                                        </h3>
+                                    </div>
+                                @endforelse
+                            </div>
                         </div>
-                    @endforeach
+                    </div>
+                </section>
+            </div>
+        </div>
+        <div x-show="activeTabs === 'bestOfers'" class="px-5">
+            <div role="bestOfers" aria-labelledby="tab-1" id="tab-panel-1" tabindex="0">
+                <section>
+                    <div class="container mx-auto px-10">
+                        <div class="flex mb-16">
+                            <div class="w-full flex flex-wrap -mx-3">
+                                @forelse ($bestOffers as $product)
+                                    <div class="w-full lg:w-1/3 px-3 mb-16 lg:mb-0">
+                                        <a class="block mb-10" href="{{ route('front.product', $product->slug) }}">
+                                            <div class="relative">
+                                                @if ($product->old_price)
+                                                    <span
+                                                        class="absolute bottom-0 left-0 ml-6 mb-6 px-2 py-1 text-xs font-bold font-heading bg-white border-2 border-red-500 rounded-full text-red-500">
+                                                        -{{ $product->discount }}%
+                                                    </span>
+                                                @endif
+                                                <img class="w-full h-96 object-cover"
+                                                    src="{{ asset('images/products/' . $product->image) }}"
+                                                    alt="">
+                                            </div>
+                                            <div class="mt-12">
+                                                <div class="mb-2">
+                                                    <h3 class="mb-3 text-3xl font-bold font-heading text-blue-900">
+                                                        {{ $product->name }}
+                                                    </h3>
+                                                    <p class="text-xl font-bold font-heading text-white">
+                                                        <span class="text-blue-900">{{ $product->price }} DH</span>
+                                                        <span
+                                                            class="text-xs text-gray-500 font-semibold font-heading line-through">{{ $product->old_price }}</span>
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </a>
+                                        <a class="inline-block hover:bg-orange-400 text-white font-bold font-heading py-4 px-8 rounded-md uppercase transition duration-200 bg-orange-500"
+                                            href="{{ route('front.product', $product->slug) }}">
+                                            {{ __('Learn more') }}
+                                        </a>
+                                    </div>
+                                @empty
+                                    <div class="w-full">
+                                        <h3 class="text-3xl font-bold font-heading text-blue-900">
+                                            {{ __('No products found') }}
+                                        </h3>
+                                    </div>
+                                @endforelse
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+        <div x-show="activeTabs === 'hotProducts'" class="px-5">
+            <div role="hotProducts" aria-labelledby="tab-2" id="tab-panel-2" tabindex="0">
+                <section>
+                    <div class="container mx-auto px-10">
+                        <div class="flex mb-16">
+                            <div class="w-full flex flex-wrap -mx-3">
+                                @forelse ($hotProducts as $product)
+                                    <div class="w-full lg:w-1/3 px-3 mb-16 lg:mb-0">
+                                        <a class="block mb-10" href="{{ route('front.product', $product->slug) }}">
+                                            <div class="relative">
+                                                @if ($product->old_price)
+                                                    <span
+                                                        class="absolute bottom-0 left-0 ml-6 mb-6 px-2 py-1 text-xs font-bold font-heading bg-white border-2 border-red-500 rounded-full text-red-500">
+                                                        -{{ $product->discount }}%
+                                                    </span>
+                                                @endif
+                                                <img class="w-full h-96 object-cover"
+                                                    src="{{ asset('images/products/' . $product->image) }}"
+                                                    alt="">
+                                            </div>
+                                            <div class="mt-12">
+                                                <div class="mb-2">
+                                                    <h3 class="mb-3 text-3xl font-bold font-heading text-blue-900">
+                                                        {{ $product->name }}
+                                                    </h3>
+                                                    <p class="text-xl font-bold font-heading text-white">
+                                                        <span class="text-blue-900">{{ $product->price }} DH</span>
+                                                        <span
+                                                            class="text-xs text-gray-500 font-semibold font-heading line-through">{{ $product->old_price }}</span>
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </a>
+                                        <a class="inline-block hover:bg-orange-400 text-white font-bold font-heading py-4 px-8 rounded-md uppercase transition duration-200 bg-orange-500"
+                                            href="{{ route('front.product', $product->slug) }}">
+                                            {{ __('Learn more') }}
+                                        </a>
+                                    </div>
+                                @empty
+                                    <div class="w-full">
+                                        <h3 class="text-3xl font-bold font-heading text-blue-900">
+                                            {{ __('No products found') }}
+                                        </h3>
+                                    </div>
+                                @endforelse
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+        <div x-show="activeTabs === 'brands'" class="px-5">
+            <div role="brands" aria-labelledby="tab-3" id="tab-panel-3" tabindex="0">
+                <div class="container mx-auto px-10">
+                    <div class="flex mb-5">
+                        <div class="w-full flex flex-wrap py-10 -mx-3">
+                            @foreach ($brands as $brand)
+                                <div class="w-full md:w-1/2 lg:w-1/4 px-3 mb-1° lg:mb-0">
+                                    <a class="block mb-10" href="">
+                                        <div class="relative">
+                                            <img class="w-full h-24 object-cover"
+                                                src="{{ asset('images/brands/' . $brand->image) }}" alt="">
+                                        </div>
+                                        <div class="mt-12">
+                                            <div class="mb-2">
+                                                <h3 class="mb-3 text-3xl font-bold font-heading text-blue-900">
+                                                    {{ $brand->name }}
+                                                </h3>
+                                                {{-- count products in brand  --}}
+                                                <p class="text-xl font-bold font-heading text-white">
+                                                    <span class="text-blue-900">{{ $brand->products->count() }}
+                                                        {{ __('products') }}</span>
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </a>
+                                    <a class="inline-block hover:bg-orange-400 text-white font-bold font-heading py-4 px-8 rounded-md uppercase transition duration-200 bg-orange-500"
+                                        href="">
+                                        {{ __('Learn more') }}
+                                    </a>
+                                </div>
+                            @endforeach
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
-    </section>
+    </div>
+
+
 
     <section class="py-5 bg-gray-100">
         <div class="container mx-auto px-10">
@@ -292,7 +475,7 @@
 
     <!-- Start Sections -->
     @foreach ($sections as $section)
-        <section class="py-10 bg-gray-100 overflow-x-hidden">
+        <section>
             <div class="container px-4 mx-auto">
                 <div class="relative py-20 md:py-40 bg-orange-300">
                     <img class="hidden md:block absolute inset-0 w-full h-full"
@@ -301,7 +484,8 @@
                         <div class="inline-block px-4 relative mb-6">
                             <div class="absolute top-0 left-0 h-1 bg-gray-900 w-full"></div>
                             <div class="absolute bottom-0 left-0 h-1 bg-gray-900 w-full"></div>
-                            <h2 class="relative text-7xl font-bold font-heading text-white">{{ $section->title }}</h2>
+                            <h2 class="relative text-7xl font-bold font-heading text-white">{{ $section->title }}
+                            </h2>
                         </div>
                         <p class="mb-12 text-2xl font-bold font-heading text-white uppercase italic">
                             {{ $section->subtitle }}</p>

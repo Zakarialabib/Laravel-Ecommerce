@@ -103,15 +103,10 @@
                 <i class="fas fa-file-alt w-5 h-5"></i>
             </span>
         </x-slot>
-        @can('section_access')
         <x-sidebar.sublink title="{{ __('Sections') }}" href="{{ route('admin.sections') }}" :active="request()->routeIs('admin.sections')" />
-        @endcan
-        @can('slider_access')
         <x-sidebar.sublink title="{{ __('Sliders') }}" href="{{ route('admin.sliders') }}" :active="request()->routeIs('admin.sliders')" />
-        @endcan
-        @can('featuredbanner_access')
+        
         <x-sidebar.sublink title="{{ __('Featured Banners') }}" href="{{ route('admin.featuredBanners') }}" :active="request()->routeIs('admin.featuredBanners')" />
-        @endcan
         <x-sidebar.sublink title="{{ __('Contact Us Page') }}" href="{{ route('admin.page.contact') }}" :active="request()->routeIs('admin.page.contact')" />
         <x-sidebar.sublink title="{{ __('Other Pages') }}" href="{{ route('admin.pages') }}" :active="request()->routeIs('admin.pages')" />
         <x-sidebar.sublink title="{{ __('Site Content') }}" href="{{ route('admin.setting.content') }}" :active="request()->routeIs('admin.setting.content')" />
@@ -133,7 +128,9 @@
             @can('setting_access')
             <x-sidebar.sublink title="{{ __('Settings') }}" href="{{ route('admin.settings') }}" :active="request()->routeIs('admin.settings')" />
             @endcan
-            <x-sidebar.sublink title="{{ __('Shipping Methode') }}" href="{{ route('admin.setting.shipping') }}" :active="request()->routeIs('admin.shipping')" />
+            <x-sidebar.sublink title="{{ __('Shipping Methode') }}" href="{{ route('admin.setting.shipping') }}" :active="request()->routeIs('admin.setting.shipping')" />
+            
+            <x-sidebar.sublink title="{{ __('Roles') }}" href="{{ route('admin.roles') }}" :active="request()->routeIs('admin.roles')" />
 
         </x-sidebar.dropdown>
 

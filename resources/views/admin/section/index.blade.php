@@ -14,12 +14,12 @@
                             <a href="javascript:;">{{ __('Home Page Settings') }} </a>
                         </li>
                         <li>
-                            <a href="{{ route('admin.sections.index') }}">{{ __('Sectioons') }}</a>
+                            <a href="{{ route('admin.sections') }}">{{ __('Sectioons') }}</a>
                         </li>
                     </ul>
                 </div>
                 <div class="col-lg-4 table-contents">
-                    <a class="add-btn text-white" href="{{ route('admin.sections.create') }}">
+                    <a class="add-btn text-white" href="">
                         <i class="fas fa-plus"></i> {{ __('Create Section') }}
                     </a>
                 </div>

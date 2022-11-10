@@ -43,22 +43,20 @@
                             {{ $role->name }}
                         </x-table.td>
                         <x-table.td class="overflow-hidden text-clip whitespace-pre" style="white-space: initial">
-                            @php
-                                $details = str_replace('_', ' ', $role->section);
-                                $details = ucwords($details);
-                            @endphp
-                            <div class="text-xs font-semibold inline-block py-1 px-2 rounded last:mr-0 mr-1 text-indigo-600 bg-indigo-200">
-                                {{ $details }}
-                            </div>
+                            @foreach($role->permissions as $permission)
+                                <span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2">
+                                    {{ $permission->title }}
+                                </span>
+                            @endforeach
                         </x-table.td>
                         <x-table.td>
                             <div class="inline-flex">
                                 <a class="font-bold border-transparent uppercase justify-center text-xs py-1 px-2 rounded shadow hover:shadow-md outline-none focus:outline-none focus:ring-2 focus:ring-offset-2 mr-1 ease-linear transition-all duration-150 cursor-pointer text-white bg-green-500 border-green-800 hover:bg-green-600 active:bg-green-700 focus:ring-green-300mr-2"
-                                    href="{{ route('admin-role-edit', $role) }}">
+                                    href="">
                                     {{ __('Edit') }}
                                 </a>
                                 <button
-                                    class="font-bold border-transparent uppercase justify-center text-xs py-2 px-2 rounded shadow hover:shadow-md outline-none focus:outline-none focus:ring-2 focus:ring-offset-2 mr-1 ease-linear transition-all duration-150 cursor-pointer text-white bg-red-500 border-red-800 hover:bg-red-600 active:bg-red-700 focus:ring-red-300 mr-2"
+                                    class="font-bold border-transparent uppercase justify-center text-xs py-2 px-2 rounded shadow hover:shadow-md outline-none focus:outline-none focus:ring-2 focus:ring-offset-2 ease-linear transition-all duration-150 cursor-pointer text-white bg-red-500 border-red-800 hover:bg-red-600 active:bg-red-700 focus:ring-red-300 mr-2"
                                     type="button" wire:click="confirm('delete', {{ $role->id }})"
                                     wire:loading.attr="disabled">
                                     {{ __('Delete') }}

@@ -24,8 +24,6 @@
                         </a>
                     </div>
                     <div class="flex flex-wrap -mx-2">
-                        {{-- gallery array --}}
-                        {{-- @dd($product->gallery); --}}
                         @php($gallery = json_decode($product->gallery))
                         @foreach ($gallery as $image)
                             <div class="w-1/2 sm:w-1/4 p-2">
