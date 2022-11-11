@@ -4,9 +4,7 @@ namespace App\Http\Livewire\Admin\Settings;
 
 use Livewire\Component;
 use DateTime, App, File;
-use Illuminate\Support\Facades\Storage;
 use App\Models\Language;
-use App\Models\Langugae;
 use Artisan;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 

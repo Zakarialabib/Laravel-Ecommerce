@@ -1,6 +1,6 @@
 <?php
 
-namespace app;
+namespace App;
 
 use Cache;
 use Str; 
