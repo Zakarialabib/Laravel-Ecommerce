@@ -27,7 +27,7 @@
 
     <meta name="robots" content="all,follow">
 
-    <link rel="icon" href="{{ asset('images/logo/' . Helpers::settings('site_favicon')) }}" type="image/x-icon">
+    <link rel="icon" href="{{ asset('images/' . Helpers::settings('site_favicon')) }}" type="image/x-icon">
     
     {{-- Styles --}}
     @vite('resources/css/app.css')

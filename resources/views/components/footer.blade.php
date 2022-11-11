@@ -100,7 +100,7 @@
         </div>
         <div class="pt-14 flex items-center justify-center">
             <a class="inline-block mr-4 text-white text-2xl font-bold font-heading" href="#">
-                <img class="h-7" src="{{ asset('images/logo/' . Helpers::settings('site_logo')) }}"
+                <img class="h-7" src="{{ asset('images/' . Helpers::settings('site_logo')) }}"
                     alt="{{ Helpers::settings('site_title') }}" width="auto">
             </a>
             <p class="inline-block text-sm text-gray-200">

@@ -2,7 +2,7 @@
     <nav class="flex justify-between bg-gray-100 border-b">
         <div class="px-12 py-8 flex w-full items-center">
             <a class="lg:mr-8 2xl:mr-20 text-3xl font-bold font-heading" href="{{ route('front.index') }}">
-                <img class="h-9" src="{{ asset('images/logo/' . Helpers::settings('site_logo') ) }}" alt="{{ Helpers::settings('site_title') }}" width="auto">
+                <img class="h-9" src="{{ asset('images/' . Helpers::settings('site_logo') ) }}" alt="{{ Helpers::settings('site_title') }}" width="auto">
             </a>
 
             <ul class="hidden xl:flex px-4 mx-auto font-semibold font-heading">
