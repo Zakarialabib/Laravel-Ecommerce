@@ -1,8 +1,8 @@
 <section class="relative">
     <nav class="flex justify-between bg-gray-100 border-b">
-        <div class="px-12 py-8 flex w-full items-center">
+        <div class="px-12 py-5 flex w-full items-center">
             <a class="lg:mr-8 2xl:mr-20 text-3xl font-bold font-heading" href="{{ route('front.index') }}">
-                <img class="h-9" src="{{ asset('images/' . Helpers::settings('site_logo') ) }}" alt="{{ Helpers::settings('site_title') }}" width="auto">
+                <img class="h-15" src="{{ asset('images/' . Helpers::settings('site_logo') ) }}" alt="{{ Helpers::settings('site_title') }}" width="auto">
             </a>
 
             <ul class="hidden xl:flex px-4 mx-auto font-semibold font-heading">
@@ -30,7 +30,7 @@
         @if (Auth::check())
             <x-dropdown align="right" width="56">
                 <x-slot name="trigger">
-                    <div class="py-8 px-6 flex w-full items-center">
+                    <div class="py-5 px-6 flex w-full items-center">
                         <div class="flex items-center">
                             <span
                                 class="bg-orange-500 rounded-md text-center text-white px-6 py-2 cursor-pointer text-sm font-semibold font-heading">
@@ -97,7 +97,7 @@
         <nav class="relative flex flex-col py-6 px-6 w-full h-full bg-white border-r overflow-y-auto">
             <div class="flex items-center mb-8">
                 <a class="mr-auto text-3xl font-bold font-heading" href="{{ route('front.index') }}">
-                    <img class="h-9" src="{{ App\Helpers::settings('site_logo') }}" alt="" width="auto">
+                    <img class="h-10" src="{{ asset('images/' . Helpers::settings('site_logo') ) }}" alt="" width="auto">
                 </a>
                 <button class="navbar-close">
                     <svg class="h-2 w-2 text-gray-500 cursor-pointer" width="10" height="10" viewbox="0 0 10 10"

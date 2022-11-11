@@ -285,7 +285,7 @@
                                                 alt="{{ $brand->name }}">
                                         </div>
                                         <div class="mt-12">
-                                            <div class="mb-2">
+                                            <div class="mb-2 text-center">
                                                 <h3 class="mb-3 text-3xl font-bold font-heading text-blue-900">
                                                     {{ $brand->name }}
                                                 </h3>

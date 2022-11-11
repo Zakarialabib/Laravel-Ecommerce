@@ -24,8 +24,9 @@
                         </a>
                     </div>
                     <div class="flex flex-wrap -mx-2">
-                        @php($gallery = json_decode($product->gallery))
-                        @foreach ($gallery as $image)
+                        {{-- check if product->gallery is true  --}}
+                        @if($product->gallery)
+                        @foreach (json_decode($product->gallery) as $image)
                             <div class="w-1/2 sm:w-1/4 p-2">
                                 <a class="block border border-blue-300" href="#">
                                     <img class="object-cover w-full h-32 cursor-pointer" loading="lazy"
@@ -33,6 +34,7 @@
                                 </a>
                             </div>
                         @endforeach
+                        @endif
                     </div>
                 </div>
                 <div class="w-full md:w-1/2 px-4">
