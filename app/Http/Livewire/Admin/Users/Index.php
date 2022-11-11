@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Livewire\Users;
+namespace App\Http\Livewire\Admin\Users;
 
 use App\Models\User;
 use Illuminate\Support\Facades\Gate;

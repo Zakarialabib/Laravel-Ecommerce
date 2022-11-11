@@ -32,7 +32,6 @@ class Create extends Component
         'slider.title' => ['required', 'string', 'max:255'],
         'slider.subtitle' => ['nullable', 'string'],
         'slider.details' => ['nullable', 'string'],
-        'slider.position' => ['nullable', 'string'],
         'slider.link' => ['nullable', 'string'],
         'slider.language_id' => ['nullable'],
         'slider.bg_color' => ['nullable'],

@@ -37,6 +37,9 @@
                 {{ __('Status') }}
             </x-table.th>
             <x-table.th>
+                {{ __('Featured') }}
+            </x-table.th>
+            <x-table.th>
                 {{ __('Actions') }}
             </x-table.th>
         </x-slot>
@@ -67,6 +70,14 @@
                         <x-badge info>
                             {{__('Active')}}
                         </x-badge>
+                        @endif
+                    </x-table.td>
+                    <x-table.td>
+                        @if ($slider['featured'] == false)
+                            <a class="btn btn-sm bg-green-500 text-white" title="{{ __('Set as featured') }}"
+                                wire:click="setFeatured( {{ $slider['id'] }} )">
+                                {{ __('Set as featured') }}
+                            </a>
                         @endif
                     </x-table.td>
                     <x-table.td>
@@ -143,12 +154,6 @@
                             <x-input id="details" class="block mt-1 w-full" type="text" name="details"
                                 wire:model.defer="slider.details" />
                             <x-input-error :messages="$errors->get('slider.details')" for="slider.details" class="mt-2" />
-                        </div>
-                        <div class="xl:w-1/2 md:w-1/2 px-3">
-                            <x-label for="position" :value="__('Position')" />
-                            <x-input id="position" class="block mt-1 w-full" type="text" name="position"
-                                wire:model.defer="slider.position" />
-                            <x-input-error :messages="$errors->get('slider.position')" for="slider.position" class="mt-2" />
                         </div>
                         <div class="xl:w-1/2 md:w-1/2 px-3">
                             <x-label for="bg_color" :value="__('Background Color')" />

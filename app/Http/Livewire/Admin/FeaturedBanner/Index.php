@@ -114,6 +114,20 @@ class Index extends Component
         return view('livewire.admin.featured-banner.index', compact('featuredbanners'));
     }
 
+    
+    public function setFeatured($id)
+    {
+
+        FeaturedBanner::where('featured', '=', true)->update( ['featured' => false] );
+        $featuredbanner = FeaturedBanner::findOrFail($id);
+        $featuredbanner->featured    = true;
+        $featuredbanner->save();
+
+        $this->alert('success', __('Featuredbanner featured successfully!') );
+        $this->refreshIndex();
+
+    }
+
     public function editModal(FeaturedBanner $featuredbanner)
     {
         $this->resetErrorBag();

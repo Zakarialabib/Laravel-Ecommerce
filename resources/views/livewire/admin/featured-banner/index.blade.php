@@ -37,6 +37,9 @@
                 {{ __('Status') }}
             </x-table.th>
             <x-table.th>
+                {{ __('Featured') }}
+            </x-table.th>
+            <x-table.th>
                 {{ __('Actions') }}
             </x-table.th>
         </x-slot>
@@ -48,8 +51,8 @@
                     </x-table.td>
                     <x-table.td>
                         @if ($featuredbanner->image)
-                            <img src="{{ asset('images/featuredbanners/' . $featuredbanner->image) }}" alt="{{ $featuredbanner->title }}"
-                                class="w-10 h-10 rounded-full">
+                            <img src="{{ asset('images/featuredbanners/' . $featuredbanner->image) }}"
+                                alt="{{ $featuredbanner->title }}" class="w-10 h-10 rounded-full">
                         @else
                             {{ __('No image') }}
                         @endif
@@ -58,14 +61,22 @@
                         {{ $featuredbanner->title }}
                     </x-table.td>
                     <x-table.td>
-                        @if(\App\Models\FeaturedBanner::StatusInactive)
-                        <x-badge danger>
-                            {{__('Inactive')}}
-                        </x-badge>
+                        @if (\App\Models\FeaturedBanner::StatusInactive)
+                            <x-badge danger>
+                                {{ __('Inactive') }}
+                            </x-badge>
                         @elseif(\App\Models\FeaturedBanner::StatusActive)
-                        <x-badge info>
-                            {{__('Active')}}
-                        </x-badge>
+                            <x-badge info>
+                                {{ __('Active') }}
+                            </x-badge>
+                        @endif
+                    </x-table.td>
+                    <x-table.td>
+                        @if ($featuredbanner['featured'] == false)
+                            <a class="btn btn-sm bg-green-500 text-white" title="{{ __('Set as featured') }}"
+                                wire:click="setFeatured( {{ $featuredbanner['id'] }} )">
+                                {{ __('Set as featured') }}
+                            </a>
                         @endif
                     </x-table.td>
                     <x-table.td>
@@ -74,7 +85,8 @@
                                 wire:loading.attr="disabled">
                                 <i class="fas fa-edit"></i>
                             </x-button>
-                            <x-button danger type="button" wire:click="$emit('deleteModal', {{ $featuredbanner->id }})"
+                            <x-button danger type="button"
+                                wire:click="$emit('deleteModal', {{ $featuredbanner->id }})"
                                 wire:loading.attr="disabled">
                                 <i class="fas fa-trash"></i>
                             </x-button>
@@ -128,17 +140,19 @@
                             <x-label for="language_id" :value="__('Language')" required />
                             <x-select-list
                                 class="block bg-white dark:bg-dark-eval-2 text-gray-700 dark:text-gray-300 rounded border border-gray-300 mb-1 text-sm w-full focus:shadow-outline-blue focus:border-blue-500"
-                                id="language_id" name="language_id" wire:model.defer="featuredbanner.language_id" :options="$this->listsForFields['languages']" />
+                                id="language_id" name="language_id" wire:model.defer="featuredbanner.language_id"
+                                :options="$this->listsForFields['languages']" />
                             <x-input-error :messages="$errors->get('featuredbanner.language_id')" for="featuredbanner.language_id" class="mt-2" />
                         </div>
                         <div class="xl:w-1/2 md:w-1/2 px-3">
                             <x-label for="product_id" :value="__('Product')" />
                             <x-select-list
                                 class="block bg-white dark:bg-dark-eval-2 text-gray-700 dark:text-gray-300 rounded border border-gray-300 mb-1 text-sm w-full focus:shadow-outline-blue focus:border-blue-500"
-                                id="product_id" name="product_id" wire:model.defer="featuredbanner.product_id" :options="$this->listsForFields['products']" />
+                                id="product_id" name="product_id" wire:model.defer="featuredbanner.product_id"
+                                :options="$this->listsForFields['products']" />
                             <x-input-error :messages="$errors->get('featuredbanner.product_id')" for="featuredbanner.product_id" class="mt-2" />
                         </div>
-                        
+
                         <div class="xl:w-1/2 md:w-1/2 px-3">
                             <x-label for="details" :value="__('Details')" />
                             <x-input id="details" class="block mt-1 w-full" type="text" name="details"
@@ -151,7 +165,7 @@
                                 wire:model.defer="featuredbanner.link" />
                             <x-input-error :messages="$errors->get('featuredbanner.link')" for="featuredbanner.link" class="mt-2" />
                         </div>
-                    
+
                         <div class="w-full py-2 px-3">
                             <x-label for="image" :value="__('Image')" />
                             <x-fileupload wire:model="image" :file="$image"

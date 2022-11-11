@@ -38,12 +38,6 @@
                         <x-input-error :messages="$errors->get('slider.details')" for="slider.details" class="mt-2" />
                     </div>
                     <div class="xl:w-1/2 md:w-1/2 px-3">
-                        <x-label for="position" :value="__('Position')" />
-                        <x-input id="position" class="block mt-1 w-full" type="text" name="position"
-                            wire:model.defer="slider.position" />
-                        <x-input-error :messages="$errors->get('slider.position')" for="slider.position" class="mt-2" />
-                    </div>
-                    <div class="xl:w-1/2 md:w-1/2 px-3">
                         <x-label for="bg_color" :value="__('Background Color')" />
                         <x-input id="bg_color" class="block mt-1 w-full" type="color" name="bg_color"
                             wire:model.defer="slider.bg_color" />

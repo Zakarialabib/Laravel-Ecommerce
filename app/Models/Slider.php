@@ -15,15 +15,15 @@ class Slider extends Model
     const StatusActive = 1;
 
     public $orderable = [
-        'id','title','subtitle','position','link','language_id'
+        'id','title','subtitle','featured','link','language_id'
     ];
 
     public $filterable = [
-         'id','title','subtitle','position','link','language_id'
+         'id','title','subtitle','featured','link','language_id'
     ];
 
     protected $fillable = [
-       'title','subtitle','details','photo','position','link','language_id','bg_color','status'
+       'title','subtitle','details','photo','featured','link','language_id','bg_color','status'
     ];
     
     public $timestamps = false;

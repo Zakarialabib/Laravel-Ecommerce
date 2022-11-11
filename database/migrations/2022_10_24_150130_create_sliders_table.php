@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('details')->nullable();
             $table->string('photo');
             $table->string('bg_color')->nullable();
-            $table->string('position')->nullable();
+            $table->boolean('featured')->default(0);
             $table->string('link')->nullable();
             $table->string('status')->default(1);
             $table->foreignId('language_id')->nullable()->constrained('languages')->nullOnDelete();

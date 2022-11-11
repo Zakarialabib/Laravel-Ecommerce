@@ -84,7 +84,6 @@ class Index extends Component
         'slider.title' => ['required', 'string', 'max:255'],
         'slider.subtitle' => ['nullable', 'string'],
         'slider.details' => ['nullable', 'string'],
-        'slider.position' => ['nullable', 'string'],
         'slider.link' => ['nullable', 'string'],
         'slider.language_id' => ['nullable', 'integer'],
         'slider.bg_color' => ['nullable', 'string'],
@@ -112,6 +111,19 @@ class Index extends Component
         $sliders = $query->paginate($this->perPage);
 
         return view('livewire.admin.slider.index', compact('sliders'));
+    }
+
+    public function setFeatured($id)
+    {
+
+        Slider::where('featured', '=', true)->update( ['featured' => false] );
+        $slider = Slider::findOrFail($id);
+        $slider->featured    = true;
+        $slider->save();
+
+        $this->alert('success', __('Slider featured successfully!') );
+        $this->refreshIndex();
+
     }
 
     public function editModal(Slider $slider)

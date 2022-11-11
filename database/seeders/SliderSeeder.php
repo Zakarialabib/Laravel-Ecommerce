@@ -23,7 +23,7 @@ class SliderSeeder extends Seeder
                 'details' => 'Slider Details',
                 'photo' => 'slider.jpg',
                 'bg_color' => 'bg-white',
-                'position' => 1,
+                'featured' => 1,
                 'link' => 'https://www.google.com',
             ],
             [
@@ -32,7 +32,7 @@ class SliderSeeder extends Seeder
                 'details' => 'Slider Details',
                 'photo' => 'slider.jpg',
                 'bg_color' => 'bg-white',
-                'position' => 1,
+                'featured' => 0,
                 'link' => 'https://www.google.com',
             ],
             [
@@ -41,7 +41,7 @@ class SliderSeeder extends Seeder
                 'details' => 'Slider Details',
                 'photo' => 'slider.jpg',
                 'bg_color' => 'bg-white',
-                'position' => 1,
+                'featured' => 0,
                 'link' => 'https://www.google.com',
             ],
         ]);

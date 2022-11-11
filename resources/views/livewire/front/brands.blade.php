@@ -1,10 +1,10 @@
 <div>
     <div class="container mx-auto px-10">
         <div class="flex flex-wrap -mx-4 mb-10 items-center justify-between">
-            <div class="w-full lg:w-auto px-4 flex flex-wrap items-center">
-                <div class="w-full sm:w-auto mb-4 sm:mb-0 mr-5">
+            <div class="w-full lg:w-auto lg:mb-4 px-4 flex flex-wrap items-center">
+                <div class="w-full sm:w-auto">
                     <select
-                        class="pl-8 py-4 bg-white text-lg border border-gray-200 focus:ring-blue-300 focus:border-blue-300 rounded-md"
+                    class="px-5 py-3 mr-2 leading-5 bg-white dark:bg-dark-eval-2 text-zinc-700 dark:text-zinc-300 rounded border border-zinc-300 mb-1 text-sm focus:shadow-outline-blue focus:border-blue-500"
                         id="sortBy" wire:model="sorting">
                         <option disabled>{{ __('Best Selling') }}</option>
                         <option value="name">{{ __('Order Alphabetic, A-Z') }}</option>
@@ -16,7 +16,7 @@
                     </select>
 
                     <select
-                        class="pl-8 py-4 bg-white text-lg border border-gray-200 focus:ring-blue-300 focus:border-blue-300 rounded-md"
+                        class="px-5 py-3 leading-5 bg-white dark:bg-dark-eval-2 text-zinc-700 dark:text-zinc-300 rounded border border-zinc-300 mb-1 text-sm focus:shadow-outline-blue focus:border-blue-500"
                         id="perPage" wire:model="pagesize">
                         <option value="20" selected>20 Items</option>
                         <option value="50">50 Items</option>
@@ -24,7 +24,7 @@
                     </select>
                 </div>
 
-                <div class="flex flex-wrap ml-3 -mx-5">
+                <div class="w-full sm:w-auto ml-5 sm:ml-0">
                     @foreach ($brands as $brand)
                         <x-button type="button" primaryOutline class="mx-2" wire:click="filterProducts({{ $brand->id }})">
                             {{ $brand->name }}</x-button>
