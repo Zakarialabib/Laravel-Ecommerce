@@ -21,7 +21,7 @@
     <meta property="og:description" content="{{ Helpers::settings('seo_meta_description') }}">
     <meta property="og:locale" content="{{ app()->getLocale() }}" />
     <meta property="og:type" content="website" />
-    <meta property="og:url" content="{{ route('front.home') }}" />
+    <meta property="og:url" content="{{ route('front.index') }}" />
     <meta property="og:site_name" content="{{ Helpers::settings('company_name') }}" />
     <meta name="author" content="{{ Helpers::settings('company_name') }}">
 
