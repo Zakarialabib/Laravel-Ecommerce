@@ -16,7 +16,18 @@
     <meta name="title" content="@yield('meta_title')">
     @endif
 
-    <link rel="icon" href="{{ asset('images/settings' . Helpers::settings('site_favicon')) }}" type="image/x-icon">
+    <meta name="title" content="{{ Helpers::settings('seo_meta_title') }}">
+    <meta name="description" content="{{ Helpers::settings('seo_meta_description') }}">
+    <meta property="og:description" content="{{ Helpers::settings('seo_meta_description') }}">
+    <meta property="og:locale" content="{{ app()->getLocale() }}" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="{{ route('front.home') }}" />
+    <meta property="og:site_name" content="{{ Helpers::settings('company_name') }}" />
+    <meta name="author" content="{{ Helpers::settings('company_name') }}">
+
+    <meta name="robots" content="all,follow">
+
+    <link rel="icon" href="{{ asset('images/logo/' . Helpers::settings('site_favicon')) }}" type="image/x-icon">
     
     {{-- Styles --}}
     @vite('resources/css/app.css')
@@ -24,9 +35,24 @@
     @livewireStyles
     
     @stack('styles')
-    
+     <!-- Head Tags -->
+
+     @if ( Helpers::settings('head_tags') != null)
+
+     {!! Helpers::settings('head_tags') !!}
+     
+     @endif
+ 
 </head>
 <body class="antialiased bg-body text-body font-body" x-data="{ showCart: false }">
+    <!-- Body Tags -->
+ 
+    @if ( Helpers::settings('body_tags') != null )
+ 
+    {!! Helpers::settings('body_tags') !!}
+    
+    @endif
+
     <div class="">
                 
       <section class="relative">

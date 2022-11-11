@@ -71,15 +71,3 @@
     </div>
 </nav>
 
-{{-- <!-- Mobile bottom bar -->
-<div class="fixed inset-x-0 bottom-0 z-10 flex items-center justify-between px-4 py-4 sm:px-6 transition-transform duration-500 bg-white lg:hidden dark:bg-dark-eval-1"
-    :class="{
-        'translate-y-full': scrollingDown,
-        'translate-y-0': scrollingUp,
-    }">
-
-    <a href="{{ route('admin.dashboard') }}">
-        <x-application-logo aria-hidden="true" class="w-10 h-10" />
-        <span class="sr-only">{{ config('settings.site_title') }}</span>
-    </a>
-</div> --}}

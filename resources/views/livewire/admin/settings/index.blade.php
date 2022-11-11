@@ -212,10 +212,14 @@
                 </div>
                 <div class="lg:w-1/2 sm:w-full px-2">
                     <x-label for="currency_position" :value="__('Currency Position')" />
-                    <x-input
-                        wire:model="currency_position" type="text"
-                        value="{{ Helpers::settings('currency_position') }}" id="currency_position"
-                        name="currency_position" />
+                    <select wire:model="currency_position" name="currency_position" id="currency_position"
+                        class="p-3 leading-5 bg-white dark:bg-dark-eval-2 text-zinc-700 dark:text-zinc-300 rounded border border-zinc-300 mb-1 text-sm w-full focus:shadow-outline-blue focus:border-blue-500">
+                        <option selected value="{{ Helpers::settings('currency_position') }}">
+                            {{ Helpers::settings('currency_position') }}
+                        </option>
+                        <option value="left">{{ __('Left') }}</option>
+                        <option value="right">{{ __('Right') }}</option>
+                    </select>
                     <x-input-error for="currency_position" :messages="$errors->first('currency_position')" />
                 </div>
             </div>

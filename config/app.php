@@ -212,7 +212,7 @@ return [
 
     'aliases' => Facade::defaultAliases()->merge([
         'Excel' => Maatwebsite\Excel\Facades\Excel::class,
-        'Helpers' => App\Helpers::class,
+        'Helpers' => app\Helpers::class,
         'Image' => Intervention\Image\Facades\Image::class
     ])->toArray(),
 
