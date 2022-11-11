@@ -34,22 +34,22 @@
                             <li class="mb-6">
                                 <h4 class="mb-2 text-gray-50">{{ __('Telephone') }}</h4>
                                 <a class="text-white hover:underline"
-                                    href="tel:{{ App\Helpers::settings('company_phone') }}">
-                                    {{ App\Helpers::settings('company_phone') }}
+                                    href="tel:{{ Helpers::settings('company_phone') }}">
+                                    {{ Helpers::settings('company_phone') }}
 
                                 </a>
                             </li>
                             <li class="mb-6">
                                 <h4 class="mb-2 text-gray-50">{{ __('Email') }}</h4>
                                 <a class="text-white hover:underline"
-                                    href="mailto:{{ App\Helpers::settings('company_email_address') }}">
-                                    {{ App\Helpers::settings('company_email_address') }}
+                                    href="mailto:{{ Helpers::settings('company_email_address') }}">
+                                    {{ Helpers::settings('company_email_address') }}
                                 </a>
                             </li>
                             <li>
                                 <h4 class="mb-2 text-gray-50">{{ __('Whatsapp') }}</h4>
                                 <a class="text-white hover:underline" href="#">
-                                    {{ App\Helpers::settings('social_whatsapp') }}
+                                    {{ Helpers::settings('social_whatsapp') }}
                                 </a>
                             </li>
                         </ul>
@@ -77,22 +77,22 @@
                 <div class="w-full md:w-auto flex">
                     <a class="inline-flex items-center justify-center w-12 h-12 mr-2 rounded-full"
                         href="
-            {{ App\Helpers::settings('social_facebook') }}">
+            {{ Helpers::settings('social_facebook') }}">
                         <i class="fab fa-facebook-f text-white"></i>
                     </a>
                     <a class="inline-flex items-center justify-center w-12 h-12 mr-2 rounded-full"
                         href="
-            {{ App\Helpers::settings('social_instagram') }}">
+            {{ Helpers::settings('social_instagram') }}">
                         <i class="fab fa-instagram text-white"></i>
                     </a>
                     <a class="inline-flex items-center justify-center w-12 h-12 rounded-full"
                         href="
-            {{ App\Helpers::settings('social_twitter') }}">
+            {{ Helpers::settings('social_twitter') }}">
                         <i class="fab fa-twitter text-white"></i>
                     </a>
                     <a class="inline-flex items-center justify-center w-12 h-12 rounded-full"
                         href="
-            {{ App\Helpers::settings('social_linkedin') }}">
+            {{ Helpers::settings('social_linkedin') }}">
                         <i class="fab fa-linkedin-in text-white"></i>
                     </a>
                 </div>

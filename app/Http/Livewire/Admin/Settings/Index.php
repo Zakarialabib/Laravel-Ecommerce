@@ -6,8 +6,8 @@ use Livewire\Component;
 use App\Models\Settings;
 use Illuminate\Support\Facades\Storage;
 use Livewire\WithFileUploads;
-use App\Helpers;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
+use Helpers;
 
 class Index extends Component
 {

@@ -60,8 +60,6 @@ class Languages extends Component
     **/
 
     public function sync($id){
-
-        try {
             
             $languages = Language::findOrFail($id);
 
@@ -69,11 +67,7 @@ class Languages extends Component
 
             $this->alert('success', __('Translation updated successfully!') );
         
-        } catch (Exception $e) {
-            
-			$this->alert('error', __($e->getMessage()) );
-        
-        }
+       
     }
 
     public function onUpdateLanguageStatus(){
