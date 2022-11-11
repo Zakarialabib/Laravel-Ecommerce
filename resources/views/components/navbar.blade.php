@@ -37,17 +37,12 @@
         </x-button>
 
         {{-- @livewire('admin.cache') --}}
-
         <ul class="flex-col md:flex-row list-none items-center md:flex">
-            <x-dropdown align="right" width="56">
+            <x-dropdown align="right" width="60">
                 <x-slot name="trigger">
-                    {{-- {{ Auth::user()->first_name }} --}}
-
-                    {{-- <button
-                        class="flex text-sm border-2 border-transparent rounded-full focus:outline-none focus:border-gray-300 transition duration-150 ease-in-out">
-                        <img class="h-8 w-8 rounded-full" src="{{ auth()->user()->profile_photo_url }}"
-                            alt="{{ auth()->user()->first_name }}" />
-                    </button> --}}
+                    <x-button type="button" primary>
+                        {{ Auth::user()->first_name }}
+                    </x-button>
                 </x-slot>
 
                 <x-slot name="content">

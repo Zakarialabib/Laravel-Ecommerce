@@ -24,7 +24,6 @@ return new class extends Migration
             $table->string('faq')->default('1');
             $table->string('contact')->default('1');
             $table->string('category')->default('1');
-            $table->string('arrival_section')->default('1');
             $table->string('our_services')->default('1');
             $table->string('popular_products')->default('1');
             $table->string('slider')->default('1');

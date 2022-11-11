@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Http\Livewire\Admin\Product;
 
 use App\Models\Brand;
@@ -11,7 +12,7 @@ use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Str;
 use Livewire\WithFileUploads;
 use App\Models\Warehouse;
-
+use Image;
 
 class Create extends Component
 {
@@ -26,6 +27,8 @@ class Create extends Component
     public $image;
     
     public $gallery = [];
+
+    public $uploadLink;
 
     public function refreshIndex()
     {
@@ -72,18 +75,58 @@ class Create extends Component
         $this->createProduct = true;  
     }
 
+    // make image upload from url
+    public function uploadImage()
+    {
+        $this->validate([
+            'uploadLink' => 'required|url',
+        ]);
+
+        $image = file_get_contents($this->uploadLink);
+        $name = Str::random(10) . '.jpg';
+        $path = public_path() . '/images/products/' . $name;
+        file_put_contents($path, $image);
+        $this->product->image = $name;
+        $this->product->save();
+        $this->alert('success', 'Image Uploaded Successfully');
+    }
+    
+    // make gallery upload from url 
+    public function uploadGallery()
+    {
+        $this->validate([
+            'uploadLink' => 'required|url',
+        ]);
+
+        $image = file_get_contents($this->uploadLink);
+        $name = Str::random(10) . '.jpg';
+        $path = public_path() . '/images/products/' . $name;
+        file_put_contents($path, $image);
+        $this->gallery[] = $name;
+        $this->alert('success', 'Image Uploaded Successfully');
+    }
+
     public function create()
     {
         $this->validate();
 
         // generate code
-        $this->product->code = Str::random(10);
+        $this->product->code = Str::slug($this->product->name, '-');
         // generate slug from name slug
         $this->product->slug = Str::slug($this->product->name);
         
+        // check image, resize (1500x1500), add watermark (logo) and upload
+
         if($this->image){
+
             $imageName = Str::slug($this->product->name).'.'.$this->image->extension();
+            
+            $imageName = Image::make($this->image)->resize(1500, 1500, function ($constraint) {
+                $constraint->aspectRatio();
+            });
+
             $this->image->storeAs('products',$imageName);
+
             $this->product->image = $imageName;
         }
         // gallery

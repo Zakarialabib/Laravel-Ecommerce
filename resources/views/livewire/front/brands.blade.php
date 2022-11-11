@@ -26,7 +26,7 @@
 
                 <div class="flex flex-wrap ml-3 -mx-5">
                     @foreach ($brands as $brand)
-                        <x-button type="button" primary class="mx-2" wire:click="filterProducts({{ $brand->id }})">
+                        <x-button type="button" primaryOutline class="mx-2" wire:click="filterProducts({{ $brand->id }})">
                             {{ $brand->name }}</x-button>
                     @endforeach
                 </div>
@@ -34,7 +34,7 @@
         </div>
         <div class="flex flex-wrap -mx-3 mb-24">
             @foreach ($products as $product)
-                <div class="w-full md:w-1/2 lg:w-1/4 px-3 mb-6 lg:mb-0">
+                <div class="w-full md:w-1/2 lg:w-1/4 px-3 mb-6">
                     <div class="p-6 bg-gray-50">
                         @if ($product->is_discount)
                             <span
@@ -44,16 +44,16 @@
                         @endif
                         <a class="block px-6 mt-6 mb-2" href="{{ route('front.product', $product->slug) }}">
                             <img class="mb-5 mx-auto h-56 w-full object-contain"
-                                src="{{ asset('images/products/' . $product->image) }}" alt="{{ $product->name }}">
+                            loading="lazy" src="{{ asset('images/products/' . $product->image) }}" alt="{{ $product->name }}">
                             <h3 class="mb-2 text-xl font-bold font-heading">
                                 {{ $product->name }}
                             </h3>
                             <p class="text-lg font-bold font-heading text-blue-500">
                                 <span>
-                                    {{ $product->price }}
+                                    {{ $product->price }} DH
                                 </span>
                                 <span class="text-xs text-gray-500 font-semibold font-heading line-through">
-                                    {{ $product->old_price }}
+                                    {{ $product->old_price }} DH
                                 </span>
                             </p>
                         </a>

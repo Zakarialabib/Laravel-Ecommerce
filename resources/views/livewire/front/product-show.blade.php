@@ -12,7 +12,7 @@
                                     fill="#1F40FF"></path>
                             </svg>
                         </a>
-                        <img class="object-cover w-full h-full" src="{{ asset('images/products/' . $product->image) }}"
+                        <img class="object-cover w-full h-full" loading="lazy" src="{{ asset('images/products/' . $product->image) }}"
                             alt="{{ $product->name }}">
                         <a class="absolute top-1/2 right-0 mr-8 transform translate-1/2" href="#">
                             <svg width="10" height="18" viewbox="0 0 10 18" fill="none"
@@ -28,7 +28,7 @@
                         @foreach ($gallery as $image)
                             <div class="w-1/2 sm:w-1/4 p-2">
                                 <a class="block border border-blue-300" href="#">
-                                    <img class="object-cover w-full h-32 cursor-pointer"
+                                    <img class="object-cover w-full h-32 cursor-pointer" loading="lazy"
                                         src="{{ asset('images/products/' . $image) }}" alt="{{ $product->name }}">
                                 </a>
                             </div>

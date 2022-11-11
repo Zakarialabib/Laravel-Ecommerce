@@ -24,7 +24,7 @@ class SubscriberController extends Controller
         return view('admin.subscribers.index');
     }
 
-    //*** GET Request
+
     public function download()
     {
         //  Code for generating csv file

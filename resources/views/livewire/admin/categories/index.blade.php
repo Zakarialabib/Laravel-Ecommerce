@@ -124,8 +124,8 @@
                         <x-input-error :messages="$errors->get('image')" for="image" class="mt-2" />
                     </div>
 
-                    <div class="w-full flex justify-end">
-                        <x-button primary wire:click="update" wire:loading.attr="disabled">
+                    <div class="w-full px-3">
+                        <x-button primary type="submit" wire:click="update" wire:loading.attr="disabled">
                             {{ __('Update') }}
                         </x-button>
                     </div>
@@ -152,7 +152,7 @@
                         <x-input-error :messages="$errors->get('import')" for="import" class="mt-2" />
                     </div>
 
-                    <div class="w-full flex justify-end">
+                    <div class="w-full px-3">
                         <x-button primary wire:click="import" type="button" wire:loading.attr="disabled">
                             {{ __('Import') }}
                         </x-button>

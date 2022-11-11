@@ -26,13 +26,13 @@ class ReviewController extends Controller
                             ->toJson(); //--- Returning Json Data To Client Side
     }
 
-    //*** GET Request
+
     public function index()
     {
         return view('admin.review.index');
     }
 
-    //*** GET Request
+
     public function create()
     {
         return view('admin.review.create');
@@ -71,7 +71,7 @@ class ReviewController extends Controller
         //--- Redirect Section Ends    
     }
 
-    //*** GET Request
+
     public function edit($id)
     {
         $data = Review::findOrFail($id);
@@ -117,7 +117,7 @@ class ReviewController extends Controller
         //--- Redirect Section Ends            
     }
 
-    //*** GET Request Delete
+
     public function destroy($id)
     {
         $data = Review::findOrFail($id);

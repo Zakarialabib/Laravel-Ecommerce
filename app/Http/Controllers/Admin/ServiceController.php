@@ -75,7 +75,7 @@ class ServiceController extends Controller
         //--- Redirect Section Ends    
     }
 
-    //*** GET Request
+
     public function edit($id)
     {
         $data = Service::findOrFail($id);
@@ -121,7 +121,7 @@ class ServiceController extends Controller
         //--- Redirect Section Ends            
     }
 
-    //*** GET Request Delete
+
     public function destroy($id)
     {
         $data = Service::findOrFail($id);

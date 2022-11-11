@@ -38,14 +38,14 @@ class ReportController extends Controller
 			return view('admin.report.index');
 		}
 
-	    //*** GET Request
+	
 	    public function show($id)
 	    {
 	        $data = Report::findOrFail($id);
 	        return view('admin.report.show',compact('data'));
 	    }
 
-	    //*** GET Request Delete
+
 		public function destroy($id)
 		{
 		    $data = Report::findOrFail($id);

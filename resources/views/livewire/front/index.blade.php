@@ -4,16 +4,21 @@
             @foreach ($sliders as $slider)
                 <div class="w-full md:w-1/2 px-4 mb-12 lg:mb-0 pt-20 lg:py-32">
                     <div class="max-w-md">
+                        <h5 class="text-2xl font-bold text-gray-600 mb-2">
+                            {{ $slider->subtitle }}
+                        </h5>
                         <h2 class="mb-8 text-5xl lg:text-6xl font-semibold font-heading">
                             {{ $slider->title }}
                         </h2>
                         <p class="mb-20 text-lg text-gray-600">
-                            {{ $slider->details }}
+                            {{ Str::limit($slider->details, 150) }}
                         </p>
+                        @if($slider->link)
                         <a class="inline-block hover:bg-orange-400 text-white font-bold font-heading py-6 px-8 rounded-md uppercase transition duration-200 bg-orange-500"
                             href="{{ $slider->link }}">
                             {{ 'Discover now' }}
                         </a>
+                        @endif
                     </div>
                 </div>
                 <div class="relative w-full md:w-1/2 px-4 mb-12 lg:mb-0">
@@ -30,10 +35,12 @@
                                             {{ $banner->title }}
                                         </h3>
                                         <p class="mb-4 lg:mb-0 text-lg font-semibold font-heading text-blue-500">
-                                            {{ $banner->details }}
+                                            {{ Str::limit($banner->details, 150) }}
                                         </p>
+                                        
+                                        @if($banner->product_id)
                                         <a class="lg:absolute bottom-0 flex items-center justify-center w-12 h-12 lg:-mb-6 hover:bg-orange-400 text-white rounded-md bg-orange-500"
-                                            href="#">
+                                            href="{{ Helpers::productLink($banner->product) }}">
                                             <svg class="w-2 h-4" width="8" height="12" viewbox="0 0 8 12"
                                                 fill="none" xmlns="http://www.w3.org/2000/svg">
                                                 <path
@@ -41,18 +48,28 @@
                                                     fill="white"></path>
                                             </svg>
                                         </a>
+                                        @elseif($banner->link)
+                                        <a class="lg:absolute bottom-0 flex items-center justify-center w-12 h-12 lg:-mb-6 hover:bg-orange-400 text-white rounded-md bg-orange-500"
+                                            href="{{ $banner->link }}">
+                                            <svg class="w-2 h-4" width="8" height="12" viewbox="0 0 8 12"
+                                                fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                <path
+                                                    d="M4.97656 6.00252L0.851562 1.87752L2.02957 0.699219L7.33258 6.00252L2.02957 11.3058L0.851562 10.1275L4.97656 6.00252Z"
+                                                    fill="white"></path>
+                                            </svg>
+                                        </a>
+                                        @endif
                                     </div>
                                     <div class="w-auto">
-                                        <img class="h-full lg:h-36 rounded-xl object-cover"
-                                            src="{{ asset('images/featuredbanners/' . $banner->image) }}"
-                                            alt="">
+                                        <img loading="lazy" class="h-full lg:h-36 rounded-xl object-cover"
+                                        src="{{ asset('images/featuredbanners/' . $banner->image) }}" alt="{{ $banner->title }}">
                                     </div>
                                 </div>
                             </div>
                         @endforeach
                     @endif
-                    <img class="mx-auto h-96 lg:h-auto" src="{{ asset('images/sliders/' . $slider->photo) }}"
-                        alt="">
+                    <img loading="lazy" class="mx-auto h-96 lg:h-auto" src="{{ asset('images/sliders/' . $slider->photo) }}"
+                        alt="{{ $slider->title }}">
                 </div>
             @endforeach
         </div>
@@ -60,7 +77,7 @@
             <div class="flex flex-wrap items-center justify-center -mx-2 -mb-12">
                 @foreach ($brands as $brand)
                     <div class="w-1/2 md:w-1/3 lg:w-1/6 px-2 mb-12">
-                        <img class="mx-auto h-6" src="{{ asset('images/brands' . $brand->image) }}" alt="">
+                        <img loading="lazy" class="mx-auto h-6" src="{{ asset('images/brands/' . $brand->image) }}" alt="">
                     </div>
                 @endforeach
             </div>
@@ -140,30 +157,30 @@
     <div x-data="{ activeTabs: 'featuredProducts' }" class="container mx-auto px-4">
         <div class="flex flex-wrap justify-center -mx-4 mb-10">
             <div class="w-1/2 md:w-auto">
-                <button type="button" id="featuredProducts" @click="activeTabs = 'featuredProducts'"
-                    :class="activeTabs === 'featuredProducts' ? 'bg-gray-100' : ''"
-                    class="inline-block py-6 px-10 text-left font-bold font-heading text-gray-500 uppercase border-b-2 border-gray-100 hover:border-gray-500 focus:outline-none focus:border-gray-500">
+                <button type="button" class="inline-block py-6 px-10 text-left font-bold font-heading text-gray-500 uppercase border-b-2 border-gray-100 hover:border-gray-500 focus:outline-none focus:border-gray-500"
+                    @click="activeTabs = 'featuredProducts'"
+                    :class="activeTabs === 'featuredProducts' ? 'bg-gray-100' : ''">
                     {{ __('Featured Products') }}
                 </button>
             </div>
             <div class="w-1/2 md:w-auto">
-                <button type="button" id="bestOfers" @click="activeTabs = 'bestOfers'"
-                    :class="activeTabs === 'bestOfers' ? 'bg-gray-100' : ''"
-                    class="inline-block py-6 px-10 text-left font-bold font-heading text-gray-500 uppercase border-b-2 border-gray-100 hover:border-gray-500 focus:outline-none focus:border-gray-500">
+                <button type="button" class="inline-block py-6 px-10 text-left font-bold font-heading text-gray-500 uppercase border-b-2 border-gray-100 hover:border-gray-500 focus:outline-none focus:border-gray-500"
+                    @click="activeTabs = 'bestOfers'"
+                    :class="activeTabs === 'bestOfers' ? 'bg-gray-100' : ''">
                     {{ __('Best Offers') }}
                 </button>
             </div>
             <div class="w-1/2 md:w-auto">
-                <button type="button" id="hotProducts" @click="activeTabs = 'hotProducts'"
-                    :class="activeTabs === 'hotProducts' ? 'bg-gray-100' : ''"
-                    class="inline-block py-6 px-10 text-left font-bold font-heading text-gray-500 uppercase border-b-2 border-gray-100 hover:border-gray-500 focus:outline-none focus:border-gray-500">
+                <button type="button" class="inline-block py-6 px-10 text-left font-bold font-heading text-gray-500 uppercase border-b-2 border-gray-100 hover:border-gray-500 focus:outline-none focus:border-gray-500"
+                    @click="activeTabs = 'hotProducts'"
+                    :class="activeTabs === 'hotProducts' ? 'bg-gray-100' : ''">
                     {{ __('Hot Products') }}
                 </button>
             </div>
             <div class="w-1/2 md:w-auto">
-                <button type="button" id="brands" @click="activeTabs = 'brands'"
-                    :class="activeTabs === 'brands' ? 'bg-gray-100' : ''"
-                    class="inline-block py-6 px-10 text-left font-bold font-heading text-gray-500 uppercase border-b-2 border-gray-100 hover:border-gray-500 focus:outline-none focus:border-gray-500">
+                <button type="button" class="inline-block py-6 px-10 text-left font-bold font-heading text-gray-500 uppercase border-b-2 border-gray-100 hover:border-gray-500 focus:outline-none focus:border-gray-500"
+                    @click="activeTabs = 'brands'"
+                    :class="activeTabs === 'brands' ? 'bg-gray-100' : ''">
                     {{ __('Brands') }}
                 </button>
             </div>
@@ -184,14 +201,14 @@
                                                         -{{ $product->discount }}%
                                                     </span>
                                                 @endif
-                                                <img class="w-full h-96 object-cover"
+                                                <img class="w-full h-96 object-cover" loading="lazy"
                                                     src="{{ asset('images/products/' . $product->image) }}"
-                                                    alt="">
+                                                    alt="{{$product->name}}">
                                             </div>
                                             <div class="mt-12">
                                                 <div class="mb-2">
                                                     <h3 class="mb-3 text-3xl font-bold font-heading text-blue-900">
-                                                        {{ $product->name }}
+                                                        {{ Str::limit($product->name, 30) }}
                                                     </h3>
                                                     <p class="text-xl font-bold font-heading text-white">
                                                         <span class="text-blue-900">{{ $product->price }} DH</span>
@@ -235,14 +252,14 @@
                                                         -{{ $product->discount }}%
                                                     </span>
                                                 @endif
-                                                <img class="w-full h-96 object-cover"
+                                                <img class="w-full h-96 object-cover" loading="lazy"
                                                     src="{{ asset('images/products/' . $product->image) }}"
-                                                    alt="">
+                                                    alt="{{$product->name}}">
                                             </div>
                                             <div class="mt-12">
                                                 <div class="mb-2">
                                                     <h3 class="mb-3 text-3xl font-bold font-heading text-blue-900">
-                                                        {{ $product->name }}
+                                                        {{ Str::limit($product->name, 30) }}
                                                     </h3>
                                                     <p class="text-xl font-bold font-heading text-white">
                                                         <span class="text-blue-900">{{ $product->price }} DH</span>
@@ -286,14 +303,14 @@
                                                         -{{ $product->discount }}%
                                                     </span>
                                                 @endif
-                                                <img class="w-full h-96 object-cover"
+                                                <img class="w-full h-96 object-cover" loading="lazy"
                                                     src="{{ asset('images/products/' . $product->image) }}"
-                                                    alt="">
+                                                    alt="{{$product->name}}">
                                             </div>
                                             <div class="mt-12">
                                                 <div class="mb-2">
                                                     <h3 class="mb-3 text-3xl font-bold font-heading text-blue-900">
-                                                        {{ $product->name }}
+                                                        {{ Str::limit($product->name, 30) }}
                                                     </h3>
                                                     <p class="text-xl font-bold font-heading text-white">
                                                         <span class="text-blue-900">{{ $product->price }} DH</span>
@@ -328,10 +345,10 @@
                         <div class="w-full flex flex-wrap py-10 -mx-3">
                             @foreach ($brands as $brand)
                                 <div class="w-full md:w-1/2 lg:w-1/4 px-3 mb-1° lg:mb-0">
-                                    <a class="block mb-10" href="">
+                                    <a class="block mb-10" href="{{ route('front.brands')}}" >
                                         <div class="relative">
-                                            <img class="w-full h-24 object-cover"
-                                                src="{{ asset('images/brands/' . $brand->image) }}" alt="">
+                                            <img class="w-full h-auto" loading="lazy"
+                                                src="{{ asset('images/brands/' . $brand->image) }}" alt="{{ $brand->name }}">
                                         </div>
                                         <div class="mt-12">
                                             <div class="mb-2">
@@ -345,10 +362,6 @@
                                                 </p>
                                             </div>
                                         </div>
-                                    </a>
-                                    <a class="inline-block hover:bg-orange-400 text-white font-bold font-heading py-4 px-8 rounded-md uppercase transition duration-200 bg-orange-500"
-                                        href="">
-                                        {{ __('Learn more') }}
                                     </a>
                                 </div>
                             @endforeach
@@ -364,7 +377,7 @@
     <section class="py-5 bg-gray-100">
         <div class="container mx-auto px-10">
             <div class="flex flex-wrap -mx-3">
-                <div class="w-full md:w-1/2 lg:w-1/4 px-3 mb-6 lg:mb-0">
+                <div class="w-full md:w-1/2 lg:w-1/4 px-3 mb-6">
                     <div class="relative h-full text-center pt-16 bg-white">
                         <img class="hidden md:block absolute z-10 top-0 left-1/2 ml-16 lg:ml-8 mt-16"
                             src="yofte-assets/elements/dots.svg" alt="">
@@ -386,7 +399,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="w-full md:w-1/2 lg:w-1/4 px-3 mb-6 lg:mb-0">
+                <div class="w-full md:w-1/2 lg:w-1/4 px-3 mb-6">
                     <div class="relative h-full text-center pt-16 bg-white">
                         <img class="hidden lg:block absolute z-10 top-0 left-1/2 ml-16 lg:ml-8 mt-16"
                             src="yofte-assets/elements/dots.svg" alt="">
@@ -478,7 +491,7 @@
         <section>
             <div class="container px-4 mx-auto">
                 <div class="relative py-20 md:py-40 bg-orange-300">
-                    <img class="hidden md:block absolute inset-0 w-full h-full"
+                    <img class="hidden md:block absolute inset-0 w-full h-full" loading="lazy"
                         src="{{ asset('images/sections' . $section->image) }}" alt="">
                     <div class="relative text-center">
                         <div class="inline-block px-4 relative mb-6">

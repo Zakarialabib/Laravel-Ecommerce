@@ -86,7 +86,7 @@ class Index extends Component
         'slider.details' => ['nullable', 'string'],
         'slider.position' => ['nullable', 'string'],
         'slider.link' => ['nullable', 'string'],
-        'slider.language_id' => ['required', 'integer'],
+        'slider.language_id' => ['nullable', 'integer'],
         'slider.bg_color' => ['nullable', 'string'],
     ];
 
@@ -165,7 +165,6 @@ class Index extends Component
     public function delete(Slider $slider)
     {
         
-       
         $slider->delete();
 
         $this->alert('success', __('Slider deleted successfully.'));

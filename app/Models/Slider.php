@@ -11,6 +11,9 @@ class Slider extends Model
 
     public $table = 'sliders';
 
+    const StatusInactive = 0;
+    const StatusActive = 1;
+
     public $orderable = [
         'id','title','subtitle','position','link','language_id'
     ];
@@ -27,7 +30,7 @@ class Slider extends Model
 
     public function language()
     {
-    	return $this->belongsTo('App\Models\Language','language_id')->withDefault();
+    	return $this->belongsTo( Language::class ,'language_id');
     }  
 
 }

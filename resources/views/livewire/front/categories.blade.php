@@ -30,7 +30,7 @@
 
                 <div class="flex flex-wrap ml-5">
                     @foreach ($categories as $category)
-                        <x-button type="button" primary class="mx-2"
+                        <x-button type="button" dangerOutline class="mx-2"
                             wire:click="filterProducts({{ $category->id }})">{{ $category->name }}</x-button>
                     @endforeach
                 </div>
@@ -39,7 +39,7 @@
 
         <div class="flex flex-wrap -mx-3 mb-24">
             @foreach ($products as $product)
-                <div class="w-full md:w-1/2 lg:w-1/4 px-3 mb-6 lg:mb-0">
+                <div class="w-full md:w-1/2 lg:w-1/4 px-3 mb-6">
                     <div class="p-6 bg-gray-50">
                         @if ($product->is_discount)
                             <span
@@ -48,18 +48,20 @@
                             </span>
                         @endif
                         <a class="block px-6 mt-6 mb-2" href="{{ route('front.product', $product->slug) }}">
-                            <img class="mb-5 mx-auto h-56 w-full object-contain"
+                            <img class="mb-5 mx-auto h-56 w-full object-contain" loading="lazy"
                             src="{{ asset('images/products/' . $product->image) }}" alt="{{ $product->name }}">
                             <h3 class="mb-2 text-xl font-bold font-heading">
-                                {{ $product->name }}
+                                {{ Str::limit($product->name, 30) }}
                             </h3>
                             <p class="text-lg font-bold font-heading text-blue-500">
                                 <span>
-                                    {{ $product->price }}
+                                    {{ $product->price }} DH
                                 </span>
+                                @if($product->old_price)
                                 <span class="text-xs text-gray-500 font-semibold font-heading line-through">
-                                    {{ $product->old_price }}
+                                    {{ $product->old_price }} DH
                                 </span>
+                                @endif
                             </p>
                         </a>
                         <a class="ml-auto mr-2 flex items-center justify-center w-12 h-12 border rounded-lg hover:border-gray-500"

@@ -13,7 +13,7 @@ class Brand extends Model
        'id', 'name', 'description', 'image','link','status',
     ];
 
-    public $filterable = [
+    protected $filterable = [
         'id', 'name', 'description', 'image','link','status',
     ];
 

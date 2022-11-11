@@ -2,7 +2,7 @@
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
     <title>
-        @yield('title') || {{ App\Helpers::settings('site_title') }}
+        @yield('title') || {{ Helpers::settings('site_title') }}
     </title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -10,13 +10,13 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&display=swap">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     
-    @if( App\Helpers::settings('site_title') )
-        <meta name="title" content="{{ App\Helpers::settings('site_title') }}">
+    @if( Helpers::settings('site_title') )
+        <meta name="title" content="{{ Helpers::settings('site_title') }}">
     @else
     <meta name="title" content="@yield('meta_title')">
     @endif
 
-    <link rel="icon" href="{{ asset('images/settings' . App\Helpers::settings('site_favicon')) }}" type="image/x-icon">
+    <link rel="icon" href="{{ asset('images/settings' . Helpers::settings('site_favicon')) }}" type="image/x-icon">
     
     {{-- Styles --}}
     @vite('resources/css/app.css')

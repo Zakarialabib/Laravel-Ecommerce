@@ -148,8 +148,8 @@
                         class="mt-2" />
                 </div>
 
-                <div class="w-full flex justify-end">
-                    <x-button primary wire:click="update" wire:loading.attr="disabled">
+                <div class="w-full px-3">
+                    <x-button primary type="submit" wire:click="update" wire:loading.attr="disabled">
                         {{ __('Update') }}
                     </x-button>
                 </div>

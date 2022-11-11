@@ -10,15 +10,15 @@ use App\{
     Models\Subcategory,
 };
 use Maatwebsite\Excel\Facades\Excel;
-use Illuminate\Http\Response;
 use Livewire\WithPagination;
 use App\Http\Livewire\WithSorting;
 use App\Imports\ProductImport;
 use Illuminate\Support\Facades\Gate;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Livewire\WithFileUploads;
-use App\Trait\WithMediaManager;
+use Storage;
 use Str;
+use Image;
 
 class Index extends Component
 {
@@ -117,7 +117,7 @@ class Index extends Component
         'product.meta_description' => ['nullable', 'string', 'max:255'],
         'product.meta_keywords' => ['nullable', 'string', 'min:1'],
         'product.category_id' => ['required', 'integer'],
-        'product.subcategory_id' => ['required', 'integer'],
+        'product.subcategory_id' => ['nullable', 'integer'],
         'product.brand_id' => ['required', 'integer'],
     ];
 
@@ -169,7 +169,7 @@ class Index extends Component
 
     public function editModal(Product $product)
     {
-        abort_if(Gate::denies('product_edit'), 403);
+        abort_if(Gate::denies('product_update'), 403);
 
         $this->resetErrorBag();
 
@@ -182,24 +182,42 @@ class Index extends Component
 
     public function update()
     {
-        abort_if(Gate::denies('product_edit'), 403);
+        abort_if(Gate::denies('product_update'), 403);
 
         $this->validate();
 
         if($this->image){
+            
+            $image = $this->image;
             $imageName = Str::slug($this->product->name).'.'.$this->image->extension();
-            $this->image->storeAs('products',$imageName);
+            
+            $img = Image::make($image->getRealPath())->resize(1500, 1500, function ($constraint) {
+                $constraint->aspectRatio();
+            });
+
+            $img->stream(); 
+            Storage::disk('local_files')->put('products/'.$imageName, $img, 'public');
             $this->product->image = $imageName;
+
         }
 
         // gallery image
         if ($this->gallery != null) {
+            
             $gallery = [];
             foreach ($this->gallery as $key => $value) {
-                $galleryName = Str::slug($this->product->name).'-'.$key.'.'.$value->extension();
-                $value->storeAs('products',$galleryName);
-                $gallery[] = $galleryName;
+                $image = $value;
+                $imageName = Str::slug($this->product->name).'-'.$key.'.'.$value->extension();
+                
+                $img = Image::make($image->getRealPath())->resize(1500, 1500, function ($constraint) {
+                    $constraint->aspectRatio();
+                });
+
+                $img->stream(); 
+                Storage::disk('local_files')->put('products/'.$imageName, $img, 'public');
+                $gallery[] = $imageName;
             }
+
             $this->product->gallery = json_encode($gallery);
         }
 
@@ -229,9 +247,9 @@ class Index extends Component
         abort_if(Gate::denies('product_access'), 403);
         // import data
         
-        // $this->validate([
-        //     'import_file' => 'required|mimes:xlsx,xls,csv|max:2048',
-        // ]);
+        $this->validate([
+            'import_file' => 'nullable',
+        ]);
         
         Excel::import(new ProductImport, $this->import_file);
 

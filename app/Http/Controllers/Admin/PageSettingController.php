@@ -94,10 +94,7 @@ class PageSettingController extends Controller
 
         if ($request->category == ""){
             $input['category'] = 0;
-        }
-        if ($request->arrival_section == ""){
-            $input['arrival_section'] = 0;
-        }
+        } 
         if ($request->our_services == ""){
             $input['our_services'] = 0;
         }

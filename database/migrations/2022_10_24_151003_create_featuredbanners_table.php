@@ -20,9 +20,9 @@ return new class extends Migration
             $table->string('image')->nullable();
             $table->boolean('status')->default(1);
             $table->boolean('featured')->default(0);
-            $table->text('meta_title')->nullable();
-            $table->text('meta_desc')->nullable();
+            $table->string('link')->nullable();
             $table->foreignId('language_id')->nullable()->constrained('languages')->nullOnDelete();
+            $table->foreignId('product_id')->nullable()->constrained('products')->nullOnDelete();
             $table->timestamps();
         });
     }

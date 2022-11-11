@@ -29,13 +29,13 @@ class ShippingController extends Controller
                             ->toJson(); //--- Returning Json Data To Client Side
     }
 
-    //*** GET Request
+
     public function index()
     {
         return view('admin.shipping.index');
     }
 
-    //*** GET Request
+
     public function create()
     {
         $sign = $this->curr;
@@ -68,7 +68,7 @@ class ShippingController extends Controller
         //--- Redirect Section Ends    
     }
 
-    //*** GET Request
+
     public function edit($id)
     {
         $sign = $this->curr;
@@ -103,7 +103,7 @@ class ShippingController extends Controller
         //--- Redirect Section Ends            
     }
 
-    //*** GET Request Delete
+
     public function destroy($id)
     {
         $data = Shipping::findOrFail($id);

@@ -41,7 +41,7 @@ class CurrencyController extends Controller
         //--- Redirect Section Ends    
     }
 
-    //*** GET Request
+
     public function edit($id)
     {
         $data = Currency::findOrFail($id);
@@ -86,7 +86,6 @@ class CurrencyController extends Controller
             //--- Redirect Section Ends  
         }
 
-    //*** GET Request Delete
     public function destroy($id)
     {
         if($id == 1)

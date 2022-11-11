@@ -124,7 +124,7 @@ class Catalog extends Component
 
         }
 
-        $popular_products = Product::inRandomOrder()->limit(8)->get();
+        $popular_products = Product::inRandomOrder()->limit(4)->get();
         
         $categories = Category::with('subcategories')->get();
         $brands = Brand::all();

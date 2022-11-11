@@ -58,7 +58,7 @@ class PageController extends Controller
         //--- Redirect Section Ends
     }
 
-    //*** GET Request
+
     public function edit($id)
     {
         $data = Page::findOrFail($id);
@@ -120,7 +120,7 @@ class PageController extends Controller
         //--- Redirect Section Ends
     }
 
-      //*** GET Request Header
+
       public function header($id1,$id2)
         {
             $data = Page::findOrFail($id1);
@@ -128,7 +128,7 @@ class PageController extends Controller
             $data->update();
         }
 
-      //*** GET Request Footer
+   Footer
       public function footer($id1,$id2)
         {
             $data = Page::findOrFail($id1);
@@ -137,7 +137,7 @@ class PageController extends Controller
         }
 
 
-    //*** GET Request Delete
+ Delete
     public function destroy($id)
     {
         $data = Page::findOrFail($id);

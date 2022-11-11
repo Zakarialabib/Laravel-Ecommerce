@@ -22,7 +22,7 @@ class BlogController extends Controller
         return view('admin.blog.category.index');
     }
 
-    //*** GET Request
+
     public function create()
     {
         $cats = BlogCategory::all();
@@ -84,7 +84,7 @@ class BlogController extends Controller
         //--- Redirect Section Ends
     }
 
-    //*** GET Request
+
     public function edit($id)
     {
         $cats = BlogCategory::all();
@@ -151,7 +151,7 @@ class BlogController extends Controller
         //--- Redirect Section Ends
     }
 
-    //*** GET Request Delete
+
     public function destroy($id)
     {
         $data = Blog::findOrFail($id);

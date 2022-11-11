@@ -116,7 +116,7 @@ class Index extends Component
 
     public function editModal(Brand $brand)
     {
-        abort_if(Gate::denies('brand_edit'), 403);
+        abort_if(Gate::denies('brand_update'), 403);
 
         $this->resetErrorBag();
 
@@ -129,7 +129,7 @@ class Index extends Component
 
     public function update()
     {
-        abort_if(Gate::denies('brand_edit'), 403);
+        abort_if(Gate::denies('brand_update'), 403);
 
         $this->validate();
         // upload image if it does or doesn't exist
@@ -181,14 +181,14 @@ class Index extends Component
 
     public function importModal()
     {
-        abort_if(Gate::denies('brand_create'), 403);
+        // abort_if(Gate::denies('brand_create'), 403);
 
         $this->importModal = true;
     }
 
     public function import()
     {
-        abort_if(Gate::denies('brand_create'), 403);
+        // abort_if(Gate::denies('brand_create'), 403);
 
         $this->validate([
             'file' => 'required|mimes:xlsx',

@@ -23,8 +23,7 @@ class FeaturedBannerSeeder extends Seeder
                 'image' => 'featured_banner.jpg',
                 'status' => 1,
                 'featured' => 1,
-                'meta_title' => 'Featured Banner Meta Title',
-                'meta_desc' => 'Featured Banner Meta Description',
+                'product_id' => 1,
                 'language_id' => 1,
             ],
             [
@@ -33,8 +32,7 @@ class FeaturedBannerSeeder extends Seeder
                 'image' => 'featured_banner.jpg',
                 'status' => 1,
                 'featured' => 1,
-                'meta_title' => 'Featured Banner Meta Title',
-                'meta_desc' => 'Featured Banner Meta Description',
+                'product_id' => 1,
                 'language_id' => 1,
             ],
             [
@@ -43,8 +41,7 @@ class FeaturedBannerSeeder extends Seeder
                 'image' => 'featured_banner.jpg',
                 'status' => 1,
                 'featured' => 1,
-                'meta_title' => 'Featured Banner Meta Title',
-                'meta_desc' => 'Featured Banner Meta Description',
+                'product_id' => 1,
                 'language_id' => 1,
             ],
         ]);

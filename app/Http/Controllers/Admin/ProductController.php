@@ -33,7 +33,7 @@ class ProductController extends Controller
     }
 
 
-    //*** GET Request
+
     public function create()
     {
         $cats = Category::all();
@@ -42,7 +42,7 @@ class ProductController extends Controller
         return view('admin.product.create',compact('cats','subcategories'));
     }
 
-    //*** GET Request
+
     public function status($id1,$id2)
     {
         $data = Product::findOrFail($id1);
@@ -375,7 +375,7 @@ class ProductController extends Controller
         //--- Redirect Section Ends
     }
 
-    //*** GET Request
+
     public function import(){
 
         $cats = Category::all();
@@ -529,7 +529,7 @@ class ProductController extends Controller
         return response()->json($msg);
     }
 
-    //*** GET Request
+
     public function edit($id)
     {
         $cats = Category::all();
@@ -804,7 +804,7 @@ class ProductController extends Controller
       //--- Redirect Section Ends
   }
 
-    //*** GET Request
+
     public function feature($id)
     {
             $data = Product::findOrFail($id);
@@ -867,7 +867,7 @@ class ProductController extends Controller
 
     }
 
-    //*** GET Request
+
     public function destroy($id)
     {
 

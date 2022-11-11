@@ -29,8 +29,6 @@ class Settings extends Model
         }
         return $setting;
     }
-    // exmaple usage:
-    // Settings::set('site_name', 'My Site');
-
+    
     
 }

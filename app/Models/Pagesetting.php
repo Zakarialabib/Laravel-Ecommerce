@@ -10,7 +10,7 @@ class Pagesetting extends Model
 
     protected $fillable = [
         'contact_email','street','phone','email',
-        'home','blog','faq','contact','category','arrival_section',
+        'home','blog','faq','contact','category',
         'our_services','blog','popular_products','slider','flash_deal',
         'deal_of_the_day','best_sellers','brands','top_big_trending','top_brand',
         'section'

@@ -59,7 +59,7 @@ class Create extends Component
 
         $this->emit('refreshIndex');
         
-        $this->alert('success', 'Brand created successfully.');
+        $this->alert('success', __('Brand created successfully.'));
         
         $this->createBrand = false;
     }

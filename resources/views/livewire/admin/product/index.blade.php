@@ -27,9 +27,15 @@
     <x-table>
         <x-slot name="thead">
             <x-table.th>#</x-table.th>
+            <x-table.th>
+                {{ __('Image') }}
+            </x-table.th>
             <x-table.th sortable wire:click="sortBy('name')" :direction="$sorts['name'] ?? null">
                 {{ __('Name') }}
                 @include('components.table.sort', ['field' => 'name'])
+            </x-table.th>
+            <x-table.th>
+                {{ __('Category') }}
             </x-table.th>
             <x-table.th sortable wire:click="sortBy('price')" :direction="$sorts['price'] ?? null">
                 {{ __('Price') }}
@@ -39,9 +45,7 @@
                 {{ __('Status') }}
                 @include('components.table.sort', ['field' => 'status'])
             </x-table.th>
-            <x-table.th>
-                {{ __('Gallery') }}
-            </x-table.th>
+           
             <x-table.th>
                 {{ __('Actions') }}
             </x-table.th>
@@ -53,21 +57,23 @@
                         {{ $id }}
                     </x-table.td>
                     <x-table.td>
+                        <img src="{{ asset('images/products/'.$product->image) }}" alt="{{ $product->name }}"
+                            class="w-10 h-10 rounded-full object-cover">
+                    </x-table.td>
+                    <x-table.td>
                         {{ $product->name }}
                     </x-table.td>
                     <x-table.td>
-                        {{ $product->price }}
+                        {{ $product->category->name }}
+                    </x-table.td>
+                    <x-table.td>
+                        {{ $product->price }} DH
                     </x-table.td>
                     
                     <x-table.td>
                         <livewire:toggle-button :model="$product" field="status" key="{{ $product->id }}" />
                     </x-table.td>
-                    <x-table.td>
-                        <x-button type="button" primary 
-                        wire:click="showUploader({{ $product->id }})">
-                            {{ __('Upload') }}
-                        </x-button>
-                    </x-table.td>
+                    
                     <x-table.td>
                         <x-dropdown
                             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-32 p-1 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
@@ -223,7 +229,7 @@
                             <x-label for="subcategory" :value="__('Subcategory')" />
                             <x-select-list
                                 class="block bg-white dark:bg-dark-eval-2 text-gray-700 dark:text-gray-300 rounded border border-gray-300 mb-1 text-sm w-full focus:shadow-outline-blue focus:border-blue-500"
-                                id="subcategory_id" name="subcategory_id" wire:model="product.subcategory_id"
+                                id="subcategory_id" name="subcategory_id" wire:model.defer="product.subcategory_id"
                                 :options="$this->listsForFields['subcategories']" />
                             <x-input-error :messages="$errors->get('subcategory_id')" for="subcategory_id" class="mt-2" />
                         </div>
@@ -263,7 +269,7 @@
                     <x-accordion title="{{ 'More Details' }}">
                         <div class="flex flex-wrap -mx-2 mb-3">
 
-                            <div class="lg:w-1/3 sm:w-1/2 px-2">
+                            <div class="w-1/2 sm:w-full px-2">
                                 <x-label for="meta_title" :value="__('Meta Title')" />
                                 <x-input id="meta_title" class="block mt-1 w-full" type="text" name="meta_title"
                                     wire:model="product.meta_title" />
@@ -271,7 +277,7 @@
 
                             </div>
 
-                            <div class="lg:w-1/3 sm:w-1/2 px-2">
+                            <div class="w-1/2 sm:w-full px-2">
                                 <x-label for="meta_description" :value="__('Meta Description')" />
                                 <x-input id="meta_description" class="block mt-1 w-full" type="text"
                                     name="meta_description" wire:model="product.meta_description" />
@@ -279,16 +285,14 @@
 
                             </div>
 
-                            <div class="lg:w-1/3 sm:w-1/2 px-2">
+                            <div class="w-1/2 sm:w-full px-2">
                                 <x-label for="meta_keywords" :value="__('Meta Keywords')" />
                                 <x-input id="meta_keywords" class="block mt-1 w-full" type="text"
                                     name="meta_keywords" wire:model="product.meta_keywords" />
                                 <x-input-error :messages="$errors->get('product.meta_keywords')" for="product.meta_keywords" class="mt-2" />
                             </div>
                         </div>
-
                     </x-accordion>
-
 
                     <div class="w-full px-4 my-4">
                         <x-label for="image" :value="__('Product Image')" />
@@ -304,7 +308,7 @@
                     </div>
 
                     <div class="flex justify-start space-x-2">
-                        <x-button primary wire:click="update" wire:loading.attr="disabled">
+                        <x-button primary type="submit" wire:click="update" wire:loading.attr="disabled">
                             {{ __('Update') }}
                         </x-button>
                     </div>
@@ -325,16 +329,53 @@
 
         <x-slot name="content">
             <form wire:submit.prevent="import">
-                <div class="space-y-4">
-                    <div class="mt-4">
+                <div class="w-full px-3 py-2">
+                    <x-table-responsive>
+                        <x-table.tr>
+                            <x-table.th>{{ __('Name') }}</x-table.th>
+                            <x-table.td>{{ __('Required') }}</x-table.td>
+                        </x-table.tr>
+                        <x-table.tr>
+                            <x-table.th>{{ __('Description') }}</x-table.th>
+                            <x-table.td>{{ __('Required') }}</x-table.td>
+                        </x-table.tr>
+                        <x-table.tr>
+                            <x-table.th>{{ __('Price') }}</x-table.th>
+                            <x-table.td>{{ __('Required') }}</x-table.td>
+                        </x-table.tr>
+                        <x-table.tr>
+                            <x-table.th>{{ __('Old price') }}</x-table.th>
+                            <x-table.td>{{ __('Optional') }}</x-table.td>
+                        </x-table.tr>
+                        <x-table.tr>
+                            <x-table.th>{{ __('Category name') }}</x-table.th>
+                            <x-table.td>{{ __('Required') }}</x-table.td>
+                        </x-table.tr>
+                        <x-table.tr>
+                            <x-table.th>{{ __('Subcategory name') }}</x-table.th>
+                            <x-table.td>{{ __('Optional') }}</x-table.td>
+                        </x-table.tr>
+                        
+                        <x-table.tr>
+                            <x-table.th>{{ __('Brand') }}</x-table.th>
+                            <x-table.td>{{ __('Optional') }}</x-table.td>
+                        </x-table.tr>
+                        <x-table.tr>
+                            <x-table.th>{{ __('Image') }}</x-table.th>
+                            <x-table.td>{{ __('Required') }}</x-table.td>
+                        </x-table.tr>
+                        
+                    </x-table-responsive>
+            
+                    <div class="w-full px-3 my-2">
                         <x-label for="import_file" :value="__('Import')" />
                         <x-input id="import_file" class="block mt-1 w-full" type="file" name="import_file"
                             wire:model="import_file" />
                         <x-input-error :messages="$errors->get('import_file')" for="import_file" class="mt-2" />
                     </div>
 
-                    <div class="w-full flex justify-start px-3">
-                        <x-button primary wire:click="import" wire:loading.attr="disabled">
+                    <div class="w-full px-3">
+                        <x-button primary class="block" wire:click="import" wire:loading.attr="disabled">
                             {{ __('Import') }}
                         </x-button>
                     </div>

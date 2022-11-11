@@ -27,37 +27,37 @@ class BannerController extends AdminBaseController
                             ->toJson(); //--- Returning Json Data To Client Side
     }
 
-    //*** GET Request
+
     public function index()
     {
         return view('admin.banner.index');
     }
 
-    //*** GET Request
+
     public function large()
     {
         return view('admin.banner.large');
     }
 
-    //*** GET Request
+
     public function bottom()
     {
         return view('admin.banner.bottom');
     }
 
-    //*** GET Request
+
     public function create()
     {
         return view('admin.banner.create');
     }
 
-    //*** GET Request
+
     public function largecreate()
     {
         return view('admin.banner.largecreate');
     }
 
-    //*** GET Request
+
     public function bottomcreate()
     {
         return view('admin.banner.bottomcreate');
@@ -96,7 +96,7 @@ class BannerController extends AdminBaseController
         //--- Redirect Section Ends    
     }
 
-    //*** GET Request
+
     public function edit($id)
     {
         $data = Banner::findOrFail($id);
@@ -142,7 +142,7 @@ class BannerController extends AdminBaseController
         //--- Redirect Section Ends            
     }
 
-    //*** GET Request Delete
+
     public function destroy($id)
     {
         $data = Banner::findOrFail($id);

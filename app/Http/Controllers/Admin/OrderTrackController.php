@@ -134,7 +134,7 @@ class OrderTrackController extends Controller
 
     }
 
-    //*** GET Request
+
     public function delete($id)
     {
         $data = OrderTrack::findOrFail($id);

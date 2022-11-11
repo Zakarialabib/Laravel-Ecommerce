@@ -15,7 +15,6 @@ class CountryController extends Controller
         return view('admin.country.index');
     }
 
-    //*** GET Request Status
     public function status($id1,$id2)
     {
         Country::findOrFail($id1)->update([

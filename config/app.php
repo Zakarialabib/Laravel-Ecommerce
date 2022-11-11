@@ -187,6 +187,7 @@ return [
          */
         Spatie\Permission\PermissionServiceProvider::class,
         Maatwebsite\Excel\ExcelServiceProvider::class,
+        Intervention\Image\ImageServiceProvider::class,
         /*
          * Application Service Providers...
          */
@@ -211,7 +212,8 @@ return [
 
     'aliases' => Facade::defaultAliases()->merge([
         'Excel' => Maatwebsite\Excel\Facades\Excel::class,
-        // 'ExampleClass' => App\Example\ExampleClass::class,
+        'Helpers' => App\Helpers::class,
+        'Image' => Intervention\Image\Facades\Image::class
     ])->toArray(),
 
 ];

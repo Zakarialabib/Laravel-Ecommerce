@@ -58,7 +58,16 @@
                         {{ $slider->title }}
                     </x-table.td>
                     <x-table.td>
-                        {{ $slider->status }}
+                        {{-- StatusInactive - StatusActive --}}
+                        @if(\App\Models\Slider::StatusInactive)
+                        <x-badge danger>
+                            {{__('Inactive')}}
+                        </x-badge>
+                        @elseif(\App\Models\Slider::StatusActive)
+                        <x-badge info>
+                            {{__('Active')}}
+                        </x-badge>
+                        @endif
                     </x-table.td>
                     <x-table.td>
                         <div class="flex justify-start space-x-2">
@@ -101,7 +110,7 @@
         <!-- Edit Modal -->
         <x-modal wire:model="editModal">
             <x-slot name="title">
-                {{ __('Create Slider') }}
+                {{ __('Update Slider') }}
             </x-slot>
 
             <x-slot name="content">
@@ -120,7 +129,7 @@
                             <x-label for="language_id" :value="__('Language')" required />
                             <x-select-list
                                 class="block bg-white dark:bg-dark-eval-2 text-gray-700 dark:text-gray-300 rounded border border-gray-300 mb-1 text-sm w-full focus:shadow-outline-blue focus:border-blue-500"
-                                id="language_id" name="language_id" wire:model="slider.language_id" :options="$this->listsForFields['languages']" />
+                                id="language_id" name="language_id" wire:model.defer="slider.language_id" :options="$this->listsForFields['languages']" />
                             <x-input-error :messages="$errors->get('slider.language_id')" for="slider.language_id" class="mt-2" />
                         </div>
                         <div class="xl:w-1/2 md:w-1/2 px-3">
@@ -160,8 +169,8 @@
                                 accept="image/jpg,image/jpeg,image/png" />
                             <x-input-error :messages="$errors->get('photo')" for="photo" class="mt-2" />
                         </div>
-                        <div class="w-full flex justify-start space-x-2">
-                            <x-button primary wire:click="update" wire:loading.attr="disabled">
+                        <div class="w-full px-3">
+                            <x-button primary class="block" wire:click="update" wire:loading.attr="disabled">
                                 {{ __('Update') }}
                             </x-button>
                         </div>

@@ -36,7 +36,7 @@ class FaqController extends Controller
         //--- Redirect Section Ends   
     }
 
-    //*** GET Request
+
     public function edit($id)
     {
         $data = Faq::findOrFail($id);
@@ -61,8 +61,7 @@ class FaqController extends Controller
         return response()->json($msg);    
         //--- Redirect Section Ends              
     }
-
-    //*** GET Request Delete
+    
     public function destroy($id)
     {
         $data = Faq::findOrFail($id);

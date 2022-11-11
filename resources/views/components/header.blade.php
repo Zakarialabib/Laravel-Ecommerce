@@ -22,7 +22,7 @@
             </ul>
             <div class="hidden xl:flex items-center">
 
-                @include('partials.front.search-box')
+                <livewire:front.search-box />
 
                 <livewire:front.cart-count  />
                 

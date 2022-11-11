@@ -156,7 +156,7 @@ class LanguageController extends Controller
         //--- Redirect Section Ends    
     }
 
-    //*** GET Request
+
     public function edit($id)
     {
         $data = Language::findOrFail($id);
@@ -166,7 +166,7 @@ class LanguageController extends Controller
     }
 
 
-    //*** GET Request
+
     public function export($id)
     {
         $data = Language::findOrFail($id);
@@ -250,7 +250,7 @@ class LanguageController extends Controller
         //--- Redirect Section Ends  
     }
 
-    //*** GET Request Delete
+
     public function destroy($id)
     {
         if($id == 1)

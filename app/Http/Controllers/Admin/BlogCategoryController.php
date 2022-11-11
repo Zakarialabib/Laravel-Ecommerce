@@ -47,7 +47,7 @@ class BlogCategoryController extends Controller
         //--- Redirect Section Ends  
     }
 
-    //*** GET Request
+
     public function edit($id)
     {
         $data = BlogCategory::findOrFail($id);
@@ -85,7 +85,7 @@ class BlogCategoryController extends Controller
 
     }
 
-    //*** GET Request
+
     public function destroy($id)
     {
         $data = BlogCategory::findOrFail($id);

@@ -1,3 +1,5 @@
+{{-- Optimize this code --}}
+
 @props(['align' => 'right', 'width' => null, 'contentClasses' => 'py-1 bg-white'])
 
 @php

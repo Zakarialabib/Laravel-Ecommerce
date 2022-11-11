@@ -20,7 +20,7 @@ class User extends Authenticatable
         'phone', 'email','password',
     ];
 
-    public $filtrable = [
+    protected $filterable = [
         'first_name','last_name',  'zip', 'city', 'state', 'country', 'address',
         'phone', 'email','password','favorite_brands'
     ];
