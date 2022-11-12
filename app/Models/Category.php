@@ -33,4 +33,12 @@ class Category extends Model
     public function subcategories() {
         return $this->hasMany(Subcategory::class, 'category_id', 'id');
     }
+
+      public function __construct(array $attributes = array())
+    {
+        $this->setRawAttributes(array(
+            'code' => Str::random(8)
+        ), true);
+        parent::__construct($attributes);
+    }
 }

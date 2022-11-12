@@ -2,8 +2,8 @@
     <div class="relative container mx-auto px-4">
         <div class="flex flex-wrap -mx-4">
             @foreach ($sliders as $slider)
-                <div class="w-full md:w-1/2 px-4 mb-12 lg:mb-0 pt-20 lg:py-32">
-                    <div class="max-w-md">
+                <div class="w-full md:w-1/2 px-4 lg:mb-5 sm:mb-2 lg:py-20 py-10">
+                    <div class="max-w-md lg:py-5 py-10">
                         <h5 class="text-2xl font-bold text-gray-600 mb-2">
                             {{ $slider->subtitle }}
                         </h5>
@@ -21,14 +21,14 @@
                         @endif
                     </div>
                 </div>
-                <div class="relative w-full md:w-1/2 px-4 mb-12 lg:mb-0">
+                <div class="relative w-full md:w-1/2 px-4 lg:mb-5 sm:mb-2 lg:py-20 py-10">
                     <div class="hidden lg:block absolute top-0 transform translate-y-1/2 right-0 w-1">
                         <a class="block w-1/2 h-40 bg-blue-600" href="#"></a><a
                             class="block w-1/2 h-40 bg-gray-300" href="#"></a>
                     </div>
                     @if ($featuredbanner)
                         @foreach ($featuredbanner as $banner)
-                            <div class="absolute bottom-1/2 -mb-24 lg:right-6 inline-block bg-white rounded-lg">
+                            <div class="absolute bottom-1/2 -mb-24 lg:right-6 inline-block bg-white rounded-xl">
                                 <div class="flex p-3">
                                     <div class="w-auto pt-5 px-4 lg:px-9">
                                         <h3 class="mb-2 text-xl font-bold font-heading w-32">
@@ -69,15 +69,15 @@
                             </div>
                         @endforeach
                     @endif
-                    <img loading="lazy" class="mx-auto h-96 lg:h-auto"
+                    <img loading="lazy" class="h-auto"
                         src="{{ asset('images/sliders/' . $slider->photo) }}" alt="{{ $slider->title }}">
                 </div>
             @endforeach
         </div>
-        <div class="w-full lg:w-5/6 xl:absolute left-0 bottom-0 right-0 bg-white py-12 px-8 lg:ml-auto">
+        <div class="w-full xl:absolute left-0 bottom-0 right-0 bg-white py-10 px-4 lg:ml-auto">
             <div class="flex flex-wrap items-center justify-center -mx-2 -mb-12">
                 @foreach ($brands as $brand)
-                    <div class="w-1/2 md:w-1/3 lg:w-1/6 px-2 mb-12">
+                    <div class="sm:w-1/2 md:w-1/4 lg:w-1/6 px-2 mb-12">
                         <img loading="lazy" class="mx-auto h-6" src="{{ asset('images/brands/' . $brand->image) }}"
                             alt="">
                     </div>
@@ -87,33 +87,33 @@
     </div>
 
     <div x-data="{ activeTabs: 'featuredProducts' }" class="container mx-auto px-4">
-        <div class="flex flex-wrap justify-center -mx-4 mb-10">
+        <div class="flex flex-wrap -mx-4 mb-10">
             <div class="w-1/2 md:w-auto">
                 <button type="button"
-                    class="inline-block py-6 px-10 text-left font-bold font-heading text-gray-500 uppercase border-b-2 border-gray-100 hover:border-gray-500 focus:outline-none focus:border-gray-500"
+                    class="inline-block py-6 px-10 sm:py-2 sm:px-5 text-left font-bold text-gray-500 uppercase border-b-2 border-gray-100 hover:border-gray-500 focus:outline-none focus:border-gray-500"
                     @click="activeTabs = 'featuredProducts'"
-                    :class="activeTabs === 'featuredProducts' ? 'bg-gray-100' : ''">
+                    :class="activeTabs === 'featuredProducts' ? 'bg-orange-400 text-white' : ''">
                     {{ __('Featured Products') }}
                 </button>
             </div>
             <div class="w-1/2 md:w-auto">
                 <button type="button"
-                    class="inline-block py-6 px-10 text-left font-bold font-heading text-gray-500 uppercase border-b-2 border-gray-100 hover:border-gray-500 focus:outline-none focus:border-gray-500"
-                    @click="activeTabs = 'bestOfers'" :class="activeTabs === 'bestOfers' ? 'bg-gray-100' : ''">
+                    class="inline-block py-6 px-10 sm:py-2 sm:px-5 text-left font-bold font-heading text-gray-500 uppercase border-b-2 border-gray-100 hover:border-gray-500 focus:outline-none focus:border-gray-500"
+                    @click="activeTabs = 'bestOfers'" :class="activeTabs === 'bestOfers' ? 'bg-orange-400 text-white' : ''">
                     {{ __('Best Offers') }}
                 </button>
             </div>
             <div class="w-1/2 md:w-auto">
                 <button type="button"
-                    class="inline-block py-6 px-10 text-left font-bold font-heading text-gray-500 uppercase border-b-2 border-gray-100 hover:border-gray-500 focus:outline-none focus:border-gray-500"
-                    @click="activeTabs = 'hotProducts'" :class="activeTabs === 'hotProducts' ? 'bg-gray-100' : ''">
+                    class="inline-block py-6 px-10 sm:py-2 sm:px-5 text-left font-bold font-heading text-gray-500 uppercase border-b-2 border-gray-100 hover:border-gray-500 focus:outline-none focus:border-gray-500"
+                    @click="activeTabs = 'hotProducts'" :class="activeTabs === 'hotProducts' ? 'bg-orange-400 text-white' : ''">
                     {{ __('Hot Products') }}
                 </button>
             </div>
             <div class="w-1/2 md:w-auto">
                 <button type="button"
-                    class="inline-block py-6 px-10 text-left font-bold font-heading text-gray-500 uppercase border-b-2 border-gray-100 hover:border-gray-500 focus:outline-none focus:border-gray-500"
-                    @click="activeTabs = 'brands'" :class="activeTabs === 'brands' ? 'bg-gray-100' : ''">
+                    class="inline-block py-6 px-10 sm:py-2 sm:px-5 text-left font-bold font-heading text-gray-500 uppercase border-b-2 border-gray-100 hover:border-gray-500 focus:outline-none focus:border-gray-500"
+                    @click="activeTabs = 'brands'" :class="activeTabs === 'brands' ? 'bg-orange-400 text-white' : ''">
                     {{ __('Brands') }}
                 </button>
             </div>
@@ -121,11 +121,11 @@
         <div x-show="activeTabs === 'featuredProducts'" class="px-5">
             <div role="featuredProducts" aria-labelledby="tab-0" id="tab-panel-0" tabindex="0">
                 <section>
-                    <div class="container mx-auto px-10">
+                    <div class="container mx-auto">
                         <div class="flex mb-16">
                             <div class="w-full flex flex-wrap -mx-3">
                                 @forelse ($featuredProducts as $product)
-                                    <div class="w-full lg:w-1/3 px-3 mb-16 lg:mb-0">
+                                    <div class="sm:w-full md:w-1/2 lg:w-1/3 px-3 mb-16 lg:mb-0">
                                         <a class="block mb-10" href="{{ route('front.product', $product->slug) }}">
                                             <div class="relative">
                                                 @if ($product->old_price)
@@ -172,7 +172,7 @@
         <div x-show="activeTabs === 'bestOfers'" class="px-5">
             <div role="bestOfers" aria-labelledby="tab-1" id="tab-panel-1" tabindex="0">
                 <section>
-                    <div class="container mx-auto px-10">
+                    <div class="container mx-auto">
                         <div class="flex mb-16">
                             <div class="w-full flex flex-wrap -mx-3">
                                 @forelse ($bestOffers as $product)
@@ -223,7 +223,7 @@
         <div x-show="activeTabs === 'hotProducts'" class="px-5">
             <div role="hotProducts" aria-labelledby="tab-2" id="tab-panel-2" tabindex="0">
                 <section>
-                    <div class="container mx-auto px-10">
+                    <div class="container mx-auto">
                         <div class="flex mb-16">
                             <div class="w-full flex flex-wrap -mx-3">
                                 @forelse ($hotProducts as $product)
@@ -273,11 +273,11 @@
         </div>
         <div x-show="activeTabs === 'brands'" class="px-5">
             <div role="brands" aria-labelledby="tab-3" id="tab-panel-3" tabindex="0">
-                <div class="container mx-auto px-10">
+                <div class="container mx-auto">
                     <div class="flex mb-5">
                         <div class="w-full flex flex-wrap py-10 -mx-3">
                             @foreach ($brands as $brand)
-                                <div class="w-full md:w-1/2 lg:w-1/4 px-3 mb-1° lg:mb-0">
+                                <div class="sm:w-1/2 md:w-1/3 lg:w-1/4 px-3 mb-6 md:mb-0 mb-1° lg:mb-0">
                                     <a class="block mb-10" href="{{ route('front.brands') }}">
                                         <div class="relative">
                                             <img class="w-full h-auto" loading="lazy"
@@ -308,15 +308,17 @@
 
 
 
-    <section class="py-5 bg-gray-100">
-        <div class="container mx-auto px-10">
+    <section class="py-5 px-4 bg-gray-100">
+        <div class="container mx-auto">
             <div class="flex flex-wrap -mx-3">
-                <div class="w-full md:w-1/2 lg:w-1/4 px-3 mb-6">
+                @foreach($sections as $section)
+                <div class="sm:w-1/2 md:w-1/3 lg:w-1/4 px-3 mb-6">
                     <div class="relative h-full text-center pt-16 bg-white">
-                        <img class="hidden md:block absolute z-10 top-0 left-1/2 ml-16 lg:ml-8 mt-16"
-                            src="yofte-assets/elements/dots.svg" alt="">
                         <div class="pb-12 border-b">
-                            <span
+                            <span 
+                                @if($section->color) 
+                                style="background-color: {{ $section->bg_color }};" 
+                                @endif 
                                 class="inline-flex mb-16 items-center justify-center w-20 h-20 bg-blue-300 rounded-full">
                                 <svg width="37" height="37" viewbox="0 0 37 37" fill="none"
                                     xmlns="http://www.w3.org/2000/svg">
@@ -325,96 +327,17 @@
                                         fill="white"></path>
                                 </svg>
                             </span>
-                            <h3 class="mb-4 text-xl font-bold font-heading">Free Shipping</h3>
-                            <p>From $45</p>
+                            <h3 class="mb-4 text-xl font-bold font-heading">{{ $section->title }}</h3>
+                            @if($section->subtitle)
+                            <p>{{ $section->subtitle }}</p>
+                            @endif
                         </div>
                         <div class="pt-12 px-14 pb-14 text-center">
-                            <p class="text-lg text-gray-500">Ante ipsum primis in faucibus orci luctus.</p>
+                            <p class="text-lg text-gray-500">{{ $section->description }}</p>
                         </div>
                     </div>
                 </div>
-                <div class="w-full md:w-1/2 lg:w-1/4 px-3 mb-6">
-                    <div class="relative h-full text-center pt-16 bg-white">
-                        <img class="hidden lg:block absolute z-10 top-0 left-1/2 ml-16 lg:ml-8 mt-16"
-                            src="yofte-assets/elements/dots.svg" alt="">
-                        <div class="pb-12 border-b">
-                            <span
-                                class="inline-flex mb-16 items-center justify-center w-20 h-20 bg-indigo-300 rounded-full">
-                                <svg width="39" height="36" viewbox="0 0 39 36" fill="none"
-                                    xmlns="http://www.w3.org/2000/svg">
-                                    <path
-                                        d="M33.7601 5.67776C30.3819 2.38616 25.8883 0.572266 21.1139 0.572266C16.2512 0.572266 11.7014 2.44089 8.30713 5.83414C7.93802 6.20161 7.94604 6.79581 8.32318 7.16329C8.70032 7.52294 9.31017 7.51512 9.68731 7.14765C12.7205 4.12188 16.7727 2.45653 21.1139 2.45653C29.9165 2.44871 37.0742 9.42284 37.0742 17.9998C37.0742 26.5767 29.9165 33.5508 21.1139 33.5508C12.3113 33.5508 5.15359 26.5767 5.15359 17.9998V17.8043L6.7424 19.3524C6.92696 19.5322 7.17571 19.626 7.42446 19.626C7.67322 19.626 7.91395 19.5322 8.10653 19.3524C8.48367 18.9849 8.48367 18.3907 8.10653 18.0232L4.88077 14.8724C4.50363 14.5049 3.89378 14.5049 3.51664 14.8724L0.282856 18.0232C-0.0942853 18.3907 -0.0942853 18.9849 0.282856 19.3524C0.467414 19.5322 0.716167 19.626 0.96492 19.626C1.21367 19.626 1.4544 19.5322 1.64698 19.3524L3.23579 17.8043V17.9998C3.23579 22.6518 5.09742 27.0302 8.47565 30.3218C11.8539 33.6134 16.3475 35.4273 21.1219 35.4273C25.8964 35.4273 30.39 33.6134 33.7682 30.3218C37.1464 27.0302 39 22.6518 39 17.9998C39 13.3477 37.1384 8.96937 33.7601 5.67776Z"
-                                        fill="white"></path>
-                                    <path
-                                        d="M20.4014 8C17.272 8 14.7283 10.4785 14.7283 13.5277V16.1938H12.9629C12.4333 16.1938 12 16.616 12 17.132V26.4908C12 27.0068 12.4333 27.429 12.9629 27.429H27.848C28.3776 27.429 28.8109 27.0068 28.8109 26.4908V17.1399C28.8109 16.6238 28.3776 16.2016 27.848 16.2016H26.0826V13.5355C26.0826 10.4863 23.5309 8 20.4014 8ZM16.6541 13.5355C16.6541 11.5183 18.3392 9.88427 20.4014 9.88427C22.4637 9.88427 24.1488 11.5262 24.1488 13.5355V16.2016H16.6541V13.5355ZM26.885 25.5526H13.9258V18.0703H26.885V25.5526Z"
-                                        fill="white"></path>
-                                </svg>
-                            </span>
-                            <h3 class="mb-4 text-xl font-bold font-heading">Secure Shopping</h3>
-                            <p>100% Guarantee</p>
-                        </div>
-                        <div class="pt-12 px-14 pb-14 text-center">
-                            <p class="text-lg text-gray-500">Fusce pharetra lectus felis, eget temp.</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="w-full md:w-1/2 lg:w-1/4 px-3 mb-6 md:mb-0">
-                    <div class="relative h-full text-center pt-16 bg-white">
-                        <img class="hidden md:block absolute z-10 top-0 left-1/2 ml-16 lg:ml-8 mt-16"
-                            src="yofte-assets/elements/dots.svg" alt="">
-                        <div class="pb-12 border-b">
-                            <span
-                                class="inline-flex mb-16 items-center justify-center w-20 h-20 bg-pink-400 rounded-full">
-                                <svg width="31" height="37" viewbox="0 0 31 37" fill="none"
-                                    xmlns="http://www.w3.org/2000/svg">
-                                    <path
-                                        d="M9.59532 15.0855C9.59532 14.5814 9.18285 14.1689 8.67872 14.1689H1.33066C0.826531 14.1689 0.414062 14.5814 0.414062 15.0855C0.414062 15.5897 0.826531 16.0021 1.33066 16.0021H8.67872C9.18285 16.0021 9.59532 15.5897 9.59532 15.0855Z"
-                                        fill="white"></path>
-                                    <path
-                                        d="M29.669 14.1689H22.3209C21.8168 14.1689 21.4043 14.5814 21.4043 15.0855C21.4043 15.5897 21.8168 16.0021 22.3209 16.0021H29.669C30.1731 16.0021 30.5856 15.5897 30.5856 15.0855C30.5856 14.5814 30.1807 14.1689 29.669 14.1689Z"
-                                        fill="white"></path>
-                                    <path
-                                        d="M15.4996 9.18126C16.0037 9.18126 16.4162 8.76879 16.4162 8.26466V0.916598C16.4162 0.412469 16.0037 0 15.4996 0C14.9955 0 14.583 0.412469 14.583 0.916598V8.26466C14.583 8.76879 14.9955 9.18126 15.4996 9.18126Z"
-                                        fill="white"></path>
-                                    <path
-                                        d="M20.3199 11.1823C20.5567 11.1823 20.7858 11.0906 20.9691 10.915L26.1708 5.71327C26.5298 5.35427 26.5298 4.77376 26.1708 4.41476C25.8118 4.05576 25.2313 4.05576 24.8723 4.41476L19.6706 9.61645C19.3116 9.97545 19.3116 10.556 19.6706 10.915C19.8539 11.0906 20.0907 11.1823 20.3199 11.1823Z"
-                                        fill="white"></path>
-                                    <path
-                                        d="M10.0305 10.915C10.2062 11.0906 10.443 11.1823 10.6798 11.1823C10.9166 11.1823 11.1457 11.0906 11.329 10.915C11.688 10.556 11.688 9.97545 11.329 9.61645L6.12733 4.41476C5.76833 4.05576 5.18782 4.05576 4.82882 4.41476C4.46982 4.77376 4.46982 5.35427 4.82882 5.71327L10.0305 10.915Z"
-                                        fill="white"></path>
-                                    <path
-                                        d="M26.5146 20.8684C25.8195 20.2726 24.9411 19.9442 24.0474 19.9442H23.2149H20.2206H18.7999V16.2396C18.7999 14.4675 18.2729 13.1766 17.2264 12.4051C15.5765 11.1983 13.3385 11.8781 13.2392 11.9086C12.8573 12.0309 12.5976 12.3822 12.5976 12.7794V17.2478C12.5976 18.6074 11.9483 19.7608 10.6575 20.6851C9.67976 21.3878 8.67914 21.7086 8.54929 21.7468L8.45763 21.7697C8.1139 21.3802 7.60978 21.1357 7.04454 21.1357H3.56147C2.52266 21.1357 1.6748 21.9836 1.6748 23.0224V34.4493C1.6748 35.4881 2.52266 36.336 3.56147 36.336H7.05982C7.51812 36.336 7.94586 36.1679 8.26667 35.893C8.9694 36.5804 9.92419 37.0005 10.9554 37.0005H14.4308H14.7898H21.9011C23.001 37.0005 23.971 36.7332 24.712 36.2367C25.6591 35.5951 26.2473 34.5792 26.4153 33.2807L27.8284 24.4966C28.0499 23.137 27.5458 21.7468 26.5146 20.8684ZM7.11329 34.4493C7.11329 34.4799 7.09037 34.5028 7.05982 34.5028H3.56147C3.53092 34.5028 3.508 34.4799 3.508 34.4493V23.0224C3.508 22.9918 3.53092 22.9689 3.56147 22.9689H7.05982C7.09037 22.9689 7.11329 22.9918 7.11329 23.0224V34.4493ZM26.0181 24.214L24.605 33.0133C24.605 33.021 24.605 33.0362 24.5974 33.0515C24.5363 33.5786 24.3377 35.175 21.9011 35.175H14.7898H14.4308H10.9554C9.97765 35.175 9.12216 34.4417 8.9694 33.4716C8.96176 33.4334 8.95412 33.3952 8.94648 33.3647V23.5418L8.99995 23.5265C9.01523 23.5265 9.02287 23.5189 9.03814 23.5189C9.09161 23.5036 10.3901 23.137 11.681 22.2127C13.476 20.9371 14.4308 19.2185 14.4308 17.2478V13.5356C14.9349 13.4821 15.63 13.5051 16.1418 13.8793C16.6917 14.2842 16.9667 15.0785 16.9667 16.2319V20.8531C16.9667 21.3572 17.3792 21.7697 17.8833 21.7697H20.2206H23.2149H24.0474C24.5057 21.7697 24.9564 21.9454 25.323 22.2509C25.873 22.7245 26.1327 23.4731 26.0181 24.214Z"
-                                        fill="white"></path>
-                                </svg>
-                            </span>
-                            <h3 class="mb-4 text-xl font-bold font-heading">Customer Satisfaction</h3>
-                            <p>100% Positive Feedbacks</p>
-                        </div>
-                        <div class="pt-12 px-14 pb-14 text-center">
-                            <p class="text-lg text-gray-500">Praesent ultrices ac lectus non placerat!</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="w-full md:w-1/2 lg:w-1/4 px-3">
-                    <div class="relative h-full text-center pt-16 bg-white">
-                        <div class="pb-12 border-b">
-                            <span
-                                class="inline-flex mb-16 items-center justify-center w-20 h-20 bg-orange-300 rounded-full">
-                                <svg width="35" height="37" viewbox="0 0 35 37" fill="none"
-                                    xmlns="http://www.w3.org/2000/svg">
-                                    <path
-                                        d="M30.0586 14.0693V12.6468C30.0586 9.24223 28.8538 6.07857 26.6695 3.73109C24.4309 1.32143 21.3527 0 17.9947 0H16.821C13.463 0 10.3849 1.32143 8.14622 3.73109C5.96197 6.07857 4.75714 9.24223 4.75714 12.6468V14.0693C2.10651 14.2481 0 16.4557 0 19.1529V21.3761C0 24.1821 2.28529 26.4674 5.09139 26.4674H7.95966C8.47269 26.4674 8.89244 26.0477 8.89244 25.5347V14.9866C8.89244 14.4735 8.47269 14.0538 7.95966 14.0538H6.62269V12.6468C6.62269 6.49832 11.0067 1.86555 16.8132 1.86555H17.987C23.8013 1.86555 28.1775 6.49832 28.1775 12.6468V14.0538H26.8405C26.3275 14.0538 25.9078 14.4735 25.9078 14.9866V25.5269C25.9078 26.0399 26.3275 26.4597 26.8405 26.4597H28.1464C27.7655 31.3256 24.4153 32.4527 22.8607 32.7092C22.4332 31.3956 21.1973 30.4473 19.7437 30.4473H17.4118C15.6084 30.4473 14.1393 31.9164 14.1393 33.7197C14.1393 35.5231 15.6084 37 17.4118 37H19.7515C21.2595 37 22.5265 35.9739 22.9074 34.5903C23.6691 34.4815 24.8739 34.2095 26.071 33.5099C27.7578 32.5227 29.7555 30.5095 30.0197 26.4519C32.6859 26.2887 34.8002 24.0733 34.8002 21.3683V19.1452C34.808 16.4557 32.7092 14.2403 30.0586 14.0693ZM7.04244 24.5941H5.10693C3.32689 24.5941 1.88109 23.1483 1.88109 21.3683V19.1452C1.88109 17.3651 3.32689 15.9193 5.10693 15.9193H7.04244V24.5941ZM19.7515 35.1345H17.4118C16.6345 35.1345 16.0048 34.5048 16.0048 33.7275C16.0048 32.9502 16.6345 32.3206 17.4118 32.3206H19.7515C20.5288 32.3206 21.1584 32.9502 21.1584 33.7275C21.1584 34.5048 20.5288 35.1345 19.7515 35.1345ZM32.9424 21.3683C32.9424 23.1483 31.4966 24.5941 29.7166 24.5941H27.7811V15.9193H29.7166C31.4966 15.9193 32.9424 17.3651 32.9424 19.1452V21.3683Z"
-                                        fill="white"></path>
-                                </svg>
-                            </span>
-                            <h3 class="mb-4 text-xl font-bold font-heading">Support</h3>
-                            <p>Online Support 24/7</p>
-                        </div>
-                        <div class="pt-12 px-14 pb-14 text-center">
-                            <p class="text-lg text-gray-500">Ante ipsum primis in faucibus orci luctus.</p>
-                        </div>
-                    </div>
-                </div>
+                @endforeach
             </div>
         </div>
     </section>

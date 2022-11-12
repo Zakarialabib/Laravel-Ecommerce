@@ -73,7 +73,7 @@
                                 @endforeach
                             </div>
                         </div>
-                        <div class="p-6 md:p-12 bg-orange-900">
+                        <div class="p-6 md:p-12 bg-gray-900">
                             <h2 class="mb-6 text-4xl font-bold font-heading text-white">{{ __('Cart totals') }}</h2>
                             <div class="flex mb-8 items-center justify-between pb-5 border-b border-blue-100">
                                 <span class="text-blue-50">{{ __('Subtotal') }}</span>

@@ -254,7 +254,7 @@
                 @elseif ($view == 'grid')
                     <div class="flex flex-wrap -mx-3 mb-24">
                         @foreach ($products as $product)
-                            <div class="w-full md:w-1/2 lg:w-1/4 px-3 mb-6">
+                            <div class="sm:w-1/2 md:w-1/3 lg:w-1/4 px-3 mb-6">
                                 <div class="p-2 bg-gray-50">
                                     @if ($product->old_price)
                                         <span
@@ -302,7 +302,7 @@
         <h2 class="mb-16 md:mb-24 text-4xl md:text-5xl font-bold font-heading">{{ __('Discover our products') }}</h2>
         <div class="flex flex-wrap -mx-3 mb-24">
             @foreach ($popular_products as $product)
-                <div class="w-full md:w-1/2 lg:w-1/4 px-3 mb-6">
+                <div class="sm:w-1/2 md:w-1/3 lg:w-1/4 px-3 mb-6">
                     <div class="p-2 bg-gray-50">
                         @if ($product->old_price)
                             <span

@@ -1,25 +1,25 @@
-<section class="relative">
-    <nav class="flex justify-between bg-gray-100 border-b">
-        <div class="px-12 py-5 flex w-full items-center">
-            <a class="lg:mr-8 2xl:mr-20 text-3xl font-bold font-heading" href="{{ route('front.index') }}">
+<div>
+    <nav class="flex justify-between bg-gray-900 border-b">
+        <div class="px-12 sm:px-4 py-5 flex w-full items-center">
+            <a class="lg:mr-8 2xl:mr-20 text-3xl font-bold font-heading text-white" href="{{ route('front.index') }}">
                 <img class="h-15" src="{{ asset('images/' . Helpers::settings('site_logo') ) }}" alt="{{ Helpers::settings('site_title') }}" width="auto">
             </a>
 
             <ul class="hidden xl:flex px-4 mx-auto font-semibold font-heading">
-                <li class="mr-12"><a class="hover:text-gray-600" href="{{ route('front.categories') }}">
+                <li class="mr-12"><a class="text-gray-100 hover:text-gray-600" href="{{ route('front.categories') }}">
                         {{ __('Categories') }}
                     </a>
                 </li>
-                <li class="mr-12"><a class="hover:text-gray-600" href="{{ route('front.catalog') }}">
+                <li class="mr-12"><a class="text-gray-100 hover:text-gray-600" href="{{ route('front.catalog') }}">
                         {{ __('Catalog') }}
                     </a>
                 </li>
-                <li><a class="hover:text-gray-600" href="{{ route('front.brands') }}">
+                <li><a class="text-gray-100 hover:text-gray-600" href="{{ route('front.brands') }}">
                         {{ __('Brands') }}
                     </a>
                 </li>
             </ul>
-            <div class="hidden xl:flex items-center">
+            <div class="hidden xl:flex items-center text-gray-100">
 
                 <livewire:front.search-box />
 
@@ -71,9 +71,9 @@
             </x-dropdown>
         @else
             <button class="flex-shrink-0 hidden xl:block px-8 border-l">
-                <div class="flex items-center">
+                <div class="flex items-center text-gray-100">
                     <a href="{{ route('login') }}" class="mr-2 font-medium">{{ __('Login') }} </a>
-                    {{ __('or') }}
+                    {{ __('or') }} 
                     <a href="{{ route('register') }}" class="ml-2 font-medium"> {{ __('Register') }}</a>
                 </div>
             </button>
@@ -107,6 +107,7 @@
                     </svg>
                 </button>
             </div>
+            <div class="border-t border-gray-900 py-5"></div>
             <div class="flex mb-8 justify-between">
                 @if (Auth::check())
                     <ul class="flex-col md:flex-row list-none items-center md:flex">
@@ -146,15 +147,15 @@
                             </x-slot>
                         </x-dropdown>
                     @else
-                        <div class="flex items-center">
-                            <span class="mr-2 font-medium">
-                                <a href="{{ route('login') }}">{{ __('Login') }}</a>
-                            </span>
+                    <div class="border-t border-gray-900 py-5"></div>
+                        <div class="w-full text-3xl font-bold font-heading">
+                            <div class="py-3">
+                                <a href="{{ route('login') }}">{{ __('Login') }} </a>
+                            </div>
                              {{ __('or') }} 
-                            <span class="mr-2 font-medium">
-                                <a href="{{ route('register') }}">{{ __('Register') }}</a>
-                            </span>
-
+                            <div class="py-3">
+                                <a href="{{ route('register') }}"> {{ __('Register') }}</a>
+                            </div>
                         </div>
                 @endif
                 <div class="flex items-center">
@@ -162,7 +163,7 @@
                 </div>
             </div>
             
-            <div class="border-t border-gray-100"></div>
+            <div class="border-t border-gray-900 py-5"></div>
 
             <ul class="text-3xl font-bold font-heading">
                 <li class="mb-8"><a href="{{ route('front.categories') }}">{{ __('Categories') }}</a></li>
@@ -171,7 +172,7 @@
             </ul>
         </nav>
     </div>
-</section>
+</div>
 
 @push('scripts')
 <script>

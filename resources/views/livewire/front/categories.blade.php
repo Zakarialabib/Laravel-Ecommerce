@@ -34,7 +34,7 @@
 
         <div class="flex flex-wrap -mx-3 mb-24">
             @foreach ($products as $product)
-                <div class="w-full md:w-1/2 lg:w-1/4 px-3 mb-6">
+                <div class="sm:w-1/2 md:w-1/3 lg:w-1/4 px-3 mb-6">
                     <div class="p-6 bg-gray-50">
                         @if ($product->is_discount)
                             <span

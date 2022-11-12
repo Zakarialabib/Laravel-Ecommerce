@@ -18,8 +18,8 @@ class FeaturedBannerSeeder extends Seeder
     {
         FeaturedBanner::insert([
             [
-                'title' => 'Featured Banner Title',
-                'details' => 'Featured Banner Details',
+                'title' => 'Best Offer For You',
+                'details' => 'Offer this week',
                 'image' => 'featured_banner.jpg',
                 'status' => 1,
                 'featured' => 1,

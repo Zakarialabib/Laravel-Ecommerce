@@ -15,7 +15,7 @@
                             stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
                         </path>
                     </svg>
-                    <span class="inline-block w-6 h-6 text-center bg-gray-100 rounded-full font-semibold font-heading">
+                    <span class="inline-block w-6 h-6 text-center bg-gray-100 rounded-full font-semibold font-heading text-gray-900">
                         {{ $cartCount }}
                     </span>
                 </button>
@@ -30,7 +30,7 @@
                                         class="w-20 h-20 object-cover">
                                     <span class="text-sm font-semibold font-heading">{{ $item->model->name }}</span>
 
-                                    <div class="flex items-center">
+                                    <div class="flex items-center text-white">
                                         <button wire:click="decreaseQuantity('{{ $item->model->slug }}')"
                                             class="text-gray-600 hover:text-gray-700 focus:outline-none focus:text-gray-700">
                                             <svg class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">

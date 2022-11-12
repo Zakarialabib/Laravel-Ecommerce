@@ -328,7 +328,7 @@
         </x-slot>
 
         <x-slot name="content">
-            <form wire:submit.prevent="import">
+            
                 <div class="w-full px-3 py-2">
                     <x-table-responsive>
                         <x-table.tr>
@@ -366,7 +366,7 @@
                         </x-table.tr>
                         
                     </x-table-responsive>
-            
+                    <form wire:submit.prevent="import">
                     <div class="w-full px-3 my-2">
                         <x-label for="import_file" :value="__('Import')" />
                         <x-input id="import_file" class="block mt-1 w-full" type="file" name="import_file"
@@ -375,12 +375,12 @@
                     </div>
 
                     <div class="w-full px-3">
-                        <x-button primary class="block" wire:click="import" wire:loading.attr="disabled">
+                        <x-button primary type="submit" class="block" wire:click="import" wire:loading.attr="disabled">
                             {{ __('Import') }}
                         </x-button>
                     </div>
+                </form>
                 </div>
-            </form>
         </x-slot>
     </x-modal>
 

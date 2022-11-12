@@ -2,7 +2,7 @@
     <div x-data="{ searchBox: false }" class="relative">
         <div class="flex items-center max-w-xs rounded-lg">
             <button type="button" @click="searchBox = !searchBox"
-                class="flex items-center justify-center w-10 h-10 text-gray-500 bg-gray-100 rounded-l-lg focus:outline-none">
+                class="flex items-center justify-center w-10 h-10 text-gray-100 rounded-l-lg focus:outline-none">
                 <svg class="mr-4" width="23" height="23" viewbox="0 0 23 23" fill="none"
                     xmlns="http://www.w3.org/2000/svg">
 

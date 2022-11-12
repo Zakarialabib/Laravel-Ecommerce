@@ -21,15 +21,15 @@ class SettingSeeder extends Seeder
         ],
         [
             'key' =>  'company_email_address',
-            'value' =>  'admin@gmail.com',
+            'value' =>  'connect@badrluxury.com',
         ],
         [
             'key' =>  'company_phone',
-            'value' =>  '+9999999999999',
+            'value' =>  '+212638041919',
         ],
         [
             'key' =>  'company_address',
-            'value' =>  'Street , City, Zip, Country',
+            'value' =>  'DerbGhalef , Casablanca, Maroc',
         ],
         [
             'key' =>  'currency_code',
@@ -61,11 +61,11 @@ class SettingSeeder extends Seeder
         ],
         [
             'key' =>  'seo_meta_title',
-            'value' =>  'delivery management',
+            'value' =>  'Badr Luxury',
         ],
         [
             'key' =>  'seo_meta_description',
-            'value' =>  'delivery management',
+            'value' =>  'Badr Luxury',
         ],
         [
             'key' =>  'social_facebook',

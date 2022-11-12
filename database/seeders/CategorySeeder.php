@@ -20,25 +20,25 @@ class CategorySeeder extends Seeder
             [
                 'id' => 1,
                 'code' => 1,
-                'name'       => 'Mobile',
+                'name'       => 'Sport',
                 'image'      => 'https://via.placeholder.com/150',
             ],
             [
                 'id'     => 2,
                 'code' => 2,
-                'name'       => 'Laptop',
+                'name'       => 'Vintage',
                 'image'      => 'https://via.placeholder.com/150',
             ],
             [
                 'id'        => 3,
                 'code' => 3,
-                'name'       => 'Tablet',
+                'name'       => 'Class',
                 'image'      => 'https://via.placeholder.com/150',
             ],
             [
                 'id'       => 4,
                 'code' => 4,
-                'name'       => 'Camera',
+                'name'       => 'Extreme',
                 'image'      => 'https://via.placeholder.com/150',
             ]
     ]);

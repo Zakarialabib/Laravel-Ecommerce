@@ -248,10 +248,10 @@ class Index extends Component
         // import data
         
         $this->validate([
-            'import_file' => 'nullable',
+            'import_file' => 'mimes:xlsx,xls,csv',
         ]);
         
-        Excel::import(new ProductImport, $this->import_file);
+        Excel::import(new ProductImport,  $this->import_file);
 
 
         $this->alert('success', __('Products imported successfully'));
