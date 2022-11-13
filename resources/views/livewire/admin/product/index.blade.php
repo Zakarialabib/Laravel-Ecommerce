@@ -45,7 +45,7 @@
                 {{ __('Status') }}
                 @include('components.table.sort', ['field' => 'status'])
             </x-table.th>
-           
+
             <x-table.th>
                 {{ __('Actions') }}
             </x-table.th>
@@ -57,7 +57,7 @@
                         {{ $id }}
                     </x-table.td>
                     <x-table.td>
-                        <img src="{{ asset('images/products/'.$product->image) }}" alt="{{ $product->name }}"
+                        <img src="{{ asset('images/products/' . $product->image) }}" alt="{{ $product->name }}"
                             class="w-10 h-10 rounded-full object-cover">
                     </x-table.td>
                     <x-table.td>
@@ -69,11 +69,11 @@
                     <x-table.td>
                         {{ $product->price }} DH
                     </x-table.td>
-                    
+
                     <x-table.td>
                         <livewire:toggle-button :model="$product" field="status" key="{{ $product->id }}" />
                     </x-table.td>
-                    
+
                     <x-table.td>
                         <x-dropdown
                             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-32 p-1 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
@@ -171,7 +171,7 @@
                                         <th>{{ __('Price') }}</th>
                                         <td>{{ $product->price }}</td>
                                     </tr>
-                                  
+
                                     <tr>
                                         <th>{{ __('Description') }}</th>
                                         <td>{{ $product->description ?? 'N/A' }}</td>
@@ -302,8 +302,8 @@
 
                     <div class="w-full px-4 my-4">
                         <x-label for="gallery" :value="__('Product Gallery')" />
-                        <x-fileupload wire:model="gallery" :file="$gallery"
-                            accept="image/jpg,image/jpeg,image/png" multiple />
+                        <x-fileupload wire:model="gallery" :file="$gallery" accept="image/jpg,image/jpeg,image/png"
+                            multiple />
                         <x-input-error :messages="$errors->get('gallery')" for="gallery" class="mt-2" />
                     </div>
 
@@ -328,45 +328,45 @@
         </x-slot>
 
         <x-slot name="content">
-            
-                <div class="w-full px-3 py-2">
-                    <x-table-responsive>
-                        <x-table.tr>
-                            <x-table.th>{{ __('Name') }}</x-table.th>
-                            <x-table.td>{{ __('Required') }}</x-table.td>
-                        </x-table.tr>
-                        <x-table.tr>
-                            <x-table.th>{{ __('Description') }}</x-table.th>
-                            <x-table.td>{{ __('Required') }}</x-table.td>
-                        </x-table.tr>
-                        <x-table.tr>
-                            <x-table.th>{{ __('Price') }}</x-table.th>
-                            <x-table.td>{{ __('Required') }}</x-table.td>
-                        </x-table.tr>
-                        <x-table.tr>
-                            <x-table.th>{{ __('Old price') }}</x-table.th>
-                            <x-table.td>{{ __('Optional') }}</x-table.td>
-                        </x-table.tr>
-                        <x-table.tr>
-                            <x-table.th>{{ __('Category name') }}</x-table.th>
-                            <x-table.td>{{ __('Required') }}</x-table.td>
-                        </x-table.tr>
-                        <x-table.tr>
-                            <x-table.th>{{ __('Subcategory name') }}</x-table.th>
-                            <x-table.td>{{ __('Optional') }}</x-table.td>
-                        </x-table.tr>
-                        
-                        <x-table.tr>
-                            <x-table.th>{{ __('Brand') }}</x-table.th>
-                            <x-table.td>{{ __('Optional') }}</x-table.td>
-                        </x-table.tr>
-                        <x-table.tr>
-                            <x-table.th>{{ __('Image') }}</x-table.th>
-                            <x-table.td>{{ __('Required') }}</x-table.td>
-                        </x-table.tr>
-                        
-                    </x-table-responsive>
-                    <form wire:submit.prevent="import">
+
+            <div class="w-full px-3 py-2">
+                <x-table-responsive>
+                    <x-table.tr>
+                        <x-table.th>{{ __('Name') }}</x-table.th>
+                        <x-table.td>{{ __('Required') }}</x-table.td>
+                    </x-table.tr>
+                    <x-table.tr>
+                        <x-table.th>{{ __('Description') }}</x-table.th>
+                        <x-table.td>{{ __('Required') }}</x-table.td>
+                    </x-table.tr>
+                    <x-table.tr>
+                        <x-table.th>{{ __('Price') }}</x-table.th>
+                        <x-table.td>{{ __('Required') }}</x-table.td>
+                    </x-table.tr>
+                    <x-table.tr>
+                        <x-table.th>{{ __('Old price') }}</x-table.th>
+                        <x-table.td>{{ __('Optional') }}</x-table.td>
+                    </x-table.tr>
+                    <x-table.tr>
+                        <x-table.th>{{ __('Category name') }}</x-table.th>
+                        <x-table.td>{{ __('Required') }}</x-table.td>
+                    </x-table.tr>
+                    <x-table.tr>
+                        <x-table.th>{{ __('Subcategory name') }}</x-table.th>
+                        <x-table.td>{{ __('Optional') }}</x-table.td>
+                    </x-table.tr>
+
+                    <x-table.tr>
+                        <x-table.th>{{ __('Brand') }}</x-table.th>
+                        <x-table.td>{{ __('Optional') }}</x-table.td>
+                    </x-table.tr>
+                    <x-table.tr>
+                        <x-table.th>{{ __('Image') }}</x-table.th>
+                        <x-table.td>{{ __('Required') }}</x-table.td>
+                    </x-table.tr>
+
+                </x-table-responsive>
+                <form wire:submit.prevent="import">
                     <div class="w-full px-3 my-2">
                         <x-label for="import_file" :value="__('Import')" />
                         <x-input id="import_file" class="block mt-1 w-full" type="file" name="import_file"
@@ -375,12 +375,12 @@
                     </div>
 
                     <div class="w-full px-3">
-                        <x-button primary type="submit" class="block" wire:click="import" wire:loading.attr="disabled">
+                        <x-button primary type="submit" wire:click="import" class="block" wire:loading.attr="disabled">
                             {{ __('Import') }}
                         </x-button>
                     </div>
                 </form>
-                </div>
+            </div>
         </x-slot>
     </x-modal>
 

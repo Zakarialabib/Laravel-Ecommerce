@@ -13,7 +13,6 @@ class FrontController extends Controller
         $products = Product::where('status', 1)->paginate(3);
         
         return view('front.index',compact('products'));
-
     }
 
     public function catalog(){
@@ -73,5 +72,10 @@ class FrontController extends Controller
         return view('front.blog-page', compact('blog'));
     }
 
+    // thanks page
+    public function thankyou(Order $order)
+    {
+        return view('front.order-summary', compact('order'));
+    }
 
 }

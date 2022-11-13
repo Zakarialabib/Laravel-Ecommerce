@@ -46,14 +46,6 @@ class Order extends Model
         'shipping_city', 'shipping_zip','shipping_state','shipping_country',
     ];
 
-    public function __construct(array $attributes = array())
-    {
-        $this->setRawAttributes(array(
-            'reference' => 'SL-' . Carbon::now()->format('Ymd') . '-' . Str::random(4)
-        ), true);
-        parent::__construct($attributes);
-    }
-
     public static function generateReference()
     {
         $lastOrder = self::latest()->first();

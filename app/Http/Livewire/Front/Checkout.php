@@ -6,9 +6,13 @@ use Livewire\Component;
 use Gloudemans\Shoppingcart\Facades\Cart;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 use App\Models\Shipping;
+use App\Models\Order;
+use Carbon\Carbon;
 
 class Checkout extends Component
 {
+    use LivewireAlert;
+
     public $listeners = ['checkout' => 'checkout'];
     // shipping_id
     // payment_method
@@ -24,12 +28,51 @@ class Checkout extends Component
     public $shipping_id;
 
     public $listsForFields = [];
-    
+
+
     public function checkout()
     {
-        dd('checkout');
-    }
+        dd($this->all());
 
+        $this->validate([
+            'shipping_id' => 'required',
+        ]);
+
+        $shipping = Shipping::find($this->shipping_id);
+
+        $order = Order::create([
+            'reference' => Order::generateReference(),
+            'shipping_id' => $this->shipping_id,
+            'delivery_method' => $shipping->name,
+            'payment_method' => $this->payment_method,
+            'shipping_cost' => $shipping->cost,
+            'first_name' => $this->first_name,
+            'last_name' => $this->last_name,
+            'email' => $this->email,
+            'address' => $this->address,
+            'city' => $this->city,
+            'phone' => $this->phone,
+            'total' => Cart::total(),
+            'user_id' => auth()->user()->id,
+            'order_status' => Order::STATUS_PENDING,
+            'payment_status' => Order::PAYMENT_STATUS_PENDING,
+        ]);
+
+        foreach (Cart::content() as $item) {
+            $order->orderItems()->create([
+                'product_id' => $item->id,
+                'quantity' => $item->qty,
+                'price' => $item->price,
+            ]);
+        }
+
+        Cart::destroy();
+
+        $this->alert('success', __('Order placed successfully!'));
+
+        return redirect()->route('front.thankyou');
+    }
+    
     public function updatedShippingId($value)
     {
         if ($value) {
@@ -45,6 +88,8 @@ class Checkout extends Component
         $this->emit('cartTotalUpdated', $cartTotal);
     }
 
+
+
     public function mount()
     {
         $this->cartTotal = Cart::instance('shopping')->total();
@@ -52,6 +97,10 @@ class Checkout extends Component
         $this->cartCount = Cart::instance('shopping')->count();
 
         $this->cartItems =  Cart::instance('shopping')->content();
+
+        $this->subTotal = Cart::instance('shopping')->subtotal();
+
+        $this->tax = Cart::instance('shopping')->tax();
         
         $this->shipping = Shipping::find($this->shipping_id);
 

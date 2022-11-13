@@ -1,6 +1,6 @@
 <div>
     <section class="py-10">
-        <div class="container mx-auto px-10">
+        <div class="container mx-auto px-4">
             <div class="flex flex-wrap -mx-4 mb-14">
                 {{-- Make product carousel with thumbs alpine --}}
                 <div class="w-full md:w-1/2 px-4 mb-8 md:mb-0" >
@@ -206,7 +206,7 @@
                         <div class="bg-white rounded-lg shadow-2xl">
                             <div class="relative text-center">
                                 <a href="{{ route('front.product', $product->slug) }}">
-                                    <img class="w-full h-64 object-cover rounded-t-lg"
+                                    <img class="w-full h-auto object-cover rounded-t-lg"
                                         src="{{ asset('images/products/' . $product->image) }}" alt="">
                                 </a>
                                 <div class="absolute top-0 right-0 px-4 py-2 bg-orange-500 rounded-bl-lg">

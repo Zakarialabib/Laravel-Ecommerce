@@ -1,5 +1,5 @@
 <div>
-    <div class="container mx-auto px-10">
+    <div class="container mx-auto px-4">
         <div class="flex flex-wrap -mx-4 mb-10 items-center justify-between">
             <div class="w-full lg:w-auto px-4 flex flex-wrap items-center">
                 <div class="w-full sm:w-auto">
@@ -33,7 +33,7 @@
         </div>
 
         <div class="flex flex-wrap -mx-3 mb-24">
-            @foreach ($products as $product)
+            @forelse ($products as $product)
                 <div class="sm:w-1/2 md:w-1/3 lg:w-1/4 px-3 mb-6">
                     <div class="p-6 bg-gray-50">
                         @if ($product->is_discount)
@@ -59,18 +59,16 @@
                                 @endif
                             </p>
                         </a>
-                        <a class="ml-auto mr-2 flex items-center justify-center w-12 h-12 border rounded-lg hover:border-gray-500"
-                            href="#">
-                            <svg width="12" height="12" viewbox="0 0 12 12" fill="none"
-                                xmlns="http://www.w3.org/2000/svg">
-                                <rect x="5" width="2" height="12" fill="#161616"></rect>
-                                <rect x="12" y="5" width="2" height="12"
-                                    transform="rotate(90 12 5)" fill="#161616"></rect>
-                            </svg>
-                        </a>
+                        <livewire:front.add-to-cart :product="$product" :key="$product->id" />
                     </div>
                 </div>
-            @endforeach
+                @empty
+                <div class="w-full">
+                    <h3 class="text-3xl font-bold font-heading text-blue-900">
+                        {{ __('No products found') }}
+                    </h3>
+                </div>
+            @endforelse
         </div>
     </div>
 </div>

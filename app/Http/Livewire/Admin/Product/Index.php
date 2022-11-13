@@ -52,7 +52,7 @@ class Index extends Component
     
     public $file ;
     
-    public $import_file ;
+    public $import_file;
 
     public $metadata ;
 
@@ -250,9 +250,10 @@ class Index extends Component
         $this->validate([
             'import_file' => 'mimes:xlsx,xls,csv',
         ]);
-        
-        Excel::import(new ProductImport,  $this->import_file);
 
+        $path = $this->import_file->getRealPath();
+
+        $data = Excel::import(new ProductsImport, $path);
 
         $this->alert('success', __('Products imported successfully'));
 

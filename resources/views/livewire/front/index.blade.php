@@ -88,7 +88,7 @@
 
     <div x-data="{ activeTabs: 'featuredProducts' }" class="container mx-auto px-4">
         <div class="flex flex-wrap -mx-4 mb-10">
-            <div class="w-1/2 md:w-auto">
+            <div class="w-1/2 md:w-auto lg:w-1/4">
                 <button type="button"
                     class="inline-block py-6 px-10 sm:py-2 sm:px-5 text-left font-bold text-gray-500 uppercase border-b-2 border-gray-100 hover:border-gray-500 focus:outline-none focus:border-gray-500"
                     @click="activeTabs = 'featuredProducts'"
@@ -96,21 +96,21 @@
                     {{ __('Featured Products') }}
                 </button>
             </div>
-            <div class="w-1/2 md:w-auto">
+            <div class="w-1/2 md:w-auto lg:w-1/4">
                 <button type="button"
                     class="inline-block py-6 px-10 sm:py-2 sm:px-5 text-left font-bold font-heading text-gray-500 uppercase border-b-2 border-gray-100 hover:border-gray-500 focus:outline-none focus:border-gray-500"
                     @click="activeTabs = 'bestOfers'" :class="activeTabs === 'bestOfers' ? 'bg-orange-400 text-white' : ''">
                     {{ __('Best Offers') }}
                 </button>
             </div>
-            <div class="w-1/2 md:w-auto">
+            <div class="w-1/2 md:w-auto lg:w-1/4">
                 <button type="button"
                     class="inline-block py-6 px-10 sm:py-2 sm:px-5 text-left font-bold font-heading text-gray-500 uppercase border-b-2 border-gray-100 hover:border-gray-500 focus:outline-none focus:border-gray-500"
                     @click="activeTabs = 'hotProducts'" :class="activeTabs === 'hotProducts' ? 'bg-orange-400 text-white' : ''">
                     {{ __('Hot Products') }}
                 </button>
             </div>
-            <div class="w-1/2 md:w-auto">
+            <div class="w-1/2 md:w-auto lg:w-1/4">
                 <button type="button"
                     class="inline-block py-6 px-10 sm:py-2 sm:px-5 text-left font-bold font-heading text-gray-500 uppercase border-b-2 border-gray-100 hover:border-gray-500 focus:outline-none focus:border-gray-500"
                     @click="activeTabs = 'brands'" :class="activeTabs === 'brands' ? 'bg-orange-400 text-white' : ''">
@@ -125,36 +125,42 @@
                         <div class="flex mb-16">
                             <div class="w-full flex flex-wrap -mx-3">
                                 @forelse ($featuredProducts as $product)
-                                    <div class="sm:w-full md:w-1/2 lg:w-1/3 px-3 mb-16 lg:mb-0">
-                                        <a class="block mb-10" href="{{ route('front.product', $product->slug) }}">
-                                            <div class="relative">
-                                                @if ($product->old_price)
-                                                    <span
-                                                        class="absolute bottom-0 left-0 ml-6 mb-6 px-2 py-1 text-xs font-bold font-heading bg-white border-2 border-red-500 rounded-full text-red-500">
-                                                        -{{ $product->discount }}%
-                                                    </span>
-                                                @endif
-                                                <img class="w-full h-96 object-cover" loading="lazy"
-                                                    src="{{ asset('images/products/' . $product->image) }}"
-                                                    alt="{{ $product->name }}">
+                                    <div class="sm:w-full md:w-1/2 lg:w-1/3 px-3 mb-16 lg:mb-0<div class="bg-white rounded-lg shadow-2xl">
+                                        <div class="relative text-center">
+                                            <a href="{{ route('front.product', $product->slug) }}">
+                                                <img class="w-full h-auto object-cover rounded-t-lg"
+                                                    src="{{ asset('images/products/' . $product->image) }}" alt="">
+                                            </a>
+                                            <div class="absolute top-0 right-0 px-4 py-2 bg-orange-500 rounded-bl-lg">
+                                                <span class="text-white font-bold font-heading">{{ $product->price }}$</span>
                                             </div>
-                                            <div class="mt-12">
-                                                <div class="mb-2">
-                                                    <h3 class="mb-3 text-3xl font-bold font-heading text-blue-900">
-                                                        {{ Str::limit($product->name, 30) }}
-                                                    </h3>
-                                                    <p class="text-xl font-bold font-heading text-white">
-                                                        <span class="text-blue-900">{{ $product->price }} DH</span>
-                                                        <span
-                                                            class="text-xs text-gray-500 font-semibold font-heading line-through">{{ $product->old_price }}</span>
-                                                    </p>
+                                        </div>
+                                        <div class="p-4 text-center">
+                                            <a href="{{ route('front.product', $product->slug) }}"
+                                                class="block mb-2 text-lg font-bold font-heading text-orange-500 hover:text-orange-400">{{ $product->name }}</a>
+                                            <div class="flex items-center mb-4">
+                                                <div class="flex items-center">
+                                                    @for ($i = 0; $i < 5; $i++)
+                                                        @if ($i < $product->reviews->avg('rating'))
+                                                            <svg class="w-4 h-4 text-orange-500 fill-current"
+                                                                xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                                                <path
+                                                                    d="M12 17.27l-5.18 2.73 1-5.81-4.24-3.63 5.88-.49L12 6.11l2.45 5.51 5.88.49-4.24 3.63 1 5.81z" />
+                                                            </svg>
+                                                        @else
+                                                            <svg class="w-4 h-4 text-orange-500 fill-current"
+                                                                xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                                                <path
+                                                                    d="M12 17.27l-5.18 2.73 1-5.81-4.24-3.63 5.88-.49L12 6.11l2.45 5.51 5.88.49-4.24 3.63 1 5.81z" />
+                                                            </svg>
+                                                        @endif
+                                                    @endfor
                                                 </div>
+                                                <span
+                                                    class="ml-2 text-sm text-gray-500 font-body">{{ $product->reviews->count() }}
+                                                    {{ __('Reviews') }}</span>
                                             </div>
-                                        </a>
-                                        <a class="inline-block hover:bg-orange-400 text-white font-bold font-heading py-4 px-8 rounded-md uppercase transition duration-200 bg-orange-500"
-                                            href="{{ route('front.product', $product->slug) }}">
-                                            {{ __('Learn more') }}
-                                        </a>
+                                        </div>
                                     </div>
                                 @empty
                                     <div class="w-full">

@@ -1,5 +1,4 @@
 <div>
-
     <h2 class="mb-14 text-5xl font-bold font-heading">{{ __('Checkout') }}</h2>
     <div class="flex flex-wrap -mx-4">
         <div class="w-full lg:w-1/2 px-4">
@@ -56,7 +55,7 @@
                                 for="">{{ __('Country') }}</label>
                             <input wire:model="country"
                                 class="block w-full mt-4 py-4 px-4 bg-white border border-gray-200 focus:ring-blue-300 focus:border-blue-300 rounded-md"
-                                type="text">
+                                type="text" value="Maroc">
                         </div>
                         <div class="w-full md:w-2/3 px-4 mb-10 md:mb-0">
                             <label class="font-bold font-heading text-gray-600"
@@ -68,74 +67,52 @@
                     </div>
                 </div>
                 <div class="flex mb-10 items-center">
-                    <span
-                        class="inline-flex mr-8 items-center justify-center w-12 h-12 rounded-full bg-orange-300 text-white">3</span>
-                    <h3 class="text-2xl font-bold font-heading">{{ __('Shipping methods') }}</h3>
-                </div>
-                {{-- 
-                <div class='flex mb-2 items-center'>
-                    <x-select-list
-                        class="block bg-white dark:bg-dark-eval-2 text-gray-700 dark:text-gray-300 rounded border border-gray-300 mb-1 text-sm w-full focus:shadow-outline-blue focus:border-blue-500"
-                        id="shipping_id" name="shipping_id" wire:model="shipping_id" :options="$this->listsForFields['shippings']" />
-                </div>
-                @if ($shipping_id)
-                    @if ($shipping->is_pickup)
-                        <div class="flex mb-8 items-center justify-between pb-5 border-b border-blue-100">
-                            <span class="text-blue-50">{{ __('Shipping') }}</span>
-                            <span class="text-xl font-bold font-heading text-white">0 DH</span>
-                        </div>
-                        <div class="flex mb-10 justify-between items-center">
-                            <span
-                                class="text-xl font-bold font-heading text-white">{{ __('Order total') }}</span>
-                            <span class="text-xl font-bold font-heading text-white">
-                                {{ $cartTotal }} DH
-                            </span>
-                        </div>
-                    @else
-                        <div class="flex mb-2 justify-between items-center">
-                            <span class="text-blue-50">{{ __('Shipping cost') }}</span>
-                            <span class="text-xl font-bold font-heading text-white">
-                                {{ $shipping->cost }} DH
-                        </div>
-                        <div class="flex mb-10 justify-between items-center">
-                            <span class="text-blue-50">{{ __('Shipping to') }}
-                                {{ $shipping->title }}</span>
-                            </span>
-                            <span class="text-xl font-bold font-heading text-white">-</span>
-                        </div>
-                        <div class="flex mb-10 justify-between items-center">
-                            <span
-                                class="text-xl font-bold font-heading text-white">{{ __('Order total') }}</span>
-                            <span class="text-xl font-bold font-heading text-white">
-                                {{ $cartTotal + $shipping->cost }} DH
-                            </span>
-                        </div>
-                    @endif
-                @endif --}}
-                <div class="mb-12">
                     <div class="mb-2 py-3 px-8 bg-white rounded-full">
                         <div class="flex flex-wrap items-center">
-                            <label class="inline-flex mb-1 pr-4 py-2 items-center sm:border-r" for="">
-                                <input type="radio" name="deliveryType" value="" checked>
-                                <span class="ml-4 text-sm font-bold font-heading">{{ __('Standard delivery') }}</span>
-                            </label>
-                            <p class="order-last w-full sm:w-auto pl-4 text-sm text-gray-500">
-                                {{ __('3-4 business days') }}</p>
-                            <span class="sm:order-last ml-auto text-blue-300 font-bold font-heading">$3.00</span>
+                            <h3 class="text-2xl font-bold font-heading">{{ __('Shipping methods') }}</h3>
+                            <x-select-list
+                                class="block bg-white dark:bg-dark-eval-2 text-gray-700 dark:text-gray-300 rounded border border-gray-300 mb-1 text-sm w-full focus:shadow-outline-blue focus:border-blue-500"
+                                id="shipping_id" name="shipping_id" wire:model="shipping_id" :options="$this->listsForFields['shippings']" />
                         </div>
                     </div>
                     <div class="py-3 px-8 bg-white rounded-full">
-                        <div class="flex flex-wrap items-center">
-                            <label class="inline-flex mb-1 pr-4 py-2 items-center sm:border-r" for="">
-                                <input type="radio" name="deliveryType" value="">
-                                <span class="ml-4 text-sm font-bold font-heading">{{ __('Express') }}</span>
-                            </label>
-                            <p class="order-last w-full sm:w-auto pl-4 text-sm text-gray-500">Next day</p>
-                            <span class="sm:order-last ml-auto text-blue-300 font-bold font-heading">$20.00</span>
-                        </div>
+                        @if ($shipping_id)
+                            @if ($shipping->is_pickup)
+                                <div class="flex mb-8 items-center justify-between pb-5 border-b border-blue-100">
+                                    <span class="text-blue-50">{{ __('Shipping') }}</span>
+                                    <span class="text-xl font-bold font-heading text-white">0 DH</span>
+                                </div>
+                                <div class="flex mb-10 justify-between items-center">
+                                    <span
+                                        class="text-xl font-bold font-heading text-white">{{ __('Order total') }}</span>
+                                    <span class="text-xl font-bold font-heading text-white">
+                                        {{ $cartTotal }} DH
+                                    </span>
+                                </div>
+                            @else
+                                <div class="flex mb-2 justify-between items-center">
+                                    <span class="text-blue-50">{{ __('Shipping cost') }}</span>
+                                    <span class="text-xl font-bold font-heading text-white">
+                                        {{ $shipping->cost }} DH
+                                </div>
+                                <div class="flex mb-10 justify-between items-center">
+                                    <span class="text-blue-50">{{ __('Shipping to') }}
+                                        {{ $shipping->title }}</span>
+                                    </span>
+                                    <span class="text-xl font-bold font-heading text-white">-</span>
+                                </div>
+                                <div class="flex mb-10 justify-between items-center">
+                                    <span
+                                        class="text-xl font-bold font-heading text-white">{{ __('Order total') }}</span>
+                                    <span class="text-xl font-bold font-heading text-white">
+                                        {{ $cartTotal + $shipping->cost }} DH
+                                    </span>
+                                </div>
+                            @endif
+                        @endif
                     </div>
                 </div>
-                <div class="flex mb-10 items-center">
+                {{-- <div class="flex mb-10 items-center">
                     <span
                         class="inline-flex mr-8 items-center justify-center w-12 h-12 rounded-full bg-orange-300 text-white">3</span>
                     <h3 class="text-2xl font-bold font-heading">{{ __('Packaging Type') }}</h3>
@@ -165,20 +142,19 @@
                                 class="sm:order-last ml-auto text-blue-300 font-bold font-heading">{{ '20 DH' }}</span>
                         </div>
                     </div>
-                </div>
+                </div> --}}
                 <div class="flex mb-10 items-center">
                     <span
-                        class="inline-flex mr-8 items-center justify-center w-12 h-12 rounded-full bg-pink-300 text-white">{{ $cartCount }} </span>
+                        class="inline-flex mr-8 items-center justify-center w-12 h-12 rounded-full bg-pink-300 text-white">{{ $cartCount }}
+                    </span>
                     <h3 class="text-2xl font-bold font-heading">{{ __('Order summary') }}</h3>
                 </div>
                 <div>
                     <div class="flex flex-wrap -mx-4 mb-10">
-
                         <label class="flex px-4 w-full sm:w-auto items-center" for="">
-                            <input type="radio" name="paymentType" value="">
+                            <input type="radio" name="paymentType" value="cash" wire:model="payment_method" checked>
                             <span class="ml-5 text-sm">{{ __('Cash on Delivery') }}</span>
                         </label>
-
                     </div>
                 </div>
             </form>
@@ -232,7 +208,6 @@
                                                 </svg>
                                             </button>
                                         </div>
-
                                     </div>
                                 </div>
                             </div>
@@ -244,30 +219,38 @@
                         <div class="py-3 px-10 bg-blue-50 rounded-full">
                             <div class="flex justify-between">
                                 <span class="font-medium">{{ __('Subtotal') }}</span>
-                                <span class="font-bold font-heading">$89.67</span>
+                                <span class="font-bold font-heading">
+                                    {{ $subTotal }} DH
+                                </span>
                             </div>
                         </div>
                         <div class="py-3 px-10 rounded-full">
                             <div class="flex justify-between">
                                 <span class="font-medium">{{ __('Shipping') }}</span>
-                                <span class="font-bold font-heading">$11.00</span>
+                                <span class="font-bold font-heading">
+                                    {{ $shipping }} DH
+                                </span>
                             </div>
                         </div>
                         <div class="py-3 px-10 bg-blue-50 rounded-full">
                             <div class="flex justify-between">
                                 <span class="font-medium">{{ __('Tax') }}</span>
-                                <span class="font-bold font-heading">$0.00</span>
+                                <span class="font-bold font-heading">
+                                    {{ $tax }} DH
+                                </span>
                             </div>
                         </div>
                         <div class="py-3 px-10 rounded-full">
                             <div class="flex justify-between">
                                 <span class="text-base md:text-xl font-bold font-heading">{{ __('Total') }}</span>
-                                <span class="font-bold font-heading">$100.67</span>
+                                <span class="font-bold font-heading">
+                                    {{ $cartTotal }} DH
+                                </span>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="mb-10">
+                {{-- <div class="mb-10">
                     <span class="inline-block mb-4 font-medium">{{ __('Apply discount code') }}:</span>
                     <div class="flex mb-12 flex-wrap lg:flex-nowrap items-center">
                         <input
@@ -276,9 +259,11 @@
                         <a class="inline-block mb-4 md:mb-0 px-8 py-4 text-white font-bold font-heading uppercase bg-gray-800 hover:bg-gray-700 rounded-md"
                             href="#">{{ __('Apply') }}</a>
                     </div>
-                </div>
-                <a class="block w-full py-4 bg-orange-300 hover:bg-orange-400 text-center text-white font-bold font-heading uppercase rounded-md transition duration-200"
-                    href="#">{{ __('Confirm Order') }}</a>
+                </div> --}}
+                <button class="block w-full py-4 bg-orange-300 hover:bg-orange-400 text-center text-white font-bold font-heading uppercase rounded-md transition duration-200"
+                   type="button" wire:click="checkout">
+                    {{ __('Confirm Order') }}
+                </button>
             </div>
         </div>
     </div>

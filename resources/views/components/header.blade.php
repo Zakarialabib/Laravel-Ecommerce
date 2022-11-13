@@ -1,8 +1,8 @@
 <div>
     <nav class="flex justify-between bg-gray-900 border-b">
-        <div class="px-12 sm:px-4 py-5 flex w-full items-center">
+        <div class="md:px-12 sm:px-4 py-5 flex w-full items-center">
             <a class="lg:mr-8 2xl:mr-20 text-3xl font-bold font-heading text-white" href="{{ route('front.index') }}">
-                <img class="h-15" src="{{ asset('images/' . Helpers::settings('site_logo') ) }}" alt="{{ Helpers::settings('site_title') }}" width="auto">
+                <img class="h-15" src="{{ asset('images/' . Helpers::settings('site_logo') ) }}" alt="{{ Helpers::settings('site_title') }}" width="auto" />
             </a>
 
             <ul class="hidden xl:flex px-4 mx-auto font-semibold font-heading">
@@ -79,7 +79,7 @@
             </button>
         @endif
 
-        <div class="self-center mr-2 xl:hidden">
+        <div class="self-center mr-5 xl:hidden">
             <livewire:front.cart-count />
         </div>
 
@@ -97,7 +97,7 @@
         <nav class="relative flex flex-col py-6 px-6 w-full h-full bg-white border-r overflow-y-auto">
             <div class="flex items-center mb-8">
                 <a class="mr-auto text-3xl font-bold font-heading" href="{{ route('front.index') }}">
-                    <img class="h-10" src="{{ asset('images/' . Helpers::settings('site_logo') ) }}" alt="" width="auto">
+                    <img class="h-10" src="{{ asset('images/' . Helpers::settings('site_logo') ) }}" alt="{{ Helpers::settings('site_title') }}" width="auto" />
                 </a>
                 <button class="navbar-close">
                     <svg class="h-2 w-2 text-gray-500 cursor-pointer" width="10" height="10" viewbox="0 0 10 10"

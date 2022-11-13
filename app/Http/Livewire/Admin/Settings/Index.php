@@ -112,7 +112,6 @@ class Index extends Component
         $this->validate([
             $validateName => 'required|mimes:jpeg,png,jpg,gif,svg|max:1048'
         ]);
-        // resize photo (300x150) and save
         
         if($name != null){
             Storage::delete('logo/'.$name);

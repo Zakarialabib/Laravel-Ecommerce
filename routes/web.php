@@ -21,6 +21,7 @@ Route::get('/brands', [FrontController::class, 'brands'])->name('front.brands');
 Route::get('/product/{slug}', [FrontController::class, 'productShow'])->name('front.product');
 Route::get('/cart', [FrontController::class, 'cart'])->name('front.cart');
 Route::get('/checkout', [FrontController::class, 'checkout'])->name('front.checkout');
+Route::get('/thankyou', [FrontController::class, 'thankyou'])->name('front.thankyou');
 Route::get('/contact', [FrontController::class, 'contact'])->name('front.contact');
 Route::get('/about', [FrontController::class, 'about'])->name('front.about');
 Route::get('/blog', [FrontController::class, 'blog'])->name('front.blog');
