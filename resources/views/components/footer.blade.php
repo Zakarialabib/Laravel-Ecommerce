@@ -1,4 +1,4 @@
-<section class="py-10 bg-gray-900">
+<section class="py-10 px-5 bg-gray-900">
     <div class="container mx-auto">
         <div class="flex flex-wrap -mx-4 pb-6 lg:pb-10 border-b border-gray-400">
             <div class="w-full lg:w-3/5 px-4 mb-20">

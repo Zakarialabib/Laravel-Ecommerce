@@ -1,8 +1,8 @@
 <div>
     @if ($cartCount > 0)
-        <button type="button"
-            class="flex text-sm border-2 border-transparent rounded-full focus:outline-none focus:border-gray-300 transition duration-150 ease-in-out"
-            @click="showCart = true">
+        <a x-on:click="showCart = true" href="#"
+            class="flex text-sm border-2 border-transparent rounded-full focus:outline-none focus:border-gray-300 transition duration-150 ease-in-out">
+            
             <svg class="mr-5 text-gray-100" width="30" height="30" viewbox="0 0 23 23" fill="none"
                 xmlns="http://www.w3.org/2000/svg">
                 <path
@@ -18,9 +18,9 @@
                 class="inline-block w-6 h-6 text-center bg-gray-100 rounded-full font-semibold font-heading text-gray-900">
                 {{ $cartCount }}
             </span>
-        </button>
+        </a>
     @else
-        <button type="button" class="flex items-center" @click="showCart = true">
+        <a class="flex items-center" href="#" x-on:click="showCart = true">
             <svg class="mr-5 text-gray-100" width="30" height="30" viewbox="0 0 23 23" fill="none"
                 xmlns="http://www.w3.org/2000/svg">
                 <path
@@ -36,7 +36,7 @@
                 class="inline-block w-7 h-7 text-center bg-gray-100 rounded-full font-semibold font-heading text-gray-900">
                 {{ $cartCount }}
             </span>
-        </button>
+        </a>
     @endif
 
     <livewire:front.cart-bar />

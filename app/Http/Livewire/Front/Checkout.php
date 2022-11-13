@@ -15,15 +15,20 @@ class Checkout extends Component
 
     public $listeners = ['checkout' => 'checkout'];
     // shipping_id
-    // payment_method
-    // shipping_cost
-    // name
-    // email
-    // address
-    // city
-    // phone
-    // total
-    // order_status
+    public $payment_method;
+    public $shipping_cost;
+    public $first_name;
+    public $last_name;
+
+    public $email;
+    public $address;
+    public $city;
+    public $country;
+    public $phone;
+    
+    public $total;
+
+    public $order_status;
 
     public $shipping_id;
 
@@ -32,8 +37,7 @@ class Checkout extends Component
 
     public function checkout()
     {
-        dd($this->all());
-
+        
         $this->validate([
             'shipping_id' => 'required',
         ]);
@@ -103,6 +107,8 @@ class Checkout extends Component
         $this->tax = Cart::instance('shopping')->tax();
         
         $this->shipping = Shipping::find($this->shipping_id);
+
+        $this->payment_method = 'cash';
 
         $this->initListsForFields();
     }
