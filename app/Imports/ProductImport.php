@@ -6,7 +6,6 @@ use App\Models\Product;
 use App\Models\Category;
 use App\Models\Brand;
 use App\Models\Subcategory;
-use Maatwebsite\Excel\Concerns\WithHeadingRow;
 use Maatwebsite\Excel\Concerns\ToModel;
 use Str; 
 use Helpers;
@@ -21,7 +20,6 @@ class ProductImport implements ToModel
     public function model(array $row)
     {
         return new Product([
-
             'name' => $row[0],
             'description' => $row[1],
             'price' => $row[2],

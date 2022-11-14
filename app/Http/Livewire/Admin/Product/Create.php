@@ -30,11 +30,6 @@ class Create extends Component
 
     public $uploadLink;
 
-    public function refreshIndex()
-    {
-        $this->resetPage();
-    }
-
     public function updated($propertyName)
     {
         $this->validateOnly($propertyName);

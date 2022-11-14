@@ -12,7 +12,6 @@ use App\{
 use Maatwebsite\Excel\Facades\Excel;
 use Livewire\WithPagination;
 use App\Http\Livewire\WithSorting;
-use App\Imports\ProductImport;
 use Illuminate\Support\Facades\Gate;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Livewire\WithFileUploads;
@@ -29,8 +28,8 @@ class Index extends Component
     public $listeners = [
     
     'confirmDelete', 'delete', 'showModal', 'editModal',         
-    'refreshIndex','import','exportExcel','exportPdf',
-    'importModal','highlightModal', 'saveHighlight'
+    'refreshIndex','exportExcel','exportPdf',
+    'highlightModal', 'saveHighlight'
 
     ];
 
@@ -43,16 +42,12 @@ class Index extends Component
     public $showModal;
     
     public $editModal;
-
-    public $importModal;
     
     public $refreshIndex;
     
     public array $orderable;
     
     public $file ;
-    
-    public $import_file;
 
     public $metadata ;
 
@@ -230,35 +225,6 @@ class Index extends Component
         $this->alert('success', 'Product updated successfully.');
     }
 
-    
-    public function importModal()
-    {
-        abort_if(Gate::denies('product_access'), 403);
-
-        $this->resetErrorBag();
-
-        $this->resetValidation();
-
-        $this->importModal = true;  
-    }
-
-    public function import()
-    {
-        abort_if(Gate::denies('product_access'), 403);
-        // import data
-        
-        $this->validate([
-            'import_file' => 'mimes:xlsx,xls,csv',
-        ]);
-
-        $path = $this->import_file->getRealPath();
-
-        $data = Excel::import(new ProductsImport, $path);
-
-        $this->alert('success', __('Products imported successfully'));
-
-        $this->importModal = false;
-    }
 
     public function exportExcel()
     {

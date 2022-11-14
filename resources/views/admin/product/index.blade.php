@@ -57,5 +57,7 @@
             <livewire:admin.product.index />
         </div>
     </x-card>
+
+    <livewire:admin.product.import />
     
 </x-dashboard-layout>
