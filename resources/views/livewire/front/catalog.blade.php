@@ -1,6 +1,6 @@
 <div>
     <div class="container mx-auto px-4">
-        <div class="flex flex-wrap -mx-4 mb-10 items-center justify-between">
+        <div class="flex flex-wrap -mx-4 mb-10 md:mb-5 items-center justify-between">
             <div class="w-full lg:w-auto px-4 flex flex-wrap items-center">
                 <div class="w-full sm:w-auto">
                     <select
@@ -8,22 +8,23 @@
                         id="sortBy" wire:model="sorting">
                         <option disabled>{{ __('Best Selling') }}</option>
                         <option value="name">{{ __('Order Alphabetic, A-Z') }}</option>
-                        <option value="name-desc">{{ __('Order Alphabeticy, Z-A') }}</option>
+                        <option value="name-desc">{{ __('Order Alphabetic, Z-A') }}</option>
                         <option value="price">{{ __('Price, low to high') }}</option>
                         <option value="price-desc">{{ __('Price, high to low') }}</option>
                         <option value="date">{{ __('Date, new to old') }}</option>
                         <option value="date-desc">{{ __('Date, old to new') }}</option>
                     </select>
                     <select
-                        class="px-5 py-3 leading-5 bg-white dark:bg-dark-eval-2 text-zinc-700 dark:text-zinc-300 rounded border border-zinc-300 mb-1 text-sm focus:shadow-outline-blue focus:border-blue-500"
+                        class="px-5 py-3 mr-3 leading-5 bg-white dark:bg-dark-eval-2 text-zinc-700 dark:text-zinc-300 rounded border border-zinc-300 mb-1 text-sm focus:shadow-outline-blue focus:border-blue-500"
                         id="perPage" wire:model="pagesize">
                         <option value="20" selected>20 Items</option>
                         <option value="50">50 Items</option>
                         <option value="100">100 Items</option>
                     </select>
                 </div>
-                <button type="button" class="inline-block mr-3 h-full p-4 bg-white rounded-md border"
-                    wire:model="changeView('list')">
+
+                <button type="button" class="lg:hidden inline-block mr-3 h-full p-4 bg-white rounded-md border"
+                    wire:click="changeView('list')">
                     <svg width="20" height="24" viewbox="0 0 20 24" fill="none"
                         xmlns="http://www.w3.org/2000/svg">
                         <rect width="4" height="4" rx="2" fill="#2B51C6"></rect>
@@ -41,8 +42,8 @@
                         </rect>
                     </svg>
                 </button>
-                <button type="button" class="inline-block h-full p-4 hover:bg-white border rounded-md group"
-                    wire:model="changeView('grid')">
+                <button type="button" class="lg:hidden inline-block h-full p-4 hover:bg-white border rounded-md group"
+                    wire:click="changeView('grid')">
                     <svg class="text-gray-200 group-hover:text-blue-300" width="28" height="24"
                         viewbox="0 0 28 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <rect width="4" height="4" rx="2" fill="currentColor"></rect>
@@ -73,10 +74,10 @@
         <div class="flex flex-wrap -mx-3">
             <div class="w-full lg:hidden px-3">
                 <div class="flex flex-wrap -mx-2">
-                    <div class="w-1/2 md:w-1/3 px-2 mb-4">
+                    <div class="w-full px-2 mb-4">
                         <div class="py-6 px-2 text-center bg-gray-50">
                             <a class="font-bold font-heading" href="#">{{ __('Category') }}</a>
-                            <ul class="hidden text-left mt-6">
+                            <ul class="mt-6 -mb-2 flex md:overflow-x-scroll">
                                 @forelse ($categories as $category)
                                     <li class="mb-2">
                                         <x-button type="button" wire:click="filterCategories({{ $category->id }})"
@@ -102,10 +103,10 @@
                         </div>
                     </div>
 
-                    <div class="w-1/2 md:w-1/3 px-2 mb-4">
+                    <div class="w-full px-2 mb-4">
                         <div class="py-6 px-4 text-center bg-gray-50">
                             <a class="font-bold font-heading" href="#">{{ __('Price') }}</a>
-                            <div class="hidden mt-6">
+                            <div class="mt-6 -mb-2 flex md:overflow-x-scroll">
                                 <input
                                     class="w-full mb-4 outline-none appearance-none bg-gray-100 h-1 rounded cursor-pointer"
                                     type="range" min="1" max="10000" value="50">
@@ -120,10 +121,10 @@
                             </div>
                         </div>
                     </div>
-                    <div class="w-1/2 md:w-1/3 px-2 mb-4">
+                    <div class="w-full px-2 mb-4">
                         <div class="py-6 px-4 text-center bg-gray-50">
                             <a class="font-bold font-heading" href="#">{{ __('Brands') }}</a>
-                            <div class="hidden mt-6 -mb-2">
+                            <div class="mt-6 -mb-2 flex md:overflow-x-scroll">
                                 @foreach ($brands as $brand)
                                     <div class="w-1/2 px-2 mb-2">
                                         <x-button type="button" wire:click="filterBrands({{ $brand->id }})"
@@ -287,7 +288,7 @@
                                     </a>
 
                                     <livewire:front.add-to-cart :product="$product" :key="$product->id" />
-                                    
+
                                 </div>
                             </div>
                         @endforeach

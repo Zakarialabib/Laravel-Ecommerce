@@ -1,8 +1,8 @@
-<div>
+<div x-data="{ showCart: false }">
     <nav class="flex justify-between bg-gray-900 border-b">
         <div class="md:px-12 sm:px-4 py-5 flex w-full items-center">
             <a class="lg:mr-8 2xl:mr-20 text-3xl font-bold font-heading text-white" href="{{ route('front.index') }}">
-                <img class="h-15" src="{{ asset('images/' . Helpers::settings('site_logo') ) }}" alt="{{ Helpers::settings('site_title') }}" width="auto" />
+                <img class="h-10" src="{{ asset('images/' . Helpers::settings('site_logo') ) }}" alt="{{ Helpers::settings('site_title') }}" width="auto" />
             </a>
 
             <ul class="hidden xl:flex px-4 mx-auto font-semibold font-heading">
@@ -172,6 +172,9 @@
             </ul>
         </nav>
     </div>
+
+    <livewire:front.cart-bar />
+
 </div>
 
 @push('scripts')
@@ -215,6 +218,19 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         }
     }
+
+    function showCart() {
+            return {
+                show: false,
+                open() {
+                    this.show = true
+                },
+                close() {
+                    this.show = false
+                }
+            }
+        }
+
 });
 
 </script>

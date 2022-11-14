@@ -14,7 +14,7 @@
                             <a href="javascript:;">{{ __('Home Page Settings') }} </a>
                         </li>
                         <li>
-                            <a href="{{ route('admin.sections') }}">{{ __('Sectioons') }}</a>
+                            <a href="{{ route('admin.sections') }}">{{ __('Sections') }}</a>
                         </li>
                     </ul>
                 </div>

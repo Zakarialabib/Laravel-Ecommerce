@@ -9,12 +9,7 @@ use App\Models\Shipping;
 
 class CartBar extends Component
 {
-
     use LivewireAlert;
-
-    public $listeners = [
-        'showCart',
-    ];
 
     public $decreaseQuantity;
     public $increaseQuantity;
@@ -23,14 +18,7 @@ class CartBar extends Component
     public $shipping;
     public $shipping_id;
 
-    public $showCart = false;
-
     public array $listsForFields = [];
-
-    public function showCart()
-    {
-        $this->showCart = true;
-    }
 
     public function decreaseQuantity($rowId)
     {

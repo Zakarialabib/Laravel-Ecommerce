@@ -1,6 +1,6 @@
 <div>
     <div class="container mx-auto px-4">
-        <div class="flex flex-wrap -mx-4 mb-10 items-center justify-between">
+        <div class="flex flex-wrap -mx-4 mb-10 md:mb-5 items-center justify-between">
             <div class="w-full lg:w-auto px-4 flex flex-wrap items-center">
                 <div class="w-full sm:w-auto">
                     <select
@@ -8,7 +8,7 @@
                         id="sortBy" wire:model="sorting">
                         <option disabled>{{ __('Best Selling') }}</option>
                         <option value="name">{{ __('Order Alphabetic, A-Z') }}</option>
-                        <option value="name-desc">{{ __('Order Alphabeticy, Z-A') }}</option>
+                        <option value="name-desc">{{ __('Order Alphabetic, Z-A') }}</option>
                         <option value="price">{{ __('Price, low to high') }}</option>
                         <option value="price-desc">{{ __('Price, high to low') }}</option>
                         <option value="date">{{ __('Date, new to old') }}</option>
@@ -23,7 +23,7 @@
                     </select>
                 </div>
 
-                <div class="w-full sm:w-auto ml-5 sm:ml-0">
+                <div class="md:overflow-x-scroll flex py-2 lg:pl-5 sm:pl-0">
                     @foreach ($categories as $category)
                         <x-button type="button" dangerOutline class="mx-2"
                             wire:click="filterProducts({{ $category->id }})">{{ $category->name }}</x-button>

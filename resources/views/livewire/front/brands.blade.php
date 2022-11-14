@@ -1,14 +1,14 @@
 <div>
     <div class="container mx-auto px-4">
-        <div class="flex flex-wrap -mx-4 mb-10 items-center justify-between">
+        <div class="flex flex-wrap -mx-4 mb-10 md:mb-5 items-center justify-between">
             <div class="w-full lg:w-auto lg:mb-4 px-4 flex flex-wrap items-center">
                 <div class="w-full sm:w-auto">
                     <select
-                    class="px-5 py-3 mr-2 leading-5 bg-white dark:bg-dark-eval-2 text-zinc-700 dark:text-zinc-300 rounded border border-zinc-300 mb-1 text-sm focus:shadow-outline-blue focus:border-blue-500"
+                        class="px-5 py-3 mr-2 leading-5 bg-white dark:bg-dark-eval-2 text-zinc-700 dark:text-zinc-300 rounded border border-zinc-300 mb-1 text-sm focus:shadow-outline-blue focus:border-blue-500"
                         id="sortBy" wire:model="sorting">
                         <option disabled>{{ __('Best Selling') }}</option>
                         <option value="name">{{ __('Order Alphabetic, A-Z') }}</option>
-                        <option value="name-desc">{{ __('Order Alphabeticy, Z-A') }}</option>
+                        <option value="name-desc">{{ __('Order Alphabetic, Z-A') }}</option>
                         <option value="price">{{ __('Price, low to high') }}</option>
                         <option value="price-desc">{{ __('Price, high to low') }}</option>
                         <option value="date">{{ __('Date, new to old') }}</option>
@@ -24,9 +24,10 @@
                     </select>
                 </div>
 
-                <div class="w-full sm:w-auto ml-5 sm:ml-0">
+                <div class="md:overflow-x-scroll flex py-2 lg:pl-5 sm:pl-0">
                     @foreach ($brands as $brand)
-                        <x-button type="button" primaryOutline class="mx-2" wire:click="filterProducts({{ $brand->id }})">
+                        <x-button type="button" primaryOutline class="mx-2"
+                            wire:click="filterProducts({{ $brand->id }})">
                             {{ $brand->name }}</x-button>
                     @endforeach
                 </div>
@@ -43,8 +44,8 @@
                             </span>
                         @endif
                         <a class="block px-6 mt-6 mb-2" href="{{ route('front.product', $product->slug) }}">
-                            <img class="mb-5 mx-auto h-56 w-full object-contain"
-                            loading="lazy" src="{{ asset('images/products/' . $product->image) }}" alt="{{ $product->name }}">
+                            <img class="mb-5 mx-auto h-56 w-full object-contain" loading="lazy"
+                                src="{{ asset('images/products/' . $product->image) }}" alt="{{ $product->name }}">
                             <h3 class="mb-2 text-xl font-bold font-heading">
                                 {{ $product->name }}
                             </h3>
@@ -52,15 +53,17 @@
                                 <span>
                                     {{ $product->price }} DH
                                 </span>
-                                <span class="text-xs text-gray-500 font-semibold font-heading line-through">
-                                    {{ $product->old_price }} DH
-                                </span>
+                                @if ($product->old_price)
+                                    <span class="text-xs text-gray-500 font-semibold font-heading line-through">
+                                        {{ $product->old_price }} DH
+                                    </span>
+                                @endif
                             </p>
                         </a>
                         <livewire:front.add-to-cart :product="$product" :key="$product->id" />
                     </div>
                 </div>
-                @empty
+            @empty
                 <div class="w-full">
                     <h3 class="text-3xl font-bold font-heading text-blue-900">
                         {{ __('No products found') }}

@@ -38,11 +38,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => 'auth'], fu
     Route::get('/subcategories', [CategoryController::class, 'subcategories'])->name('subcategories');
     Route::get('/brand', [BrandController::class, 'index'])->name('brands');
     Route::get('/products', [ProductController::class, 'index'])->name('products');
-    Route::get('/product/create', [ProductController::class, 'create'])->name('product.create');
-    Route::post('/product/store', [ProductController::class, 'store'])->name('product.store');
-    Route::get('/product/edit/{id}', [ProductController::class, 'edit'])->name('product.edit');
-    Route::post('/product/update/{id}', [ProductController::class, 'update'])->name('product.update');
-
+    
     Route::get('/orders', [OrderController::class, 'index'])->name('orders');
 
     Route::get('/users', [UserController::class, 'index'])->name('users');
@@ -50,6 +46,8 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => 'auth'], fu
     Route::get('/sections', [SectionController::class, 'index'])->name('sections');
     Route::get('/featuredBanners', [FeaturedBannerController::class, 'index'])->name('featuredBanners');
     Route::get('/pages', [PageController::class, 'index'])->name('pages');
+    Route::get('/order-forms', [PageController::class, 'orderForms'])->name('orderforms');
+
     Route::get('/sliders', [SliderController::class, 'index'])->name('sliders');
     Route::get('/contact', [PageController::class, 'index'])->name('page.contact');
     Route::get('/menulinks', [SettingController::class, 'index'])->name('page.menulinks');

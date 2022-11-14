@@ -31,9 +31,6 @@
                 {{ __('Client informations') }}
             </x-table.th>
             <x-table.th>
-                {{ __('Image') }}
-            </x-table.th>
-            <x-table.th>
                 {{ __('Subject') }} - {{ __('Message') }}
             </x-table.th>
             <x-table.th>
@@ -44,28 +41,22 @@
             </x-table.th>
         </x-slot>
         <x-table.tbody>
-            @forelse($sellforms as $id=>$sellform)
+            @forelse($orderforms as $id=>$orderform)
                 <x-table.tr>
                     <x-table.td>
                         {{ $id }}
                     </x-table.td>
                     <x-table.td>
-                        {{ $sellform->name }} - {{ $sellform->phone }} <br>
-                        {{ $sellform->address }}
+                        {{ $orderform->name }} - {{ $orderform->phone }} <br>
+                        {{ $orderform->address }}
                     </x-table.td>
                     <x-table.td>
-                        @php
-                            $photo = $sellform->image ? url('sell-form-products/' . $sellform->image) : url('assets/images/noimage.png');
-                        @endphp
-                        <img src="{{ $photo }}" alt="Image">
+                        {{ $orderform->subject }} <br>
+                        {{ $orderform->message }}
                     </x-table.td>
                     <x-table.td>
-                        {{ $sellform->subject }} <br>
-                        {{ $sellform->message }}
-                    </x-table.td>
-                    <x-table.td>
-                        @if($sellform->status == 0)
-                        <livewire:toggle-button :model="$sellform" field="status" key="{{ $sellform->id }}" />
+                        @if($orderform->status == 0)
+                        <livewire:toggle-button :model="$orderform" field="status" key="{{ $orderform->id }}" />
                         @else
                             <span class="text-green-500">{{ __('Approved') }}</span>
                         @endif
@@ -80,9 +71,6 @@
                                 </button>
                             </x-slot>
                             <x-slot name="content">
-                                <x-dropdown-link href="#"> <i class="fas fa-edit"></i>
-                                    {{ __('Edit') }}
-                                </x-dropdown-link>
                                 <x-dropdown-link href="javascript:;"
                                     data-href="#" data-toggle="modal"
                                     data-target="#confirm-delete" class="delete"><i
@@ -112,7 +100,7 @@
                     {{ __('Entries selected') }}
                 </p>
             @endif
-            {{ $sellforms->links() }}
+            {{ $orderforms->links() }}
         </div>
     </div>
 </div>

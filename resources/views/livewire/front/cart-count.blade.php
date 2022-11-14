@@ -38,7 +38,4 @@
             </span>
         </a>
     @endif
-
-    <livewire:front.cart-bar />
-
 </div>

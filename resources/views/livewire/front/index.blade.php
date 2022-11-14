@@ -88,32 +88,32 @@
 
     <div x-data="{ activeTabs: 'featuredProducts' }" class="container mx-auto px-4">
         <div class="flex flex-wrap -mx-4 mb-10">
-            <div class="w-1/2 md:w-auto lg:w-1/4">
+            <div class="w-1/2 md:w-auto lg:w-1/4 py-6 px-10 sm:py-2 sm:px-5 text-left font-bold text-gray-500 uppercase border-b-2 border-gray-100 hover:border-gray-500 focus:outline-none focus:border-gray-500">
                 <button type="button"
-                    class="inline-block py-6 px-10 sm:py-2 sm:px-5 text-left font-bold text-gray-500 uppercase border-b-2 border-gray-100 hover:border-gray-500 focus:outline-none focus:border-gray-500"
+                    class="inline-block"
                     @click="activeTabs = 'featuredProducts'"
-                    :class="activeTabs === 'featuredProducts' ? 'bg-orange-400 text-white' : ''">
+                    :class="activeTabs === 'featuredProducts' ? 'text-orange-400' : ''">
                     {{ __('Featured Products') }}
                 </button>
             </div>
-            <div class="w-1/2 md:w-auto lg:w-1/4">
+            <div class="w-1/2 md:w-auto lg:w-1/4 py-6 px-10 sm:py-2 sm:px-5 text-left font-bold text-gray-500 uppercase border-b-2 border-gray-100 hover:border-gray-500 focus:outline-none focus:border-gray-500">
                 <button type="button"
-                    class="inline-block py-6 px-10 sm:py-2 sm:px-5 text-left font-bold font-heading text-gray-500 uppercase border-b-2 border-gray-100 hover:border-gray-500 focus:outline-none focus:border-gray-500"
-                    @click="activeTabs = 'bestOfers'" :class="activeTabs === 'bestOfers' ? 'bg-orange-400 text-white' : ''">
+                    class="inline-block"
+                    @click="activeTabs = 'bestOfers'" :class="activeTabs === 'bestOfers' ? 'text-orange-400' : ''">
                     {{ __('Best Offers') }}
                 </button>
             </div>
-            <div class="w-1/2 md:w-auto lg:w-1/4">
+            <div class="w-1/2 md:w-auto lg:w-1/4 py-6 px-10 sm:py-2 sm:px-5 text-left font-bold text-gray-500 uppercase border-b-2 border-gray-100 hover:border-gray-500 focus:outline-none focus:border-gray-500">
                 <button type="button"
-                    class="inline-block py-6 px-10 sm:py-2 sm:px-5 text-left font-bold font-heading text-gray-500 uppercase border-b-2 border-gray-100 hover:border-gray-500 focus:outline-none focus:border-gray-500"
-                    @click="activeTabs = 'hotProducts'" :class="activeTabs === 'hotProducts' ? 'bg-orange-400 text-white' : ''">
+                    class="inline-block"
+                    @click="activeTabs = 'hotProducts'" :class="activeTabs === 'hotProducts' ? 'text-orange-400' : ''">
                     {{ __('Hot Products') }}
                 </button>
             </div>
-            <div class="w-1/2 md:w-auto lg:w-1/4">
+            <div class="w-1/2 md:w-auto lg:w-1/4 py-6 px-10 sm:py-2 sm:px-5 text-left font-bold text-gray-500 uppercase border-b-2 border-gray-100 hover:border-gray-500 focus:outline-none focus:border-gray-500">
                 <button type="button"
-                    class="inline-block py-6 px-10 sm:py-2 sm:px-5 text-left font-bold font-heading text-gray-500 uppercase border-b-2 border-gray-100 hover:border-gray-500 focus:outline-none focus:border-gray-500"
-                    @click="activeTabs = 'brands'" :class="activeTabs === 'brands' ? 'bg-orange-400 text-white' : ''">
+                    class="inline-block"
+                    @click="activeTabs = 'brands'" :class="activeTabs === 'brands' ? 'text-orange-400' : ''">
                     {{ __('Brands') }}
                 </button>
             </div>
@@ -138,7 +138,7 @@
                                         <div class="p-4 text-center">
                                             <a href="{{ route('front.product', $product->slug) }}"
                                                 class="block mb-2 text-lg font-bold font-heading text-orange-500 hover:text-orange-400">{{ $product->name }}</a>
-                                            <div class="flex items-center mb-4">
+                                            <div class="flex justify-center mb-4">
                                                 <div class="flex items-center">
                                                     @for ($i = 0; $i < 5; $i++)
                                                         @if ($i < $product->reviews->avg('rating'))

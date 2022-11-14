@@ -51,6 +51,7 @@
         @can('order_access')
         <x-sidebar.sublink title="{{ __('All Orders') }}" href="{{ route('admin.orders') }}" :active="request()->routeIs('admin.orders')" />
         @endcan
+        <x-sidebar.sublink title="{{ __('Order Forms') }}" href="{{ route('admin.orderforms') }}" :active="request()->routeIs('admin.orderforms')" />
     </x-sidebar.dropdown>
     
     <x-sidebar.dropdown title="{{('Blog')}}" :active="Str::startsWith(
@@ -103,12 +104,12 @@
                 <i class="fas fa-file-alt w-5 h-5"></i>
             </span>
         </x-slot>
+        <x-sidebar.sublink title="{{ __('Pages') }}" href="{{ route('admin.pages') }}" :active="request()->routeIs('admin.pages')" />
         <x-sidebar.sublink title="{{ __('Sections') }}" href="{{ route('admin.sections') }}" :active="request()->routeIs('admin.sections')" />
         <x-sidebar.sublink title="{{ __('Sliders') }}" href="{{ route('admin.sliders') }}" :active="request()->routeIs('admin.sliders')" />
         
         <x-sidebar.sublink title="{{ __('Featured Banners') }}" href="{{ route('admin.featuredBanners') }}" :active="request()->routeIs('admin.featuredBanners')" />
         <x-sidebar.sublink title="{{ __('Contact Us Page') }}" href="{{ route('admin.page.contact') }}" :active="request()->routeIs('admin.page.contact')" />
-        <x-sidebar.sublink title="{{ __('Other Pages') }}" href="{{ route('admin.pages') }}" :active="request()->routeIs('admin.pages')" />
         <x-sidebar.sublink title="{{ __('Site Content') }}" href="{{ route('admin.setting.content') }}" :active="request()->routeIs('admin.setting.content')" />
         <x-sidebar.sublink title="{{ __('Home Page Customization') }}" href="{{ route('admin.setting.customize') }}" :active="request()->routeIs('admin.setting.customize')" />
         <x-sidebar.sublink title="{{ __('Customize Menu Links') }}" href="{{ route('admin.page.menulinks') }}" :active="request()->routeIs('admin.page.menulinks')" />
@@ -128,7 +129,7 @@
             @can('setting_access')
             <x-sidebar.sublink title="{{ __('Settings') }}" href="{{ route('admin.settings') }}" :active="request()->routeIs('admin.settings')" />
             @endcan
-            <x-sidebar.sublink title="{{ __('Shipping Methode') }}" href="{{ route('admin.setting.shipping') }}" :active="request()->routeIs('admin.setting.shipping')" />
+            <x-sidebar.sublink title="{{ __('Shipping') }}" href="{{ route('admin.setting.shipping') }}" :active="request()->routeIs('admin.setting.shipping')" />
             
             <x-sidebar.sublink title="{{ __('Roles') }}" href="{{ route('admin.roles') }}" :active="request()->routeIs('admin.roles')" />
 

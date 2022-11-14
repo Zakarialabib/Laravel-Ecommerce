@@ -44,7 +44,7 @@
      @endif
  
 </head>
-<body class="antialiased bg-body text-body font-body" x-data="{ showCart: false }">
+<body class="antialiased bg-body text-body font-body">
     <!-- Body Tags -->
  
     @if ( Helpers::settings('body_tags') != null )
@@ -73,6 +73,7 @@
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <x-livewire-alert::scripts />
     @stack('scripts')
+
 </body>
 </html>
         

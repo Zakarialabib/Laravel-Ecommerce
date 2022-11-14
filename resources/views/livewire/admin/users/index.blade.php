@@ -214,7 +214,7 @@
                     </div>
 
                     <div class="w-full lg:w-1/2 px-3 mb-6 lg:mb-0">
-                        <x-label for="password_confirmation" :value="__('Confirm Password')" />
+                        <x-label for="password_confirmation" :value="__('Confirm password')" />
                         <x-input id="password_confirmation" class="block mt-1 w-full" type="password"
                             wire:model.defer="user.password_confirmation" />
                         <x-input-error :messages="$errors->get('user.password_confirmation')" class="mt-2" />

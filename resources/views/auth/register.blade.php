@@ -1,59 +1,71 @@
-    @section('title', __('Sign up to our services'))
-<x-app-layout>
-    <div class="flex flex-wrap">
-        <div class="lg:w-1/2 py-10 px-5">
+    @section('title', __('Sign up & create your account'))
+    <x-app-layout>
+        <div class="flex flex-wrap h-screen">
+            <div class="lg:w-1/2 py-10 px-5">
 
-            <h3 class="text-xl font-bold text-center mb-4">{{ __('Sign up now') }}</h3>
+                <h3 class="text-xl font-bold text-center mb-4">{{ __('Sign up now') }}</h3>
                 <!-- Validation Errors -->
                 <x-auth-validation-errors class="mb-4" :errors="$errors" />
 
                 <form method="POST" action="{{ route('register') }}">
                     @csrf
 
-                    <div class="flex flex-row mx-2">
+                    <div class="flex flex-wrap mx-2">
                         <!-- First Name -->
-                        <div class="lg:w-1/2 sm:w-full m-2">
-                            <x-label for="first_name" :value="__('File name')" />
+                        <div class="lg:w-1/2 sm:w-full px-2">
+                            <x-label for="first_name" :value="__('File name')" required />
 
                             <x-input id="first_name" class="block mt-1 w-full" type="text" name="first_name"
                                 :value="old('first_name')" required autofocus />
                         </div>
                         <!-- Last Name -->
-                        <div class="lg:w-1/2 sm:w-full m-2">
-                            <x-label for="last_name" :value="__('Last name')" />
+                        <div class="lg:w-1/2 sm:w-full px-2">
+                            <x-label for="last_name" :value="__('Last name')" required />
 
                             <x-input id="last_name" class="block mt-1 w-full" type="text" name="last_name"
                                 :value="old('last_name')" required autofocus />
                         </div>
-                    </div>
-                    <div class="flex flex-row">
+                    
                         <!-- Email Address -->
-                        <div class="lg:w-1/2 sm:w-full m-2">
-                            <x-label for="email" :value="__('Email')" />
+                        <div class="lg:w-1/2 sm:w-full px-2">
+                            <x-label for="email" :value="__('Email')" required />
 
-                            <x-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')"
-                                required />
+                            <x-input id="email" class="block mt-1 w-full" type="email" name="email"
+                                :value="old('email')" required />
                         </div>
 
-                        <!-- Mobile -->
-                        <div class="lg:w-1/2 sm:w-full m-2">
-                            <x-label for="mobile" :value="__('Mobile')" />
-                            <x-tel-input id="mobile" name="mobile" placeholder="{{ __('Ex : 017********') }}"
-                                value="{{ old('mobile') }}" required
-                                class="rounded-md shadow-sm p-3 leading-5 bg-white dark:bg-dark-eval-2 text-zinc-700 dark:text-zinc-300 border border-zinc-300 mb-1 text-sm focus:shadow-outline-blue focus:border-blue-500 block mt-1 w-full" />
+                        <!-- Phone -->
+                        <div class="lg:w-1/2 sm:w-full px-2">
+                            <x-label for="phone" :value="__('Phone')" required />
+                            <x-input id="phone" class="block mt-1 w-full" type="number" name="phone"
+                                :value="old('phone')" required />
                         </div>
-                    </div>
-                    <div class="flex flex-row">
+                    
+                        <!-- City -->
+                        <div class="lg:w-1/2 sm:w-full px-2">
+                            <x-label for="city" :value="__('City')" required />
+
+                            <x-input id="city" class="block mt-1 w-full" type="email" name="city"
+                                :value="old('city')" required />
+                        </div>
+
+                        <!-- Address -->
+                        <div class="lg:w-1/2 sm:w-full px-2">
+                            <x-label for="address" :value="__('Address')" required />
+                            <x-input id="address" class="block mt-1 w-full" type="number" name="address"
+                                :value="old('address')" required />
+                        </div>
+                    
                         <!-- Password -->
-                        <div class="lg:w-1/2 sm:w-full m-2">
-                            <x-label for="password" :value="__('Password')" />
+                        <div class="lg:w-1/2 sm:w-full px-2">
+                            <x-label for="password" :value="__('Password')" required />
 
                             <x-input id="password" class="block mt-1 w-full" type="password" name="password" required
                                 autocomplete="new-password" />
                         </div>
 
                         <!-- Confirm Password -->
-                        <div class="lg:w-1/2 sm:w-full m-2">
+                        <div class="lg:w-1/2 sm:w-full px-2">
                             <x-label for="password_confirmation" :value="__('Confirm password')" />
 
                             <x-input id="password_confirmation" class="block mt-1 w-full" type="password"
@@ -71,11 +83,10 @@
                         </x-button>
                     </div>
                 </form>
-            </x-auth-card>
+            </div>
+            <div class="lg:w-1/2 sm:w-full relative pb-full md:flex md:pb-0">
+                <div style="background-image: url(https://picsum.photos/seed/picsum/1920/1080);"
+                    class="absolute pin bg-no-repeat md:bg-left w-full h-full bg-center bg-cover"></div>
+            </div>
         </div>
-        <div class="lg:w-1/2 sm:w-full relative pb-full md:flex md:pb-0">
-            <div style="background-image: url(https://picsum.photos/seed/picsum/1920/1080);"
-                class="absolute pin bg-no-repeat md:bg-left w-full h-full bg-center bg-cover"></div>
-        </div>
-    </div>
-</x-app-layout>
+    </x-app-layout>

@@ -11,9 +11,9 @@
                     <div>
                         <div class="mb-5 pb-5 border-b">
                             <span class="text-gray-500">
-                                {{ $product->category->name }}
+                                @isset($product->brand) {{ $product->brand->name }} @endisset / {{ $product->category->name }} @isset($product->subcategory) / {{ $product->subcategory->name }} @endif
                             </span>
-                            <h2 class="mt-2 mb-6 max-w-xl text-5xl md:text-6xl font-bold font-heading">
+                            <h2 class="mt-2 mb-6 max-w-xl text-5xl md:text-4xl font-bold font-heading">
                                 {{ $product->name }}
                             </h2>
                             <div class=" flex items-center mb-8">
@@ -52,7 +52,7 @@
                             @endif
                         </p>
                     </div>
-                    <div class="flex mb-12">
+                    <div class="flex mb-5 pb-5 border-b">
                         <div class="mr-6">
                             <div
                                 class="inline-flex items-center px-4 font-semibold font-heading text-gray-500 border border-gray-200 focus:ring-blue-300 focus:border-blue-300 rounded-md">
@@ -85,6 +85,8 @@
                             </a>
                         </div>
                     </div>
+
+                    <livewire:front.order-form :product="$product" />
                     
                     <div class="flex items-center">
                         <span class="mr-8 text-gray-500 font-bold font-heading uppercase">{{__('SHARE IT')}}</span>
@@ -182,7 +184,7 @@
                                 </div>
                                 <div class="flex items-center">
                                     <button
-                                        class="px-8 py-2 text-white bg-orange-500 rounded-lg focus:outline-none">{{ __('Sebd Review') }}</button>
+                                        class="px-8 py-2 text-white bg-orange-500 rounded-lg focus:outline-none">{{ __('Send Review') }}</button>
                                 </div>
                         @endif
                     @endif
@@ -216,7 +218,7 @@
                             <div class="p-4 text-center">
                                 <a href="{{ route('front.product', $product->slug) }}"
                                     class="block mb-2 text-lg font-bold font-heading text-orange-500 hover:text-orange-400">{{ $product->name }}</a>
-                                <div class="flex items-center mb-4">
+                                <div class="flex justify-center mb-4">
                                     <div class="flex items-center">
                                         @for ($i = 0; $i < 5; $i++)
                                             @if ($i < $product->reviews->avg('rating'))

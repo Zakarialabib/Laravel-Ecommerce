@@ -104,7 +104,7 @@
                                     </p>
                                 </div>
                                 <div class="w-full md:w-auto px-4 mb-6 md:mb-0">
-                                    <h4 class="mb-6 font-bold font-heading">{{ __('Shipping Informations') }}</h4>
+                                    <h4 class="mb-6 font-bold font-heading">{{ __('Shipping informations') }}</h4>
                                     <p class="text-gray-500">
                                         {{ $order->user->email }}
                                     </p>

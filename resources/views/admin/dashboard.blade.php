@@ -104,8 +104,8 @@
                     <h2 class="mb-2 text-3xl font-bold">{{ count($blogs) }}</h2>
                 </div>
             </div>
-            </div>
-            <div class="flex flex-wrap -m-4 py-4 justify-center">
+        </div>
+        <div class="flex flex-wrap -m-4 py-4 justify-center">
             <div class="w-full md:w-1/2 lg:w-1/4 px-2">
                 <div class="p-6 rounded bg-white shadow-md">
                     <div class="flex mb-2">
@@ -241,7 +241,7 @@
                                         </x-table.tr>
                                     @endforeach
                                 </x-slot>
-                            </x-table.table>
+                                </x-table.table>
                         </div>
 
                     </div>
@@ -259,10 +259,10 @@
                         <div class="">
                             <x-table>
                                 <x-slot name="thead">
-                                        <x-table.th>{{ __('Featured Image') }}</x-table.th>
-                                        <x-table.th>{{ __('Name') }}</x-table.th>
-                                        <x-table.th>{{ __('Category') }}</x-table.th>
-                                        <x-table.th>{{ __('Price') }}</x-table.th>
+                                    <x-table.th>{{ __('Featured Image') }}</x-table.th>
+                                    <x-table.th>{{ __('Name') }}</x-table.th>
+                                    <x-table.th>{{ __('Category') }}</x-table.th>
+                                    <x-table.th>{{ __('Price') }}</x-table.th>
                                 </x-slot>
                                 <x-table.tbody>
                                     @foreach ($poproducts as $data)
@@ -300,16 +300,16 @@
                         <div class="">
                             <x-table>
                                 <x-slot name="thead">
-                                        <x-table.th>{{ __('Featured Image') }}</x-table.th>
-                                        <x-table.th>{{ __('Name') }}</x-table.th>
-                                        <x-table.th>{{ __('Category') }}</x-table.th>
-                                        <x-table.th>{{ __('Price') }}</x-table.th>
+                                    <x-table.th>{{ __('Featured Image') }}</x-table.th>
+                                    <x-table.th>{{ __('Name') }}</x-table.th>
+                                    <x-table.th>{{ __('Category') }}</x-table.th>
+                                    <x-table.th>{{ __('Price') }}</x-table.th>
                                 </x-slot>
                                 <x-table.tbody>
                                     @foreach ($pproducts as $data)
                                         <x-table.tr>
                                             <x-table.td>
-                                            <img src="{{ asset('images/products/' . $data->image) }}"
+                                                <img src="{{ asset('images/products/' . $data->image) }}"
                                                     alt="{{ $data->name }}" width="50">
                                             </x-table.td>
                                             <x-table.td>

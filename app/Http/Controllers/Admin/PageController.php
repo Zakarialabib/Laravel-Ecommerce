@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
-
+use App\Models\Pagesetting;
 use App\Models\Page;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -120,32 +120,21 @@ class PageController extends Controller
         //--- Redirect Section Ends
     }
 
-
-      public function header($id1,$id2)
-        {
-            $data = Page::findOrFail($id1);
-            $data->header = $id2;
-            $data->update();
-        }
-
-   Footer
-      public function footer($id1,$id2)
-        {
-            $data = Page::findOrFail($id1);
-            $data->footer = $id2;
-            $data->update();
-        }
-
-
- Delete
-    public function destroy($id)
+    public function contact()
     {
-        $data = Page::findOrFail($id);
-        $data->delete();
-        //--- Redirect Section
-        $msg = 'Data Deleted Successfully.';
-        return response()->json($msg);
-        //--- Redirect Section Ends
+        $data = Pagesetting::find(1);
+        return view('admin.pagesetting.contact',compact('data'));
+    }
+
+    public function settings()
+    {
+        $data = Pagesetting::find(1);
+        return view('admin.pagesetting.customize',compact('data'));
+    }
+
+    public function orderForms()
+    {
+        return view('admin.orderforms.index');
     }
     
 }

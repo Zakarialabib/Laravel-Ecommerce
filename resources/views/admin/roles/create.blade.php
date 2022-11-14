@@ -530,22 +530,6 @@
                                                         <label class="custom-control-label" for="delete_sales">{{__('Delete')}}</label>
                                                     </div>
                                                 </div>
-                                                <div class="col-6">
-                                                    <div class="custom-control custom-switch">
-                                                        <input type="checkbox" class="custom-control-input"
-                                                               id="create_pos_sales" name="permissions[]"
-                                                               value="create_pos_sales" {{ old('create_pos_sales') ? 'checked' : '' }}>
-                                                        <label class="custom-control-label" for="create_pos_sales">{{__('POS System')}}</label>
-                                                    </div>
-                                                </div>
-                                                <div class="col-6">
-                                                    <div class="custom-control custom-switch">
-                                                        <input type="checkbox" class="custom-control-input"
-                                                               id="access_sale_payments" name="permissions[]"
-                                                               value="access_sale_payments" {{ old('access_sale_payments') ? 'checked' : '' }}>
-                                                        <label class="custom-control-label" for="access_sale_payments">{{__('Payments')}}</label>
-                                                    </div>
-                                                </div>
                                             </div>
                                         </div>
                                     </div>

@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Http\Livewire\Admin\SellForm;
+namespace App\Http\Livewire\Admin\OrderForm;
 
 use Livewire\Component;
-use App\Models\SellForms;
+use App\Models\OrderForms;
 use Illuminate\Http\Response;
 use Livewire\WithPagination;
 use App\Http\Livewire\WithSorting;
@@ -64,20 +64,20 @@ class Index extends Component
         $this->sortDirection     = 'desc';
         $this->perPage           = 25;
         $this->paginationOptions = [25, 50, 100];
-        $this->orderable         = (new SellForms())->orderable;
+        $this->orderable         = (new OrderForms())->orderable;
     }
 
     public function render()
     {
-        $query = SellForms::advancedFilter([
+        $query = OrderForms::advancedFilter([
             's'               => $this->search ?: null,
             'order_column'    => $this->sortBy,
             'order_direction' => $this->sortDirection,
         ]);
 
-        $sellforms = $query->paginate($this->perPage);
+        $orderforms = $query->paginate($this->perPage);
 
-        return view('livewire.admin.sell-form.index', compact('sellforms'));
+        return view('livewire.admin.order-form.index', compact('orderforms'));
     }
 
 }
