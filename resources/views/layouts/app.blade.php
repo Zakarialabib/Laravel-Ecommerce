@@ -44,7 +44,7 @@
      @endif
  
 </head>
-<body class="antialiased bg-body text-body font-body">
+<body class="antialiased bg-body text-body font-body"  x-data="{ showCart: false }">
     <!-- Body Tags -->
  
     @if ( Helpers::settings('body_tags') != null )

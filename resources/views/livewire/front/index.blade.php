@@ -74,7 +74,7 @@
                 </div>
             @endforeach
         </div>
-        <div class="w-full xl:absolute left-0 bottom-0 right-0 bg-white py-10 px-4 lg:ml-auto">
+        <div class="hidden xl:block w-full xl:absolute left-0 bottom-0 right-0 bg-white py-10 px-4 lg:ml-auto">
             <div class="flex flex-wrap items-center justify-center -mx-2 -mb-12">
                 @foreach ($brands as $brand)
                     <div class="sm:w-1/2 md:w-1/4 lg:w-1/6 px-2 mb-12">
@@ -125,14 +125,14 @@
                         <div class="flex mb-16">
                             <div class="w-full flex flex-wrap -mx-3">
                                 @forelse ($featuredProducts as $product)
-                                    <div class="sm:w-full md:w-1/2 lg:w-1/3 px-3 mb-16 lg:mb-0<div class="bg-white rounded-lg shadow-2xl">
+                                    <div class="sm:w-full md:w-1/2 lg:w-1/3 px-3 mb-10 bg-white rounded-lg shadow-2xl">
                                         <div class="relative text-center">
                                             <a href="{{ route('front.product', $product->slug) }}">
                                                 <img class="w-full h-auto object-cover rounded-t-lg"
                                                     src="{{ asset('images/products/' . $product->image) }}" alt="">
                                             </a>
                                             <div class="absolute top-0 right-0 px-4 py-2 bg-orange-500 rounded-bl-lg">
-                                                <span class="text-white font-bold font-heading">{{ $product->price }}$</span>
+                                                <span class="text-white font-bold font-heading">{{ $product->price }}DH</span>
                                             </div>
                                         </div>
                                         <div class="p-4 text-center">
@@ -201,7 +201,7 @@
                                                         {{ Str::limit($product->name, 30) }}
                                                     </h3>
                                                     <p class="text-xl font-bold font-heading text-white">
-                                                        <span class="text-blue-900">{{ $product->price }} DH</span>
+                                                        <span class="text-blue-900">{{ $product->price }}DH</span>
                                                         <span
                                                             class="text-xs text-gray-500 font-semibold font-heading line-through">{{ $product->old_price }}</span>
                                                     </p>
@@ -252,7 +252,7 @@
                                                         {{ Str::limit($product->name, 30) }}
                                                     </h3>
                                                     <p class="text-xl font-bold font-heading text-white">
-                                                        <span class="text-blue-900">{{ $product->price }} DH</span>
+                                                        <span class="text-blue-900">{{ $product->price }}DH</span>
                                                         <span
                                                             class="text-xs text-gray-500 font-semibold font-heading line-through">{{ $product->old_price }}</span>
                                                     </p>

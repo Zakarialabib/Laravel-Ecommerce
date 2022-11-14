@@ -14,11 +14,26 @@ class CartBar extends Component
     public $decreaseQuantity;
     public $increaseQuantity;
     public $removeFromCart;
+
+    public $showCart = false;
+
+    public $listeners = [
+        'showCart' => 'showCart',
+        'hideCart' => 'hideCart',
+        'decreaseQuantity' => 'decreaseQuantity',
+        'increaseQuantity' => 'increaseQuantity',
+        'removeFromCart' => 'removeFromCart',
+    ];
     
     public $shipping;
     public $shipping_id;
 
     public array $listsForFields = [];
+
+    public function showCart()
+    {
+        $this->showCart = true;
+    }
 
     public function decreaseQuantity($rowId)
     {

@@ -1,19 +1,24 @@
-{{-- hide cartBar show only when clicked with alpine  --}}
+{{-- showCart hidden when click show  with alpine  --}}
+
 
 <div>
-    <div class="fixed inset-0 overflow-hidden z-50"
-        x-init="window.livewire.on('cartUpdated', () => { $wire.getCart() })"
-        x-on:click.away="showCart = false"
+    <div 
         class="fixed inset-0 overflow-hidden z-50"
+        {{-- display none  --}}
+        style="display:none"
+        x-on:click.away="showCart = false"
         x-show="showCart"
         x-transition:enter="transition ease-out duration-300"
         x-transition:enter-start="opacity-0 transform translate-y-4"
         x-transition:enter-end="opacity-100 transform translate-y-0"
         x-transition:leave="transition ease-in duration-300"
         x-transition:leave-start="opacity-100 transform translate-y-0"
-        x-transition:leave-end="opacity-0 transform translate-y-4">
+        x-transition:leave-end="opacity-0 transform translate-y-4"
+        x-close-on-escape="true"
+        x-cloak
+    >
         <div class="absolute inset-0 overflow-hidden">
-            <div class="absolute inset-0 bg-gray-500 bg-opacity-75 transition-opacity" aria-hidden="true"></div>
+            <div class="absolute inset-0 bg-gray-500 bg-opacity-75 transition-opacity" aria-hidden="true" x-on:click="showCart = false"></div>
             <section class="absolute inset-y-0 right-0 pl-10 max-w-full flex">
                 <div class="w-screen max-w-md">
                     <div class="h-full flex flex-col bg-white shadow-xl overflow-y-scroll">
@@ -103,3 +108,9 @@
         </div>
     </div>
 </div>
+
+
+@push('scripts')
+    
+      
+@endpush

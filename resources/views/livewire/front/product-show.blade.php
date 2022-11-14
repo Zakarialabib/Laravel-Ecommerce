@@ -40,14 +40,14 @@
                         </div>
                         <p class="inline-block mb-8 text-2xl font-bold font-heading text-blue-300">
                             <span>
-                                {{ $product->price }} DH
+                                {{ $product->price }}DH
                             </span>
                             @if ($product->old_price)
                                 <span class="text-gray-500 line-through">
                                     -{{ $product->discount }}%
                                 </span>
                                 <span class="font-normal text-base text-gray-400 line-through">
-                                    {{ $product->old_price }} DH
+                                    {{ $product->old_price }}DH
                                 </span>
                             @endif
                         </p>
@@ -212,7 +212,7 @@
                                         src="{{ asset('images/products/' . $product->image) }}" alt="">
                                 </a>
                                 <div class="absolute top-0 right-0 px-4 py-2 bg-orange-500 rounded-bl-lg">
-                                    <span class="text-white font-bold font-heading">{{ $product->price }}$</span>
+                                    <span class="text-white font-bold font-heading">{{ $product->price }}DH</span>
                                 </div>
                             </div>
                             <div class="p-4 text-center">

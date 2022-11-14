@@ -23,7 +23,7 @@
                     </select>
                 </div>
 
-                <button type="button" class="lg:hidden inline-block mr-3 h-full p-4 bg-white rounded-md border"
+                <button type="button" class="md:hidden inline-block mr-3 h-full p-4 bg-white rounded-md border"
                     wire:click="changeView('list')">
                     <svg width="20" height="24" viewbox="0 0 20 24" fill="none"
                         xmlns="http://www.w3.org/2000/svg">
@@ -42,7 +42,7 @@
                         </rect>
                     </svg>
                 </button>
-                <button type="button" class="lg:hidden inline-block h-full p-4 hover:bg-white border rounded-md group"
+                <button type="button" class="md:hidden inline-block h-full p-4 hover:bg-white border rounded-md group"
                     wire:click="changeView('grid')">
                     <svg class="text-gray-200 group-hover:text-blue-300" width="28" height="24"
                         viewbox="0 0 28 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -77,14 +77,14 @@
                     <div class="w-full px-2 mb-4">
                         <div class="py-6 px-2 text-center bg-gray-50">
                             <a class="font-bold font-heading" href="#">{{ __('Category') }}</a>
-                            <ul class="mt-6 -mb-2 flex md:overflow-x-scroll">
+                            <ul class="mt-6 -mb-2 flex overflow-x-scroll">
                                 @forelse ($categories as $category)
-                                    <li class="mb-2">
+                                    <li class="w-1/2 px-2 mb-2">
                                         <x-button type="button" wire:click="filterCategories({{ $category->id }})"
                                             dangerOutline>{{ $category->name }}</x-button>
                                         <ul class="hidden text-left mt-2">
                                             @foreach ($category->subcategories as $subcategory)
-                                                <li class="mb-2">
+                                                <li class="w-1/2 px-2 mb-2">
                                                     <x-button type="button"
                                                         wire:click="filterSubCategories({{ $subcategory->id }})"
                                                         dangerOutline>{{ $subcategory->name }}</x-button>
@@ -106,7 +106,7 @@
                     <div class="w-full px-2 mb-4">
                         <div class="py-6 px-4 text-center bg-gray-50">
                             <a class="font-bold font-heading" href="#">{{ __('Price') }}</a>
-                            <div class="mt-6 -mb-2 flex md:overflow-x-scroll">
+                            <div class="mt-6 -mb-2">
                                 <input
                                     class="w-full mb-4 outline-none appearance-none bg-gray-100 h-1 rounded cursor-pointer"
                                     type="range" min="1" max="10000" value="50">
@@ -124,7 +124,7 @@
                     <div class="w-full px-2 mb-4">
                         <div class="py-6 px-4 text-center bg-gray-50">
                             <a class="font-bold font-heading" href="#">{{ __('Brands') }}</a>
-                            <div class="mt-6 -mb-2 flex md:overflow-x-scroll">
+                            <div class="mt-6 -mb-2 flex overflow-x-scroll">
                                 @foreach ($brands as $brand)
                                     <div class="w-1/2 px-2 mb-2">
                                         <x-button type="button" wire:click="filterBrands({{ $brand->id }})"
@@ -218,9 +218,11 @@
                                         <a class="block mb-8" href="{{ route('front.product', $product->slug) }}">
                                             <h3 class="mb-2 text-xl font-bold font-heading">{{ $product->name }}</h3>
                                             <p class="mb-6 text-lg font-bold font-heading text-blue-500">
-                                                <span>{{ $product->price }} DH</span>
-                                                <span
-                                                    class="text-xs text-gray-500 font-semibold font-heading line-through">{{ $product->old_price }}</span>
+                                                <span>{{ $product->price }}DH</span>
+                                                @if ($product->old_price)
+                                                    <span
+                                                        class="text-xs text-gray-500 font-semibold font-heading line-through">{{ $product->old_price }}</span>
+                                                @endif
                                             </p>
                                             <p class="max-w-md text-gray-500">
                                                 {{ Str::limit($product->description, 150) }}
@@ -278,11 +280,11 @@
                                         </h3>
                                         <p class="text-lg font-bold font-heading text-blue-500">
                                             <span>
-                                                {{ $product->price }} DH
+                                                {{ $product->price }}DH
                                             </span>
                                             <span
                                                 class="text-xs text-gray-500 font-semibold font-heading line-through">
-                                                {{ $product->old_price }} DH
+                                                {{ $product->old_price }}DH
                                             </span>
                                         </p>
                                     </a>
@@ -318,11 +320,11 @@
                             </h3>
                             <p class="text-lg font-bold font-heading text-blue-500">
                                 <span>
-                                    {{ $product->price }} DH
+                                    {{ $product->price }}DH
                                 </span>
                                 @if ($product->old_price)
                                     <span class="text-xs text-gray-500 font-semibold font-heading line-through">
-                                        {{ $product->old_price }} DH
+                                        {{ $product->old_price }}DH
                                     </span>
                                 @endif
                             </p>

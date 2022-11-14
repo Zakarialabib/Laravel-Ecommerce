@@ -23,7 +23,7 @@
                     </select>
                 </div>
 
-                <div class="md:overflow-x-scroll flex py-2 lg:pl-5 sm:pl-0">
+                <div class="overflow-x-scroll flex py-2 lg:pl-5 sm:pl-0">
                     @foreach ($categories as $category)
                         <x-button type="button" dangerOutline class="mx-2"
                             wire:click="filterProducts({{ $category->id }})">{{ $category->name }}</x-button>
@@ -50,11 +50,11 @@
                             </h3>
                             <p class="text-lg font-bold font-heading text-blue-500">
                                 <span>
-                                    {{ $product->price }} DH
+                                    {{ $product->price }}DH
                                 </span>
                                 @if($product->old_price)
                                 <span class="text-xs text-gray-500 font-semibold font-heading line-through">
-                                    {{ $product->old_price }} DH
+                                    {{ $product->old_price }}DH
                                 </span>
                                 @endif
                             </p>

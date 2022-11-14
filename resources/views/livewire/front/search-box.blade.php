@@ -14,7 +14,7 @@
                 </svg>
             </button>
             <input x-show="searchBox" type="text" wire:model="search" placeholder="{{ __('Search for products') }}"
-                autocomplete="" class="w-full border-0 focus:ring-transparent focus:outline-none py-2 mr-4 rounded-md">
+                autocomplete="" class="w-full border-0 focus:ring-transparent text-gray-900 focus:outline-none py-2 mr-4 rounded-md">
         </div>
         @if (!empty($search))
             <div class="absolute top-0 left-0 w-full mt-12 bg-white rounded-md shadow-xl overflow-y-auto max-h-52 z-50">

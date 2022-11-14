@@ -67,7 +67,7 @@
                         {{ $product->category->name }}
                     </x-table.td>
                     <x-table.td>
-                        {{ $product->price }} DH
+                        {{ $product->price }}DH
                     </x-table.td>
 
                     <x-table.td>
