@@ -23,13 +23,16 @@ class Helpers
         // return Cache::get('settings')->where('key', $key)->first()->value;
     }
 
-    // get product link 
+    // get productLink from product slug
+
     public static function productLink($product)
     {
-        return route('front.product', [$product->slug]);
+        if($product){
+            return route('product', $product->slug);
+        }else{
+         return null;
+        }
     }
-    // usage 
-    // <a href="{{ Helpers::productLink($product) }}" class="text-gray-700 hover:text-gray-800">
     
     // get upload image to db from link
     public static function uploadImage($image)
