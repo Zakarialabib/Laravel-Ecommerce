@@ -10,8 +10,10 @@ use Gloudemans\Shoppingcart\CanBeBought;
 
 class Product extends Model implements Buyable 
 {
-    use CanBeBought;
-    use HasAdvancedFilter;
+    use CanBeBought, HasAdvancedFilter;
+
+    const StatusInActive = 0;
+    const StatusActive = 1;
 
     public $orderable = [
         'id',
@@ -34,6 +36,12 @@ class Product extends Model implements Buyable
        'brand_id',
        'status',
     ];
+
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
 
     protected $fillable = [
         'name',
@@ -76,25 +84,6 @@ class Product extends Model implements Buyable
             return round((($this->old_price - $this->price) / $this->old_price) * 100);
         }
         return null;
-    }
-    // get image from url and save to uploads/products
-    public function getImageFromUrl($url)
-    {
-        $image = file_get_contents($url);
-        $name = Str::random(10) . '.jpg';
-        $path = local_files('products/' . $name);
-        file_put_contents($path, $image);
-        return $name;
-    }
-    
-    // get gallery from url and save to uploads/products
-    public function getGalleryFromUrl($url)
-    {
-        $gallery = explode(',', $url);
-        $gallery = array_map(function ($item) {
-            return $this->getImageFromUrl($item);
-        }, $gallery);
-        return implode(',', $gallery);
     }
 
     public function category()

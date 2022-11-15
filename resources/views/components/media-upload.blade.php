@@ -1,6 +1,6 @@
 <label class="block mt-4 text-sm">
     <div
-        class="w-full p-2 bg-zinc-100 border border-zinc-300 border-dashed rounded"
+        class="w-full p-2 bg-gray-100 border border-zinc-300 border-dashed rounded"
         x-data="{ isUploading: false, progress: 0 }"
                 x-on:livewire-upload-start="isUploading = true"
                 x-on:livewire-upload-finish="isUploading = false"
@@ -24,7 +24,7 @@
                     @if ( $image ?? true )
                         <img src="{{ $image->temporaryUrl() ?? '' }}" class="w-20 h-20">
                     @endif
-                    <div class="font-light text-zinc-500">
+                    <div class="font-light text-gray-500">
                         <p>Type: {{ Str::upper($photoInfo["extension"]) }}</p>
                         <p>Size: {{ $photoInfo["size"] }} MB</p>
                         <button wire:click="$set('{{ $name }}')" class="px-2 mt-2 text-xs text-red-400 border border-red-400 rounded">
@@ -37,7 +37,7 @@
 
                 <div class="flex items-center space-x-4">
                     <img src="{{ $preview }}" class="w-20 h-20">
-                    <div class="font-light text-zinc-500">
+                    <div class="font-light text-gray-500">
                         <div class="px-2 mt-2 text-xs border rounded text-primary-400 border-primary-400">
                             {{__('Change')}}
                         </div>
@@ -47,7 +47,7 @@
             @else
 
                 {{-- empty state --}}
-                <p class="flex items-center text-sm font-light text-zinc-400">
+                <p class="flex items-center text-sm font-light text-gray-400">
                     <i class="bi bi-cloud-upload mr-2"></i>
                     {{ __('Upload a file or drag and drop') }} | {{ $types ?? 'Any File' }}
                 </p>

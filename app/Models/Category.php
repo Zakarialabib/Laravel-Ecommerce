@@ -10,6 +10,9 @@ class Category extends Model
 {
     use HasAdvancedFilter;
 
+    const StatusInActive = 0;
+    const StatusActive = 1;
+
     public $orderable = [
         'id' , 'name','code','status','image',
     ];

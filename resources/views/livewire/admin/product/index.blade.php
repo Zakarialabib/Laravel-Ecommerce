@@ -2,7 +2,7 @@
     <div class="flex flex-wrap justify-center">
         <div class="lg:w-1/2 md:w-1/2 sm:w-full flex flex-col my-md-0 my-2">
             <div class="my-2 my-md-0">
-                <p class="leading-5 text-black dark:text-zinc-300 mb-1 text-sm ">
+                <p class="leading-5 text-black dark:text-gray-300 mb-1 text-sm ">
                     {{ __('Show items per page') }}
                 </p>
                 <select wire:model="perPage" name="perPage"
@@ -16,7 +16,7 @@
         <div class="lg:w-1/2 md:w-1/2 sm:w-full my-2 my-md-0">
             <div class="my-2 my-md-0">
                 <input type="text" wire:model.debounce.300ms="search"
-                    class="p-3 leading-5 bg-white dark:bg-dark-eval-2 text-zinc-500 dark:text-zinc-300 rounded border border-zinc-300 mb-1 text-sm w-full focus:shadow-outline-blue focus:border-blue-500"
+                    class="p-3 leading-5 bg-white dark:bg-dark-eval-2 text-gray-500 dark:text-gray-300 rounded border border-zinc-300 mb-1 text-sm w-full focus:shadow-outline-blue focus:border-blue-500"
                     placeholder="{{ __('Search') }}" />
             </div>
         </div>
@@ -41,6 +41,9 @@
                 {{ __('Price') }}
                 @include('components.table.sort', ['field' => 'price'])
             </x-table.th>
+            <x-table.th>
+                {{ __('Image') }}
+            </x-table.th>
             <x-table.th sortable wire:click="sortBy('status')" :direction="$sorts['status'] ?? null">
                 {{ __('Status') }}
                 @include('components.table.sort', ['field' => 'status'])
@@ -61,7 +64,7 @@
                             class="w-10 h-10 rounded-full object-cover">
                     </x-table.td>
                     <x-table.td>
-                        {{ $product->name }}
+                        {{ Str::limit($product->name, 60) }}
                     </x-table.td>
                     <x-table.td>
                         {{ $product->category->name }}
@@ -69,7 +72,14 @@
                     <x-table.td>
                         {{ $product->price }}DH
                     </x-table.td>
+                    <x-table.td>
+                        {{-- emit imageModal methode --}}
 
+                        <x-button type="button" success wire:click="$emit('imageModal', {{ $product->id }})" wire:loading.attr="disabled">
+                            <i class="fas fa-image"></i>
+                        </x-button>
+                        
+                    </x-table.td>
                     <x-table.td>
                         <livewire:toggle-button :model="$product" field="status" key="{{ $product->id }}" />
                     </x-table.td>
@@ -403,7 +413,10 @@
         </x-slot>
     </x-modal>
 
-    {{-- HIGHLIGHT ENDS --}}
+    {{-- recieve parametre from emit importModal $product --}}
+    @if($product)
+    @livewire('admin.product.image', ['product' => $product], key($product->id))
+    @endif
 
 </div>
 

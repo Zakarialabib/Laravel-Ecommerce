@@ -7,7 +7,7 @@
             <h3 class="text-xl font-bold text-center mb-4">
                 {{ __('Recover your password') }}
             </h3>
-            <p class="my-2 px-4 text-xl text-center text-zinc-600">
+            <p class="my-2 px-4 text-xl text-center text-gray-600">
                 {{ __('Forgot your password? No problem. Just let us know your email address and we will email you a password reset link that will allow you to choose a new one.') }}
             </p>
 

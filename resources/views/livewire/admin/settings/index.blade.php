@@ -213,7 +213,7 @@
                 <div class="lg:w-1/2 sm:w-full px-2">
                     <x-label for="currency_position" :value="__('Currency Position')" />
                     <select wire:model="currency_position" name="currency_position" id="currency_position"
-                        class="p-3 leading-5 bg-white dark:bg-dark-eval-2 text-zinc-700 dark:text-zinc-300 rounded border border-zinc-300 mb-1 text-sm w-full focus:shadow-outline-blue focus:border-blue-500">
+                        class="p-3 leading-5 bg-white dark:bg-dark-eval-2 text-gray-700 dark:text-gray-300 rounded border border-zinc-300 mb-1 text-sm w-full focus:shadow-outline-blue focus:border-blue-500">
                         <option selected value="{{ Helpers::settings('currency_position') }}">
                             {{ Helpers::settings('currency_position') }}
                         </option>

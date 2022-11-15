@@ -89,15 +89,10 @@ class Catalog extends Component
 
     public function changeView($view)
     {
-
         $this->view = $view;
         
         $this->emit('changeView', $view);
-
     }
-    // change view grid or list
-    // $this->sorting
-    
 
     public function render()
     {

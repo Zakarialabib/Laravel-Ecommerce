@@ -145,6 +145,8 @@ class Index extends Component
         abort_if(Gate::denies('category_delete'), 403);
 
         Category::whereIn('id', $this->selected)->delete();
+        
+        $this->alert('success', __('Category deleted successfully.'));
 
         $this->resetSelected();
     }

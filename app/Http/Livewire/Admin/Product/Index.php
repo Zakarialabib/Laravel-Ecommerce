@@ -15,6 +15,7 @@ use App\Http\Livewire\WithSorting;
 use Illuminate\Support\Facades\Gate;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Livewire\WithFileUploads;
+use Helpers;
 use Storage;
 use Str;
 use Image;
@@ -29,14 +30,12 @@ class Index extends Component
     
     'confirmDelete', 'delete', 'showModal', 'editModal',         
     'refreshIndex','exportExcel','exportPdf',
-    'highlightModal', 'saveHighlight'
+    'highlightModal', 
 
     ];
 
     public $highlightModal;
-
-    public $saveHighlight;
-
+    
     public int $perPage;
     
     public $showModal;
@@ -47,11 +46,7 @@ class Index extends Component
     
     public array $orderable;
     
-    public $file ;
-
-    public $metadata ;
-
-    public $image;
+    public $file;
 
     public $hot,$featured, $best, $top, $latest, $big, $trending, $sale, $is_discount, $discount_date;
 
@@ -62,6 +57,10 @@ class Index extends Component
     public array $paginationOptions;
 
     public array $listsForFields = [];
+
+    public $image;
+
+    public $image_url;
 
     public $gallery = [];
     
@@ -120,19 +119,11 @@ class Index extends Component
     {
         $this->sortBy            = 'id';
         $this->sortDirection     = 'desc';
-        $this->perPage           = 100;
+        $this->perPage           = 25;
         $this->paginationOptions = [25, 50, 100];
         $this->orderable         = (new Product())->orderable;
         $this->file = null;
-        $this->metadata = null;
         $this->initListsForFields();
-    }
-
-    public function delete(Product $product)
-    {
-        abort_if(Gate::denies('product_delete'), 403);
-
-        $product->delete();
     }
 
     public function render()
@@ -153,6 +144,15 @@ class Index extends Component
         return view('livewire.admin.product.index', compact('products'));
     }
 
+    public function delete(Product $product)
+    {
+        abort_if(Gate::denies('product_delete'), 403);
+
+        $product->delete();
+
+        $this->alert('success', 'Product deleted successfully.');
+    }
+
     public function showModal(Product $product)
     {
         abort_if(Gate::denies('product_show'), 403);
@@ -162,7 +162,7 @@ class Index extends Component
         $this->showModal = true;  
     }
 
-    public function editModal(Product $product)
+    public function editModal($product)
     {
         abort_if(Gate::denies('product_update'), 403);
 
@@ -170,7 +170,7 @@ class Index extends Component
 
         $this->resetValidation();
 
-        $this->product = $product;
+        $this->product = Product::find($product);
 
         $this->editModal = true;  
     }
@@ -293,12 +293,6 @@ class Index extends Component
         
         $this->highlightModal = false;
 
-    }
-
-    public function showUploader() 
-    {
-        $this->file = null;
-        $this->showFileManager('gallery', $file);
     }
 
     protected function initListsForFields(): void

@@ -12,9 +12,6 @@ use App\Http\Livewire\WithSorting;
 class Brands extends Component
 {
     use WithPagination, WithSorting;
-    // newest
-    // price
-    // most-popular
 
     public int $perPage;
 
@@ -23,9 +20,6 @@ class Brands extends Component
     public string $search = '';
 
     public array $paginationOptions;
-
-    public $maxPrice;
-    public $minPrice;
 
     public $category_id;
     public $subcategory_id;
@@ -62,8 +56,6 @@ class Brands extends Component
     public function mount()
     {
         $this->sorting = 'default';
-        $this->minPrice = 100;
-        $this->maxPrice = 100000;
         
         $this->sortBy            = 'id';
         $this->sortDirection     = 'desc';
@@ -76,21 +68,21 @@ class Brands extends Component
     {
 
         if ($this->sorting == 'name') {
-            $products = Product::whereBetween('price',[$this->minPrice,$this->maxPrice])->orderBy('name', 'asc')->paginate($this->perPage);
+            $products = Product::orderBy('name', 'asc')->paginate($this->perPage);
         } elseif ($this->sorting == 'name-desc') {
-            $products = Product::whereBetween('price',[$this->minPrice,$this->maxPrice])->orderBy('name', 'desc')->paginate($this->perPage);
+            $products = Product::orderBy('name', 'desc')->paginate($this->perPage);
         } elseif ($this->sorting == 'price') {
-            $products = Product::whereBetween('price',[$this->minPrice,$this->maxPrice])->orderBy('price', 'asc')->paginate($this->perPage);
+            $products = Product::orderBy('price', 'asc')->paginate($this->perPage);
         } elseif ($this->sorting == 'price-desc') {
-            $products = Product::whereBetween('price',[$this->minPrice,$this->maxPrice])->orderBy('price', 'desc')->paginate($this->perPage);
+            $products = Product::orderBy('price', 'desc')->paginate($this->perPage);
         } elseif ($this->sorting == 'date') {
-            $products = Product::whereBetween('price',[$this->minPrice,$this->maxPrice])->orderBy('created_at', 'asc')->paginate($this->perPage);
+            $products = Product::orderBy('created_at', 'asc')->paginate($this->perPage);
         } elseif ($this->sorting == 'date-desc') {
-            $products = Product::whereBetween('price',[$this->minPrice,$this->maxPrice])->orderBy('created_at', 'desc')->paginate($this->perPage);
+            $products = Product::orderBy('created_at', 'desc')->paginate($this->perPage);
         } elseif ($this->brand_id) {
-            $products = Product::whereBetween('price',[$this->minPrice,$this->maxPrice])->where('brand_id', $this->brand_id)->paginate($this->perPage);
+            $products = Product::where('brand_id', $this->brand_id)->paginate($this->perPage);
         } else {
-            $products = Product::whereBetween('price',[$this->minPrice,$this->maxPrice])->paginate($this->perPage);
+            $products = Product::paginate($this->perPage);
 
         }
 

@@ -11,8 +11,7 @@ use Jantinnerezo\LivewireAlert\LivewireAlert;
 
 class Create extends Component
 {
-    use LivewireAlert;
-    use WithFileUploads;
+    use LivewireAlert, WithFileUploads;
     
     public Section $section;
     

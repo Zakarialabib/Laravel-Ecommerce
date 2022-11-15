@@ -20,10 +20,6 @@ class Import extends Component
 
     public $file;
     public $importModal;
-
-    protected $rules = [
-        'file' => 'required|mimes:xlsx,xls,csv,txt',
-    ];
     
     public function render()
     {
@@ -43,17 +39,27 @@ class Import extends Component
 
     public function import()
     {
-        // $this->validate([
-        //     'file' => 'required|mimes:xlsx',
-        // ]);
+        abort_if(Gate::denies('product_access'), 403);
 
-        $import = new ProductImport;
+        if ($this->file->extension() == 'xlsx' || $this->file->extension() == 'xls') {
+            
+            $this->validate([
+                'file' => 'required|mimes:xlsx,xls'
+            ]);
 
-        Excel::import($import, $this->file->getRealPath()); 
+            $filename = 'products.' . $this->file->extension();
 
-        // Excel::import(new ProductImport, $this->file);  
+            $this->file->storeAs('products', $filename);
 
-        $this->alert('success', 'Imported Successfully');
+            Excel::import(new ProductImport, public_path('images/products/' . $filename));
+
+            $this->alert('success', __('Product imported successfully!') );
+
+            $this->importModal = false;
+
+        } else {
+            $this->alert('error', __('File is a '.$this->file->extension().' file.!! Please upload a valid xls/csv file..!!') );
+        }
 
         $this->emit('refreshIndex');
         

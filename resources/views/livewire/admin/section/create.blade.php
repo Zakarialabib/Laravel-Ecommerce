@@ -6,7 +6,7 @@
         <div class="lg:w-1/2 sm:w-full">
             <x-label for="language_id" :value="__('Language')" />
             <select wire:model="section.language_id"
-                class="p-3 leading-5 bg-white dark:bg-dark-eval-2 text-zinc-700 dark:text-zinc-300 rounded border border-zinc-300 mb-1 text-sm w-full focus:shadow-outline-blue focus:border-blue-500  lang"
+                class="p-3 leading-5 bg-white dark:bg-dark-eval-2 text-gray-700 dark:text-gray-300 rounded border border-zinc-300 mb-1 text-sm w-full focus:shadow-outline-blue focus:border-blue-500  lang"
                 name="language_id">
                 <option value="" selected>{{ __('Select a Language') }}</option>
                 @foreach ($langs as $lang)
@@ -20,7 +20,7 @@
         <div class="lg:w-1/2 sm:w-full">
             <x-label for="page" :value="__('Page')" />
             <select wire:model="section.page"
-                class="p-3 leading-5 bg-white dark:bg-dark-eval-2 text-zinc-700 dark:text-zinc-300 rounded border border-zinc-300 mb-1 text-sm w-full focus:shadow-outline-blue focus:border-blue-500  lang"
+                class="p-3 leading-5 bg-white dark:bg-dark-eval-2 text-gray-700 dark:text-gray-300 rounded border border-zinc-300 mb-1 text-sm w-full focus:shadow-outline-blue focus:border-blue-500  lang"
                 name="page">
                 <option value="" selected>{{ __('Select a Page') }}</option>
                 <option value="1">{{ __('Home Page') }}</option>
@@ -39,21 +39,21 @@
         <div class="w-full">
             <x-label for="title" :value="__('Title')" />
             <input type="text" name="title" wire:model.lazy="section.title"
-                class="p-3 leading-5 bg-white dark:bg-dark-eval-2 text-zinc-700 dark:text-zinc-300 rounded border border-zinc-300 mb-1 text-sm w-full focus:shadow-outline-blue focus:border-blue-500 "
+                class="p-3 leading-5 bg-white dark:bg-dark-eval-2 text-gray-700 dark:text-gray-300 rounded border border-zinc-300 mb-1 text-sm w-full focus:shadow-outline-blue focus:border-blue-500 "
                 placeholder="{{ __('Title') }}" value="{{ old('title') }}">
             <x-input-error for="section.title" />
         </div>
         <div class="w-full">
             <x-label for="subtitle" :value="__('Subtitle')" />
             <input type="text" name="subtitle" wire:model.lazy="section.subtitle"
-                class="p-3 leading-5 bg-white dark:bg-dark-eval-2 text-zinc-700 dark:text-zinc-300 rounded border border-zinc-300 mb-1 text-sm w-full focus:shadow-outline-blue focus:border-blue-500 "
+                class="p-3 leading-5 bg-white dark:bg-dark-eval-2 text-gray-700 dark:text-gray-300 rounded border border-zinc-300 mb-1 text-sm w-full focus:shadow-outline-blue focus:border-blue-500 "
                 placeholder="{{ __('Subtitle') }}" value="{{ old('subtitle') }}">
             <x-input-error for="section.subtitle" />
         </div>
         <div class="w-full">
             <x-label for="custom_html_1" :value="__('Custom html')" />
             <textarea type="text" name="custom_html_1" wire:model.lazy="section.custom_html_1"
-                class="p-3 leading-5 bg-white dark:bg-dark-eval-2 text-zinc-700 dark:text-zinc-300 rounded border border-zinc-300 mb-1 text-sm w-full focus:shadow-outline-blue focus:border-blue-500 "
+                class="p-3 leading-5 bg-white dark:bg-dark-eval-2 text-gray-700 dark:text-gray-300 rounded border border-zinc-300 mb-1 text-sm w-full focus:shadow-outline-blue focus:border-blue-500 "
                 placeholder="{{ __('Custom html') }}" >
                 </textarea>
             <x-input-error for="section.custom_html_1" />
@@ -74,7 +74,7 @@
         <div class="w-full">
             <x-label for="video" :value="__('Video')" />
             <input type="text" name="video" wire:model.lazy="section.video"
-                class="p-3 leading-5 bg-white dark:bg-dark-eval-2 text-zinc-700 dark:text-zinc-300 rounded border border-zinc-300 mb-1 text-sm w-full focus:shadow-outline-blue focus:border-blue-500 "
+                class="p-3 leading-5 bg-white dark:bg-dark-eval-2 text-gray-700 dark:text-gray-300 rounded border border-zinc-300 mb-1 text-sm w-full focus:shadow-outline-blue focus:border-blue-500 "
                 placeholder="{{ __('Video') }}" value="{{ old('video') }}">
             <x-input-error for="section.video" />
         </div>

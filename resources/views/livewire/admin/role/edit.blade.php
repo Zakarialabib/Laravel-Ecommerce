@@ -4,12 +4,12 @@
     <form wire:submit.prevent="submit" class="pt-3">
         <div class="mb-4 {{ $errors->has('role.title') ? 'is-invalid' : '' }}">
             <x-label required for="title" :value=" __('Title')" />
-            <input class="p-3 leading-5 bg-white dark:bg-dark-eval-2 text-zinc-700 dark:text-zinc-300 rounded border border-zinc-300 mb-1 text-sm w-full focus:shadow-outline-blue focus:border-blue-500" type="text" name="title" id="title" required wire:model.defer="role.title">
+            <input class="p-3 leading-5 bg-white dark:bg-dark-eval-2 text-gray-700 dark:text-gray-300 rounded border border-zinc-300 mb-1 text-sm w-full focus:shadow-outline-blue focus:border-blue-500" type="text" name="title" id="title" required wire:model.defer="role.title">
             <x-input-error for="role.title" />
         </div>
         <div class="mb-4 {{ $errors->has('permissions') ? 'is-invalid' : '' }}">
             <label class="form-label required" for="permissions">{{ __('Permissions') }}</label>
-            <x-select-list class="p-3 leading-5 bg-white dark:bg-dark-eval-2 text-zinc-700 dark:text-zinc-300 rounded border border-zinc-300 mb-1 text-sm w-full focus:shadow-outline-blue focus:border-blue-500" required id="permissions" name="permissions" wire:model.lazy="permissions"
+            <x-select-list class="p-3 leading-5 bg-white dark:bg-dark-eval-2 text-gray-700 dark:text-gray-300 rounded border border-zinc-300 mb-1 text-sm w-full focus:shadow-outline-blue focus:border-blue-500" required id="permissions" name="permissions" wire:model.lazy="permissions"
                 :options="$this->listsForFields['permissions']" multiple />
             <x-input-error for="permissions" />
         </div>
