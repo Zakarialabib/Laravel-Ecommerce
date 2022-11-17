@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Product;
+use App\Models\Brand;
 use App\Models\Blog;
 
 class FrontController extends Controller
@@ -20,9 +21,8 @@ class FrontController extends Controller
         return view('front.catalog');
     }
 
-    public function productShow($slug){
-        
-        
+    public function productShow($slug)
+    {    
         $product = Product::where('slug', $slug)->first();
         
         return view('front.product', compact('product'));
@@ -36,6 +36,13 @@ class FrontController extends Controller
     public function brands()
     {
         return view('front.brands');
+    }
+
+    public function brandPage($slug)
+    {    
+        $brand = Brand::where('slug', $slug)->first();
+
+        return view('front.brand-page', compact('brand'));
     }
 
     public function cart()

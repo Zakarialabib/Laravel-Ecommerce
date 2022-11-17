@@ -2,7 +2,8 @@
     <nav class="flex justify-between bg-gray-900 border-b">
         <div class="px-4 lg:px-12 py-5 flex w-full items-center">
             <a class="lg:mr-8 2xl:mr-20 text-3xl font-bold font-heading text-white" href="{{ route('front.index') }}">
-                <img class="h-10" src="{{ asset('images/' . Helpers::settings('site_logo') ) }}" alt="{{ Helpers::settings('site_title') }}" width="auto" />
+                <img class="h-10" src="{{ asset('images/' . Helpers::settings('site_logo')) }}"
+                    alt="{{ Helpers::settings('site_title') }}" width="auto" />
             </a>
 
             <ul class="hidden xl:flex px-4 mx-auto font-semibold font-heading">
@@ -73,7 +74,7 @@
             <button class="flex-shrink-0 hidden xl:block px-8 border-l">
                 <div class="flex items-center text-gray-100">
                     <a href="{{ route('login') }}" class="mr-2 font-medium">{{ __('Login') }} </a>
-                    {{ __('or') }} 
+                    {{ __('or') }}
                     <a href="{{ route('register') }}" class="ml-2 font-medium"> {{ __('Register') }}</a>
                 </div>
             </button>
@@ -91,136 +92,119 @@
             </svg>
         </a>
     </nav>
-    </div>
-    <div class="hidden navbar-menu fixed top-0 left-0 bottom-0 w-5/6 max-w-sm z-50">
-        <div class="navbar-backdrop fixed inset-0 bg-gray-800 opacity-25"></div>
-        <nav class="relative flex flex-col py-6 px-6 w-full h-full bg-white border-r overflow-y-auto">
-            <div class="flex items-center mb-8">
-                <a class="mr-auto text-3xl font-bold font-heading" href="{{ route('front.index') }}">
-                    <img class="h-10" src="{{ asset('images/' . Helpers::settings('site_logo') ) }}" alt="{{ Helpers::settings('site_title') }}" width="auto" />
-                </a>
-                <button class="navbar-close">
-                    <svg class="h-2 w-2 text-gray-500 cursor-pointer" width="10" height="10" viewbox="0 0 10 10"
-                        fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M9.00002 1L1 9.00002M1.00003 1L9.00005 9.00002" stroke="black" stroke-width="1.5"
-                            stroke-linecap="round" stroke-linejoin="round"></path>
-                    </svg>
-                </button>
-            </div>
-            <div class="border-t border-gray-900 py-5"></div>
-            <div class="flex mb-8 justify-between">
-                @if (Auth::check())
-                    <ul class="flex-col md:flex-row list-none items-center md:flex">
-                        <x-dropdown align="right" width="56">
-                            <x-slot name="trigger">
-                                <div class="py-8 px-6 flex w-full items-center">
-                                    <div class="flex items-center">
-                                        <span class="bg-orange-500 rounded-md text-center text-white px-6 py-2">
-                                            {{ Auth::user()->first_name }}
-                                        </span>
-                                    </div>
-                                </div>
-                            </x-slot>
-                            <x-slot name="content">
-
-                                @if (Auth::user()->isAdmin())
-                                    <x-dropdown-link href="{{ route('admin.dashboard') }}">
-                                        {{ __('Dashboard') }}
-                                    </x-dropdown-link>
-
-                                    <x-dropdown-link :href="route('admin.settings')">
-                                        {{ __('Settings') }}
-                                    </x-dropdown-link>
-                                @endif
-
-                                <div class="border-t border-gray-100"></div>
-
-                                <!-- Authentication -->
-                                <form method="POST" action="{{ route('logout') }}">
-                                    @csrf
-                                    <x-dropdown-link :href="route('logout')"
-                                        onclick="event.preventDefault();
-                                                this.closest('form').submit();">
-                                        {{ __('Log Out') }}
-                                    </x-dropdown-link>
-                                </form>
-                            </x-slot>
-                        </x-dropdown>
-                    @else
-                    <div class="border-t border-gray-900 py-5"></div>
-                        <div class="w-full text-3xl font-bold font-heading">
-                            <div class="py-3">
-                                <a href="{{ route('login') }}">{{ __('Login') }} </a>
-                            </div>
-                             {{ __('or') }} 
-                            <div class="py-3">
-                                <a href="{{ route('register') }}"> {{ __('Register') }}</a>
-                            </div>
+</div>
+<div class="hidden navbar-menu fixed top-0 left-0 bottom-0 w-5/6 max-w-sm z-50">
+    <div class="navbar-backdrop fixed inset-0 bg-gray-800 opacity-25"></div>
+    <nav class="relative flex flex-col py-6 px-6 w-full h-full bg-white border-r overflow-y-auto">
+        <div class="flex items-center mb-8">
+            <a class="mr-auto text-3xl font-bold font-heading" href="{{ route('front.index') }}">
+                <img class="h-10" src="{{ asset('images/' . Helpers::settings('site_logo')) }}"
+                    alt="{{ Helpers::settings('site_title') }}" width="auto" />
+            </a>
+            <button class="navbar-close">
+                <svg class="h-2 w-2 text-gray-500 cursor-pointer" width="10" height="10" viewbox="0 0 10 10"
+                    fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M9.00002 1L1 9.00002M1.00003 1L9.00005 9.00002" stroke="black" stroke-width="1.5"
+                        stroke-linecap="round" stroke-linejoin="round"></path>
+                </svg>
+            </button>
+        </div>
+        <div class="border-t border-gray-900 py-5"></div>
+        <div class="flex mb-8 justify-between">
+            @if (Auth::check())
+                <div class="w-full text-3xl font-bold font-heading">
+                    <div class="py-3">
+                        <a href="#" class="hover:text-orange-500">
+                            {{ Auth::user()->first_name }}
+                        </a>
+                    </div>
+                    @if (Auth::user()->isAdmin())
+                        <div class="py-3">
+                            <a class="hover:text-orange-500" href="{{ route('admin.dashboard') }}">
+                                {{ __('Dashboard') }}
+                            </a>
                         </div>
-                @endif
-                <div class="flex items-center">
-                    <livewire:front.cart-count />
+                        <div class="py-3">
+                            <a class="hover:text-orange-500" href="{{ route('admin.settings') }} ">
+                                {{ __('Settings') }}
+                            </a>
+                        </div>
+                    @endif
                 </div>
+            @else
+                <div class="border-t border-gray-900 py-5"></div>
+                <div class="w-full text-3xl font-bold font-heading">
+                    <div class="py-3">
+                        <a href="{{ route('login') }}">{{ __('Login') }} </a>
+                    </div>
+                    {{ __('or') }}
+                    <div class="py-3">
+                        <a href="{{ route('register') }}"> {{ __('Register') }}</a>
+                    </div>
+                </div>
+            @endif
+            <div class="flex items-center">
+                <livewire:front.cart-count />
             </div>
-            
-            <div class="border-t border-gray-900 py-5"></div>
+        </div>
 
-            <ul class="text-3xl font-bold font-heading">
-                <li class="mb-8"><a href="{{ route('front.categories') }}">{{ __('Categories') }}</a></li>
-                <li class="mb-8"><a href="{{ route('front.catalog') }}">{{ __('Catalog') }}</a></li>
-                <li><a href="{{ route('front.brands') }}">{{ __('Brands') }}</a></li>
-            </ul>
-        </nav>
-    </div>
+        <div class="border-t border-gray-900 py-5"></div>
 
-    <livewire:front.cart-bar />
+        <ul class="text-3xl font-bold font-heading">
+            <li class="mb-8"><a href="{{ route('front.categories') }}">{{ __('Categories') }}</a></li>
+            <li class="mb-8"><a href="{{ route('front.catalog') }}">{{ __('Catalog') }}</a></li>
+            <li><a href="{{ route('front.brands') }}">{{ __('Brands') }}</a></li>
+        </ul>
+    </nav>
+</div>
+
+<livewire:front.cart-bar />
 
 </div>
 
 @push('scripts')
-<script>
-    // Burger menus
-document.addEventListener('DOMContentLoaded', function() {
-    // open
-    const burger = document.querySelectorAll('.navbar-burger');
-    const menu = document.querySelectorAll('.navbar-menu');
+    <script>
+        // Burger menus
+        document.addEventListener('DOMContentLoaded', function() {
+            // open
+            const burger = document.querySelectorAll('.navbar-burger');
+            const menu = document.querySelectorAll('.navbar-menu');
 
-    if (burger.length && menu.length) {
-        for (var i = 0; i < burger.length; i++) {
-            burger[i].addEventListener('click', function() {
-                for (var j = 0; j < menu.length; j++) {
-                    menu[j].classList.toggle('hidden');
+            if (burger.length && menu.length) {
+                for (var i = 0; i < burger.length; i++) {
+                    burger[i].addEventListener('click', function() {
+                        for (var j = 0; j < menu.length; j++) {
+                            menu[j].classList.toggle('hidden');
+                        }
+                    });
                 }
-            });
-        }
-    }
+            }
 
-    // close
-    const close = document.querySelectorAll('.navbar-close');
-    const backdrop = document.querySelectorAll('.navbar-backdrop');
+            // close
+            const close = document.querySelectorAll('.navbar-close');
+            const backdrop = document.querySelectorAll('.navbar-backdrop');
 
-    if (close.length) {
-        for (var i = 0; i < close.length; i++) {
-            close[i].addEventListener('click', function() {
-                for (var j = 0; j < menu.length; j++) {
-                    menu[j].classList.toggle('hidden');
+            if (close.length) {
+                for (var i = 0; i < close.length; i++) {
+                    close[i].addEventListener('click', function() {
+                        for (var j = 0; j < menu.length; j++) {
+                            menu[j].classList.toggle('hidden');
+                        }
+                    });
                 }
-            });
-        }
-    }
+            }
 
-    if (backdrop.length) {
-        for (var i = 0; i < backdrop.length; i++) {
-            backdrop[i].addEventListener('click', function() {
-                for (var j = 0; j < menu.length; j++) {
-                    menu[j].classList.toggle('hidden');
+            if (backdrop.length) {
+                for (var i = 0; i < backdrop.length; i++) {
+                    backdrop[i].addEventListener('click', function() {
+                        for (var j = 0; j < menu.length; j++) {
+                            menu[j].classList.toggle('hidden');
+                        }
+                    });
                 }
-            });
-        }
-    }
-    
+            }
 
-});
 
-</script>
+        });
+    </script>
 @endpush

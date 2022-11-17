@@ -48,7 +48,7 @@ class Edit extends Component
         $this->validate();
         
         if($this->image){
-            $imageName = Str::slug($this->section->title).'.'.$this->image->extension();
+            $imageName = Str::slug($this->section->title) . '-' . date('Y-m-d') . '.' . $this->image->extension();
             $this->image->storeAs('sections',$imageName);
             $this->section->image = $imageName;
         }

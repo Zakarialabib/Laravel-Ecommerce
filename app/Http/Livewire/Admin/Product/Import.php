@@ -6,9 +6,9 @@ use Livewire\Component;
 use Illuminate\Support\Facades\Gate;
 use Maatwebsite\Excel\Facades\Excel;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
+use App\Jobs\ProductJob;
 use App\Imports\ProductImport;
 use Livewire\WithFileUploads;
-use Storage;
 
 class Import extends Component
 {
@@ -42,26 +42,28 @@ class Import extends Component
         abort_if(Gate::denies('product_access'), 403);
 
         if ($this->file->extension() == 'xlsx' || $this->file->extension() == 'xls') {
-            
+              
             $this->validate([
-                'file' => 'required|mimes:xlsx,xls'
+                'file' => 'required|file|mimes:xlsx'
             ]);
 
-            $filename = 'products.' . $this->file->extension();
+            $file = $this->file;
+            $filename = time() . '-product.' . $file->getClientOriginalExtension();
+            $file->storeAs('products', $filename);
+            
+            ProductJob::dispatch($filename);
 
-            $this->file->storeAs('products', $filename);
-
-            Excel::import(new ProductImport, public_path('images/products/' . $filename));
+            $this->emit('refreshIndex');
 
             $this->alert('success', __('Product imported successfully!') );
-
-            $this->importModal = false;
 
         } else {
             $this->alert('error', __('File is a '.$this->file->extension().' file.!! Please upload a valid xls/csv file..!!') );
         }
 
-        $this->emit('refreshIndex');
+        $this->resetErrorBag();
+
+        $this->resetValidation();
         
         $this->importModal = false;
 

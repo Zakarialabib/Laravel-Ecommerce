@@ -282,10 +282,12 @@
                                             <span>
                                                 {{ $product->price }}DH
                                             </span>
+                                            @if($product->old_price)
                                             <span
                                                 class="text-xs text-gray-500 font-semibold font-heading line-through">
                                                 {{ $product->old_price }}DH
                                             </span>
+                                            @endif
                                         </p>
                                     </a>
 
@@ -294,6 +296,9 @@
                                 </div>
                             </div>
                         @endforeach
+                    </div>
+                    <div class="text-center">
+                        {{ $products->links() }}
                     </div>
                 @endif
             </div>
@@ -334,8 +339,5 @@
                 </div>
             @endforeach
         </div>
-    </div>
-    <div class="text-center">
-        {{ $products->links() }}
     </div>
 </div>

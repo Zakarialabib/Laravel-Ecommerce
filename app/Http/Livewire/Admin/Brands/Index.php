@@ -31,6 +31,8 @@ class Index extends Component
     
     public $image;
 
+    public $featured_image;
+
     public $showModal;
 
     public $refreshIndex;
@@ -61,7 +63,8 @@ class Index extends Component
 
     public array $rules = [
         'brand.name' => ['required', 'string', 'max:255'],
-        'brand.link' => ['nullable', 'string'],
+        'brand.slug' => ['nullable', 'string'],
+        'brand.description' => ['nullable', 'string'],
     ];
 
     public function getSelectedCountProperty()
@@ -114,7 +117,7 @@ class Index extends Component
     }
 
 
-    public function editModal(Brand $brand)
+    public function editModal($brand)
     {
         abort_if(Gate::denies('brand_update'), 403);
 
@@ -122,7 +125,7 @@ class Index extends Component
 
         $this->resetValidation();
 
-        $this->brand = $brand;
+        $this->brand = Brand::findOrfail($brand);
 
         $this->editModal = true;
     }
@@ -135,7 +138,7 @@ class Index extends Component
         // upload image if it does or doesn't exist
 
         if($this->image){
-            $imageName = Str::slug($this->brand->name).'.'.$this->image->extension();
+            $imageName = Str::slug($this->brand->name) . '-' . date('Y-m-d') . '.' . $this->image->extension();
             $this->image->storeAs('brands',$imageName);
             $this->brand->image = $imageName;
         }

@@ -58,6 +58,9 @@
                             wire:loading.attr="disabled">
                             {{ __('Import') }}
                         </x-button>
+                        <span wire:loading.delay wire:target="import">
+                            {{__('Loading...')}}
+                        </span>
                     </div>
                 </form>
             </div>

@@ -28,7 +28,7 @@ class Helpers
     public static function productLink($product)
     {
         if($product){
-            return route('product', $product->slug);
+            return route('front.product', $product->slug);
         }else{
          return null;
         }

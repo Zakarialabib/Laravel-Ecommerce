@@ -146,7 +146,7 @@ class Index extends Component
         // if product selected Helpers::productLink($product)
 
         if($this->image){
-            $imageName = Str::slug($this->featuredbanner->title).'.'.$this->image->extension();
+            $imageName = Str::slug($this->featuredbanner->title) . '-' . date('Y-m-d') . '.' . $this->image->extension();
             $this->image->storeAs('featuredbanners',$imageName);
             $this->featuredbanner->image = $imageName;
         }

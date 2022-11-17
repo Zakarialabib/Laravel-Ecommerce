@@ -66,31 +66,54 @@ class Brands extends Component
     }
     public function render()
     {
+        return view('livewire.front.brands');
+    }
 
-        if ($this->sorting == 'name') {
-            $products = Product::orderBy('name', 'asc')->paginate($this->perPage);
-        } elseif ($this->sorting == 'name-desc') {
-            $products = Product::orderBy('name', 'desc')->paginate($this->perPage);
-        } elseif ($this->sorting == 'price') {
-            $products = Product::orderBy('price', 'asc')->paginate($this->perPage);
-        } elseif ($this->sorting == 'price-desc') {
-            $products = Product::orderBy('price', 'desc')->paginate($this->perPage);
-        } elseif ($this->sorting == 'date') {
-            $products = Product::orderBy('created_at', 'asc')->paginate($this->perPage);
-        } elseif ($this->sorting == 'date-desc') {
-            $products = Product::orderBy('created_at', 'desc')->paginate($this->perPage);
-        } elseif ($this->brand_id) {
-            $products = Product::where('brand_id', $this->brand_id)->paginate($this->perPage);
-        } else {
-            $products = Product::paginate($this->perPage);
-
+    public function getProductsProperty()
+    {
+        switch ($this->sorting) {
+            case 'name':
+                $this->sortBy = 'name';
+                $this->sortDirection = 'asc';
+                break;
+            case 'name-desc':
+                $this->sortBy = 'name';
+                $this->sortDirection = 'desc';
+                break;
+            case 'price':
+                $this->sortBy = 'price';
+                $this->sortDirection = 'asc';
+                break;
+            case 'price-desc':
+                $this->sortBy = 'price';
+                $this->sortDirection = 'desc';
+                break;
+            case 'date':
+                $this->sortBy = 'created_at';
+                $this->sortDirection = 'asc';
+                break;
+            case 'date-desc':
+                $this->sortBy = 'created_at';
+                $this->sortDirection = 'desc';
+                break;
+            default:
+                $this->sortBy = 'id';
+                $this->sortDirection = 'desc';
+                break;
         }
 
-        $popular_products = Product::inRandomOrder()->limit(8)->get();
-        
-        $categories = Category::with('subcategories')->get();
-        $brands = Brand::all();
-
-        return view('livewire.front.brands', compact('products', 'popular_products', 'categories', 'brands'));
+        return Product::where('status', 1)
+            ->when($this->brand_id, function ($query) {
+                $query->where('brand_id', $this->brand_id);
+            })
+            ->orderBy($this->sortBy, $this->sortDirection)
+            ->paginate($this->perPage);
     }
+
+    public function getBrandsProperty()
+    {
+        return Brand::select('id', 'name','image','featured_image')->get();
+    }
+    
+
 }

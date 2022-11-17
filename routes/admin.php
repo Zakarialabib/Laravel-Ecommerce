@@ -44,6 +44,9 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => 'auth'], fu
     Route::get('/users', [UserController::class, 'index'])->name('users');
 
     Route::get('/sections', [SectionController::class, 'index'])->name('sections');
+    Route::get('/section/create', [SectionController::class, 'create'])->name('section.create');
+    Route::get('/section/edit/{id}', [SectionController::class, 'edit'])->name('section.edit');
+    
     Route::get('/featuredBanners', [FeaturedBannerController::class, 'index'])->name('featuredBanners');
     Route::get('/pages', [PageController::class, 'index'])->name('pages');
     Route::get('/order-forms', [PageController::class, 'orderForms'])->name('orderforms');

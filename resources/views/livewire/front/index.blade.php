@@ -1,8 +1,8 @@
 <div>
-    <div class="relative container mx-auto px-4">
+    <div class="relative container mx-auto px-4 py-10">
         <div class="flex flex-wrap -mx-4">
-            @foreach ($sliders as $slider)
-                <div class="w-full md:w-1/2 px-4 lg:mb-5 sm:mb-2 lg:py-20 py-10">
+            @foreach ($this->sliders as $slider)
+                <div class="w-full md:w-1/2 px-4 lg:mb-5 sm:mb-2">
                     <div class="max-w-md lg:py-5 py-10">
                         <h5 class="text-2xl font-bold text-gray-600 mb-2">
                             {{ $slider->subtitle }}
@@ -21,13 +21,12 @@
                         @endif
                     </div>
                 </div>
-                <div class="relative w-full md:w-1/2 px-4 lg:mb-5 sm:mb-2 lg:py-20 py-10">
+                <div class="relative w-full md:w-1/2 px-4 lg:mb-5 sm:mb-2">
                     <div class="hidden lg:block absolute top-0 transform translate-y-1/2 right-0 w-1">
                         <a class="block w-1/2 h-40 bg-blue-600" href="#"></a><a
                             class="block w-1/2 h-40 bg-gray-300" href="#"></a>
                     </div>
-                    @if ($featuredbanner)
-                        @foreach ($featuredbanner as $banner)
+                        @foreach ($this->featuredbanners as $banner)
                             <div class="absolute bottom-1/2 -mb-24 lg:right-6 inline-block bg-white rounded-xl">
                                 <div class="flex p-3">
                                     <div class="w-auto pt-5 px-4 lg:px-9">
@@ -68,21 +67,10 @@
                                 </div>
                             </div>
                         @endforeach
-                    @endif
                     <img loading="lazy" class="h-auto"
                         src="{{ asset('images/sliders/' . $slider->photo) }}" alt="{{ $slider->title }}">
                 </div>
             @endforeach
-        </div>
-        <div class="hidden xl:block w-full xl:absolute left-0 bottom-0 right-0 bg-white py-10 px-4 lg:ml-auto">
-            <div class="flex flex-wrap items-center justify-center -mx-2 -mb-12">
-                @foreach ($brands as $brand)
-                    <div class="sm:w-1/2 md:w-1/4 lg:w-1/6 px-2 mb-12">
-                        <img loading="lazy" class="mx-auto h-6" src="{{ asset('images/brands/' . $brand->image) }}"
-                            alt="">
-                    </div>
-                @endforeach
-            </div>
         </div>
     </div>
 
@@ -124,7 +112,7 @@
                     <div class="container mx-auto">
                         <div class="flex mb-16">
                             <div class="w-full flex flex-wrap -mx-3">
-                                @forelse ($featuredProducts as $product)
+                                @forelse ($this->featuredProducts as $product)
                                     <div class="sm:w-full md:w-1/2 lg:w-1/3 px-3 mb-10 bg-white rounded-lg shadow-2xl">
                                         <div class="relative text-center">
                                             <a href="{{ route('front.product', $product->slug) }}">
@@ -181,7 +169,7 @@
                     <div class="container mx-auto">
                         <div class="flex mb-16">
                             <div class="w-full flex flex-wrap -mx-3">
-                                @forelse ($bestOffers as $product)
+                                @forelse ($this->bestOffers as $product)
                                     <div class="w-full lg:w-1/3 px-3 mb-16 lg:mb-0">
                                         <a class="block mb-10" href="{{ route('front.product', $product->slug) }}">
                                             <div class="relative">
@@ -232,7 +220,7 @@
                     <div class="container mx-auto">
                         <div class="flex mb-16">
                             <div class="w-full flex flex-wrap -mx-3">
-                                @forelse ($hotProducts as $product)
+                                @forelse ($this->hotProducts as $product)
                                     <div class="w-full lg:w-1/3 px-3 mb-16 lg:mb-0">
                                         <a class="block mb-10" href="{{ route('front.product', $product->slug) }}">
                                             <div class="relative">
@@ -282,9 +270,9 @@
                 <div class="container mx-auto">
                     <div class="flex mb-5">
                         <div class="w-full flex flex-wrap py-10 -mx-3">
-                            @foreach ($brands as $brand)
+                            @forelse ($this->brands as $brand)
                                 <div class="sm:w-1/2 md:w-1/3 lg:w-1/4 px-3 mb-6 md:mb-0 mb-1° lg:mb-0">
-                                    <a class="block mb-10" href="{{ route('front.brands') }}">
+                                    <a class="block mb-10" href="{{ route('front.brandPage', $brand->slug) }}">
                                         <div class="relative">
                                             <img class="w-full h-auto" loading="lazy"
                                                 src="{{ asset('images/brands/' . $brand->image) }}"
@@ -304,7 +292,13 @@
                                         </div>
                                     </a>
                                 </div>
-                            @endforeach
+                            @empty
+                                <div class="w-full">
+                                    <h3 class="text-3xl font-bold font-heading text-blue-900">
+                                        {{ __('No brands found') }}
+                                    </h3>
+                                </div>
+                            @endforelse
                         </div>
                     </div>
                 </div>
@@ -312,12 +306,10 @@
         </div>
     </div>
 
-
-
     <section class="py-5 px-4 bg-gray-100">
         <div class="container mx-auto">
             <div class="flex flex-wrap -mx-3">
-                @foreach($sections as $section)
+                @foreach($this->sections as $section)
                 <div class="sm:w-1/2 md:w-1/3 lg:w-1/4 px-3 mb-6">
                     <div class="relative h-full text-center pt-16 bg-white">
                         <div class="pb-12 border-b">
@@ -350,7 +342,7 @@
     <!-- End Features -->
 
     <!-- Start Sections -->
-    @foreach ($sections as $section)
+    @forelse ($this->sections as $section)
         <section>
             <div class="container px-4 mx-auto">
                 <div class="relative py-20 md:py-40 bg-orange-300">
@@ -373,5 +365,9 @@
                 </div>
             </div>
         </section>
-    @endforeach
+        @empty
+        <div class="container mx-auto py-10">
+            <h2 class="text-4xl font-bold font-heading text-center">{{__('More Coming Soon')}}</h2>
+        </div>
+    @endforelse
 </div>

@@ -73,12 +73,10 @@
                         {{ $product->price }}DH
                     </x-table.td>
                     <x-table.td>
-                        {{-- emit imageModal methode --}}
-
-                        <x-button type="button" success wire:click="$emit('imageModal', {{ $product->id }})" wire:loading.attr="disabled">
+                        <x-button type="button" success wire:click="$emit('imageModal', {{ $product->id }})"
+                            wire:key="image-{{ $product->id }}">
                             <i class="fas fa-image"></i>
                         </x-button>
-                        
                     </x-table.td>
                     <x-table.td>
                         <livewire:toggle-button :model="$product" field="status" key="{{ $product->id }}" />
@@ -414,8 +412,8 @@
     </x-modal>
 
     {{-- recieve parametre from emit importModal $product --}}
-    @if($product)
-    @livewire('admin.product.image', ['product' => $product], key($product->id))
+    @if ($product)
+        @livewire('admin.product.image', ['product' => $product], key($product->id))
     @endif
 
 </div>

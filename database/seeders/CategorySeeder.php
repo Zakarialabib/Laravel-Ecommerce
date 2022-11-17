@@ -19,27 +19,23 @@ class CategorySeeder extends Seeder
         Category::insert([
             [
                 'id' => 1,
-                'code' => 1,
-                'name'       => 'Sport',
-                'image'      => 'https://via.placeholder.com/150',
+                'name'       => 'Montre Homme',
+                'image'      => 'categorie.png',
             ],
             [
                 'id'     => 2,
-                'code' => 2,
-                'name'       => 'Vintage',
-                'image'      => 'https://via.placeholder.com/150',
+                'name'       => 'Montre Femme',
+                'image'      => 'categorie.png',
             ],
             [
                 'id'        => 3,
-                'code' => 3,
                 'name'       => 'Class',
-                'image'      => 'https://via.placeholder.com/150',
+                'image'      => 'categorie.png',
             ],
             [
                 'id'       => 4,
-                'code' => 4,
                 'name'       => 'Extreme',
-                'image'      => 'https://via.placeholder.com/150',
+                'image'      => 'categorie.png',
             ]
     ]);
     }

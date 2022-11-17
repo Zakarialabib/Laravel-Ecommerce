@@ -1,39 +1,22 @@
 <div>
-    <div class="container mx-auto px-4">
-        <div class="flex flex-wrap -mx-4 mb-10 md:mb-5 items-center justify-between">
+    <div class="container mx-auto">
+        <div class="mb-10 mx-5">
+            <h1 class="text-3xl font-bold font-heading text-gray-700 dark:text-gray-300 mb-4">
+                {{ $brand->name }}
+            </h1>
+            <img class="w-full h-64 object-cover" src="{{ asset('images/brands/' . $brand->image) }}"
+                alt="{{ $brand->name }}">
             <div class="w-full lg:w-auto lg:mb-4 px-4 flex flex-wrap items-center">
-                <div class="w-full sm:w-auto">
-                    <select
-                        class="px-5 py-3 mr-2 leading-5 bg-white dark:bg-dark-eval-2 text-gray-700 dark:text-gray-300 rounded border border-zinc-300 mb-1 text-sm focus:shadow-outline-blue focus:border-blue-500"
-                        id="sortBy" wire:model="sorting">
-                        <option disabled>{{ __('Best Selling') }}</option>
-                        <option value="name">{{ __('Order Alphabetic, A-Z') }}</option>
-                        <option value="name-desc">{{ __('Order Alphabetic, Z-A') }}</option>
-                        <option value="price">{{ __('Price, low to high') }}</option>
-                        <option value="price-desc">{{ __('Price, high to low') }}</option>
-                        <option value="date">{{ __('Date, new to old') }}</option>
-                        <option value="date-desc">{{ __('Date, old to new') }}</option>
-                    </select>
-
-                    <select wire:model="perPage" name="perPage"
-                        class="px-5 py-3 leading-5 bg-white dark:bg-dark-eval-2 text-gray-700 dark:text-gray-300 rounded border border-zinc-300 mb-1 text-sm focus:shadow-outline-blue focus:border-blue-500">
-                        @foreach ($paginationOptions as $value)
-                            <option value="{{ $value }}">{{ $value }}</option>
-                        @endforeach
-                    </select>
-                </div>
-
-                <div class="overflow-x-scroll flex py-2 lg:pl-5 sm:pl-0">
-                    @foreach ($this->brands as $brand)
-                        <x-button type="button" primaryOutline class="mx-2"
-                            wire:click="filterProducts({{ $brand->id }})">
-                            {{ $brand->name }}</x-button>
+                <select wire:model="perPage" name="perPage"
+                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-32 p-1 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                    @foreach ($paginationOptions as $value)
+                        <option value="{{ $value }}">{{ $value }}</option>
                     @endforeach
-                </div>
+                </select>
             </div>
         </div>
         <div class="flex flex-wrap -mx-3 mb-24">
-            @forelse ($this->products as $product)
+            @forelse ($brand_products as $product)
                 <div class="sm:w-1/2 md:w-1/3 lg:w-1/4 px-3 mb-6">
                     <div class="p-6 bg-gray-50">
                         @if ($product->is_discount)
@@ -65,13 +48,13 @@
             @empty
                 <div class="w-full">
                     <h3 class="text-3xl font-bold font-heading text-blue-900">
-                        {{ __('No products found') }}
+                        {{ __('No brand products found') }}
                     </h3>
                 </div>
             @endforelse
         </div>
         <div class="text-center">
-            {{ $this->products->links() }}
+            {{ $brand_products->links() }}
         </div>
     </div>
 </div>

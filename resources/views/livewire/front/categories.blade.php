@@ -14,17 +14,16 @@
                         <option value="date">{{ __('Date, new to old') }}</option>
                         <option value="date-desc">{{ __('Date, old to new') }}</option>
                     </select>
-                    <select
-                    class="px-5 py-3 leading-5 bg-white dark:bg-dark-eval-2 text-gray-700 dark:text-gray-300 rounded border border-zinc-300 mb-1 text-sm focus:shadow-outline-blue focus:border-blue-500"
-                        id="perPage" wire:model="pagesize">
-                        <option value="20" selected>20 Items</option>
-                        <option value="50">50 Items</option>
-                        <option value="100">100 Items</option>
+                    <select wire:model="perPage" name="perPage"
+                        class="px-5 py-3 leading-5 bg-white dark:bg-dark-eval-2 text-gray-700 dark:text-gray-300 rounded border border-zinc-300 mb-1 text-sm focus:shadow-outline-blue focus:border-blue-500">
+                        @foreach ($paginationOptions as $value)
+                            <option value="{{ $value }}">{{ $value }}</option>
+                        @endforeach
                     </select>
                 </div>
 
                 <div class="overflow-x-scroll flex py-2 lg:pl-5 sm:pl-0">
-                    @foreach ($categories as $category)
+                    @foreach ($this->categories as $category)
                         <x-button type="button" dangerOutline class="mx-2"
                             wire:click="filterProducts({{ $category->id }})">{{ $category->name }}</x-button>
                     @endforeach
@@ -33,7 +32,7 @@
         </div>
 
         <div class="flex flex-wrap -mx-3 mb-24">
-            @forelse ($products as $product)
+            @forelse ($this->products as $product)
                 <div class="sm:w-1/2 md:w-1/3 lg:w-1/4 px-3 mb-6">
                     <div class="p-6 bg-gray-50">
                         @if ($product->is_discount)
@@ -69,6 +68,9 @@
                     </h3>
                 </div>
             @endforelse
+        </div>
+        <div class="text-center">
+            {{ $this->products->links() }}
         </div>
     </div>
 </div>

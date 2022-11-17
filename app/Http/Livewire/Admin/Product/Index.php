@@ -184,7 +184,7 @@ class Index extends Component
         if($this->image){
             
             $image = $this->image;
-            $imageName = Str::slug($this->product->name).'.'.$this->image->extension();
+            $imageName = Str::slug($this->product->name) . '-' . date('Y-m-d') . '.' . $this->image->extension();
             
             $img = Image::make($image->getRealPath())->resize(1500, 1500, function ($constraint) {
                 $constraint->aspectRatio();

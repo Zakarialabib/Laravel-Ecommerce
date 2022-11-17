@@ -53,10 +53,11 @@
     
     @endif
 
-    <div class="">
+    <div>
                 
       <section class="relative">
        <x-header />
+       <x-headerbar />
 
        @yield('content')
 

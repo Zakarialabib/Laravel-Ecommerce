@@ -64,35 +64,56 @@ class Categories extends Component
         $this->perPage           = 15;
         $this->paginationOptions = [25, 50, 100];
         $this->orderable         = (new Product())->orderable;
-
     }
-    public function render()
-    {
 
-        if ($this->sorting == 'name') {
-            $products = Product::orderBy('name', 'asc')->paginate($this->perPage);
-        } elseif ($this->sorting == 'name-desc') {
-            $products = Product::orderBy('name', 'desc')->paginate($this->perPage);
-        } elseif ($this->sorting == 'price') {
-            $products = Product::orderBy('price', 'asc')->paginate($this->perPage);
-        } elseif ($this->sorting == 'price-desc') {
-            $products = Product::orderBy('price', 'desc')->paginate($this->perPage);
-        } elseif ($this->sorting == 'date') {
-            $products = Product::orderBy('created_at', 'asc')->paginate($this->perPage);
-        } elseif ($this->sorting == 'date-desc') {
-            $products = Product::orderBy('created_at', 'desc')->paginate($this->perPage);
-        } elseif ($this->category_id) {
-            $products = Product::where('category_id', $this->category_id)->paginate($this->perPage);
-        
-        } else {
-            $products = Product::paginate($this->perPage);
+    public function getProductsProperty()
+    {
+        switch ($this->sorting) {
+            case 'name':
+                $this->sortBy = 'name';
+                $this->sortDirection = 'asc';
+                break;
+            case 'name-desc':
+                $this->sortBy = 'name';
+                $this->sortDirection = 'desc';
+                break;
+            case 'price':
+                $this->sortBy = 'price';
+                $this->sortDirection = 'asc';
+                break;
+            case 'price-desc':
+                $this->sortBy = 'price';
+                $this->sortDirection = 'desc';
+                break;
+            case 'date':
+                $this->sortBy = 'created_at';
+                $this->sortDirection = 'asc';
+                break;
+            case 'date-desc':
+                $this->sortBy = 'created_at';
+                $this->sortDirection = 'desc';
+                break;
+            default:
+                $this->sortBy = 'id';
+                $this->sortDirection = 'desc';
+                break;
         }
 
-        $popular_products = Product::inRandomOrder()->limit(8)->get();
-        
-        $categories = Category::with('subcategories')->get();
-        $brands = Brand::all();
+        return Product::where('status', 1)
+            ->when($this->category_id, function ($query) {
+                return $query->where('category_id', $this->category_id);
+            })
+            ->orderBy($this->sortBy, $this->sortDirection)
+            ->paginate($this->perPage);
+    }
 
-        return view('livewire.front.categories', compact('products', 'popular_products', 'categories', 'brands'));
+    public function getCategoriesProperty()
+    {
+        return Category::where('status', 1)->with('subcategories')->get();
+    }
+
+    public function render()
+    {   
+        return view('livewire.front.categories');
     }
 }

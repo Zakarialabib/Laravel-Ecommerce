@@ -31,7 +31,7 @@
                 {{ __('Name') }}
             </x-table.th>
             <x-table.th>
-                {{ __('Link') }}
+                {{ __('Slug') }}
             </x-table.th>
             <x-table.th>
                 {{ __('Image') }}
@@ -51,7 +51,7 @@
                         {{ $brand->name }}
                     </x-table.td>
                     <x-table.td>
-                        {{ $brand->link }}
+                        {{ $brand->slug }}
                     </x-table.td>
                     <x-table.td>
                         @if ($brand->image)
@@ -118,17 +118,29 @@
                     </div>
 
                     <div class="xl:w-1/2 md:w-1/2 px-3 mb-6 md:mb-0">
-                        <x-label for="link" :value="__('Link')" />
-                        <x-input id="link" class="block mt-1 w-full" type="text" name="link"
-                            wire:model.defer="brand.link" />
-                        <x-input-error :messages="$errors->get('brand.link')" for="brand.link" class="mt-2" />
+                        <x-label for="slug" :value="__('Slug')" />
+                        <x-input id="slug" class="block mt-1 w-full" type="text" name="slug"
+                            wire:model.defer="brand.slug" />
+                        <x-input-error :messages="$errors->get('brand.slug')" for="brand.slug" class="mt-2" />
+                    </div>
 
+                    <div class="w-full px-3 mb-6 md:mb-0">
+                        <x-label for="description" :value="__('Description')" />
+                        <x-input id="description" class="block mt-1 w-full" type="text" name="description"
+                            wire:model.defer="brand.description" />
+                        <x-input-error :messages="$errors->get('brand.description')" for="brand.description" class="mt-2" />
                     </div>
 
                     <div class="w-full px-3">
                         <x-label for="image" :value="__('Image')" />
                         <x-fileupload wire:model="image" :file="$image" accept="image/jpg,image/jpeg,image/png" />
                         <x-input-error :messages="$errors->get('image')" for="image" class="mt-2" />
+                    </div>
+
+                    <div class="w-full py-2 px-3">
+                        <x-label for="featured_image" :value="__('Featured image')" />
+                        <x-fileupload wire:model="featured_image" :file="$featured_image" accept="image/jpg,image/jpeg,image/png" />
+                        <x-input-error :messages="$errors->get('featured_image')" for="featured_image" class="mt-2" />
                     </div>
 
                     <div class="w-full px-3">
