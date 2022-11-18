@@ -55,7 +55,7 @@ class Image extends Component
         }elseif ($this->image) {
             
             $image = $this->image;
-            $imageName = Str::slug($this->product->name) . '-' . date('Y-m-d') . '.' . $this->image->extension();
+            $imageName = Str::slug($this->product->name) . '-' . date('Y-m-d H:i:s') . '.' . $this->image->extension();
             
             $img = ImageIntervention::make($image->getRealPath())->resize(1500, 1500, function ($constraint) {
                 $constraint->aspectRatio();

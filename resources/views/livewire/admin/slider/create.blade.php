@@ -56,7 +56,7 @@
                         <x-input-error :messages="$errors->get('photo')" for="photo" class="mt-2" />
                     </div>
                     <div class="w-full flex justify-start space-x-2">
-                        <x-button primary wire:click="create" wire:loading.attr="disabled">
+                        <x-button primary type="button"  wire:click="create" wire:loading.attr="disabled">
                             {{ __('Create') }}
                         </x-button>
                     </div>

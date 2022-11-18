@@ -138,16 +138,27 @@ class Index extends Component
         // upload image if it does or doesn't exist
 
         if($this->image){
-            $imageName = Str::slug($this->brand->name) . '-' . date('Y-m-d') . '.' . $this->image->extension();
+            $imageName = Str::slug($this->brand->name) . '-' . date('Y-m-d H:i:s') . '.' . $this->image->extension();
             $this->image->storeAs('brands',$imageName);
             $this->brand->image = $imageName;
         }
 
+        if($this->featured_image){
+            $imageName = Str::slug($this->brand->name) . '-' . date('Y-m-d H:i:s') . '.' . $this->featured_image->extension();
+            $this->featured_image->storeAs('brands',$imageName);
+            $this->brand->featured_image = $imageName;
+        }
+
         $this->brand->save();
+       
+        $this->alert('success', __('Brand updated successfully.'));
+        
+        $this->resetErrorBag();
+
+        $this->resetValidation();
 
         $this->editModal = false;
 
-        $this->alert('success', 'Brand updated successfully.');
     }
     
     public function showModal(Brand $brand)

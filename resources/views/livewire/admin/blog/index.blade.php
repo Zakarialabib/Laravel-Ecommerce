@@ -74,11 +74,11 @@
                                 </button>
                             </x-slot>
                             <x-slot name="content">
-                                <x-button primary wire:click="$emit('editModal', {{ $blog->id }})"
+                                <x-button primary type="button"  wire:click="$emit('editModal', {{ $blog->id }})"
                                     wire:loading.attr="disabled">
                                     <i class="fas fa-edit"></i>
                                 </x-button>
-                                <x-button danger wire:click="$emit('deleteModal', {{ $blog->id }})"
+                                <x-button danger type="button"  wire:click="$emit('deleteModal', {{ $blog->id }})"
                                     wire:loading.attr="disabled">
                                     <i class="fas fa-trash"></i>
                                 </x-button>

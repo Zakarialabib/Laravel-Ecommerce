@@ -43,7 +43,8 @@
                     </div>
                 </div>
                 <div class="w-full px-4">
-                    <x-button primary wire:click="saveImage" wire:loading.attr="disabled">
+                    <x-button primary type="button" 
+                     wire:click="saveImage" wire:loading.attr="disabled">
                         {{ __('Save') }}
                     </x-button>
                 </div>

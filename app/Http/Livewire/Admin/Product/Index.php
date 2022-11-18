@@ -157,7 +157,7 @@ class Index extends Component
     {
         abort_if(Gate::denies('product_show'), 403);
 
-        $this->product = $product;
+        $this->product = Product::find($product);
 
         $this->showModal = true;  
     }
@@ -184,7 +184,7 @@ class Index extends Component
         if($this->image){
             
             $image = $this->image;
-            $imageName = Str::slug($this->product->name) . '-' . date('Y-m-d') . '.' . $this->image->extension();
+            $imageName = Str::slug($this->product->name) . '-' . date('Y-m-d H:i:s') . '.' . $this->image->extension();
             
             $img = Image::make($image->getRealPath())->resize(1500, 1500, function ($constraint) {
                 $constraint->aspectRatio();
@@ -244,7 +244,7 @@ class Index extends Component
     {
         abort_if(Gate::denies('product_access'), 403);
 
-        $this->product = $product;
+        $this->product = Product::findOrfail($product->id);
 
         $this->highlightModal = true;  
     }
@@ -253,7 +253,6 @@ class Index extends Component
     {
         abort_if(Gate::denies('product_access'), 403);
 
-        //  $hot , $featured, $best, $top, $latest, $big, $trending, $sale, $is_discount, $discount_date;
         if($this->hot){
             $this->product->hot = $this->hot;
         }

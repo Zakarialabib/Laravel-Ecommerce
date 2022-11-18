@@ -50,7 +50,7 @@ class Create extends Component
         $this->validate();
 
         if($this->image){
-            $imageName = Str::slug($this->page->name) . '-' . date('Y-m-d') . '.' . $this->image->extension();
+            $imageName = Str::slug($this->page->name) . '-' . date('Y-m-d H:i:s') . '.' . $this->image->extension();
             $this->image->storeAs('pages',$imageName);
             $this->page->image = $imageName;
         }

@@ -8,7 +8,7 @@
                 @endforeach
             </select>
             @if($this->selected)
-            <x-button danger wire:click="deleteSelected" class="ml-3">
+            <x-button danger type="button"  wire:click="deleteSelected" class="ml-3">
                 <i class="fas fa-trash"></i>
             </x-button>
             @endif
@@ -43,7 +43,7 @@
         </x-slot>
         <x-table.tbody>
             @forelse($brands as $brand)
-                <x-table.tr>
+                <x-table.tr wire:loading.class.delay="opacity-50" wire:key="row-{{ $brand->id }}">
                     <x-table.td>
                         <input type="checkbox" value="{{ $brand->id }}" wire:model="selected">
                     </x-table.td>

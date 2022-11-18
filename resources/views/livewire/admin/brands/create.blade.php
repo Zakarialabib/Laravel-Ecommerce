@@ -34,7 +34,8 @@
                         <x-input-error :messages="$errors->get('featured_image')" for="featured_image" class="mt-2" />
                     </div>
                     <div class="w-full flex justify-start space-x-2">
-                        <x-button primary wire:click="create" wire:loading.attr="disabled">
+                        <x-button primary <x-button primary type="button" 
+                         wire:click="create" wire:loading.attr="disabled">
                             {{ __('Create') }}
                         </x-button>
                         <span class="sr-only" wire:loading wire:target="create">

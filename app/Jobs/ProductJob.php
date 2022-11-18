@@ -11,7 +11,7 @@ use Illuminate\Queue\SerializesModels;
 use App\Imports\ProductImport;
 use Illuminate\Support\Str;
 use Maatwebsite\Excel\Facades\Excel;
-use File;
+use Illuminate\Support\Facades\File;
 
 class ProductJob implements ShouldQueue
 {
@@ -36,11 +36,8 @@ class ProductJob implements ShouldQueue
      */
     public function handle()
     {
-       // handle excell import from $filename
 
-        $path = public_path('images/products/' . $this->filename);
-        
-        Excel::import(new ProductImport, $path);
+        Excel::import(new ProductImport, public_path('images/products/' . $this->filename));
 
         File::delete(public_path('images/products/' . $this->filename));
 

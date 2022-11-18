@@ -8,11 +8,11 @@
                 {{ $value }}">{{ $value }}</option>
                 @endforeach
             </select>
-
-            <x-button danger wire:click="deleteSelected" class="ml-3">
+            @if($this->selected)
+            <x-button danger type="button"  wire:click="deleteSelected" class="ml-3">
                 <i class="fas fa-trash"></i>
             </x-button>
-
+            @endif
         </div>
         <div class="lg:w-1/2 md:w-1/2 sm:w-full my-2 my-md-0">
             <input type="text" wire:model.debounce.300ms="search"
@@ -59,7 +59,7 @@
         </x-slot>
         <x-table.tbody>
             @forelse($users as $user)
-                <x-table.tr>
+                <x-table.tr wire:loading.class.delay="opacity-50" wire:key="row-{{ $user->id }}">
                     <x-table.td>
                         <input type="checkbox" value="{{ $user->id }}" wire:model="selected">
                     </x-table.td>
@@ -88,14 +88,14 @@
                     </x-table.td>
                     <x-table.td>
                         <div class="flex justify-start space-x-2">
-                            <x-button secondary wire:click="showModal({{ $user->id }})"
+                            <x-button secondary wire:click="showModal({{ $user->id }})" type="button" 
                                 wire:loading.attr="disabled">
                                 <i class="fas fa-eye"></i>
                             </x-button>
-                            <x-button primary wire:click="editModal({{ $user->id }})" wire:loading.attr="disabled">
+                            <x-button primary type="button"  wire:click="editModal({{ $user->id }})" wire:loading.attr="disabled">
                                 <i class="fas fa-edit"></i>
                             </x-button>
-                            <x-button danger wire:click="$emit('deleteModal', {{ $user->id }})"
+                            <x-button danger type="button"  wire:click="$emit('deleteModal', {{ $user->id }})"
                                 wire:loading.attr="disabled">
                                 <i class="fas fa-trash"></i>
                             </x-button>

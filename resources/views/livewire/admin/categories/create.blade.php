@@ -28,7 +28,8 @@
                     </div>
 
                     <div class="w-full flex justify-start space-x-2">
-                        <x-button primary wire:click="create" wire:loading.attr="disabled" type="button">
+                        <x-button primary type="button" 
+                         wire:click="create" wire:loading.attr="disabled">
                             {{ __('Create') }}
                         </x-button>
                         <span class="sr-only" wire:loading wire:target="create">

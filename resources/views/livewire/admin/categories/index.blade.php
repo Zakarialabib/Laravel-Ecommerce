@@ -8,7 +8,7 @@
                 @endforeach
             </select>
             @if($this->selected)
-            <x-button danger wire:click="deleteSelected" class="ml-3">
+            <x-button danger type="button"  wire:click="deleteSelected" class="ml-3">
                 <i class="fas fa-trash"></i>
             </x-button>
             @endif
@@ -58,11 +58,12 @@
                     </x-table.td>
                     <x-table.td>
                         <div class="flex justify-start space-x-2">
-                            <x-button primary wire:click="$emit('editModal', {{ $category->id }})"
+                            <x-button primary type="button" 
+                            wire:click="$emit('editModal', {{ $category->id }})"
                                 wire:loading.attr="disabled">
                                 <i class="fas fa-edit"></i>
                             </x-button>
-                            <x-button danger wire:click="$emit('deleteModal', {{ $category->id }})"
+                            <x-button danger type="button"  wire:click="$emit('deleteModal', {{ $category->id }})"
                                 wire:loading.attr="disabled">
                                 <i class="fas fa-trash"></i>
                             </x-button>

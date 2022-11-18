@@ -56,13 +56,13 @@ class Create extends Component
 
         if($this->image){
             // with str slug with name date
-            $imageName = Str::slug($this->brand->name) . '-' . date('Y-m-d') . '.' . $this->image->extension();
+            $imageName = Str::slug($this->brand->name) . '-' . date('Y-m-d H:i:s') . '.' . $this->image->extension();
             $this->image->storeAs('brands',$imageName);
             $this->brand->image = $imageName;
         }
 
         if($this->featured_image){
-            $imageName = Str::slug($this->brand->name) . '-' . date('Y-m-d') . '.' . $this->featured_image->extension();
+            $imageName = Str::slug($this->brand->name) . '-' . date('Y-m-d H:i:s') . '.' . $this->featured_image->extension();
             $this->featured_image->storeAs('brands',$imageName);
             $this->brand->featured_image = $imageName;
         }

@@ -25,7 +25,9 @@
 
     <x-table>
         <x-slot name="thead">
-            <x-table.th>#</x-table.th>
+            <x-table.th>
+                <input type="checkbox" wire:model="selectPage" />
+            </x-table.th>
             <x-table.th sortable wire:click="sortBy('name')" :direction="$sorts['name'] ?? null">
                 {{ __('Name') }}
                 @include('components.table.sort', ['field' => 'name'])
@@ -39,10 +41,10 @@
             </x-table.th>
         </x-slot>
         <x-table.tbody>
-            @forelse($subcategories as $id=>$subcategory)
-                <x-table.tr>
+            @forelse($subcategories as $subcategory)
+                <x-table.tr  wire:loading.class.delay="opacity-50" wire:key="row-{{ $subcategory->id }}">
                     <x-table.td>
-                        {{ $id }}
+                        <input type="checkbox" value="{{ $subcategory->id }}" wire:model="selected">
                     </x-table.td>
                     <x-table.td>
                         {{ $subcategory->name }}
@@ -60,11 +62,13 @@
                                 </button>
                             </x-slot>
                             <x-slot name="content">
-                                <x-button primary wire:click="$emit('editModal', {{ $subcategory->id }})"
+                                <x-button primary type="button" 
+                                 wire:click="$emit('editModal', {{ $subcategory->id }})"
                                     wire:loading.attr="disabled">
                                     <i class="fas fa-edit"></i>
                                 </x-button>
-                                <x-button danger wire:click="$emit('deleteModal', {{ $subcategory->id }})"
+                                <x-button danger type="button" 
+                                 wire:click="$emit('deleteModal', {{ $subcategory->id }})"
                                     wire:loading.attr="disabled">
                                     <i class="fas fa-trash"></i>
                                 </x-button>

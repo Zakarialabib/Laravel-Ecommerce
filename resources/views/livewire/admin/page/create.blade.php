@@ -29,11 +29,9 @@
                         <x-input-error :messages="$errors->get('image')" for="image" class="mt-2" />
                     </div>
                     <div class="w-full flex justify-start space-x-2">
-                        <x-button primary wire:click="create" wire:loading.attr="disabled">
+                        <x-button primary type="button"  
+                        wire:click="create" wire:loading.attr="disabled">
                             {{ __('Create') }}
-                        </x-button>
-                        <x-button primary type="button" wire:click="$set('createBrand', false)">
-                            {{ __('Cancel') }}
                         </x-button>
                     </div>
                 </div>

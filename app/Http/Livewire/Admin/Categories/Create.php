@@ -54,7 +54,7 @@ class Create extends Component
         $this->validate();
 
         if($this->image){
-            $imageName = Str::slug($this->category->name) . '-' . date('Y-m-d') . '.' . $this->image->extension();
+            $imageName = Str::slug($this->category->name) . '-' . date('Y-m-d H:i:s') . '.' . $this->image->extension();
             $this->image->storeAs('categories',$imageName);
             $this->category->image = $imageName;
         }
