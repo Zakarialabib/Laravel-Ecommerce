@@ -52,7 +52,18 @@ class ProductShow extends Component
         
         $this->emit('cartCountUpdated');
 
-        $this->alert('success', __('Product added to cart successfully!'));
+        $this->alert('success',
+        __('Product added to cart successfully!'),
+        [
+            'position' =>  'center',
+            'timer' =>  3000,  
+            'toast' =>  true, 
+            'text' =>  '', 
+            'confirmButtonText' =>  'Ok', 
+            'cancelButtonText' =>  'Cancel', 
+            'showCancelButton' =>  false, 
+            'showConfirmButton' =>  false, 
+        ]);
     }
 
     public function mount(Product $product)

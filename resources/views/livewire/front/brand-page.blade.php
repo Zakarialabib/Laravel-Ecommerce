@@ -2,19 +2,18 @@
     <div class="container mx-auto">
         <div class="w-full px-4 mb-6">
             <div class="relative bg-white overflow-hidden">
-                <img class="absolute right-0 top-0 w-1/2 h-full object-cover"
+                <img class="absolute right-0 top-0 md:w-1/2 sm:w-full h-full object-cover"
                     src="{{ asset('images/brands/' . $brand->featured_image) }}" alt="{{ $brand->name }}">
-
-                <div class="relative max-w-xl pl-6 lg:pl-20 py-20">
+                <div class="relative max-w-xl pl-6 lg:pl-20 py-10">
                     <span
                         class="px-3 py-1 border border-blue-500 rounded-full text-xs text-blue-500 font-bold font-heading uppercase">
                         {{ $brand->name }}
                     </span>
-                    <h2 class="mt-6 mb-8 text-5xl lg:text-6xl font-bold font-heading">
+                    <div class="mt-6 mb-8">
                         <img class="h-auto" src="{{ asset('images/brands/' . $brand->image) }}"
                             alt="{{ $brand->name }}">
-                    </h2>
-                    <p class="mb-20 text-lg text-gray-600">
+                    </div>
+                    <p class="mb-10 text-md text-gray-600">
                         {{ $brand->description }}
                     </p>
                     <div class="w-full lg:w-auto lg:mb-4 px-4 flex flex-wrap items-center">
@@ -28,7 +27,7 @@
                 </div>
             </div>
         </div>
-        <div class="w-full px-4 flex flex-wrap -mx-3 mb-24">
+        <div class="w-full px-4 flex flex-wrap -mx-2 mb-20">
             @forelse ($brand_products as $product)
                 <div class="sm:w-1/2 md:w-1/3 lg:w-1/4 px-3 mb-6">
                     <div class="p-6 bg-gray-50">
@@ -38,7 +37,7 @@
                                 -{{ $product->discount_percent }}%
                             </span>
                         @endif
-                        <a class="block px-6 mt-6 mb-2" href="{{ route('front.product', $product->slug) }}">
+                        <a class="block px-2 my-2" href="{{ route('front.product', $product->slug) }}">
                             <img class="mb-5 mx-auto h-56 w-full object-contain" loading="lazy"
                                 src="{{ asset('images/products/' . $product->image) }}" alt="{{ $product->name }}">
                             <h3 class="mb-2 text-xl font-bold font-heading">

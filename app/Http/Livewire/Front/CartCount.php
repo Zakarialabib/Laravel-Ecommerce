@@ -9,26 +9,25 @@ class CartCount extends Component
 {
     public $cartCount;
 
-    public function mount()
-    {
-        $this->cartCount = Cart::instance('shopping')->count();
-    }
-
     public $listeners = [
         'cartCountUpdated'
     ];
 
-    
+    public function getCartCountProperty()
+    {
+        return Cart::instance('shopping')->count();
+    }
+
     public function cartCountUpdated()
     {
-        $this->render();
+        $this->reset();
     }
- 
+    
     public function render()
     { 
-
         return view('livewire.front.cart-count');
     }
+
 
 
 }

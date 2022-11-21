@@ -4,9 +4,10 @@ namespace App;
 
 use Cache;
 use Str; 
-use Storage; 
 use App\Models\Category;
 use App\Models\Subcategory;
+use App\Models\Settings;
+use App\Models\Currency;
 
 class Helpers
 {
@@ -18,20 +19,17 @@ class Helpers
     public static function settings($key)
     {
         return Cache::rememberForever('settings', function () {
-            return \App\Models\Settings::pluck('value', 'key');
+            return Settings::pluck('value', 'key');
         })->get($key);
-        // return Cache::get('settings')->where('key', $key)->first()->value;
     }
-
-    // get productLink from product slug
-
+    
     public static function productLink($product)
     {
         if($product){
             return route('front.product', $product->slug);
-        }else{
-         return null;
         }
+         return null;
+
     }
     
     // get upload image to db from link
@@ -84,6 +82,22 @@ class Helpers
             'language' => '3',
             ])->id;
     }
+
+    public static function format_currency($value, $format = true)
+    {
+        if (! $format) {
+            return $value;
+        }
+
+        $currency = Currency::where('is_default', 1)->first();
+        $position = $currency->position;
+        $symbol = $currency->symbol;
+
+        return 'prefix' === $position
+            ? $symbol . number_format((float) $value, 2, '.', ',')
+            : number_format((float) $value, 2, '.', ',') . $symbol;
+    }
+
 
     
 }

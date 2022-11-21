@@ -1,5 +1,5 @@
 <div>
-    @if ($cartCount > 0)
+    @if ($this->cartCount > 0)
         <a x-on:click="showCart = true" href="#"
             class="flex text-sm border-2 border-transparent rounded-full focus:outline-none focus:border-gray-300 transition duration-150 ease-in-out">
             
@@ -16,7 +16,7 @@
             </svg>
             <span
                 class="inline-block w-6 h-6 text-center bg-gray-100 rounded-full font-semibold font-heading text-gray-900">
-                {{ $cartCount }}
+                {{ $this->cartCount }}
             </span>
         </a>
     @else
@@ -34,7 +34,7 @@
             </svg>
             <span
                 class="inline-block w-7 h-7 text-center bg-gray-100 rounded-full font-semibold font-heading text-gray-900">
-                {{ $cartCount }}
+                {{ $this->cartCount }}
             </span>
         </a>
     @endif

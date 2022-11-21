@@ -78,12 +78,12 @@
                         <div class="py-6 px-2 text-center bg-gray-50">
                             <a class="font-bold font-heading" href="#">{{ __('Category') }}</a>
                             <ul class="mt-6 -mb-2 flex overflow-x-scroll">
-                                @forelse ($categories as $category)
+                                @forelse ($this->categories as $category)
                                     <li class="w-1/2 px-2 mb-2">
                                         <x-button type="button" wire:click="filterCategories({{ $category->id }})"
                                             dangerOutline>{{ $category->name }}</x-button>
                                         <ul class="hidden text-left mt-2">
-                                            @foreach ($category->subcategories as $subcategory)
+                                            @foreach ($this->category->subcategories as $subcategory)
                                                 <li class="w-1/2 px-2 mb-2">
                                                     <x-button type="button"
                                                         wire:click="filterSubCategories({{ $subcategory->id }})"
@@ -125,7 +125,7 @@
                         <div class="py-6 px-4 text-center bg-gray-50">
                             <a class="font-bold font-heading" href="#">{{ __('Brands') }}</a>
                             <div class="mt-6 -mb-2 flex overflow-x-scroll">
-                                @foreach ($brands as $brand)
+                                @foreach ($this->brands as $brand)
                                     <div class="w-1/2 px-2 mb-2">
                                         <x-button type="button" wire:click="filterBrands({{ $brand->id }})"
                                             warningOutline>
@@ -143,7 +143,7 @@
                     <h3 class="mb-8 text-2xl font-bold font-heading">{{ __('Category') }}</h3>
                     {{-- make tree categories and subcategories  --}}
                     <ul class="px-4 -mx-4">
-                        @foreach ($categories as $category)
+                        @foreach ($this->categories as $category)
                             <li class="mx-2 mb-2">
                                 <button type="button" wire:click="filterCategories({{ $category->id }})">
                                     <span class="inline-block px-4 py-2 text-sm font-bold font-heading text-blue-300">
@@ -184,7 +184,7 @@
                 <div class="mb-6 p-8 bg-gray-50">
                     <h3 class="mb-8 text-2xl font-bold font-heading">{{ __('Brands') }}</h3>
                     <ul class="flex flex-wrap items-center -mx-4">
-                        @foreach ($brands as $brand)
+                        @foreach ($this->brands as $brand)
                             <li class="mx-2 mb-2">
                                 <x-button type="button" class="mx-2"
                                     wire:click="filterBrands({{ $brand->id }})" dangerOutline>
@@ -198,7 +198,7 @@
             <div class="w-full lg:w-3/4 px-3">
                 @if ($view == 'list')
                     <div class="w-full lg:w-3/4 px-3">
-                        @foreach ($products as $product)
+                        @foreach ($this->products as $product)
                             <div class="relative mb-6 bg-gray-50">
                                 @if ($product->old_price)
                                     <span
@@ -262,7 +262,7 @@
                     </div>
                 @elseif ($view == 'grid')
                     <div class="flex flex-wrap -mx-3 mb-24">
-                        @foreach ($products as $product)
+                        @foreach ($this->products as $product)
                             <div class="sm:w-1/2 md:w-1/3 lg:w-1/4 px-3 mb-6">
                                 <div class="p-2 bg-gray-50">
                                     @if ($product->old_price)
@@ -298,7 +298,7 @@
                         @endforeach
                     </div>
                     <div class="text-center">
-                        {{ $products->links() }}
+                        {{ $this->products->links() }}
                     </div>
                 @endif
             </div>

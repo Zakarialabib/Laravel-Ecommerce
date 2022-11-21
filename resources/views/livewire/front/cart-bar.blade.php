@@ -1,6 +1,3 @@
-{{-- showCart hidden when click show  with alpine  --}}
-
-
 <div>
     <div 
         class="fixed inset-0 overflow-hidden z-50"
