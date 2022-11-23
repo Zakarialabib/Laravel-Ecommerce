@@ -1,6 +1,14 @@
 <div>
     <div class="flex flex-wrap justify-center">
         <div class="lg:w-1/2 md:w-1/2 sm:w-full flex flex-col my-md-0 my-2">
+            @if ($this->selectedCount)
+                <p class="text-sm leading-5">
+                    <span class="font-medium">
+                        {{ $this->selectedCount }}
+                    </span>
+                    {{ __('Entries selected') }}
+                </p>
+            @endif
             <div class="my-2 my-md-0">
                 <p class="leading-5 text-black dark:text-gray-300 mb-1 text-sm ">
                     {{ __('Show items per page') }}
@@ -85,14 +93,6 @@
 
     <div class="card-body">
         <div class="pt-3">
-            @if ($this->selectedCount)
-                <p class="text-sm leading-5">
-                    <span class="font-medium">
-                        {{ $this->selectedCount }}
-                    </span>
-                    {{ __('Entries selected') }}
-                </p>
-            @endif
             {{ $blogcategories->links() }}
         </div>
     </div>

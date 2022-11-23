@@ -4,7 +4,7 @@
             <div class="relative bg-white overflow-hidden">
                 <img class="absolute right-0 top-0 md:w-1/2 sm:w-full h-full object-cover"
                     src="{{ asset('images/brands/' . $brand->featured_image) }}" alt="{{ $brand->name }}">
-                <div class="relative max-w-xl pl-6 lg:pl-20 py-10">
+                <div class="relative max-w-xl pl-6 lg:pl-20 py-10 bg-white bg-opactity-75">
                     <span
                         class="px-3 py-1 border border-blue-500 rounded-full text-xs text-blue-500 font-bold font-heading uppercase">
                         {{ $brand->name }}
@@ -13,7 +13,7 @@
                         <img class="h-auto" src="{{ asset('images/brands/' . $brand->image) }}"
                             alt="{{ $brand->name }}">
                     </div>
-                    <p class="mb-10 text-md text-gray-600">
+                    <p class="mb-10 px-5 text-md text-gray-800">
                         {{ $brand->description }}
                     </p>
                     <div class="w-full lg:w-auto lg:mb-4 px-4 flex flex-wrap items-center">
@@ -30,7 +30,7 @@
         <div class="w-full px-4 flex flex-wrap -mx-2 mb-20">
             @forelse ($brand_products as $product)
                 <div class="sm:w-1/2 md:w-1/3 lg:w-1/4 px-3 mb-6">
-                    <div class="p-6 bg-gray-50">
+                    <div class="p-4 bg-gray-50">
                         @if ($product->is_discount)
                             <span
                                 class="absolute top-0 left-0 ml-6 mt-6 px-2 py-1 text-xs font-bold font-heading bg-white border-2 border-red-500 rounded-full text-red-500">

@@ -14,14 +14,14 @@
                     <div class="xl:w-1/2 md:w-1/2 px-3">
                         <x-label for="name" :value="__('Name')" />
                         <x-input id="name" class="block mt-1 w-full" type="text" name="name"
-                            wire:model.defer="brand.name" />
-                        <x-input-error :messages="$errors->get('brand.name')" for="brand.name" class="mt-2" />
+                            wire:model.defer="blog.name" />
+                        <x-input-error :messages="$errors->get('blog.name')" for="blog.name" class="mt-2" />
                     </div>
                     <div class="xl:w-1/2 md:w-1/2 px-3">
                         <x-label for="link" :value="__('Link')" />
                         <x-input id="link" class="block mt-1 w-full" type="text" name="link"
-                            wire:model.defer="brand.link" />
-                        <x-input-error :messages="$errors->get('brand.link')" for="brand.link" class="mt-2" />
+                            wire:model.defer="blog.link" />
+                        <x-input-error :messages="$errors->get('blog.link')" for="blog.link" class="mt-2" />
                     </div>
                     <div class="w-full py-2 px-3">
                         <x-label for="image" :value="__('Image')" />

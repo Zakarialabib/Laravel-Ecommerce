@@ -83,7 +83,7 @@
                                         <x-button type="button" wire:click="filterCategories({{ $category->id }})"
                                             dangerOutline>{{ $category->name }}</x-button>
                                         <ul class="hidden text-left mt-2">
-                                            @foreach ($this->category->subcategories as $subcategory)
+                                            @foreach ($category->subcategories as $subcategory)
                                                 <li class="w-1/2 px-2 mb-2">
                                                     <x-button type="button"
                                                         wire:click="filterSubCategories({{ $subcategory->id }})"

@@ -126,8 +126,7 @@
 
                     <div class="w-full px-3 mb-6 md:mb-0">
                         <x-label for="description" :value="__('Description')" />
-                        <x-input id="description" class="block mt-1 w-full" type="text" name="description"
-                            wire:model.defer="brand.description" />
+                        <x-input.rich-text wire:model.lazy="brand.description" id="description" />
                         <x-input-error :messages="$errors->get('brand.description')" for="brand.description" class="mt-2" />
                     </div>
 

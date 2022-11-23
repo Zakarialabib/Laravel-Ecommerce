@@ -8,7 +8,6 @@
         <x-slot name="content">
             <form wire:submit.prevent="create">
                 <x-auth-validation-errors class="mb-4" :errors="$errors" />
-                <x-auth-validation-errors class="mb-4" :errors="$errors" />
                 <div>
                     <div class="flex flex-wrap -mx-2 mb-3">
                         <div class="w-full lg:w-1/2 px-3 mb-6 lg:mb-0">
@@ -26,9 +25,7 @@
                     </div>
                     <div class="w-full px-3 mb-6 lg:mb-0">
                         <x-label for="description" :value="__('Description')" />
-                        <textarea rows="4" wire:model="product.description" name="description"
-                            class="block w-full px-4 py-3 mb-2 text-sm placeholder-gray-500 bg-white border rounded">
-                                </textarea>
+                        <x-input.rich-text wire:model.lazy="product.description" id="description" />
                     </div>
 
                     <div class="flex flex-wrap -mx-2 mb-3">

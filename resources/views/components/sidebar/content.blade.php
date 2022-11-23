@@ -73,7 +73,7 @@
     </x-sidebar.dropdown>
 {{-- Settings --}}
 
-    @can('access_user_management')
+    {{-- @can('access_user_management') --}}
         <x-sidebar.dropdown title="{{ __('People') }}" :active="Str::startsWith(
             request()
                 ->route()
@@ -85,18 +85,18 @@
                     <i class="fas fa-users w-5 h-5"></i>
                 </span>
             </x-slot>
-            @can('user_access')
+            {{-- @can('user_access') --}}
                 <x-sidebar.sublink title="{{ __('Users') }}" href="{{ route('admin.users') }}" :active="request()->routeIs('admin.users')" />
-            @endcan
-            @can('role_access')
+            {{-- @endcan
+            @can('role_access') --}}
                 <x-sidebar.sublink title="{{ __('Roles') }}" href="{{ route('admin.roles') }}" :active="request()->routeIs('admin.roles')" />
-            @endcan
-            @can('permission_access')
+            {{-- @endcan
+            @can('permission_access') --}}
                 <x-sidebar.sublink title="{{ __('Permissions') }}" href="{{ route('admin.permissions') }}"
                     :active="request()->routeIs('admin.permissions')" />
-            @endcan
+            {{-- @endcan --}}
         </x-sidebar.dropdown>
-    @endcan
+    {{-- @endcan --}}
 
     <x-sidebar.dropdown title="{{ __('Pages Settings') }}" :active="Str::startsWith( request()->route()->uri(), 'pages', )">
         <x-slot name="icon">
@@ -107,8 +107,8 @@
         <x-sidebar.sublink title="{{ __('Pages') }}" href="{{ route('admin.pages') }}" :active="request()->routeIs('admin.pages')" />
         <x-sidebar.sublink title="{{ __('Sections') }}" href="{{ route('admin.sections') }}" :active="request()->routeIs('admin.sections')" />
         <x-sidebar.sublink title="{{ __('Sliders') }}" href="{{ route('admin.sliders') }}" :active="request()->routeIs('admin.sliders')" />
-        
         <x-sidebar.sublink title="{{ __('Featured Banners') }}" href="{{ route('admin.featuredBanners') }}" :active="request()->routeIs('admin.featuredBanners')" />
+        
         <x-sidebar.sublink title="{{ __('Contact Us Page') }}" href="{{ route('admin.page.contact') }}" :active="request()->routeIs('admin.page.contact')" />
         <x-sidebar.sublink title="{{ __('Site Content') }}" href="{{ route('admin.setting.content') }}" :active="request()->routeIs('admin.setting.content')" />
         <x-sidebar.sublink title="{{ __('Home Page Customization') }}" href="{{ route('admin.setting.customize') }}" :active="request()->routeIs('admin.setting.customize')" />
@@ -130,8 +130,6 @@
             <x-sidebar.sublink title="{{ __('Settings') }}" href="{{ route('admin.settings') }}" :active="request()->routeIs('admin.settings')" />
             @endcan
             <x-sidebar.sublink title="{{ __('Shipping') }}" href="{{ route('admin.setting.shipping') }}" :active="request()->routeIs('admin.setting.shipping')" />
-            
-            <x-sidebar.sublink title="{{ __('Roles') }}" href="{{ route('admin.roles') }}" :active="request()->routeIs('admin.roles')" />
 
         </x-sidebar.dropdown>
 

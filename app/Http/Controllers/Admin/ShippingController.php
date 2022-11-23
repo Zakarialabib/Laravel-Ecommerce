@@ -12,23 +12,6 @@ use App\Http\Controllers\Controller;
 
 class ShippingController extends Controller
 {
-    //*** JSON Request
-    public function datatables()
-    {
-         $datas = Shipping::all();
-         //--- Integrating This Collection Into Datatables
-         return Datatables::of($datas)
-                            ->editColumn('price', function(Shipping $data) {
-                                $price = $data->price * $this->curr->value;
-                                return \PriceHelper::showAdminCurrencyPrice($price);
-                            })
-                            ->addColumn('action', function(Shipping $data) {
-                                return '<div class="action-list"><a data-href="' . route('admin-shipping-edit',$data->id) . '" class="edit" data-toggle="modal" data-target="#modal1"> <i class="fas fa-edit"></i>'.__('Edit').'</a><a href="javascript:;" data-href="' . route('admin-shipping-delete',$data->id) . '" data-toggle="modal" data-target="#confirm-delete" class="delete"><i class="fas fa-trash-alt"></i></a></div>';
-                            }) 
-                            ->rawColumns(['action'])
-                            ->toJson(); //--- Returning Json Data To Client Side
-    }
-
 
     public function index()
     {

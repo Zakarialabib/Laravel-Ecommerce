@@ -1,6 +1,15 @@
 <div>
     <div class="flex flex-wrap justify-center">
+
         <div class="lg:w-1/2 md:w-1/2 sm:w-full flex flex-wrap my-md-0 my-2">
+            @if ($this->selectedCount)
+                <p class="text-sm leading-5">
+                    <span class="font-medium">
+                        {{ $this->selectedCount }}
+                    </span>
+                    {{ __('Entries selected') }}
+                </p>
+            @endif
             <select wire:model="perPage"
                 class="w-20 block p-3 leading-5 bg-white dark:bg-dark-eval-2 text-gray-700 dark:text-gray-300 rounded border border-zinc-300 mb-1 text-sm focus:shadow-outline-blue focus:border-blue-300 mr-3">
                 @foreach ($paginationOptions as $value)
@@ -42,11 +51,11 @@
                         <x-table.td>
                             {{ $role->name }}
                         </x-table.td>
-                        <x-table.td class="overflow-hidden text-clip whitespace-pre" style="white-space: initial">
+                        <x-table.td class="overflo-x-auto text-clip whitespace-pre" style="white-space: initial">
                             @foreach($role->permissions as $permission)
-                                <span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2">
+                                <x-badge info>
                                     {{ $permission->title }}
-                                </span>
+                                </x-badge>
                             @endforeach
                         </x-table.td>
                         <x-table.td>
@@ -77,14 +86,6 @@
 
     <div class="card-body">
         <div class="pt-3">
-            @if ($this->selectedCount)
-                <p class="text-sm leading-5">
-                    <span class="font-medium">
-                        {{ $this->selectedCount }}
-                    </span>
-                    {{ __('Entries selected') }}
-                </p>
-            @endif
             {{ $roles->links() }}
         </div>
     </div>

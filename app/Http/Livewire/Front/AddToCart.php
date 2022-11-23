@@ -32,8 +32,6 @@ class AddToCart extends Component
         $this->product_qty = $this->quantity;
 
         Cart::instance('shopping')->add($this->product_id, $this->product_name, $this->product_qty, $this->product_price)->associate('App\Models\Product');
-        
-        $this->emit('cartCountUpdated');
 
         $this->alert('success',
             __('Product added to cart successfully!'),

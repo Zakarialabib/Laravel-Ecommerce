@@ -16,13 +16,14 @@ class CartBar extends Component
     public $removeFromCart;
 
     public $showCart = false;
-
+    
     public $listeners = [
-        'showCart' => 'showCart',
-        'hideCart' => 'hideCart',
-        'decreaseQuantity' => 'decreaseQuantity',
-        'increaseQuantity' => 'increaseQuantity',
-        'removeFromCart' => 'removeFromCart',
+        'showCart',
+        'hideCart' ,
+        'decreaseQuantity' ,
+        'increaseQuantity' ,
+        'removeFromCart' ,
+        'cartBarUpdated'
     ];
     
     public $shipping;
@@ -34,14 +35,17 @@ class CartBar extends Component
     {
         $this->showCart = true;
     }
+    
+    // decreaseQuantity 
 
     public function decreaseQuantity($rowId)
     {
-        $cart = Cart::instance('shopping')->get($rowId);
-        
-        $qty = $cart->qty - 1;
-        
+        dd(Cart::get($rowId));
+
+        $item = Cart::instance('shopping')->get($rowId);
+        $qty = $item->qty - 1;
         Cart::instance('shopping')->update($rowId, $qty);
+        $this->emit('cartBarUpdated');
     }
 
     public function increaseQuantity($rowId)
@@ -57,14 +61,18 @@ class CartBar extends Component
     {
         Cart::instance('shopping')->remove($rowId);
     }
+    
+    public function cartbarUpdated()
+    {
+        $this->cartTotal = Cart::instance('shopping')->total();
 
-   
+        $this->cartItems =  Cart::instance('shopping')->content();
+
+    }
 
     public function mount()
     {
         $this->cartTotal = Cart::instance('shopping')->total();
-        
-        $this->cartCount = Cart::instance('shopping')->count();
 
         $this->cartItems =  Cart::instance('shopping')->content();
         

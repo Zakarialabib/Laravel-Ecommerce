@@ -13,14 +13,14 @@ class CartCount extends Component
         'cartCountUpdated'
     ];
 
-    public function getCartCountProperty()
+    public function mount()
     {
-        return Cart::instance('shopping')->count();
+        $this->cartCount = Cart::instance('shopping')->count();
     }
 
     public function cartCountUpdated()
     {
-        $this->reset();
+        $this->cartCount = Cart::instance('shopping')->count();
     }
     
     public function render()

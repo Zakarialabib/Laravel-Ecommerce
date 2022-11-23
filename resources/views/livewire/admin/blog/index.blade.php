@@ -1,6 +1,14 @@
 <div>
     <div class="flex flex-wrap justify-center">
         <div class="lg:w-1/2 md:w-1/2 sm:w-full flex flex-col my-md-0 my-2">
+            @if ($this->selectedCount)
+                <p class="text-sm leading-5">
+                    <span class="font-medium">
+                        {{ $this->selectedCount }}
+                    </span>
+                    {{ __('Entries selected') }}
+                </p>
+            @endif
             <div class="my-2 my-md-0">
                 <p class="leading-5 text-black dark:text-gray-300 mb-1 text-sm ">
                     {{ __('Show items per page') }}
@@ -98,21 +106,13 @@
 
     <div class="card-body">
         <div class="pt-3">
-            @if ($this->selectedCount)
-                <p class="text-sm leading-5">
-                    <span class="font-medium">
-                        {{ $this->selectedCount }}
-                    </span>
-                    {{ __('Entries selected') }}
-                </p>
-            @endif
             {{ $blogs->links() }}
         </div>
     </div>
  <!-- Edit Modal -->
  <x-modal wire:model="editModal">
     <x-slot name="title">
-        {{ __('Edit Category') }}
+        {{ __('Edit Blog') }}
     </x-slot>
 
     <x-slot name="content">
@@ -136,6 +136,11 @@
                             :options="$this->listsForFields['categories']" />
                     <x-input-error :messages="$errors->get('blog.category_id')" for="blog.category_id"
                         class="mt-2" />
+                </div>
+
+                <div class="w-full px-3 mb-4">
+                    <x-label for="language_id" :value="__('Description')" required />
+                <x-input.rich-text wire:model.lazy="blog.description" id="description" />
                 </div>
 
                 <div class="xl:w-1/2 md:w-1/2 px-3">

@@ -184,7 +184,7 @@
 
                                     <tr>
                                         <th>{{ __('Description') }}</th>
-                                        <td>{{ $product->description ?? 'N/A' }}</td>
+                                        <td>{!! $product->description !!}</td>
                                     </tr>
                                 </table>
                             </div>
@@ -264,9 +264,7 @@
 
                         <div class="w-full mb-4">
                             <x-label for="description" :value="__('Description')" />
-                            <textarea rows="4" wire:model="product.description" name="description"
-                                class="block w-full px-4 py-3 mb-2 text-sm placeholder-gray-500 bg-white border rounded">
-                                    </textarea>
+                            <x-input.rich-text wire:model.lazy="product.description" id="description" />
                         </div>
 
                     </div>

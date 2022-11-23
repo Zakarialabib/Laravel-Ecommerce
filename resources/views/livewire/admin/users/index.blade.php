@@ -8,10 +8,18 @@
                 {{ $value }}">{{ $value }}</option>
                 @endforeach
             </select>
-            @if($this->selected)
-            <x-button danger type="button"  wire:click="deleteSelected" class="ml-3">
-                <i class="fas fa-trash"></i>
-            </x-button>
+            @if ($this->selected)
+                <x-button danger type="button" wire:click="deleteSelected" class="ml-3">
+                    <i class="fas fa-trash"></i>
+                </x-button>
+            @endif
+            @if ($this->selectedCount)
+                <p class="text-sm leading-5">
+                    <span class="font-medium">
+                        {{ $this->selectedCount }}
+                    </span>
+                    {{ __('Entries selected') }}
+                </p>
             @endif
         </div>
         <div class="lg:w-1/2 md:w-1/2 sm:w-full my-2 my-md-0">
@@ -31,24 +39,14 @@
             <x-table.th class="pr-0 w-8">
                 <input type="checkbox" wire:model="selectPage" />
             </x-table.th>
-            <x-table.th sortable wire:click="sortBy('created_at')" :direction="$sorts['created_at'] ?? null">
-                {{ __('Date') }}
-                @include('components.table.sort', ['field' => 'created_at'])
-            </x-table.th>
-            <x-table.th sortable wire:click="sortBy('name')" :direction="$sorts['name'] ?? null">
+            <x-table.th sortable wire:click="sortBy('first_name')" :direction="$sorts['first_name'] ?? null">
                 {{ __('Name') }}
-                @include('components.table.sort', ['field' => 'name'])
-            </x-table.th>
-            <x-table.th sortable wire:click="sortBy('email')" :direction="$sorts['email'] ?? null">
-                {{ __('Email') }}
-                @include('components.table.sort', ['field' => 'email'])
             </x-table.th>
             <x-table.th>
                 {{ __('Phone') }}
             </x-table.th>
             <x-table.th sortable wire:click="sortBy('status')" :direction="$sorts['status'] ?? null">
                 {{ __('Status') }}
-                @include('components.table.sort', ['field' => 'status'])
             </x-table.th>
             <x-table.th>
                 {{ __('Roles') }}
@@ -64,12 +62,7 @@
                         <input type="checkbox" value="{{ $user->id }}" wire:model="selected">
                     </x-table.td>
                     <x-table.td>
-                        {{ $user->created_at->format('d / m / Y') }}
-                    </x-table.td>
-                    <x-table.td>
-                        {{ $user->name }}
-                    </x-table.td>
-                    <x-table.td>
+                        {{ $user->first_name }} - 
                         <a class="link-light-blue" href="mailto:{{ $user->email }}">
                             {{ $user->email }}
                         </a>
@@ -82,20 +75,24 @@
                     </x-table.td>
 
                     <x-table.td>
-                        @foreach ($user->roles as $role)
-                            <x-badge primary>{{ $role->name }}</x-badge>
-                        @endforeach
+                        <select wire:model="role" class="form-control">
+                            {{-- <option value="">{{ $user->roles->name }}</option> --}}
+                            @foreach ($this->roles as $id => $name)
+                                <option value="{{ $id }}">{{ $name }}</option>
+                            @endforeach
+                        </select>
                     </x-table.td>
                     <x-table.td>
                         <div class="flex justify-start space-x-2">
-                            <x-button secondary wire:click="showModal({{ $user->id }})" type="button" 
+                            <x-button secondary wire:click="showModal({{ $user->id }})" type="button"
                                 wire:loading.attr="disabled">
                                 <i class="fas fa-eye"></i>
                             </x-button>
-                            <x-button primary type="button"  wire:click="editModal({{ $user->id }})" wire:loading.attr="disabled">
+                            <x-button primary type="button" wire:click="editModal({{ $user->id }})"
+                                wire:loading.attr="disabled">
                                 <i class="fas fa-edit"></i>
                             </x-button>
-                            <x-button danger type="button"  wire:click="$emit('deleteModal', {{ $user->id }})"
+                            <x-button danger type="button" wire:click="$emit('deleteModal', {{ $user->id }})"
                                 wire:loading.attr="disabled">
                                 <i class="fas fa-trash"></i>
                             </x-button>
@@ -114,14 +111,6 @@
 
     <div class="p-4">
         <div class="pt-3">
-            @if ($this->selectedCount)
-                <p class="text-sm leading-5">
-                    <span class="font-medium">
-                        {{ $this->selectedCount }}
-                    </span>
-                    {{ __('Entries selected') }}
-                </p>
-            @endif
             {{ $users->links() }}
         </div>
     </div>
@@ -182,8 +171,8 @@
                 <div class="flex flex-wrap -mx-2 mb-3">
                     <div class="w-full lg:w-1/2 px-3 mb-6 lg:mb-0">
                         <x-label for="name" :value="__('Name')" required />
-                        <x-input id="name" class="block mt-1 w-full" type="text" wire:model.defer="user.name"
-                            required />
+                        <x-input id="name" class="block mt-1 w-full" type="text"
+                            wire:model.defer="user.name" required />
                         <x-input-error :messages="$errors->get('user.name')" class="mt-2" />
                     </div>
 
@@ -195,7 +184,7 @@
                     </div>
 
                     <div class="w-full lg:w-1/2 px-3 mb-6 lg:mb-0">
-                        <label for="role">{{__('Role')}} <span class="text-red-500">*</span></label>
+                        <label for="role">{{ __('Role') }} <span class="text-red-500">*</span></label>
                         <select wire:model.defer="user.role"
                             class="block w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm border-gray-300 rounded-md mt-1"
                             name="role" id="role" required>
@@ -266,7 +255,7 @@
         </x-slot>
     </x-modal>
 
-    <livewire:users.create />
+    <livewire:admin.users.create />
 
 </div>
 

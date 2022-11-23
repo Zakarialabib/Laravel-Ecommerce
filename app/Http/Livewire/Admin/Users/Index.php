@@ -3,6 +3,7 @@
 namespace App\Http\Livewire\Admin\Users;
 
 use App\Models\User;
+use App\Models\Role;
 use Illuminate\Support\Facades\Gate;
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -16,6 +17,8 @@ class Index extends Component
     public $listeners = ['confirmDelete', 'delete', 'export', 'import','refreshIndex','showModal','editModal'];
 
     public $showModal;
+
+    public $role;
 
     public $editModal;
 
@@ -84,7 +87,7 @@ class Index extends Component
         $this->sortBy            = 'id';
         $this->sortDirection     = 'desc';
         $this->perPage           = 100;
-        $this->paginationOptions = config('project.pagination.options');
+        $this->paginationOptions = [25, 50, 100];
         $this->orderable         = (new User())->orderable;
     }
 
@@ -100,8 +103,21 @@ class Index extends Component
 
         $users = $query->paginate($this->perPage);
 
-        return view('livewire.users.index', compact('users'));
+        return view('livewire.admin.users.index', compact('users'));
     }
+
+    // getrolesproperty
+    public function getRolesProperty()
+    {
+        return Role::pluck('name', 'id');
+    }
+
+    // assign or change user role
+    public function assignRole(User $user, $role)
+    {
+        $user->assignRole($role);
+    }
+    
 
     public function deleteSelected()
     {

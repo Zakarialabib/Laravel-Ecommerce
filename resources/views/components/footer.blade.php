@@ -1,10 +1,10 @@
 <section class="py-10 px-5 bg-gray-900">
     <div class="container mx-auto">
-        <div class="flex flex-wrap -mx-4 pb-6 lg:pb-10 border-b border-gray-400">
+        <div class="flex flex-wrap -mx-4 pb-6 lg:pb-4 border-b border-gray-400">
             <div class="w-full lg:w-3/5 px-4 mb-20">
                 <div class="flex flex-wrap -mx-4">
                     <div class="w-full md:w-1/2 lg:w-1/3 px-4 mb-10 lg:mb-0">
-                        <h3 class="mb-8 text-xl font-bold font-heading text-white">{{ __('Information') }}</h3>
+                        <h3 class="mb-8 text-xl font-bold font-heading text-white border-b border-orange-400">{{ __('Information') }}</h3>
                         <ul>
                             <li class="mb-6"><a class="text-gray-50 hover:text-gray-200"
                                     href="{{ route('front.blog') }}">
@@ -17,7 +17,7 @@
                         </ul>
                     </div>
                     <div class="w-full md:w-1/2 lg:w-1/3 px-4 mb-10 lg:mb-0">
-                        <h3 class="mb-8 text-xl font-bold font-heading text-white">{{ __('Customer Service') }}</h3>
+                        <h3 class="mb-8 text-xl font-bold font-heading text-white border-b border-orange-400">{{ __('Customer Service') }}</h3>
                         <ul>
                             <li class="mb-6"><a class="text-gray-50 hover:text-gray-200"
                                     href="#">{{ __('Orders and Returns') }}</a></li>
@@ -29,7 +29,7 @@
                         </ul>
                     </div>
                     <div class="w-full md:w-1/2 lg:w-1/3 px-4 mb-4">
-                        <h3 class="mb-8 text-xl text-white font-bold font-heading">{{ __('Contact Us') }}</h3>
+                        <h3 class="mb-8 text-xl text-white font-bold font-heading border-b border-orange-400">{{ __('Contact Us') }}</h3>
                         <ul>
                             <li class="mb-6">
                                 <h4 class="mb-2 text-gray-50">{{ __('Telephone') }}</h4>
@@ -58,29 +58,30 @@
             </div>
             <div class="w-full lg:w-2/5 px-4 order-first lg:order-1 mb-20">
                <livewire:front.newsletters />
-            </div>
-            <div class="w-full px-4 flex flex-wrap justify-between lg:order-last">
+               <div class="w-full flex flex-wrap justify-between">
                 <div class="w-full md:w-auto flex">
                     <a class="inline-flex items-center justify-center w-12 h-12 mr-2 rounded-full"
                         href="{{ Helpers::settings('social_facebook') }}">
-                        <i class="fab fa-facebook-f text-white"></i>
+                        <i class="fab fa-facebook-f text-xl text-white"></i>
                     </a>
                     <a class="inline-flex items-center justify-center w-12 h-12 mr-2 rounded-full"
                         href="{{ Helpers::settings('social_instagram') }}">
-                        <i class="fab fa-instagram text-white"></i>
+                        <i class="fab fa-instagram text-xl text-white"></i>
                     </a>
                     <a class="inline-flex items-center justify-center w-12 h-12 rounded-full"
                         href="{{ Helpers::settings('social_twitter') }}">
-                        <i class="fab fa-twitter text-white"></i>
+                        <i class="fab fa-twitter text-xl text-white"></i>
                     </a>
                     <a class="inline-flex items-center justify-center w-12 h-12 rounded-full"
                         href="{{ Helpers::settings('social_linkedin') }}">
-                        <i class="fab fa-linkedin-in text-white"></i>
+                        <i class="fab fa-linkedin-in text-xl text-white"></i>
                     </a>
                 </div>
             </div>
+            </div>
+            
         </div>
-        <div class="pt-14 flex items-center justify-center">
+        <div class="pt-10 flex items-center justify-center">
             <a class="inline-block mr-4 text-white text-2xl font-bold font-heading" href="#">
                 <img class="h-7" src="{{ asset('images/' . Helpers::settings('site_logo')) }}"
                     alt="{{ Helpers::settings('site_title') }}" width="auto">

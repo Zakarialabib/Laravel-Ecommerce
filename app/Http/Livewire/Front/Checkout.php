@@ -97,8 +97,6 @@ class Checkout extends Component
     public function mount()
     {
         $this->cartTotal = Cart::instance('shopping')->total();
-        
-        $this->cartCount = Cart::instance('shopping')->count();
 
         $this->cartItems =  Cart::instance('shopping')->content();
 

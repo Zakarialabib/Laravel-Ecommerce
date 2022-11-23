@@ -5,7 +5,7 @@ use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\BrandController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\OrderController;
-use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\Admin\UsersController;
 use App\Http\Controllers\Admin\RolesController;
 use App\Http\Controllers\Admin\SectionController;
 use App\Http\Controllers\Admin\FeaturedBannerController;
@@ -36,12 +36,12 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => 'auth'], fu
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
     Route::get('/categories', [CategoryController::class, 'index'])->name('categories');
     Route::get('/subcategories', [CategoryController::class, 'subcategories'])->name('subcategories');
-    Route::get('/brand', [BrandController::class, 'index'])->name('brands');
+    Route::get('/brands', [BrandController::class, 'index'])->name('brands');
     Route::get('/products', [ProductController::class, 'index'])->name('products');
     
     Route::get('/orders', [OrderController::class, 'index'])->name('orders');
 
-    Route::get('/users', [UserController::class, 'index'])->name('users');
+    Route::get('/users', [UsersController::class, 'index'])->name('users');
 
     Route::get('/sections', [SectionController::class, 'index'])->name('sections');
     Route::get('/section/create', [SectionController::class, 'create'])->name('section.create');
@@ -70,6 +70,6 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => 'auth'], fu
     Route::get('/smpt', [SmptController::class, 'index'])->name('smpt');
     Route::get('/language', [LanguageController::class, 'index'])->name('language');
     Route::get('/roles', [RolesController::class, 'index'])->name('roles');
-    Route::get('/permissions', [UserController::class, 'permissions'])->name('permissions');
+    Route::get('/permissions', [UsersController::class, 'permissions'])->name('permissions');
     Route::get('/currencies', [SettingController::class, 'currencies'])->name('currencies');
 });

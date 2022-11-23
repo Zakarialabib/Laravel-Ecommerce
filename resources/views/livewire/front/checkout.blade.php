@@ -156,8 +156,6 @@
             <div class="py-16 px-6 md:px-14 bg-white">
                 <div class="flex mb-5 items-center">
                     <h2 class="text-4xl font-bold font-heading">{{ __('Order summary') }}</h2>
-                    <span
-                        class="flex-shrink-0 inline-flex ml-4 w-8 h-8 items-center justify-center rounded-full bg-orange-300 text-white">{{ $cartCount }}</span>
                 </div>
                 <div class="mb-5 pb-10 border-b">
                     <div class="flex flex-wrap -mx-4 mb-5 items-center">

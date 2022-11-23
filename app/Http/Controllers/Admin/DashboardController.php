@@ -42,6 +42,28 @@ class DashboardController extends Controller
         $data['poproducts'] = Product::with('category')->latest('id')->take(5)->get();
         $data['rusers'] = User::latest('id')->take(5)->get();
 
+        $data = array(
+            'today' => array(
+                'countCustomers' => User::whereDate('created_at', '>=', Carbon::now())->count(),
+                'ordersCount' => Order::whereDate('created_at', '>=', Carbon::now())->count(),
+
+            ),
+            'month' => array(
+                'countCustomers' => User::whereDate('created_at', '>=', Carbon::now()->subMonth())->count(),
+                'ordersCount' => Order::whereDate('created_at', '>=', Carbon::now()->subMonth())->count(),
+
+            ),
+            'semi' => array(
+                'countCustomers' => User::whereDate('created_at', '>=', Carbon::now()->subMonths(6))->count(),
+                'ordersCount' => Order::whereDate('created_at', '>=', Carbon::now()->subMonths(6))->count(),
+
+            ),
+            'year' => array(
+                'countCustomers' => User::whereDate('created_at', '>=', Carbon::now()->subYear())->count(),
+                'ordersCount' => Order::whereDate('created_at', '>=', Carbon::now()->subYear())->count(),
+            ),
+        );
+
         return view('admin.dashboard',$data);
     }
 

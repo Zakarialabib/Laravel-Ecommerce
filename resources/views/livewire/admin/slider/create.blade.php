@@ -33,8 +33,7 @@
                     </div>
                     <div class="xl:w-1/2 md:w-1/2 px-3">
                         <x-label for="details" :value="__('Details')" />
-                        <x-input id="details" class="block mt-1 w-full" type="text" name="details"
-                            wire:model.defer="slider.details" />
+                        <x-input.rich-text wire:model.lazy="slider.details" id="details" />
                         <x-input-error :messages="$errors->get('slider.details')" for="slider.details" class="mt-2" />
                     </div>
                     <div class="xl:w-1/2 md:w-1/2 px-3">

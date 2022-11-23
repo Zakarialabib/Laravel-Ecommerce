@@ -44,7 +44,7 @@
                                         <div class="flex">
                                             <div class="mr-auto">
                                                 <h3 class="text-xl font-bold font-heading">{{ $product->name }}</h3>
-                                                <p class="text-gray-500">{{ $product->description }}</p>
+                                                <p class="text-gray-500">{!! $product->description !!}</p>
                                                 <p class="text-gray-500">
                                                     <span>{{ __('Quantity') }}:</span>
                                                     <span class="text-gray-900 font-bold font-heading">{{ $order->quantity }}</span>

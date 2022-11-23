@@ -57,141 +57,117 @@
                 </div>
             </div>
         </div>
-        <div class="flex flex-wrap -m-4 py-4 justify-center">
-            <div class="w-full md:w-1/2 lg:w-1/4 px-2">
-                <div class="p-6 rounded bg-white shadow-md">
-                    <div class="flex mb-2">
-                        <span class="inline-block mr-2">
-                            <i class="bi bi-bar-chart font-2xl"></i>
-                        </span>
-                        <h3 class="text-sm text-gray-600">
-                            <a href="{{ route('admin.users') }}">
-                                {{ __('Total Customers!') }}
-                            </a>
-                        </h3>
-                    </div>
-                    <h2 class="mb-2 text-3xl font-bold">{{ count($users) }}</h2>
-                </div>
+        <div class="bg-white">
+            <div class="md:inline-flex float-right pt-2 pb-5 sm:flex sm:flex-wrap">
+                <x-button type="button" primary data-date="today"
+                    class="js-date mr-2 active">
+                    {{ __('Today') }}
+                </x-button>
+    
+                <x-button type="button" primary data-date="month"
+                    class="js-date mr-2">
+                    {{ __('Last month') }}
+                </x-button>
+    
+                <x-button type="button" primary data-date="semi"
+                    class="js-date mr-2">
+                    {{ __('Last 6 month') }}
+                </x-button>
+    
+                <x-button type="button" primary data-date="year"
+                    class="js-date">
+                    {{ __('Last year') }}
+                </x-button>
             </div>
-            <div class="w-full md:w-1/2 lg:w-1/4 px-2">
-                <div class="p-6 rounded bg-white shadow-md">
-                    <div class="flex mb-2">
-                        <span class="inline-block mr-2">
-                            <i class="bi bi-bar-chart font-2xl"></i>
-                        </span>
-                        <h3 class="text-sm text-gray-600">
-                            <a href="{{ route('admin.users') }}">
-                                {{ __('Total Customers!') }}
-                            </a>
-                        </h3>
+            @foreach ($data as $key => $d)
+                @if ($loop->first)
+                    <div class="w-full flex flex-wrap align-center mb-4 js-date-row" id="{{ $key }}">
+                        <div class="grid gap-6 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-2 w-full">
+                            <div
+                                class="flex items-center p-4 bg-white dark:bg-dark-bg dark:text-gray-300 rounded-lg shadow-md">
+                                <div class="p-5 mr-4 text-blue-500 bg-blue-100 rounded-full">
+                                    <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
+                                        <path
+                                            d="M3 1a1 1 0 000 2h1.22l.305 1.222a.997.997 0 00.01.042l1.358 5.43-.893.892C3.74 11.846 4.632 14 6.414 14H15a1 1 0 000-2H6.414l1-1H14a1 1 0 00.894-.553l3-6A1 1 0 0017 3H6.28l-.31-1.243A1 1 0 005 1H3zM16 16.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0zM6.5 18a1.5 1.5 0 100-3 1.5 1.5 0 000 3z">
+                                        </path>
+                                    </svg>
+                                </div>
+                                <div>
+                                    <p class="mb-2 text-lg font-medium text-gray-600 dark:text-gray-300">
+                                        {{ __('Customers') }}
+                                    </p>
+                                    <p class="text-3xl sm:text-lg font-bold text-gray-700 dark:text-gray-300">
+                                        {{ $d['countCustomers'] }}
+                                    </p>
+                                </div>
+                            </div>
+    
+                            <div
+                                class="flex items-center p-4 bg-white dark:bg-dark-bg dark:text-gray-300 rounded-lg shadow-md">
+                                <div class="p-5 mr-4 text-blue-500 bg-blue-100 rounded-full">
+                                    <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
+                                        <path
+                                            d="M3 1a1 1 0 000 2h1.22l.305 1.222a.997.997 0 00.01.042l1.358 5.43-.893.892C3.74 11.846 4.632 14 6.414 14H15a1 1 0 000-2H6.414l1-1H14a1 1 0 00.894-.553l3-6A1 1 0 0017 3H6.28l-.31-1.243A1 1 0 005 1H3zM16 16.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0zM6.5 18a1.5 1.5 0 100-3 1.5 1.5 0 000 3z">
+                                        </path>
+                                    </svg>
+                                </div>
+                                <div>
+                                    <p class="mb-2 text-lg font-medium text-gray-600 dark:text-gray-300">
+                                        {{ __('Orders') }}
+                                    </p>
+                                    <p class="text-3xl sm:text-lg font-bold text-gray-700 dark:text-gray-300">
+                                        {{ $d['ordersCount'] }}
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <h2 class="mb-2 text-3xl font-bold">{{ count($users) }}</h2>
-                </div>
-            </div>
-
-            <div class="w-full md:w-1/2 lg:w-1/4 px-2">
-                <div class="p-6 rounded bg-white shadow-md">
-                    <div class="flex mb-2">
-                        <span class="inline-block mr-2">
-                            <i class="bi bi-bar-chart font-2xl"></i>
-                        </span>
-                        <h3 class="text-sm text-gray-600">
-                            <a href="{{ route('admin.blogs') }}">
-                                {{ __('Total Posts!') }}
-                            </a>
-                        </h3>
+                @else
+                    <div class="w-full flex flex-wrap align-center mb-4 js-date-row" style="display: none"
+                        id="{{ $key }}">
+                        <div class="grid gap-6 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-2 w-full">
+                            <div
+                                class="flex items-center p-4 bg-white dark:bg-dark-bg dark:text-gray-300 rounded-lg shadow-md">
+                                <div class="p-5 mr-4 text-blue-500 bg-blue-100 rounded-full">
+                                    <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
+                                        <path
+                                            d="M3 1a1 1 0 000 2h1.22l.305 1.222a.997.997 0 00.01.042l1.358 5.43-.893.892C3.74 11.846 4.632 14 6.414 14H15a1 1 0 000-2H6.414l1-1H14a1 1 0 00.894-.553l3-6A1 1 0 0017 3H6.28l-.31-1.243A1 1 0 005 1H3zM16 16.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0zM6.5 18a1.5 1.5 0 100-3 1.5 1.5 0 000 3z">
+                                        </path>
+                                    </svg>
+                                </div>
+                                <div>
+                                    <p class="mb-2 text-lg font-medium text-gray-600 dark:text-gray-300">
+                                        {{ __('Customers') }}
+                                    </p>
+                                    <p class="text-3xl sm:text-lg font-bold text-gray-700 dark:text-gray-300">
+                                        {{ $d['countCustomers'] }}
+                                    </p>
+                                </div>
+                            </div>
+    
+                            <div
+                                class="flex items-center p-4 bg-white dark:bg-dark-bg dark:text-gray-300 rounded-lg shadow-md">
+                                <div class="p-5 mr-4 text-blue-500 bg-blue-100 rounded-full">
+                                    <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
+                                        <path
+                                            d="M3 1a1 1 0 000 2h1.22l.305 1.222a.997.997 0 00.01.042l1.358 5.43-.893.892C3.74 11.846 4.632 14 6.414 14H15a1 1 0 000-2H6.414l1-1H14a1 1 0 00.894-.553l3-6A1 1 0 0017 3H6.28l-.31-1.243A1 1 0 005 1H3zM16 16.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0zM6.5 18a1.5 1.5 0 100-3 1.5 1.5 0 000 3z">
+                                        </path>
+                                    </svg>
+                                </div>
+                                <div>
+                                    <p class="mb-2 text-lg font-medium text-gray-600 dark:text-gray-300">
+                                        {{ __('Orders') }}
+                                    </p>
+                                    <p class="text-3xl sm:text-lg font-bold text-gray-700 dark:text-gray-300">
+                                        {{ $d['ordersCount'] }}
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <h2 class="mb-2 text-3xl font-bold">{{ count($blogs) }}</h2>
-                </div>
+                @endif
+            @endforeach
             </div>
-        </div>
-        <div class="flex flex-wrap -m-4 py-4 justify-center">
-            <div class="w-full md:w-1/2 lg:w-1/4 px-2">
-                <div class="p-6 rounded bg-white shadow-md">
-                    <div class="flex mb-2">
-                        <span class="inline-block mr-2">
-                            <i class="bi bi-bar-chart font-2xl"></i>
-                        </span>
-                        <a href="{{ route('admin.users') }}">
-                            <h3 class="text-sm text-gray-600">
-                                {{ __('New Customers!') }}
-                            </h3>
-                            <p>
-                                {{ __('Last 30 Days') }}
-                            </p>
-                        </a>
-
-                    </div>
-                    <h2 class="mb-2 text-3xl font-bold">
-                        {{ App\Models\User::where('created_at', '>', Carbon\Carbon::now()->subDays(30))->get()->count() }}
-                    </h2>
-                </div>
-            </div>
-
-            <div class="w-full md:w-1/2 lg:w-1/4 px-2">
-                <div class="p-6 rounded bg-white shadow-md">
-                    <div class="flex mb-2">
-                        <span class="inline-block mr-2">
-                            <i class="bi bi-bar-chart font-2xl"></i>
-                        </span>
-                        <a href="{{ route('admin.blogs') }}">
-                            <h3 class="text-sm text-gray-600">
-                                {{ __('Customers Customers!') }}
-                            </h3>
-                            <p>
-                                {{ __('All Time') }}
-                            </p>
-                        </a>
-
-                    </div>
-                    <h2 class="mb-2 text-3xl font-bold">
-                        {{ App\Models\User::count() }}
-                    </h2>
-                </div>
-            </div>
-            <div class="w-full md:w-1/2 lg:w-1/4 px-2">
-                <div class="p-6 rounded bg-white shadow-md">
-                    <div class="flex mb-2">
-                        <span class="inline-block mr-2">
-                            <i class="bi bi-bar-chart font-2xl"></i>
-                        </span>
-                        <a href="{{ route('admin.blogs') }}">
-                            <h3 class="text-sm text-gray-600">
-                                {{ __('Total Sales!') }}
-                            </h3>
-                            <p>
-                                {{ __('Last 30 days') }}
-                            </p>
-                        </a>
-
-                    </div>
-                    <h2 class="mb-2 text-3xl font-bold">
-                        {{ App\Models\Order::where('status', '=', 'completed')->where('created_at', '>', Carbon\Carbon::now()->subDays(30))->get()->count() }}
-                    </h2>
-                </div>
-            </div>
-            <div class="w-full md:w-1/2 lg:w-1/4 px-2">
-                <div class="p-6 rounded bg-white shadow-md">
-                    <div class="flex mb-2">
-                        <span class="inline-block mr-2">
-                            <i class="bi bi-bar-chart font-2xl"></i>
-                        </span>
-                        <a href="{{ route('admin.blogs') }}">
-                            <h3 class="text-sm text-gray-600">
-                                {{ __('Total Sales!') }}
-                            </h3>
-                            <p>
-                                {{ __('All Times') }}
-                            </p>
-                        </a>
-
-                    </div>
-                    <h2 class="mb-2 text-3xl font-bold">
-                        {{ App\Models\Order::where('status', '=', 'completed')->get()->count() }}
-                    </h2>
-                </div>
-            </div>
-        </div>
 
         <div class="flex flex-row my-4">
 
@@ -382,7 +358,29 @@
                 };
                 var lineChart = new Chart(ctx).Line(data, options);
             }
-
+            
         })(jQuery);
+    </script>
+    <script>
+        document.querySelectorAll('.js-date').forEach(el => {
+            el.addEventListener('click', event => {
+                clearActive();
+                hideAll();
+                el.classList.add('active');
+                document.querySelector(`#${el.dataset.date}`).style.display = 'flex';
+            });
+        });
+
+        const clearActive = () => {
+            document.querySelectorAll('.js-date').forEach(el => {
+                el.classList.remove('active');
+            });
+        };
+
+        const hideAll = () => {
+            document.querySelectorAll('.js-date-row').forEach(el => {
+                el.style.display = 'none';
+            });
+        };
     </script>
 @endsection
