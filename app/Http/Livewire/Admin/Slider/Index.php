@@ -2,34 +2,34 @@
 
 namespace App\Http\Livewire\Admin\Slider;
 
-use Livewire\Component;
-use App\Models\Slider;
-use App\Models\Language;
-use Livewire\WithPagination;
 use App\Http\Livewire\WithSorting;
+use App\Models\Language;
+use App\Models\Slider;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
+use Livewire\Component;
 use Livewire\WithFileUploads;
-use Illuminate\Support\Facades\Gate;
+use Livewire\WithPagination;
 use Str;
 
 class Index extends Component
 {
     use WithPagination, WithSorting,
         LivewireAlert, WithFileUploads;
-    
+
     public $slider;
+
     public $photo;
-    
+
     public $listeners = [
-        'confirmDelete', 'delete','refreshIndex',
-        'showModal','editModal'
+        'confirmDelete', 'delete', 'refreshIndex',
+        'showModal', 'editModal',
     ];
 
     public $showModal;
 
     public $refreshIndex;
 
-    public $editModal; 
+    public $editModal;
 
     public int $perPage;
 
@@ -91,20 +91,19 @@ class Index extends Component
 
     public function mount()
     {
-        $this->sortBy            = 'id';
-        $this->sortDirection     = 'desc';
-        $this->perPage           = 25;
+        $this->sortBy = 'id';
+        $this->sortDirection = 'desc';
+        $this->perPage = 25;
         $this->paginationOptions = [25, 50, 100];
-        $this->orderable         = (new Slider())->orderable;
+        $this->orderable = (new Slider())->orderable;
         $this->initListsForFields();
     }
 
     public function render()
     {
-        
         $query = Slider::advancedFilter([
-            's'               => $this->search ?: null,
-            'order_column'    => $this->sortBy,
+            's' => $this->search ?: null,
+            'order_column' => $this->sortBy,
             'order_direction' => $this->sortDirection,
         ]);
 
@@ -115,21 +114,17 @@ class Index extends Component
 
     public function setFeatured($id)
     {
-
-        Slider::where('featured', '=', true)->update( ['featured' => false] );
+        Slider::where('featured', '=', true)->update(['featured' => false]);
         $slider = Slider::findOrFail($id);
-        $slider->featured    = true;
+        $slider->featured = true;
         $slider->save();
 
-        $this->alert('success', __('Slider featured successfully!') );
+        $this->alert('success', __('Slider featured successfully!'));
         $this->refreshIndex();
-
     }
 
     public function editModal(Slider $slider)
     {
-        
-
         $this->resetErrorBag();
 
         $this->resetValidation();
@@ -138,17 +133,15 @@ class Index extends Component
 
         $this->editModal = true;
     }
-   
+
     public function update()
     {
-     
-
         $this->validate();
         // upload image if it does or doesn't exist
 
-        if($this->photo){
+        if ($this->photo) {
             $imageName = Str::slug($this->slider->title).'.'.$this->photo->extension();
-            $this->photo->storeAs('sliders',$imageName);
+            $this->photo->storeAs('sliders', $imageName);
             $this->slider->photo = $imageName;
         }
 
@@ -157,14 +150,12 @@ class Index extends Component
         $this->refreshIndex();
 
         $this->alert('success', __('Slider updated successfully.'));
-        
+
         $this->editModal = false;
     }
 
     public function showModal(Slider $slider)
     {
-        
-
         $this->resetErrorBag();
 
         $this->resetValidation();
@@ -176,16 +167,13 @@ class Index extends Component
 
     public function delete(Slider $slider)
     {
-        
         $slider->delete();
 
         $this->alert('success', __('Slider deleted successfully.'));
-
     }
 
     protected function initListsForFields(): void
     {
         $this->listsForFields['languages'] = Language::pluck('name', 'id')->toArray();
-    }    
-
+    }
 }

@@ -2,15 +2,15 @@
 
 namespace App\Http\Livewire\Front;
 
-use Livewire\Component;
 use Gloudemans\Shoppingcart\Facades\Cart;
+use Livewire\Component;
 
 class CartCount extends Component
 {
     public $cartCount;
 
     public $listeners = [
-        'cartCountUpdated'
+        'cartCountUpdated',
     ];
 
     public function mount()
@@ -22,12 +22,9 @@ class CartCount extends Component
     {
         $this->cartCount = Cart::instance('shopping')->count();
     }
-    
+
     public function render()
-    { 
+    {
         return view('livewire.front.cart-count');
     }
-
-
-
 }

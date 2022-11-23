@@ -2,17 +2,11 @@
 
 namespace App\Http\Livewire\Admin\Email;
 
-use Livewire\Component;
-use App\{
-    Classes\GeniusMailer,
-    Models\EmailTemplate,
-    Models\Generalsetting,
-    Models\User
-};
-use Illuminate\Http\Response;
-use Livewire\WithPagination;
 use App\Http\Livewire\WithSorting;
-use Str;
+use App\Models\EmailTemplate;
+use Illuminate\Http\Response;
+use Livewire\Component;
+use Livewire\WithPagination;
 
 class Index extends Component
 {
@@ -65,18 +59,18 @@ class Index extends Component
 
     public function mount()
     {
-        $this->sortBy            = 'id';
-        $this->sortDirection     = 'desc';
-        $this->perPage           = 100;
+        $this->sortBy = 'id';
+        $this->sortDirection = 'desc';
+        $this->perPage = 100;
         $this->paginationOptions = [25, 50, 100];
-        $this->orderable         = (new EmailTemplate())->orderable;
+        $this->orderable = (new EmailTemplate())->orderable;
     }
 
     public function render()
     {
         $query = EmailTemplate::advancedFilter([
-            's'               => $this->search ?: null,
-            'order_column'    => $this->sortBy,
+            's' => $this->search ?: null,
+            'order_column' => $this->sortBy,
             'order_direction' => $this->sortDirection,
         ]);
 
@@ -89,8 +83,7 @@ class Index extends Component
      public function delete(EmailTemplate $email)
      {
          // abort_if(Gate::denies('email_delete'), Response::HTTP_FORBIDDEN, '403 Forbidden');
- 
+
          $email->delete();
      }
-     
 }

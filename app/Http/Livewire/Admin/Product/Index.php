@@ -2,23 +2,19 @@
 
 namespace App\Http\Livewire\Admin\Product;
 
-use Livewire\Component;
-use App\{
-    Models\Product,
-    Models\Brand,
-    Models\Category,
-    Models\Subcategory,
-};
-use Maatwebsite\Excel\Facades\Excel;
-use Livewire\WithPagination;
 use App\Http\Livewire\WithSorting;
+use App\Models\Brand;
+use App\Models\Category;
+use App\Models\Product;
+use App\Models\Subcategory;
 use Illuminate\Support\Facades\Gate;
+use Image;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
+use Livewire\Component;
 use Livewire\WithFileUploads;
-use Helpers;
+use Livewire\WithPagination;
 use Storage;
 use Str;
-use Image;
 
 class Index extends Component
 {
@@ -27,28 +23,46 @@ class Index extends Component
     public $product;
 
     public $listeners = [
-    
-    'confirmDelete', 'delete', 'showModal', 'editModal',         
-    'refreshIndex','exportExcel','exportPdf',
-    'highlightModal', 
+
+        'confirmDelete', 'delete', 'showModal', 'editModal',
+        'refreshIndex', 'exportExcel', 'exportPdf',
+        'highlightModal',
 
     ];
 
     public $highlightModal;
-    
+
     public int $perPage;
-    
+
     public $showModal;
-    
+
     public $editModal;
-    
+
     public $refreshIndex;
-    
+
     public array $orderable;
-    
+
     public $file;
 
-    public $hot,$featured, $best, $top, $latest, $big, $trending, $sale, $is_discount, $discount_date;
+    public $hot;
+
+    public $featured;
+
+    public $best;
+
+    public $top;
+
+    public $latest;
+
+    public $big;
+
+    public $trending;
+
+    public $sale;
+
+    public $is_discount;
+
+    public $discount_date;
 
     public string $search = '';
 
@@ -63,7 +77,7 @@ class Index extends Component
     public $image_url;
 
     public $gallery = [];
-    
+
     protected $queryString = [
         'search' => [
             'except' => '',
@@ -100,7 +114,7 @@ class Index extends Component
     {
         $this->resetPage();
     }
-    
+
     protected $rules = [
         'product.code' => ['nullable'],
         'product.name' => ['required', 'string', 'max:255'],
@@ -117,27 +131,26 @@ class Index extends Component
 
     public function mount()
     {
-        $this->sortBy            = 'id';
-        $this->sortDirection     = 'desc';
-        $this->perPage           = 25;
+        $this->sortBy = 'id';
+        $this->sortDirection = 'desc';
+        $this->perPage = 25;
         $this->paginationOptions = [25, 50, 100];
-        $this->orderable         = (new Product())->orderable;
+        $this->orderable = (new Product())->orderable;
         $this->file = null;
         $this->initListsForFields();
     }
 
     public function render()
     {
-
-        $query = Product::with(['category'=>function($query){
-            $query->select('id','name');
-        },'brand'=>function($query){
-            $query->select('id','name');
+        $query = Product::with(['category' => function ($query) {
+            $query->select('id', 'name');
+        }, 'brand' => function ($query) {
+            $query->select('id', 'name');
         }])->select('products.*')->advancedFilter([
-                            's'               => $this->search ?: null,
-                            'order_column'    => $this->sortBy,
-                            'order_direction' => $this->sortDirection,
-                        ]);
+            's' => $this->search ?: null,
+            'order_column' => $this->sortBy,
+            'order_direction' => $this->sortDirection,
+        ]);
 
         $products = $query->paginate($this->perPage);
 
@@ -159,7 +172,7 @@ class Index extends Component
 
         $this->product = Product::find($product);
 
-        $this->showModal = true;  
+        $this->showModal = true;
     }
 
     public function editModal($product)
@@ -172,7 +185,7 @@ class Index extends Component
 
         $this->product = Product::find($product);
 
-        $this->editModal = true;  
+        $this->editModal = true;
     }
 
     public function update()
@@ -181,34 +194,31 @@ class Index extends Component
 
         $this->validate();
 
-        if($this->image){
-            
+        if ($this->image) {
             $image = $this->image;
-            $imageName = Str::slug($this->product->name) . '-' . date('Y-m-d H:i:s') . '.' . $this->image->extension();
-            
+            $imageName = Str::slug($this->product->name).'-'.date('Y-m-d H:i:s').'.'.$this->image->extension();
+
             $img = Image::make($image->getRealPath())->resize(1500, 1500, function ($constraint) {
                 $constraint->aspectRatio();
             });
 
-            $img->stream(); 
+            $img->stream();
             Storage::disk('local_files')->put('products/'.$imageName, $img, 'public');
             $this->product->image = $imageName;
-
         }
 
         // gallery image
         if ($this->gallery != null) {
-            
             $gallery = [];
             foreach ($this->gallery as $key => $value) {
                 $image = $value;
                 $imageName = Str::slug($this->product->name).'-'.$key.'.'.$value->extension();
-                
+
                 $img = Image::make($image->getRealPath())->resize(1500, 1500, function ($constraint) {
                     $constraint->aspectRatio();
                 });
 
-                $img->stream(); 
+                $img->stream();
                 Storage::disk('local_files')->put('products/'.$imageName, $img, 'public');
                 $gallery[] = $imageName;
             }
@@ -224,7 +234,6 @@ class Index extends Component
 
         $this->alert('success', 'Product updated successfully.');
     }
-
 
     public function exportExcel()
     {
@@ -246,52 +255,51 @@ class Index extends Component
 
         $this->product = Product::findOrfail($product->id);
 
-        $this->highlightModal = true;  
+        $this->highlightModal = true;
     }
 
     public function saveHighlight()
     {
         abort_if(Gate::denies('product_access'), 403);
 
-        if($this->hot){
+        if ($this->hot) {
             $this->product->hot = $this->hot;
         }
-        if($this->featured){
+        if ($this->featured) {
             $this->product->featured = $this->featured;
         }
-        if($this->best){
+        if ($this->best) {
             $this->product->best = $this->best;
         }
-        if($this->top){
+        if ($this->top) {
             $this->product->top = $this->top;
         }
-        if($this->latest){
+        if ($this->latest) {
             $this->product->latest = $this->latest;
         }
-        if($this->big){
+        if ($this->big) {
             $this->product->big = $this->big;
         }
-        if($this->trending){
+        if ($this->trending) {
             $this->product->trending = $this->trending;
         }
-        if($this->sale){
+        if ($this->sale) {
             $this->product->sale = $this->sale;
         }
-        if($this->is_discount){
+        if ($this->is_discount) {
             $this->product->is_discount = $this->is_discount;
         }
-        if($this->discount_date){
+        if ($this->discount_date) {
             $this->product->discount_date = $this->discount_date;
         }
-        
+
         $this->product->save();
 
         $this->alert('success', 'Product highlighted successfully.');
-        
-        $this->refreshIndex();
-        
-        $this->highlightModal = false;
 
+        $this->refreshIndex();
+
+        $this->highlightModal = false;
     }
 
     protected function initListsForFields(): void

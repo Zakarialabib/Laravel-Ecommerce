@@ -2,36 +2,35 @@
 
 namespace App\Http\Livewire\Admin\FeaturedBanner;
 
-use Livewire\Component;
+use App\Http\Livewire\WithSorting;
 use App\Models\FeaturedBanner;
 use App\Models\Language;
 use App\Models\Product;
-use Livewire\WithPagination;
-use App\Http\Livewire\WithSorting;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
+use Livewire\Component;
 use Livewire\WithFileUploads;
-use Illuminate\Support\Facades\Gate;
+use Livewire\WithPagination;
 use Str;
 
 class Index extends Component
 {
     use WithPagination, WithSorting,
         LivewireAlert, WithFileUploads;
-    
+
     public $featuredbanner;
 
     public $image;
-    
+
     public $listeners = [
-        'confirmDelete', 'delete','refreshIndex',
-        'showModal','editModal'
+        'confirmDelete', 'delete', 'refreshIndex',
+        'showModal', 'editModal',
     ];
 
     public $showModal;
 
     public $refreshIndex;
 
-    public $editModal; 
+    public $editModal;
 
     public int $perPage;
 
@@ -92,20 +91,19 @@ class Index extends Component
 
     public function mount()
     {
-        $this->sortBy            = 'id';
-        $this->sortDirection     = 'desc';
-        $this->perPage           = 25;
+        $this->sortBy = 'id';
+        $this->sortDirection = 'desc';
+        $this->perPage = 25;
         $this->paginationOptions = [25, 50, 100];
-        $this->orderable         = (new FeaturedBanner())->orderable;
+        $this->orderable = (new FeaturedBanner())->orderable;
         $this->initListsForFields();
     }
 
     public function render()
     {
-        
         $query = FeaturedBanner::advancedFilter([
-            's'               => $this->search ?: null,
-            'order_column'    => $this->sortBy,
+            's' => $this->search ?: null,
+            'order_column' => $this->sortBy,
             'order_direction' => $this->sortDirection,
         ]);
 
@@ -114,18 +112,15 @@ class Index extends Component
         return view('livewire.admin.featured-banner.index', compact('featuredbanners'));
     }
 
-    
     public function setFeatured($id)
     {
-
-        FeaturedBanner::where('featured', '=', true)->update( ['featured' => false] );
+        FeaturedBanner::where('featured', '=', true)->update(['featured' => false]);
         $featuredbanner = FeaturedBanner::findOrFail($id);
-        $featuredbanner->featured    = true;
+        $featuredbanner->featured = true;
         $featuredbanner->save();
 
-        $this->alert('success', __('Featuredbanner featured successfully!') );
+        $this->alert('success', __('Featuredbanner featured successfully!'));
         $this->refreshIndex();
-
     }
 
     public function editModal(FeaturedBanner $featuredbanner)
@@ -138,16 +133,15 @@ class Index extends Component
 
         $this->editModal = true;
     }
-   
+
     public function update()
     {
-     
         $this->validate();
         // if product selected Helpers::productLink($product)
 
-        if($this->image){
-            $imageName = Str::slug($this->featuredbanner->title) . '-' . date('Y-m-d H:i:s') . '.' . $this->image->extension();
-            $this->image->storeAs('featuredbanners',$imageName);
+        if ($this->image) {
+            $imageName = Str::slug($this->featuredbanner->title).'-'.date('Y-m-d H:i:s').'.'.$this->image->extension();
+            $this->image->storeAs('featuredbanners', $imageName);
             $this->featuredbanner->image = $imageName;
         }
 
@@ -156,7 +150,7 @@ class Index extends Component
         $this->refreshIndex();
 
         $this->alert('success', __('FeaturedBanner updated successfully.'));
-        
+
         $this->editModal = false;
     }
 
@@ -176,13 +170,11 @@ class Index extends Component
         $featuredbanner->delete();
 
         $this->alert('success', __('FeaturedBanner deleted successfully.'));
-
     }
 
     protected function initListsForFields(): void
     {
         $this->listsForFields['languages'] = Language::pluck('name', 'id')->toArray();
-        $this->listsForFields['products'] = Product::pluck('name','id')->toArray();
-    }    
-
+        $this->listsForFields['products'] = Product::pluck('name', 'id')->toArray();
+    }
 }

@@ -3,26 +3,26 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use App\Support\HasAdvancedFilter;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
-use App\Support\HasAdvancedFilter;
 use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable
 {
     use HasAdvancedFilter, HasApiTokens,
-         HasFactory, Notifiable, HasRoles;
+        HasFactory, Notifiable, HasRoles;
 
     public $orderable = [
-        'id','first_name','last_name',  'zip', 'city', 'state', 'country', 'address',
-        'phone', 'email','password',
+        'id', 'first_name', 'last_name',  'zip', 'city', 'state', 'country', 'address',
+        'phone', 'email', 'password',
     ];
 
     protected $filterable = [
-        'first_name','last_name',  'zip', 'city', 'state', 'country', 'address',
-        'phone', 'email','password','favorite_brands'
+        'first_name', 'last_name',  'zip', 'city', 'state', 'country', 'address',
+        'phone', 'email', 'password', 'favorite_brands',
     ];
 
     /**
@@ -31,8 +31,8 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
-        'id','first_name','last_name',  'zip', 'city', 'state', 'country', 'address',
-        'phone', 'email','password',
+        'id', 'first_name', 'last_name',  'zip', 'city', 'state', 'country', 'address',
+        'phone', 'email', 'password',
     ];
 
     /**
@@ -53,17 +53,19 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
-    
+
     public function getFullNameAttribute()
     {
-        return $this->first_name . ' ' . $this->last_name;
+        return $this->first_name.' '.$this->last_name;
     }
 
-    public function isAdmin() {
+    public function isAdmin()
+    {
         return $this->roles->pluck('name')->contains(Role::ROLE_ADMIN);
     }
-    
-    public function isClient() {
+
+    public function isClient()
+    {
         return $this->roles->pluck('name')->contains(Role::ROLE_CLIENT);
     }
 
@@ -74,7 +76,6 @@ class User extends Authenticatable
 
     public function orders()
     {
-        return $this->hasMany(Order::class , 'user_id');
+        return $this->hasMany(Order::class, 'user_id');
     }
-    
 }

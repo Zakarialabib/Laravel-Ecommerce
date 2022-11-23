@@ -2,10 +2,8 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Seeder;
 use App\Models\Category;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Str;
+use Illuminate\Database\Seeder;
 
 class CategorySeeder extends Seeder
 {
@@ -19,24 +17,24 @@ class CategorySeeder extends Seeder
         Category::insert([
             [
                 'id' => 1,
-                'name'       => 'Montre Homme',
-                'image'      => 'categorie.png',
+                'name' => 'Montre Homme',
+                'image' => 'categorie.png',
             ],
             [
-                'id'     => 2,
-                'name'       => 'Montre Femme',
-                'image'      => 'categorie.png',
+                'id' => 2,
+                'name' => 'Montre Femme',
+                'image' => 'categorie.png',
             ],
             [
-                'id'        => 3,
-                'name'       => 'Class',
-                'image'      => 'categorie.png',
+                'id' => 3,
+                'name' => 'Class',
+                'image' => 'categorie.png',
             ],
             [
-                'id'       => 4,
-                'name'       => 'Extreme',
-                'image'      => 'categorie.png',
-            ]
-    ]);
+                'id' => 4,
+                'name' => 'Extreme',
+                'image' => 'categorie.png',
+            ],
+        ]);
     }
 }

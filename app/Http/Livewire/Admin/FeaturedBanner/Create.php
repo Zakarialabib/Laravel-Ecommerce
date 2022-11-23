@@ -6,22 +6,21 @@ use App\Models\FeaturedBanner;
 use App\Models\Language;
 use App\Models\Product;
 use Illuminate\Support\Facades\Gate;
-use Livewire\Component;
-use Jantinnerezo\LivewireAlert\LivewireAlert;
-use Livewire\WithFileUploads;
 use Illuminate\Support\Str;
-
+use Jantinnerezo\LivewireAlert\LivewireAlert;
+use Livewire\Component;
+use Livewire\WithFileUploads;
 
 class Create extends Component
 {
     use LivewireAlert , WithFileUploads;
 
     public $createFeaturedBanner;
-    
+
     public $image;
 
     public $listeners = ['createFeaturedBanner'];
-    
+
     public array $listsForFields = [];
 
     public function mount(FeaturedBanner $featuredbanner)
@@ -58,26 +57,24 @@ class Create extends Component
     {
         $this->validate();
 
-        if($this->image){
-            $imageName = Str::slug($this->featuredbanner->title) . '-' . date('Y-m-d H:i:s') . '.' . $this->image->extension();
-            $this->image->storeAs('featuredbanners',$imageName);
+        if ($this->image) {
+            $imageName = Str::slug($this->featuredbanner->title).'-'.date('Y-m-d H:i:s').'.'.$this->image->extension();
+            $this->image->storeAs('featuredbanners', $imageName);
             $this->featuredbanner->image = $imageName;
         }
 
         $this->featuredbanner->save();
 
         $this->alert('success', __('FeaturedBanner created successfully.'));
-        
+
         $this->emit('refreshIndex');
-        
+
         $this->createFeaturedBanner = false;
     }
 
     public function initListsForFields()
     {
         $this->listsForFields['languages'] = Language::pluck('name', 'id')->toArray();
-        $this->listsForFields['products'] = Product::pluck('name','id')->toArray();
+        $this->listsForFields['products'] = Product::pluck('name', 'id')->toArray();
     }
-
-
 }

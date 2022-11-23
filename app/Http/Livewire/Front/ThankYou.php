@@ -2,10 +2,8 @@
 
 namespace App\Http\Livewire\Front;
 
-use Livewire\Component;
-use Gloudemans\Shoppingcart\Facades\Cart;
 use App\Models\Order;
-use Carbon\Carbon;
+use Livewire\Component;
 
 class ThankYou extends Component
 {
@@ -22,5 +20,4 @@ class ThankYou extends Component
     {
         return view('livewire.front.thank-you');
     }
-
 }

@@ -11,7 +11,7 @@ return [
         'toast' => true,
         'text' => null,
         'showCancelButton' => false,
-        'showConfirmButton' => false
+        'showConfirmButton' => false,
     ],
     'confirm' => [
         'icon' => 'warning',
@@ -22,6 +22,6 @@ return [
         'showCancelButton' => true,
         'cancelButtonText' => 'No',
         'confirmButtonColor' => '#3085d6',
-        'cancelButtonColor' => '#d33'
-    ]
+        'cancelButtonColor' => '#d33',
+    ],
 ];

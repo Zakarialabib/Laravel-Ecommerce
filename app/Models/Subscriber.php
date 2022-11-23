@@ -2,22 +2,22 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
 use App\Support\HasAdvancedFilter;
+use Illuminate\Database\Eloquent\Model;
 
 class Subscriber extends Model
 {
     use HasAdvancedFilter;
 
     protected $filterable = [
-        'email','id'
+        'email', 'id',
     ];
+
     public $orderable = [
-        'email','id'
+        'email', 'id',
     ];
 
     protected $fillable = ['email'];
-    
-    public $timestamps = false;
 
+    public $timestamps = false;
 }

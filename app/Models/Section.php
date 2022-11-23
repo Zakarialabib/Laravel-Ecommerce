@@ -2,24 +2,32 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
 use App\Support\HasAdvancedFilter;
+use Illuminate\Database\Eloquent\Model;
 
 class Section extends Model
 {
     use HasAdvancedFilter;
 
     public $table = 'sections';
- 
-    const HOME_PAGE    = 1;
-    const ABOUT_PAGE    = 2;
-    const PARTNERS_PAGE    = 3;
+
+    const HOME_PAGE = 1;
+
+    const ABOUT_PAGE = 2;
+
+    const PARTNERS_PAGE = 3;
+
     const BLOG_PAGE = 4;
-    const SERVICE_PAGE  = 5;
-    const BRANDS_PAGE  = 6;
-    const CONTACT_PAGE  = 7;
-    const PRODUCT_PAGE  = 8;
-    const PRIVACY_PAGE    = 9;
+
+    const SERVICE_PAGE = 5;
+
+    const BRANDS_PAGE = 6;
+
+    const CONTACT_PAGE = 7;
+
+    const PRODUCT_PAGE = 8;
+
+    const PRIVACY_PAGE = 9;
 
     public $orderable = [
         'id',
@@ -34,7 +42,7 @@ class Section extends Model
         'position',
         'page',
         'link',
-        'language_id'
+        'language_id',
     ];
 
     public $filterable = [
@@ -50,10 +58,10 @@ class Section extends Model
         'position',
         'page',
         'link',
-        'language_id'
+        'language_id',
     ];
 
-    protected $fillable = [        
+    protected $fillable = [
         'featured_title',
         'label',
         'status',
@@ -65,11 +73,11 @@ class Section extends Model
         'position',
         'page',
         'link',
-        'language_id'
+        'language_id',
     ];
 
-    
-    public function language() {
+    public function language()
+    {
         return $this->belongsTo('App\Models\Language');
     }
 }

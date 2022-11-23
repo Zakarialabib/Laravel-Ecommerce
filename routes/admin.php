@@ -1,23 +1,22 @@
 <?php
 
-use App\Http\Controllers\Admin\DashboardController;
-use App\Http\Controllers\Admin\CategoryController;
+use App\Http\Controllers\Admin\BlogController;
 use App\Http\Controllers\Admin\BrandController;
-use App\Http\Controllers\Admin\ProductController;
+use App\Http\Controllers\Admin\CategoryController;
+use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Admin\FeaturedBannerController;
+use App\Http\Controllers\Admin\LanguageController;
+use App\Http\Controllers\Admin\NotificationController;
 use App\Http\Controllers\Admin\OrderController;
-use App\Http\Controllers\Admin\UsersController;
+use App\Http\Controllers\Admin\PageController;
+use App\Http\Controllers\Admin\ProductController;
+use App\Http\Controllers\Admin\ReportController;
 use App\Http\Controllers\Admin\RolesController;
 use App\Http\Controllers\Admin\SectionController;
-use App\Http\Controllers\Admin\FeaturedBannerController;
-use App\Http\Controllers\Admin\PageController;
-use App\Http\Controllers\Admin\SliderController;
 use App\Http\Controllers\Admin\SettingController;
-use App\Http\Controllers\Admin\LanguageController;
-use App\Http\Controllers\Admin\ContactController;
-use App\Http\Controllers\Admin\ReportController;
+use App\Http\Controllers\Admin\SliderController;
 use App\Http\Controllers\Admin\SmptController;
-use App\Http\Controllers\Admin\BlogController;
-use App\Http\Controllers\Admin\NotificationController;
+use App\Http\Controllers\Admin\UsersController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -32,13 +31,12 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => 'auth'], function () {
-    
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
     Route::get('/categories', [CategoryController::class, 'index'])->name('categories');
     Route::get('/subcategories', [CategoryController::class, 'subcategories'])->name('subcategories');
     Route::get('/brands', [BrandController::class, 'index'])->name('brands');
     Route::get('/products', [ProductController::class, 'index'])->name('products');
-    
+
     Route::get('/orders', [OrderController::class, 'index'])->name('orders');
 
     Route::get('/users', [UsersController::class, 'index'])->name('users');
@@ -46,7 +44,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => 'auth'], fu
     Route::get('/sections', [SectionController::class, 'index'])->name('sections');
     Route::get('/section/create', [SectionController::class, 'create'])->name('section.create');
     Route::get('/section/edit/{id}', [SectionController::class, 'edit'])->name('section.edit');
-    
+
     Route::get('/featuredBanners', [FeaturedBannerController::class, 'index'])->name('featuredBanners');
     Route::get('/pages', [PageController::class, 'index'])->name('pages');
     Route::get('/order-forms', [PageController::class, 'orderForms'])->name('orderforms');

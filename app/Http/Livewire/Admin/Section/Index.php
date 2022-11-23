@@ -2,12 +2,12 @@
 
 namespace App\Http\Livewire\Admin\Section;
 
-use Livewire\Component;
+use App\Http\Livewire\WithSorting;
 use App\Models\Language;
 use App\Models\Section;
 use Illuminate\Http\Response;
-use Livewire\WithPagination;;
-use App\Http\Livewire\WithSorting;
+use Livewire\Component;
+use Livewire\WithPagination;
 
 class Index extends Component
 {
@@ -67,21 +67,21 @@ class Index extends Component
 
     public function mount()
     {
-        $this->sortBy            = 'id';
-        $this->sortDirection     = 'desc';
-        $this->perPage           = 100;
+        $this->sortBy = 'id';
+        $this->sortDirection = 'desc';
+        $this->perPage = 100;
         $this->paginationOptions = [25, 50, 100];
-        $this->orderable         = (new Section())->orderable;
+        $this->orderable = (new Section())->orderable;
         $this->initListsForFields();
     }
-    
+
     public function render()
     {
         $query = Section::when($this->language_id, function ($query) {
             return $query->where('language_id', $this->language_id);
-            })->advancedFilter([
-            's'               => $this->search ?: null,
-            'order_column'    => $this->sortBy,
+        })->advancedFilter([
+            's' => $this->search ?: null,
+            'order_column' => $this->sortBy,
             'order_direction' => $this->sortDirection,
         ]);
 
@@ -95,9 +95,8 @@ class Index extends Component
       {
           // abort_if(Gate::denies('section_delete'), Response::HTTP_FORBIDDEN, '403 Forbidden');
           $section->delete();
-        //   $this->alert('warning', __('Section Deleted successfully!') );
+          //   $this->alert('warning', __('Section Deleted successfully!') );
       }
-      
 
      // Section  Clone
      public function clone(Section $section)

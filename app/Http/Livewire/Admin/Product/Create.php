@@ -4,26 +4,24 @@ namespace App\Http\Livewire\Admin\Product;
 
 use App\Models\Brand;
 use App\Models\Category;
-use App\Models\Subcategory;
-use Livewire\Component;
 use App\Models\Product;
-use Jantinnerezo\LivewireAlert\LivewireAlert;
-use Illuminate\Support\Facades\Gate;
+use App\Models\Subcategory;
 use Illuminate\Support\Str;
-use Livewire\WithFileUploads;
-use App\Models\Warehouse;
 use Image;
+use Jantinnerezo\LivewireAlert\LivewireAlert;
+use Livewire\Component;
+use Livewire\WithFileUploads;
 
 class Create extends Component
 {
     use LivewireAlert, WithFileUploads;
 
     public $listeners = ['createProduct'];
-    
+
     public $createProduct;
 
     public $image;
-    
+
     public $gallery = [];
 
     public $uploadLink;
@@ -53,7 +51,7 @@ class Create extends Component
         $this->product = $product;
         $this->initListsForFields();
     }
-    
+
     public function render()
     {
         return view('livewire.admin.product.create');
@@ -65,7 +63,7 @@ class Create extends Component
 
         $this->resetValidation();
 
-        $this->createProduct = true;  
+        $this->createProduct = true;
     }
 
     // make image upload from url
@@ -76,15 +74,15 @@ class Create extends Component
         ]);
 
         $image = file_get_contents($this->uploadLink);
-        $name = Str::random(10) . '.jpg';
-        $path = public_path() . '/images/products/' . $name;
+        $name = Str::random(10).'.jpg';
+        $path = public_path().'/images/products/'.$name;
         file_put_contents($path, $image);
         $this->product->image = $name;
         $this->product->save();
         $this->alert('success', 'Image Uploaded Successfully');
     }
-    
-    // make gallery upload from url 
+
+    // make gallery upload from url
     public function uploadGallery()
     {
         $this->validate([
@@ -92,8 +90,8 @@ class Create extends Component
         ]);
 
         $image = file_get_contents($this->uploadLink);
-        $name = Str::random(10) . '.jpg';
-        $path = public_path() . '/images/products/' . $name;
+        $name = Str::random(10).'.jpg';
+        $path = public_path().'/images/products/'.$name;
         file_put_contents($path, $image);
         $this->gallery[] = $name;
         $this->alert('success', 'Image Uploaded Successfully');
@@ -107,53 +105,41 @@ class Create extends Component
         $this->product->code = Str::slug($this->product->name, '-');
         // generate slug from name slug
         $this->product->slug = Str::slug($this->product->name);
-        
+
         // check image, resize (1500x1500), add watermark (logo) and upload
 
-        if($this->image){
+        if ($this->image) {
+            $imageName = Str::slug($this->product->name).'-'.date('Y-m-d H:i:s').'.'.$this->image->extension();
 
-            $imageName = Str::slug($this->product->name) . '-' . date('Y-m-d H:i:s') . '.' . $this->image->extension();
-            
             $imageName = Image::make($this->image)->resize(1500, 1500, function ($constraint) {
                 $constraint->aspectRatio();
             });
 
-            $this->image->storeAs('products',$imageName);
+            $this->image->storeAs('products', $imageName);
 
             $this->product->image = $imageName;
         }
         // gallery
-        if($this->gallery)
-        {
+        if ($this->gallery) {
             $gallery = [];
-            foreach($this->gallery as $image)
-            {
+            foreach ($this->gallery as $image) {
                 $imageName = Str::slug($this->product->name).'.'.$image->extension();
-                $image->storeAs('products',$imageName);
+                $image->storeAs('products', $imageName);
                 $gallery[] = $imageName;
             }
             $this->product->gallery = json_encode($gallery);
         }
-        if($this->product->save())
-        {
+        if ($this->product->save()) {
             $this->product->save();
             $this->alert('success', 'Product created successfully');
 
             $this->emit('refreshIndex');
-    
+
             $this->createProduct = false;
-        }
-        else
-        {
+        } else {
             $this->alert('error', __('Something went wrong'));
         }
-        
-        
-
-
     }
-
-    
 
     protected function initListsForFields(): void
     {
@@ -161,5 +147,4 @@ class Create extends Component
         $this->listsForFields['brands'] = Brand::pluck('name', 'id')->toArray();
         $this->listsForFields['subcategories'] = Subcategory::pluck('name', 'id')->toArray();
     }
-
 }

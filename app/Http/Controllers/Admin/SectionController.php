@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Models\Section;
 use App\Http\Controllers\Controller;
+use App\Models\Section;
 
 class SectionController extends Controller
 {
-    // Index Section 
+    // Index Section
     public function index()
     {
         return view('admin.section.index');
@@ -24,5 +24,4 @@ class SectionController extends Controller
     {
         return view('admin.section.edit', compact('section'));
     }
-
 }

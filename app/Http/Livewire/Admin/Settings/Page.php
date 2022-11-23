@@ -2,63 +2,59 @@
 
 namespace App\Http\Livewire\Admin\Settings;
 
-use Livewire\Component;
 use App\Models\Pagesetting;
-use Illuminate\Support\Str;
-use Illuminate\Support\Facades\Storage;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
+use Livewire\Component;
 
 class Page extends Component
 {
     use LivewireAlert;
-
 
     public function homeupdate()
     {
         $data = Pagesetting::findOrFail(1);
         $input = $this->all();
 
-        if ($this->category == ""){
+        if ($this->category == '') {
             $input['category'] = 0;
-        } 
-        if ($this->our_services == ""){
+        }
+        if ($this->our_services == '') {
             $input['our_services'] = 0;
         }
-        if ($this->blog == ""){
+        if ($this->blog == '') {
             $input['blog'] = 0;
         }
-        if ($this->popular_products == ""){
+        if ($this->popular_products == '') {
             $input['popular_products'] = 0;
         }
-        if ($this->third_left_banner == ""){
+        if ($this->third_left_banner == '') {
             $input['third_left_banner'] = 0;
         }
-        if ($this->slider == ""){
+        if ($this->slider == '') {
             $input['slider'] = 0;
         }
-        if ($this->flash_deal == ""){
+        if ($this->flash_deal == '') {
             $input['flash_deal'] = 0;
         }
-        if ($this->deal_of_the_day == ""){
+        if ($this->deal_of_the_day == '') {
             $input['deal_of_the_day'] = 0;
         }
-        if ($this->best_sellers == ""){
+        if ($this->best_sellers == '') {
             $input['best_sellers'] = 0;
         }
-        if ($this->partner == ""){
+        if ($this->partner == '') {
             $input['partner'] = 0;
         }
-        if ($this->top_big_trending == ""){
+        if ($this->top_big_trending == '') {
             $input['top_big_trending'] = 0;
         }
-        if ($this->top_brand == ""){
+        if ($this->top_brand == '') {
             $input['top_brand'] = 0;
         }
 
         $data->update($input);
 
         cache()->forget('pagesettings');
-        
     }
 
     public function menuupdate()
@@ -66,21 +62,20 @@ class Page extends Component
         $data = Pagesetting::findOrFail(1);
         $input = $this->all();
 
-        if ($this->home == ""){
+        if ($this->home == '') {
             $input['home'] = 0;
         }
-        if ($this->blog == ""){
+        if ($this->blog == '') {
             $input['blog'] = 0;
         }
-        if ($this->faq == ""){
+        if ($this->faq == '') {
             $input['faq'] = 0;
         }
-        if ($this->contact == ""){
+        if ($this->contact == '') {
             $input['contact'] = 0;
         }
         $data->update($input);
         cache()->forget('pagesettings');
-        
     }
 
     public function render()

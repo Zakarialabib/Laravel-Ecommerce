@@ -4,17 +4,17 @@ namespace App\Http\Livewire\Admin\Brands;
 
 use App\Models\Brand;
 use Illuminate\Support\Facades\Gate;
-use Livewire\Component;
-use Jantinnerezo\LivewireAlert\LivewireAlert;
-use Livewire\WithFileUploads;
 use Illuminate\Support\Str;
+use Jantinnerezo\LivewireAlert\LivewireAlert;
+use Livewire\Component;
+use Livewire\WithFileUploads;
 
 class Create extends Component
 {
     use LivewireAlert , WithFileUploads;
 
     public $createBrand;
-    
+
     public $image;
 
     public $featured_image;
@@ -54,25 +54,25 @@ class Create extends Component
 
         $this->brand->slug = Str::slug($this->brand->name);
 
-        if($this->image){
+        if ($this->image) {
             // with str slug with name date
-            $imageName = Str::slug($this->brand->name) . '-' . date('Y-m-d H:i:s') . '.' . $this->image->extension();
-            $this->image->storeAs('brands',$imageName);
+            $imageName = Str::slug($this->brand->name).'-'.date('Y-m-d H:i:s').'.'.$this->image->extension();
+            $this->image->storeAs('brands', $imageName);
             $this->brand->image = $imageName;
         }
 
-        if($this->featured_image){
-            $imageName = Str::slug($this->brand->name) . '-' . date('Y-m-d H:i:s') . '.' . $this->featured_image->extension();
-            $this->featured_image->storeAs('brands',$imageName);
+        if ($this->featured_image) {
+            $imageName = Str::slug($this->brand->name).'-'.date('Y-m-d H:i:s').'.'.$this->featured_image->extension();
+            $this->featured_image->storeAs('brands', $imageName);
             $this->brand->featured_image = $imageName;
         }
 
         $this->brand->save();
 
         $this->emit('refreshIndex');
-        
+
         $this->alert('success', __('Brand created successfully.'));
-        
+
         $this->createBrand = false;
     }
 }

@@ -2,12 +2,11 @@
 
 namespace App\Http\Livewire\Front;
 
-use Livewire\Component;
-use App\Models\Brand;
-use App\Models\Product;
-use App\Models\Category;
-use Livewire\WithPagination;
 use App\Http\Livewire\WithSorting;
+use App\Models\Category;
+use App\Models\Product;
+use Livewire\Component;
+use Livewire\WithPagination;
 
 class Categories extends Component
 {
@@ -24,6 +23,7 @@ class Categories extends Component
     public array $paginationOptions;
 
     public $category_id;
+
     public $subcategory_id;
 
     protected $queryString = [
@@ -38,7 +38,7 @@ class Categories extends Component
         ],
     ];
 
-      public function updatingSearch()
+    public function updatingSearch()
     {
         $this->resetPage();
     }
@@ -58,12 +58,12 @@ class Categories extends Component
     public function mount()
     {
         $this->sorting = 'default';
-        
-        $this->sortBy            = 'id';
-        $this->sortDirection     = 'desc';
-        $this->perPage           = 15;
+
+        $this->sortBy = 'id';
+        $this->sortDirection = 'desc';
+        $this->perPage = 15;
         $this->paginationOptions = [25, 50, 100];
-        $this->orderable         = (new Product())->orderable;
+        $this->orderable = (new Product())->orderable;
     }
 
     public function getProductsProperty()
@@ -113,7 +113,7 @@ class Categories extends Component
     }
 
     public function render()
-    {   
+    {
         return view('livewire.front.categories');
     }
 }

@@ -2,16 +2,14 @@
 
 namespace App\Jobs;
 
+use App\Imports\ProductImport;
 use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldBeUnique;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
-use App\Imports\ProductImport;
-use Illuminate\Support\Str;
-use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Support\Facades\File;
+use Maatwebsite\Excel\Facades\Excel;
 
 class ProductJob implements ShouldQueue
 {
@@ -36,10 +34,8 @@ class ProductJob implements ShouldQueue
      */
     public function handle()
     {
+        Excel::import(new ProductImport, public_path('images/products/'.$this->filename));
 
-        Excel::import(new ProductImport, public_path('images/products/' . $this->filename));
-
-        File::delete(public_path('images/products/' . $this->filename));
-
+        File::delete(public_path('images/products/'.$this->filename));
     }
 }

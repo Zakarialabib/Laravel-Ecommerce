@@ -2,21 +2,24 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
 use App\Support\HasAdvancedFilter;
+use Illuminate\Database\Eloquent\Model;
 
-Class OrderForms extends Model
+class OrderForms extends Model
 {
     use HasAdvancedFilter;
 
     public $table = 'orderforms';
 
-    const HOME_FORM    = 1;
-    const PRODUCT_FORM    = 2;
+    const HOME_FORM = 1;
 
-    const STATUS_PENDING    = 1;
-    const STATUS_APPROVED   = 2;
-    const STATUS_REJECTED   = 3;
+    const PRODUCT_FORM = 2;
+
+    const STATUS_PENDING = 1;
+
+    const STATUS_APPROVED = 2;
+
+    const STATUS_REJECTED = 3;
 
     public $orderable = [
         'id',
@@ -56,6 +59,4 @@ Class OrderForms extends Model
     protected $casts = [
         'status' => 'boolean',
     ];
-
-
-} 
+}

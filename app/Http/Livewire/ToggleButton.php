@@ -3,16 +3,20 @@
 namespace App\Http\Livewire;
 
 use Illuminate\Database\Eloquent\Model;
-use Livewire\Component;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
- 
+use Livewire\Component;
+
 class ToggleButton extends Component
 {
     public Model $model;
-    
+
     use LivewireAlert;
-    
-    public $field, $status, $uniqueId;
+
+    public $field;
+
+    public $status;
+
+    public $uniqueId;
 
     protected $listeners = ['updating'];
 
@@ -34,14 +38,10 @@ class ToggleButton extends Component
             'showDenyButton' => false,
             'onDenied' => '',
         ]);
-
     }
-
 
     public function render()
     {
         return view('livewire.toggle-button');
     }
-
 }
-    

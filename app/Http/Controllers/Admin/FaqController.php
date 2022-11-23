@@ -2,18 +2,19 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Http\Controllers\Controller;
 use App\Models\Faq;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 
 class FaqController extends Controller
 {
-  
-    public function index(){
+    public function index()
+    {
         return view('admin.faq.index');
     }
 
-    public function create(){
+    public function create()
+    {
         return view('admin.faq.create');
     }
 
@@ -30,17 +31,18 @@ class FaqController extends Controller
         $data->fill($input)->save();
         //--- Logic Section Ends
 
-        //--- Redirect Section        
-        $msg = __('New Data Added Successfully.').'<a href="'.route("admin-faq-index").'">'.__("View Faq Lists").'</a>';
-        return response()->json($msg);      
-        //--- Redirect Section Ends   
-    }
+        //--- Redirect Section
+        $msg = __('New Data Added Successfully.').'<a href="'.route('admin-faq-index').'">'.__('View Faq Lists').'</a>';
 
+        return response()->json($msg);
+        //--- Redirect Section Ends
+    }
 
     public function edit($id)
     {
         $data = Faq::findOrFail($id);
-        return view('admin.faq.edit',compact('data'));
+
+        return view('admin.faq.edit', compact('data'));
     }
 
     //*** POST Request
@@ -56,19 +58,21 @@ class FaqController extends Controller
         $data->update($input);
         //--- Logic Section Ends
 
-        //--- Redirect Section     
-        $msg = __('Data Updated Successfully.').'<a href="'.route("admin-faq-index").'">'.__("View Faq Lists").'</a>';
-        return response()->json($msg);    
-        //--- Redirect Section Ends              
+        //--- Redirect Section
+        $msg = __('Data Updated Successfully.').'<a href="'.route('admin-faq-index').'">'.__('View Faq Lists').'</a>';
+
+        return response()->json($msg);
+        //--- Redirect Section Ends
     }
-    
+
     public function destroy($id)
     {
         $data = Faq::findOrFail($id);
         $data->delete();
-        //--- Redirect Section     
+        //--- Redirect Section
         $msg = __('Data Deleted Successfully.');
-        return response()->json($msg);      
-        //--- Redirect Section Ends   
+
+        return response()->json($msg);
+        //--- Redirect Section Ends
     }
 }

@@ -2,9 +2,9 @@
 
 namespace App\Http\Livewire\Admin;
 
-use Livewire\Component;
 use Illuminate\Support\Facades\Artisan;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
+use Livewire\Component;
 
 class Cache extends Component
 {
@@ -19,12 +19,10 @@ class Cache extends Component
 
     public function onClearCache()
     {
-        
         Artisan::call('optimize:clear');
-        
+
         Artisan::call('optimize');
 
-        $this->alert('success', __('All caches have been cleared!') );
-
+        $this->alert('success', __('All caches have been cleared!'));
     }
 }

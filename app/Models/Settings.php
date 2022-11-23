@@ -14,7 +14,6 @@ class Settings extends Model
         'value',
     ];
 
-
     public static function set($key, $value)
     {
         $setting = self::where('key', $key)->first();
@@ -27,8 +26,7 @@ class Settings extends Model
                 'value' => $value,
             ]);
         }
+
         return $setting;
     }
-    
-    
 }

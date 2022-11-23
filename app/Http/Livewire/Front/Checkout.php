@@ -2,30 +2,37 @@
 
 namespace App\Http\Livewire\Front;
 
-use Livewire\Component;
+use App\Models\Order;
+use App\Models\Shipping;
 use Gloudemans\Shoppingcart\Facades\Cart;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
-use App\Models\Shipping;
-use App\Models\Order;
-use Carbon\Carbon;
+use Livewire\Component;
 
 class Checkout extends Component
 {
     use LivewireAlert;
 
     public $listeners = ['checkout' => 'checkout'];
+
     // shipping_id
     public $payment_method;
+
     public $shipping_cost;
+
     public $first_name;
+
     public $last_name;
 
     public $email;
+
     public $address;
+
     public $city;
+
     public $country;
+
     public $phone;
-    
+
     public $total;
 
     public $order_status;
@@ -34,10 +41,8 @@ class Checkout extends Component
 
     public $listsForFields = [];
 
-
     public function checkout()
     {
-        
         $this->validate([
             'shipping_id' => 'required',
         ]);
@@ -76,7 +81,7 @@ class Checkout extends Component
 
         return redirect()->route('front.thankyou');
     }
-    
+
     public function updatedShippingId($value)
     {
         if ($value) {
@@ -92,18 +97,16 @@ class Checkout extends Component
         $this->emit('cartTotalUpdated', $cartTotal);
     }
 
-
-
     public function mount()
     {
         $this->cartTotal = Cart::instance('shopping')->total();
 
-        $this->cartItems =  Cart::instance('shopping')->content();
+        $this->cartItems = Cart::instance('shopping')->content();
 
         $this->subTotal = Cart::instance('shopping')->subtotal();
 
         $this->tax = Cart::instance('shopping')->tax();
-        
+
         $this->shipping = Shipping::find($this->shipping_id);
 
         $this->payment_method = 'cash';
@@ -119,6 +122,5 @@ class Checkout extends Component
     protected function initListsForFields(): void
     {
         $this->listsForFields['shippings'] = Shipping::pluck('title', 'id')->toArray();
-
     }
 }

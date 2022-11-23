@@ -135,9 +135,8 @@ class MediaManager extends Component
 
     public function getDiskProperty()
     {
-        //  storage disk public 
+        //  storage disk public
         Storage::disk('public');
-
     }
 
     public function getTabOptionsProperty()
@@ -158,7 +157,7 @@ class MediaManager extends Component
     {
         $extension = Str::start($extension, '.');
 
-        return str_replace($extension, '', $originalFilename) . '-' . time() . $extension;
+        return str_replace($extension, '', $originalFilename).'-'.time().$extension;
     }
 
     public function render()

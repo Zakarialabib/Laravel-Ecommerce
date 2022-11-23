@@ -2,10 +2,8 @@
 
 namespace App\Http\Livewire\Front;
 
-use Livewire\Component;
-use App\Models\Brand;
 use App\Models\Product;
-use Illuminate\Support\Collection;
+use Livewire\Component;
 use Livewire\WithPagination;
 
 class BrandPage extends Component
@@ -19,7 +17,7 @@ class BrandPage extends Component
     public function mount($brand)
     {
         $this->brand = $brand;
-        $this->perPage           = 15;
+        $this->perPage = 15;
         $this->paginationOptions = [25, 50, 100];
     }
 

@@ -4,24 +4,26 @@ namespace App\Http\Livewire\Admin\Role;
 
 use App\Models\Permission;
 use App\Models\Role;
-use Livewire\Component;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
+use Livewire\Component;
+
 class Edit extends Component
 {
     use LivewireAlert;
+
     public Role $role;
 
     public array $permissions = [];
 
     public array $listsForFields = [];
-   
+
     protected $listeners = [
         'submit',
     ];
 
     public function mount(Role $role)
     {
-        $this->role        = $role;
+        $this->role = $role;
         $this->permissions = $this->role->permissions->pluck('id')->toArray();
         $this->initListsForFields();
     }

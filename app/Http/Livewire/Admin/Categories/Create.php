@@ -3,22 +3,21 @@
 namespace App\Http\Livewire\Admin\Categories;
 
 use App\Models\Category;
-use Illuminate\Support\Facades\Gate;
-use Livewire\Component;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
-use Str;
+use Livewire\Component;
 use Livewire\WithFileUploads;
+use Str;
 
 class Create extends Component
 {
     use LivewireAlert, WithFileUploads;
-    
+
     public $listeners = ['createCategory'];
-    
+
     public $createCategory;
 
     public $image;
-    
+
     public array $rules = [
         'category.code' => '',
         'category.name' => 'required',
@@ -53,18 +52,18 @@ class Create extends Component
     {
         $this->validate();
 
-        if($this->image){
-            $imageName = Str::slug($this->category->name) . '-' . date('Y-m-d H:i:s') . '.' . $this->image->extension();
-            $this->image->storeAs('categories',$imageName);
+        if ($this->image) {
+            $imageName = Str::slug($this->category->name).'-'.date('Y-m-d H:i:s').'.'.$this->image->extension();
+            $this->image->storeAs('categories', $imageName);
             $this->category->image = $imageName;
         }
 
         $this->category->save();
 
         $this->emit('refreshIndex');
-        
+
         $this->alert('success', 'Category created successfully.');
-        
+
         $this->createCategory = false;
     }
 }

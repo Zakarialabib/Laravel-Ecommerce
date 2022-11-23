@@ -2,23 +2,23 @@
 
 namespace App\Http\Livewire\Admin\Settings;
 
-use Livewire\Component;
-use DateTime, App, File;
 use App\Models\Language;
 use Artisan;
+use DateTime;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
+use Livewire\Component;
 
 class Languages extends Component
 {
     use LivewireAlert;
 
-    public $languages      = [];
+    public $languages = [];
 
     protected $listeners = ['sendUpdateLanguageStatus' => 'onUpdateLanguageStatus', 'sync'];
 
     public function mount()
     {
-         $this->languages = Language::all()->toArray();
+        $this->languages = Language::all()->toArray();
     }
 
     public function render()
@@ -30,24 +30,20 @@ class Languages extends Component
      * -------------------------------------------------------------------------------
      *  Set Default Language
      * -------------------------------------------------------------------------------
-    **/
-
+     **/
     public function onSetDefault($id)
     {
         try {
-
-            Language::where('is_default', '=', true)->update( ['is_default' => false] );
-            $trans             = Language::findOrFail($id);
-            $trans->is_default    = true;
+            Language::where('is_default', '=', true)->update(['is_default' => false]);
+            $trans = Language::findOrFail($id);
+            $trans->is_default = true;
             $trans->updated_at = new DateTime();
             $trans->save();
 
-			$this->alert('success', __('Language updated successfully!') );
+            $this->alert('success', __('Language updated successfully!'));
             $this->mount();
-
         } catch (\Exception $e) {
-            $this->alert('error', __($e->getMessage()) );
-
+            $this->alert('error', __($e->getMessage()));
         }
     }
 
@@ -55,36 +51,32 @@ class Languages extends Component
      * -------------------------------------------------------------------------------
      *  Sync Translations
      * -------------------------------------------------------------------------------
-    **/
+     **/
+    public function sync($id)
+    {
+        $languages = Language::findOrFail($id);
 
-    public function sync($id){
-            
-            $languages = Language::findOrFail($id);
+        Artisan::call('translatable:export', ['lang' => $languages->code]);
 
-            Artisan::call('translatable:export', ['lang' => $languages->code]);
-
-            $this->alert('success', __('Translation updated successfully!') );
-        
-       
+        $this->alert('success', __('Translation updated successfully!'));
     }
 
-    public function onUpdateLanguageStatus(){
+    public function onUpdateLanguageStatus()
+    {
         $this->mount();
     }
-
 
     /**
      * -------------------------------------------------------------------------------
      *  Delete Language
      * -------------------------------------------------------------------------------
-    **/
-
+     **/
     public function delete(Language $lang_id)
     {
         $lang_id->delete();
 
-        $this->alert('warning', __('Language deleted successfully!') );
+        $this->alert('warning', __('Language deleted successfully!'));
 
         $this->reRenderParent();
-    }   
+    }
 }

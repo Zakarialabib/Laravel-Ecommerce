@@ -2,15 +2,13 @@
 
 namespace App\Http\Livewire\Admin\BlogCategory;
 
-use Livewire\Component;
-use App\{
-    Models\BlogCategory,
-    Models\Language
-};
-use Livewire\WithPagination;
 use App\Http\Livewire\WithSorting;
-use Jantinnerezo\LivewireAlert\LivewireAlert;
+use App\Models\BlogCategory;
+use App\Models\Language;
 use Illuminate\Support\Facades\Gate;
+use Jantinnerezo\LivewireAlert\LivewireAlert;
+use Livewire\Component;
+use Livewire\WithPagination;
 
 class Index extends Component
 {
@@ -19,10 +17,10 @@ class Index extends Component
     use LivewireAlert;
 
     public $listeners = [
-    
-        'confirmDelete', 'delete', 'editModal',         
+
+        'confirmDelete', 'delete', 'editModal',
         'refreshIndex',
-    
+
     ];
 
     public int $perPage;
@@ -91,19 +89,19 @@ class Index extends Component
 
     public function mount()
     {
-        $this->sortBy            = 'id';
-        $this->sortDirection     = 'desc';
-        $this->perPage           = 25;
+        $this->sortBy = 'id';
+        $this->sortDirection = 'desc';
+        $this->perPage = 25;
         $this->paginationOptions = [25, 50, 100];
-        $this->orderable         = (new BlogCategory())->orderable;
+        $this->orderable = (new BlogCategory())->orderable;
         $this->initListsForFields();
     }
 
     public function render()
     {
         $query = BlogCategory::advancedFilter([
-            's'               => $this->search ?: null,
-            'order_column'    => $this->sortBy,
+            's' => $this->search ?: null,
+            'order_column' => $this->sortBy,
             'order_direction' => $this->sortDirection,
         ]);
 
@@ -122,7 +120,7 @@ class Index extends Component
 
         $this->blogcategory = $blogcategory;
 
-        $this->editModal = true;  
+        $this->editModal = true;
     }
 
     public function update()
@@ -140,7 +138,6 @@ class Index extends Component
         }
     }
 
-
     public function delete(BlogCategory $blogcategory)
     {
         abort_if(Gate::denies('blogcategory_delete'), 403);
@@ -148,13 +145,10 @@ class Index extends Component
         $blogcategory->delete();
 
         $this->alert('success', __('BlogCategory deleted successfully.'));
-
     }
 
     protected function initListsForFields(): void
     {
         $this->listsForFields['languages'] = Language::pluck('name', 'id')->toArray();
     }
-
-
 }

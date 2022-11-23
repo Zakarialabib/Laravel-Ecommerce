@@ -2,20 +2,21 @@
 
 namespace App\Http\Livewire\Front;
 
-use Livewire\Component;
 use App\Models\Product;
 use Gloudemans\Shoppingcart\Facades\Cart;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
+use Livewire\Component;
 
 class AddToCart extends Component
 {
     use LivewireAlert;
-    
+
     public $product;
+
     public $quantity = 1;
 
     public $listeners = [
-        'AddToCart'
+        'AddToCart',
     ];
 
     public function mount(Product $product)
@@ -36,14 +37,14 @@ class AddToCart extends Component
         $this->alert('success',
             __('Product added to cart successfully!'),
             [
-                'position' =>  'center',
-                'timer' =>  3000,  
-                'toast' =>  true, 
-                'text' =>  '', 
-                'confirmButtonText' =>  'Ok', 
-                'cancelButtonText' =>  'Cancel', 
-                'showCancelButton' =>  false, 
-                'showConfirmButton' =>  false, 
+                'position' => 'center',
+                'timer' => 3000,
+                'toast' => true,
+                'text' => '',
+                'confirmButtonText' => 'Ok',
+                'cancelButtonText' => 'Cancel',
+                'showCancelButton' => false,
+                'showConfirmButton' => false,
             ]
         );
     }

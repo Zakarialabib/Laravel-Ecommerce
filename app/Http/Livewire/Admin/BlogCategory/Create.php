@@ -3,13 +3,11 @@
 namespace App\Http\Livewire\Admin\BlogCategory;
 
 use App\Models\BlogCategory;
-use App\Models\Category;
 use App\Models\Language;
 use Illuminate\Support\Facades\Gate;
-use Livewire\Component;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
+use Livewire\Component;
 use Livewire\WithFileUploads;
-use Illuminate\Support\Str;
 
 class Create extends Component
 {
@@ -18,16 +16,15 @@ class Create extends Component
     public $createBlogCategory;
 
     public $listeners = ['createBlogCategory'];
-    
+
     public array $listsForFields = [];
 
     public function mount(BlogCategory $blogcategory)
     {
         $this->blogcategory = $blogcategory;
         $this->blogcategory->language_id = 1;
-        
-        $this->initListsForFields();
 
+        $this->initListsForFields();
     }
 
     public array $rules = [
@@ -58,20 +55,18 @@ class Create extends Component
     public function create()
     {
         $this->validate();
-        
-        if($this->blogcategory->save()){
+
+        if ($this->blogcategory->save()) {
             $this->alert('success', __('BlogCategory created successfully.'));
             $this->createBlogCategory = false;
             $this->emit('refreshIndex');
         } else {
             $this->alert('error', __('BlogCategory not created'));
         }
-
     }
 
     protected function initListsForFields(): void
     {
         $this->listsForFields['languages'] = Language::pluck('name', 'id')->toArray();
     }
-
 }

@@ -9,5 +9,4 @@ class Packaging extends Model
     protected $fillable = ['title', 'subtitle', 'cost'];
 
     public $timestamps = false;
-
 }

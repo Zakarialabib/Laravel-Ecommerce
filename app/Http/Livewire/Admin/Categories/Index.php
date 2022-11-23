@@ -2,39 +2,42 @@
 
 namespace App\Http\Livewire\Admin\Categories;
 
-use Livewire\Component;
-use Jantinnerezo\LivewireAlert\LivewireAlert;
 use App\Http\Livewire\WithSorting;
+use App\Imports\CategoriesImport;
+use App\Models\Category;
 use Illuminate\Support\Facades\Gate;
+use Jantinnerezo\LivewireAlert\LivewireAlert;
+use Livewire\Component;
 use Livewire\WithFileUploads;
 use Livewire\WithPagination;
-use App\Models\Category;
 use Maatwebsite\Excel\Facades\Excel;
-use App\Imports\CategoriesImport;
 
 class Index extends Component
 {
-    use WithPagination, WithSorting, 
+    use WithPagination, WithSorting,
         LivewireAlert, WithFileUploads;
 
     public $category;
+
     public $code;
+
     public $name;
+
     public $image;
 
     public $listeners = [
-         'confirmDelete', 'delete',
-        'refreshIndex','editModal',
-        'importModal'
+        'confirmDelete', 'delete',
+        'refreshIndex', 'editModal',
+        'importModal',
     ];
 
     public int $perPage;
-    
+
     public $refreshIndex;
 
     public $importModal;
-    
-    public $editModal; 
+
+    public $editModal;
 
     public array $orderable;
 
@@ -43,7 +46,7 @@ class Index extends Component
     public array $selected = [];
 
     public array $paginationOptions;
-    
+
     protected $queryString = [
         'search' => [
             'except' => '',
@@ -88,20 +91,20 @@ class Index extends Component
 
     public function mount()
     {
-        $this->sortBy            = 'id';
-        $this->sortDirection     = 'desc';
-        $this->perPage           = 100;
+        $this->sortBy = 'id';
+        $this->sortDirection = 'desc';
+        $this->perPage = 100;
         $this->paginationOptions = [25, 50, 100];
-        $this->orderable         = (new Category())->orderable;
+        $this->orderable = (new Category())->orderable;
     }
 
     public function render()
     {
         $query = Category::advancedFilter([
-                            's'               => $this->search ?: null,
-                            'order_column'    => $this->sortBy,
-                            'order_direction' => $this->sortDirection,
-                        ]);
+            's' => $this->search ?: null,
+            'order_column' => $this->sortBy,
+            'order_direction' => $this->sortDirection,
+        ]);
 
         $categories = $query->paginate($this->perPage);
 
@@ -127,9 +130,9 @@ class Index extends Component
 
         $this->validate();
 
-        if($this->image){
-            $imageName = Str::slug($this->category->name) . '-' . date('Y-m-d H:i:s') . '.' . $this->image->extension();
-            $this->image->storeAs('categories',$imageName);
+        if ($this->image) {
+            $imageName = Str::slug($this->category->name).'-'.date('Y-m-d H:i:s').'.'.$this->image->extension();
+            $this->image->storeAs('categories', $imageName);
             $this->category->image = $imageName;
         }
 
@@ -145,12 +148,12 @@ class Index extends Component
         abort_if(Gate::denies('category_delete'), 403);
 
         Category::whereIn('id', $this->selected)->delete();
-        
+
         $this->alert('success', __('Category deleted successfully.'));
 
         $this->resetSelected();
     }
-    
+
     public function delete(Category $category)
     {
         abort_if(Gate::denies('category_delete'), 403);
@@ -164,7 +167,7 @@ class Index extends Component
         }
     }
 
-    public function importExcel ()
+    public function importExcel()
     {
         abort_if(Gate::denies('category_access'), 403);
 
@@ -176,7 +179,7 @@ class Index extends Component
         abort_if(Gate::denies('category_access'), 403);
 
         $this->validate([
-            'file' => 'required|mimes:xlsx,xls,csv,txt'
+            'file' => 'required|mimes:xlsx,xls,csv,txt',
         ]);
 
         $file = $this->file('file');
@@ -187,5 +190,4 @@ class Index extends Component
 
         $this->importModal = false;
     }
-
 }

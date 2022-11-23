@@ -2,10 +2,8 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Seeder;
 use App\Models\Currency;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Str;
+use Illuminate\Database\Seeder;
 
 class CurrenciesSeeder extends Seeder
 {
@@ -18,13 +16,13 @@ class CurrenciesSeeder extends Seeder
     {
         Currency::insert([
             [
-            'id'           => 1,
-            'name'        => 'Dirham',
-            'sign' => 'DH',
-            'value'      => 1,
-            'is_default'      => 1,
+                'id' => 1,
+                'name' => 'Dirham',
+                'sign' => 'DH',
+                'value' => 1,
+                'is_default' => 1,
             ],
-            
+
         ]);
-    }    
     }
+}

@@ -2,10 +2,8 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Seeder;
 use App\Models\Blog;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Str;
+use Illuminate\Database\Seeder;
 
 class BlogSeeder extends Seeder
 {
@@ -22,37 +20,37 @@ class BlogSeeder extends Seeder
                 'title' => 'Blog Title',
                 'details' => 'Blog Details',
                 'image' => 'blog.jpg',
-                'slug'  => 'blog-title-1',
+                'slug' => 'blog-title-1',
                 'status' => 1,
                 'featured' => 1,
                 'meta_title' => 'Blog Meta Title',
                 'meta_desc' => 'Blog Meta Description',
-                'language_id'   => 1,
+                'language_id' => 1,
             ],
             [
                 'id' => 2,
                 'title' => 'Blog Title',
                 'details' => 'Blog Details',
                 'image' => 'blog.jpg',
-                'slug'  => 'blog-title-2',
+                'slug' => 'blog-title-2',
                 'status' => 1,
                 'featured' => 1,
                 'meta_title' => 'Blog Meta Title',
                 'meta_desc' => 'Blog Meta Description',
-                'language_id'   => 1,
+                'language_id' => 1,
             ],
             [
                 'id' => 3,
                 'title' => 'Blog Title',
                 'details' => 'Blog Details',
                 'image' => 'blog.jpg',
-                'slug'  => 'blog-title-3',
+                'slug' => 'blog-title-3',
                 'status' => 1,
                 'featured' => 1,
                 'meta_title' => 'Blog Meta Title',
                 'meta_desc' => 'Blog Meta Description',
-                'language_id'   => 1,
+                'language_id' => 1,
             ],
         ]);
-    }    
     }
+}

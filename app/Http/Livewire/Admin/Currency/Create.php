@@ -3,9 +3,9 @@
 namespace App\Http\Livewire\Admin\Currency;
 
 use App\Models\Currency;
-use Livewire\Component;
 use Illuminate\Support\Facades\Gate;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
+use Livewire\Component;
 
 class Create extends Component
 {
@@ -54,6 +54,5 @@ class Create extends Component
         $this->emit('refreshIndex');
 
         $this->createCurrency = false;
-
     }
 }

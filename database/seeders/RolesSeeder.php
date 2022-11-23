@@ -2,8 +2,8 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Seeder;
 use App\Models\Role;
+use Illuminate\Database\Seeder;
 
 class RolesSeeder extends Seeder
 {
@@ -16,12 +16,12 @@ class RolesSeeder extends Seeder
     {
         $roles = [
             [
-                'id'    => 1,
+                'id' => 1,
                 'name' => Role::ROLE_ADMIN,
                 'guard_name' => Role::ROLE_ADMIN,
             ],
             [
-                'id'    => 2,
+                'id' => 2,
                 'name' => Role::ROLE_CLIENT,
                 'guard_name' => Role::ROLE_CLIENT,
             ],

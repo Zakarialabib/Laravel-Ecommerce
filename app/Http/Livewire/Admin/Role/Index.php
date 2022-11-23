@@ -2,12 +2,12 @@
 
 namespace App\Http\Livewire\Admin\Role;
 
+use App\Http\Livewire\WithSorting;
 use App\Models\Role;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Gate;
 use Livewire\Component;
 use Livewire\WithPagination;
-use App\Http\Livewire\WithSorting;
 
 class Index extends Component
 {
@@ -58,18 +58,18 @@ class Index extends Component
 
     public function mount()
     {
-        $this->sortBy            = 'id';
-        $this->sortDirection     = 'desc';
-        $this->perPage           = 100;
+        $this->sortBy = 'id';
+        $this->sortDirection = 'desc';
+        $this->perPage = 100;
         $this->paginationOptions = [25, 50, 100];
-        $this->orderable         = (new Role())->orderable;
+        $this->orderable = (new Role())->orderable;
     }
 
     public function render()
     {
         $query = Role::advancedFilter([
-            's'               => $this->search ?: null,
-            'order_column'    => $this->sortBy,
+            's' => $this->search ?: null,
+            'order_column' => $this->sortBy,
             'order_direction' => $this->sortDirection,
         ]);
 

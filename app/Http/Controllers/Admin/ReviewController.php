@@ -2,36 +2,35 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Http\Controllers\Controller;
 use App\Models\Review;
 use Illuminate\Http\Request;
 use Validator;
-use App\Http\Controllers\Controller;
 
 class ReviewController extends Controller
 {
     //*** JSON Request
     public function datatables()
     {
-         $datas = Review::latest('id')->get();
-         //--- Integrating This Collection Into Datatables
-         return Datatables::of($datas)
-                            ->editColumn('photo', function(Review $data) {
-                                $photo = $data->photo ? url('assets/images/reviews/'.$data->photo):url('assets/images/noimage.png');
-                                return '<img src="' . $photo . '" alt="Image">';
-                            })
-                            ->addColumn('action', function(Review $data) {
-                                return '<div class="action-list"><a data-href="' . route('admin-review-edit',$data->id) . '" class="edit" data-toggle="modal" data-target="#modal1"> <i class="fas fa-edit"></i>'.__('Edit').'</a><a href="javascript:;" data-href="' . route('admin-review-delete',$data->id) . '" data-toggle="modal" data-target="#confirm-delete" class="delete"><i class="fas fa-trash-alt"></i></a></div>';
-                            }) 
-                            ->rawColumns(['photo', 'action'])
-                            ->toJson(); //--- Returning Json Data To Client Side
-    }
+        $datas = Review::latest('id')->get();
+        //--- Integrating This Collection Into Datatables
+        return Datatables::of($datas)
+                           ->editColumn('photo', function (Review $data) {
+                               $photo = $data->photo ? url('assets/images/reviews/'.$data->photo) : url('assets/images/noimage.png');
 
+                               return '<img src="'.$photo.'" alt="Image">';
+                           })
+                           ->addColumn('action', function (Review $data) {
+                               return '<div class="action-list"><a data-href="'.route('admin-review-edit', $data->id).'" class="edit" data-toggle="modal" data-target="#modal1"> <i class="fas fa-edit"></i>'.__('Edit').'</a><a href="javascript:;" data-href="'.route('admin-review-delete', $data->id).'" data-toggle="modal" data-target="#confirm-delete" class="delete"><i class="fas fa-trash-alt"></i></a></div>';
+                           })
+                           ->rawColumns(['photo', 'action'])
+                           ->toJson(); //--- Returning Json Data To Client Side
+    }
 
     public function index()
     {
         return view('admin.review.index');
     }
-
 
     public function create()
     {
@@ -43,39 +42,39 @@ class ReviewController extends Controller
     {
         //--- Validation Section
         $rules = [
-               'photo'      => 'required|mimes:jpeg,jpg,png,svg',
-                ];
+            'photo' => 'required|mimes:jpeg,jpg,png,svg',
+        ];
 
         $validator = Validator::make($request->all(), $rules);
-        
+
         if ($validator->fails()) {
-          return response()->json(array('errors' => $validator->getMessageBag()->toArray()));
+            return response()->json(['errors' => $validator->getMessageBag()->toArray()]);
         }
         //--- Validation Section Ends
 
         //--- Logic Section
         $data = new Review();
         $input = $request->all();
-        if ($file = $request->file('photo')) 
-         {      
+        if ($file = $request->file('photo')) {
             $name = \PriceHelper::ImageCreateName($file);
-            $file->move('assets/images/reviews',$name);           
+            $file->move('assets/images/reviews', $name);
             $input['photo'] = $name;
-        } 
+        }
         $data->fill($input)->save();
         //--- Logic Section Ends
 
-        //--- Redirect Section        
+        //--- Redirect Section
         $msg = __('New Data Added Successfully.');
-        return response()->json($msg);      
-        //--- Redirect Section Ends    
-    }
 
+        return response()->json($msg);
+        //--- Redirect Section Ends
+    }
 
     public function edit($id)
     {
         $data = Review::findOrFail($id);
-        return view('admin.review.edit',compact('data'));
+
+        return view('admin.review.edit', compact('data'));
     }
 
     //*** POST Request
@@ -83,60 +82,60 @@ class ReviewController extends Controller
     {
         //--- Validation Section
         $rules = [
-               'photo'      => 'mimes:jpeg,jpg,png,svg',
-                ];
+            'photo' => 'mimes:jpeg,jpg,png,svg',
+        ];
 
         $validator = Validator::make($request->all(), $rules);
-        
+
         if ($validator->fails()) {
-          return response()->json(array('errors' => $validator->getMessageBag()->toArray()));
+            return response()->json(['errors' => $validator->getMessageBag()->toArray()]);
         }
         //--- Validation Section Ends
 
         //--- Logic Section
         $data = Review::findOrFail($id);
         $input = $request->all();
-            if ($file = $request->file('photo')) 
-            {              
-                $name = \PriceHelper::ImageCreateName($file);
-                $file->move('assets/images/reviews',$name);
-                if($data->photo != null)
-                {
-                    if (file_exists(public_path().'/assets/images/reviews/'.$data->photo)) {
-                        unlink(public_path().'/assets/images/reviews/'.$data->photo);
-                    }
-                }            
+        if ($file = $request->file('photo')) {
+            $name = \PriceHelper::ImageCreateName($file);
+            $file->move('assets/images/reviews', $name);
+            if ($data->photo != null) {
+                if (file_exists(public_path().'/assets/images/reviews/'.$data->photo)) {
+                    unlink(public_path().'/assets/images/reviews/'.$data->photo);
+                }
+            }
             $input['photo'] = $name;
-            } 
+        }
         $data->update($input);
         //--- Logic Section Ends
 
-        //--- Redirect Section     
+        //--- Redirect Section
         $msg = __('Data Updated Successfully.');
-        return response()->json($msg);      
-        //--- Redirect Section Ends            
-    }
 
+        return response()->json($msg);
+        //--- Redirect Section Ends
+    }
 
     public function destroy($id)
     {
         $data = Review::findOrFail($id);
         //If Photo Doesn't Exist
-        if($data->photo == null){
+        if ($data->photo == null) {
             $data->delete();
-            //--- Redirect Section     
+            //--- Redirect Section
             $msg = __('Data Deleted Successfully.');
-            return response()->json($msg);      
-            //--- Redirect Section Ends     
+
+            return response()->json($msg);
+            //--- Redirect Section Ends
         }
         //If Photo Exist
         if (file_exists(public_path().'/assets/images/reviews/'.$data->photo)) {
             unlink(public_path().'/assets/images/reviews/'.$data->photo);
         }
         $data->delete();
-        //--- Redirect Section     
+        //--- Redirect Section
         $msg = __('Data Deleted Successfully.');
-        return response()->json($msg);      
-        //--- Redirect Section Ends     
+
+        return response()->json($msg);
+        //--- Redirect Section Ends
     }
 }

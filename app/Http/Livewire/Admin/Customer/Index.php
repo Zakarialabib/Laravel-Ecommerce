@@ -2,14 +2,12 @@
 
 namespace App\Http\Livewire\Admin\Customer;
 
-use Livewire\Component;
+use App\Http\Livewire\WithSorting;
 use App\{
     Models\User
 };
-use Illuminate\Http\Response;
+use Livewire\Component;
 use Livewire\WithPagination;
-use App\Http\Livewire\WithSorting;
-use Str;
 
 class Index extends Component
 {
@@ -62,18 +60,18 @@ class Index extends Component
 
     public function mount()
     {
-        $this->sortBy            = 'id';
-        $this->sortDirection     = 'desc';
-        $this->perPage           = 25;
+        $this->sortBy = 'id';
+        $this->sortDirection = 'desc';
+        $this->perPage = 25;
         $this->paginationOptions = [25, 50, 100];
-        $this->orderable         = (new User())->orderable;
+        $this->orderable = (new User())->orderable;
     }
 
     public function render()
     {
         $query = User::advancedFilter([
-            's'               => $this->search ?: null,
-            'order_column'    => $this->sortBy,
+            's' => $this->search ?: null,
+            'order_column' => $this->sortBy,
             'order_direction' => $this->sortDirection,
         ]);
 
@@ -81,5 +79,4 @@ class Index extends Component
 
         return view('livewire.admin.customer.index', compact('customers'));
     }
-
 }

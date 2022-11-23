@@ -2,106 +2,95 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\{
-    Classes\GeniusMailer,
-    Models\EmailTemplate,
-    Models\Generalsetting,
-    Models\User
-};
-use Illuminate\Http\Request;
+use App\Classes\GeniusMailer;
 use App\Http\Controllers\Controller;
+use App\Models\EmailTemplate;
+use App\Models\Generalsetting;
+use App\Models\User;
+use Illuminate\Http\Request;
 
 class EmailController extends Controller
 {
-
-    public function index(){
+    public function index()
+    {
         return view('admin.email.index');
     }
 
-    public function config(){
+    public function config()
+    {
         return view('admin.email.config');
     }
 
     public function edit($id)
     {
         $data = EmailTemplate::findOrFail($id);
-        return view('admin.email.edit',compact('data'));
+
+        return view('admin.email.edit', compact('data'));
     }
 
     public function groupemail()
     {
         $config = Generalsetting::findOrFail(1);
-        return view('admin.email.group',compact('config'));
+
+        return view('admin.email.group', compact('config'));
     }
 
     public function groupemailpost(Request $request)
     {
         $config = Generalsetting::findOrFail(1);
-        if($request->type == 0)
-        {
-        $users = User::all();
-        //Sending Email To Users
-        foreach($users as $user)
-        {
-            if($config->is_smtp == 1)
-            {
-                $data = [
-                    'to' => $user->email,
-                    'subject' => $request->subject,
-                    'body' => $request->body,
-                ];
+        if ($request->type == 0) {
+            $users = User::all();
+            //Sending Email To Users
+            foreach ($users as $user) {
+                if ($config->is_smtp == 1) {
+                    $data = [
+                        'to' => $user->email,
+                        'subject' => $request->subject,
+                        'body' => $request->body,
+                    ];
 
-                $mailer = new GeniusMailer();
-                $mailer->sendCustomMail($data);            
+                    $mailer = new GeniusMailer();
+                    $mailer->sendCustomMail($data);
+                } else {
+                    $to = $user->email;
+                    $subject = $request->subject;
+                    $msg = $request->body;
+                    $headers = 'From: '.$config->from_name.'<'.$config->from_email.'>';
+                    mail($to, $subject, $msg, $headers);
+                }
             }
-            else
-            {
-               $to = $user->email;
-               $subject = $request->subject;
-               $msg = $request->body;
-                $headers = "From: ".$config->from_name."<".$config->from_email.">";
-               mail($to,$subject,$msg,$headers);
-            }  
-        } 
-        //--- Redirect Section          
-        $msg = __('Email Sent Successfully.');
-        return response()->json($msg);    
-        //--- Redirect Section Ends  
-        }
+            //--- Redirect Section
+            $msg = __('Email Sent Successfully.');
 
-        else if($request->type == 1)
-        {
-        $users = User::where('is_vendor','=','2')->get();
-        //Sending Email To Vendors        
-        foreach($users as $user)
-        {
-            if($config->is_smtp == 1)
-            {
-                $data = [
-                    'to' => $user->email,
-                    'subject' => $request->subject,
-                    'body' => $request->body,
-                ];
+            return response()->json($msg);
+        //--- Redirect Section Ends
+        } elseif ($request->type == 1) {
+            $users = User::where('is_vendor', '=', '2')->get();
+            //Sending Email To Vendors
+            foreach ($users as $user) {
+                if ($config->is_smtp == 1) {
+                    $data = [
+                        'to' => $user->email,
+                        'subject' => $request->subject,
+                        'body' => $request->body,
+                    ];
 
-                $mailer = new GeniusMailer();
-                $mailer->sendCustomMail($data);            
+                    $mailer = new GeniusMailer();
+                    $mailer->sendCustomMail($data);
+                } else {
+                    $to = $user->email;
+                    $subject = $request->subject;
+                    $msg = $request->body;
+                    $headers = 'From: '.$config->from_name.'<'.$config->from_email.'>';
+                    mail($to, $subject, $msg, $headers);
+                }
             }
-            else
-            {
-               $to = $user->email;
-               $subject = $request->subject;
-               $msg = $request->body;
-                $headers = "From: ".$config->from_name."<".$config->from_email.">";
-               mail($to,$subject,$msg,$headers);
-            }  
-        } 
-        //--- Redirect Section          
-        $msg = __('Email Sent Successfully.');
-        return response()->json($msg);    
-        //--- Redirect Section Ends  
+            //--- Redirect Section
+            $msg = __('Email Sent Successfully.');
+
+            return response()->json($msg);
+            //--- Redirect Section Ends
         }
-
-
     }
 
     public function update(Request $request, $id)
@@ -109,10 +98,10 @@ class EmailController extends Controller
         $data = EmailTemplate::findOrFail($id);
         $input = $request->all();
         $data->update($input);
-        //--- Redirect Section          
+        //--- Redirect Section
         $msg = __('Data Updated Successfully.');
-        return response()->json($msg);    
-        //--- Redirect Section Ends  
-    }
 
+        return response()->json($msg);
+        //--- Redirect Section Ends
+    }
 }

@@ -2,12 +2,10 @@
 
 namespace App\Http\Livewire\Admin\Product;
 
-use Livewire\Component;
-use Illuminate\Support\Facades\Gate;
-use Maatwebsite\Excel\Facades\Excel;
-use Jantinnerezo\LivewireAlert\LivewireAlert;
 use App\Jobs\ProductJob;
-use App\Imports\ProductImport;
+use Illuminate\Support\Facades\Gate;
+use Jantinnerezo\LivewireAlert\LivewireAlert;
+use Livewire\Component;
 use Livewire\WithFileUploads;
 
 class Import extends Component
@@ -15,17 +13,18 @@ class Import extends Component
     use LivewireAlert, WithFileUploads;
 
     public $listeners = [
-        'importModal', 'import'
+        'importModal', 'import',
     ];
 
     public $file;
+
     public $importModal;
-    
+
     public function render()
     {
         return view('livewire.admin.product.import');
     }
-    
+
     public function importModal()
     {
         abort_if(Gate::denies('product_access'), 403);
@@ -34,7 +33,7 @@ class Import extends Component
 
         $this->resetValidation();
 
-        $this->importModal = true;  
+        $this->importModal = true;
     }
 
     public function import()
@@ -42,31 +41,27 @@ class Import extends Component
         abort_if(Gate::denies('product_access'), 403);
 
         if ($this->file->extension() == 'xlsx' || $this->file->extension() == 'xls') {
-              
             $this->validate([
-                'file' => 'required|file|mimes:xlsx'
+                'file' => 'required|file|mimes:xlsx',
             ]);
 
             $file = $this->file;
-            $filename = time() . '-product.' . $file->getClientOriginalExtension();
+            $filename = time().'-product.'.$file->getClientOriginalExtension();
             $file->storeAs('products', $filename);
-            
+
             ProductJob::dispatch($filename);
 
             $this->emit('refreshIndex');
 
-            $this->alert('success', __('Product imported successfully!') );
-
+            $this->alert('success', __('Product imported successfully!'));
         } else {
-            $this->alert('error', __('File is a '.$this->file->extension().' file.!! Please upload a valid xls/csv file..!!') );
+            $this->alert('error', __('File is a '.$this->file->extension().' file.!! Please upload a valid xls/csv file..!!'));
         }
 
         $this->resetErrorBag();
 
         $this->resetValidation();
-        
+
         $this->importModal = false;
-
     }
-
 }

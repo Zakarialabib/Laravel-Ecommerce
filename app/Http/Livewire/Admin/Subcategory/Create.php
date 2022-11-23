@@ -2,14 +2,14 @@
 
 namespace App\Http\Livewire\Admin\Subcategory;
 
-use App\Models\Subcategory;
 use App\Models\Category;
 use App\Models\Language;
+use App\Models\Subcategory;
 use Illuminate\Support\Facades\Gate;
-use Livewire\Component;
-use Jantinnerezo\LivewireAlert\LivewireAlert;
-use Livewire\WithFileUploads;
 use Illuminate\Support\Str;
+use Jantinnerezo\LivewireAlert\LivewireAlert;
+use Livewire\Component;
+use Livewire\WithFileUploads;
 
 class Create extends Component
 {
@@ -18,16 +18,15 @@ class Create extends Component
     public $createSubcategory;
 
     public $listeners = ['createSubcategory'];
-    
+
     public array $listsForFields = [];
 
     public function mount(Subcategory $subcategory)
     {
         $this->subcategory = $subcategory;
         $this->subcategory->language_id = 1;
-        
-        $this->initListsForFields();
 
+        $this->initListsForFields();
     }
 
     public array $rules = [
@@ -57,15 +56,14 @@ class Create extends Component
         $this->validate();
 
         $this->subcategory->slug = Str::slug($this->subcategory->name);
-        
-        if($this->subcategory->save()){
+
+        if ($this->subcategory->save()) {
             $this->alert('success', __('Subcategory created successfully.'));
             $this->createSubcategory = false;
             $this->emit('refreshIndex');
         } else {
             $this->alert('error', __('Subcategory not created'));
         }
-
     }
 
     protected function initListsForFields(): void
@@ -73,5 +71,4 @@ class Create extends Component
         $this->listsForFields['categories'] = Category::pluck('name', 'id')->toArray();
         $this->listsForFields['languages'] = Language::pluck('name', 'id')->toArray();
     }
-
 }

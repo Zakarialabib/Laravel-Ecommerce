@@ -4,17 +4,17 @@ namespace App\Http\Livewire\Admin\Page;
 
 use App\Models\Page;
 use Illuminate\Support\Facades\Gate;
-use Livewire\Component;
-use Jantinnerezo\LivewireAlert\LivewireAlert;
-use Livewire\WithFileUploads;
 use Illuminate\Support\Str;
+use Jantinnerezo\LivewireAlert\LivewireAlert;
+use Livewire\Component;
+use Livewire\WithFileUploads;
 
 class Create extends Component
 {
     use LivewireAlert , WithFileUploads;
 
     public $createPage;
-    
+
     public $image;
 
     public $listeners = ['createPage'];
@@ -49,18 +49,18 @@ class Create extends Component
     {
         $this->validate();
 
-        if($this->image){
-            $imageName = Str::slug($this->page->name) . '-' . date('Y-m-d H:i:s') . '.' . $this->image->extension();
-            $this->image->storeAs('pages',$imageName);
+        if ($this->image) {
+            $imageName = Str::slug($this->page->name).'-'.date('Y-m-d H:i:s').'.'.$this->image->extension();
+            $this->image->storeAs('pages', $imageName);
             $this->page->image = $imageName;
         }
 
         $this->page->save();
 
         $this->emit('refreshIndex');
-        
+
         $this->alert('success', 'Page created successfully.');
-        
+
         $this->createPage = false;
     }
 }

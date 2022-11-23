@@ -7,13 +7,15 @@ use Illuminate\Support\Facades\Gate;
 
 class UsersController extends Controller
 {
-    public function index() {
+    public function index()
+    {
         // abort_if(Gate::denies('access_user_management'), 403);
 
         return view('admin.user.index');
     }
 
-    public function permissions() {
+    public function permissions()
+    {
         // abort_if(Gate::denies('access_user_management'), 403);
 
         return view('admin.user.permissions');

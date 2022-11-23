@@ -2,24 +2,24 @@
 
 namespace App\Http\Livewire\Admin\Slider;
 
-use App\Models\Slider;
 use App\Models\Language;
+use App\Models\Slider;
 use Illuminate\Support\Facades\Gate;
-use Livewire\Component;
-use Jantinnerezo\LivewireAlert\LivewireAlert;
-use Livewire\WithFileUploads;
 use Illuminate\Support\Str;
+use Jantinnerezo\LivewireAlert\LivewireAlert;
+use Livewire\Component;
+use Livewire\WithFileUploads;
 
 class Create extends Component
 {
     use LivewireAlert , WithFileUploads;
 
     public $createSlider;
-    
+
     public $photo;
 
     public $listeners = ['createSlider'];
-    
+
     public array $listsForFields = [];
 
     public function mount(Slider $slider)
@@ -57,18 +57,18 @@ class Create extends Component
     {
         $this->validate();
 
-        if($this->photo){
+        if ($this->photo) {
             $imageName = Str::slug($this->slider->title).'.'.$this->photo->extension();
-            $this->photo->storeAs('sliders',$imageName);
+            $this->photo->storeAs('sliders', $imageName);
             $this->slider->photo = $imageName;
         }
 
         $this->slider->save();
 
         $this->alert('success', __('Slider created successfully.'));
-        
+
         $this->emit('refreshIndex');
-        
+
         $this->createSlider = false;
     }
 
@@ -76,6 +76,4 @@ class Create extends Component
     {
         $this->listsForFields['languages'] = Language::pluck('name', 'id')->toArray();
     }
-
-
 }

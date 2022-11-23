@@ -2,18 +2,16 @@
 
 namespace App\Http\Livewire\Front;
 
-use Livewire\Component;
-use App\Models\Product;
-use App\Models\Slider;
-use App\Models\Blog;
 use App\Models\Brand;
 use App\Models\FeaturedBanner;
+use App\Models\Product;
 use App\Models\Section;
+use App\Models\Slider;
 use Illuminate\Support\Collection;
+use Livewire\Component;
 
 class Index extends Component
 {
-
     public function getFeaturedProductsProperty()
     {
         return Product::where('featured', 1)->get();
@@ -49,7 +47,6 @@ class Index extends Component
         return Section::where('status', 1)->get();
     }
 
-    
     public function render()
     {
         return view('livewire.front.index');

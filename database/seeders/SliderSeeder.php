@@ -2,10 +2,8 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Seeder;
 use App\Models\Slider;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Str;
+use Illuminate\Database\Seeder;
 
 class SliderSeeder extends Seeder
 {
@@ -45,5 +43,5 @@ class SliderSeeder extends Seeder
                 'link' => 'https://www.google.com',
             ],
         ]);
-    }    
     }
+}

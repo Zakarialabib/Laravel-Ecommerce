@@ -1,23 +1,23 @@
 <?php
 
 namespace App\Http\Middleware;
-use Closure;
+
 use App\Models\Generalsetting;
+use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\URL;
 
-class HTTPSConnection {
-
+class HTTPSConnection
+{
     public function handle(Request $request, Closure $next)
     {
         /**
          * Handle an incoming request.
          *
-         * @param  \Illuminate\Http\Request $request
-         * @param  \Closure $next
+         * @param  \Illuminate\Http\Request  $request
+         * @param  \Closure  $next
          * @return mixed
          */
-
         $is_enabled = $request->header('x-forwarded-proto') == 'https';
 
         // $gs = Generalsetting::find(1);
@@ -30,12 +30,6 @@ class HTTPSConnection {
         //         }
         //     }
 
-            return $next($request);
-
+        return $next($request);
     }
-
 }
-
-
-
-?>

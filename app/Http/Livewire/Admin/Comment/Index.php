@@ -2,10 +2,10 @@
 
 namespace App\Http\Livewire\Admin\Comment;
 
-use Livewire\Component;
-use App\Models\Comment;
-use Livewire\WithPagination;
 use App\Http\Livewire\WithSorting;
+use App\Models\Comment;
+use Livewire\Component;
+use Livewire\WithPagination;
 
 class Index extends Component
 {
@@ -58,18 +58,18 @@ class Index extends Component
 
     public function mount()
     {
-        $this->sortBy            = 'id';
-        $this->sortDirection     = 'desc';
-        $this->perPage           = 25;
+        $this->sortBy = 'id';
+        $this->sortDirection = 'desc';
+        $this->perPage = 25;
         $this->paginationOptions = [25, 50, 100];
-        $this->orderable         = (new Comment())->orderable;
+        $this->orderable = (new Comment())->orderable;
     }
 
     public function render()
     {
         $query = Comment::advancedFilter([
-            's'               => $this->search ?: null,
-            'order_column'    => $this->sortBy,
+            's' => $this->search ?: null,
+            'order_column' => $this->sortBy,
             'order_direction' => $this->sortDirection,
         ]);
 
@@ -77,5 +77,4 @@ class Index extends Component
 
         return view('livewire.admin.comment.index', compact('comments'));
     }
-
 }

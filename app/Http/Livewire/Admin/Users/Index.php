@@ -2,19 +2,19 @@
 
 namespace App\Http\Livewire\Admin\Users;
 
-use App\Models\User;
+use App\Http\Livewire\WithSorting;
 use App\Models\Role;
+use App\Models\User;
 use Illuminate\Support\Facades\Gate;
+use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Livewire\Component;
 use Livewire\WithPagination;
-use App\Http\Livewire\WithSorting;
-use Jantinnerezo\LivewireAlert\LivewireAlert;
 
 class Index extends Component
 {
     use WithPagination, WithSorting, LivewireAlert;
 
-    public $listeners = ['confirmDelete', 'delete', 'export', 'import','refreshIndex','showModal','editModal'];
+    public $listeners = ['confirmDelete', 'delete', 'export', 'import', 'refreshIndex', 'showModal', 'editModal'];
 
     public $showModal;
 
@@ -84,11 +84,11 @@ class Index extends Component
 
     public function mount()
     {
-        $this->sortBy            = 'id';
-        $this->sortDirection     = 'desc';
-        $this->perPage           = 100;
+        $this->sortBy = 'id';
+        $this->sortDirection = 'desc';
+        $this->perPage = 100;
         $this->paginationOptions = [25, 50, 100];
-        $this->orderable         = (new User())->orderable;
+        $this->orderable = (new User())->orderable;
     }
 
     public function render()
@@ -96,8 +96,8 @@ class Index extends Component
         abort_if(Gate::denies('user_access'), 403);
 
         $query = User::with(['roles'])->advancedFilter([
-            's'               => $this->search ?: null,
-            'order_column'    => $this->sortBy,
+            's' => $this->search ?: null,
+            'order_column' => $this->sortBy,
             'order_direction' => $this->sortDirection,
         ]);
 
@@ -117,7 +117,6 @@ class Index extends Component
     {
         $user->assignRole($role);
     }
-    
 
     public function deleteSelected()
     {
@@ -134,8 +133,7 @@ class Index extends Component
 
         $user->delete();
 
-        $this->alert('warning', __('User deleted successfully!') );
-
+        $this->alert('warning', __('User deleted successfully!'));
     }
 
     public function showModal(User $user)
@@ -152,7 +150,7 @@ class Index extends Component
         $this->resetErrorBag();
 
         $this->resetValidation();
-        
+
         $this->user = $user;
 
         $this->editModal = true;
@@ -167,6 +165,5 @@ class Index extends Component
         $this->alert('success', __('User Updated Successfully'));
 
         $this->editModal = false;
-
     }
 }

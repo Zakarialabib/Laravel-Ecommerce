@@ -2,28 +2,35 @@
 
 namespace App\Http\Livewire\Front;
 
-use Livewire\Component;
-use App\Models\Conversation; 
 use App\Mail\ContactForm as MailContactForm;
-use Illuminate\Support\Facades\Mail;
+use App\Models\Conversation;
 use App\Models\User;
+use Illuminate\Support\Facades\Mail;
+use Livewire\Component;
 
 class ContactForm extends Component
 {
     // public Conversation $conversation;
-    
-    public $name, $email, $phone_number, $message;
-    
+
+    public $name;
+
+    public $email;
+
+    public $phone_number;
+
+    public $message;
+
     protected $listeners = [
         'submit',
     ];
 
-     /**
+    /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
-    private function resetInputFields(){
+    private function resetInputFields()
+    {
         $this->name = '';
         $this->email = '';
         $this->phone_number = '';
@@ -33,23 +40,22 @@ class ContactForm extends Component
     public function mount()
     {
         // $this->conversation = $conversation;
-    }  
+    }
 
     public function render()
     {
         return view('livewire.contact-form');
     }
 
-    protected $rules = [    
+    protected $rules = [
         'conversation.name' => 'required',
         'conversation.email' => 'required|email',
         'conversation.phone_number' => 'required',
-        'conversation.message' => 'required'
-    ]; 
+        'conversation.message' => 'required',
+    ];
 
     public function submit()
     {
-        
         $this->validate();
 
         $this->conversation->save();
@@ -61,6 +67,5 @@ class ContactForm extends Component
         // $user = User::find(1);
         // $user_email = $user->email;
         // Mail::to($user_email)->send(new MailContactForm($contact));
-
     }
 }

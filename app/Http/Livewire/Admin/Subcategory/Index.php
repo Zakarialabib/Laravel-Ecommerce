@@ -2,16 +2,14 @@
 
 namespace App\Http\Livewire\Admin\Subcategory;
 
-use Livewire\Component;
-use App\{
-    Models\Language,
-    Models\Subcategory,
-    Models\Category
-};
-use Livewire\WithPagination;
 use App\Http\Livewire\WithSorting;
+use App\Models\Category;
+use App\Models\Language;
+use App\Models\Subcategory;
 use Illuminate\Support\Facades\Gate;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
+use Livewire\Component;
+use Livewire\WithPagination;
 
 class Index extends Component
 {
@@ -20,10 +18,10 @@ class Index extends Component
     use LivewireAlert;
 
     public $listeners = [
-    
-        'confirmDelete', 'delete', 'editModal',         
+
+        'confirmDelete', 'delete', 'editModal',
         'refreshIndex',
-    
+
     ];
 
     public int $perPage;
@@ -89,20 +87,19 @@ class Index extends Component
 
     public function mount()
     {
-    
         $this->initListsForFields();
-        $this->sortBy            = 'id';
-        $this->sortDirection     = 'desc';
-        $this->perPage           = 25;
+        $this->sortBy = 'id';
+        $this->sortDirection = 'desc';
+        $this->perPage = 25;
         $this->paginationOptions = [25, 50, 100];
-        $this->orderable         = (new Subcategory())->orderable;
+        $this->orderable = (new Subcategory())->orderable;
     }
 
     public function render()
     {
         $query = Subcategory::with('category')->advancedFilter([
-            's'               => $this->search ?: null,
-            'order_column'    => $this->sortBy,
+            's' => $this->search ?: null,
+            'order_column' => $this->sortBy,
             'order_direction' => $this->sortDirection,
         ]);
 
@@ -121,7 +118,7 @@ class Index extends Component
 
         $this->subcategory = $subcategory;
 
-        $this->editModal = true;  
+        $this->editModal = true;
     }
 
     public function update()
@@ -139,7 +136,6 @@ class Index extends Component
         }
     }
 
-
     public function delete(Subcategory $subcategory)
     {
         abort_if(Gate::denies('delete_subcategories'), 403);
@@ -147,7 +143,6 @@ class Index extends Component
         $subcategory->delete();
 
         $this->alert('success', __('Subcategory deleted successfully.'));
-
     }
 
     protected function initListsForFields(): void
@@ -155,5 +150,4 @@ class Index extends Component
         $this->listsForFields['categories'] = Category::pluck('name', 'id')->toArray();
         $this->listsForFields['languages'] = Language::pluck('name', 'id')->toArray();
     }
-
 }

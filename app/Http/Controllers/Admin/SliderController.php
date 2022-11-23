@@ -2,18 +2,17 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Models\Slider;
 use App\Http\Controllers\Controller;
 
 class SliderController extends Controller
 {
-    
-    public function index(){
+    public function index()
+    {
         return view('admin.slider.index');
     }
 
-    public function create(){
+    public function create()
+    {
         return view('admin.slider.create');
     }
-
 }

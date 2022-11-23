@@ -15,18 +15,18 @@ class CreateOrderFormsTable extends Migration
     {
         Schema::create('orderforms', function (Blueprint $table) {
             $table->id();
-            
+
             $table->string('name');
             $table->string('email')->nullable();
             $table->string('phone');
             $table->string('address')->nullable();
-            
+
             $table->string('type');
             $table->tinyInteger('status')->default(0);
 
             $table->string('subject')->nullable();
             $table->string('message')->nullable();
-            
+
             $table->timestamps();
         });
     }

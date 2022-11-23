@@ -2,12 +2,12 @@
 
 namespace App\Http\Livewire\Admin\Currency;
 
-use Livewire\Component;
 use App\Http\Livewire\WithSorting;
-use Illuminate\Support\Facades\Gate;
-use Livewire\WithPagination;
 use App\Models\Currency;
+use Illuminate\Support\Facades\Gate;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
+use Livewire\Component;
+use Livewire\WithPagination;
 
 class Index extends Component
 {
@@ -16,8 +16,6 @@ class Index extends Component
     public $currency;
 
     public int $perPage;
-
-    
 
     public $listeners = ['confirmDelete', 'delete', 'showModal', 'editModal', 'refreshIndex'];
 
@@ -83,9 +81,9 @@ class Index extends Component
 
     public function mount()
     {
-        $this->sortBy            = 'id';
-        $this->sortDirection     = 'desc';
-        $this->perPage           = 100;
+        $this->sortBy = 'id';
+        $this->sortDirection = 'desc';
+        $this->perPage = 100;
         $this->paginationOptions = [25, 50, 100];
         $this->orderable = (new Currency())->orderable;
     }
@@ -93,10 +91,10 @@ class Index extends Component
     public function render()
     {
         abort_if(Gate::denies('currency_access'), 403);
-        
+
         $query = Currency::advancedFilter([
-            's'               => $this->search ?: null,
-            'order_column'    => $this->sortBy,
+            's' => $this->search ?: null,
+            'order_column' => $this->sortBy,
             'order_direction' => $this->sortDirection,
         ]);
 
@@ -125,7 +123,6 @@ class Index extends Component
         $this->currency = $currency;
 
         $this->editModal = true;
-
     }
 
     public function update(Currency $currency)
@@ -149,5 +146,4 @@ class Index extends Component
 
         $this->alert('success', 'Currency deleted successfully!');
     }
-    
 }

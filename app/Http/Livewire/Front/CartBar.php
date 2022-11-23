@@ -2,31 +2,34 @@
 
 namespace App\Http\Livewire\Front;
 
-use Livewire\Component;
+use App\Models\Shipping;
 use Gloudemans\Shoppingcart\Facades\Cart;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
-use App\Models\Shipping;
+use Livewire\Component;
 
 class CartBar extends Component
 {
     use LivewireAlert;
 
     public $decreaseQuantity;
+
     public $increaseQuantity;
+
     public $removeFromCart;
 
     public $showCart = false;
-    
+
     public $listeners = [
         'showCart',
-        'hideCart' ,
-        'decreaseQuantity' ,
-        'increaseQuantity' ,
-        'removeFromCart' ,
-        'cartBarUpdated'
+        'hideCart',
+        'decreaseQuantity',
+        'increaseQuantity',
+        'removeFromCart',
+        'cartBarUpdated',
     ];
-    
+
     public $shipping;
+
     public $shipping_id;
 
     public array $listsForFields = [];
@@ -35,12 +38,12 @@ class CartBar extends Component
     {
         $this->showCart = true;
     }
-    
-    // decreaseQuantity 
+
+    // decreaseQuantity
 
     public function decreaseQuantity($rowId)
     {
-        dd(Cart::get($rowId));
+        // dd(Cart::get($rowId));
 
         $item = Cart::instance('shopping')->get($rowId);
         $qty = $item->qty - 1;
@@ -51,9 +54,9 @@ class CartBar extends Component
     public function increaseQuantity($rowId)
     {
         $cart = Cart::instance('shopping')->get($rowId);
-        
+
         $qty = $cart->qty + 1;
-        
+
         Cart::instance('shopping')->update($rowId, $qty);
     }
 
@@ -61,23 +64,22 @@ class CartBar extends Component
     {
         Cart::instance('shopping')->remove($rowId);
     }
-    
+
     public function cartbarUpdated()
     {
         $this->cartTotal = Cart::instance('shopping')->total();
 
-        $this->cartItems =  Cart::instance('shopping')->content();
-
+        $this->cartItems = Cart::instance('shopping')->content();
     }
 
     public function mount()
     {
         $this->cartTotal = Cart::instance('shopping')->total();
 
-        $this->cartItems =  Cart::instance('shopping')->content();
-        
+        $this->cartItems = Cart::instance('shopping')->content();
+
         $this->shipping = Shipping::find($this->shipping_id);
-        
+
         $this->initListsForFields();
     }
 
@@ -90,5 +92,4 @@ class CartBar extends Component
     {
         $this->listsForFields['shippings'] = Shipping::pluck('title', 'id')->toArray();
     }
-
 }

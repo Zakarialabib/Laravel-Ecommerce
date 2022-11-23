@@ -2,17 +2,18 @@
 
 namespace App\Models;
 
+use App\Support\HasAdvancedFilter;
+use Gloudemans\Shoppingcart\CanBeBought;
+use Gloudemans\Shoppingcart\Contracts\Buyable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
-use App\Support\HasAdvancedFilter;
-use Gloudemans\Shoppingcart\Contracts\Buyable;
-use Gloudemans\Shoppingcart\CanBeBought;
 
-class Product extends Model implements Buyable 
+class Product extends Model implements Buyable
 {
     use CanBeBought, HasAdvancedFilter;
 
     const StatusInActive = 0;
+
     const StatusActive = 1;
 
     public $orderable = [
@@ -29,12 +30,12 @@ class Product extends Model implements Buyable
     public $filterable = [
         'id',
         'name',
-       'description',
-       'price',
-       'code',
-       'category_id',
-       'brand_id',
-       'status',
+        'description',
+        'price',
+        'code',
+        'category_id',
+        'brand_id',
+        'status',
     ];
 
     /**
@@ -42,7 +43,6 @@ class Product extends Model implements Buyable
      *
      * @var array
      */
-
     protected $fillable = [
         'name',
         'description',
@@ -77,28 +77,29 @@ class Product extends Model implements Buyable
         $this->attributes['name'] = $value;
         $this->attributes['slug'] = Str::slug($value);
     }
-    
+
     public function getDiscountAttribute()
     {
         if ($this->old_price) {
             return round((($this->old_price - $this->price) / $this->old_price) * 100);
         }
+
         return null;
     }
 
     public function category()
     {
-        return $this->belongsTo(Category::class , 'category_id', 'id');
+        return $this->belongsTo(Category::class, 'category_id', 'id');
     }
 
     public function brand()
     {
-        return $this->belongsTo(Brand::class , 'brand_id', 'id');
+        return $this->belongsTo(Brand::class, 'brand_id', 'id');
     }
 
     public function subcategory()
     {
-        return $this->belongsTo(Subcategory::class , 'subcategory_id', 'id');
+        return $this->belongsTo(Subcategory::class, 'subcategory_id', 'id');
     }
 
     public function reviews()
@@ -110,5 +111,4 @@ class Product extends Model implements Buyable
     {
         return $this->belongsToMany(Order::class);
     }
-
 }

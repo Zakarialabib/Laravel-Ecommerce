@@ -6,17 +6,17 @@ use App\Models\Blog;
 use App\Models\BlogCategory;
 use App\Models\Language;
 use Illuminate\Support\Facades\Gate;
-use Livewire\Component;
-use Jantinnerezo\LivewireAlert\LivewireAlert;
-use Livewire\WithFileUploads;
 use Illuminate\Support\Str;
+use Jantinnerezo\LivewireAlert\LivewireAlert;
+use Livewire\Component;
+use Livewire\WithFileUploads;
 
 class Create extends Component
 {
     use LivewireAlert , WithFileUploads;
 
     public $createBlog;
-    
+
     public $image;
 
     public $listeners = ['createBlog'];
@@ -30,7 +30,6 @@ class Create extends Component
         $this->blogcategory->language_id = 1;
 
         $this->initListsForFields();
-
     }
 
     public array $rules = [
@@ -65,18 +64,18 @@ class Create extends Component
 
         $this->blog->slug = Str::slug($this->blog->title);
 
-        if($this->image){
+        if ($this->image) {
             $imageName = Str::slug($this->blog->title).'.'.$this->image->extension();
-            $this->image->storeAs('blogs',$imageName);
+            $this->image->storeAs('blogs', $imageName);
             $this->blog->image = $imageName;
         }
 
         $this->blog->save();
 
         $this->emit('refreshIndex');
-        
+
         $this->alert('success', __('Blog created successfully.'));
-        
+
         $this->createBlog = false;
     }
 

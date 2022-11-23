@@ -29,6 +29,5 @@ Route::get('/blog', [FrontController::class, 'blog'])->name('front.blog');
 Route::get('/blog/{slug}', [FrontController::class, 'blogPage'])->name('front.blogPage');
 Route::get('/faq', [FrontController::class, 'faq'])->name('front.faq');
 
-
 require __DIR__.'/auth.php';
 require __DIR__.'/admin.php';

@@ -2,18 +2,14 @@
 
 namespace App\Http\Livewire\Admin\Blog;
 
-use Livewire\Component;
-use App\{
-    Models\Blog,
-    Models\Language,
-    Models\BlogCategory,
-};
-use Illuminate\Http\Response;
-use Livewire\WithPagination;
 use App\Http\Livewire\WithSorting;
-use Str;
-use Jantinnerezo\LivewireAlert\LivewireAlert;
+use App\Models\Blog;
+use App\Models\BlogCategory;
+use App\Models\Language;
 use Illuminate\Support\Facades\Gate;
+use Jantinnerezo\LivewireAlert\LivewireAlert;
+use Livewire\Component;
+use Livewire\WithPagination;
 
 class Index extends Component
 {
@@ -22,10 +18,10 @@ class Index extends Component
     use LivewireAlert;
 
     public $listeners = [
-    
-        'confirmDelete', 'delete', 'editModal',         
+
+        'confirmDelete', 'delete', 'editModal',
         'refreshIndex',
-    
+
     ];
 
     public int $perPage;
@@ -95,19 +91,19 @@ class Index extends Component
 
     public function mount()
     {
-        $this->sortBy            = 'id';
-        $this->sortDirection     = 'desc';
-        $this->perPage           = 25;
+        $this->sortBy = 'id';
+        $this->sortDirection = 'desc';
+        $this->perPage = 25;
         $this->paginationOptions = [25, 50, 100];
-        $this->orderable         = (new Blog())->orderable;
+        $this->orderable = (new Blog())->orderable;
         $this->initListsForFields();
     }
 
     public function render()
     {
         $query = Blog::advancedFilter([
-            's'               => $this->search ?: null,
-            'order_column'    => $this->sortBy,
+            's' => $this->search ?: null,
+            'order_column' => $this->sortBy,
             'order_direction' => $this->sortDirection,
         ]);
 
@@ -115,7 +111,6 @@ class Index extends Component
 
         return view('livewire.admin.blog.index', compact('blogs'));
     }
-
 
     public function editModal(Blog $blog)
     {
@@ -127,7 +122,7 @@ class Index extends Component
 
         $this->blog = $blog;
 
-        $this->editModal = true;  
+        $this->editModal = true;
     }
 
     public function update()
@@ -145,7 +140,6 @@ class Index extends Component
         }
     }
 
-
     public function delete(Blog $blog)
     {
         abort_if(Gate::denies('blog_delete'), 403);
@@ -153,7 +147,6 @@ class Index extends Component
         $blog->delete();
 
         $this->alert('success', __('Blog deleted successfully.'));
-
     }
 
     protected function initListsForFields(): void

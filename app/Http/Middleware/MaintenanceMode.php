@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Middleware;
+
 use App\Models\Generalsetting;
 use Closure;
 
@@ -10,13 +11,10 @@ class MaintenanceMode
     {
         $gs = Generalsetting::find(1);
 
-            if($gs->is_maintain == 1) {
+        if ($gs->is_maintain == 1) {
+            return redirect()->route('front-maintenance');
+        }
 
-                    return redirect()->route('front-maintenance');
-
-            }
-
-            return $next($request);
-
+        return $next($request);
     }
 }

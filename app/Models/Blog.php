@@ -2,8 +2,8 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
 use App\Support\HasAdvancedFilter;
+use Illuminate\Database\Eloquent\Model;
 
 class Blog extends Model
 {
@@ -21,7 +21,7 @@ class Blog extends Model
         'meta_desc',
         'language_id',
     ];
-    
+
     public $orderable = [
         'id',
         'title',
@@ -62,12 +62,11 @@ class Blog extends Model
 
     public function category()
     {
-    	return $this->belongsTo('App\Models\BlogCategory','category_id')->withDefault();
+        return $this->belongsTo('App\Models\BlogCategory', 'category_id')->withDefault();
     }
 
     public function language()
     {
-    	return $this->belongsTo('App\Models\Language','language_id')->withDefault();
+        return $this->belongsTo('App\Models\Language', 'language_id')->withDefault();
     }
-
 }

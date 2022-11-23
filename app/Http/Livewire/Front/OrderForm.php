@@ -2,21 +2,26 @@
 
 namespace App\Http\Livewire\Front;
 
-use Livewire\Component;
-use App\Models\Product;
 use App\Models\OrderForms;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
+use Livewire\Component;
 
 class OrderForm extends Component
 {
     use LivewireAlert;
 
     public $name;
+
     public $phone;
+
     public $address;
+
     public $type;
+
     public $status;
+
     public $subject;
+
     public $message;
 
     public $product;
@@ -45,8 +50,8 @@ class OrderForm extends Component
             'address' => $this->address,
             'type' => OrderForms::PRODUCT_FORM,
             'status' => OrderForms::STATUS_PENDING,
-            'subject' => 'New request for ' . $this->product->name,
-            'message' => $this->name . ' has sent a request for ' . $this->product->name,
+            'subject' => 'New request for '.$this->product->name,
+            'message' => $this->name.' has sent a request for '.$this->product->name,
         ]);
 
         $this->alert('success', __('Your order has been sent successfully!'));

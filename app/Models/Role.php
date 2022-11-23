@@ -11,8 +11,9 @@ class Role extends Model
     use HasFactory;
     use HasAdvancedFilter;
 
-    public const ROLE_ADMIN     = 'ADMIN';
-    public const ROLE_CLIENT     = 'CLIENT';
+    public const ROLE_ADMIN = 'ADMIN';
+
+    public const ROLE_CLIENT = 'CLIENT';
 
     public $table = 'roles';
 

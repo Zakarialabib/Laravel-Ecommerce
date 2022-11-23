@@ -6,7 +6,6 @@ use App\Http\Controllers\Controller;
 
 class FeaturedBannerController extends Controller
 {
-
     public function index()
     {
         return view('admin.featuredbanner.index');

@@ -2,27 +2,26 @@
 
 namespace App\Http\Livewire\Admin\Section;
 
-use Livewire\WithFileUploads;
 use App\Models\Section;
-use App\Models\Language;
-use Livewire\Component;
-use Str;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
+use Livewire\Component;
+use Livewire\WithFileUploads;
+use Str;
 
 class Edit extends Component
 {
     use LivewireAlert;
     use WithFileUploads;
-    
+
     public Section $section;
-    
+
     public $image;
 
     protected $listeners = [
         'submit',
     ];
-    
-    protected $rules = [    
+
+    protected $rules = [
         'section.language_id' => 'required',
         'section.page' => 'required',
         'section.title' => 'nullable',
@@ -30,8 +29,7 @@ class Edit extends Component
         'section.custom_html_1' => 'nullable',
         'section.content' => 'nullable',
         'section.video' => 'nullable',
-    ]; 
-
+    ];
 
     public function mount(Section $section)
     {
@@ -46,18 +44,17 @@ class Edit extends Component
     public function submit()
     {
         $this->validate();
-        
-        if($this->image){
-            $imageName = Str::slug($this->section->title) . '-' . date('Y-m-d H:i:s') . '.' . $this->image->extension();
-            $this->image->storeAs('sections',$imageName);
+
+        if ($this->image) {
+            $imageName = Str::slug($this->section->title).'-'.date('Y-m-d H:i:s').'.'.$this->image->extension();
+            $this->image->storeAs('sections', $imageName);
             $this->section->image = $imageName;
         }
 
         $this->section->save();
 
-        $this->alert('success', __('Section updated successfully!') );
+        $this->alert('success', __('Section updated successfully!'));
 
         return redirect()->route('admin.sections');
     }
-  
 }

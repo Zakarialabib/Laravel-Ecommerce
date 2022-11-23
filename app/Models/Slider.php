@@ -2,8 +2,8 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
 use App\Support\HasAdvancedFilter;
+use Illuminate\Database\Eloquent\Model;
 
 class Slider extends Model
 {
@@ -12,25 +12,25 @@ class Slider extends Model
     public $table = 'sliders';
 
     const StatusInactive = 0;
+
     const StatusActive = 1;
 
     public $orderable = [
-        'id','title','subtitle','featured','link','language_id'
+        'id', 'title', 'subtitle', 'featured', 'link', 'language_id',
     ];
 
     public $filterable = [
-         'id','title','subtitle','featured','link','language_id'
+        'id', 'title', 'subtitle', 'featured', 'link', 'language_id',
     ];
 
     protected $fillable = [
-       'title','subtitle','details','photo','featured','link','language_id','bg_color','status'
+        'title', 'subtitle', 'details', 'photo', 'featured', 'link', 'language_id', 'bg_color', 'status',
     ];
-    
+
     public $timestamps = false;
 
     public function language()
     {
-    	return $this->belongsTo( Language::class ,'language_id');
-    }  
-
+        return $this->belongsTo(Language::class, 'language_id');
+    }
 }

@@ -4,7 +4,6 @@ namespace Database\Seeders;
 
 use App\Models\Product;
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 
 class ProductSeeder extends Seeder
@@ -18,12 +17,12 @@ class ProductSeeder extends Seeder
     {
         Product::insert([
             [
-                'id'    => 1,
+                'id' => 1,
                 'name' => 'Samsung Galaxy S21',
                 'description' => 'Samsung Galaxy S21',
                 'price' => 1000,
                 'image' => 'samsung-galaxy-s21.jpg',
-                'code'      => 'samsung-galaxy-s21',
+                'code' => 'samsung-galaxy-s21',
                 'category_id' => 1,
                 'brand_id' => 1,
                 'slug' => Str::slug('Samsung Galaxy S21'),
@@ -33,11 +32,11 @@ class ProductSeeder extends Seeder
                 'status' => 1,
             ],
             [
-                'id'    => 2,
+                'id' => 2,
                 'name' => 'Samsung Galaxy S21 Ultra',
                 'description' => 'Samsung Galaxy S21 Ultra',
                 'price' => 1000,
-                'code'      => 'samsung-galaxy-s21-ultra',
+                'code' => 'samsung-galaxy-s21-ultra',
                 'image' => 'samsung-galaxy-s21-ultra.jpg',
                 'category_id' => 1,
                 'brand_id' => 1,
@@ -48,11 +47,11 @@ class ProductSeeder extends Seeder
                 'status' => 1,
             ],
             [
-                'id'    => 3,
+                'id' => 3,
                 'name' => 'Samsung Galaxy S21 Plus',
                 'description' => 'Samsung Galaxy S21 Plus',
                 'price' => 1000,
-                'code'    => 'samsung-galaxy-s21-plus',
+                'code' => 'samsung-galaxy-s21-plus',
                 'image' => 'samsung-galaxy-s21-plus.jpg',
                 'category_id' => 1,
                 'brand_id' => 1,
@@ -67,7 +66,7 @@ class ProductSeeder extends Seeder
                 'name' => 'Samsung Galaxy S20 FE',
                 'description' => 'Samsung Galaxy S20 FE',
                 'price' => 1000,
-                'code'     => 'samsung-galaxy-s20-fe',
+                'code' => 'samsung-galaxy-s20-fe',
                 'image' => 'samsung-galaxy-s20-fe.jpg',
                 'category_id' => 1,
                 'brand_id' => 1,
@@ -76,7 +75,7 @@ class ProductSeeder extends Seeder
                 'meta_description' => 'Samsung Galaxy S20 FE',
                 'meta_keywords' => 'Samsung Galaxy S20 FE',
                 'status' => 1,
-        ]
+            ],
         ]);
     }
 }

@@ -2,22 +2,22 @@
 
 namespace App\Http\Livewire\Front;
 
-use Livewire\Component;
-use App\Models\Brand;
-use App\Models\Product;
-use App\Models\Category;
-use Livewire\WithPagination;
 use App\Http\Livewire\WithSorting;
+use App\Models\Brand;
+use App\Models\Category;
+use App\Models\Product;
+use Livewire\Component;
+use Livewire\WithPagination;
 
 class Catalog extends Component
 {
     use WithPagination, WithSorting;
-    
+
     public $view;
 
     public int $perPage;
 
-    protected $listeners = ['changeView','filterCategories','filterSubCategories','filterBrands'];
+    protected $listeners = ['changeView', 'filterCategories', 'filterSubCategories', 'filterBrands'];
 
     public array $orderable;
 
@@ -26,10 +26,13 @@ class Catalog extends Component
     public array $paginationOptions;
 
     public $maxPrice;
+
     public $minPrice;
 
     public $category_id;
+
     public $subcategory_id;
+
     public $brand_id;
 
     protected $queryString = [
@@ -50,11 +53,13 @@ class Catalog extends Component
         $this->category_id = $category_id;
         $this->resetPage();
     }
+
     public function filterSubCategories($subcategory_id)
     {
         $this->subcategory_id = $subcategory_id;
         $this->resetPage();
     }
+
     public function filterBrands($brand_id)
     {
         $this->brand_id = $brand_id;
@@ -62,9 +67,9 @@ class Catalog extends Component
     }
 
       public function updatingSearch()
-    {
-        $this->resetPage();
-    }
+      {
+          $this->resetPage();
+      }
 
     public function updatingPerPage()
     {
@@ -76,28 +81,26 @@ class Catalog extends Component
         $this->sorting = 'default';
         $this->minPrice = 100;
         $this->maxPrice = 100000;
-        
-        $this->sortBy            = 'id';
-        $this->sortDirection     = 'desc';
-        $this->perPage           = 15;
+
+        $this->sortBy = 'id';
+        $this->sortDirection = 'desc';
+        $this->perPage = 15;
         $this->paginationOptions = [25, 50, 100];
-        $this->orderable         = (new Product())->orderable;
+        $this->orderable = (new Product())->orderable;
 
         $this->view = 'grid';
-
     }
 
     public function changeView($view)
     {
         $this->view = $view;
-        
+
         $this->emit('changeView', $view);
     }
 
     public function render()
     {
         $popular_products = Product::inRandomOrder()->limit(4)->get();
-    
 
         return view('livewire.front.catalog', compact('popular_products'));
     }
@@ -107,10 +110,9 @@ class Catalog extends Component
         return Category::where('status', 1)->with('subcategories')->get();
     }
 
-
     public function getBrandsProperty()
     {
-        return Brand::select('id', 'name','image','featured_image')->get();
+        return Brand::select('id', 'name', 'image', 'featured_image')->get();
     }
 
     public function getProductsProperty()

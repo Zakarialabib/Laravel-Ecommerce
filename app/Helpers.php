@@ -2,12 +2,12 @@
 
 namespace App;
 
-use Cache;
-use Str; 
 use App\Models\Category;
-use App\Models\Subcategory;
-use App\Models\Settings;
 use App\Models\Currency;
+use App\Models\Settings;
+use App\Models\Subcategory;
+use Cache;
+use Str;
 
 class Helpers
 {
@@ -22,16 +22,16 @@ class Helpers
             return Settings::pluck('value', 'key');
         })->get($key);
     }
-    
+
     public static function productLink($product)
     {
-        if($product){
+        if ($product) {
             return route('front.product', $product->slug);
         }
-         return null;
 
+        return null;
     }
-    
+
     // get upload image to db from link
     public static function uploadImage($image)
     {
@@ -41,11 +41,11 @@ class Helpers
         }
 
         $image = file_get_contents($image);
-        $name = Str::random(10) . '.jpg';
-        $path = public_path() . '/images/products/' . $name;
+        $name = Str::random(10).'.jpg';
+        $path = public_path().'/images/products/'.$name;
         file_put_contents($path, $image);
+
         return $name;
-        
     }
 
       // get gallery from url and save to uploads/products
@@ -56,18 +56,19 @@ class Helpers
             return null;
         }
 
-       $gallery = explode(',', $gallery);
+        $gallery = explode(',', $gallery);
         $gallery = array_map(function ($image) {
             $image = file_get_contents($image);
-            $name = Str::random(10) . '.jpg';
-            $path = public_path() . '/images/products/' . $name;
+            $name = Str::random(10).'.jpg';
+            $path = public_path().'/images/products/'.$name;
             file_put_contents($path, $image);
+
             return $name;
         }, $gallery);
-        return $gallery;
 
+        return $gallery;
     }
-     
+
     /**
      * Create Subcategory
      *
@@ -80,7 +81,7 @@ class Helpers
             'slug' => Str::slug($subcategory, '-'),
             'categpry_id' => Category::where('name', $category)->first()->id,
             'language' => '3',
-            ])->id;
+        ])->id;
     }
 
     public static function format_currency($value, $format = true)
@@ -94,10 +95,7 @@ class Helpers
         $symbol = $currency->symbol;
 
         return 'prefix' === $position
-            ? $symbol . number_format((float) $value, 2, '.', ',')
-            : number_format((float) $value, 2, '.', ',') . $symbol;
+            ? $symbol.number_format((float) $value, 2, '.', ',')
+            : number_format((float) $value, 2, '.', ',').$symbol;
     }
-
-
-    
 }

@@ -2,20 +2,21 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Models\Pagesetting;
-use App\Models\Page;
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\Page;
+use App\Models\Pagesetting;
+use Illuminate\Http\Request;
 use Validator;
 
 class PageController extends Controller
 {
-
-    public function index(){
+    public function index()
+    {
         return view('admin.page.index');
     }
 
-    public function create(){
+    public function create()
+    {
         return view('admin.page.create');
     }
 
@@ -24,15 +25,15 @@ class PageController extends Controller
     {
         //--- Validation Section
         $slug = $request->slug;
-        $main = array('home','faq','contact','blog','cart','checkout');
+        $main = ['home', 'faq', 'contact', 'blog', 'cart', 'checkout'];
         if (in_array($slug, $main)) {
-        return response()->json(array('errors' => [ 0 => 'This slug has already been taken.' ]));
+            return response()->json(['errors' => [0 => 'This slug has already been taken.']]);
         }
         $rules = ['slug' => 'unique:pages'];
         $customs = ['slug.unique' => 'This slug has already been taken.'];
         $validator = Validator::make($request->all(), $rules, $customs);
         if ($validator->fails()) {
-          return response()->json(array('errors' => $validator->getMessageBag()->toArray()));
+            return response()->json(['errors' => $validator->getMessageBag()->toArray()]);
         }
         //--- Validation Section Ends
 
@@ -40,29 +41,28 @@ class PageController extends Controller
         $data = new Page();
         $input = $request->all();
 
-        if (!empty($request->meta_tag))
-         {
+        if (! empty($request->meta_tag)) {
             $input['meta_tag'] = implode(',', $request->meta_tag);
-         }
-        if ($request->secheck == "")
-         {
+        }
+        if ($request->secheck == '') {
             $input['meta_tag'] = null;
             $input['meta_description'] = null;
-         }
+        }
         $data->fill($input)->save();
         //--- Logic Section Ends
 
         //--- Redirect Section
-        $msg = 'New Data Added Successfully.'.'<a href="'.route("admin-page-index").'">View Page Lists</a>';
+        $msg = 'New Data Added Successfully.'.'<a href="'.route('admin-page-index').'">View Page Lists</a>';
+
         return response()->json($msg);
         //--- Redirect Section Ends
     }
 
-
     public function edit($id)
     {
         $data = Page::findOrFail($id);
-        return view('admin.page.edit',compact('data'));
+
+        return view('admin.page.edit', compact('data'));
     }
 
     //*** POST Request
@@ -70,52 +70,48 @@ class PageController extends Controller
     {
         //--- Validation Section
         $slug = $request->slug;
-        $main = array('home','faq','contact','blog','cart','checkout');
+        $main = ['home', 'faq', 'contact', 'blog', 'cart', 'checkout'];
         if (in_array($slug, $main)) {
-        return response()->json(array('errors' => [ 0 => 'This slug has already been taken.' ]));
+            return response()->json(['errors' => [0 => 'This slug has already been taken.']]);
         }
         $rules = ['slug' => 'unique:pages,slug,'.$id,
-                'photo'      => 'mimes:jpeg,jpg,png,svg'];
+            'photo' => 'mimes:jpeg,jpg,png,svg', ];
         $customs = ['slug.unique' => 'This slug has already been taken.'];
         $validator = Validator::make($request->all(), $rules, $customs);
 
         if ($validator->fails()) {
-          return response()->json(array('errors' => $validator->getMessageBag()->toArray()));
+            return response()->json(['errors' => $validator->getMessageBag()->toArray()]);
         }
         //--- Validation Section Ends
 
         //--- Logic Section
         $data = Page::findOrFail($id);
         $input = $request->all();
-        if ($file = $request->file('photo'))
-            {
-                $name = \PriceHelper::ImageCreateName($file);
-                $file->move('assets/images/pages',$name);
-                if($data->photo != null)
-                {
-                    if (file_exists(public_path().'/assets/images/pages/'.$data->photo)) {
-                        unlink(public_path().'/assets/images/pages/'.$data->photo);
-                    }
+        if ($file = $request->file('photo')) {
+            $name = \PriceHelper::ImageCreateName($file);
+            $file->move('assets/images/pages', $name);
+            if ($data->photo != null) {
+                if (file_exists(public_path().'/assets/images/pages/'.$data->photo)) {
+                    unlink(public_path().'/assets/images/pages/'.$data->photo);
                 }
-            $input['photo'] = $name;
             }
-        if (!empty($request->meta_tag))
-         {
+            $input['photo'] = $name;
+        }
+        if (! empty($request->meta_tag)) {
             $input['meta_tag'] = implode(',', $request->meta_tag);
-         }
-         else {
+        } else {
             $input['meta_tag'] = null;
-         }
-        if ($request->secheck == "")
-         {
+        }
+        if ($request->secheck == '') {
             $input['meta_tag'] = null;
             $input['meta_description'] = null;
-         }
+        }
         $data->update($input);
         //--- Logic Section Ends
 
         //--- Redirect Section
-        $msg = 'Data Updated Successfully.'.'<a href="'.route("admin-page-index").'">View Page Lists</a>';
+        $msg = 'Data Updated Successfully.'.'<a href="'.route('admin-page-index').'">View Page Lists</a>';
+
         return response()->json($msg);
         //--- Redirect Section Ends
     }
@@ -123,18 +119,19 @@ class PageController extends Controller
     public function contact()
     {
         $data = Pagesetting::find(1);
-        return view('admin.pagesetting.contact',compact('data'));
+
+        return view('admin.pagesetting.contact', compact('data'));
     }
 
     public function settings()
     {
         $data = Pagesetting::find(1);
-        return view('admin.pagesetting.customize',compact('data'));
+
+        return view('admin.pagesetting.customize', compact('data'));
     }
 
     public function orderForms()
     {
         return view('admin.orderforms.index');
     }
-    
 }

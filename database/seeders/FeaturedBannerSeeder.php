@@ -2,10 +2,8 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Seeder;
 use App\Models\FeaturedBanner;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Str;
+use Illuminate\Database\Seeder;
 
 class FeaturedBannerSeeder extends Seeder
 {
@@ -45,5 +43,5 @@ class FeaturedBannerSeeder extends Seeder
                 'language_id' => 1,
             ],
         ]);
-    }    
     }
+}

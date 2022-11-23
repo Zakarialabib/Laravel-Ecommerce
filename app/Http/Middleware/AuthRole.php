@@ -21,10 +21,12 @@ class AuthRole
         $user = auth()->user();
 
         if ($user) {
-            if($role === Role::ROLE_ADMIN && $user->isAdmin())
+            if ($role === Role::ROLE_ADMIN && $user->isAdmin()) {
                 return $next($request);
-            if($role === Role::ROLE_CLIENT && $user->isClient())
+            }
+            if ($role === Role::ROLE_CLIENT && $user->isClient()) {
                 return $next($request);
+            }
         }
 
         abort(Response::HTTP_FORBIDDEN, '403 Forbidden');

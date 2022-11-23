@@ -2,12 +2,10 @@
 
 namespace App\Http\Livewire\Admin\OrderForm;
 
-use Livewire\Component;
-use App\Models\OrderForms;
-use Illuminate\Http\Response;
-use Livewire\WithPagination;
 use App\Http\Livewire\WithSorting;
-use Str;
+use App\Models\OrderForms;
+use Livewire\Component;
+use Livewire\WithPagination;
 
 class Index extends Component
 {
@@ -60,18 +58,18 @@ class Index extends Component
 
     public function mount()
     {
-        $this->sortBy            = 'id';
-        $this->sortDirection     = 'desc';
-        $this->perPage           = 25;
+        $this->sortBy = 'id';
+        $this->sortDirection = 'desc';
+        $this->perPage = 25;
         $this->paginationOptions = [25, 50, 100];
-        $this->orderable         = (new OrderForms())->orderable;
+        $this->orderable = (new OrderForms())->orderable;
     }
 
     public function render()
     {
         $query = OrderForms::advancedFilter([
-            's'               => $this->search ?: null,
-            'order_column'    => $this->sortBy,
+            's' => $this->search ?: null,
+            'order_column' => $this->sortBy,
             'order_direction' => $this->sortDirection,
         ]);
 
@@ -79,5 +77,4 @@ class Index extends Component
 
         return view('livewire.admin.order-form.index', compact('orderforms'));
     }
-
 }

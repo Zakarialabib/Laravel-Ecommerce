@@ -22,8 +22,6 @@
         </div>
     </div>
 
-    {{-- <x-loader /> --}}
-
     <x-table>
         <x-slot name="thead">
             <x-table.th>
@@ -34,21 +32,18 @@
             </x-table.th>
             <x-table.th sortable wire:click="sortBy('name')" :direction="$sorts['name'] ?? null">
                 {{ __('Name') }}
-                @include('components.table.sort', ['field' => 'name'])
             </x-table.th>
             <x-table.th>
                 {{ __('Category') }}
             </x-table.th>
             <x-table.th sortable wire:click="sortBy('price')" :direction="$sorts['price'] ?? null">
                 {{ __('Price') }}
-                @include('components.table.sort', ['field' => 'price'])
             </x-table.th>
             <x-table.th>
                 {{ __('Image') }}
             </x-table.th>
             <x-table.th sortable wire:click="sortBy('status')" :direction="$sorts['status'] ?? null">
                 {{ __('Status') }}
-                @include('components.table.sort', ['field' => 'status'])
             </x-table.th>
 
             <x-table.th>

@@ -9,18 +9,16 @@ class Modal extends Component
     public $show = false;
 
     protected $listeners = [
-      'show' => 'show'
+        'show' => 'show',
     ];
-    
-      /**
+
+    /**
      * -------------------------------------------------------------------------------
      *  Set Modal
      * -------------------------------------------------------------------------------
-    **/
-
+     **/
     public function show()
     {
-      $this->show = true;
+        $this->show = true;
     }
-    
 }
