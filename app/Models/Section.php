@@ -15,11 +15,11 @@ class Section extends Model
 
     const ABOUT_PAGE = 2;
 
-    const PARTNERS_PAGE = 3;
+    const BRAND_PAGE = 3;
 
     const BLOG_PAGE = 4;
 
-    const SERVICE_PAGE = 5;
+    const CATALOG_PAGE = 5;
 
     const BRANDS_PAGE = 6;
 

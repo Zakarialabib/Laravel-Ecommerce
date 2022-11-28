@@ -35,6 +35,7 @@ class Order extends Model
         'packaging_id', 'order_note', 'products', 'total', 'subtotal', 'tax',
         'shipping_name', 'shipping_email', 'shipping_phone', 'shipping_address',
         'shipping_city', 'shipping_zip', 'shipping_state', 'shipping_country',
+        'created_at', 'updated_at',
     ];
 
     public $orderable = [
@@ -43,6 +44,7 @@ class Order extends Model
         'packaging_id', 'order_note', 'products', 'total', 'subtotal', 'tax',
         'shipping_name', 'shipping_email', 'shipping_phone', 'shipping_address',
         'shipping_city', 'shipping_zip', 'shipping_state', 'shipping_country',
+        'created_at', 'updated_at',
     ];
 
     protected $filterable = [
@@ -51,6 +53,7 @@ class Order extends Model
         'packaging_id', 'order_note', 'products', 'total', 'subtotal', 'tax',
         'shipping_name', 'shipping_email', 'shipping_phone', 'shipping_address',
         'shipping_city', 'shipping_zip', 'shipping_state', 'shipping_country',
+        'created_at', 'updated_at',
     ];
 
     public static function generateReference()

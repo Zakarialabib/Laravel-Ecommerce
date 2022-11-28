@@ -116,8 +116,7 @@
                     </div>
 
                     <div class="flex justify-content w-full px-4">
-                        <x-button primary type="button" 
-                         wire:click="create" wire:loading.attr="disabled" class="blockk">
+                        <x-button primary type="submit" wire:loading.attr="disabled" class="blockk">
                             {{ __('Create') }}
                         </x-button>
                     </div>

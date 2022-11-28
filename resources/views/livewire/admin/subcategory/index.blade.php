@@ -139,7 +139,7 @@
                     </div>
 
                     <div class="w-full px-3">
-                        <x-button primary type="submit" wire:click="update" wire:loading.attr="disabled">
+                        <x-button primary type="submit" wire:loading.attr="disabled">
                             {{ __('Update') }}
                         </x-button>
                     </div>

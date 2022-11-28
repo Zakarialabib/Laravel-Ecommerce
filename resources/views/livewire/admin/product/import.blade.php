@@ -54,7 +54,7 @@
                     </div>
 
                     <div class="w-full px-3">
-                        <x-button primary type="submit" wire:click="import" class="block"
+                        <x-button primary type="submit" class="block"
                             wire:loading.attr="disabled">
                             {{ __('Import') }}
                         </x-button>

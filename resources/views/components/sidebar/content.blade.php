@@ -19,21 +19,21 @@
                 <i class="fas fa-boxes w-5 h-5"></i>
             </span>
         </x-slot>
-        @can('category_access')
+        {{-- @can('category_access') --}}
             <x-sidebar.sublink title="{{ __('Categories') }}" href="{{ route('admin.categories') }}"
                 :active="request()->routeIs('admin.categories')" />
-        @endcan
+        {{-- @endcan --}}
         
-        @can('subcategory_access')
+        {{-- @can('subcategory_access') --}}
             <x-sidebar.sublink title="{{ __('SubCategories') }}" href="{{ route('admin.subcategories') }}"
                 :active="request()->routeIs('admin.subcategories')" />
-        @endcan
+        {{-- @endcan --}}
 
         <x-sidebar.sublink title="{{ __('All Products') }}" href="{{ route('admin.products') }}" :active="request()->routeIs('admin.products')" />
        
-        @can('brand_access')
+        {{-- @can('brand_access') --}}
             <x-sidebar.sublink title="{{ __('Brands') }}" href="{{ route('admin.brands') }}" :active="request()->routeIs('admin.brands')" />
-        @endcan
+        {{-- @endcan --}}
     
     </x-sidebar.dropdown>
 
@@ -48,9 +48,9 @@
                 <i class="fas fa-shopping-cart w-5 h-5"></i>
             </span>
         </x-slot>
-        @can('order_access')
+        {{-- @can('order_access') --}}
         <x-sidebar.sublink title="{{ __('All Orders') }}" href="{{ route('admin.orders') }}" :active="request()->routeIs('admin.orders')" />
-        @endcan
+        {{-- @endcan --}}
         <x-sidebar.sublink title="{{ __('Order Forms') }}" href="{{ route('admin.orderforms') }}" :active="request()->routeIs('admin.orderforms')" />
     </x-sidebar.dropdown>
     
@@ -65,9 +65,9 @@
                 <i class="fas fa-blog w-5 h-5"></i>
             </span>
         </x-slot>
-        @can('blog_access')
+        {{-- @can('blog_access') --}}
         <x-sidebar.sublink title="{{ __('All Blog') }}" href="{{ route('admin.blogs') }}" :active="request()->routeIs('admin.blogs')" />
-        @endcan
+        {{-- @endcan --}}
         <x-sidebar.sublink title="{{ __('Blog Settings') }}" href="{{ route('admin.blog.settings') }}" :active="request()->routeIs('admin.blog.settings')" />
         <x-sidebar.sublink title="{{ __('Blog Categories') }}" href="{{ route('admin.blogcategories') }}" :active="request()->routeIs('admin.blogcategories')" />
     </x-sidebar.dropdown>
@@ -126,9 +126,9 @@
                     <i class="fas fa-cog w-5 h-5"></i>
                 </span>
             </x-slot>
-            @can('setting_access')
+            {{-- @can('setting_access') --}}
             <x-sidebar.sublink title="{{ __('Settings') }}" href="{{ route('admin.settings') }}" :active="request()->routeIs('admin.settings')" />
-            @endcan
+            {{-- @endcan --}}
             <x-sidebar.sublink title="{{ __('Shipping') }}" href="{{ route('admin.setting.shipping') }}" :active="request()->routeIs('admin.setting.shipping')" />
 
         </x-sidebar.dropdown>

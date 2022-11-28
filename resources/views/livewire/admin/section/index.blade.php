@@ -68,20 +68,20 @@
                                 class="bg-blue-100 text-blue-800 text-sm font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-blue-200 dark:text-blue-900">
                                 {{ __('Home') }}
                             </a>
-                        @elseif($section->page == \App\Models\Section::PARTNERS_PAGE)
+                        @elseif($section->page == \App\Models\Section::BRAND_PAGE)
                             <a href=""
                                 class="bg-blue-100 text-blue-800 text-sm font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-blue-200 dark:text-blue-900">
-                                {{ __('Partner') }}
+                                {{ __('Brand') }}
                             </a>
                         @elseif($section->page == \App\Models\Section::BLOG_PAGE)
                             <a href="{{ route('front.blogs') }}"
                                 class="bg-blue-100 text-blue-800 text-sm font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-blue-200 dark:text-blue-900">
                                 {{ __('Blog') }}
                             </a>
-                        @elseif($section->page == \App\Models\Section::SERVICE_PAGE)
+                        @elseif($section->page == \App\Models\Section::CATALOG_PAGE)
                             <a href=""
                                 class="bg-blue-100 text-blue-800 text-sm font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-blue-200 dark:text-blue-900">
-                                {{ __('Services') }}
+                                {{ __('Catalog') }}
                             </a>
                         @elseif($section->page == \App\Models\Section::BRANDS_PAGE)
                             <a href=""
@@ -109,22 +109,18 @@
                     </x-table.td>
                     <x-table.td>
                         <div class="inline-flex">
-                            <a class="font-bold border-transparent uppercase justify-center text-xs py-2 px-3 rounded shadow hover:shadow-md outline-none focus:outline-none focus:ring-2 focus:ring-offset-2 ease-linear transition-all duration-150 cursor-pointer text-white bg-green-500 border-green-800 hover:bg-green-600 active:bg-green-700 focus:ring-green-300 mr-2"
-                                href="">
+                            <x-button info href="{{ route('admin.section.edit', $section->id)}}">
                                 {{ __('Edit') }}
-                            </a>
-                            <button
-                                class="font-bold border-transparent uppercase justify-center text-xs py-2 px-3 rounded shadow hover:shadow-md outline-none focus:outline-none focus:ring-2 focus:ring-offset-2 ease-linear transition-all duration-150 cursor-pointer text-white bg-red-500 border-red-800 hover:bg-red-600 active:bg-red-700 focus:ring-red-300 mr-2"
-                                type="button" wire:click="confirm('delete', {{ $section->id }})"
+                            </x-button>
+                            <x-button danger type="button" wire:click="confirm('delete', {{ $section->id }})"
                                 wire:loading.attr="disabled">
                                 {{ __('Delete') }}
-                            </button>
-                            <button
-                                class="font-bold  bg-purple-500 border-purple-800 hover:bg-purple-600 active:bg-purple-700 focus:ring-purple-300 uppercase justify-center text-xs py-2 px-3 rounded shadow hover:shadow-md mr-1 ease-linear transition-all duration-150 cursor-pointer text-white"
+                            </x-button>
+                            <x-button warning
                                 type="button" wire:click="confirm('clone', {{ $section->id }})"
                                 wire:loading.attr="disabled">
                                 {{ __('Clone') }}
-                            </button>
+                            </x-button>
                         </div>
                     </x-table.td>
                 </x-table.tr>

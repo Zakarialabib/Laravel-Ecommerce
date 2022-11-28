@@ -46,7 +46,6 @@ class Catalog extends Component
             'except' => 'desc',
         ],
     ];
-    // filterProducts $category_id,$brand_id,$subcategory_id
 
     public function filterCategories($category_id)
     {
@@ -100,7 +99,7 @@ class Catalog extends Component
 
     public function render()
     {
-        $popular_products = Product::inRandomOrder()->limit(4)->get();
+        $popular_products = Product::where('status', 1)->inRandomOrder()->limit(4)->get();
 
         return view('livewire.front.catalog', compact('popular_products'));
     }

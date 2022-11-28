@@ -1,14 +1,14 @@
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
-    <title>
-        @yield('title') || {{ Helpers::settings('site_title') }}
-    </title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&display=swap">
     <meta name="csrf-token" content="{{ csrf_token() }}">
+    <title>
+        @yield('title') || {{ Helpers::settings('site_title') }}
+    </title>
     
     @if( Helpers::settings('site_title') )
         <meta name="title" content="{{ Helpers::settings('site_title') }}">

@@ -15,47 +15,49 @@ class DashboardController extends Controller
 {
     public function index()
     {
-        $data['pending'] = Order::where('status', '=', 'pending')->get();
-        $data['processing'] = Order::where('status', '=', 'processing')->get();
-        $data['completed'] = Order::where('status', '=', 'completed')->get();
-        $data['days'] = '';
-        $data['sales'] = '';
-        for ($i = 0; $i < 30; $i++) {
-            $data['days'] .= "'".date('d M', strtotime('-'.$i.' days'))."',";
-
-            $data['sales'] .= "'".Order::where('status', '=', 'completed')->whereDate('created_at', '=', date('Y-m-d', strtotime('-'.$i.' days')))->count()."',";
-        }
-        $data['users'] = User::all();
-        $data['products'] = Product::with('category', 'brand')->get();
-        $data['blogs'] = Blog::all();
-        $data['pproducts'] = Product::with('category')->latest('id')->take(5)->get();
-        $data['rorders'] = Order::latest('id')->take(5)->get();
-        $data['poproducts'] = Product::with('category')->latest('id')->take(5)->get();
-        $data['rusers'] = User::latest('id')->take(5)->get();
-
-        $data = [
+        $customData = [
             'today' => [
                 'countCustomers' => User::whereDate('created_at', '>=', Carbon::now())->count(),
                 'ordersCount' => Order::whereDate('created_at', '>=', Carbon::now())->count(),
-
+               'orderPending' => Order::where('status', '=', 1)->whereDate('created_at', '>=', Carbon::now())->count(),
+                'orderProcessing' => Order::where('status', '=', 2)->whereDate('created_at', '>=', Carbon::now())->count(),
+                'orderCompleted' => Order::where('status', '=', 3)->whereDate('created_at', '>=', Carbon::now())->count(),
             ],
             'month' => [
                 'countCustomers' => User::whereDate('created_at', '>=', Carbon::now()->subMonth())->count(),
                 'ordersCount' => Order::whereDate('created_at', '>=', Carbon::now()->subMonth())->count(),
-
+                '$orderPending' => Order::where('status', '=', 1)->whereDate('created_at', '>=', Carbon::now()->subMonth())->count(),
+                'orderProcessing' => Order::where('status', '=', 2)->whereDate('created_at', '>=', Carbon::now()->subMonth())->count(),
+                'orderCompleted' => Order::where('status', '=', 3)->whereDate('created_at', '>=', Carbon::now()->subMonth())->count(),
             ],
             'semi' => [
                 'countCustomers' => User::whereDate('created_at', '>=', Carbon::now()->subMonths(6))->count(),
                 'ordersCount' => Order::whereDate('created_at', '>=', Carbon::now()->subMonths(6))->count(),
-
+                'orderPending' => Order::where('status', '=', 1)->whereDate('created_at', '>=', Carbon::now()->subMonths(6))->count(),
+                'orderProcessing' => Order::where('status', '=', 2)->whereDate('created_at', '>=', Carbon::now()->subMonths(6))->count(),
+                'orderCompleted' => Order::where('status', '=', 3)->whereDate('created_at', '>=', Carbon::now()->subMonths(6))->count(),
             ],
             'year' => [
                 'countCustomers' => User::whereDate('created_at', '>=', Carbon::now()->subYear())->count(),
                 'ordersCount' => Order::whereDate('created_at', '>=', Carbon::now()->subYear())->count(),
+                'orderPending' => Order::where('status', '=', 1)->whereDate('created_at', '>=', Carbon::now()->subYear())->count(),
+                'orderProcessing' => Order::where('status', '=', 2)->whereDate('created_at', '>=', Carbon::now()->subYear())->count(),
+                'orderCompleted' => Order::where('status', '=', 3)->whereDate('created_at', '>=', Carbon::now()->subYear())->count(),
             ],
         ];
 
-        return view('admin.dashboard', $data);
+        $recentOrders = Order::latest('id')->take(5)->get();
+        $recentUsers = User::latest('id')->take(5)->get();
+
+        $days = '';
+        $sales = '';
+        for ($i = 0; $i < 30; $i++) {
+            $days .= "'".date('d M', strtotime('-'.$i.' days'))."',";
+
+            $sales .= "'".Order::where('status', '=', 3)->whereDate('created_at', '=', date('Y-m-d', strtotime('-'.$i.' days')))->count()."',";
+        }        
+
+        return view('admin.dashboard', compact('days','sales','customData','recentOrders','recentUsers'));
     }
 
     public function profile()
@@ -227,5 +229,13 @@ class DashboardController extends Controller
             }
         }
         rmdir($dirPath);
+    }
+
+    public function changeLanguage($locale)
+    {
+        Session::put('code', $locale);
+        $language = Session::get('code');
+
+        return redirect()->back();
     }
 }

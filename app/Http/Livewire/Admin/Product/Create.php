@@ -16,7 +16,10 @@ class Create extends Component
 {
     use LivewireAlert, WithFileUploads;
 
-    public $listeners = ['createProduct'];
+    public $listeners = [
+        'trix:valueUpdated' => 'onTrixValueUpdate',
+        'createProduct'
+    ];
 
     public $createProduct;
 
@@ -25,13 +28,18 @@ class Create extends Component
     public $gallery = [];
 
     public $uploadLink;
+    
+    public array $listsForFields = [];
 
     public function updated($propertyName)
     {
         $this->validateOnly($propertyName);
     }
 
-    public array $listsForFields = [];
+    public function onTrixValueUpdate($value)
+    {
+        $this->description = $value;
+    }
 
     protected $rules = [
         'product.name' => ['required', 'string', 'max:255'],

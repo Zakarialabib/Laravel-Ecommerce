@@ -31,7 +31,12 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => 'auth'], function () {
+    
+    // change lang
+    Route::get('/lang/{lang}', [DashboardController::class, 'changeLanguage'])->name('changelanguage');
+
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+
     Route::get('/categories', [CategoryController::class, 'index'])->name('categories');
     Route::get('/subcategories', [CategoryController::class, 'subcategories'])->name('subcategories');
     Route::get('/brands', [BrandController::class, 'index'])->name('brands');
@@ -47,6 +52,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => 'auth'], fu
 
     Route::get('/featuredBanners', [FeaturedBannerController::class, 'index'])->name('featuredBanners');
     Route::get('/pages', [PageController::class, 'index'])->name('pages');
+    Route::get('/page/create', [PageController::class, 'create'])->name('page.create');
     Route::get('/order-forms', [PageController::class, 'orderForms'])->name('orderforms');
 
     Route::get('/sliders', [SliderController::class, 'index'])->name('sliders');

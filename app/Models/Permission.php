@@ -31,9 +31,12 @@ class Permission extends Model
         'updated_at',
     ];
 
-    protected $guarded = ['id'];
-
-    protected $fillable = ['name', 'label', 'description'];
+    protected $fillable = [
+        'name',
+        'guard_name',
+        'created_at',
+        'updated_at',
+    ];
 
     public function roles()
     {

@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Support\Facades\Schema;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -30,34 +31,29 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        // cache()->rememberForever('settings', function () {
-        //     return Settings::all();
-        // });
 
-        // View::share('settings', cache('settings'));
-
-        // if (env('APP_ENV') === 'production') {
-        //     URL::forceScheme('https');
-        // }
-
-        //  Todo : Share Settings and languages with all views
-        if (Session::has('settings')) {
-            Cache::forever('settings', Settings::all());
+        if (env('APP_ENV') === 'production') {
+            URL::forceScheme('https');
         }
 
-        if (Session::has('language')) {
-            $languages = cache()->rememberForever('languages', function () {
-                return Language::pluck('name', 'code')->toArray();
-            });
-            View::share('languages', $languages);
-        } else {
-            $languages = cache()->rememberForever('languages', function () {
-                return Language::where('is_default', 1)->first();
-            });
+        View::share('languages', $this->getLanguages());
+        
+        // Model::shouldBeStrict(! $this->app->isProduction());
+    }
 
-            View::share('languages', $languages);
+     /**
+     * @return \App\Models\Language|\Illuminate\Database\Eloquent\Model|array|null
+     */
+    private function getLanguages()
+    {
+        if (! Schema::hasTable('languages')) {
+            return;
         }
 
-        //  Model::shouldBeStrict(! $this->app->isProduction());
+        return cache()->rememberForever('languages', function () {
+            return Session::has('language')
+                ? Language::pluck('name', 'code')->toArray()
+                : Language::where('is_default', 1)->first();
+        });
     }
 }

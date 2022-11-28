@@ -61,7 +61,12 @@
                             class="w-10 h-10 rounded-full object-cover">
                     </x-table.td>
                     <x-table.td>
-                        {{ Str::limit($product->name, 60) }}
+                        <button type="button" wire:click="showModal({{ $product->id }})">
+                            {{ Str::limit($product->name, 60) }}
+                        </button>
+                        <a class="ml-2 text-blue-500" href="{{ route('front.product', $product->slug) }}">
+                            <i class="fas fa-eye"></i>
+                        </a>
                     </x-table.td>
                     <x-table.td>
                         {{ $product->category->name }}
@@ -306,7 +311,7 @@
                     </div>
 
                     <div class="flex justify-start space-x-2">
-                        <x-button primary type="submit" wire:click="update" wire:loading.attr="disabled">
+                        <x-button primary type="submit" wire:loading.attr="disabled">
                             {{ __('Update') }}
                         </x-button>
                     </div>
@@ -337,49 +342,49 @@
                     </div>
                     <div class="sm:w-1/2 mb-4 px-2">
                         <x-label for="hot" :value="__('Hot product')" />
-                        <input  id="hot" class="block mt-1 w-full" type="checkbox" name="hot"
+                        <input id="hot" class="block mt-1 w-full" type="checkbox" name="hot"
                             wire:model="hot" />
                         <x-input-error :messages="$errors->get('hot')" for="hot" class="mt-2" />
                     </div>
                     <div class="sm:w-1/2 mb-4 px-2">
                         <x-label for="best" :value="__('Best product')" />
-                        <input  id="best" class="block mt-1 w-full" type="checkbox" name="best"
+                        <input id="best" class="block mt-1 w-full" type="checkbox" name="best"
                             wire:model="best" />
                         <x-input-error :messages="$errors->get('best')" for="best" class="mt-2" />
                     </div>
                     <div class="sm:w-1/2 mb-4 px-2">
                         <x-label for="top" :value="__('Top product')" />
-                        <input  id="top" class="block mt-1 w-full" type="checkbox" name="top"
+                        <input id="top" class="block mt-1 w-full" type="checkbox" name="top"
                             wire:model="top" />
                         <x-input-error :messages="$errors->get('top')" for="top" class="mt-2" />
                     </div>
                     <div class="sm:w-1/2 mb-4 px-2">
                         <x-label for="latest" :value="__('Latest product')" />
-                        <input  id="latest" class="block mt-1 w-full" type="checkbox" name="latest"
+                        <input id="latest" class="block mt-1 w-full" type="checkbox" name="latest"
                             wire:model="latest" />
                         <x-input-error :messages="$errors->get('latest')" for="latest" class="mt-2" />
                     </div>
                     <div class="sm:w-1/2 mb-4 px-2">
                         <x-label for="big" :value="__('Big saving')" />
-                        <input  id="big" class="block mt-1 w-full" type="checkbox" name="big"
+                        <input id="big" class="block mt-1 w-full" type="checkbox" name="big"
                             wire:model="big" />
                         <x-input-error :messages="$errors->get('big')" for="big" class="mt-2" />
                     </div>
                     <div class="sm:w-1/2 mb-4 px-2">
                         <x-label for="trending" :value="__('Trending')" />
-                        <input  id="trending" class="block mt-1 w-full" type="checkbox" name="trending"
+                        <input id="trending" class="block mt-1 w-full" type="checkbox" name="trending"
                             wire:model="trending" />
                         <x-input-error :messages="$errors->get('trending')" for="trending" class="mt-2" />
                     </div>
                     <div class="sm:w-1/2 mb-4 px-2">
                         <x-label for="sale" :value="__('Sale')" />
-                        <input  id="sale" class="block mt-1 w-full" type="checkbox" name="sale"
+                        <input id="sale" class="block mt-1 w-full" type="checkbox" name="sale"
                             wire:model="sale" />
                         <x-input-error :messages="$errors->get('sale')" for="sale" class="mt-2" />
                     </div>
                     <div class="sm:w-1/2 mb-4 px-2">
                         <x-label for="is_discount" :value="__('Is Discount')" />
-                        <input  id="is_discount" class="block mt-1 w-full" type="checkbox" name="is_discount"
+                        <input id="is_discount" class="block mt-1 w-full" type="checkbox" name="is_discount"
                             wire:model="is_discount" />
                         <x-input-error :messages="$errors->get('is_discount')" for="is_discount" class="mt-2" />
                     </div>
@@ -393,8 +398,7 @@
 
 
                 <div class="w-full flex justify-start px-3">
-                    <x-button primary type="button" 
-                            wire:click="saveHighlight" wire:loading.attr="disabled">
+                    <x-button primary type="button" wire:click="saveHighlight" wire:loading.attr="disabled">
                         {{ __('Save') }}
                     </x-button>
                 </div>

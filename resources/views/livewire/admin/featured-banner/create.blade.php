@@ -54,7 +54,7 @@
                         <x-input-error :messages="$errors->get('image')" for="image" class="mt-2" />
                     </div>
                     <div class="w-full px-3">
-                        <x-button primary class="block" wire:click="update" wire:loading.attr="disabled">
+                        <x-button primary class="block" type="submit" ire:loading.attr="disabled">
                             {{ __('Update') }}
                         </x-button>
                     </div>
