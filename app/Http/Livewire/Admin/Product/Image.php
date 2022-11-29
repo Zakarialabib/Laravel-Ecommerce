@@ -16,10 +16,10 @@ class Image extends Component
 
     public $product;
 
-    public $image;
+    public $image = null;
 
-    public $image_url;
-
+    public $image_url = null;
+    
     public $gallery = [];
 
     public $listeners = [
@@ -28,36 +28,29 @@ class Image extends Component
 
     public $imageModal;
 
-    public $file;
-
     public function imageModal($id)
     {
-        $this->product = Product::findOrFail($id);
-
         $this->resetErrorBag();
 
         $this->resetValidation();
+        
+        $this->product = Product::findOrFail($id);
 
         $this->imageModal = true;
     }
 
     public function saveImage()
     {
-        if ($this->image_url) {
+        if ($this->image_url != null) {
             $image = file_get_contents($this->image_url);
             $imageName = Str::random(10).'.jpg';
             Storage::disk('local_files')->put('products/'.$imageName, $image, 'public');
             $this->product->image = $imageName;
-        } elseif ($this->image) {
-            $image = $this->image;
+        } 
+
+        if ($this->image != null) {
             $imageName = Str::slug($this->product->name).'-'.date('Y-m-d H:i:s').'.'.$this->image->extension();
-
-            $img = ImageIntervention::make($image->getRealPath())->resize(1500, 1500, function ($constraint) {
-                $constraint->aspectRatio();
-            });
-
-            $img->stream();
-            Storage::disk('local_files')->put('products/'.$imageName, $img, 'public');
+            $image->storeAs('products', $imageName);
             $this->product->image = $imageName;
         }
 
@@ -68,7 +61,7 @@ class Image extends Component
                 $image = $value;
                 $imageName = Str::slug($this->product->name).'-'.$key.'.'.$value->extension();
 
-                $img = ImageIntervention::make($image->getRealPath())->resize(1500, 1500, function ($constraint) {
+                $img = Image::make($image->getRealPath())->resize(1500, 1500, function ($constraint) {
                     $constraint->aspectRatio();
                 });
 

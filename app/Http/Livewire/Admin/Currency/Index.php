@@ -19,11 +19,11 @@ class Index extends Component
 
     public $listeners = ['confirmDelete', 'delete', 'showModal', 'editModal', 'refreshIndex'];
 
-    public $showModal;
+    public $showModal = false;
 
     public $refreshIndex;
 
-    public $editModal;
+    public $editModal = false;
 
     public array $orderable;
 

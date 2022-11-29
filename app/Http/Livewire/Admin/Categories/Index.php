@@ -37,7 +37,7 @@ class Index extends Component
 
     public $importModal;
 
-    public $editModal;
+    public $editModal = false;
 
     public array $orderable;
 

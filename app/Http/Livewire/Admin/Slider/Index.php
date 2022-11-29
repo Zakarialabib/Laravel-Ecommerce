@@ -25,11 +25,11 @@ class Index extends Component
         'showModal', 'editModal',
     ];
 
-    public $showModal;
+    public $showModal = false;
 
     public $refreshIndex;
 
-    public $editModal;
+    public $editModal = false;
 
     public int $perPage;
 

@@ -48,9 +48,8 @@
                 <form wire:submit.prevent="import">
                     <div class="w-full px-3 my-2">
                         <x-label for="import_file" :value="__('Import')" />
-                        <x-fileupload wire:model.defer="file" :file="$file" accept="file/xlsx" />
-                        {{-- <input class="block mt-1 w-full" type="file" name="import_file" wire:model="import_file" /> --}}
-                        <x-input-error :messages="$errors->get('import_file')" for="import_file" class="mt-2" />
+                        <x-fileupload wire:model.defer="file" :file="$file" accept="application/xlsx" />
+                        <x-input-error :messages="$errors->get('file')" for="file" class="mt-2" />
                     </div>
 
                     <div class="w-full px-3">

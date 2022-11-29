@@ -33,13 +33,13 @@ class Index extends Component
 
     public $featured_image;
 
-    public $showModal;
+    public $showModal = false;
 
     public $refreshIndex;
 
     public $importModal;
 
-    public $editModal;
+    public $editModal = false;
 
     public array $orderable;
 

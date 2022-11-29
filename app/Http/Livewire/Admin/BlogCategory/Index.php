@@ -25,7 +25,7 @@ class Index extends Component
 
     public int $perPage;
 
-    public $editModal;
+    public $editModal = false;
 
     public $confirmDelete;
 

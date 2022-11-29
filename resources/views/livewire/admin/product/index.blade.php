@@ -99,7 +99,7 @@
                                     <i class="fas fa-eye"></i>
                                     {{ __('Highlighted') }}
                                 </x-dropdown-link>
-                                <x-dropdown-link wire:click="showModal({{ $product->id }})"
+                                <x-dropdown-link wire:click="$emit('showModal', {{ $product->id }})"
                                     wire:loading.attr="disabled">
                                     <i class="fas fa-eye"></i>
                                     {{ __('View') }}
@@ -142,59 +142,57 @@
         </div>
     </div>
 
-    @if ($product)
-        <!-- Show Modal -->
-        <x-modal wire:model="showModal">
-            <x-slot name="title">
-                {{ __('Show Product') }}
-            </x-slot>
+    <!-- Show Modal --> 
+    <x-modal wire:model="showModal">
+        <x-slot name="title">
+            {{ __('Show Product') }}
+        </x-slot>
 
-            <x-slot name="content">
-                <div class="px-4 mx-auto mb-4">
-                    <div class="row mb-3">
-                        <div class="xl:w-1/3 lg:w-1/2 sm:w-full px-3">
-                            <img src="{{ asset('images/products/' . $product->image) }}" alt="{{ $product->name }}"
-                                class="w-32 h-32 rounded-full">
-                        </div>
+        <x-slot name="content">
+            <div class="px-4 mx-auto mb-4">
+                <div class="row mb-3">
+                    <div class="xl:w-1/3 lg:w-1/2 sm:w-full px-3">
+                        <img src="{{ asset('images/products/' . $product->image) }}" alt="{{ $product->name }}"
+                            class="w-32 h-32 rounded-full">
                     </div>
-                    <div class="row">
-                        <div class="w-full px-4">
-                            <div class="table-responsive">
-                                <table class="table table-bordered table-striped mb-0">
-                                    <tr>
-                                        <th>{{ __('Product Code') }}</th>
-                                        <td>{{ $product->code }}</td>
-                                    </tr>
-                                    <tr>
-                                        <th>{{ __('Name') }}</th>
-                                        <td>{{ $product->name }}</td>
-                                    </tr>
-                                    <tr>
-                                        <th>{{ __('Category') }}</th>
-                                        <td>{{ $product->category->name }}</td>
-                                    </tr>
-                                    <tr>
-                                        <th>{{ __('Old Price') }}</th>
-                                        <td>{{ $product->old_price }}</td>
-                                    </tr>
-                                    <tr>
-                                        <th>{{ __('Price') }}</th>
-                                        <td>{{ $product->price }}</td>
-                                    </tr>
+                </div>
+                <div class="row">
+                    <div class="w-full px-4">
+                        <div class="table-responsive">
+                            <table class="table table-bordered table-striped mb-0">
+                                <tr>
+                                    <th>{{ __('Product Code') }}</th>
+                                    <td>{{ $product->code }}</td>
+                                </tr>
+                                <tr>
+                                    <th>{{ __('Name') }}</th>
+                                    <td>{{ $product->name }}</td>
+                                </tr>
+                                <tr>
+                                    <th>{{ __('Category') }}</th>
+                                    <td>{{ $product->category->name }}</td>
+                                </tr>
+                                <tr>
+                                    <th>{{ __('Old Price') }}</th>
+                                    <td>{{ $product->old_price }}</td>
+                                </tr>
+                                <tr>
+                                    <th>{{ __('Price') }}</th>
+                                    <td>{{ $product->price }}</td>
+                                </tr>
 
-                                    <tr>
-                                        <th>{{ __('Description') }}</th>
-                                        <td>{!! $product->description !!}</td>
-                                    </tr>
-                                </table>
-                            </div>
+                                <tr>
+                                    <th>{{ __('Description') }}</th>
+                                    <td>{!! $product->description !!}</td>
+                                </tr>
+                            </table>
                         </div>
                     </div>
                 </div>
-            </x-slot>
-        </x-modal>
-        <!-- End Show Modal -->
-    @endif
+            </div>
+        </x-slot>
+    </x-modal>
+    <!-- End Show Modal -->
 
     <!-- Edit Modal -->
     <x-modal wire:model="editModal">

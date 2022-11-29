@@ -10,17 +10,6 @@
                 <img src="{{ asset('images/products/' . $product->image) }}" class="rounded-md object-cover w-full">
                 @endif
             </div>
-            <div class="w-full mb-4 px-2">
-                <div class="flex flex-wrap">
-                    @if($product->gallery)
-                    @foreach (json_decode($product->gallery) as $image)
-                        <div class="w-1/4 mb-4 px-2">
-                            <img src="{{ asset('images/products/' .  $image) }}" alt="" class="w-full">
-                        </div>
-                    @endforeach
-                    @endif
-                </div>
-            </div>
             <form wire:submit.prevent="saveImage">
                 <div class="flex flex-wrap">
 

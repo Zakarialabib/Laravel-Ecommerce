@@ -1,6 +1,3 @@
-{{-- product carousel with alpine and tailwind swipper --}}
-{{-- main $image , decode array $gallery --}}
-
 @props(['image', 'gallery'])
 
 @php

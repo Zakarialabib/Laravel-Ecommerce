@@ -5,7 +5,6 @@
                 {{-- Make product carousel with thumbs alpine --}}
                 <div class="w-full md:w-1/2 px-4 mb-8 md:mb-0" >
                     <x-product-carousel :image="$product->image" :gallery="$product->gallery" />
-                    
                 </div>
                 <div class="w-full md:w-1/2 px-4">
                     <div>

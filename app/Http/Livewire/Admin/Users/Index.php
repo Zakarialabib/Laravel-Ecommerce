@@ -16,11 +16,11 @@ class Index extends Component
 
     public $listeners = ['confirmDelete', 'delete', 'export', 'import', 'refreshIndex', 'showModal', 'editModal'];
 
-    public $showModal;
+    public $showModal = false;
 
     public $role;
 
-    public $editModal;
+    public $editModal = false;
 
     public int $perPage;
 

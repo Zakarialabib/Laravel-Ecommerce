@@ -37,16 +37,6 @@
                 </div>
             </div>
             <div class="float-right">
-                <x-button warning type="button" onclick="Livewire.emit('importModal')" wire:loading.attr="disabled">
-                    {{ __('Import') }}
-                </x-button>
-                <x-button danger type="button" onclick="Livewire.emit('exportPdf')" wire:loading.attr="disabled">
-                    {{ __('Pdf') }}
-                </x-button>
-                <x-button info type="button" onclick="Livewire.emit('exportExcel')" wire:loading.attr="disabled">
-                    {{ __('Excel') }}
-                </x-button>
-                <!-- Button trigger livewire modal -->
                 <x-button primary type="button" onclick="Livewire.emit('createProduct')">{{ __('Create') }}</x-button>
             </div>
         </div>

@@ -23,10 +23,9 @@ class Index extends Component
     public $product;
 
     public $listeners = [
-
+        'trix:valueUpdated' => 'onTrixValueUpdate',
         'confirmDelete', 'delete', 'showModal', 'editModal',
-        'refreshIndex', 'exportExcel', 'exportPdf',
-        'highlightModal',
+        'refreshIndex','highlightModal',
 
     ];
 
@@ -34,9 +33,9 @@ class Index extends Component
 
     public int $perPage;
 
-    public $showModal;
+    public $showModal = false;
 
-    public $editModal;
+    public $editModal = false;
 
     public $refreshIndex;
 
@@ -89,6 +88,11 @@ class Index extends Component
             'except' => 'desc',
         ],
     ];
+
+    public function onTrixValueUpdate($value)
+    {
+        $this->description = $value;
+    }
 
     public function getSelectedCountProperty()
     {
@@ -163,14 +167,14 @@ class Index extends Component
 
         $product->delete();
 
-        $this->alert('success', 'Product deleted successfully.');
+        $this->alert('success', __('Product deleted successfully.'));
     }
 
     public function showModal(Product $product)
     {
         abort_if(Gate::denies('product_show'), 403);
 
-        $this->product = Product::find($product);
+        $this->product = $product->id;
 
         $this->showModal = true;
     }
@@ -183,7 +187,7 @@ class Index extends Component
 
         $this->resetValidation();
 
-        $this->product = Product::find($product);
+        $this->product = Product::findOrfail($product);
 
         $this->editModal = true;
     }
@@ -233,20 +237,6 @@ class Index extends Component
         $this->editModal = false;
 
         $this->alert('success', 'Product updated successfully.');
-    }
-
-    public function exportExcel()
-    {
-        abort_if(Gate::denies('product_access'), 403);
-
-        return (new ProductExport)->download('products.xlsx');
-    }
-
-    public function exportPdf()
-    {
-        abort_if(Gate::denies('product_access'), 403);
-
-        return (new ProductExport)->download('products.pdf', \Maatwebsite\Excel\Excel::DOMPDF);
     }
 
     public function highlightModal(Product $product)
