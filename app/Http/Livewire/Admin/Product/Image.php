@@ -50,7 +50,7 @@ class Image extends Component
 
         if ($this->image != null) {
             $imageName = Str::slug($this->product->name).'-'.date('Y-m-d H:i:s').'.'.$this->image->extension();
-            $image->storeAs('products', $imageName);
+            $this->image->storeAs('products', $imageName);
             $this->product->image = $imageName;
         }
 
@@ -61,7 +61,7 @@ class Image extends Component
                 $image = $value;
                 $imageName = Str::slug($this->product->name).'-'.$key.'.'.$value->extension();
 
-                $img = Image::make($image->getRealPath())->resize(1500, 1500, function ($constraint) {
+                $img = ImageIntervention::make($image->getRealPath())->resize(1500, 1500, function ($constraint) {
                     $constraint->aspectRatio();
                 });
 
