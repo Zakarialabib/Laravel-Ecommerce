@@ -40,13 +40,20 @@
                     </div>
                     {{-- if product_id is selected hide link --}}
 
-                    <div class="xl:w-1/2 md:w-1/2 px-3" wire:ignore>
+                    <div class="xl:w-1/2 md:w-1/2 px-3" >
                         <x-label for="link" :value="__('Link')" />
                         <x-input id="link" class="block mt-1 w-full" type="text" name="link"
                             wire:model.defer="featuredbanner.link" />
                         <x-input-error :messages="$errors->get('featuredbanner.link')" for="featuredbanner.link" class="mt-2" />
                     </div>
-                
+
+                    <div class="w-full px-3">
+                        <x-label for="video" :value="__('Embeded Video')" />
+                        <x-input id="embeded_video" class="block mt-1 w-full" type="text"
+                                name="embeded_video" wire:model="featuredbanner.embeded_video" />
+                        <x-input-error :messages="$errors->get('featuredbanner.embeded_video')" for="featuredbanner.embeded_video" class="mt-2" />
+                    </div>
+
                     <div class="w-full py-2 px-3">
                         <x-label for="image" :value="__('Image')" />
                         <x-fileupload wire:model="image" :file="$image"

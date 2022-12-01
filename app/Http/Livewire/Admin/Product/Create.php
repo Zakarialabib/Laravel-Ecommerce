@@ -51,7 +51,7 @@ class Create extends Component
         'product.meta_keywords' => ['nullable', 'string', 'min:1'],
         'product.category_id' => ['required', 'integer'],
         'product.subcategory_id' => ['required', 'integer'],
-        'product.brand_id' => ['required', 'integer'],
+        'product.embeded_video' => ['nullable'],
     ];
 
     public function mount(Product $product)

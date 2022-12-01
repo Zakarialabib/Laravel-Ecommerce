@@ -99,9 +99,7 @@ class Catalog extends Component
 
     public function render()
     {
-        $popular_products = Product::where('status', 1)->inRandomOrder()->limit(4)->get();
-
-        return view('livewire.front.catalog', compact('popular_products'));
+        return view('livewire.front.catalog');
     }
 
     public function getCategoriesProperty()

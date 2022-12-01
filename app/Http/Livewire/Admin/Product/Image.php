@@ -19,6 +19,8 @@ class Image extends Component
     public $image = null;
 
     public $image_url = null;
+
+    public $embeded_video = null;
     
     public $gallery = [];
 
@@ -36,6 +38,10 @@ class Image extends Component
         
         $this->product = Product::findOrFail($id);
 
+        $this->image = $this->product->image;
+
+        $this->gallery = $this->product->gallery;
+
         $this->imageModal = true;
     }
 
@@ -46,6 +52,10 @@ class Image extends Component
             $imageName = Str::random(10).'.jpg';
             Storage::disk('local_files')->put('products/'.$imageName, $image, 'public');
             $this->product->image = $imageName;
+        } 
+
+        if ($this->embeded_video != null) {
+            $this->product->image = $this->embeded_video;
         } 
 
         if ($this->image != null) {

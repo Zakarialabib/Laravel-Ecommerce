@@ -304,40 +304,4 @@
             </div>
         </div>
     </div>
-
-    <div class="container mx-auto px-4">
-        <h2 class="mb-16 md:mb-24 text-4xl md:text-5xl font-bold font-heading">{{ __('Discover our products') }}</h2>
-        <div class="flex flex-wrap -mx-3 mb-24">
-            @foreach ($popular_products as $product)
-                <div class="sm:w-1/2 md:w-1/3 lg:w-1/4 px-3 mb-6">
-                    <div class="p-2 bg-gray-50">
-                        @if ($product->old_price)
-                            <span
-                                class="top-0 left-0 px-2 py-1 text-xs font-bold font-heading bg-white border-2 border-red-500 rounded-full text-red-500">
-                                -{{ $product->discount }}%
-                            </span>
-                        @endif
-                        <a class="block px-2 mt-2 mb-2" href="{{ route('front.product', $product->slug) }}">
-                            <img class="mb-5 mx-auto h-56 w-full object-contain"
-                                src="{{ asset('images/products/' . $product->image) }}" alt="">
-                            <h3 class="mb-2 text-xl font-bold font-heading">
-                                {{ Str::limit($product->name, 30) }}
-                            </h3>
-                            <p class="text-lg font-bold font-heading text-blue-500">
-                                <span>
-                                    {{ $product->price }}DH
-                                </span>
-                                @if ($product->old_price)
-                                    <span class="text-xs text-gray-500 font-semibold font-heading line-through">
-                                        {{ $product->old_price }}DH
-                                    </span>
-                                @endif
-                            </p>
-                        </a>
-                        <livewire:front.add-to-cart :product="$product" :key="$product->id" />
-                    </div>
-                </div>
-            @endforeach
-        </div>
-    </div>
 </div>

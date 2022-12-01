@@ -15,7 +15,7 @@ class Create extends Component
 {
     use LivewireAlert , WithFileUploads;
 
-    public $createFeaturedBanner;
+    public $createFeaturedBanner = false;
 
     public $image;
 
@@ -35,6 +35,7 @@ class Create extends Component
         'featuredbanner.link' => ['nullable', 'string'],
         'featuredbanner.product_id' => ['nullable', 'integer'],
         'featuredbanner.language_id' => ['nullable', 'integer'],
+        'featuredbanner.embeded_video' => ['nullable'],
     ];
 
     public function render()

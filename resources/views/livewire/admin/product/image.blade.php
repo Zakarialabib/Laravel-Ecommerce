@@ -25,6 +25,13 @@
                     </div>
 
                     <div class="w-full px-4 my-4">
+                        <x-label for="video" :value="__('Embeded Video')" />
+                        <x-input id="embeded_video" class="block mt-1 w-full" type="text"
+                        name="embeded_video" wire:model="product.embeded_video" />
+                        <x-input-error :messages="$errors->get('product.embeded_video')" for="product.embeded_video" class="mt-2" />
+                    </div>
+
+                    <div class="w-full px-4 my-4">
                         <x-label for="gallery" :value="__('Product Gallery')" />
                         <x-fileupload wire:model="gallery" :file="$gallery" accept="image/jpg,image/jpeg,image/png"
                             multiple />

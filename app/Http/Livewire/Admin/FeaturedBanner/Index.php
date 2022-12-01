@@ -87,6 +87,7 @@ class Index extends Component
         'featuredbanner.link' => ['nullable', 'string'],
         'featuredbanner.product_id' => ['nullable', 'integer'],
         'featuredbanner.language_id' => ['nullable', 'integer'],
+        'featuredbanner.embeded_video' => ['nullable'],
     ];
 
     public function mount()

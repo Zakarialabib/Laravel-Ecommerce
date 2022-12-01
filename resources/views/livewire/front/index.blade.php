@@ -167,36 +167,46 @@
                         <div class="flex mb-16">
                             <div class="w-full flex flex-wrap -mx-3">
                                 @forelse ($this->bestOffers as $product)
-                                    <div class="w-full lg:w-1/3 px-3 mb-16 lg:mb-0">
-                                        <a class="block mb-10" href="{{ route('front.product', $product->slug) }}">
-                                            <div class="relative">
-                                                @if ($product->old_price)
-                                                    <span
-                                                        class="absolute bottom-0 left-0 ml-6 mb-6 px-2 py-1 text-xs font-bold font-heading bg-white border-2 border-red-500 rounded-full text-red-500">
-                                                        -{{ $product->discount }}%
-                                                    </span>
-                                                @endif
-                                                <img class="w-full h-96 object-cover" loading="lazy"
+                                    <div class="sm:w-full md:w-1/2 lg:w-1/3 px-3 mb-10 bg-white rounded-lg shadow-2xl">
+                                        <div class="relative text-center">
+                                            <a href="{{ route('front.product', $product->slug) }}">
+                                                <img class="w-full h-auto object-cover rounded-t-lg"
                                                     src="{{ asset('images/products/' . $product->image) }}"
-                                                    alt="{{ $product->name }}">
+                                                    alt="">
+                                            </a>
+                                            <div class="absolute top-0 right-0 px-4 py-2 bg-orange-500 rounded-bl-lg">
+                                                <span
+                                                    class="text-white font-bold font-heading">{{ $product->price }}DH</span>
                                             </div>
-                                            <div class="mt-12">
-                                                <div class="mb-2">
-                                                    <h3 class="mb-3 text-3xl font-bold font-heading text-blue-900">
-                                                        {{ Str::limit($product->name, 30) }}
-                                                    </h3>
-                                                    <p class="text-xl font-bold font-heading text-white">
-                                                        <span class="text-blue-900">{{ $product->price }}DH</span>
-                                                        <span
-                                                            class="text-xs text-gray-500 font-semibold font-heading line-through">{{ $product->old_price }}</span>
-                                                    </p>
+                                        </div>
+                                        <div class="p-4 text-center">
+                                            <a href="{{ route('front.product', $product->slug) }}"
+                                                class="block mb-2 text-lg font-bold font-heading text-orange-500 hover:text-orange-400">{{ $product->name }}</a>
+                                            <div class="flex justify-center mb-4">
+                                                <div class="flex items-center">
+                                                    @for ($i = 0; $i < 5; $i++)
+                                                        @if ($i < $product->reviews->avg('rating'))
+                                                            <svg class="w-4 h-4 text-orange-500 fill-current"
+                                                                xmlns="http://www.w3.org/2000/svg"
+                                                                viewBox="0 0 24 24">
+                                                                <path
+                                                                    d="M12 17.27l-5.18 2.73 1-5.81-4.24-3.63 5.88-.49L12 6.11l2.45 5.51 5.88.49-4.24 3.63 1 5.81z" />
+                                                            </svg>
+                                                        @else
+                                                            <svg class="w-4 h-4 text-orange-500 fill-current"
+                                                                xmlns="http://www.w3.org/2000/svg"
+                                                                viewBox="0 0 24 24">
+                                                                <path
+                                                                    d="M12 17.27l-5.18 2.73 1-5.81-4.24-3.63 5.88-.49L12 6.11l2.45 5.51 5.88.49-4.24 3.63 1 5.81z" />
+                                                            </svg>
+                                                        @endif
+                                                    @endfor
                                                 </div>
+                                                <span
+                                                    class="ml-2 text-sm text-gray-500 font-body">{{ $product->reviews->count() }}
+                                                    {{ __('Reviews') }}</span>
                                             </div>
-                                        </a>
-                                        <a class="inline-block hover:bg-orange-400 text-white font-bold font-heading py-4 px-8 rounded-md uppercase transition duration-200 bg-orange-500"
-                                            href="{{ route('front.product', $product->slug) }}">
-                                            {{ __('Learn more') }}
-                                        </a>
+                                        </div>
                                     </div>
                                 @empty
                                     <div class="w-full">
@@ -218,36 +228,46 @@
                         <div class="flex mb-16">
                             <div class="w-full flex flex-wrap -mx-3">
                                 @forelse ($this->hotProducts as $product)
-                                    <div class="w-full lg:w-1/3 px-3 mb-16 lg:mb-0">
-                                        <a class="block mb-10" href="{{ route('front.product', $product->slug) }}">
-                                            <div class="relative">
-                                                @if ($product->old_price)
-                                                    <span
-                                                        class="absolute bottom-0 left-0 ml-6 mb-6 px-2 py-1 text-xs font-bold font-heading bg-white border-2 border-red-500 rounded-full text-red-500">
-                                                        -{{ $product->discount }}%
-                                                    </span>
-                                                @endif
-                                                <img class="w-full h-96 object-cover" loading="lazy"
+                                    <div class="sm:w-full md:w-1/2 lg:w-1/3 px-3 mb-10 bg-white rounded-lg shadow-2xl">
+                                        <div class="relative text-center">
+                                            <a href="{{ route('front.product', $product->slug) }}">
+                                                <img class="w-full h-auto object-cover rounded-t-lg"
                                                     src="{{ asset('images/products/' . $product->image) }}"
-                                                    alt="{{ $product->name }}">
+                                                    alt="">
+                                            </a>
+                                            <div class="absolute top-0 right-0 px-4 py-2 bg-orange-500 rounded-bl-lg">
+                                                <span
+                                                    class="text-white font-bold font-heading">{{ $product->price }}DH</span>
                                             </div>
-                                            <div class="mt-12">
-                                                <div class="mb-2">
-                                                    <h3 class="mb-3 text-3xl font-bold font-heading text-blue-900">
-                                                        {{ Str::limit($product->name, 30) }}
-                                                    </h3>
-                                                    <p class="text-xl font-bold font-heading text-white">
-                                                        <span class="text-blue-900">{{ $product->price }}DH</span>
-                                                        <span
-                                                            class="text-xs text-gray-500 font-semibold font-heading line-through">{{ $product->old_price }}</span>
-                                                    </p>
+                                        </div>
+                                        <div class="p-4 text-center">
+                                            <a href="{{ route('front.product', $product->slug) }}"
+                                                class="block mb-2 text-lg font-bold font-heading text-orange-500 hover:text-orange-400">{{ $product->name }}</a>
+                                            <div class="flex justify-center mb-4">
+                                                <div class="flex items-center">
+                                                    @for ($i = 0; $i < 5; $i++)
+                                                        @if ($i < $product->reviews->avg('rating'))
+                                                            <svg class="w-4 h-4 text-orange-500 fill-current"
+                                                                xmlns="http://www.w3.org/2000/svg"
+                                                                viewBox="0 0 24 24">
+                                                                <path
+                                                                    d="M12 17.27l-5.18 2.73 1-5.81-4.24-3.63 5.88-.49L12 6.11l2.45 5.51 5.88.49-4.24 3.63 1 5.81z" />
+                                                            </svg>
+                                                        @else
+                                                            <svg class="w-4 h-4 text-orange-500 fill-current"
+                                                                xmlns="http://www.w3.org/2000/svg"
+                                                                viewBox="0 0 24 24">
+                                                                <path
+                                                                    d="M12 17.27l-5.18 2.73 1-5.81-4.24-3.63 5.88-.49L12 6.11l2.45 5.51 5.88.49-4.24 3.63 1 5.81z" />
+                                                            </svg>
+                                                        @endif
+                                                    @endfor
                                                 </div>
+                                                <span
+                                                    class="ml-2 text-sm text-gray-500 font-body">{{ $product->reviews->count() }}
+                                                    {{ __('Reviews') }}</span>
                                             </div>
-                                        </a>
-                                        <a class="inline-block hover:bg-orange-400 text-white font-bold font-heading py-4 px-8 rounded-md uppercase transition duration-200 bg-orange-500"
-                                            href="{{ route('front.product', $product->slug) }}">
-                                            {{ __('Learn more') }}
-                                        </a>
+                                        </div>
                                     </div>
                                 @empty
                                     <div class="w-full">
@@ -266,27 +286,27 @@
             <div role="brands" aria-labelledby="tab-3" id="tab-panel-3" tabindex="0">
                 <div class="container mx-auto">
                     <div class="flex mb-5">
-                        <div class="w-full flex flex-wrap py-10 -mx-3">
+                        <div
+                            class="grid gap-2 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 w-full py-10">
                             @forelse ($this->brands as $brand)
-                                <div class="sm:w-1/2 md:w-1/3 lg:w-1/4 px-3 mb-6 md:mb-0 mb-1° lg:mb-0">
-                                    <a class="block mb-10" href="{{ route('front.brandPage', $brand->slug) }}">
+                                <div class="flex items-center rounded-md">
+                                    <a class="block mb-5" href="{{ route('front.brandPage', $brand->slug) }}">
                                         <div class="relative">
-                                            <img class="w-full h-auto" loading="lazy"
+                                            <img class="w-full h-24" loading="lazy"
                                                 src="{{ asset('images/brands/' . $brand->image) }}"
                                                 alt="{{ $brand->name }}">
                                         </div>
-                                        <div class="mt-12">
-                                            <div class="mb-2 text-center">
-                                                <h3 class="mb-3 text-3xl font-bold font-heading text-blue-900">
-                                                    {{ $brand->name }}
-                                                </h3>
-                                                {{-- count products in brand  --}}
-                                                <p class="text-xl font-bold font-heading text-white">
-                                                    <span class="text-blue-900">{{ $brand->products->count() }}
-                                                        {{ __('products') }}</span>
-                                                </p>
-                                            </div>
-                                        </div>
+                                    </a>
+                                    <a class="mt-10 text-center mb-2"
+                                        href="{{ route('front.brandPage', $brand->slug) }}">
+                                        <h3 class="mb-3 text-3xl font-bold font-heading text-blue-900">
+                                            {{ $brand->name }}
+                                        </h3>
+                                        {{-- count products in brand  --}}
+                                        <p class="text-xl font-bold font-heading text-white">
+                                            <span class="text-blue-900">{{ $brand->products->count() }}
+                                                {{ __('products') }}</span>
+                                        </p>
                                     </a>
                                 </div>
                             @empty
@@ -328,19 +348,17 @@
                             <div class="pt-12 px-14 pb-14 text-center">
                                 <p class="text-lg text-gray-500">
                                     {!! $section->description !!}
-                                    </p>
+                                </p>
                             </div>
                         </div>
                     </div>
                 @empty
-                <div class="container mx-auto py-10">
-                    <h2 class="text-4xl font-bold font-heading text-center">{{ __('More Coming Soon') }}</h2>
-                </div>
-            @endforelse
+                    <div class="container mx-auto py-10">
+                        <h2 class="text-4xl font-bold font-heading text-center">{{ __('More Coming Soon') }}</h2>
+                    </div>
+                @endforelse
             </div>
         </div>
     </section>
     <!-- End Features -->
-
-
 </div>

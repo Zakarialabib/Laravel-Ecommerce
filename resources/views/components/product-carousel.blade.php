@@ -1,7 +1,4 @@
-{{-- product carousel with alpine and tailwind swipper --}}
-{{-- main $image , decode array $gallery --}}
-
-@props(['gallery', 'image'])
+@props(['gallery', 'image', 'video' => null])
 
 @php
     $gallery = json_decode($gallery);
@@ -22,6 +19,12 @@
                             class="w-full h-full object-cover">
                     </div>
                 @endforeach
+            @endif
+
+            @if($video)
+            <div class="swiper-slide">
+                {!! $video !!}
+            </div>
             @endif
         </div>
         

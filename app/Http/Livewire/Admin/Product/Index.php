@@ -131,6 +131,7 @@ class Index extends Component
         'product.category_id' => ['required', 'integer'],
         'product.subcategory_id' => ['nullable', 'integer'],
         'product.brand_id' => ['required', 'integer'],
+        'product.embeded_video' => ['nullable'],
     ];
 
     public function mount()

@@ -52,6 +52,7 @@ class Product extends Model implements Buyable
         'code',
         'image',
         'gallery',
+        'embeded_video',
         'category_id',
         'subcategory_id',
         'brand_id',

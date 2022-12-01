@@ -14,7 +14,7 @@ class Create extends Component
 {
     use LivewireAlert , WithFileUploads;
 
-    public $createSlider;
+    public $createSlider = false;
 
     public $photo;
 
@@ -35,6 +35,7 @@ class Create extends Component
         'slider.link' => ['nullable', 'string'],
         'slider.language_id' => ['nullable'],
         'slider.bg_color' => ['nullable'],
+        'slider.embeded_video' => ['nullable'],
     ];
 
     public function render()

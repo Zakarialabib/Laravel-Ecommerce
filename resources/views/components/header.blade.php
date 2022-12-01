@@ -1,5 +1,5 @@
 <div>
-    <nav class="flex justify-between bg-gray-900 border-b">
+    <nav class="flex justify-between bg-black border-b">
         <div class="px-4 lg:px-12 py-5 flex w-full items-center">
             <a class="lg:mr-8 2xl:mr-20 text-3xl font-bold font-heading text-white" href="{{ route('front.index') }}">
                 <img class="h-10" src="{{ asset('images/' . Helpers::settings('site_logo')) }}"

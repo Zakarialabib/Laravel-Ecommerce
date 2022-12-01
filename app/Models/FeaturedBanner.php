@@ -22,7 +22,7 @@ class FeaturedBanner extends Model
     ];
 
     protected $fillable = [
-        'title', 'details', 'image', 'status', 'featured', 'link', 'language_id', 'product_id',
+        'title', 'details', 'image','embeded_video', 'status', 'featured', 'link', 'language_id', 'product_id',
     ];
 
     public $timestamps = false;

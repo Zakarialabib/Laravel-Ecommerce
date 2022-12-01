@@ -74,7 +74,7 @@
                     </x-table.td>
                     <x-table.td>
                         @if ($slider['featured'] == false)
-                            <a class="btn btn-sm bg-green-500 text-white" title="{{ __('Set as featured') }}"
+                            <a class="bg-green-500 py-3 px-2 text-white" title="{{ __('Set as featured') }}"
                                 wire:click="setFeatured( {{ $slider['id'] }} )">
                                 {{ __('Set as featured') }}
                             </a>

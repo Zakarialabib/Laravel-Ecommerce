@@ -87,6 +87,7 @@ class Index extends Component
         'slider.link' => ['nullable', 'string'],
         'slider.language_id' => ['nullable', 'integer'],
         'slider.bg_color' => ['nullable', 'string'],
+        'slider.embeded_video' => ['nullable'],
     ];
 
     public function mount()

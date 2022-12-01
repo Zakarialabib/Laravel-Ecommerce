@@ -24,7 +24,7 @@ class Slider extends Model
     ];
 
     protected $fillable = [
-        'title', 'subtitle', 'details', 'photo', 'featured', 'link', 'language_id', 'bg_color', 'status',
+        'title', 'subtitle', 'details','embeded_video', 'photo', 'featured', 'link', 'language_id', 'bg_color', 'status',
     ];
 
     public $timestamps = false;

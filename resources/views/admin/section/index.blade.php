@@ -38,7 +38,7 @@
             </div>
             <div class="float-right">
                 <!-- Button trigger livewire modal -->
-                <x-button primary type="button" href="{{ route('admin.section.create') }}">
+                <x-button primary type="button" onclick="Livewire.emit('createSection')">
                     {{ __('Create Section') }}
                 </x-button>
             </div>

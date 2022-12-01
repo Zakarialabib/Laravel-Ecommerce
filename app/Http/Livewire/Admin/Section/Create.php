@@ -12,13 +12,15 @@ class Create extends Component
 {
     use LivewireAlert, WithFileUploads;
 
-    public Section $section;
+    public $section;
 
     public $image;
 
-    protected $listeners = [
-        'submit',
-    ];
+    public $createSlider = false;
+
+    public $listeners = ['createSlider'];
+
+    public array $listsForFields = [];
 
     protected $rules = [
         'section.language_id' => 'required',
@@ -33,6 +35,7 @@ class Create extends Component
     public function mount(Section $section)
     {
         $this->section = $section;
+        $this->initListsForFields();
     }
 
     public function render()
@@ -40,7 +43,12 @@ class Create extends Component
         return view('livewire.admin.section.create');
     }
 
-    public function submit()
+    public function initListsForFields()
+    {
+        $this->listsForFields['languages'] = Language::pluck('name', 'id')->toArray();
+    }
+
+    public function save()
     {
         $this->validate();
 
@@ -52,8 +60,10 @@ class Create extends Component
 
         $this->section->save();
 
+        $this->emit('refreshIndex');
+        
         $this->alert('success', __('Section created successfully!'));
 
-        return redirect()->route('admin.sections');
+        $this->createSlider = false;
     }
 }
