@@ -16,10 +16,6 @@ class PermissionRoleSeeder extends Seeder
     public function run()
     {
         $permissions = Permission::all();
-        // give superadmin and admin all permissions
-
-        $superAdmin = Role::where('name', 'Super Admin')->first();
-        $superAdmin->syncPermissions($permissions);
 
         $admin = Role::where('name', Role::ROLE_ADMIN)->first();
         $admin->syncPermissions($permissions);

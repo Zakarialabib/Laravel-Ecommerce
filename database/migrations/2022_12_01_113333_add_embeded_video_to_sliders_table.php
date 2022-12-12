@@ -14,7 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::table('sliders', function (Blueprint $table) {
-            $table->text('embeded_video');
+            $table->text('embeded_video')->nullable();
         });
     }
 

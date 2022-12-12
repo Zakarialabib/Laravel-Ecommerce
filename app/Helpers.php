@@ -6,6 +6,7 @@ use App\Models\Category;
 use App\Models\Currency;
 use App\Models\Settings;
 use App\Models\Subcategory;
+use App\Models\Brand;
 use Cache;
 use Str;
 
@@ -82,6 +83,22 @@ class Helpers
             'categpry_id' => Category::where('name', $category)->first()->id,
             'language' => '3',
         ])->id;
+    }
+    /**
+     * Create Brand
+     *
+     * @return string
+     */
+    public static function createBrand($brand)
+    {
+           // Make sure $brand is a string
+        $brand = implode('', $brand);
+
+        return Brand::create([
+            'name' => $brand,
+            'slug' => Str::slug($brand, '-'),
+        ])->id;
+    
     }
 
     public static function format_currency($value, $format = true)

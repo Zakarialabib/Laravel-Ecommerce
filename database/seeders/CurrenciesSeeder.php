@@ -18,7 +18,8 @@ class CurrenciesSeeder extends Seeder
             [
                 'id' => 1,
                 'name' => 'Dirham',
-                'sign' => 'DH',
+                'symbol' => 'DH',
+                'position' => 'right',
                 'value' => 1,
                 'is_default' => 1,
             ],

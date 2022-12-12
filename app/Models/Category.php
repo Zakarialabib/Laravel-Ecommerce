@@ -15,16 +15,15 @@ class Category extends Model
     const StatusActive = 1;
 
     public $orderable = [
-        'id', 'name', 'code', 'status', 'image',
+        'id', 'name', 'status', 'image',
     ];
 
     public $filterable = [
-        'id', 'name', 'code', 'status', 'image',
+        'id', 'name', 'status', 'image',
     ];
 
     protected $fillable = [
         'name',
-        'code',
         'status',
         'image',
     ];
@@ -38,12 +37,4 @@ class Category extends Model
     {
         return $this->hasMany(Subcategory::class, 'category_id', 'id');
     }
-
-      public function __construct(array $attributes = [])
-      {
-          $this->setRawAttributes([
-              'code' => Str::random(8),
-          ], true);
-          parent::__construct($attributes);
-      }
 }

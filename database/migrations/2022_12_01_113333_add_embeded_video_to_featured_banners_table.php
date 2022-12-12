@@ -14,7 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::table('featured_banners', function (Blueprint $table) {
-            $table->text('embeded_video');
+            $table->text('embeded_video')->nullable();
         });
     }
 

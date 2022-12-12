@@ -26,7 +26,7 @@ class ProductImport implements ToCollection, WithHeadingRow
                 'code' => Str::random(10),
                 'category_id' => Category::where('name', $row['categorie'])->first()->id ?? Category::create(['name' => $row['categorie']])->id ?? null,
                 'subcategory_id' => Subcategory::where('name', $row['sous_categorie'])->first()->id ?? Helpers::createSubcategory($row['sous_categorie'], $row['categorie']) ?? null,
-                'brand_id' => Brand::where('name', $row['marque'])->first()->id ?? Brand::create(['name' => $row['marque']])->id ?? null,
+                'brand_id' => Brand::where('name', $row['marque'])->first()->id ?? Helpers::createBrand(['name' => $row['marque']]) ?? null,
                 'image' => Helpers::uploadImage($row['image']) ?? 'default.jpg',
                 // 'gallery' => getGalleryFromUrl($row[7]) ?? null,
                 'meta_title' => Str::limit($row['nom'], 60),
