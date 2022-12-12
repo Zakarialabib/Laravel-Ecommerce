@@ -98,4 +98,36 @@ class Helpers
             ? $symbol.number_format((float) $value, 2, '.', ',')
             : number_format((float) $value, 2, '.', ',').$symbol;
     }
+
+    public function handleUpload($input) {
+        if(is_array($input)) {
+            // handle gallery
+            $galleryArray = [];
+            foreach ($input as $key => $value) {
+                $img = ImageIntervention::make($value->getRealPath())->encode('jpg', 75)->resize(1500, 1500, function ($constraint) {
+                    $constraint->aspectRatio();
+                    $constraint->upsize();
+                });
+    
+                $img->stream();
+                Storage::disk('local_files')->put('products/'.$value->getClientOriginalName(), $img, 'public');
+                $galleryArray[] = $value->getClientOriginalName();
+            }
+    
+            $this->product->gallery = json_encode($galleryArray);
+        } else {
+            // handle single image
+
+            $img = ImageIntervention::make($input->getRealPath())->encode('jpg', 75)->resize(1500, 1500, function ($constraint) {
+                $constraint->aspectRatio();
+                $constraint->upsize();
+            });
+            $img->stream();
+
+            Storage::disk('local_files')->put('products/'.$input->getClientOriginalName(), $img, 'public');
+
+            $this->product->image = $imageName;
+        }
+    
+    }
 }

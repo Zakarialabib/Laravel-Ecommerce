@@ -9,14 +9,14 @@ class UsersController extends Controller
 {
     public function index()
     {
-        // abort_if(Gate::denies('access_user_management'), 403);
+        // abort_if(Gate::denies('user_access'), 403);
 
         return view('admin.user.index');
     }
 
     public function permissions()
     {
-        // abort_if(Gate::denies('access_user_management'), 403);
+        // abort_if(Gate::denies('user_access'), 403);
 
         return view('admin.user.permissions');
     }

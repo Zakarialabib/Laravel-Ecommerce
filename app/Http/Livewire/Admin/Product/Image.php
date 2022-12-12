@@ -16,7 +16,7 @@ class Image extends Component
 
     public $product;
 
-    public $image = null;
+    public $image;
 
     public $image_url = null;
 
@@ -28,7 +28,16 @@ class Image extends Component
         'imageModal', 'saveImage',
     ];
 
-    public $imageModal;
+    public $imageModal = false;
+
+       public function rules()
+    {
+        return [ 
+            'image' => 'nullable|mimes:jpeg,png,jpg,gif|max:4048', 
+            'image_url' => 'nullable|url',
+            'gallery' =>'nullable|jpeg,png,jpg,gif|max:4048',
+        ];
+    }
 
     public function imageModal($id)
     {
@@ -58,9 +67,17 @@ class Image extends Component
             $this->product->image = $this->embeded_video;
         } 
 
-        if ($this->image != null) {
+        if($this->image!=null && isset($this->image)){
             $imageName = Str::slug($this->product->name).'-'.date('Y-m-d H:i:s').'.'.$this->image->extension();
-            $this->image->storeAs('products', $imageName);
+            
+            $img = ImageIntervention::make($input->getRealPath())->encode('jpg', 75)->resize(1500, 1500, function ($constraint) {
+                $constraint->aspectRatio();
+                $constraint->upsize();
+            });
+            $img->stream();
+
+            Storage::disk('local_files')->put('products/'.$imageName->getClientOriginalName(), $img, 'public');
+
             $this->product->image = $imageName;
         }
 
@@ -69,10 +86,11 @@ class Image extends Component
             $gallery = [];
             foreach ($this->gallery as $key => $value) {
                 $image = $value;
-                $imageName = Str::slug($this->product->name).'-'.$key.'.'.$value->extension();
+                $imageName = Str::slug($this->product->name).'-'.$key.'.'.$value->getClientOriginalExtension();
 
-                $img = ImageIntervention::make($image->getRealPath())->resize(1500, 1500, function ($constraint) {
+                $img = ImageIntervention::make($image->getRealPath())->encode('jpg', 75)->resize(1500, 1500, function ($constraint) {
                     $constraint->aspectRatio();
+                    $constraint->upsize();
                 });
 
                 $img->stream();

@@ -96,7 +96,7 @@
                             <x-button danger type="button"
                                 wire:click="$emit('deleteModal', {{ $featuredbanner->id }})"
                                 wire:loading.attr="disabled">
-                                <i class="fas fa-trash"></i>
+                                <i class="fas fa-trash-alt"></i>
                             </x-button>
                         </div>
                     </x-table.td>
@@ -165,22 +165,21 @@
                                 wire:model.defer="featuredbanner.link" />
                             <x-input-error :messages="$errors->get('featuredbanner.link')" for="featuredbanner.link" class="mt-2" />
                         </div>
-                                            
+
                         <div class="w-full px-3">
                             <x-label for="video" :value="__('Embeded Video')" />
-                            <x-input id="embeded_video" class="block mt-1 w-full" type="text"
-                                        name="embeded_video" wire:model="featuredbanner.embeded_video" />
+                            <x-input id="embeded_video" class="block mt-1 w-full" type="text" name="embeded_video"
+                                wire:model="featuredbanner.embeded_video" />
                             <x-input-error :messages="$errors->get('featuredbanner.embeded_video')" for="featuredbanner.embeded_video" class="mt-2" />
                         </div>
 
                         <div class="w-full py-2 px-3">
                             <x-label for="image" :value="__('Image')" />
-                            <x-fileupload wire:model="image" :file="$image"
-                                accept="image/jpg,image/jpeg,image/png" />
+                            <x-fileupload wire:model="image" :file="$image" accept="image/jpg,image/jpeg,image/png" />
                             <x-input-error :messages="$errors->get('image')" for="image" class="mt-2" />
                         </div>
                         <div class="w-full px-3">
-                            <x-button primary class="block" type="submit"  wire:loading.attr="disabled">
+                            <x-button primary class="block" type="submit" wire:loading.attr="disabled">
                                 {{ __('Update') }}
                             </x-button>
                         </div>

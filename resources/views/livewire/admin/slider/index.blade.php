@@ -62,14 +62,14 @@
                     </x-table.td>
                     <x-table.td>
                         {{-- StatusInactive - StatusActive --}}
-                        @if(\App\Models\Slider::StatusInactive)
-                        <x-badge danger>
-                            {{__('Inactive')}}
-                        </x-badge>
+                        @if (\App\Models\Slider::StatusInactive)
+                            <x-badge danger>
+                                {{ __('Inactive') }}
+                            </x-badge>
                         @elseif(\App\Models\Slider::StatusActive)
-                        <x-badge info>
-                            {{__('Active')}}
-                        </x-badge>
+                            <x-badge info>
+                                {{ __('Active') }}
+                            </x-badge>
                         @endif
                     </x-table.td>
                     <x-table.td>
@@ -88,7 +88,7 @@
                             </x-button>
                             <x-button danger type="button" wire:click="$emit('deleteModal', {{ $slider->id }})"
                                 wire:loading.attr="disabled">
-                                <i class="fas fa-trash"></i>
+                                <i class="fas fa-trash-alt"></i>
                             </x-button>
                         </div>
                     </x-table.td>
@@ -140,7 +140,8 @@
                             <x-label for="language_id" :value="__('Language')" required />
                             <x-select-list
                                 class="block bg-white dark:bg-dark-eval-2 text-gray-700 dark:text-gray-300 rounded border border-gray-300 mb-1 text-sm w-full focus:shadow-outline-blue focus:border-blue-500"
-                                id="language_id" name="language_id" wire:model.defer="slider.language_id" :options="$this->listsForFields['languages']" />
+                                id="language_id" name="language_id" wire:model.defer="slider.language_id"
+                                :options="$this->listsForFields['languages']" />
                             <x-input-error :messages="$errors->get('slider.language_id')" for="slider.language_id" class="mt-2" />
                         </div>
                         <div class="xl:w-1/2 md:w-1/2 px-3">
@@ -169,12 +170,11 @@
                         </div>
                         <div class="w-full py-2 px-3">
                             <x-label for="photo" :value="__('Image')" />
-                            <x-fileupload wire:model="photo" :file="$photo"
-                                accept="image/jpg,image/jpeg,image/png" />
+                            <x-fileupload wire:model="photo" :file="$photo" accept="image/jpg,image/jpeg,image/png" />
                             <x-input-error :messages="$errors->get('photo')" for="photo" class="mt-2" />
                         </div>
                         <div class="w-full px-3">
-                            <x-button primary class="block" type="submit"  wire:loading.attr="disabled">
+                            <x-button primary class="block" type="submit" wire:loading.attr="disabled">
                                 {{ __('Update') }}
                             </x-button>
                         </div>

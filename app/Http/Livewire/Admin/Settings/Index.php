@@ -3,7 +3,7 @@
 namespace App\Http\Livewire\Admin\Settings;
 
 use App\Models\Settings;
-use Helpers;
+use App\Helpers;
 use Illuminate\Support\Facades\Storage;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Livewire\Component;

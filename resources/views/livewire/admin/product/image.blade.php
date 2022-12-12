@@ -4,12 +4,6 @@
             {{ __('Image Management') }}
         </x-slot>
         <x-slot name="content">
-            {{-- show image and gallery --}}
-            <div class="w-full mb-4 px-2">
-                @if($product->image)
-                <img src="{{ asset('images/products/' . $product->image) }}" class="rounded-md object-cover w-full">
-                @endif
-            </div>
             <form wire:submit.prevent="saveImage">
                 <div class="flex flex-wrap">
 

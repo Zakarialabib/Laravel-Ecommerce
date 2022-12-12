@@ -10,7 +10,7 @@
             </select>
             @if ($this->selected)
                 <x-button danger type="button" wire:click="deleteSelected" class="ml-3">
-                    <i class="fas fa-trash"></i>
+                    <i class="fas fa-trash-alt"></i>
                 </x-button>
             @endif
             @if ($this->selectedCount)
@@ -94,7 +94,7 @@
                             </x-button>
                             <x-button danger type="button" wire:click="$emit('deleteModal', {{ $user->id }})"
                                 wire:loading.attr="disabled">
-                                <i class="fas fa-trash"></i>
+                                <i class="fas fa-trash-alt"></i>
                             </x-button>
                         </div>
                     </x-table.td>

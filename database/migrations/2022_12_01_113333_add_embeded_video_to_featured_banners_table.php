@@ -26,7 +26,7 @@ return new class extends Migration
     public function down()
     {
         Schema::table('featured_banners', function (Blueprint $table) {
-            $table->removeColumn('zone_id');
+            $table->removeColumn('embeded_video');
         });
     }
 };

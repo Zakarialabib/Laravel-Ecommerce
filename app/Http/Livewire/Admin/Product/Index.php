@@ -15,6 +15,7 @@ use Livewire\WithFileUploads;
 use Livewire\WithPagination;
 use Storage;
 use Str;
+use App\Http\Livewire\Trix;
 
 class Index extends Component
 {
@@ -23,11 +24,13 @@ class Index extends Component
     public $product;
 
     public $listeners = [
-        'trix:valueUpdated' => 'onTrixValueUpdate',
+        Trix::EVENT_VALUE_UPDATED ,
         'confirmDelete', 'delete', 'showModal', 'editModal',
         'refreshIndex','highlightModal',
-
     ];
+
+   
+    public $description;
 
     public $highlightModal;
 
@@ -73,7 +76,7 @@ class Index extends Component
 
     public $image;
 
-    public $image_url;
+    public $image_url = null;
 
     public $gallery = [];
 
@@ -88,11 +91,6 @@ class Index extends Component
             'except' => 'desc',
         ],
     ];
-
-    public function onTrixValueUpdate($value)
-    {
-        $this->description = $value;
-    }
 
     public function getSelectedCountProperty()
     {
@@ -117,6 +115,10 @@ class Index extends Component
     public function refreshIndex()
     {
         $this->resetPage();
+    }
+
+     public function trix_value_updated($value){
+        $this->description = $value;
     }
 
     protected $rules = [

@@ -111,7 +111,7 @@
                                 </x-dropdown-link>
                                 <x-dropdown-link wire:click="$emit('deleteModal', {{ $product->id }})"
                                     wire:loading.attr="disabled">
-                                    <i class="fas fa-trash"></i>
+                                    <i class="fas fa-trash-alt"></i>
                                     {{ __('Delete') }}
                                 </x-dropdown-link>
                             </x-slot>
@@ -262,7 +262,7 @@
 
                         <div class="w-full mb-4">
                             <x-label for="description" :value="__('Description')" />
-                            <x-input.rich-text wire:model.lazy="product.description" id="description" />
+                            <livewire:trix :value="$description">
                         </div>
 
                     </div>
@@ -310,8 +310,14 @@
 
                     <div class="w-full px-4 my-4">
                         <x-label for="gallery" :value="__('Product Gallery')" />
-                        <x-fileupload wire:model="gallery" :file="$gallery" accept="image/jpg,image/jpeg,image/png"
-                            multiple />
+                       <x-fileupload multiple
+                wire:model="gallery"
+                allowImagePreview              
+                imagePreviewMaxHeight="200"
+                allowFileTypeValidation
+                acceptedFileTypes="['image/png','image/jpg','image/jpeg','image/*']"
+                allowFileSizeValidation
+                maxFileSize="5mb"/>
                         <x-input-error :messages="$errors->get('gallery')" for="gallery" class="mt-2" />
                     </div>
 

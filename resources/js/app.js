@@ -1,24 +1,23 @@
 import './bootstrap';
 import '../css/app.css'; 
 import "perfect-scrollbar/css/perfect-scrollbar.css";
-
+import * as FilePond from 'filepond'
+import 'filepond/dist/filepond.min.css';
 import swal from 'sweetalert2';
-
-window.Swal = swal;
-
-// import {livewire_hot_reload} from 'virtual:livewire-hot-reload'
-
-// livewire_hot_reload();
 
 import Alpine from 'alpinejs'
 import collapse from '@alpinejs/collapse'
 import focus from "@alpinejs/focus";
 import intersect from "@alpinejs/intersect";
+import PerfectScrollbar from "perfect-scrollbar";
+
+// import {livewire_hot_reload} from 'virtual:livewire-hot-reload'
+
+// livewire_hot_reload();
 
 Alpine.plugin(focus);
 Alpine.plugin(intersect);
 
-import PerfectScrollbar from "perfect-scrollbar";
 window.PerfectScrollbar = PerfectScrollbar;
 
 Alpine.data("mainState", () => {
@@ -121,5 +120,9 @@ Alpine.data("mainState", () => {
 Alpine.plugin(collapse)
 
 window.Alpine = Alpine;
+
+window.Swal = swal;
+
+window.FilePond = FilePond
 
 Alpine.start();

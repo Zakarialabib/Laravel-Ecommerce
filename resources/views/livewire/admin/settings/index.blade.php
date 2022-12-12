@@ -6,40 +6,32 @@
 
         <div>
             <div class="w-full flex flex-wrap">
-                <div class="lg:w-1/2 sm:w-full px-2 @error('company_name') has-error @enderror">
+                <div class="lg:w-1/2 sm:w-full px-2">
                     <x-label for="company_name" :value="__('Company name')" />
-                    <x-input type="text" wire:model="company_name"
-                        id="company_name" value="{{ Helpers::settings('company_name') }}" />
+                    <x-input type="text" wire:model="company_name" id="company_name" />
                     <x-input-error for="company_name" :messages="$errors->first('company_name')" />
                 </div>
 
-                <div class="lg:w-1/2 sm:w-full px-2 @error('site_title') has-error @enderror">
+                <div class="lg:w-1/2 sm:w-full px-2">
                     <x-label for="site_title" :value="__('Website title')" />
-                    <x-input type="text" wire:model="site_title" id="site_title"
-                        value="{{ Helpers::settings('site_title') }}" />
+                    <x-input type="text" wire:model="site_title" id="site_title" />
                     <x-input-error for="site_title" :messages="$errors->first('site_title')" />
                 </div>
 
-                <div class="lg:w-1/2 sm:w-full mt-2 px-2 @error('company_email_address') has-error @enderror">
+                <div class="lg:w-1/2 sm:w-full mt-2 px-2">
                     <x-label for="company_email_address" :value="__('Company email')" />
-                    <x-input
-                        wire:model="company_email_address" type="email"
-                        value="{{ Helpers::settings('company_email_address') }}"
-                        id="company_email_address"
+                    <x-input wire:model="company_email_address" type="email" id="company_email_address"
                         name="company_email_address" />
                     <x-input-error for="company_email_address" :messages="$errors->first('company_email_address')" />
                 </div>
-                <div class="lg:w-1/2 sm:w-full mt-2 px-2 @error('company_phone') has-error @enderror">
+                <div class="lg:w-1/2 sm:w-full mt-2 px-2">
                     <x-label for="company_phone" :value="__('Company phone')" />
-                    <x-input
-                        wire:model="company_phone" type="text" value="{{ Helpers::settings('company_phone') }}"
-                     id="company_phone" name="company_phone" />
+                    <x-input wire:model="company_phone" type="text" id="company_phone" name="company_phone" />
                     <x-input-error for="company_phone" :messages="$errors->first('company_phone')" />
                 </div>
-                <div class="w-full mt-2 px-2 @error('company_address') has-error @enderror">
+                <div class="w-full mt-2 px-2">
                     <x-label for="company_address" :value="__('Company address')" />
-                    <x-input wire:model="company_address" type="text" value="{{ Helpers::settings('company_address') }}" id="company_address"
-                        name="company_address" />
+                    <x-input wire:model="company_address" type="text" id="company_address" name="company_address" />
                     <x-input-error for="company_address" :messages="$errors->first('company_address')" />
                 </div>
             </div>
@@ -57,15 +49,13 @@
                             @endif
                         </div>
                         <div class="w-3/4">
-                            <div class="mb-4 @error('logoFile') has-error @enderror">
+                            <div class="mb-4">
                                 <x-label for="logoFile" :value="__('Import Logo')" />
-                                <x-input
-                                    type="file" wire:model="logoFile" onchange="loadFile(event,'logoImg')" />
+                                <x-input type="file" wire:model="logoFile" onchange="loadFile(event,'logoImg')" />
                                 <x-input-error for="logoFile" :messages="$errors->first('logoFile')" />
 
                                 <div class="mt-5">
-                                    <x-button type="submit" wire:click.prevent='uploadLogo()'
-                                        primary>
+                                    <x-button type="submit" wire:click.prevent='uploadLogo()' primary>
                                         <i class="fas fa-upload"></i>
                                         {{ __('Import') }}
                                     </x-button>
@@ -89,15 +79,13 @@
                             @endif
                         </div>
                         <div class="w-3/4">
-                            <div class="mb-4 @error('iconFile') has-error @enderror">
+                            <div class="mb-4">
                                 <x-label for="iconFile" :value="__('Import favicon')" />
-                                <x-input
-                                    type="file" wire:model="iconFile" />
+                                <x-input type="file" wire:model="iconFile" />
                                 <x-input-error for="iconFile" :messages="$errors->first('iconFile')" />
 
                                 <div class="mt-5">
-                                    <x-button type="submit" wire:click.prevent='uploadFavicon()'
-                                        primary>
+                                    <x-button type="submit" wire:click.prevent='uploadFavicon()' primary>
                                         <i class="fas fa-upload"></i>
                                         {{ __('Import') }}
                                     </x-button>
@@ -111,41 +99,33 @@
             </div>
 
             <div class="w-full flex flex-wrap">
-                <div class="lg:w-1/2 sm:w-full px-2 @error('social_facebook') has-error @enderror">
+                <div class="lg:w-1/2 sm:w-full px-2">
                     <x-label for="social_facebook" :value="__('Facebook Link')" />
-                    <x-input
-                        wire:model="social_facebook" type="text" value="{{ Helpers::settings('social_facebook') }}"
-                        id="social_facebook" name="social_facebook" />
-                    <x-input-error for="social_facebook"  :messages="$errors->first('social_facebook')" />
+                    <x-input wire:model="social_facebook" type="text" id="social_facebook" name="social_facebook" />
+                    <x-input-error for="social_facebook" :messages="$errors->first('social_facebook')" />
                 </div>
-                <div class="lg:w-1/2 sm:w-full px-2 @error('social_twitter') has-error @enderror">
+                <div class="lg:w-1/2 sm:w-full px-2">
                     <x-label for="social_twitter" :value="__('Twitter Link')" />
-                    <x-input
-                        wire:model="social_twitter" type="text" value="{{ Helpers::settings('social_twitter') }}"
-                        id="social_twitter" name="social_twitter" />
+                    <x-input wire:model="social_twitter" type="text" id="social_twitter" name="social_twitter" />
                     <x-input-error for="social_twitter" :messages="$errors->first('social_twitter')" />
                 </div>
-                <div class="lg:w-1/2 sm:w-full px-2 @error('social_instagram') has-error @enderror">
+                <div class="lg:w-1/2 sm:w-full px-2">
                     <x-label for="social_instagram" :value="__('Instagram Link')" />
-                    <x-input
-                        wire:model="social_instagram" type="text"
-                        value="{{ Helpers::settings('social_instagram') }}" id="social_instagram"
+                    <x-input wire:model="social_instagram" type="text" id="social_instagram"
                         name="social_instagram" />
                     <x-input-error for="social_instagram" :messages="$errors->first('social_instagram')" />
                 </div>
-                <div class="lg:w-1/2 sm:w-full px-2 @error('social_linkedin') has-error @enderror">
+                <div class="lg:w-1/2 sm:w-full px-2">
                     <x-label for="social_linkedin" :value="__('Linkedin Link')" />
-                    <x-input
-                        wire:model="social_linkedin" type="text" value="{{ Helpers::settings('social_linkedin') }}"
-                        id="social_linkedin" name="social_linkedin" />
-                    <x-input-error for="social_linkedin"  :messages="$errors->first('social_linkedin')" />
+                    <x-input wire:model="social_linkedin" type="text" id="social_linkedin"
+                        name="social_linkedin" />
+                    <x-input-error for="social_linkedin" :messages="$errors->first('social_linkedin')" />
                 </div>
-                <div class="lg:w-1/2 sm:w-full px-2 @error('social_whatsapp') has-error @enderror">
+                <div class="lg:w-1/2 sm:w-full px-2">
                     <x-label for="social_whatsapp" :value="__('Whatsapp number')" />
-                    <x-input
-                        wire:model="social_whatsapp" type="text" value="{{ Helpers::settings('social_whatsapp') }}"
-                        id="social_whatsapp" name="social_whatsapp" />
-                    <x-input-error for="social_whatsapp"  :messages="$errors->first('social_whatsapp')" />
+                    <x-input wire:model="social_whatsapp" type="text" id="social_whatsapp"
+                        name="social_whatsapp" />
+                    <x-input-error for="social_whatsapp" :messages="$errors->first('social_whatsapp')" />
                     <small
                         class="text-red-500">{{ __("Use this number format 1XXXXXXXXXX Don't use this +001-(XXX)XXXXXXX") }}</small>
                 </div>
@@ -153,13 +133,15 @@
             <div class="w-full">
                 <div class="mb-4 px-2">
                     <x-label for="head_tags" :value="__('Custom Head Code')" />
-                    <textarea class="p-3 leading-5 bg-white dark:bg-dark-eval-2 text-gray-700 dark:text-gray-300 rounded border border-gray-300 mb-1 text-sm w-full focus:shadow-outline-blue focus:border-blue-500"
+                    <textarea
+                        class="p-3 leading-5 bg-white dark:bg-dark-eval-2 text-gray-700 dark:text-gray-300 rounded border border-gray-300 mb-1 text-sm w-full focus:shadow-outline-blue focus:border-blue-500"
                         rows="4" id="head_tags" name="head_tags">{!! Config::get('settings.head_tags') !!}</textarea>
                     <small class="text-red-500">{{ __('Facebook, Google Analytics or other script.') }}</small>
                 </div>
                 <div class="mb-4 px-2">
                     <x-label for="body_tags" :value="__('Custom Body Code')" />
-                    <textarea class="p-3 leading-5 bg-white dark:bg-dark-eval-2 text-gray-700 dark:text-gray-300 rounded border border-gray-300 mb-1 text-sm w-full focus:shadow-outline-blue focus:border-blue-500"
+                    <textarea
+                        class="p-3 leading-5 bg-white dark:bg-dark-eval-2 text-gray-700 dark:text-gray-300 rounded border border-gray-300 mb-1 text-sm w-full focus:shadow-outline-blue focus:border-blue-500"
                         rows="4" id="body_tags" name="body_tags">{{ Config::get('settings.body_tags') }}</textarea>
                     <small class="text-red-500">{{ __('Facebook, Google Analytics or other script.') }}</small>
                 </div>
@@ -198,25 +180,20 @@
             <div class="flex flex-wrap mb-4">
                 <div class="lg:w-1/2 sm:w-full px-2">
                     <x-label for="currency_code" :value="__('Currency code')" />
-                    <x-input
-                        wire:model="currency_code" type="text" value="{{ Helpers::settings('currency_code') }}"
-                        id="currency_code" name="currency_code" />
+                    <x-input wire:model="currency_code" type="text" id="currency_code" name="currency_code" />
                     <x-input-error for="currency_code" :messages="$errors->first('currency_code')" />
                 </div>
                 <div class="lg:w-1/2 sm:w-full px-2">
                     <x-label for="currency_symbol" :value="__('Currency symbol')" />
-                    <x-input
-                        wire:model="currency_symbol" type="text" value="{{ Helpers::settings('currency_symbol') }}"
-                        id="currency_symbol" name="currency_symbol" />
+                    <x-input wire:model="currency_symbol" type="text" id="currency_symbol"
+                        name="currency_symbol" />
                     <x-input-error for="currency_symbol" :messages="$errors->first('currency_symbol')" />
                 </div>
                 <div class="lg:w-1/2 sm:w-full px-2">
                     <x-label for="currency_position" :value="__('Currency Position')" />
                     <select wire:model="currency_position" name="currency_position" id="currency_position"
                         class="p-3 leading-5 bg-white dark:bg-dark-eval-2 text-gray-700 dark:text-gray-300 rounded border border-zinc-300 mb-1 text-sm w-full focus:shadow-outline-blue focus:border-blue-500">
-                        <option selected value="{{ Helpers::settings('currency_position') }}">
-                            {{ Helpers::settings('currency_position') }}
-                        </option>
+                        <option selected option>
                         <option value="left">{{ __('Left') }}</option>
                         <option value="right">{{ __('Right') }}</option>
                     </select>
@@ -226,26 +203,20 @@
             <div class="w-full">
                 <div class="mb-4 px-2">
                     <x-label for="seo_meta_title" :value="__('Seo Meta Title')" />
-                    <x-input
-                        wire:model="seo_meta_title" type="text" value="{{ Helpers::settings('seo_meta_title') }}"
-                        id="seo_meta_title" name="seo_meta_title" />
+                    <x-input wire:model="seo_meta_title" type="text" id="seo_meta_title" name="seo_meta_title" />
                     <x-input-error for="seo_meta_title" :messages="$errors->first('seo_meta_title')" />
                 </div>
                 <div class="mb-4 px-2">
                     <x-label for="seo_meta_description" :value="__('Seo Meta Description')" />
-                    <x-input
-                        wire:model="seo_meta_description" type="text"
-                        value="{{ Helpers::settings('seo_meta_description') }}" id="seo_meta_description"
+                    <x-input wire:model="seo_meta_description" type="text" id="seo_meta_description"
                         name="seo_meta_description" />
                     <x-input-error for="seo_meta_description" :messages="$errors->first('seo_meta_description')" />
                 </div>
             </div>
             <div class="w-full">
-                <div class="mb-4 px-2 @error('footer_copyright_text') has-error @enderror">
+                <div class="mb-4 px-2">
                     <x-label for="footer_copyright_text" :value="__('Footer Copyright Text')" />
-                    <x-input
-                        wire:model="footer_copyright_text" type="text"
-                        value="{{ Helpers::settings('footer_copyright_text') }}" id="footer_copyright_text"
+                    <x-input wire:model="footer_copyright_text" type="text" id="footer_copyright_text"
                         name="footer_copyright_text" />
                     <x-input-error for="footer_copyright_text" :messages="$errors->first('footer_copyright_text')" />
                 </div>

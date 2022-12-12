@@ -7,7 +7,7 @@
     document.getElementById('destroy{{ $data->id }}').submit();
     }
     ">
-    <i class="bi bi-trash"></i>
+    <i class="fas fa-trash-alt"></i>
     <form id="destroy{{ $data->id }}" class="d-none" action="{{ route('roles.destroy', $data->id) }}" method="POST">
         @csrf
         @method('delete')

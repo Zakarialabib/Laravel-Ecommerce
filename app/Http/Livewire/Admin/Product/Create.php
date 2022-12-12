@@ -11,23 +11,26 @@ use Image;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Livewire\Component;
 use Livewire\WithFileUploads;
+use App\Http\Livewire\Trix;
 
 class Create extends Component
 {
     use LivewireAlert, WithFileUploads;
 
     public $listeners = [
-        'trix:valueUpdated' => 'onTrixValueUpdate',
+        Trix::EVENT_VALUE_UPDATED ,
         'createProduct'
     ];
 
-    public $createProduct;
+    public $createProduct =false;
 
     public $image;
 
     public $gallery = [];
 
     public $uploadLink;
+
+    public $description = null;
     
     public array $listsForFields = [];
 
@@ -36,16 +39,16 @@ class Create extends Component
         $this->validateOnly($propertyName);
     }
 
-    public function onTrixValueUpdate($value)
-    {
+    public function trix_value_updated($value){
         $this->description = $value;
     }
+
 
     protected $rules = [
         'product.name' => ['required', 'string', 'max:255'],
         'product.price' => ['required', 'numeric', 'max:2147483647'],
         'product.old_price' => ['required', 'numeric', 'max:2147483647'],
-        'product.description' => ['nullable'],
+        'description' => ['nullable'],
         'product.meta_title' => ['nullable', 'string', 'max:255'],
         'product.meta_description' => ['nullable', 'string', 'max:255'],
         'product.meta_keywords' => ['nullable', 'string', 'min:1'],

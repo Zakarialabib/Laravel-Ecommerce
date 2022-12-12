@@ -12,6 +12,8 @@ use Livewire\Component;
 use Livewire\WithFileUploads;
 use Livewire\WithPagination;
 use Maatwebsite\Excel\Facades\Excel;
+use Storage;
+use Image;
 
 class Index extends Component
 {
@@ -63,7 +65,6 @@ class Index extends Component
 
     public array $rules = [
         'brand.name' => ['required', 'string', 'max:255'],
-        'brand.slug' => ['nullable', 'string'],
         'brand.description' => ['nullable', 'string'],
     ];
 
@@ -137,8 +138,32 @@ class Index extends Component
         // upload image if it does or doesn't exist
 
         if ($this->image) {
-            $imageName = Str::slug($this->brand->name).'-'.date('Y-m-d H:i:s').'.'.$this->image->extension();
-            $this->image->storeAs('brands', $imageName);
+            // with str slug with name date
+            $imageName = Str::slug($this->brand->name).'.'.$this->image->extension();
+            $width = 500;
+            $height = 500;
+
+            $img = Image::make($this->image->getRealPath())->encode('webp', 85);
+
+            // we need to resize image, otherwise it will be cropped 
+            if ($img->width() > $width) { 
+                $img->resize($width, null, function ($constraint) {
+                    $constraint->aspectRatio();
+                });
+            }
+
+            if ($img->height() > $height) {
+                $img->resize(null, $height, function ($constraint) {
+                    $constraint->aspectRatio();
+                }); 
+            }
+
+            $img->resizeCanvas($width, $height, 'center', false, '#ffffff');
+
+            $img->stream();
+
+            Storage::disk('local_files')->put('brands/'.$imageName, $img, 'public');
+
             $this->brand->image = $imageName;
         }
 

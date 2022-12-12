@@ -16,22 +16,30 @@ class Create extends Component
 
     public $createSlider = false;
 
+    public $slider;
+
     public $photo;
+    
+    public $details;
 
     public $listeners = ['createSlider'];
 
     public array $listsForFields = [];
 
-    public function mount(Slider $slider)
+    public function onTrixValueUpdate($value)
     {
-        $this->slider = $slider;
+        $this->details = $value;
+    }
+
+    public function mount()
+    {
         $this->initListsForFields();
     }
 
     public array $rules = [
         'slider.title' => ['required', 'string', 'max:255'],
         'slider.subtitle' => ['nullable', 'string'],
-        'slider.details' => ['nullable', 'string'],
+        'details' => ['nullable', 'string'],
         'slider.link' => ['nullable', 'string'],
         'slider.language_id' => ['nullable'],
         'slider.bg_color' => ['nullable'],
@@ -63,6 +71,8 @@ class Create extends Component
             $this->photo->storeAs('sliders', $imageName);
             $this->slider->photo = $imageName;
         }
+
+        $this->slider->details = $this->details;
 
         $this->slider->save();
 

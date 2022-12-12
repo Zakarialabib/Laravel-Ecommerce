@@ -7,6 +7,7 @@ use App\Models\Section;
 use Illuminate\Http\Response;
 use Livewire\Component;
 use Livewire\WithPagination;
+use Livewire\WithFileUploads;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 
 class Index extends Component

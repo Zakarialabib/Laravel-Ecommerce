@@ -9,7 +9,7 @@
             </select>
             @if($this->selected)
             <x-button danger type="button"  wire:click="deleteSelected" class="ml-3">
-                <i class="fas fa-trash"></i>
+                <i class="fas fa-trash-alt"></i>
             </x-button>
             @endif
         </div>
@@ -69,7 +69,7 @@
                             </x-button>
                             <x-button danger type="button" wire:click="$emit('deleteModal', {{ $brand->id }})"
                                 wire:loading.attr="disabled">
-                                <i class="fas fa-trash"></i>
+                                <i class="fas fa-trash-alt"></i>
                             </x-button>
                         </div>
                     </x-table.td>
@@ -138,7 +138,7 @@
 
                     <div class="w-full py-2 px-3">
                         <x-label for="featured_image" :value="__('Featured image')" />
-                        <x-fileupload wire:model="featured_image" :file="$featured_image" accept="image/jpg,image/jpeg,image/png" />
+                        <x-fileupload wire:model="photo" :file="$featured_image" accept="image/jpg,image/jpeg,image/png" />
                         <x-input-error :messages="$errors->get('featured_image')" for="featured_image" class="mt-2" />
                     </div>
 

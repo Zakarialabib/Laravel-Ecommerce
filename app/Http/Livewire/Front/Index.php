@@ -32,14 +32,14 @@ class Index extends Component
         return Brand::where('status', 1)->get();
     }
 
-    public function getSlidersProperty(): Collection
+    public function getSliderProperty()
     {
-        return Slider::where('featured', 1)->take(1)->get();
+        return Slider::where('featured', 1)->first();
     }
 
-    public function getFeaturedBannersProperty(): Collection
+    public function getFeaturedbannerProperty()
     {
-        return FeaturedBanner::where('featured', 1)->take(1)->get();
+        return FeaturedBanner::where('featured', 1)->first();
     }
 
     public function getSectionsProperty(): Collection

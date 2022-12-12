@@ -18,17 +18,12 @@ class Index extends Component
     use LivewireAlert;
 
     public $listeners = [
-
-        'confirmDelete', 'delete', 'editModal',
-        'refreshIndex',
-
+        'delete', 'editModal', 'refreshIndex',
     ];
 
     public int $perPage;
 
     public $editModal = false;
-
-    public $confirmDelete;
 
     public $refreshIndex;
 
@@ -110,7 +105,7 @@ class Index extends Component
 
     public function editModal(Subcategory $subcategory)
     {
-        abort_if(Gate::denies('edit_subcategories'), 403);
+        abort_if(Gate::denies('subcategory_update'), 403);
 
         $this->resetErrorBag();
 
@@ -123,22 +118,23 @@ class Index extends Component
 
     public function update()
     {
-        abort_if(Gate::denies('edit_subcategories'), 403);
+        abort_if(Gate::denies('subcategory_update'), 403);
 
         $this->validate();
-        // condition if save close modal if not stay
-        if ($this->subcategory->save()) {
-            $this->editModal = false;
-            $this->alert('success', __('Subcategory updated successfully'));
-            $this->emit('refreshIndex');
-        } else {
-            $this->alert('error', __('Subcategory not updated'));
-        }
+
+        $this->subcategory->save();
+        
+        $this->editModal = false;
+        
+        $this->alert('success', __('Subcategory updated successfully'));
+        
+        $this->emit('refreshIndex');
+        
     }
 
     public function delete(Subcategory $subcategory)
     {
-        abort_if(Gate::denies('delete_subcategories'), 403);
+        abort_if(Gate::denies('subcategory_delete'), 403);
 
         $subcategory->delete();
 

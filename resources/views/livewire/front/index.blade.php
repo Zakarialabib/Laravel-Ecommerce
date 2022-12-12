@@ -1,100 +1,97 @@
 <div>
-    <div class="relative container mx-auto px-4 py-10">
-        <div class="flex flex-wrap -mx-4">
-            @foreach ($this->sliders as $slider)
-                <div class="w-full md:w-1/2 px-4 lg:mb-5 sm:mb-2">
-                    <div class="max-w-md lg:py-5 py-10">
-                        <h5 class="text-2xl font-bold text-gray-600 mb-2">
-                            {{ $slider->subtitle }}
-                        </h5>
-                        <h2 class="mb-8 text-5xl lg:text-6xl font-semibold font-heading">
-                            {{ $slider->title }}
-                        </h2>
-                        <p class="mb-20 text-lg text-gray-600">
-                            {!! $slider->description !!}
-                        </p>
-                        @if ($slider->link)
-                            <a class="inline-block hover:bg-orange-400 text-white font-bold font-heading py-6 px-8 rounded-md uppercase transition duration-200 bg-orange-500"
-                                href="{{ $slider->link }}">
-                                {{ 'Discover now' }}
-                            </a>
-                        @endif
-                    </div>
+    <div class="relative container mx-auto px-4 mb-5">
+        <div class="flex flex-wrap -mx-4 py-10"
+            style="background-image: url({{ asset('images/sliders/' . $this->slider->photo) }});background-size: cover;">
+            <div class="w-full md:w-1/2 px-4 lg:mb-5 sm:mb-2">
+                <div class="max-w-md lg:py-5 py-10">
+                    <h5 class="text-2xl font-bold text-gray-600 mb-2">
+                        {{ $this->slider->subtitle }}
+                    </h5>
+                    <h2 class="mb-8 text-5xl lg:text-6xl text-white font-semibold font-heading">
+                        {{ $this->slider->title }}
+                    </h2>
+                    <p class="py-10 text-lg text-gray-600">
+                        {!! $this->slider->details !!}
+                    </p>
+                    @if ($this->slider->link)
+                        <a class="inline-block hover:bg-orange-400 text-white font-bold font-heading py-6 px-8 rounded-md uppercase transition duration-200 bg-orange-500"
+                            href="{{ $this->slider->link }}">
+                            {{ 'Discover now' }}
+                        </a>
+                    @endif
                 </div>
-                <div class="relative w-full md:w-1/2 px-4 lg:mb-5 sm:mb-2">
-                    <div class="hidden lg:block absolute top-0 transform translate-y-1/2 right-0 w-1">
-                        <a class="block w-1/2 h-40 bg-blue-600" href="#"></a><a
-                            class="block w-1/2 h-40 bg-gray-300" href="#"></a>
-                    </div>
-                    @foreach ($this->featuredbanners as $banner)
-                        <div class="absolute bottom-1/2 -mb-24 lg:right-6 inline-block bg-white rounded-xl">
-                            <div class="flex p-3">
-                                <div class="w-auto pt-5 px-4 lg:px-9">
-                                    <h3 class="mb-2 text-xl font-bold font-heading w-32">
-                                        {{ $banner->title }}
-                                    </h3>
-                                    <p class="mb-4 lg:mb-0 text-lg font-semibold font-heading text-blue-500">
-                                        {{ Str::limit($banner->details, 150) }}
-                                    </p>
+            </div>
+            <div class="relative w-full md:w-1/2 px-4 lg:mb-5 sm:mb-2 py-24">
 
-                                    @if ($banner->product_id)
-                                        <a class="lg:absolute bottom-0 flex items-center justify-center w-12 h-12 lg:-mb-6 hover:bg-orange-400 text-white rounded-md bg-orange-500"
-                                            href="{{ Helpers::productLink($banner->product) }}">
-                                            <svg class="w-2 h-4" width="8" height="12" viewbox="0 0 8 12"
-                                                fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                <path
-                                                    d="M4.97656 6.00252L0.851562 1.87752L2.02957 0.699219L7.33258 6.00252L2.02957 11.3058L0.851562 10.1275L4.97656 6.00252Z"
-                                                    fill="white"></path>
-                                            </svg>
-                                        </a>
-                                    @elseif($banner->link)
-                                        <a class="lg:absolute bottom-0 flex items-center justify-center w-12 h-12 lg:-mb-6 hover:bg-orange-400 text-white rounded-md bg-orange-500"
-                                            href="{{ $banner->link }}">
-                                            <svg class="w-2 h-4" width="8" height="12" viewbox="0 0 8 12"
-                                                fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                <path
-                                                    d="M4.97656 6.00252L0.851562 1.87752L2.02957 0.699219L7.33258 6.00252L2.02957 11.3058L0.851562 10.1275L4.97656 6.00252Z"
-                                                    fill="white"></path>
-                                            </svg>
-                                        </a>
-                                    @endif
-                                </div>
-                                <div class="w-auto">
-                                    <img loading="lazy" class="h-full lg:h-36 rounded-xl object-cover"
-                                        src="{{ asset('images/featuredbanners/' . $banner->image) }}"
-                                        alt="{{ $banner->title }}">
-                                </div>
-                            </div>
+                <div class="absolute bottom-1/2 -mb-24 lg:right-6 inline-block bg-white rounded-xl">
+                    <div class="flex p-3">
+                        <div class="w-auto pt-5 px-4 lg:px-9">
+                            <h3 class="mb-2 text-xl font-bold font-heading w-32">
+                                {{ $this->featuredbanner->title }}
+                            </h3>
+                            <p class="mb-4 lg:mb-0 text-lg font-semibold font-heading text-blue-500">
+                                {{ Str::limit($this->featuredbanner->details, 150) }}
+                            </p>
+
+                            @if ($this->featuredbanner->product_id)
+                                <a class="lg:absolute bottom-0 flex items-center justify-center w-12 h-12 lg:-mb-6 hover:bg-orange-400 text-white rounded-md bg-orange-500"
+                                    href="{{ Helpers::productLink($this->featuredbanner->product) }}">
+                                    <svg class="w-2 h-4" width="8" height="12" viewbox="0 0 8 12" fill="none"
+                                        xmlns="http://www.w3.org/2000/svg">
+                                        <path
+                                            d="M4.97656 6.00252L0.851562 1.87752L2.02957 0.699219L7.33258 6.00252L2.02957 11.3058L0.851562 10.1275L4.97656 6.00252Z"
+                                            fill="white"></path>
+                                    </svg>
+                                </a>
+                            @elseif($this->featuredbanner->link)
+                                <a class="lg:absolute bottom-0 flex items-center justify-center w-12 h-12 lg:-mb-6 hover:bg-orange-400 text-white rounded-md bg-orange-500"
+                                    href="{{ $this->featuredbanner->link }}">
+                                    <svg class="w-2 h-4" width="8" height="12" viewbox="0 0 8 12" fill="none"
+                                        xmlns="http://www.w3.org/2000/svg">
+                                        <path
+                                            d="M4.97656 6.00252L0.851562 1.87752L2.02957 0.699219L7.33258 6.00252L2.02957 11.3058L0.851562 10.1275L4.97656 6.00252Z"
+                                            fill="white"></path>
+                                    </svg>
+                                </a>
+                            @endif
                         </div>
-                    @endforeach
-                    <img loading="lazy" class="h-auto" src="{{ asset('images/sliders/' . $slider->photo) }}"
-                        alt="{{ $slider->title }}">
+                        <div class="w-auto">
+                            <img loading="lazy" class="h-full lg:h-36 rounded-xl object-cover"
+                                src="{{ asset('images/featuredbanners/' . $this->featuredbanner->image) }}"
+                                onerror="this.onerror=null; this.remove();" alt="{{ $this->featuredbanner->title }}">
+                        </div>
+                    </div>
                 </div>
-            @endforeach
+                @if ($this->slider->embeded_video)
+                    <p class="h-auto">
+                        {!! $this->slider->embeded_video !!}
+                    </p>
+                @endif
+            </div>
         </div>
     </div>
 
     <div x-data="{ activeTabs: 'featuredProducts' }" class="container mx-auto px-4">
-        <div class="flex flex-wrap -mx-4 mb-10">
-            <div class="w-1/2 md:w-auto lg:w-1/4 py-6 px-10 sm:py-2 sm:px-5 text-left font-bold text-gray-500 uppercase border-b-2 border-gray-100 hover:border-gray-500 focus:outline-none focus:border-gray-500"
+        <div class="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 mb-10">
+            <div class="py-6 px-10 sm:py-2 sm:px-5 text-left font-bold text-gray-500 uppercase border-b-2 border-gray-100 hover:border-gray-500 focus:outline-none focus:border-gray-500 cursor-pointer"
                 @click="activeTabs = 'featuredProducts'">
                 <h4 class="inline-block" :class="activeTabs === 'featuredProducts' ? 'text-orange-400' : ''">
                     {{ __('Featured Products') }}
                 </h4>
             </div>
-            <div class="w-1/2 md:w-auto lg:w-1/4 py-6 px-10 sm:py-2 sm:px-5 text-left font-bold text-gray-500 uppercase border-b-2 border-gray-100 hover:border-gray-500 focus:outline-none focus:border-gray-500"
+            <div class="py-6 px-10 sm:py-2 sm:px-5 text-left font-bold text-gray-500 uppercase border-b-2 border-gray-100 hover:border-gray-500 focus:outline-none focus:border-gray-500 cursor-pointer"
                 @click="activeTabs = 'bestOfers'">
                 <h4 class="inline-block" :class="activeTabs === 'bestOfers' ? 'text-orange-400' : ''">
                     {{ __('Best Offers') }}
                 </h4>
             </div>
-            <div class="w-1/2 md:w-auto lg:w-1/4 py-6 px-10 sm:py-2 sm:px-5 text-left font-bold text-gray-500 uppercase border-b-2 border-gray-100 hover:border-gray-500 focus:outline-none focus:border-gray-500"
+            <div class="py-6 px-10 sm:py-2 sm:px-5 text-left font-bold text-gray-500 uppercase border-b-2 border-gray-100 hover:border-gray-500 focus:outline-none focus:border-gray-500 cursor-pointer"
                 @click="activeTabs = 'hotProducts'">
                 <h4 class="inline-block" :class="activeTabs === 'hotProducts' ? 'text-orange-400' : ''">
                     {{ __('Hot Products') }}
                 </h4>
             </div>
-            <div class="w-1/2 md:w-auto lg:w-1/4 py-6 px-10 sm:py-2 sm:px-5 text-left font-bold text-gray-500 uppercase border-b-2 border-gray-100 hover:border-gray-500 focus:outline-none focus:border-gray-500"
+            <div class="py-6 px-10 sm:py-2 sm:px-5 text-left font-bold text-gray-500 uppercase border-b-2 border-gray-100 hover:border-gray-500 focus:outline-none focus:border-gray-500 cursor-pointer"
                 @click="activeTabs = 'brands'">
                 <h4 class="inline-block" :class="activeTabs === 'brands' ? 'text-orange-400' : ''">
                     {{ __('Brands') }}
@@ -105,15 +102,16 @@
             <div role="featuredProducts" aria-labelledby="tab-0" id="tab-panel-0" tabindex="0">
                 <section>
                     <div class="container mx-auto">
-                        <div class="flex mb-16">
-                            <div class="w-full flex flex-wrap -mx-3">
+                        <div class="w-full mb-16">
+                            <div class="grid gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 ">
                                 @forelse ($this->featuredProducts as $product)
-                                    <div class="sm:w-full md:w-1/2 lg:w-1/3 px-3 mb-10 bg-white rounded-lg shadow-2xl">
+                                    <div class="px-3 mb-10 bg-white rounded-lg shadow-2xl">
                                         <div class="relative text-center">
                                             <a href="{{ route('front.product', $product->slug) }}">
                                                 <img class="w-full h-auto object-cover rounded-t-lg"
                                                     src="{{ asset('images/products/' . $product->image) }}"
-                                                    alt="">
+                                                    onerror="this.onerror=null; this.remove();"
+                                                    alt="{{ $product->name }}">
                                             </a>
                                             <div class="absolute top-0 right-0 px-4 py-2 bg-orange-500 rounded-bl-lg">
                                                 <span
@@ -164,15 +162,16 @@
             <div role="bestOfers" aria-labelledby="tab-1" id="tab-panel-1" tabindex="0">
                 <section>
                     <div class="container mx-auto">
-                        <div class="flex mb-16">
-                            <div class="w-full flex flex-wrap -mx-3">
+                        <div class="w-full mb-16">
+                            <div class="grid gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 ">
                                 @forelse ($this->bestOffers as $product)
-                                    <div class="sm:w-full md:w-1/2 lg:w-1/3 px-3 mb-10 bg-white rounded-lg shadow-2xl">
+                                    <div class="px-3 mb-10 bg-white rounded-lg shadow-2xl">
                                         <div class="relative text-center">
                                             <a href="{{ route('front.product', $product->slug) }}">
                                                 <img class="w-full h-auto object-cover rounded-t-lg"
                                                     src="{{ asset('images/products/' . $product->image) }}"
-                                                    alt="">
+                                                    onerror="this.onerror=null; this.remove();"
+                                                    alt="{{ $product->name }}">
                                             </a>
                                             <div class="absolute top-0 right-0 px-4 py-2 bg-orange-500 rounded-bl-lg">
                                                 <span
@@ -225,15 +224,16 @@
             <div role="hotProducts" aria-labelledby="tab-2" id="tab-panel-2" tabindex="0">
                 <section>
                     <div class="container mx-auto">
-                        <div class="flex mb-16">
-                            <div class="w-full flex flex-wrap -mx-3">
+                        <div class="w-full mb-16">
+                            <div class="grid gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 ">
                                 @forelse ($this->hotProducts as $product)
-                                    <div class="sm:w-full md:w-1/2 lg:w-1/3 px-3 mb-10 bg-white rounded-lg shadow-2xl">
+                                    <div class="px-3 mb-10 bg-white rounded-lg shadow-2xl">
                                         <div class="relative text-center">
                                             <a href="{{ route('front.product', $product->slug) }}">
                                                 <img class="w-full h-auto object-cover rounded-t-lg"
                                                     src="{{ asset('images/products/' . $product->image) }}"
-                                                    alt="">
+                                                    onerror="this.onerror=null; this.remove();"
+                                                    alt="{{ $product->name }}">
                                             </a>
                                             <div class="absolute top-0 right-0 px-4 py-2 bg-orange-500 rounded-bl-lg">
                                                 <span
@@ -289,15 +289,16 @@
                         <div
                             class="grid gap-2 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 w-full py-10">
                             @forelse ($this->brands as $brand)
-                                <div class="flex items-center rounded-md">
+                                <div class="flex flex-col items-center rounded-md">
                                     <a class="block mb-5" href="{{ route('front.brandPage', $brand->slug) }}">
                                         <div class="relative">
-                                            <img class="w-full h-24" loading="lazy"
+                                            <img class="w-full h-24 object-contain" loading="lazy"
                                                 src="{{ asset('images/brands/' . $brand->image) }}"
+                                                onerror="this.onerror=null; this.remove();"
                                                 alt="{{ $brand->name }}">
                                         </div>
                                     </a>
-                                    <a class="mt-10 text-center mb-2"
+                                    <a class="my-2 text-center mb-2"
                                         href="{{ route('front.brandPage', $brand->slug) }}">
                                         <h3 class="mb-3 text-3xl font-bold font-heading text-blue-900">
                                             {{ $brand->name }}
@@ -327,7 +328,7 @@
         <div class="container mx-auto">
             <div class="flex flex-wrap -mx-3">
                 @forelse ($this->sections as $section)
-                    <div class="sm:w-1/2 md:w-1/3 lg:w-1/4 px-3 mb-6">
+                    <div class="px-3 mb-6">
                         <div class="relative h-full text-center pt-16 bg-white">
                             <div class="pb-12 border-b">
                                 <span

@@ -19,13 +19,13 @@ class Create extends Component
 
     public $listeners = ['createSubcategory'];
 
+    public $subcategory;
+
     public array $listsForFields = [];
 
     public function mount(Subcategory $subcategory)
     {
         $this->subcategory = $subcategory;
-        $this->subcategory->language_id = 1;
-
         $this->initListsForFields();
     }
 
@@ -54,16 +54,15 @@ class Create extends Component
     public function create()
     {
         $this->validate();
-
+        
         $this->subcategory->slug = Str::slug($this->subcategory->name);
 
-        if ($this->subcategory->save()) {
-            $this->alert('success', __('Subcategory created successfully.'));
-            $this->createSubcategory = false;
-            $this->emit('refreshIndex');
-        } else {
-            $this->alert('error', __('Subcategory not created'));
-        }
+        $this->subcategory->save();
+        
+        $this->alert('success', __('Subcategory created successfully.'));
+        $this->emit('refreshIndex');
+        $this->createSubcategory = false;
+       
     }
 
     protected function initListsForFields(): void

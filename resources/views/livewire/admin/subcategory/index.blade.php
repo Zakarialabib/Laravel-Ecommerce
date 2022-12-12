@@ -70,7 +70,7 @@
                                 <x-button danger type="button" 
                                  wire:click="$emit('deleteModal', {{ $subcategory->id }})"
                                     wire:loading.attr="disabled">
-                                    <i class="fas fa-trash"></i>
+                                    <i class="fas fa-trash-alt"></i>
                                 </x-button>
                             </x-slot>
                         </x-dropdown>
