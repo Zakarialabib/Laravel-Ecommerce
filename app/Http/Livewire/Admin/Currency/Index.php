@@ -17,7 +17,10 @@ class Index extends Component
 
     public int $perPage;
 
-    public $listeners = ['confirmDelete', 'delete', 'showModal', 'editModal', 'refreshIndex'];
+    public $listeners = [
+         'showModal', 'editModal',
+         'refreshIndex' => '$refresh',
+        ];
 
     public $showModal = false;
 
@@ -67,10 +70,6 @@ class Index extends Component
         $this->selected = [];
     }
 
-    public function refreshIndex()
-    {
-        $this->resetPage();
-    }
 
     public array $rules = [
         'currency.name' => 'required|string|max:255',

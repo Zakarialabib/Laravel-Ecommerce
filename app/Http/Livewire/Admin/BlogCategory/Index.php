@@ -17,10 +17,7 @@ class Index extends Component
     use LivewireAlert;
 
     public $listeners = [
-
-        'confirmDelete', 'delete', 'editModal',
-        'refreshIndex',
-
+        'editModal', 'refreshIndex' => '$refresh',
     ];
 
     public int $perPage;
@@ -73,10 +70,6 @@ class Index extends Component
         $this->selected = [];
     }
 
-    public function refreshIndex()
-    {
-        $this->resetPage();
-    }
 
     public array $rules = [
         'blogcategory.title' => ['required', 'string', 'max:255'],
@@ -130,10 +123,12 @@ class Index extends Component
         $this->validate();
         // condition if save close modal if not stay
         if ($this->blogcategory->save()) {
+
             $this->editModal = false;
             $this->alert('success', __('BlogCategory updated successfully'));
-            $this->emit('refreshIndex');
+
         } else {
+
             $this->alert('error', __('BlogCategory not updated'));
         }
     }

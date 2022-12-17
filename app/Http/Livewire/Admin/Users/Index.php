@@ -14,7 +14,9 @@ class Index extends Component
 {
     use WithPagination, WithSorting, LivewireAlert;
 
-    public $listeners = ['confirmDelete', 'delete', 'export', 'import', 'refreshIndex', 'showModal', 'editModal'];
+    public $listeners = [
+        'refreshIndex' => '$refresh', 'showModal', 'editModal'
+    ];
 
     public $showModal = false;
 
@@ -66,10 +68,6 @@ class Index extends Component
         $this->selected = [];
     }
 
-    public function refreshIndex()
-    {
-        $this->resetPage();
-    }
 
     public array $rules = [
         'user.name' => 'required|string|max:255',

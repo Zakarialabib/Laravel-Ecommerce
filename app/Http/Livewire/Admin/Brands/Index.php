@@ -23,7 +23,7 @@ class Index extends Component
     public $brand;
 
     public $listeners = [
-        'show', 'confirmDelete', 'delete', 'refreshIndex',
+        'refreshIndex' => '$refresh',
         'showModal', 'editModal', 'importModal',
     ];
 
@@ -88,10 +88,6 @@ class Index extends Component
         $this->selected = [];
     }
 
-    public function refreshIndex()
-    {
-        $this->resetPage();
-    }
 
     public function mount()
     {

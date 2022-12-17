@@ -25,20 +25,15 @@ class Index extends Component
 
     public $listeners = [
         Trix::EVENT_VALUE_UPDATED ,
-        'confirmDelete', 'delete', 'showModal', 'editModal',
-        'refreshIndex','highlightModal',
+        'refreshIndex' => '$refresh',
+        'highlightModal',
     ];
 
-   
     public $description;
 
-    public $highlightModal;
+    public $highlightModal = false;
 
     public int $perPage;
-
-    public $showModal = false;
-
-    public $editModal = false;
 
     public $refreshIndex;
 
@@ -114,7 +109,11 @@ class Index extends Component
 
     public function refreshIndex()
     {
-        $this->resetPage();
+        $this->resetErrorBag();
+
+        $this->resetValidation();
+        
+        $this->render();
     }
 
      public function trix_value_updated($value){
@@ -173,80 +172,11 @@ class Index extends Component
         $this->alert('success', __('Product deleted successfully.'));
     }
 
-    public function showModal(Product $product)
-    {
-        abort_if(Gate::denies('product_show'), 403);
-
-        $this->product = $product->id;
-
-        $this->showModal = true;
-    }
-
-    public function editModal($product)
-    {
-        abort_if(Gate::denies('product_update'), 403);
-
-        $this->resetErrorBag();
-
-        $this->resetValidation();
-
-        $this->product = Product::findOrfail($product);
-
-        $this->editModal = true;
-    }
-
-    public function update()
-    {
-        abort_if(Gate::denies('product_update'), 403);
-
-        $this->validate();
-
-        if ($this->image) {
-            $image = $this->image;
-            $imageName = Str::slug($this->product->name).'-'.date('Y-m-d H:i:s').'.'.$this->image->extension();
-
-            $img = Image::make($image->getRealPath())->resize(1500, 1500, function ($constraint) {
-                $constraint->aspectRatio();
-            });
-
-            $img->stream();
-            Storage::disk('local_files')->put('products/'.$imageName, $img, 'public');
-            $this->product->image = $imageName;
-        }
-
-        // gallery image
-        if ($this->gallery != null) {
-            $gallery = [];
-            foreach ($this->gallery as $key => $value) {
-                $image = $value;
-                $imageName = Str::slug($this->product->name).'-'.$key.'.'.$value->extension();
-
-                $img = Image::make($image->getRealPath())->resize(1500, 1500, function ($constraint) {
-                    $constraint->aspectRatio();
-                });
-
-                $img->stream();
-                Storage::disk('local_files')->put('products/'.$imageName, $img, 'public');
-                $gallery[] = $imageName;
-            }
-
-            $this->product->gallery = json_encode($gallery);
-        }
-
-        // dd($this->product->image);
-
-        $this->product->save();
-
-        $this->editModal = false;
-
-        $this->alert('success', 'Product updated successfully.');
-    }
-
     public function highlightModal(Product $product)
     {
         abort_if(Gate::denies('product_access'), 403);
 
-        $this->product = Product::findOrfail($product->id);
+        $this->product = Product::find($product);
 
         $this->highlightModal = true;
     }

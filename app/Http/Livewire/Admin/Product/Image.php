@@ -7,8 +7,8 @@ use Image as ImageIntervention;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Livewire\Component;
 use Livewire\WithFileUploads;
+use Illuminate\Support\Str;
 use Storage;
-use Str;
 
 class Image extends Component
 {
@@ -16,7 +16,7 @@ class Image extends Component
 
     public $product;
 
-    public $image;
+    public $image = "";
 
     public $image_url = null;
 
@@ -28,16 +28,7 @@ class Image extends Component
         'imageModal', 'saveImage',
     ];
 
-    public $imageModal = false;
-
-       public function rules()
-    {
-        return [ 
-            'image' => 'nullable|mimes:jpeg,png,jpg,gif|max:4048', 
-            'image_url' => 'nullable|url',
-            'gallery' =>'nullable|jpeg,png,jpg,gif|max:4048',
-        ];
-    }
+    public $imageModal;
 
     public function imageModal($id)
     {
@@ -47,51 +38,77 @@ class Image extends Component
         
         $this->product = Product::findOrFail($id);
 
-        $this->image = $this->product->image;
-
-        $this->gallery = $this->product->gallery;
-
         $this->imageModal = true;
     }
 
     public function saveImage()
     {
-        if ($this->image_url != null) {
+        if ($this->image_url) {
             $image = file_get_contents($this->image_url);
             $imageName = Str::random(10).'.jpg';
             Storage::disk('local_files')->put('products/'.$imageName, $image, 'public');
             $this->product->image = $imageName;
         } 
 
-        if ($this->embeded_video != null) {
+        if ($this->embeded_video) {
             $this->product->image = $this->embeded_video;
         } 
 
-        if($this->image!=null && isset($this->image)){
-            $imageName = Str::slug($this->product->name).'-'.date('Y-m-d H:i:s').'.'.$this->image->extension();
-            
-            $img = ImageIntervention::make($input->getRealPath())->encode('jpg', 75)->resize(1500, 1500, function ($constraint) {
-                $constraint->aspectRatio();
-                $constraint->upsize();
-            });
+        if ($this->image) {
+            $imageName = Str::slug($this->product->name).'-'.Str::random(5).'.'.$this->image->extension();
+
+            $width = 1500;
+            $height = 1500;
+
+            $img = ImageIntervention::make($this->image->getRealPath())->encode('webp', 85);
+
+            // we need to resize image, otherwise it will be cropped 
+            if ($img->width() > $width) { 
+                $img->resize($width, null, function ($constraint) {
+                    $constraint->aspectRatio();
+                });
+            }
+
+            if ($img->height() > $height) {
+                $img->resize(null, $height, function ($constraint) {
+                    $constraint->aspectRatio();
+                }); 
+            }
+
+            $img->resizeCanvas($width, $height, 'center', false, '#ffffff');
+
             $img->stream();
 
-            Storage::disk('local_files')->put('products/'.$imageName->getClientOriginalName(), $img, 'public');
+            Storage::disk('local_files')->put('products/'.$imageName, $img, 'public');
 
             $this->product->image = $imageName;
         }
-
+        
         // gallery image
-        if ($this->gallery != null) {
+        if ($this->gallery) {
             $gallery = [];
             foreach ($this->gallery as $key => $value) {
                 $image = $value;
-                $imageName = Str::slug($this->product->name).'-'.$key.'.'.$value->getClientOriginalExtension();
+                $imageName = Str::slug($this->product->name).'-'.$key.'.'.$value->extension();
 
-                $img = ImageIntervention::make($image->getRealPath())->encode('jpg', 75)->resize(1500, 1500, function ($constraint) {
-                    $constraint->aspectRatio();
-                    $constraint->upsize();
-                });
+                $img = ImageIntervention::make($image->getRealPath())->encode('webp', 85);
+                
+                $width = 1500;
+                $height = 1500;
+                // we need to resize image, otherwise it will be cropped 
+                if ($img->width() > $width) { 
+                    $img->resize($width, null, function ($constraint) {
+                        $constraint->aspectRatio();
+                    });
+                }
+
+                if ($img->height() > $height) {
+                    $img->resize(null, $height, function ($constraint) {
+                        $constraint->aspectRatio();
+                    }); 
+                }
+
+                $img->resizeCanvas($width, $height, 'center', false, '#ffffff');
 
                 $img->stream();
                 Storage::disk('local_files')->put('products/'.$imageName, $img, 'public');

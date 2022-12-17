@@ -26,9 +26,8 @@ class Index extends Component
     public $image;
 
     public $listeners = [
-        'confirmDelete', 'delete',
-        'refreshIndex', 'editModal',
-        'importModal',
+        'refreshIndex' => '$refresh',
+         'editModal','importModal',
     ];
 
     public int $perPage;
@@ -84,10 +83,6 @@ class Index extends Component
         $this->selected = [];
     }
 
-    public function refreshIndex()
-    {
-        $this->resetPage();
-    }
 
     public function mount()
     {

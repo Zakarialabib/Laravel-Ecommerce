@@ -22,7 +22,7 @@ class Index extends Component
     public $image;
 
     public $listeners = [
-        'confirmDelete', 'delete', 'refreshIndex',
+        'refreshIndex' => '$refresh',
         'showModal', 'editModal',
     ];
 
@@ -76,10 +76,6 @@ class Index extends Component
         $this->selected = [];
     }
 
-    public function refreshIndex()
-    {
-        $this->resetPage();
-    }
 
     protected $rules = [
         'featuredbanner.title' => ['required', 'string', 'max:255'],

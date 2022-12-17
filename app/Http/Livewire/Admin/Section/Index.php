@@ -17,7 +17,7 @@ class Index extends Component
     public $image;
 
     public $listeners = [
-        'confirmDelete', 'delete', 'refreshIndex',
+        'refreshIndex' => '$refresh',
         'showModal', 'editModal',
     ];
     public $refreshIndex;
@@ -82,10 +82,6 @@ class Index extends Component
         $this->selected = [];
     }
 
-    public function refreshIndex()
-    {
-        $this->resetPage();
-    }
 
     protected function initListsForFields(): void
     {
