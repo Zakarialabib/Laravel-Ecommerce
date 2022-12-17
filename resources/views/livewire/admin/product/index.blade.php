@@ -99,12 +99,12 @@
                                     <i class="fas fa-eye"></i>
                                     {{ __('Highlighted') }}
                                 </x-dropdown-link>
-                                <x-dropdown-link wire:click="showModal({{ $product->id }})"
+                                <x-dropdown-link wire:click="$emit('showModal',{{ $product->id }})"
                                     wire:loading.attr="disabled">
                                     <i class="fas fa-eye"></i>
                                     {{ __('View') }}
                                 </x-dropdown-link>
-                                <x-dropdown-link wire:click="editModal({{ $product->id }})" class="mr-2"
+                                <x-dropdown-link wire:click="$emit('editModal', {{ $product->id }})" class="mr-2"
                                     wire:loading.attr="disabled">
                                     <i class="fas fa-edit"></i>
                                     {{ __('Edit') }}
