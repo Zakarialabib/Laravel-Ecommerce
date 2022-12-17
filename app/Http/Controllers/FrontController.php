@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Blog;
 use App\Models\Brand;
 use App\Models\Product;
+use App\Models\Sitemaps;
+use Illuminate\Http\Request;
 
 class FrontController extends Controller
 {
@@ -82,5 +84,17 @@ class FrontController extends Controller
     public function thankyou(Order $order)
     {
         return view('front.order-summary', compact('order'));
+    }
+
+    public function generateSitemaps(Request $request)
+    {
+        // Create a new instance of the SiteGenerator model
+        $generator = new Sitemaps();
+
+        // Generate the sitemap
+        $generator->generate();
+
+        // Redirect the user to the sitemap page
+        return redirect('/sitemap.xml');
     }
 }

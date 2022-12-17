@@ -8,7 +8,6 @@ use Illuminate\Support\Str;
 class FilterQueryBuilder
 {
     protected $model;
-
     protected $table;
 
     public function apply($query, $data)

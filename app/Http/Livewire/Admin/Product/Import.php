@@ -57,8 +57,6 @@ class Import extends Component
 
         $this->emit('refreshIndex');
         
-        $this->alert('success', __('Product imported successfully!') );
-        
         $this->importModal = false;
 
     }

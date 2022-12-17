@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use App\Models\Language;
 use App\Models\Settings;
+use App\Observers\SettingsObserver;
 use Cache;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Session;
@@ -38,6 +39,8 @@ class AppServiceProvider extends ServiceProvider
 
         View::share('languages', $this->getLanguages());
         
+        Settings::observe(SettingsObserver::class);
+
         // Model::shouldBeStrict(! $this->app->isProduction());
     }
 
