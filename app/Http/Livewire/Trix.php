@@ -9,8 +9,8 @@ use Illuminate\Support\Facades\Storage;
 class Trix extends Component
 {
     use WithFileUploads;
-
-    const EVENT_VALUE_UPDATED = 'trix_value_updated';
+    
+    const EVENT_VALUE_UPDATED = 'onTrixValueUpdate';
 
     public $value;
     public $trixId;

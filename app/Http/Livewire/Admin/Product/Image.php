@@ -28,7 +28,10 @@ class Image extends Component
         'imageModal', 'saveImage',
     ];
 
-    public $imageModal;
+    public $imageModal = false;
+
+    public $width = 1000;
+    public $height = 1000;
 
     public function imageModal($id)
     {
@@ -57,25 +60,23 @@ class Image extends Component
         if ($this->image) {
             $imageName = Str::slug($this->product->name).'-'.Str::random(5).'.'.$this->image->extension();
 
-            $width = 1500;
-            $height = 1500;
-
+     
             $img = ImageIntervention::make($this->image->getRealPath())->encode('webp', 85);
 
             // we need to resize image, otherwise it will be cropped 
-            if ($img->width() > $width) { 
+            if ($img->width() > $this->width) { 
                 $img->resize($width, null, function ($constraint) {
                     $constraint->aspectRatio();
                 });
             }
 
-            if ($img->height() > $height) {
-                $img->resize(null, $height, function ($constraint) {
+            if ($img->height() > $this->height) {
+                $img->resize(null, $this->height, function ($constraint) {
                     $constraint->aspectRatio();
                 }); 
             }
 
-            $img->resizeCanvas($width, $height, 'center', false, '#ffffff');
+            $img->resizeCanvas($this->width, $this->height, 'center', false, '#ffffff');
 
             $img->stream();
 
@@ -93,22 +94,20 @@ class Image extends Component
 
                 $img = ImageIntervention::make($image->getRealPath())->encode('webp', 85);
                 
-                $width = 1500;
-                $height = 1500;
                 // we need to resize image, otherwise it will be cropped 
-                if ($img->width() > $width) { 
-                    $img->resize($width, null, function ($constraint) {
+                if ($img->width() > $this->width) { 
+                    $img->resize($this->width, null, function ($constraint) {
                         $constraint->aspectRatio();
                     });
                 }
 
-                if ($img->height() > $height) {
-                    $img->resize(null, $height, function ($constraint) {
+                if ($img->height() > $this->height) {
+                    $img->resize(null, $this->height, function ($constraint) {
                         $constraint->aspectRatio();
                     }); 
                 }
 
-                $img->resizeCanvas($width, $height, 'center', false, '#ffffff');
+                $img->resizeCanvas($this->width, $this->height, 'center', false, '#ffffff');
 
                 $img->stream();
                 Storage::disk('local_files')->put('products/'.$imageName, $img, 'public');

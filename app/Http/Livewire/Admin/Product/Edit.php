@@ -29,8 +29,8 @@ class Edit extends Component
 
     public $gallery = [];
 
-    public $width = 1500;
-    public $height = 1500;
+    public $width = 1000;
+    public $height = 1000;
     
     public $listeners = [
         Trix::EVENT_VALUE_UPDATED ,

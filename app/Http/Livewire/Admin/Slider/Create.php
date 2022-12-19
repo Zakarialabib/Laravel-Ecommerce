@@ -9,6 +9,7 @@ use Illuminate\Support\Str;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Livewire\Component;
 use Livewire\WithFileUploads;
+use App\Http\Livewire\Trix;
 
 class Create extends Component
 {
@@ -22,7 +23,10 @@ class Create extends Component
     
     public $details;
 
-    public $listeners = ['createSlider'];
+    public $listeners = [
+        Trix::EVENT_VALUE_UPDATED ,
+        'createSlider'
+    ];
 
     public array $listsForFields = [];
 

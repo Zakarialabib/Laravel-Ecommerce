@@ -39,10 +39,10 @@ class Create extends Component
         $this->validateOnly($propertyName);
     }
 
-    public function trix_value_updated($value){
-        $this->description = $value;
+    public function onTrixValueUpdate($value)
+    {
+        $this->product->description = $value;
     }
-
 
     protected $rules = [
         'product.name' => ['required', 'string', 'max:255'],
@@ -117,12 +117,10 @@ class Create extends Component
         // generate slug from name slug
         $this->product->slug = Str::slug($this->product->name);
 
-        // check image, resize (1500x1500), add watermark (logo) and upload
-
         if ($this->image) {
             $imageName = Str::slug($this->product->name).'-'.date('Y-m-d H:i:s').'.'.$this->image->extension();
 
-            $imageName = Image::make($this->image)->resize(1500, 1500, function ($constraint) {
+            $imageName = Image::make($this->image)->resize(1000, 1000, function ($constraint) {
                 $constraint->aspectRatio();
             });
 

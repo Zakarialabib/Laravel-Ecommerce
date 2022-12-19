@@ -61,7 +61,7 @@
                             class="w-10 h-10 rounded-full object-cover">
                     </x-table.td>
                     <x-table.td>
-                        <button type="button" wire:click="showModal({{ $product->id }})">
+                        <button type="button" wire:click="$emit('showModal',{{ $product->id }})">
                             {{ Str::limit($product->name, 60) }}
                         </button>
                         <a class="ml-2 text-blue-500" href="{{ route('front.product', $product->slug) }}">

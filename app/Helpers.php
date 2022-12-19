@@ -121,7 +121,7 @@ class Helpers
             // handle gallery
             $galleryArray = [];
             foreach ($input as $key => $value) {
-                $img = ImageIntervention::make($value->getRealPath())->encode('jpg', 75)->resize(1500, 1500, function ($constraint) {
+                $img = ImageIntervention::make($value->getRealPath())->encode('webp', 85)->resize(1000, 1000, function ($constraint) {
                     $constraint->aspectRatio();
                     $constraint->upsize();
                 });
@@ -135,7 +135,7 @@ class Helpers
         } else {
             // handle single image
 
-            $img = ImageIntervention::make($input->getRealPath())->encode('jpg', 75)->resize(1500, 1500, function ($constraint) {
+            $img = ImageIntervention::make($input->getRealPath())->encode('webp', 85)->resize(1000, 1000, function ($constraint) {
                 $constraint->aspectRatio();
                 $constraint->upsize();
             });

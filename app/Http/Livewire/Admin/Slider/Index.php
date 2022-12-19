@@ -9,6 +9,7 @@ use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 use Livewire\WithPagination;
+use App\Http\Livewire\Trix;
 use Str;
 
 class Index extends Component
@@ -19,8 +20,9 @@ class Index extends Component
     public $slider;
 
     public $photo;
-
+    
     public $listeners = [
+        Trix::EVENT_VALUE_UPDATED ,
         'refreshIndex' => '$refresh',
         'showModal', 'editModal',
     ];
@@ -58,6 +60,11 @@ class Index extends Component
     public function getSelectedCountProperty()
     {
         return count($this->selected);
+    }
+
+    public function onTrixValueUpdate($value)
+    {
+        $this->details = $value;
     }
 
     public function updatingSearch()

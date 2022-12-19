@@ -107,17 +107,9 @@ class Index extends Component
         $this->selected = [];
     }
 
-    public function refreshIndex()
+    public function onTrixValueUpdate($value)
     {
-        $this->resetErrorBag();
-
-        $this->resetValidation();
-        
-        $this->render();
-    }
-
-     public function trix_value_updated($value){
-        $this->description = $value;
+        $this->product->description = $value;
     }
 
     protected $rules = [
