@@ -13,11 +13,9 @@ class Catalog extends Component
 {
     use WithPagination, WithSorting;
 
-    public $view;
-
     public int $perPage;
 
-    protected $listeners = ['changeView', 'filterCategories', 'filterSubCategories', 'filterBrands'];
+    protected $listeners = ['filterCategories', 'filterSubCategories', 'filterBrands'];
 
     public array $orderable;
 
@@ -86,15 +84,6 @@ class Catalog extends Component
         $this->perPage = 15;
         $this->paginationOptions = [25, 50, 100];
         $this->orderable = (new Product())->orderable;
-
-        $this->view = 'grid';
-    }
-
-    public function changeView($view)
-    {
-        $this->view = $view;
-
-        $this->emit('changeView', $view);
     }
 
     public function render()
