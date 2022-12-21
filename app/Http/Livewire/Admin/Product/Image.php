@@ -65,7 +65,7 @@ class Image extends Component
 
             // we need to resize image, otherwise it will be cropped 
             if ($img->width() > $this->width) { 
-                $img->resize($width, null, function ($constraint) {
+                $img->resize($this->width, null, function ($constraint) {
                     $constraint->aspectRatio();
                 });
             }

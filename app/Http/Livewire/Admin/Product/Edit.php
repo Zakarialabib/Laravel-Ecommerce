@@ -103,8 +103,8 @@ class Edit extends Component
             $img = Image::make($this->image->getRealPath())->encode('webp', 85);
 
             // we need to resize image, otherwise it will be cropped 
-            if ($img->width() > $width) { 
-                $img->resize($width, null, function ($constraint) {
+            if ($img->width() > $this->width) { 
+                $img->resize($this->width, null, function ($constraint) {
                     $constraint->aspectRatio();
                 });
             }
@@ -115,7 +115,7 @@ class Edit extends Component
                 }); 
             }
 
-            $img->resizeCanvas($width, $this->height, 'center', false, '#ffffff');
+            $img->resizeCanvas($this->width, $this->height, 'center', false, '#ffffff');
 
             $img->stream();
 
@@ -134,8 +134,8 @@ class Edit extends Component
                 $img = Image::make($image->getRealPath())->encode('webp', 85);
 
                 // we need to resize image, otherwise it will be cropped 
-                if ($img->width() > $width) { 
-                    $img->resize($width, null, function ($constraint) {
+                if ($img->width() > $this->width) { 
+                    $img->resize($this->width, null, function ($constraint) {
                         $constraint->aspectRatio();
                     });
                 }
@@ -146,7 +146,7 @@ class Edit extends Component
                     }); 
                 }
 
-                $img->resizeCanvas($width, $this->height, 'center', false, '#ffffff');
+                $img->resizeCanvas($this->width, $this->height, 'center', false, '#ffffff');
 
                 $img->stream();
                 Storage::disk('local_files')->put('products/'.$imageName, $img, 'public');
