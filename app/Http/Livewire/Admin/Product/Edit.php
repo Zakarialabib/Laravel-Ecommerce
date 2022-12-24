@@ -2,39 +2,40 @@
 
 namespace App\Http\Livewire\Admin\Product;
 
-use App\Models\Product;
-use App\Models\Category;
-use App\Models\Brand;
-use App\Models\Subcategory;
-use Livewire\Component;
-use Illuminate\Support\Facades\Gate;
-use Jantinnerezo\LivewireAlert\LivewireAlert;
-use Livewire\WithFileUploads;
 use App\Http\Livewire\Trix;
-use Image;
-use Storage;
+use App\Models\Brand;
+use App\Models\Category;
+use App\Models\Product;
+use App\Models\Subcategory;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Str;
+use Image;
+use Jantinnerezo\LivewireAlert\LivewireAlert;
+use Livewire\Component;
+use Livewire\WithFileUploads;
+use Storage;
 
 class Edit extends Component
 {
     use WithFileUploads, LivewireAlert;
 
     public $product;
-    
+
     public $editModal = false;
 
     public $image;
 
-    public $category_id ;
+    public $category_id;
 
     public $gallery = [];
 
     public $width = 1000;
+
     public $height = 1000;
-    
+
     public $listeners = [
-        Trix::EVENT_VALUE_UPDATED ,
-        'editModal'
+        Trix::EVENT_VALUE_UPDATED,
+        'editModal',
     ];
 
     public array $listsForFields = [];
@@ -43,7 +44,7 @@ class Edit extends Component
     {
         $this->product->description = $value;
     }
-    
+
     protected $rules = [
         'product.code' => ['nullable'],
         'product.slug' => ['nullable'],
@@ -60,8 +61,8 @@ class Edit extends Component
         'product.embeded_video' => ['nullable'],
         'product.condition' => ['nullable'],
     ];
-    
-    public function mount ()
+
+    public function mount()
     {
         $this->initListsForFields();
     }
@@ -90,7 +91,7 @@ class Edit extends Component
 
         $this->editModal = true;
     }
-   
+
     public function update()
     {
         abort_if(Gate::denies('product_update'), 403);
@@ -102,8 +103,8 @@ class Edit extends Component
 
             $img = Image::make($this->image->getRealPath())->encode('webp', 85);
 
-            // we need to resize image, otherwise it will be cropped 
-            if ($img->width() > $this->width) { 
+            // we need to resize image, otherwise it will be cropped
+            if ($img->width() > $this->width) {
                 $img->resize($this->width, null, function ($constraint) {
                     $constraint->aspectRatio();
                 });
@@ -112,7 +113,7 @@ class Edit extends Component
             if ($img->height() > $this->height) {
                 $img->resize(null, $this->height, function ($constraint) {
                     $constraint->aspectRatio();
-                }); 
+                });
             }
 
             $img->resizeCanvas($this->width, $this->height, 'center', false, '#ffffff');
@@ -123,7 +124,7 @@ class Edit extends Component
 
             $this->product->image = $imageName;
         }
-        
+
         // gallery image
         if ($this->gallery) {
             $gallery = [];
@@ -133,8 +134,8 @@ class Edit extends Component
 
                 $img = Image::make($image->getRealPath())->encode('webp', 85);
 
-                // we need to resize image, otherwise it will be cropped 
-                if ($img->width() > $this->width) { 
+                // we need to resize image, otherwise it will be cropped
+                if ($img->width() > $this->width) {
                     $img->resize($this->width, null, function ($constraint) {
                         $constraint->aspectRatio();
                     });
@@ -143,7 +144,7 @@ class Edit extends Component
                 if ($img->height() > $this->height) {
                     $img->resize(null, $this->height, function ($constraint) {
                         $constraint->aspectRatio();
-                    }); 
+                    });
                 }
 
                 $img->resizeCanvas($this->width, $this->height, 'center', false, '#ffffff');
@@ -163,7 +164,6 @@ class Edit extends Component
         $this->editModal = false;
 
         $this->emit('refreshIndex');
-
     }
 
     public function render()

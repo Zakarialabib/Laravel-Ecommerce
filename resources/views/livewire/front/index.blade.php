@@ -21,7 +21,7 @@
                     @endif
                 </div>
             </div>
-            <div class="relative w-full md:w-1/2 px-4 lg:mb-5 sm:mb-2 py-24">
+            {{-- <div class="relative w-full md:w-1/2 px-4 lg:mb-5 sm:mb-2 py-24">
 
                 <div class="absolute bottom-1/2 -mb-24 lg:right-6 inline-block bg-white rounded-xl">
                     <div class="flex p-3">
@@ -67,7 +67,7 @@
                         {!! $this->slider->embeded_video !!}
                     </p>
                 @endif
-            </div>
+            </div> --}}
         </div>
     </div>
 

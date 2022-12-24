@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Admin\Product;
 
+use App\Http\Livewire\Trix;
 use App\Models\Brand;
 use App\Models\Category;
 use App\Models\Product;
@@ -11,18 +12,17 @@ use Image;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Livewire\Component;
 use Livewire\WithFileUploads;
-use App\Http\Livewire\Trix;
 
 class Create extends Component
 {
     use LivewireAlert, WithFileUploads;
 
     public $listeners = [
-        Trix::EVENT_VALUE_UPDATED ,
-        'createProduct'
+        Trix::EVENT_VALUE_UPDATED,
+        'createProduct',
     ];
 
-    public $createProduct =false;
+    public $createProduct = false;
 
     public $image;
 
@@ -31,7 +31,7 @@ class Create extends Component
     public $uploadLink;
 
     public $description = null;
-    
+
     public array $listsForFields = [];
 
     public function updated($propertyName)
@@ -49,6 +49,8 @@ class Create extends Component
         'product.price' => ['required', 'numeric', 'max:2147483647'],
         'product.old_price' => ['required', 'numeric', 'max:2147483647'],
         'description' => ['nullable'],
+        'image' => ['image', 'mimes:jpeg,png,jpg,gif,svg,webp'],
+        'gallery' => ['nullable'],
         'product.meta_title' => ['nullable', 'string', 'max:255'],
         'product.meta_description' => ['nullable', 'string', 'max:255'],
         'product.meta_keywords' => ['nullable', 'string', 'min:1'],

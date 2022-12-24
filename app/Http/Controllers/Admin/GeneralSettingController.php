@@ -11,7 +11,6 @@ use Validator;
 
 class GeneralSettingController extends Controller
 {
-
     private function setEnv($key, $value, $prev)
     {
         file_put_contents(app()->environmentFilePath(), str_replace(
@@ -25,7 +24,6 @@ class GeneralSettingController extends Controller
     {
         return view('admin.generalsetting.paymentsinfo');
     }
-
 
     public function websitecontent()
     {

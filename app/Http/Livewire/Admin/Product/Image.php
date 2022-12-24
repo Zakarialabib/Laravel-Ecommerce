@@ -3,11 +3,11 @@
 namespace App\Http\Livewire\Admin\Product;
 
 use App\Models\Product;
+use Illuminate\Support\Str;
 use Image as ImageIntervention;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Livewire\Component;
 use Livewire\WithFileUploads;
-use Illuminate\Support\Str;
 use Storage;
 
 class Image extends Component
@@ -16,21 +16,27 @@ class Image extends Component
 
     public $product;
 
-    public $image = "";
+    public $image;
 
     public $image_url = null;
 
     public $embeded_video = null;
-    
+
     public $gallery = [];
 
     public $listeners = [
         'imageModal', 'saveImage',
     ];
 
+    protected $rules = [
+        'image' => ['image', 'mimes:jpeg,png,jpg,gif,svg,webp'],
+        'gallery' => ['image', 'mimes:jpeg,png,jpg,gif,svg,webp'],
+    ];
+
     public $imageModal = false;
 
     public $width = 1000;
+
     public $height = 1000;
 
     public function imageModal($id)
@@ -38,33 +44,41 @@ class Image extends Component
         $this->resetErrorBag();
 
         $this->resetValidation();
-        
-        $this->product = Product::findOrFail($id);
 
+        $this->product = Product::findOrFail($id);
+        $this->image = $this->product->image;
+        $this->gallery = $this->product->gallery;
         $this->imageModal = true;
+    }
+
+    public function mount()
+    {
+        // $this->product = Product::findOrFail($id);
+        // $this->image = $this->product->image;
     }
 
     public function saveImage()
     {
+        $this->validate();
+
         if ($this->image_url) {
             $image = file_get_contents($this->image_url);
             $imageName = Str::random(10).'.jpg';
             Storage::disk('local_files')->put('products/'.$imageName, $image, 'public');
             $this->product->image = $imageName;
-        } 
+        }
 
         if ($this->embeded_video) {
             $this->product->image = $this->embeded_video;
-        } 
+        }
 
         if ($this->image) {
             $imageName = Str::slug($this->product->name).'-'.Str::random(5).'.'.$this->image->extension();
 
-     
             $img = ImageIntervention::make($this->image->getRealPath())->encode('webp', 85);
 
-            // we need to resize image, otherwise it will be cropped 
-            if ($img->width() > $this->width) { 
+            // we need to resize image, otherwise it will be cropped
+            if ($img->width() > $this->width) {
                 $img->resize($this->width, null, function ($constraint) {
                     $constraint->aspectRatio();
                 });
@@ -73,7 +87,7 @@ class Image extends Component
             if ($img->height() > $this->height) {
                 $img->resize(null, $this->height, function ($constraint) {
                     $constraint->aspectRatio();
-                }); 
+                });
             }
 
             $img->resizeCanvas($this->width, $this->height, 'center', false, '#ffffff');
@@ -84,7 +98,7 @@ class Image extends Component
 
             $this->product->image = $imageName;
         }
-        
+
         // gallery image
         if ($this->gallery) {
             $gallery = [];
@@ -93,9 +107,9 @@ class Image extends Component
                 $imageName = Str::slug($this->product->name).'-'.$key.'.'.$value->extension();
 
                 $img = ImageIntervention::make($image->getRealPath())->encode('webp', 85);
-                
-                // we need to resize image, otherwise it will be cropped 
-                if ($img->width() > $this->width) { 
+
+                // we need to resize image, otherwise it will be cropped
+                if ($img->width() > $this->width) {
                     $img->resize($this->width, null, function ($constraint) {
                         $constraint->aspectRatio();
                     });
@@ -104,7 +118,7 @@ class Image extends Component
                 if ($img->height() > $this->height) {
                     $img->resize(null, $this->height, function ($constraint) {
                         $constraint->aspectRatio();
-                    }); 
+                    });
                 }
 
                 $img->resizeCanvas($this->width, $this->height, 'center', false, '#ffffff');

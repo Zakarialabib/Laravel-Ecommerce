@@ -30,15 +30,16 @@
                     </div>
 
                     <div class="w-full py-2 px-3 mb-4">
-                        <x-label for="image" :value="__('Image')" />
-                        <x-fileupload wire:model="image" :file="$image" accept="image/jpg,image/jpeg,image/png" />
-                        <x-input-error :messages="$errors->get('image')" for="image" class="mt-2" />
+                        <x-media-upload title="{{ __('Logo') }}" name="image" wire:model="image" :file="$image"
+                            single types="PNG / JPEG / WEBP" fileTypes="image/*" />
                     </div>
+
                     <div class="w-full py-2 px-3 mb-4">
-                        <x-label for="featured_image" :value="__('Featured image')" />
-                        <x-fileupload wire:model="featured_image" :file="$featured_image" accept="image/jpg,image/jpeg,image/png" />
-                        <x-input-error :messages="$errors->get('featured_image')" for="featured_image" class="mt-2" />
+                        <x-media-upload title="{{ __('Featured Image') }}" name="featured_image"
+                            wire:model="featured_image" :file="$featured_image" single types="PNG / JPEG / WEBP"
+                            fileTypes="image/*" />
                     </div>
+
                     <div class="w-full flex justify-start space-x-2">
                         <x-button primary type="submit" wire:loading.attr="disabled">
                             {{ __('Create') }}

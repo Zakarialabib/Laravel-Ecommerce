@@ -1,24 +1,30 @@
 <div>
     <div class="flex flex-wrap justify-center">
         <div class="lg:w-1/2 md:w-1/2 sm:w-full flex flex-col my-md-0 my-2">
-            <div class="my-2 my-md-0">
-                <p class="leading-5 text-black dark:text-gray-300 mb-1 text-sm ">
-                    {{ __('Show items per page') }}
+            <select wire:model="perPage" name="perPage"
+                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-32 p-1 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                @foreach ($paginationOptions as $value)
+                    <option value="{{ $value }}">{{ $value }}</option>
+                @endforeach
+            </select>
+            @if ($this->selected)
+                <x-button danger type="button" wire:click="deleteSelected" class="ml-3">
+                    <i class="fas fa-trash"></i>
+                </x-button>
+            @endif
+            @if ($this->selectedCount)
+                <p class="text-sm leading-5">
+                    <span class="font-medium">
+                        {{ $this->selectedCount }}
+                    </span>
+                    {{ __('Entries selected') }}
                 </p>
-                <select wire:model="perPage" name="perPage"
-                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-32 p-1 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                    @foreach ($paginationOptions as $value)
-                        <option value="{{ $value }}">{{ $value }}</option>
-                    @endforeach
-                </select>
-            </div>
+            @endif
         </div>
         <div class="lg:w-1/2 md:w-1/2 sm:w-full my-2 my-md-0">
-            <div class="my-2 my-md-0">
-                <input type="text" wire:model.debounce.300ms="search"
-                    class="p-3 leading-5 bg-white dark:bg-dark-eval-2 text-gray-500 dark:text-gray-300 rounded border border-zinc-300 mb-1 text-sm w-full focus:shadow-outline-blue focus:border-blue-500"
-                    placeholder="{{ __('Search') }}" />
-            </div>
+            <input type="text" wire:model.debounce.300ms="search"
+                class="p-3 leading-5 bg-white dark:bg-dark-eval-2 text-gray-500 dark:text-gray-300 rounded border border-zinc-300 mb-1 text-sm w-full focus:shadow-outline-blue focus:border-blue-500"
+                placeholder="{{ __('Search') }}" />
         </div>
     </div>
 
@@ -130,24 +136,17 @@
 
     <div class="card-body">
         <div class="pt-3">
-            @if ($this->selectedCount)
-                <p class="text-sm leading-5">
-                    <span class="font-medium">
-                        {{ $this->selectedCount }}
-                    </span>
-                    {{ __('Entries selected') }}
-                </p>
-            @endif
+
             {{ $products->links() }}
         </div>
     </div>
 
-     <!-- Show Modal -->
-     @livewire('admin.product.show', ['product' => $product])
-     <!-- End Show Modal -->
- 
-     <!-- Edit Modal -->
-     @livewire('admin.product.edit', ['product' => $product])
+    <!-- Show Modal -->
+    @livewire('admin.product.show', ['product' => $product])
+    <!-- End Show Modal -->
+
+    <!-- Edit Modal -->
+    @livewire('admin.product.edit', ['product' => $product])
     <!-- End Edit Modal -->
 
     <livewire:admin.product.create />

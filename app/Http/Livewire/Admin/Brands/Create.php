@@ -5,24 +5,24 @@ namespace App\Http\Livewire\Admin\Brands;
 use App\Models\Brand;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Str;
+use Image;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 use Storage;
-use Image;
 
 class Create extends Component
 {
     use LivewireAlert , WithFileUploads;
 
     public $createBrand;
-    
+
     public $brand;
-    
+
     public $image;
 
     public $featured_image;
-    
+
     public $image_url = null;
 
     public $listeners = ['createBrand'];
@@ -68,8 +68,8 @@ class Create extends Component
 
             $img = Image::make($this->image->getRealPath())->encode('webp', 85);
 
-            // we need to resize image, otherwise it will be cropped 
-            if ($img->width() > $width) { 
+            // we need to resize image, otherwise it will be cropped
+            if ($img->width() > $width) {
                 $img->resize($width, null, function ($constraint) {
                     $constraint->aspectRatio();
                 });
@@ -78,7 +78,7 @@ class Create extends Component
             if ($img->height() > $height) {
                 $img->resize(null, $height, function ($constraint) {
                     $constraint->aspectRatio();
-                }); 
+                });
             }
 
             $img->resizeCanvas($width, $height, 'center', false, '#ffffff');
@@ -86,9 +86,9 @@ class Create extends Component
             $img->stream();
 
             Storage::disk('local_files')->put('brands/'.$imageName, $img, 'public');
-            
+
             $this->brand->image = $imageName;
-        } 
+        }
 
         if ($this->image) {
             // with str slug with name date
@@ -98,8 +98,8 @@ class Create extends Component
 
             $img = Image::make($this->image->getRealPath())->encode('webp', 85);
 
-            // we need to resize image, otherwise it will be cropped 
-            if ($img->width() > $width) { 
+            // we need to resize image, otherwise it will be cropped
+            if ($img->width() > $width) {
                 $img->resize($width, null, function ($constraint) {
                     $constraint->aspectRatio();
                 });
@@ -108,7 +108,7 @@ class Create extends Component
             if ($img->height() > $height) {
                 $img->resize(null, $height, function ($constraint) {
                     $constraint->aspectRatio();
-                }); 
+                });
             }
 
             $img->resizeCanvas($width, $height, 'center', false, '#ffffff');

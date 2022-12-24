@@ -74,18 +74,29 @@
                             <x-input.rich-text wire:model.lazy="product.description" id="description" />
                         </div>
 
-                        <div class="w-full px-4 my-4">
-                            <x-label for="image" :value="__('Product Image')" />
-                            <x-fileupload wire:model="image" :file="$image"
-                                accept="image/jpg,image/jpeg,image/png" />
-                            <x-input-error :messages="$errors->get('image')" for="image" class="mt-2" />
+                        <div class="w-full px-4 my-2">
+                            <x-media-upload 
+                            title="{{ __('Product Image') }}" 
+                            name="image" 
+                            wire:model="image" 
+                            :file="$image"
+                            :preview="$image"
+                            single
+                            types="PNG / JPEG / WEBP"
+                            fileTypes="image/*"  />
                         </div>
-
-                        <div class="w-full px-4 my-4">
-                            <x-label for="gallery" :value="__('Product Gallery')" />
-                            <x-fileupload wire:model="gallery" :file="$gallery"
-                                accept="image/jpg,image/jpeg,image/png" multiple />
-                            <x-input-error :messages="$errors->get('gallery')" for="gallery" class="mt-2" />
+    
+    
+                        <div class="w-full px-4 my-2">
+                            <x-media-upload 
+                            title="{{ __('Gallery') }}" 
+                            name="gallery" 
+                            wire:model="gallery" 
+                            :preview="$gallery"
+                            :file="$gallery"
+                            multiple 
+                            types="PNG / JPEG / WEBP"
+                            fileTypes="image/*"  />
                         </div>
                     </div>
 

@@ -71,7 +71,6 @@ class Index extends Component
         $this->selected = [];
     }
 
-
     public array $rules = [
         'blog.title' => ['required', 'string', 'max:255'],
         'blog.category_id' => ['required', 'integer'],
@@ -125,10 +124,8 @@ class Index extends Component
         $this->validate();
 
         if ($this->blog->save()) {
-            
             $this->editModal = false;
             $this->alert('success', __('Blog updated successfully'));
-
         } else {
             $this->alert('error', __('Blog not updated'));
         }

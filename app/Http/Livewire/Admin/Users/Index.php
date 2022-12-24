@@ -15,7 +15,7 @@ class Index extends Component
     use WithPagination, WithSorting, LivewireAlert;
 
     public $listeners = [
-        'refreshIndex' => '$refresh', 'showModal', 'editModal'
+        'refreshIndex' => '$refresh', 'showModal', 'editModal',
     ];
 
     public $showModal = false;
@@ -67,7 +67,6 @@ class Index extends Component
     {
         $this->selected = [];
     }
-
 
     public array $rules = [
         'user.name' => 'required|string|max:255',

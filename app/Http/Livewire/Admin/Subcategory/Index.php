@@ -18,7 +18,7 @@ class Index extends Component
     use LivewireAlert;
 
     public $listeners = [
-         'editModal', 'refreshIndex' => '$refresh',
+        'editModal', 'refreshIndex' => '$refresh',
     ];
 
     public int $perPage;
@@ -69,7 +69,6 @@ class Index extends Component
         $this->selected = [];
     }
 
-
     public array $rules = [
         'subcategory.name' => ['required', 'string', 'max:255'],
         'subcategory.category_id' => ['required', 'integer'],
@@ -119,11 +118,10 @@ class Index extends Component
         $this->validate();
 
         $this->subcategory->save();
-        
+
         $this->editModal = false;
-        
+
         $this->alert('success', __('Subcategory updated successfully'));
-        
     }
 
     public function delete(Subcategory $subcategory)

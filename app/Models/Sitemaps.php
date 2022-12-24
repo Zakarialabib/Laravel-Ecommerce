@@ -24,5 +24,4 @@ class Sitemaps extends Model
             ->hasCrawled($urls)
             ->writeToFile(public_path('sitemap.xml'));
     }
-    
 }

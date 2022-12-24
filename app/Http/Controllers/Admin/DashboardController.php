@@ -2,14 +2,15 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Models\{Blog, Order, Product, User};
 use App\Http\Controllers\Controller;
+use App\Models\Order;
+use App\Models\User;
+use Auth;
+use Carbon\Carbon;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use InvalidArgumentException;
-use Illuminate\Http\Request;
-use Carbon\Carbon;
 use Validator;
-use Auth;
 
 class DashboardController extends Controller
 {
@@ -19,7 +20,7 @@ class DashboardController extends Controller
             'today' => [
                 'countCustomers' => User::whereDate('created_at', '>=', Carbon::now())->count(),
                 'ordersCount' => Order::whereDate('created_at', '>=', Carbon::now())->count(),
-               'orderPending' => Order::where('status', '=', 1)->whereDate('created_at', '>=', Carbon::now())->count(),
+                'orderPending' => Order::where('status', '=', 1)->whereDate('created_at', '>=', Carbon::now())->count(),
                 'orderProcessing' => Order::where('status', '=', 2)->whereDate('created_at', '>=', Carbon::now())->count(),
                 'orderCompleted' => Order::where('status', '=', 3)->whereDate('created_at', '>=', Carbon::now())->count(),
             ],
@@ -55,9 +56,9 @@ class DashboardController extends Controller
             $days .= "'".date('d M', strtotime('-'.$i.' days'))."',";
 
             $sales .= "'".Order::where('status', '=', 3)->whereDate('created_at', '=', date('Y-m-d', strtotime('-'.$i.' days')))->count()."',";
-        }        
+        }
 
-        return view('admin.dashboard', compact('days','sales','customData','recentOrders','recentUsers'));
+        return view('admin.dashboard', compact('days', 'sales', 'customData', 'recentOrders', 'recentUsers'));
     }
 
     public function profile()

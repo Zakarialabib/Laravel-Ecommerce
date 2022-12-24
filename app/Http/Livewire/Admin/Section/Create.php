@@ -61,7 +61,7 @@ class Create extends Component
         $this->section->save();
 
         $this->emit('refreshIndex');
-        
+
         $this->alert('success', __('Section created successfully!'));
 
         $this->createSlider = false;

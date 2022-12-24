@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Admin\Slider;
 
+use App\Http\Livewire\Trix;
 use App\Http\Livewire\WithSorting;
 use App\Models\Language;
 use App\Models\Slider;
@@ -9,7 +10,6 @@ use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 use Livewire\WithPagination;
-use App\Http\Livewire\Trix;
 use Str;
 
 class Index extends Component
@@ -20,9 +20,9 @@ class Index extends Component
     public $slider;
 
     public $photo;
-    
+
     public $listeners = [
-        Trix::EVENT_VALUE_UPDATED ,
+        Trix::EVENT_VALUE_UPDATED,
         'refreshIndex' => '$refresh',
         'showModal', 'editModal',
     ];
@@ -81,7 +81,6 @@ class Index extends Component
     {
         $this->selected = [];
     }
-
 
     protected $rules = [
         'slider.title' => ['required', 'string', 'max:255'],

@@ -17,12 +17,12 @@ class User extends Authenticatable
 
     public $orderable = [
         'id', 'first_name', 'last_name',  'zip', 'city', 'state', 'country', 'address',
-        'phone', 'email', 'password','created_at', 'updated_at',
+        'phone', 'email', 'password', 'created_at', 'updated_at',
     ];
 
     protected $filterable = [
         'first_name', 'last_name',  'zip', 'city', 'state', 'country', 'address',
-        'phone', 'email', 'password', 'favorite_brands','created_at', 'updated_at',
+        'phone', 'email', 'password', 'favorite_brands', 'created_at', 'updated_at',
     ];
 
     /**
@@ -32,7 +32,7 @@ class User extends Authenticatable
      */
     protected $fillable = [
         'id', 'first_name', 'last_name',  'zip', 'city', 'state', 'country', 'address',
-        'phone', 'email', 'password','created_at', 'updated_at',
+        'phone', 'email', 'password', 'created_at', 'updated_at',
     ];
 
     /**

@@ -18,9 +18,9 @@ class Index extends Component
     public int $perPage;
 
     public $listeners = [
-         'showModal', 'editModal',
-         'refreshIndex' => '$refresh',
-        ];
+        'showModal', 'editModal',
+        'refreshIndex' => '$refresh',
+    ];
 
     public $showModal = false;
 
@@ -69,7 +69,6 @@ class Index extends Component
     {
         $this->selected = [];
     }
-
 
     public array $rules = [
         'currency.name' => 'required|string|max:255',

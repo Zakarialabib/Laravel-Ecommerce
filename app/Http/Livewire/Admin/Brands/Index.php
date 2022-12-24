@@ -7,13 +7,13 @@ use App\Imports\BrandsImport;
 use App\Models\Brand;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Str;
+use Image;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 use Livewire\WithPagination;
 use Maatwebsite\Excel\Facades\Excel;
 use Storage;
-use Image;
 
 class Index extends Component
 {
@@ -88,7 +88,6 @@ class Index extends Component
         $this->selected = [];
     }
 
-
     public function mount()
     {
         $this->sortBy = 'id';
@@ -141,8 +140,8 @@ class Index extends Component
 
             $img = Image::make($this->image->getRealPath())->encode('webp', 85);
 
-            // we need to resize image, otherwise it will be cropped 
-            if ($img->width() > $width) { 
+            // we need to resize image, otherwise it will be cropped
+            if ($img->width() > $width) {
                 $img->resize($width, null, function ($constraint) {
                     $constraint->aspectRatio();
                 });
@@ -151,7 +150,7 @@ class Index extends Component
             if ($img->height() > $height) {
                 $img->resize(null, $height, function ($constraint) {
                     $constraint->aspectRatio();
-                }); 
+                });
             }
 
             $img->resizeCanvas($width, $height, 'center', false, '#ffffff');

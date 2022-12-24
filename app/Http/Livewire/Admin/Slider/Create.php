@@ -2,14 +2,13 @@
 
 namespace App\Http\Livewire\Admin\Slider;
 
+use App\Http\Livewire\Trix;
 use App\Models\Language;
-use App\Models\Slider;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Str;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Livewire\Component;
 use Livewire\WithFileUploads;
-use App\Http\Livewire\Trix;
 
 class Create extends Component
 {
@@ -20,12 +19,12 @@ class Create extends Component
     public $slider;
 
     public $photo;
-    
+
     public $details;
 
     public $listeners = [
-        Trix::EVENT_VALUE_UPDATED ,
-        'createSlider'
+        Trix::EVENT_VALUE_UPDATED,
+        'createSlider',
     ];
 
     public array $listsForFields = [];

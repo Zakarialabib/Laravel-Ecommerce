@@ -2,11 +2,11 @@
 
 namespace App;
 
+use App\Models\Brand;
 use App\Models\Category;
 use App\Models\Currency;
 use App\Models\Settings;
 use App\Models\Subcategory;
-use App\Models\Brand;
 use Cache;
 use Str;
 
@@ -84,6 +84,7 @@ class Helpers
             'language' => '3',
         ])->id;
     }
+
     /**
      * Create Brand
      *
@@ -91,14 +92,13 @@ class Helpers
      */
     public static function createBrand($brand)
     {
-           // Make sure $brand is a string
+        // Make sure $brand is a string
         $brand = implode('', $brand);
 
         return Brand::create([
             'name' => $brand,
             'slug' => Str::slug($brand, '-'),
         ])->id;
-    
     }
 
     public static function format_currency($value, $format = true)
@@ -116,8 +116,9 @@ class Helpers
             : number_format((float) $value, 2, '.', ',').$symbol;
     }
 
-    public function handleUpload($input) {
-        if(is_array($input)) {
+    public function handleUpload($input)
+    {
+        if (is_array($input)) {
             // handle gallery
             $galleryArray = [];
             foreach ($input as $key => $value) {
@@ -125,12 +126,12 @@ class Helpers
                     $constraint->aspectRatio();
                     $constraint->upsize();
                 });
-    
+
                 $img->stream();
                 Storage::disk('local_files')->put('products/'.$value->getClientOriginalName(), $img, 'public');
                 $galleryArray[] = $value->getClientOriginalName();
             }
-    
+
             $this->product->gallery = json_encode($galleryArray);
         } else {
             // handle single image
@@ -145,6 +146,5 @@ class Helpers
 
             $this->product->image = $imageName;
         }
-    
     }
 }

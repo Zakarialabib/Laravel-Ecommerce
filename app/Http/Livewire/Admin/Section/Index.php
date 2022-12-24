@@ -5,10 +5,10 @@ namespace App\Http\Livewire\Admin\Section;
 use App\Models\Language;
 use App\Models\Section;
 use Illuminate\Http\Response;
-use Livewire\Component;
-use Livewire\WithPagination;
-use Livewire\WithFileUploads;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
+use Livewire\Component;
+use Livewire\WithFileUploads;
+use Livewire\WithPagination;
 
 class Index extends Component
 {
@@ -20,6 +20,7 @@ class Index extends Component
         'refreshIndex' => '$refresh',
         'showModal', 'editModal',
     ];
+
     public $refreshIndex;
 
     public $showModal = false;
@@ -82,7 +83,6 @@ class Index extends Component
         $this->selected = [];
     }
 
-
     protected function initListsForFields(): void
     {
         $this->listsForFields['languages'] = Language::pluck('name', 'id')->toArray();
@@ -117,17 +117,17 @@ class Index extends Component
       public function delete(Section $section)
       {
           abort_if(Gate::denies('section_delete'), Response::HTTP_FORBIDDEN, '403 Forbidden');
-          
+
           $section->delete();
 
-          $this->alert('warning', __('Section Deleted successfully!') );
+          $this->alert('warning', __('Section Deleted successfully!'));
       }
 
      // Section  Clone
      public function clone(Section $section)
      {
          $section_details = Section::find($section->id);
-         
+
          Section::create([
              'language_id' => $section_details->language_id,
              'page' => $section_details->page,
@@ -141,39 +141,39 @@ class Index extends Component
              'content' => $section_details->content,
              'status' => 0,
          ]);
-         $this->alert('success', __('Section Cloned successfully!') );
+         $this->alert('success', __('Section Cloned successfully!'));
      }
 
      public function editModal(Section $section)
      {
          $this->resetErrorBag();
- 
+
          $this->resetValidation();
- 
+
          $this->section = $section;
- 
+
          $this->editModal = true;
      }
- 
+
      public function update()
      {
          $this->validate();
          // if product selected Helpers::productLink($product)
- 
+
          if ($this->image) {
-            $imageName = Str::slug($this->section->title).'-'.date('Y-m-d H:i:s').'.'.$this->image->extension();
-            $this->image->storeAs('sections', $imageName);
-            $this->section->image = $imageName;
-        }
+             $imageName = Str::slug($this->section->title).'-'.date('Y-m-d H:i:s').'.'.$this->image->extension();
+             $this->image->storeAs('sections', $imageName);
+             $this->section->image = $imageName;
+         }
 
-        $this->section->save();
+         $this->section->save();
 
-        $this->alert('success', __('Section updated successfully!'));
- 
+         $this->alert('success', __('Section updated successfully!'));
+
          $this->refreshIndex();
- 
+
          $this->alert('success', __('Section updated successfully.'));
- 
+
          $this->editModal = false;
      }
 }

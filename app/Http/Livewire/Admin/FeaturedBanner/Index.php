@@ -23,7 +23,7 @@ class Index extends Component
 
     public $listeners = [
         'refreshIndex' => '$refresh',
-        'showModal', 'editModal',
+        'showModal', 'editModal', 'delete',
     ];
 
     public $showModal = false;
@@ -75,7 +75,6 @@ class Index extends Component
     {
         $this->selected = [];
     }
-
 
     protected $rules = [
         'featuredbanner.title' => ['required', 'string', 'max:255'],

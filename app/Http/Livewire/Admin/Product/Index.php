@@ -2,20 +2,17 @@
 
 namespace App\Http\Livewire\Admin\Product;
 
+use App\Http\Livewire\Trix;
 use App\Http\Livewire\WithSorting;
 use App\Models\Brand;
 use App\Models\Category;
 use App\Models\Product;
 use App\Models\Subcategory;
 use Illuminate\Support\Facades\Gate;
-use Image;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 use Livewire\WithPagination;
-use Storage;
-use Str;
-use App\Http\Livewire\Trix;
 
 class Index extends Component
 {
@@ -24,9 +21,9 @@ class Index extends Component
     public $product;
 
     public $listeners = [
-        Trix::EVENT_VALUE_UPDATED ,
+        Trix::EVENT_VALUE_UPDATED,
         'refreshIndex' => '$refresh',
-        'highlightModal',
+        'highlightModal', 'delete',
     ];
 
     public $description;
@@ -162,6 +159,15 @@ class Index extends Component
         $product->delete();
 
         $this->alert('success', __('Product deleted successfully.'));
+    }
+
+    public function deleteSelected(): void
+    {
+        abort_if(Gate::denies('product_delete'), 403);
+
+        Product::whereIn('id', $this->selected)->delete();
+
+        $this->resetSelected();
     }
 
     public function highlightModal(Product $product)

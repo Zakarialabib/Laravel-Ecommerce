@@ -31,7 +31,6 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => 'auth'], function () {
-    
     // change lang
     Route::get('/lang/{lang}', [DashboardController::class, 'changeLanguage'])->name('changelanguage');
 

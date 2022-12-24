@@ -107,45 +107,39 @@
         </div>
         
 
-        <div x-data="{ activeTab: 'description' }" class="container mx-auto px-4">
-            <div class="flex flex-wrap -mx-4 mb-10">
-                <div class="w-1/2 md:w-auto">
+        <div x-data="{ activeTab: 'description' }" class="container mx-auto px-4 border bg-white shadow-xl">
+            <div class="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 mb-10">
+                <div class="inline-block py-6 px-10 text-left font-bold font-heading text-gray-500 uppercase border-b-2 border-gray-100 hover:border-gray-500 focus:outline-none focus:border-gray-500">
                     <button @click="activeTab = 'description'"
-                        :class="activeTab === 'description' ? 'bg-orange-400 text-white' : ''"
-                        class="inline-block py-6 px-10 text-left font-bold font-heading text-gray-500 uppercase border-b-2 border-gray-100 hover:border-gray-500 focus:outline-none focus:border-gray-500">
+                        :class="activeTab === 'description' ? 'text-orange-400' : ''">
                         {{ __('Description') }}
                     </button>
                 </div>
-                <div class="w-1/2 md:w-auto">
-                    <button @click="activeTab = 'reviews'" :class="activeTab === 'reviews' ? 'bg-orange-400 text-white' : ''"
-                        class="inline-block py-6 px-10 text-left font-bold font-heading text-gray-500 uppercase border-b-2 border-gray-100 hover:border-gray-500 focus:outline-none focus:border-gray-500">
+                <div class="inline-block py-6 px-10 text-left font-bold font-heading text-gray-500 uppercase border-b-2 border-gray-100 hover:border-gray-500 focus:outline-none focus:border-gray-500">
+                    <button @click="activeTab = 'reviews'" :class="activeTab === 'reviews' ? 'text-orange-400' : ''">
                         {{ __('Reviews') }}
                     </button>
                 </div>
-                <div class="w-1/2 md:w-auto">
-                    <button @click="activeTab = 'shipping'" :class="activeTab === 'shipping' ? 'bg-orange-400 text-white' : ''"
-                        class="inline-block py-6 px-10 text-left font-bold font-heading text-gray-500 uppercase border-b-2 border-gray-100 hover:border-gray-500 focus:outline-none focus:border-gray-500">
+                <div class="inline-block py-6 px-10 text-left font-bold font-heading text-gray-500 uppercase border-b-2 border-gray-100 hover:border-gray-500 focus:outline-none focus:border-gray-500">
+                    <button @click="activeTab = 'shipping'" :class="activeTab === 'shipping' ? 'text-orange-400' : ''">
                         {{ __('Shipping & Returns') }}
                     </button>
                 </div>
-                <div class="w-1/2 md:w-auto">
-                    <button @click="activeTab = 'brands'" :class="activeTab === 'brands' ? 'bg-orange-400 text-white' : ''"
-                        class="inline-block py-6 px-10 text-left font-bold font-heading text-gray-500 uppercase border-b-2 border-gray-100 hover:border-gray-500 focus:outline-none focus:border-gray-500">
+                <div class="inline-block py-6 px-10 text-left font-bold font-heading text-gray-500 uppercase border-b-2 border-gray-100 hover:border-gray-500 focus:outline-none focus:border-gray-500">
+                    <button @click="activeTab = 'brands'" :class="activeTab === 'brands' ? 'text-orange-400' : ''">
                         {{ __('Product Brand') }}
                     </button>
                 </div>
             </div>
             <div x-show="activeTab === 'description'" class="px-5">
                 <div role="description" aria-labelledby="tab-0" id="tab-panel-0" tabindex="0">
-                    <h3 class="mb-8 text-3xl font-bold font-heading text-orange-500">{{ __('Description') }}</h3>
-                    <p class="max-w-2xl mb-8 text-gray-500 font-body">
+                    <p class="mb-8 max-w-2xl text-gray-500 font-body">
                         {!! $product->description !!}
                     </p>
                 </div>
             </div>
             <div x-show="activeTab === 'reviews'" class="px-5">
                 <div role="reviews" aria-labelledby="tab-1" id="tab-panel-1" tabindex="0">
-                    <h3 class="mb-8 text-3xl font-bold font-heading text-orange-500">{{ __('Reviews') }}</h3>
                     {{-- show review or  make review --}}
                     @if (auth()->check())
                         @if ($product->reviews->where('user_id', auth()->user()->id)->count() > 0)
@@ -163,9 +157,9 @@
                                     <textarea name="review" id="review" cols="30" rows="10"
                                         class="w-full p-4 border-2 border-gray-300 rounded-lg focus:outline-none focus:border-orange-500">{{ $product->reviews->where('user_id', auth()->user()->id)->first()->review }}</textarea>
                                 </div>
-                                <div class="flex items-center mt-4">
+                                <div class="flex items-center my-4">
                                     <button
-                                        class="px-8 py-2 text-white bg-orange-500 rounded-lg focus:outline-none">{{ __('Sebd Review') }}</button>
+                                        class="px-8 py-2 text-white bg-orange-500 rounded-lg focus:outline-none">{{ __('Send Review') }}</button>
                                 </div>
                             </div>
                         @else
@@ -181,7 +175,7 @@
                                     <textarea name="review" id="review" cols="30" rows="10"
                                         class="w-full p-4 border-2 border-gray-300 rounded-lg focus:outline-none focus:border-orange-500"></textarea>
                                 </div>
-                                <div class="flex items-center">
+                                <div class="flex items-center my-4">
                                     <button
                                         class="px-8 py-2 text-white bg-orange-500 rounded-lg focus:outline-none">{{ __('Send Review') }}</button>
                                 </div>
@@ -191,18 +185,13 @@
             </div>
             <div x-show="activeTab === 'shipping'" class="px-5">
                 <div role="shipping" aria-labelledby="tab-2" id="tab-panel-2" tabindex="0">
-                    <h3 class="mb-8 text-3xl font-bold font-heading text-orange-500">
-                        {{ __('Shipping & Returns') }}
-                    </h3>
-                    <p class="max-w-2xl mb-8 text-gray-500 font-body">
+                    <p class="mb-8 max-w-2xl text-gray-500 font-body">
                         {{-- {!! $product->shipping !!} --}}
                     </p>
-
                 </div>
             </div>
             <div x-show="activeTab === 'brands'" class="px-5">
-                <h3 class="mb-8 text-3xl font-bold font-heading text-orange-500">{{ __('Brand Products') }}</h3>
-                <div class="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3 -mx-2 px-2">
+                <div class="mb-8 grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3 -mx-2 px-2">
                     @foreach ($brand_products as $product)
                         <div class="bg-white rounded-lg shadow-2xl">
                             <div class="relative text-center">

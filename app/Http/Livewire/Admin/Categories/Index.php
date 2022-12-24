@@ -27,7 +27,7 @@ class Index extends Component
 
     public $listeners = [
         'refreshIndex' => '$refresh',
-         'editModal','importModal',
+        'editModal', 'importModal',
     ];
 
     public int $perPage;
@@ -82,7 +82,6 @@ class Index extends Component
     {
         $this->selected = [];
     }
-
 
     public function mount()
     {

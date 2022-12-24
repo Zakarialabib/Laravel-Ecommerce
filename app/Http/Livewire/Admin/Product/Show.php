@@ -3,15 +3,15 @@
 namespace App\Http\Livewire\Admin\Product;
 
 use App\Models\Product;
-use Livewire\Component;
 use Illuminate\Support\Facades\Gate;
+use Livewire\Component;
 
 class Show extends Component
 {
     public $product;
 
     public $listeners = [
-        'showModal'
+        'showModal',
     ];
 
     public $showModal = false;
@@ -19,7 +19,7 @@ class Show extends Component
     public function showModal($id)
     {
         abort_if(Gate::denies('product_show'), 403);
-        
+
         $this->product = Product::findOrFail($id);
 
         $this->showModal = true;

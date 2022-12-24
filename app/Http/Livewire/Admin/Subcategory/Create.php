@@ -54,15 +54,14 @@ class Create extends Component
     public function create()
     {
         $this->validate();
-        
+
         $this->subcategory->slug = Str::slug($this->subcategory->name);
 
         $this->subcategory->save();
-        
+
         $this->alert('success', __('Subcategory created successfully.'));
         $this->emit('refreshIndex');
         $this->createSubcategory = false;
-       
     }
 
     protected function initListsForFields(): void
