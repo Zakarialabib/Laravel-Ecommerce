@@ -9,13 +9,13 @@
                 <x-auth-validation-errors class="mb-4" :errors="$errors" />
                 <div>
                     <div class="flex flex-wrap -mx-2 mb-3">
-                        <div class="sm:w-full lg:w-1/2 px-3 mb-6 lg:mb-0">
+                        <div class="sm:w-full lg:w-1/2 px-3 ">
                             <x-label for="name" :value="__('Product Name')" required autofocus />
                             <x-input id="name" class="block mt-1 w-full" type="text" name="name"
                                 wire:model="product.name" required autofocus />
                             <x-input-error :messages="$errors->get('product.name')" for="product.name" class="mt-2" />
                         </div>
-                        <div class="sm:w-full lg:w-1/2 px-3 mb-6 lg:mb-0">
+                        <div class="sm:w-full lg:w-1/2 px-3 ">
                             <x-label for="code" :value="__('Product Code')" required />
                             <x-input id="code" class="block mt-1 w-full" type="text" name="code"
                                 wire:model="product.code" disabled required />
@@ -24,7 +24,7 @@
                     </div>
 
                     <div class="flex flex-wrap -mx-2 mb-3">
-                        <div class="sm:w-full lg:w-1/2 px-3 mb-6 lg:mb-0">
+                        <div class="sm:w-full lg:w-1/2 px-3 ">
                             <x-label for="category_id" :value="__('Category')" required />
                             <select
                                 class="block bg-white text-gray-700 rounded border border-gray-300 mb-1 text-sm w-full focus:shadow-outline-blue focus:border-blue-500"
@@ -36,7 +36,7 @@
                             </select>
                         </div>
 
-                        <div class="sm:w-full lg:w-1/2 px-3 mb-6 lg:mb-0">
+                        <div class="sm:w-full lg:w-1/2 px-3 ">
                             <x-label for="subcategory" :value="__('Subcategory')" />
                             <x-select-list
                                 class="block bg-white text-gray-700 rounded border border-gray-300 mb-1 text-sm w-full focus:shadow-outline-blue focus:border-blue-500"
@@ -45,7 +45,7 @@
                             <x-input-error :messages="$errors->get('subcategory_id')" for="subcategory_id" class="mt-2" />
                         </div>
 
-                        <div class="sm:w-full lg:w-1/2 px-3 mb-6 lg:mb-0">
+                        <div class="sm:w-full lg:w-1/2 px-3 ">
                             <x-label for="price" :value="__('Price')" required />
                             <x-input id="price" class="block mt-1 w-full" type="number" name="price"
                                 wire:model="product.price" required />
@@ -53,7 +53,7 @@
 
                         </div>
 
-                        <div class="sm:w-full lg:w-1/2 px-3 mb-6 lg:mb-0">
+                        <div class="sm:w-full lg:w-1/2 px-3 ">
                             <x-label for="old_price" :value="__('Old Price')" />
                             <x-input id="old_price" class="block mt-1 w-full" type="number" name="old_price"
                                 wire:model="product.old_price" />
@@ -61,12 +61,19 @@
 
                         </div>
 
-                        <div class="sm:w-full lg:w-1/2 px-3 mb-6 lg:mb-0">
+                        <div class="sm:w-full lg:w-1/2 px-3 ">
                             <x-label for="brand_id" :value="__('Brand')" />
                             <x-select-list
                                 class="block bg-white text-gray-700 rounded border border-gray-300 mb-1 text-sm w-full focus:shadow-outline-blue focus:border-blue-500"
                                 id="brand_id" name="brand_id" wire:model="product.brand_id"
                                 :options="$this->listsForFields['brands']" />
+                        </div>
+
+                        <div class="sm:w-full lg:w-1/2 px-3 ">
+                            <x-label for="video" :value="__('Condition')" />
+                            <x-input id="condition" class="block mt-1 w-full" type="text" name="condition"
+                                wire:model="product.condition" />
+                            <x-input-error :messages="$errors->get('product.condition')" for="product.condition" class="mt-2" />
                         </div>
 
                         <div class="w-full mb-4">
@@ -75,11 +82,12 @@
                         </div>
 
                         <div class="w-full px-4 my-2">
+                            <x-label for="image" :value="__('Product Image')" />
                             <x-media-upload 
                             title="{{ __('Product Image') }}" 
                             name="image" 
                             wire:model="image" 
-                            :file="$image"
+                            :file="$this->image"
                             :preview="$image"
                             single
                             types="PNG / JPEG / WEBP"
@@ -88,11 +96,12 @@
     
     
                         <div class="w-full px-4 my-2">
+                            <x-label for="gallery" :value="__('Gallery')" />
                             <x-media-upload 
                             title="{{ __('Gallery') }}" 
                             name="gallery" 
                             wire:model="gallery" 
-                            :preview="$gallery"
+                            :preview="$this->gallery"
                             :file="$gallery"
                             multiple 
                             types="PNG / JPEG / WEBP"

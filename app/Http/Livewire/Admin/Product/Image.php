@@ -28,11 +28,6 @@ class Image extends Component
         'imageModal', 'saveImage',
     ];
 
-    protected $rules = [
-        'image' => ['image', 'mimes:jpeg,png,jpg,gif,svg,webp'],
-        'gallery' => ['image', 'mimes:jpeg,png,jpg,gif,svg,webp'],
-    ];
-
     public $imageModal = false;
 
     public $width = 1000;
@@ -46,21 +41,22 @@ class Image extends Component
         $this->resetValidation();
 
         $this->product = Product::findOrFail($id);
-        $this->image = $this->product->image;
-        $this->gallery = $this->product->gallery;
+        
         $this->imageModal = true;
     }
-
-    public function mount()
+    
+    public function getImagePreviewProperty()
     {
-        // $this->product = Product::findOrFail($id);
-        // $this->image = $this->product->image;
+        return $this->product->image;
+    }
+
+    public function getGalleryPreviewProperty()
+    {
+        return $this->product->gallery;
     }
 
     public function saveImage()
     {
-        $this->validate();
-
         if ($this->image_url) {
             $image = file_get_contents($this->image_url);
             $imageName = Str::random(10).'.jpg';
@@ -73,7 +69,7 @@ class Image extends Component
         }
 
         if ($this->image) {
-            $imageName = Str::slug($this->product->name).'-'.Str::random(5).'.'.$this->image->extension();
+            $imageName = Str::slug($this->product->name).'-'.Str::random(5).'.jpg'.$this->image->extension();
 
             $img = ImageIntervention::make($this->image->getRealPath())->encode('webp', 85);
 
@@ -130,7 +126,7 @@ class Image extends Component
 
             $this->product->gallery = json_encode($gallery);
         }
-
+        
         $this->product->save();
 
         $this->alert('success', __('Product image updated successfully.'));

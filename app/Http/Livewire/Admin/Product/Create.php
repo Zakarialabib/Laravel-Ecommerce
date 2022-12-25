@@ -49,20 +49,30 @@ class Create extends Component
         'product.price' => ['required', 'numeric', 'max:2147483647'],
         'product.old_price' => ['required', 'numeric', 'max:2147483647'],
         'description' => ['nullable'],
-        'image' => ['image', 'mimes:jpeg,png,jpg,gif,svg,webp'],
-        'gallery' => ['nullable'],
         'product.meta_title' => ['nullable', 'string', 'max:255'],
         'product.meta_description' => ['nullable', 'string', 'max:255'],
         'product.meta_keywords' => ['nullable', 'string', 'min:1'],
         'product.category_id' => ['required', 'integer'],
         'product.subcategory_id' => ['required', 'integer'],
+        'product.brand_id' => ['nullable', 'integer'],
         'product.embeded_video' => ['nullable'],
+        'product.condition' => ['nullable'],
     ];
 
     public function mount(Product $product)
     {
         $this->product = $product;
         $this->initListsForFields();
+    }
+
+    public function getImagePreviewProperty()
+    {
+        return $this->product->image;
+    }
+
+    public function getGalleryPreviewProperty()
+    {
+        return $this->product->gallery;
     }
 
     public function render()
@@ -77,37 +87,6 @@ class Create extends Component
         $this->resetValidation();
 
         $this->createProduct = true;
-    }
-
-    // make image upload from url
-    public function uploadImage()
-    {
-        $this->validate([
-            'uploadLink' => 'required|url',
-        ]);
-
-        $image = file_get_contents($this->uploadLink);
-        $name = Str::random(10).'.jpg';
-        $path = public_path().'/images/products/'.$name;
-        file_put_contents($path, $image);
-        $this->product->image = $name;
-        $this->product->save();
-        $this->alert('success', 'Image Uploaded Successfully');
-    }
-
-    // make gallery upload from url
-    public function uploadGallery()
-    {
-        $this->validate([
-            'uploadLink' => 'required|url',
-        ]);
-
-        $image = file_get_contents($this->uploadLink);
-        $name = Str::random(10).'.jpg';
-        $path = public_path().'/images/products/'.$name;
-        file_put_contents($path, $image);
-        $this->gallery[] = $name;
-        $this->alert('success', 'Image Uploaded Successfully');
     }
 
     public function create()

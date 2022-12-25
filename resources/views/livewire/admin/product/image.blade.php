@@ -21,12 +21,13 @@
                         <x-input-error :messages="$errors->get('product.embeded_video')" for="product.embeded_video" class="mt-2" />
                     </div>
                     <div class="w-full px-4 my-2">
+                        <x-label for="image" :value="__('Product Image')" />
                         <x-media-upload 
                         title="{{ __('Product Image') }}" 
                         name="image" 
                         wire:model="image" 
                         :file="$image"
-                        :preview="$image"
+                        :preview="$this->image"
                         single
                         types="PNG / JPEG / WEBP"
                         fileTypes="image/*"  />
@@ -34,11 +35,12 @@
 
 
                     <div class="w-full px-4 my-2">
+                        <x-label for="gallery" :value="__('Gallery')" />
                         <x-media-upload 
                         title="{{ __('Gallery') }}" 
                         name="gallery" 
                         wire:model="gallery" 
-                        :preview="$gallery"
+                        :preview="$this->gallery"
                         :file="$gallery"
                         multiple 
                         types="PNG / JPEG / WEBP"

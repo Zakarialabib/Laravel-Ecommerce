@@ -105,6 +105,11 @@
                                     <i class="fas fa-eye"></i>
                                     {{ __('Highlighted') }}
                                 </x-dropdown-link>
+                                <x-dropdown-link wire:click="clone({{ $product->id }})"
+                                    wire:loading.attr="disabled">
+                                    <i class="fas fa-clone"></i>
+                                    {{ __('Clone') }}
+                                </x-dropdown-link>
                                 <x-dropdown-link wire:click="$emit('showModal',{{ $product->id }})"
                                     wire:loading.attr="disabled">
                                     <i class="fas fa-eye"></i>

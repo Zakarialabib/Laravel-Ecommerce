@@ -10,12 +10,8 @@
                     x-on:livewire-upload-progress="progress = $event.detail.progress">
 
             {{-- Form File picker --}}
-            <input type="file" class="hidden" accept="{{ $rules ?? '' }}" {{ ($multiple ?? false) ? 'multiple':'' }}
-                @if ( $defer ?? true )
-                    wire:model.defer='{{ $attributes->wire('model')->value }}'
-                @else
-                    wire:model='{{ $attributes->wire('model')->value }}'
-                @endif
+            <input type="file" class="hidden" accept="{{ $rules ?? '' }}" {{ ($multiple ?? false) ? 'multiple':'' }} 
+                            wire:model='{{ $attributes->wire('model')->value }}'
             />
 
             @if ($multiple)

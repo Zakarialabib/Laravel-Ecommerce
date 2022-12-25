@@ -73,6 +73,16 @@ class Edit extends Component
         $this->listsForFields['subcategories'] = Subcategory::pluck('name', 'id')->toArray();
     }
 
+    public function getImagePreviewProperty()
+    {
+        return $this->product->image;
+    }
+
+    public function getGalleryPreviewProperty()
+    {
+        return $this->product->gallery;
+    }
+
     public function getCategoriesProperty()
     {
         return Category::select('id', 'name')
@@ -88,6 +98,9 @@ class Edit extends Component
         $this->resetValidation();
 
         $this->product = Product::findOrFail($id);
+        
+        $this->image = $this->product->image;
+        $this->gallery = $this->product->gallery;
 
         $this->editModal = true;
     }
@@ -98,7 +111,7 @@ class Edit extends Component
 
         $this->validate();
 
-        if ($this->image) {
+        if (!empty($this->image)) {
             $imageName = Str::slug($this->product->name).'-'.Str::random(5).'.'.$this->image->extension();
 
             $img = Image::make($this->image->getRealPath())->encode('webp', 85);
@@ -126,7 +139,7 @@ class Edit extends Component
         }
 
         // gallery image
-        if ($this->gallery) {
+        if (!empty($this->gallery)) {
             $gallery = [];
             foreach ($this->gallery as $key => $value) {
                 $image = $value;

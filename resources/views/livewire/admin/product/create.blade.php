@@ -69,17 +69,34 @@
                                 id="brand_id" name="brand_id" wire:model="product.brand_id" :options="$this->listsForFields['brands']" />
                         </div>
 
+                        <div class="lg:w-1/3 sm:w-1/2 px-2">
+                            <x-label for="video" :value="__('Condition')" />
+                            <x-input id="condition" class="block mt-1 w-full" type="text" name="condition"
+                                wire:model="product.condition" />
+                            <x-input-error :messages="$errors->get('product.condition')" for="product.condition" class="mt-2" />
+                        </div>
+
+                        <div class="w-full px-4 my-2">
+                            <x-label for="image" :value="__('Product Image')" />
+                            <x-media-upload title="{{ __('Product Image') }}" name="image" wire:model="image"
+                                :file="$image" single types="PNG / JPEG / WEBP" fileTypes="image/*" />
+                        </div>
+
+                        <div class="w-full px-4 my-2">
+                            <x-label for="gallery" :value="__('Gallery')" />
+                            <x-media-upload title="{{ __('Gallery') }}" name="gallery" wire:model="gallery"
+                                :file="$gallery" multiple types="PNG / JPEG / WEBP" fileTypes="image/*" />
+                        </div>
+
                     </div>
 
                     <x-accordion title="{{ 'More Details' }}">
                         <div class="flex flex-wrap -mx-2 mb-3">
-
                             <div class="lg:w-1/3 sm:w-1/2 px-2">
                                 <x-label for="meta_title" :value="__('Meta Title')" />
                                 <x-input id="meta_title" class="block mt-1 w-full" type="number" name="meta_title"
                                     wire:model="product.meta_title" />
                                 <x-input-error :messages="$errors->get('meta_title')" for="meta_title" class="mt-2" />
-
                             </div>
 
                             <div class="lg:w-1/3 sm:w-1/2 px-2">
@@ -87,7 +104,6 @@
                                 <x-input id="meta_description" class="block mt-1 w-full" type="number"
                                     name="meta_description" wire:model="product.meta_description" />
                                 <x-input-error :messages="$errors->get('meta_description')" for="meta_description" class="mt-2" />
-
                             </div>
 
                             <div class="lg:w-1/3 sm:w-1/2 px-2">
@@ -97,38 +113,13 @@
                                 <x-input-error :messages="$errors->get('meta_keywords')" for="meta_keywords" class="mt-2" />
                             </div>
                         </div>
-
+                        <div class="w-full px-2">
+                            <x-label for="video" :value="__('Embeded Video')" />
+                            <x-input id="embeded_video" class="block mt-1 w-full" type="text"
+                                name="embeded_video" wire:model="product.embeded_video" />
+                            <x-input-error :messages="$errors->get('product.embeded_video')" for="product.embeded_video" class="mt-2" />
+                        </div>
                     </x-accordion>
-
-                    <div class="w-full px-2">
-                        <x-label for="video" :value="__('Embeded Video')" />
-                        <x-input id="embeded_video" class="block mt-1 w-full" type="text" name="embeded_video"
-                            wire:model="product.embeded_video" />
-                        <x-input-error :messages="$errors->get('product.embeded_video')" for="product.embeded_video" class="mt-2" />
-                    </div>
-
-                    <div class="w-full px-4 my-2">
-                        <x-media-upload 
-                        title="{{ __('Product Image') }}" 
-                        name="image" 
-                        wire:model="image" 
-                        :file="$image"
-                        single
-                        types="PNG / JPEG / WEBP"
-                        fileTypes="image/*"  />
-                    </div>
-
-
-                    <div class="w-full px-4 my-2">
-                        <x-media-upload 
-                        title="{{ __('Gallery') }}" 
-                        name="gallery" 
-                        wire:model="gallery" 
-                        :file="$gallery"
-                        multiple 
-                        types="PNG / JPEG / WEBP"
-                        fileTypes="image/*"  />
-                    </div>
 
                     <div class="flex justify-content w-full px-4">
                         <x-button primary type="submit" wire:loading.attr="disabled" class="blockk">

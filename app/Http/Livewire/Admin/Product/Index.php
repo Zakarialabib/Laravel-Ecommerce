@@ -229,4 +229,27 @@ class Index extends Component
         $this->listsForFields['brands'] = Brand::pluck('name', 'id')->toArray();
         $this->listsForFields['subcategories'] = Subcategory::pluck('name', 'id')->toArray();
     }
+
+     // Product  Clone
+     public function clone(Product $product)
+     {
+         $product_details = Product::find($product->id);
+         // dd($product_details);
+         Product::create([
+             'code' => $product_details->code,
+             'slug' => $product_details->slug,
+             'name' => $product_details->name,
+             'price' => $product_details->price,
+             'description' => $product_details->description,
+             'meta_title' => $product_details->meta_title,
+             'meta_description' => $product_details->meta_description,
+             'meta_keywords' => $product_details->meta_keywords,
+             'category_id' => $product_details->category_id,
+             'subcategory_id' => $product_details->subcategory_id,
+             'brand_id' => $product_details->brand_id,
+             'status' => 0,
+         ]);
+         
+         $this->alert('success', __('Product Cloned successfully!') );
+     }
 }
