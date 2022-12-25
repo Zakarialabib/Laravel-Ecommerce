@@ -57,7 +57,7 @@
                         <div class="w-full lg:w-1/2 px-3 mb-6 lg:mb-0">
                             <x-label for="old_price" :value="__('Old Price')" required />
                             <x-input id="old_price" class="block mt-1 w-full" type="number" name="old_price"
-                                wire:model="product.old_price" required />
+                                wire:model="product.old_price" />
                             <x-input-error :messages="$errors->get('old_price')" for="old_price" class="mt-2" />
 
                         </div>
