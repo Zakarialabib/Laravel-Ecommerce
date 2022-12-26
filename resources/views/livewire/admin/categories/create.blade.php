@@ -11,9 +11,6 @@
 
             <form wire:submit.prevent="create">
                 <div>
-                    <input id="code" type="text" name="code" class="block mt-1 w-full"
-                        wire:model.defer="category.code" />
-
                     <div class="my-4">
                         <x-label for="name" :value="__('Name')" />
                         <x-input id="name" class="block mt-1 w-full" type="text" name="name"

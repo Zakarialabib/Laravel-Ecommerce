@@ -36,9 +36,6 @@
                 <input wire:model="selectPage" type="checkbox" />
             </x-table.th>
             <x-table.th>
-                {{ __('Code') }}
-            </x-table.th>
-            <x-table.th>
                 {{ __('Name') }}
             </x-table.th>
             <x-table.th>
@@ -54,9 +51,6 @@
                 <x-table.tr wire:loading.class.delay="opacity-50" wire:key="row-{{ $category->id }}">
                     <x-table.td>
                         <input type="checkbox" value="{{ $category->id }}" wire:model="selected">
-                    </x-table.td>
-                    <x-table.td>
-                        {{ $category->code }}
                     </x-table.td>
                     <x-table.td>
                         {{ $category->name }}
@@ -104,15 +98,8 @@
             <!-- Validation Errors -->
             <x-auth-validation-errors class="mb-4" :errors="$errors" />
             <form wire:submit.prevent="update">
-                <div class="space-y-4 px-4">
-                    <div class="mt-4 w-full">
-                        <x-label for="code" :value="__('Code')" />
-                        <x-input id="code" class="block mt-1 w-full" type="text" name="code" disabled
-                            wire:model.defer="category.code" />
-                        <x-input-error :messages="$errors->get('category.code')" for="category.code" class="mt-2" />
-                    </div>
-
-                    <div class="mt-4 p w-full">
+                <div class="px-4">
+                    <div class="mt-4 py-2 w-full">
                         <x-label for="name" :value="__('Name')" />
                         <x-input id="name" class="block mt-1 w-full" type="text" name="name"
                             wire:model.defer="category.name" />

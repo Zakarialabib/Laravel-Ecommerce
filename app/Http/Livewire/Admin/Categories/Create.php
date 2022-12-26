@@ -19,19 +19,12 @@ class Create extends Component
     public $image;
 
     public array $rules = [
-        'category.code' => '',
         'category.name' => 'required',
     ];
-
-    public function generateCode()
-    {
-        $this->category->code = Str::random(5);
-    }
 
     public function mount(Category $category)
     {
         $this->category = $category;
-        $this->category->code = $this->category->code ?? $this->generateCode();
     }
 
     public function render()

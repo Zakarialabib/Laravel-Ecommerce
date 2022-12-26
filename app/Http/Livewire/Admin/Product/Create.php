@@ -41,7 +41,7 @@ class Create extends Component
 
     public function onTrixValueUpdate($value)
     {
-        $this->product->description = $value;
+        $this->description = $value;
     }
 
     protected $rules = [

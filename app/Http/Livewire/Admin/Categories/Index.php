@@ -19,8 +19,6 @@ class Index extends Component
 
     public $category;
 
-    public $code;
-
     public $name;
 
     public $image;
@@ -59,7 +57,6 @@ class Index extends Component
     ];
 
     public array $rules = [
-        'category.code' => '',
         'category.name' => 'required',
     ];
 
@@ -107,7 +104,7 @@ class Index extends Component
 
     public function editModal(Category $category)
     {
-        abort_if(Gate::denies('category_edit'), 403);
+        //abort_if(Gate::denies('category_edit'), 403);
 
         $this->resetErrorBag();
 
@@ -120,7 +117,7 @@ class Index extends Component
 
     public function update()
     {
-        abort_if(Gate::denies('category_edit'), 403);
+        //abort_if(Gate::denies('category_edit'), 403);
 
         $this->validate();
 

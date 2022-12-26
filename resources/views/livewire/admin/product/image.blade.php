@@ -27,7 +27,7 @@
                         name="image" 
                         wire:model="image" 
                         :file="$image"
-                        :preview="$this->image"
+                        :preview="$this->imagepreview"
                         single
                         types="PNG / JPEG / WEBP"
                         fileTypes="image/*"  />
@@ -40,7 +40,7 @@
                         title="{{ __('Gallery') }}" 
                         name="gallery" 
                         wire:model="gallery" 
-                        :preview="$this->gallery"
+                        :preview="$this->gallerypreview"
                         :file="$gallery"
                         multiple 
                         types="PNG / JPEG / WEBP"

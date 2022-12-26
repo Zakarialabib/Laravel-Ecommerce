@@ -16,10 +16,10 @@
                             <x-input-error :messages="$errors->get('product.name')" for="product.name" class="mt-2" />
                         </div>
                         <div class="sm:w-full lg:w-1/2 px-3 ">
-                            <x-label for="code" :value="__('Product Code')" required />
-                            <x-input id="code" class="block mt-1 w-full" type="text" name="code"
-                                wire:model="product.code" disabled required />
-                            <x-input-error :messages="$errors->get('product.code')" for="product.code" class="mt-2" />
+                            <x-label for="slug" :value="__('Product Slug')" required />
+                            <x-input id="slug" class="block mt-1 w-full" type="text" name="slug"
+                                wire:model="product.slug" required />
+                            <x-input-error :messages="$errors->get('product.slug')" for="product.code" class="mt-2" />
                         </div>
                     </div>
 
@@ -87,8 +87,8 @@
                             title="{{ __('Product Image') }}" 
                             name="image" 
                             wire:model="image" 
-                            :file="$this->image"
-                            :preview="$image"
+                            :file="$image"
+                            :preview="$this->imagepreview"
                             single
                             types="PNG / JPEG / WEBP"
                             fileTypes="image/*"  />
@@ -101,7 +101,7 @@
                             title="{{ __('Gallery') }}" 
                             name="gallery" 
                             wire:model="gallery" 
-                            :preview="$this->gallery"
+                            :preview="$this->gallerypreview"
                             :file="$gallery"
                             multiple 
                             types="PNG / JPEG / WEBP"

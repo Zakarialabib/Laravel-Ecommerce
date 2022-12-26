@@ -17,12 +17,6 @@
                         <div class="font-light text-gray-500">
                             <p>Type: {{ Str::upper($tempFile->extension()) }}</p>
                             <p>Filename: {{ $tempFile->getClientOriginalName() }}</p>
-                            <button wire:key="remove-preview-{{ $tempFile->getClientOriginalName() }}"
-                                wire:loading.attr="disabled" type="button"
-                                wire:click="$set('{{ $attributes->wire('model')->value }}', '{{ $tempFile->getClientOriginalName() }}')"
-                                class="px-2 mt-2 text-xs text-red-400 border border-red-400 rounded">
-                                {{ __('Remove') }}
-                            </button>
                         </div>
                     </div>
                 @endforeach
@@ -33,12 +27,6 @@
                             <img src="{{ asset('images/products/' . $photo) }}" class="w-20 h-20">
                             <div class="font-light text-gray-500">
                                 <p>Filename: {{ $photo }}</p>
-                                <button wire:key="remove-{{ $photo }}" wire:loading.attr="disabled"
-                                    type="button"
-                                    wire:click="$set('{{ $attributes->wire('model')->value }}', '{{ $photo }}')"
-                                    class="px-2 mt-2 text-xs text-red-400 border border-red-400 rounded">
-                                    {{ __('Remove') }}
-                                </button>
                             </div>
                         </div>
                     @empty
@@ -68,11 +56,6 @@
                         <div class="font-light text-gray-500">
                             <p>Type: {{ Str::upper($file->extension()) }}</p>
                             <p>Filename: {{ $file->getClientOriginalName() }}</p>
-                            <button type="button"
-                                wire:click="$set('{{ $attributes->wire('model')->value }}', '{{ $file->getClientOriginalName() }}')"
-                                class="px-2 mt-2 text-xs text-red-400 border border-red-400 rounded">
-                                {{ __('Remove') }}
-                            </button>
                         </div>
                     </div>
                     <div class="relative block leading-tight bg-white hover:bg-gray-100 cursor-pointer inline-flex items-center transition duration-500 ease-in-out group overflow-hidden border-2 w-full pl-3 pr-4 py-2 border-dashed"

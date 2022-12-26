@@ -21,12 +21,9 @@ class Index extends Component
     public $product;
 
     public $listeners = [
-        Trix::EVENT_VALUE_UPDATED,
         'refreshIndex' => '$refresh',
         'highlightModal', 'delete',
     ];
-
-    public $description;
 
     public $highlightModal = false;
 
@@ -66,12 +63,6 @@ class Index extends Component
 
     public array $listsForFields = [];
 
-    public $image;
-
-    public $image_url = null;
-
-    public $gallery = [];
-
     protected $queryString = [
         'search' => [
             'except' => '',
@@ -103,26 +94,6 @@ class Index extends Component
     {
         $this->selected = [];
     }
-
-    public function onTrixValueUpdate($value)
-    {
-        $this->product->description = $value;
-    }
-
-    protected $rules = [
-        'product.code' => ['nullable'],
-        'product.name' => ['required', 'string', 'max:255'],
-        'product.price' => ['required', 'numeric', 'max:2147483647'],
-        'product.old_price' => ['nullable', 'numeric', 'max:2147483647'],
-        'product.description' => ['nullable'],
-        'product.meta_title' => ['nullable', 'string', 'max:255'],
-        'product.meta_description' => ['nullable', 'string', 'max:255'],
-        'product.meta_keywords' => ['nullable', 'string', 'min:1'],
-        'product.category_id' => ['required', 'integer'],
-        'product.subcategory_id' => ['nullable', 'integer'],
-        'product.brand_id' => ['required', 'integer'],
-        'product.embeded_video' => ['nullable'],
-    ];
 
     public function mount()
     {
