@@ -169,8 +169,15 @@
                             <x-input-error :messages="$errors->get('slider.link')" for="slider.link" class="mt-2" />
                         </div>
                         <div class="w-full py-2 px-3">
+                            <x-label for="video" :value="__('Embeded Video')" />
+                            <x-input id="embeded_video" class="block mt-1 w-full" type="text" name="embeded_video"
+                                wire:model="slider.embeded_video" />
+                            <x-input-error :messages="$errors->get('slider.embeded_video')" for="slider.link" class="mt-2" />
+                        </div>
+                        <div class="w-full py-2 px-3">
                             <x-label for="photo" :value="__('Image')" />
-                            <x-fileupload wire:model="photo" :file="$photo" accept="image/jpg,image/jpeg,image/png" />
+                            <x-fileupload wire:model="photo" :file="$photo"
+                                accept="image/jpg,image/jpeg,image/png" />
                             <x-input-error :messages="$errors->get('photo')" for="photo" class="mt-2" />
                         </div>
                         <div class="w-full px-3">

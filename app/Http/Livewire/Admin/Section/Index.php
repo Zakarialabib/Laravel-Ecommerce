@@ -9,10 +9,14 @@ use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 use Livewire\WithPagination;
+use App\Http\Livewire\WithSorting;
 
 class Index extends Component
 {
-    use WithPagination, LivewireAlert, WithFileUploads;
+    use WithPagination, 
+        LivewireAlert, 
+        WithSorting, 
+        WithFileUploads;
 
     public $image;
 
