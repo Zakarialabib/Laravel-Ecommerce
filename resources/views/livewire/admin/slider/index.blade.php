@@ -182,7 +182,7 @@
                             name="photo" 
                             wire:model="photo" 
                             :file="$photo"
-                            :preview="$this->photopreview"
+                            {{-- :preview="$this->photopreview" --}}
                             single
                             types="PNG / JPEG / WEBP"
                             fileTypes="image/*"  />
