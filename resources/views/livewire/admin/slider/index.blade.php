@@ -175,11 +175,24 @@
                             <x-input-error :messages="$errors->get('slider.embeded_video')" for="slider.link" class="mt-2" />
                         </div>
                         <div class="w-full py-2 px-3">
+                            <x-label for="image" :value="__('Image')" />
+                            <x-media-upload 
+                            title="{{ __('Image') }}" 
+                            name="photo" 
+                            wire:model="photo" 
+                            :file="$photo"
+                            {{-- :preview="$this->imagepreview" --}}
+                            single
+                            types="PNG / JPEG / WEBP"
+                            fileTypes="image/*"  />
+                        </div>
+    
+                        {{-- <div class="w-full py-2 px-3">
                             <x-label for="photo" :value="__('Image')" />
                             <x-fileupload wire:model="photo" :file="$photo"
                                 accept="image/jpg,image/jpeg,image/png" />
                             <x-input-error :messages="$errors->get('photo')" for="photo" class="mt-2" />
-                        </div>
+                        </div> --}}
                         <div class="w-full px-3">
                             <x-button primary class="block" type="submit" wire:loading.attr="disabled">
                                 {{ __('Update') }}
