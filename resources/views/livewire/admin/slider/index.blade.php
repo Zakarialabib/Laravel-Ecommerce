@@ -152,8 +152,8 @@
                         </div>
                         <div class="xl:w-1/2 md:w-1/2 px-3">
                             <x-label for="details" :value="__('Details')" />
-                            <x-input.rich-text wire:model.lazy="slider.details" id="details" />
-                            <x-input-error :messages="$errors->get('slider.details')" for="slider.details" class="mt-2" />
+                            <x-input.rich-text wire:model.lazy="details" id="details" />
+                            <x-input-error :messages="$errors->get('details')" for="details" class="mt-2" />
                         </div>
                         <div class="xl:w-1/2 md:w-1/2 px-3">
                             <x-label for="bg_color" :value="__('Background Color')" />
@@ -174,6 +174,7 @@
                                 wire:model="slider.embeded_video" />
                             <x-input-error :messages="$errors->get('slider.embeded_video')" for="slider.link" class="mt-2" />
                         </div>
+                        
                         <div class="w-full py-2 px-3">
                             <x-label for="image" :value="__('Image')" />
                             <x-media-upload 
@@ -181,18 +182,12 @@
                             name="photo" 
                             wire:model="photo" 
                             :file="$photo"
-                            {{-- :preview="$this->imagepreview" --}}
+                            :preview="$this->photopreview"
                             single
                             types="PNG / JPEG / WEBP"
                             fileTypes="image/*"  />
                         </div>
-    
-                        {{-- <div class="w-full py-2 px-3">
-                            <x-label for="photo" :value="__('Image')" />
-                            <x-fileupload wire:model="photo" :file="$photo"
-                                accept="image/jpg,image/jpeg,image/png" />
-                            <x-input-error :messages="$errors->get('photo')" for="photo" class="mt-2" />
-                        </div> --}}
+
                         <div class="w-full px-3">
                             <x-button primary class="block" type="submit" wire:loading.attr="disabled">
                                 {{ __('Update') }}

@@ -8,15 +8,15 @@
                         <option value="{{ $value }}">{{ $value }}</option>
                     @endforeach
                 </select>
-            
-            @if ($this->selectedCount)
-                <p class="text-sm leading-5">
-                    <span class="font-medium">
-                        {{ $this->selectedCount }}
-                    </span>
-                    {{ __('Entries selected') }}
-                </p>
-            @endif
+
+                @if ($this->selectedCount)
+                    <p class="text-sm leading-5">
+                        <span class="font-medium">
+                            {{ $this->selectedCount }}
+                        </span>
+                        {{ __('Entries selected') }}
+                    </p>
+                @endif
             </div>
         </div>
         <div class="lg:w-1/2 md:w-1/2 sm:w-full my-2 my-md-0">
@@ -106,11 +106,9 @@
                                 wire:loading.attr="disabled">
                                 <i class="fas fa-edit"></i>
                             </x-button>
-                            {{ __('Edit') }}
-                            </x-button>
                             <x-button danger type="button" wire:click="confirm('delete', {{ $section->id }})"
                                 wire:loading.attr="disabled">
-                                {{ __('Delete') }}
+                                <i class="fas fa-trash-alt"></i>
                             </x-button>
                             <x-button warning type="button" wire:click="confirm('clone', {{ $section->id }})"
                                 wire:loading.attr="disabled">

@@ -85,7 +85,7 @@ class Index extends Component
     protected $rules = [
         'slider.title' => ['required', 'string', 'max:255'],
         'slider.subtitle' => ['nullable', 'string'],
-        'slider.details' => ['nullable', 'string'],
+        'details' => ['nullable', 'string'],
         'slider.link' => ['nullable', 'string'],
         'slider.language_id' => ['nullable', 'integer'],
         'slider.bg_color' => ['nullable', 'string'],
@@ -115,6 +115,11 @@ class Index extends Component
         return view('livewire.admin.slider.index', compact('sliders'));
     }
 
+    public function getPhotoPreviewProperty()
+    {
+        return $this->slider->image;
+    }
+
     public function setFeatured($id)
     {
         Slider::where('featured', '=', true)->update(['featured' => false]);
@@ -123,7 +128,6 @@ class Index extends Component
         $slider->save();
 
         $this->alert('success', __('Slider featured successfully!'));
-        // $this->refreshIndex();
     }
 
     public function editModal(Slider $slider)
@@ -140,7 +144,6 @@ class Index extends Component
     public function update()
     {
         $this->validate();
-        // upload image if it does or doesn't exist
 
         if ($this->photo) {
             $imageName = Str::slug($this->slider->title).'.'.$this->photo->extension();
@@ -149,8 +152,6 @@ class Index extends Component
         }
 
         $this->slider->save();
-
-        // $this->refreshIndex();
 
         $this->alert('success', __('Slider updated successfully.'));
 

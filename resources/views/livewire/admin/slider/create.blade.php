@@ -11,7 +11,7 @@
 
             <form wire:submit.prevent="create">
                 <div class="flex flex-wrap -mx-3 space-y-0">
-                    
+
                     <div class="xl:w-1/2 md:w-1/2 px-3">
                         <x-label for="title" :value="__('Title')" />
                         <x-input id="title" class="block mt-1 w-full" type="text" name="title"
@@ -42,19 +42,19 @@
                             wire:model.defer="slider.bg_color" />
                         <x-input-error :messages="$errors->get('slider.bg_color')" for="slider.bg_color" class="mt-2" />
                     </div>
-                    
+
                     <div class="xl:w-1/2 md:w-1/2 px-3">
                         <x-label for="link" :value="__('Link')" />
                         <x-input id="link" class="block mt-1 w-full" type="text" name="link"
                             wire:model.defer="slider.link" />
                         <x-input-error :messages="$errors->get('slider.link')" for="slider.link" class="mt-2" />
                     </div>
-                    
+
                     <div class="w-full px-3">
                         <x-label for="video" :value="__('Embeded Video')" />
-                        <x-input id="embeded_video" class="block mt-1 w-full" type="text"
-                                    name="embeded_video" wire:model="slider.embeded_video" />
-                                    <x-input-error :messages="$errors->get('slider.embeded_video')" for="slider.link" class="mt-2" />
+                        <x-input id="embeded_video" class="block mt-1 w-full" type="text" name="embeded_video"
+                            wire:model="slider.embeded_video" />
+                        <x-input-error :messages="$errors->get('slider.embeded_video')" for="slider.link" class="mt-2" />
                     </div>
 
                     <div class="w-full py-2 px-3">
