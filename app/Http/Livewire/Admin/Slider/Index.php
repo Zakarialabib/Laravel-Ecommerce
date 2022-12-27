@@ -115,10 +115,10 @@ class Index extends Component
         return view('livewire.admin.slider.index', compact('sliders'));
     }
 
-    public function getPhotoPreviewProperty()
-    {
-        return $this->slider->photo;
-    }
+    // public function getPhotoPreviewProperty()
+    // {
+    //     return $this->slider->photo;
+    // }
 
     public function setFeatured($id)
     {
