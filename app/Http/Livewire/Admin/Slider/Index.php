@@ -117,7 +117,7 @@ class Index extends Component
 
     public function getPhotoPreviewProperty()
     {
-        return $this->slider->image;
+        return $this->slider->photo;
     }
 
     public function setFeatured($id)
