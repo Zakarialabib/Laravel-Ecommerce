@@ -123,7 +123,7 @@ class Index extends Component
         $slider->save();
 
         $this->alert('success', __('Slider featured successfully!'));
-        $this->refreshIndex();
+        // $this->refreshIndex();
     }
 
     public function editModal(Slider $slider)
@@ -150,7 +150,7 @@ class Index extends Component
 
         $this->slider->save();
 
-        $this->refreshIndex();
+        // $this->refreshIndex();
 
         $this->alert('success', __('Slider updated successfully.'));
 

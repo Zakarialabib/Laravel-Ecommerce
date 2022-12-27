@@ -2,16 +2,13 @@
     <div class="flex flex-wrap justify-center">
         <div class="lg:w-1/2 md:w-1/2 sm:w-full flex flex-col my-md-0 my-2">
             <div class="my-2 my-md-0">
-                <p class="leading-5 text-black dark:text-gray-300 mb-1 text-sm ">
-                    {{ __('Show items per page') }}
-                </p>
                 <select wire:model="perPage" name="perPage"
                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-32 p-1 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                     @foreach ($paginationOptions as $value)
                         <option value="{{ $value }}">{{ $value }}</option>
                     @endforeach
                 </select>
-            </div>
+            
             @if ($this->selectedCount)
                 <p class="text-sm leading-5">
                     <span class="font-medium">
@@ -20,6 +17,7 @@
                     {{ __('Entries selected') }}
                 </p>
             @endif
+            </div>
         </div>
         <div class="lg:w-1/2 md:w-1/2 sm:w-full my-2 my-md-0">
             <div class="my-2 my-md-0">
@@ -29,8 +27,6 @@
             </div>
         </div>
     </div>
-
-    <x-loader />
 
     <x-table>
         <x-slot name="thead">
@@ -110,7 +106,7 @@
                                 wire:loading.attr="disabled">
                                 <i class="fas fa-edit"></i>
                             </x-button>
-                                {{ __('Edit') }}
+                            {{ __('Edit') }}
                             </x-button>
                             <x-button danger type="button" wire:click="confirm('delete', {{ $section->id }})"
                                 wire:loading.attr="disabled">
@@ -151,7 +147,7 @@
                         id="language_id" name="language_id" wire:model="section.language_id" :options="$this->listsForFields['languages']" />
                     <x-input-error :messages="$errors->get('section.language_id')" for="section.language_id" class="mt-2" />
                 </div>
-    
+
                 <div class="lg:w-1/2 sm:w-full px-2">
                     <x-label for="page" :value="__('Page')" />
                     <select wire:model="section.page"
@@ -169,7 +165,7 @@
                     </select>
                     <x-input-error :messages="$errors->get('section.page')" for="section.page" class="mt-2" />
                 </div>
-    
+
                 <div class="lg:w-1/2 sm:w-full px-2">
                     <x-label for="title" :value="__('Title')" />
                     <input type="text" name="title" wire:model.lazy="section.title"
@@ -213,10 +209,11 @@
                     <x-input-error :messages="$errors->get('section.video')" for="section.video" class="mt-2" />
                 </div>
 
-            <div class="float-right p-2 mb-4">
-                <x-button type="submit" primary>
-                    {{ __('Save') }}
-                </x-button>
+                <div class="float-right p-2 mb-4">
+                    <x-button type="submit" primary>
+                        {{ __('Save') }}
+                    </x-button>
+                </div>
             </div>
         </form>
     </x-modal>
