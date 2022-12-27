@@ -174,10 +174,6 @@ class Index extends Component
 
          $this->alert('success', __('Section updated successfully!'));
 
-         $this->refreshIndex();
-
-         $this->alert('success', __('Section updated successfully.'));
-
          $this->editModal = false;
      }
 }

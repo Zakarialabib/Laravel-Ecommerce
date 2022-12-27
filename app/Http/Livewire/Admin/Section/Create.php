@@ -32,10 +32,13 @@ class Create extends Component
         'section.video' => 'nullable',
     ];
 
-    public function mount(Section $section)
+    public function createSlider()
     {
-        $this->section = $section;
-        $this->initListsForFields();
+        $this->resetErrorBag();
+
+        $this->resetValidation();
+
+        $this->createSlider = true;
     }
 
     public function render()

@@ -20,11 +20,13 @@ class Index extends Component
     public $slider;
 
     public $photo;
+    
+    public $details;
 
     public $listeners = [
         Trix::EVENT_VALUE_UPDATED,
         'refreshIndex' => '$refresh',
-        'showModal', 'editModal',
+        'showModal', 'editModal', 'delete'
     ];
 
     public $showModal = false;
@@ -85,7 +87,7 @@ class Index extends Component
     protected $rules = [
         'slider.title' => ['required', 'string', 'max:255'],
         'slider.subtitle' => ['nullable', 'string'],
-        'details' => ['nullable', 'string'],
+        'details' => ['nullable'],
         'slider.link' => ['nullable', 'string'],
         'slider.language_id' => ['nullable', 'integer'],
         'slider.bg_color' => ['nullable', 'string'],
