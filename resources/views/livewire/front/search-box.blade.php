@@ -3,7 +3,7 @@
         <div class="flex items-center max-w-xs rounded-lg">
             <button type="button" @click="searchBox = !searchBox"
                 class="flex items-center justify-center w-10 h-10 text-gray-100 rounded-l-lg focus:outline-none">
-                <svg class="mr-5 text-gray-100" width="35" height="35" viewbox="0 0 23 23" fill="none"
+                <svg class="mr-5 text-gray-900" width="35" height="35" viewbox="0 0 15 15" fill="none"
                     xmlns="http://www.w3.org/2000/svg">
 
                     <path d="M17.5 17.1309L12.5042 11.9551" stroke="currentColor" stroke-miterlimit="10" stroke-linecap="round"
@@ -13,8 +13,8 @@
                         stroke="currentColor" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"></path>
                 </svg>
             </button>
-            <input x-show="searchBox" type="text" wire:model="search" placeholder="{{ __('Search for products') }}"
-                autocomplete="" class="w-full border-0 focus:ring-transparent text-gray-900 focus:outline-none py-2 mr-4 rounded-md">
+            <input x-show="searchBox" type="text" wire:model="search" placeholder="{{ __('Search for products') }}" style="display:none;"
+                autocomplete="" class="w-full border-0 focus:ring-transparent bg-gray-100 text-gray-900 focus:outline-none py-2 mr-4 rounded-md">
         </div>
         @if (!empty($search))
             <div class="absolute top-0 left-0 w-full mt-12 bg-white rounded-md shadow-xl overflow-y-auto max-h-52 z-50">

@@ -1,17 +1,25 @@
 <div>
     <div class="flex flex-wrap justify-center">
-        <div class="lg:w-1/2 md:w-1/2 sm:w-full flex flex-col my-md-0 my-2">
+        <div class="lg:w-1/2 md:w-1/2 sm:w-full flex flex-wrap my-md-0 my-2">
             <select wire:model="perPage" name="perPage"
                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-32 p-1 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                 @foreach ($paginationOptions as $value)
                     <option value="{{ $value }}">{{ $value }}</option>
                 @endforeach
             </select>
+            <x-button secondary type="button" wire:click="selectAll" class="ml-3">
+                {{ 'Select All' }}
+            </x-button>
             @if ($this->selected)
                 <x-button danger type="button" wire:click="deleteSelected" class="ml-3">
                     <i class="fas fa-trash"></i>
                 </x-button>
+
+                <x-button primary type="button" wire:click="promoAllProducts" class="ml-3">
+                    {{ __('Promotion for selected products') }}
+                </x-button>
             @endif
+            
             @if ($this->selectedCount)
                 <p class="text-sm leading-5">
                     <span class="font-medium">
@@ -31,7 +39,7 @@
     <x-table>
         <x-slot name="thead">
             <x-table.th>
-                <input type="checkbox" wire:model="selectPage" />
+                <input type="checkbox" wire:click="selectPage" />
             </x-table.th>
             <x-table.th>
                 {{ __('Image') }}
@@ -78,7 +86,7 @@
                         {{ $product->category->name }}
                     </x-table.td>
                     <x-table.td>
-                        {{ $product->price }}DH
+                        {{ $product->price }}DH / {{ $product->old_price }}DH
                     </x-table.td>
                     <x-table.td>
                         <x-button type="button" success wire:click="$emit('imageModal', {{ $product->id }})"
@@ -105,8 +113,7 @@
                                     <i class="fas fa-eye"></i>
                                     {{ __('Highlighted') }}
                                 </x-dropdown-link>
-                                <x-dropdown-link wire:click="clone({{ $product->id }})"
-                                    wire:loading.attr="disabled">
+                                <x-dropdown-link wire:click="clone({{ $product->id }})" wire:loading.attr="disabled">
                                     <i class="fas fa-clone"></i>
                                     {{ __('Clone') }}
                                 </x-dropdown-link>
@@ -157,6 +164,36 @@
     <livewire:admin.product.create />
 
     {{-- HIGHLIGHT MODAL --}}
+
+    <x-modal wire:model="promoAllProducts">
+
+        <x-slot name="title">
+            {{ __('Promo Selected Products') }}
+        </x-slot>
+        <x-slot name="content">
+            <form wire:submit.prevent="updateSelected">
+                <div class="flex flex-wrap">
+                    <div class="sm:w-full lg:w-1/2 px-3 ">
+                        <x-label for="percentage" :value="__('Percentage')" />
+                        <x-input id="percentage" class="block mt-1 w-full" type="text" name="percentage"
+                            wire:model="percentage" />
+                        <x-input-error :messages="$errors->get('percentage')" for="condition" class="mt-2" />
+                    </div>
+
+                    <div class="sm:w-full lg:w-1/2 px-3 ">
+                        <x-label for="percentage" :value="__('Percentage')" />
+                        <label for="copy">{{ __('Copy price to old price') }}</label>
+                        <input type="checkbox" wire:model="copyPriceToOldPrice" id="copy">
+                    </div>
+                    <div class="w-full flex justify-start px-3">
+                        <x-button primary type="submit" wire:loading.attr="disabled">
+                            {{ __('Update') }}
+                        </x-button>
+                    </div>
+                </div>
+            </form>
+        </x-slot>
+    </x-modal>
 
     <x-modal wire:model="highlightModal">
 
@@ -229,8 +266,8 @@
                 </div>
 
 
-                <div class="w-full flex justify-start px-3">
-                    <x-button primary type="button" wire:click="saveHighlight" wire:loading.attr="disabled">
+                <div class="w-full px-3 flex justify-center">
+                    <x-button primary type="submit" class="block w-full text-center" wire:loading.attr="disabled">
                         {{ __('Save') }}
                     </x-button>
                 </div>

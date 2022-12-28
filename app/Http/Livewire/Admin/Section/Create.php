@@ -7,6 +7,7 @@ use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 use Str;
+use App\Http\Livewire\Trix;
 
 class Create extends Component
 {
@@ -15,10 +16,20 @@ class Create extends Component
     public $section;
 
     public $image;
+    
+    public $content;
 
-    public $createSlider = false;
+    public $createSection = false;
 
-    public $listeners = ['createSlider'];
+    public $listeners = [
+        Trix::EVENT_VALUE_UPDATED,
+        'createSection',
+    ];
+    
+    public function onTrixValueUpdate($value)
+    {
+        $this->content = $value;
+    }
 
     public array $listsForFields = [];
 
@@ -32,13 +43,13 @@ class Create extends Component
         'section.video' => 'nullable',
     ];
 
-    public function createSlider()
+    public function createSection()
     {
         $this->resetErrorBag();
 
         $this->resetValidation();
 
-        $this->createSlider = true;
+        $this->createSection = true;
     }
 
     public function render()
@@ -67,6 +78,6 @@ class Create extends Component
 
         $this->alert('success', __('Section created successfully!'));
 
-        $this->createSlider = false;
+        $this->createSection = false;
     }
 }

@@ -305,8 +305,9 @@
                                         </h3>
                                         {{-- count products in brand  --}}
                                         <p class="text-xl font-bold font-heading text-white">
-                                            <span class="text-blue-900">{{ $brand->products->count() }}
-                                                {{ __('products') }}</span>
+                                            <span class="text-blue-900">
+                                                {{ $brand->products->count() }} {{ __('products') }}
+                                            </span>
                                         </p>
                                     </a>
                                 </div>

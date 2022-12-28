@@ -2,7 +2,6 @@
 
 namespace App\Http\Livewire\Admin\Product;
 
-use App\Http\Livewire\Trix;
 use App\Http\Livewire\WithSorting;
 use App\Models\Brand;
 use App\Models\Category;
@@ -22,16 +21,25 @@ class Index extends Component
 
     public $listeners = [
         'refreshIndex' => '$refresh',
+        'promoAllProducts',
         'highlightModal', 'delete',
     ];
 
     public $highlightModal = false;
+    
+    public $promoAllProducts = false;
+    
+    public $percentage;
 
+    public $copyPriceToOldPrice;
+    
     public int $perPage;
 
     public $refreshIndex;
 
     public array $orderable;
+
+    public $selectAll;
 
     public $file;
 
@@ -150,6 +158,25 @@ class Index extends Component
         $this->highlightModal = true;
     }
 
+    public function selectAll()
+    {
+        if (count(array_intersect($this->selected, Product::pluck('id')->toArray())) == count(Product::pluck('id')->toArray())) {
+            $this->selected = [];
+        } else {
+            $this->selected = Product::pluck('id')->toArray();
+        }
+    }
+
+    public function selectPage()
+    {
+
+        if (count(array_intersect($this->selected, Product::paginate($this->perPage)->pluck('id')->toArray())) == count(Product::paginate($this->perPage)->pluck('id')->toArray())) {
+            $this->selected = [];
+        } else {
+            $this->selected = $productIds;
+        }
+    }
+
     public function saveHighlight()
     {
         abort_if(Gate::denies('product_access'), 403);
@@ -189,7 +216,7 @@ class Index extends Component
 
         $this->alert('success', 'Product highlighted successfully.');
 
-        $this->refreshIndex();
+        $this->reset();
 
         $this->highlightModal = false;
     }
@@ -224,4 +251,34 @@ class Index extends Component
 
          $this->alert('success', __('Product Cloned successfully!') );
      }
+
+     public function promoAllProducts()
+     {
+        $this->promoAllProducts = true;
+     }
+
+     public function updateSelected()
+    {
+        $products = Product::whereIn('id', $this->selected)->get();
+
+        
+
+        foreach ($products as $product) {
+            if ($this->copyPriceToOldPrice) {
+                $product->old_price = $product->price;
+            } else {
+                $product->price = $product->price * (1 + $this->percentage / 100);
+            }
+            $product->save();
+        }
+
+        $this->alert('success', __('Product Prices changed successfully!') );
+        
+        $this->resetSelected();
+        
+        $this->promoAllProducts = false;
+
+        $this->copyPriceToOldPrice = '';
+        $this->percentage = '';
+    }
 }

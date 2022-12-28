@@ -12,8 +12,6 @@ class Categories extends Component
 {
     use WithPagination, WithSorting;
 
-    public $listenrs = ['filterProducts'];
-
     public int $perPage;
 
     public array $orderable;
@@ -47,18 +45,22 @@ class Categories extends Component
     {
         $this->resetPage();
     }
-    // filterProducts({{ $category->id }})
 
-    public function filterProducts($category_id)
+    public function filterProductCategories($category_id)
     {
         $this->category_id = $category_id;
+        $this->resetPage();
+    }
+
+    public function filterProductSubcategories($category_id)
+    {
+        $this->subcategory_id = $subcategory_id;
         $this->resetPage();
     }
 
     public function mount()
     {
         $this->sorting = 'default';
-
         $this->sortBy = 'id';
         $this->sortDirection = 'desc';
         $this->perPage = 15;
@@ -102,6 +104,9 @@ class Categories extends Component
         return Product::where('status', 1)
             ->when($this->category_id, function ($query) {
                 return $query->where('category_id', $this->category_id);
+            })
+            ->when($this->subcategory_id, function ($query) {
+                return $query->where('subcategory_id', $this->subcategory_id);
             })
             ->orderBy($this->sortBy, $this->sortDirection)
             ->paginate($this->perPage);

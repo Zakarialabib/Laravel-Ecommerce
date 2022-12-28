@@ -29,7 +29,7 @@ class Index extends Component
 
     public function getBrandsProperty(): Collection
     {
-        return Brand::where('status', 1)->get();
+        return Brand::with('products')->where('status', 1)->get();
     }
 
     public function getSliderProperty()

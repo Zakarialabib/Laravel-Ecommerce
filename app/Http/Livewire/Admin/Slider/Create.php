@@ -2,7 +2,6 @@
 
 namespace App\Http\Livewire\Admin\Slider;
 
-use App\Http\Livewire\Trix;
 use App\Models\Language;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Str;
@@ -20,19 +19,11 @@ class Create extends Component
 
     public $photo;
 
-    public $details;
-
     public $listeners = [
-        Trix::EVENT_VALUE_UPDATED,
         'createSlider',
     ];
 
     public array $listsForFields = [];
-
-    public function onTrixValueUpdate($value)
-    {
-        $this->details = $value;
-    }
 
     public function mount()
     {
@@ -42,7 +33,7 @@ class Create extends Component
     public array $rules = [
         'slider.title' => ['required', 'string', 'max:255'],
         'slider.subtitle' => ['nullable', 'string'],
-        'details' => ['nullable', 'string'],
+        'slider.details' => ['nullable', 'string'],
         'slider.link' => ['nullable', 'string'],
         'slider.language_id' => ['nullable'],
         'slider.bg_color' => ['nullable'],
@@ -75,7 +66,7 @@ class Create extends Component
             $this->slider->photo = $imageName;
         }
 
-        $this->slider->details = $this->details;
+        // $this->slider->details = $this->details;
 
         $this->slider->save();
 

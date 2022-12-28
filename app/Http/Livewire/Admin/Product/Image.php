@@ -57,6 +57,9 @@ class Image extends Component
 
     public function saveImage()
     {
+        try {
+
+
         if ($this->image_url) {
             $image = file_get_contents($this->image_url);
             $imageName = Str::random(10).'.jpg';
@@ -131,9 +134,18 @@ class Image extends Component
 
         $this->alert('success', __('Product image updated successfully.'));
 
-        $this->emit('refreshIndex');
+        $this->imageModal =  false;
 
-        $this->imageModal = false;
+        $this->image = '';
+
+        $this->gallery = '';
+
+        return redirect()->route('admin.products');
+    }
+    catch (\Exception $e) {
+
+        $this->alert('warning', __('Product image was not updated.'));
+    }
     }
 
     public function render()

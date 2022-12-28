@@ -20,8 +20,6 @@ class Index extends Component
     public $slider;
 
     public $photo;
-    
-    public $details;
 
     public $listeners = [
         Trix::EVENT_VALUE_UPDATED,
@@ -64,11 +62,6 @@ class Index extends Component
         return count($this->selected);
     }
 
-    public function onTrixValueUpdate($value)
-    {
-        $this->details = $value;
-    }
-
     public function updatingSearch()
     {
         $this->resetPage();
@@ -87,7 +80,7 @@ class Index extends Component
     protected $rules = [
         'slider.title' => ['required', 'string', 'max:255'],
         'slider.subtitle' => ['nullable', 'string'],
-        'details' => ['nullable'],
+        'slider.details' => ['nullable'],
         'slider.link' => ['nullable', 'string'],
         'slider.language_id' => ['nullable', 'integer'],
         'slider.bg_color' => ['nullable', 'string'],

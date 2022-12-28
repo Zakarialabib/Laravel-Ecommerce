@@ -5,6 +5,7 @@ namespace App\Http\Livewire\Front;
 use App\Http\Livewire\WithSorting;
 use App\Models\Brand;
 use App\Models\Product;
+use App\Models\Category;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -25,6 +26,10 @@ class Brands extends Component
     public $subcategory_id;
 
     public $brand_id;
+    
+    public $filterProductCategories;
+    public $filterProductBrands;
+    public $filterProductSubcategories;
 
     protected $queryString = [
         'search' => [
@@ -48,9 +53,21 @@ class Brands extends Component
         $this->resetPage();
     }
 
-    public function filterProducts($brand_id)
+    public function filterProductBrands($brand_id)
     {
         $this->brand_id = $brand_id;
+        $this->resetPage();
+    }
+
+    public function filterProductCategories($category_id)
+    {
+        $this->category_id = $category_id;
+        $this->resetPage();
+    }
+
+    public function filterProductSubcategories($category_id)
+    {
+        $this->subcategory_id = $subcategory_id;
         $this->resetPage();
     }
 
@@ -107,6 +124,12 @@ class Brands extends Component
             ->when($this->brand_id, function ($query) {
                 $query->where('brand_id', $this->brand_id);
             })
+            ->when($this->category_id, function ($query) {
+                return $query->where('category_id', $this->category_id);
+            })
+            ->when($this->subcategory_id, function ($query) {
+                return $query->where('subcategory_id', $this->subcategory_id);
+            })
             ->orderBy($this->sortBy, $this->sortDirection)
             ->paginate($this->perPage);
     }
@@ -114,5 +137,10 @@ class Brands extends Component
     public function getBrandsProperty()
     {
         return Brand::select('id', 'name', 'image', 'featured_image')->get();
+    }
+
+    public function getCategoriesProperty()
+    {
+        return Category::where('status', 1)->with('subcategories')->get();
     }
 }

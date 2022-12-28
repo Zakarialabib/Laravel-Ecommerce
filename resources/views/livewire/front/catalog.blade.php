@@ -1,7 +1,10 @@
 <div>
     <div class="container mx-auto px-4">
-        <div class="flex flex-wrap -mx-4 mb-10 md:mb-5 items-center justify-between">
+        <div class="-mx-4 mb-10 md:mb-5 items-center justify-between">
             <div class="w-full lg:w-auto px-4 flex flex-wrap items-center">
+                <h2 class="mb-1 text-2xl font-bold lg:px-5 sm:px-2">
+                    {{ __('Catalogue') }}
+                </h2>
                 <div class="w-full sm:w-auto">
                     <select
                         class="px-5 py-3 mr-2 leading-5 bg-white dark:bg-dark-eval-2 text-gray-700 dark:text-gray-300 rounded border border-zinc-300 mb-1 text-sm focus:shadow-outline-blue focus:border-blue-500"
