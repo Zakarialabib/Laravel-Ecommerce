@@ -264,7 +264,9 @@ class Index extends Component
         $products = Product::whereIn('id', $this->selected)->get();
 
         foreach ($products as $product) {
-            if ($this->percentageMethod == '+') {
+            if ($this->copyPriceToOldPrice) {
+                $product->old_price = $product->price;
+            } elseif ($this->percentageMethod == '+') {
                 $product->price = $product->price * (1 + $this->percentage / 100);
             } else {
                 $product->price = $product->price * (1 - $this->percentage / 100);
