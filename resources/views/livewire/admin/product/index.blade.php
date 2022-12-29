@@ -178,9 +178,9 @@
                         <x-label for="percentage" :value="__('Percentage')" />
                         <x-input id="percentage" class="block mt-1 w-full" type="text" name="percentage"
                             wire:model="percentage" />
-                        <select name="percentageMethod">
-                            <option value="-">Reduce ( - )</option>
-                            <option value="+">Increase ( + )</option>
+                        <select name="percentageMethod" wire:model="percentageMethod">
+                            <option value="-">{{__('Reduce')}} ( - )</option>
+                            <option value="+">{{__('Increase')}} ( + )</option>
                         </select>
                         <x-input-error :messages="$errors->get('percentage')" for="condition" class="mt-2" />
                     </div>
