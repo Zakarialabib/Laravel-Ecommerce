@@ -33,6 +33,8 @@ class Index extends Component
 
     public $copyPriceToOldPrice;
     
+    public $percentageMethod;
+    
     public int $perPage;
 
     public $refreshIndex;
@@ -261,13 +263,11 @@ class Index extends Component
     {
         $products = Product::whereIn('id', $this->selected)->get();
 
-        
-
         foreach ($products as $product) {
-            if ($this->copyPriceToOldPrice) {
-                $product->old_price = $product->price;
-            } else {
+            if ($this->percentageMethod == '+') {
                 $product->price = $product->price * (1 + $this->percentage / 100);
+            } else {
+                $product->price = $product->price * (1 - $this->percentage / 100);
             }
             $product->save();
         }

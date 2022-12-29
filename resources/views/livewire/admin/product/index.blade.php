@@ -172,20 +172,25 @@
         </x-slot>
         <x-slot name="content">
             <form wire:submit.prevent="updateSelected">
-                <div class="flex flex-wrap">
-                    <div class="sm:w-full lg:w-1/2 px-3 ">
+                <div class="w-full">
+
+                    <div class="w-full px-3 py-2">
                         <x-label for="percentage" :value="__('Percentage')" />
                         <x-input id="percentage" class="block mt-1 w-full" type="text" name="percentage"
                             wire:model="percentage" />
+                        <select name="percentageMethod">
+                            <option value="-">Reduce ( - )</option>
+                            <option value="+">Increase ( + )</option>
+                        </select>
                         <x-input-error :messages="$errors->get('percentage')" for="condition" class="mt-2" />
                     </div>
 
-                    <div class="sm:w-full lg:w-1/2 px-3 ">
-                        <x-label for="percentage" :value="__('Percentage')" />
-                        <label for="copy">{{ __('Copy price to old price') }}</label>
+                    <div class="w-full px-3 py-2">
+                        <x-label for="percentage" :value="__('Copy price to old price')" />
                         <input type="checkbox" wire:model="copyPriceToOldPrice" id="copy">
                     </div>
-                    <div class="w-full flex justify-start px-3">
+
+                    <div class="w-full flex justify-center px-3">
                         <x-button primary type="submit" wire:loading.attr="disabled">
                             {{ __('Update') }}
                         </x-button>
