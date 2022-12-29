@@ -1,16 +1,16 @@
 <div>
-    <div class="relative container mx-auto px-4 mb-5">
+    <div class="relative mx-auto px-4 mb-5">
         <div class="flex flex-wrap -mx-4 py-10"
-            style="background-image: url({{ asset('images/sliders/' . $this->slider->photo) }});background-size: cover;">
+            style="background-image: url({{ asset('images/sliders/' . $this->slider->photo) }});background-size: cover;background-position: center;">
             <div class="w-full md:w-1/2 px-4 lg:mb-5 sm:mb-2">
-                <div class="max-w-md lg:py-5 py-10">
-                    <h5 class="text-2xl font-bold text-gray-600 mb-2">
+                <div class="max-w-md lg:py-5 py-10 text-black bg-gray-100 opacity-75">
+                    <h5 class="text-2xl font-bold text-gray-800 mb-2">
                         {{ $this->slider->subtitle }}
                     </h5>
-                    <h2 class="mb-8 text-5xl lg:text-6xl text-white font-semibold font-heading">
+                    <h2 class="text-5xl lg:text-6xl font-semibold font-heading">
                         {{ $this->slider->title }}
                     </h2>
-                    <p class="py-10 text-lg text-gray-600">
+                    <p class="py-10 text-lg text-gray-800">
                         {!! $this->slider->details !!}
                     </p>
                     @if ($this->slider->link)
@@ -122,6 +122,15 @@
                                             <a href="{{ route('front.product', $product->slug) }}"
                                                 class="block mb-2 text-lg font-bold font-heading text-orange-500 hover:text-orange-400">{{ $product->name }}</a>
                                             <div class="flex justify-center mb-4">
+                                                @if ($product->status == 1)
+                                                    <div class="text-sm font-bold">
+                                                        <span class="text-green-500">● {{ __('in Stock') }}</span>
+                                                    </div>
+                                                @else
+                                                    <div class="text-sm font-bold">
+                                                        <span class="text-red-500">● {{ __('Out of Stock') }}</span>
+                                                    </div>
+                                                @endif
                                                 <div class="flex items-center">
                                                     @for ($i = 0; $i < 5; $i++)
                                                         @if ($i < $product->reviews->avg('rating'))
@@ -182,19 +191,26 @@
                                             <a href="{{ route('front.product', $product->slug) }}"
                                                 class="block mb-2 text-lg font-bold font-heading text-orange-500 hover:text-orange-400">{{ $product->name }}</a>
                                             <div class="flex justify-center mb-4">
+                                                @if ($product->status == 1)
+                                                    <div class="text-sm font-bold">
+                                                        <span class="text-green-500">● {{ __('in Stock') }}</span>
+                                                    </div>
+                                                @else
+                                                    <div class="text-sm font-bold">
+                                                        <span class="text-red-500">● {{ __('Out of Stock') }}</span>
+                                                    </div>
+                                                @endif
                                                 <div class="flex items-center">
                                                     @for ($i = 0; $i < 5; $i++)
                                                         @if ($i < $product->reviews->avg('rating'))
                                                             <svg class="w-4 h-4 text-orange-500 fill-current"
-                                                                xmlns="http://www.w3.org/2000/svg"
-                                                                viewBox="0 0 24 24">
+                                                                xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
                                                                 <path
                                                                     d="M12 17.27l-5.18 2.73 1-5.81-4.24-3.63 5.88-.49L12 6.11l2.45 5.51 5.88.49-4.24 3.63 1 5.81z" />
                                                             </svg>
                                                         @else
                                                             <svg class="w-4 h-4 text-orange-500 fill-current"
-                                                                xmlns="http://www.w3.org/2000/svg"
-                                                                viewBox="0 0 24 24">
+                                                                xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
                                                                 <path
                                                                     d="M12 17.27l-5.18 2.73 1-5.81-4.24-3.63 5.88-.49L12 6.11l2.45 5.51 5.88.49-4.24 3.63 1 5.81z" />
                                                             </svg>
@@ -244,6 +260,15 @@
                                             <a href="{{ route('front.product', $product->slug) }}"
                                                 class="block mb-2 text-lg font-bold font-heading text-orange-500 hover:text-orange-400">{{ $product->name }}</a>
                                             <div class="flex justify-center mb-4">
+                                                @if ($product->status == 1)
+                                                    <div class="text-sm font-bold">
+                                                        <span class="text-green-500">● {{ __('in Stock') }}</span>
+                                                    </div>
+                                                @else
+                                                    <div class="text-sm font-bold">
+                                                        <span class="text-red-500">● {{ __('Out of Stock') }}</span>
+                                                    </div>
+                                                @endif
                                                 <div class="flex items-center">
                                                     @for ($i = 0; $i < 5; $i++)
                                                         @if ($i < $product->reviews->avg('rating'))

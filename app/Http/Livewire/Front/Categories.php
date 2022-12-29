@@ -24,6 +24,9 @@ class Categories extends Component
 
     public $subcategory_id;
 
+    public $filterProductCategories;
+    public $filterProductSubcategories;
+
     protected $queryString = [
         'search' => [
             'except' => '',

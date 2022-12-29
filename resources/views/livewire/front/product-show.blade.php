@@ -2,20 +2,26 @@
     <section class="py-10">
         <div class="container mx-auto px-4">
             <div class="flex flex-wrap -mx-4 mb-14">
-                {{-- Make product carousel with thumbs alpine --}}
-                <div class="w-full md:w-1/2 px-4 mb-8 md:mb-0" >
+                <div class="w-full md:w-1/2 px-4 mb-8 md:mb-0">
                     <x-product-carousel :image="$product->image" :gallery="$product->gallery" :video="$product->embeded_video" />
                 </div>
                 <div class="w-full md:w-1/2 px-4">
                     <div>
                         <div class="mb-5 pb-5 border-b">
                             <span class="text-gray-500">
-                                @isset($product->brand) {{ $product->brand->name }} @endisset / {{ $product->category->name }} @isset($product->subcategory) / {{ $product->subcategory->name }} @endif
+                                @isset($product->brand)
+                                    <a
+                                        href="{{ route('front.brandPage', $product->brand->slug) }}">{{ $product->brand->name }}</a>
+                                @endisset /
+                                {{ $product->category->name }}
+                                @isset($product->subcategory)
+                                    / {{ $product->subcategory->name }}
+                                @endisset
                             </span>
                             <h2 class="mt-2 mb-6 max-w-xl text-5xl md:text-4xl font-bold font-heading">
                                 {{ $product->name }}
                             </h2>
-                            <div class=" flex items-center mb-8">
+                            <div class="flex items-center">
                                 <div class="flex items-center">
                                     @for ($i = 0; $i < 5; $i++)
                                         @if ($i < $product->reviews->avg('rating'))
@@ -78,17 +84,37 @@
                             </div>
                         </div>
                         <div>
-                            <a class="block hover:bg-orange-400 text-center text-white font-bold font-heading py-5 px-8 rounded-md uppercase transition duration-200 bg-orange-500 cursor-pointer"
-                                wire:click="AddToCart({{ $product->id }}, '{{ $product->name }}', {{ $product->price }})">
-                                {{ __('Add to cart') }}
-                            </a>
+                            @if ($product->status == 1)
+                                <a class="block hover:bg-orange-400 text-center text-white font-bold font-heading py-2 px-4 rounded-md uppercase transition duration-200 bg-orange-500 cursor-pointer"
+                                    wire:click="AddToCart({{ $product->id }}, '{{ $product->name }}', {{ $product->price }})">
+                                    {{ __('Add to cart') }}
+                                </a>
+                            @else
+                                <div class="text-sm font-bold">
+                                    <span class="text-red-500">● {{ __('Out of Stock') }}</span>
+                                </div>
+                            @endif
                         </div>
                     </div>
 
                     <livewire:front.order-form :product="$product" />
-                    
+
+                    <ul class="my-4 ">
+                        <li class="text-gray-500 py-1">
+                            <i class="text-blue-600 fa fa-check" aria-hidden="true"></i> {{ __('Fast delivery') }}
+                        </li>
+                        <li class="text-gray-500 py-1">
+                            <i class="text-blue-600 fa fa-check" aria-hidden="true"></i>
+                            {{ __('Watch specialist over 40 years of experience') }}
+                        </li>
+                        <li class="text-gray-500 py-1">
+                            <i class="text-blue-600 fa fa-check" aria-hidden="true"></i>
+                            <strong>{{ __('Official dealer') }}</strong>
+                        </li>
+                    </ul>
+
                     <div class="flex items-center">
-                        <span class="mr-8 text-gray-500 font-bold font-heading uppercase">{{__('SHARE IT')}}</span>
+                        <span class="mr-8 text-gray-500 font-bold font-heading uppercase">{{ __('SHARE IT') }}</span>
                         <a class="mr-1 w-8 h-8" href="#">
                             <i class="fab fa-facebook-f"></i>
                         </a>
@@ -102,43 +128,48 @@
                             <i class="fab fa-whatsapp"></i>
                         </a>
                     </div>
+
                 </div>
             </div>
         </div>
-        
+
 
         <div x-data="{ activeTab: 'description' }" class="container mx-auto px-4 border bg-white shadow-xl">
             <div class="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 mb-10">
-                <div class="inline-block py-6 px-10 text-left font-bold font-heading text-gray-500 uppercase border-b-2 border-gray-100 hover:border-gray-500 focus:outline-none focus:border-gray-500">
+                <div
+                    class="inline-block py-6 px-10 text-left font-bold font-heading text-gray-500 uppercase border-b-2 border-gray-100 hover:border-gray-500 focus:outline-none focus:border-gray-500">
                     <button @click="activeTab = 'description'"
                         :class="activeTab === 'description' ? 'text-orange-400' : ''">
                         {{ __('Description') }}
                     </button>
                 </div>
-                <div class="inline-block py-6 px-10 text-left font-bold font-heading text-gray-500 uppercase border-b-2 border-gray-100 hover:border-gray-500 focus:outline-none focus:border-gray-500">
+                <div
+                    class="inline-block py-6 px-10 text-left font-bold font-heading text-gray-500 uppercase border-b-2 border-gray-100 hover:border-gray-500 focus:outline-none focus:border-gray-500">
                     <button @click="activeTab = 'reviews'" :class="activeTab === 'reviews' ? 'text-orange-400' : ''">
                         {{ __('Reviews') }}
                     </button>
                 </div>
-                <div class="inline-block py-6 px-10 text-left font-bold font-heading text-gray-500 uppercase border-b-2 border-gray-100 hover:border-gray-500 focus:outline-none focus:border-gray-500">
+                <div
+                    class="inline-block py-6 px-10 text-left font-bold font-heading text-gray-500 uppercase border-b-2 border-gray-100 hover:border-gray-500 focus:outline-none focus:border-gray-500">
                     <button @click="activeTab = 'shipping'" :class="activeTab === 'shipping' ? 'text-orange-400' : ''">
                         {{ __('Shipping & Returns') }}
                     </button>
                 </div>
-                <div class="inline-block py-6 px-10 text-left font-bold font-heading text-gray-500 uppercase border-b-2 border-gray-100 hover:border-gray-500 focus:outline-none focus:border-gray-500">
+                <div
+                    class="inline-block py-6 px-10 text-left font-bold font-heading text-gray-500 uppercase border-b-2 border-gray-100 hover:border-gray-500 focus:outline-none focus:border-gray-500">
                     <button @click="activeTab = 'brands'" :class="activeTab === 'brands' ? 'text-orange-400' : ''">
                         {{ __('Product Brand') }}
                     </button>
                 </div>
             </div>
-            <div x-show="activeTab === 'description'" class="px-5">
+            <div x-show="activeTab === 'description'" class="px-5 mb-10">
                 <div role="description" aria-labelledby="tab-0" id="tab-panel-0" tabindex="0">
                     <p class="mb-8 max-w-2xl text-gray-500 font-body">
                         {!! $product->description !!}
                     </p>
                 </div>
             </div>
-            <div x-show="activeTab === 'reviews'" class="px-5">
+            <div x-show="activeTab === 'reviews'" class="px-5 mb-10">
                 <div role="reviews" aria-labelledby="tab-1" id="tab-panel-1" tabindex="0">
                     {{-- show review or  make review --}}
                     @if (auth()->check())
@@ -176,21 +207,23 @@
                                         class="w-full p-4 border-2 border-gray-300 rounded-lg focus:outline-none focus:border-orange-500"></textarea>
                                 </div>
                                 <div class="flex items-center my-4">
-                                    <button
-                                        class="px-8 py-2 text-white bg-orange-500 rounded-lg focus:outline-none">{{ __('Send Review') }}</button>
+                                    <button class="px-8 py-2 text-white bg-orange-500 rounded-lg focus:outline-none">
+                                        {{ __('Send Review') }}
+                                    </button>
                                 </div>
+                            </div>
                         @endif
                     @endif
                 </div>
             </div>
-            <div x-show="activeTab === 'shipping'" class="px-5">
+            <div x-show="activeTab === 'shipping'" class="px-5 mb-10">
                 <div role="shipping" aria-labelledby="tab-2" id="tab-panel-2" tabindex="0">
                     <p class="mb-8 max-w-2xl text-gray-500 font-body">
                         {{-- {!! $product->shipping !!} --}}
                     </p>
                 </div>
             </div>
-            <div x-show="activeTab === 'brands'" class="px-5">
+            <div x-show="activeTab === 'brands'" class="px-5 mb-10">
                 <div class="mb-8 grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3 -mx-2 px-2">
                     @foreach ($brand_products as $product)
                         <div class="bg-white rounded-lg shadow-2xl">

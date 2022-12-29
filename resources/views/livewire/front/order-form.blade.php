@@ -1,6 +1,6 @@
 <div>
     <form wire:submit.prevent="save" class="container mx-auto mb-4">
-        <span class="text-gray-500 font-bold text-md font-heading uppercase my-5">{{ __('Order Now') }}</span>
+        <span class="text-gray-500 font-bold text-center text-md font-heading uppercase py-2">{{ __('Order Now') }}</span>
         <div class="flex flex-wrap items-center">
             <div class="w-full md:w-1/2 pr-2">
                 <label class="font-bold font-heading text-gray-600" for="">{{ __('FullName') }}</label>
@@ -20,9 +20,9 @@
                     class="block w-full mt-4 py-4 px-4 bg-white border border-gray-200 focus:ring-blue-300 focus:border-blue-300 rounded-md"
                     type="text">
             </div>
-            <div class="w-full flex py-2 justify-start">
+            <div class="w-full flex py-2 justify-center">
                 <button wire:click="save" wire:loading.attr="disabled"
-                    class="block hover:bg-orange-400 text-center text-white font-bold font-heading py-5 px-8 rounded-md uppercase transition duration-200 bg-orange-500 cursor-pointer">
+                    class="block hover:bg-orange-400 text-center text-white font-bold font-heading py-2 px-4 rounded-md uppercase transition duration-200 bg-orange-500 cursor-pointer">
                     {{ __('Order Now') }}
                 </button>
             </div>

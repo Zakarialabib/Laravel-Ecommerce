@@ -173,11 +173,21 @@
                                             {{ $product->price }}DH
                                         </span>
                                         @if ($product->old_price)
-                                            <span class="text-xs text-gray-500 font-semibold font-heading line-through">
+                                            <span
+                                                class="text-xs text-gray-500 font-semibold font-heading line-through">
                                                 {{ $product->old_price }}DH
                                             </span>
                                         @endif
                                     </p>
+                                    @if ($product->status == 1)
+                                        <div class="text-sm font-bold">
+                                            <span class="text-green-500">● {{ __('in Stock') }}</span>
+                                        </div>
+                                    @else
+                                        <div class="text-sm font-bold">
+                                            <span class="text-red-500">● {{ __('Out of Stock') }}</span>
+                                        </div>
+                                    @endif
                                 </a>
 
                                 <livewire:front.add-to-cart :product="$product" :key="$product->id" />
