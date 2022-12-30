@@ -36,6 +36,8 @@ class Catalog extends Component
 
     public $brand_id;
 
+    public $sorting;
+
     protected $queryString = [
         'search' => [
             'except' => '',
@@ -80,7 +82,7 @@ class Catalog extends Component
     {
         $this->minPrice = 100;
         $this->maxPrice = 100000;
-
+        $this->sorting = 'default';
         $this->sortBy = 'id';
         $this->sortDirection = 'desc';
         $this->perPage = 15;

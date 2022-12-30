@@ -19,13 +19,13 @@ class SectionsSeeder extends Seeder
         Section::insert([
             [
                 'id'             => 1,
-                'title'          => 'Welcome to BADR LUXURY',
+                'title'          => 'Welcome to APPECOM',
                 'image'          => 'image.jpg',
-                'featured_title' => 'BADR LUXURY',
-                'subtitle'       => 'BADR LUXURY',
-                'label'          => 'BADR LUXURY',
+                'featured_title' => 'APPECOM',
+                'subtitle'       => 'APPECOM',
+                'label'          => 'APPECOM',
                 'link'           => 'https://badrluxury.com/',
-                'description'    => 'BADR LUXURY',
+                'description'    => 'APPECOM',
                 'status'         => '1',
                 'bg_color'       => 'bg-green-500',
                 'page'           => 'home',

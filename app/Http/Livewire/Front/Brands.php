@@ -30,6 +30,8 @@ class Brands extends Component
 
     public $brand_id;
 
+    public $sorting;
+
     public $filterProductCategories;
     public $filterProductBrands;
     public $filterProductSubcategories;
@@ -76,6 +78,7 @@ class Brands extends Component
 
     public function mount()
     {
+        $this->sorting = 'default';
         $this->sortBy = 'id';
         $this->sortDirection = 'desc';
         $this->perPage = 15;

@@ -13,11 +13,11 @@ class SettingSeeder extends Seeder
     protected $settings = [
         [
             'key'   => 'company_name',
-            'value' => 'BADR LUXURY',
+            'value' => 'APPECOM',
         ],
         [
             'key'   => 'site_title',
-            'value' => 'BADR LUXURY',
+            'value' => 'APPECOM',
         ],
         [
             'key'   => 'company_email_address',
@@ -61,11 +61,11 @@ class SettingSeeder extends Seeder
         ],
         [
             'key'   => 'seo_meta_title',
-            'value' => 'Badr Luxury',
+            'value' => 'APPECOM',
         ],
         [
             'key'   => 'seo_meta_description',
-            'value' => 'Badr Luxury',
+            'value' => 'APPECOM',
         ],
         [
             'key'   => 'social_facebook',

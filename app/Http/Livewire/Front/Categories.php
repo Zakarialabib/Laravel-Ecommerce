@@ -26,6 +26,7 @@ class Categories extends Component
     public $category_id;
 
     public $subcategory_id;
+    public $sorting;
 
     public $filterProductCategories;
     public $filterProductSubcategories;
@@ -66,6 +67,7 @@ class Categories extends Component
 
     public function mount()
     {
+        $this->sorting = 'default';
         $this->sortBy = 'id';
         $this->sortDirection = 'desc';
         $this->perPage = 15;

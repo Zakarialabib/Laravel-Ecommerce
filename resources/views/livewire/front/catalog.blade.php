@@ -1,9 +1,9 @@
 <div>
     <div class="container mx-auto px-4">
         <div class="-mx-4 mb-10 md:mb-5 items-center justify-between">
-            <div class="w-full lg:w-auto px-4 flex flex-wrap items-center">
+            <div class="w-full lg:w-auto px-4 flex flex-wrap justify-between">
                 <h2 class="mb-1 text-2xl font-bold lg:px-5 sm:px-2">
-                    {{ __('Catalogue') }}
+                   {{ $this->products->count()}} {{ __('Watch') }}
                 </h2>
                 <div class="w-full sm:w-auto">
                     <select
