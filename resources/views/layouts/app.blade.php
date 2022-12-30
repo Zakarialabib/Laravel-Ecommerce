@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -9,11 +10,11 @@
     <title>
         @yield('title') || {{ Helpers::settings('site_title') }}
     </title>
-    
-    @if( Helpers::settings('site_title') )
+
+    @if (Helpers::settings('site_title'))
         <meta name="title" content="{{ Helpers::settings('site_title') }}">
     @else
-    <meta name="title" content="@yield('meta_title')">
+        <meta name="title" content="@yield('meta_title')">
     @endif
 
     <meta name="title" content="{{ Helpers::settings('seo_meta_title') }}">
@@ -28,48 +29,49 @@
     <meta name="robots" content="all,follow">
 
     <link rel="icon" href="{{ asset('images/' . Helpers::settings('site_favicon')) }}" type="image/x-icon">
-    
+
     {{-- Styles --}}
     @vite('resources/css/app.css')
-    
+
     @livewireStyles
 
     <!-- Font Awesome -->
-     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    
-     @stack('styles')
-     
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"
+        integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    @stack('styles')
+
     <!-- Head Tags -->
-     @if ( Helpers::settings('head_tags') != null)
-     {!! Helpers::settings('head_tags') !!}
-     @endif
- 
-</head>
-<body class="antialiased bg-body text-body font-body"  x-data="{ showCart: false }">
-    <!-- Body Tags -->
- 
-    @if ( Helpers::settings('body_tags') != null )
- 
-    {!! Helpers::settings('body_tags') !!}
-    
+    @if (Helpers::settings('head_tags') != null)
+        {!! Helpers::settings('head_tags') !!}
     @endif
 
-    <div>
-                
-      <section class="relative">
-       <x-header />
-       <x-headerbar />
+</head>
 
-       @yield('content')
+<body class="antialiased bg-body text-body font-body" x-data="{ showCart: false }">
+    <!-- Body Tags -->
 
-       @isset($slot)
-       {{ $slot }}
+    @if (Helpers::settings('body_tags') != null)
+        {!! Helpers::settings('body_tags') !!}
+    @endif
+
+    <section class="relative">
+        <x-header />
+        <x-headerbar />
+
+        @yield('content')
+
+        @isset($slot)
+            {{ $slot }}
         @endisset
-       
-       <x-footer />
 
-        </section>
-    </div>
+        <x-footer />
+
+        <x-whatsapp />
+        
+    </section>
+
     @vite('resources/js/app.js')
     @livewireScripts
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
@@ -77,5 +79,5 @@
     @stack('scripts')
 
 </body>
+
 </html>
-        

@@ -62,7 +62,7 @@
                             </li>
                             <li>
                                 <h4 class="mb-2 text-gray-50">{{ __('Whatsapp') }}</h4>
-                                <a class="text-white hover:underline" href="#">
+                                <a class="text-white hover:underline" href="#" target="_blank">
                                     {{ Helpers::settings('social_whatsapp') }}
                                 </a>
                             </li>
@@ -75,19 +75,19 @@
                 <div class="w-full flex flex-wrap lg:justify-between sm:justify-center">
                     <div class="w-full md:w-auto flex">
                         <a class="inline-flex items-center justify-center w-12 h-12 mr-2 rounded-full"
-                            href="{{ Helpers::settings('social_facebook') }}">
+                            href="{{ Helpers::settings('social_facebook') }}" target="_blank">
                             <i class="fab fa-facebook-f text-xl text-white"></i>
                         </a>
                         <a class="inline-flex items-center justify-center w-12 h-12 mr-2 rounded-full"
-                            href="{{ Helpers::settings('social_instagram') }}">
+                            href="{{ Helpers::settings('social_instagram') }}" target="_blank">
                             <i class="fab fa-instagram text-xl text-white"></i>
                         </a>
                         <a class="inline-flex items-center justify-center w-12 h-12 rounded-full"
-                            href="{{ Helpers::settings('social_twitter') }}">
+                            href="{{ Helpers::settings('social_twitter') }}" target="_blank">
                             <i class="fab fa-twitter text-xl text-white"></i>
                         </a>
                         <a class="inline-flex items-center justify-center w-12 h-12 rounded-full"
-                            href="{{ Helpers::settings('social_linkedin') }}">
+                            href="{{ Helpers::settings('social_linkedin') }}" target="_blank">
                             <i class="fab fa-linkedin-in text-xl text-white"></i>
                         </a>
                     </div>
