@@ -62,8 +62,7 @@ class Index extends Component
         'section.page' => 'required',
         'section.title' => 'nullable',
         'section.subtitle' => 'nullable',
-        'section.custom_html_1' => 'nullable',
-        'section.content' => 'nullable',
+        'section.description' => 'nullable',
         'section.video' => 'nullable',
     ];
 

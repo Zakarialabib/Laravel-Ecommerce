@@ -24,13 +24,12 @@ class Create extends Component
         'createSection',
     ];
 
-    protected $rules = [
+    public array $rules = [
         'section.language_id' => ['required'],
         'section.page' => ['required'],
-        'section.title' => ['required','string', 'max:255'],
+        'section.title' => ['nullable','string', 'max:255'],
         'section.subtitle' => ['nullable','string', 'max:255'],
-        'section.custom_html_1' => ['nullable'],
-        'section.content' => ['nullable'],
+        'section.description' => ['nullable'],
         'section.video' => ['nullable'],
     ];
 
@@ -68,7 +67,7 @@ class Create extends Component
             $this->section->image = $imageName;
         }
 
-        $this->section = Section::create();
+        $this->section->save();
 
         $this->emit('refreshIndex');
 

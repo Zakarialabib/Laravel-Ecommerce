@@ -184,18 +184,11 @@
                             placeholder="{{ __('Subtitle') }}" value="{{ old('subtitle') }}">
                         <x-input-error :messages="$errors->get('section.subtitle')" for="section.subtitle" class="mt-2" />
                     </div>
+                    
                     <div class="w-full px-2">
-                        <x-label for="custom_html_1" :value="__('Custom html')" />
-                        <textarea type="text" name="custom_html_1" wire:model.lazy="section.custom_html_1"
-                            class="p-3 leading-5 bg-white text-gray-700 dark:text-gray-300 rounded border border-zinc-300 mb-1 text-sm w-full focus:shadow-outline-blue focus:border-blue-500 "
-                            placeholder="{{ __('Custom html') }}">
-                    </textarea>
-                        <x-input-error :messages="$errors->get('section.custom_html_1')" for="section.custom_html_1" class="mt-2" />
-                    </div>
-                    <div class="w-full px-2">
-                        <x-label for="content" :value="__('Description')" />
-                        <x-input.textarea wire:model.lazy="section.content" id="content" />
-                        <x-input-error :messages="$errors->get('section.content')" for="section.content" class="mt-2" />
+                        <x-label for="description" :value="__('Description')" />
+                        <x-input.textarea wire:model.lazy="section.description" id="description" />
+                        <x-input-error :messages="$errors->get('section.description')" for="section.description" class="mt-2" />
                     </div>
                     <div class="w-full px-2">
                         <x-label for="image" :value="__('Image')" />
