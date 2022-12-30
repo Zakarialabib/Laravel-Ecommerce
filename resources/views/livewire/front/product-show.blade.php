@@ -1,6 +1,6 @@
 <div>
     <section class="py-10">
-        <div class="container mx-auto px-4">
+        <div class="mx-auto px-4">
             <div class="flex flex-wrap -mx-4 mb-14">
                 <div class="w-full md:w-1/2 px-4 mb-8 md:mb-0">
                     <x-product-carousel :image="$product->image" :gallery="$product->gallery" :video="$product->embeded_video" />
@@ -135,7 +135,7 @@
         </div>
 
 
-        <div x-data="{ activeTab: 'description' }" class="container mx-auto px-4 border bg-white shadow-xl">
+        <div x-data="{ activeTab: 'description' }" class="mx-auto px-4 border bg-white shadow-xl">
             <div class="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 mb-10">
                 <div
                     class="inline-block py-6 px-10 text-left font-bold font-heading text-gray-500 uppercase border-b-2 border-gray-100 hover:border-gray-500 focus:outline-none focus:border-gray-500">

@@ -1,9 +1,9 @@
 <div>
-    <div class="container mx-auto px-4">
+    <div class="mx-auto px-4">
         <div class="-mx-4 mb-10 md:mb-5 items-center justify-between">
             <div class="w-full px-4 flex flex-wrap justify-between">
                 <h2 class="mb-1 text-2xl font-bold lg:px-5 sm:px-2">
-                    {{ $this->products->count()}} {{ __('Watch') }}
+                    {{ $this->products->count()}} {{ __('Watches') }}
                 </h2>
                 <div class="w-full sm:w-auto">
                     <select
@@ -28,13 +28,16 @@
              <div class="overflow-x-scroll flex py-2 sm:w-full lg:pl-5 sm:pl-0">
                     @foreach ($this->categories as $category)
                         <x-button type="button" blackOutline class="mx-2"
-                            wire:click="filterProductCategories({{ $category->id }})">{{ $category->name }}</x-button>
+                            wire:click="filterProductCategories({{ $category->id }})">
+                            {{ $category->name }} <small> ({{ $category->products->count()}})</small>
+                        </x-button>
                     @endforeach
                     <div x-data="{ show: true }" x-init="window.setTimeout(() => show = false, 1000)" x-show.transition.fade.250ms="show" x-transition:enter="transition-fade-in" x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100" x-transition:leave="transition-fade-out" x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0">
                         @foreach ($this->categories as $category)
                                 @foreach ($category->subcategories as $subcategory)
                                     <x-button type="button" blackOutline class="mx-2"
-                                        wire:click="filterProductSubcategories({{ $subcategory->id }})">{{ $subcategory->name }}
+                                        wire:click="filterProductSubcategories({{ $subcategory->id }})">
+                                        {{ $subcategory->name }} <small> ({{ $subcategory->products->count()}})</small>
                                     </x-button>
                                 @endforeach
                         @endforeach

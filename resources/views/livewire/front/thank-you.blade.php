@@ -6,7 +6,7 @@
                 src="yofte-assets/images/placeholder-order.png" alt="">
         </div>
         <div class="mt-64 lg:mt-0 py-16 bg-white">
-            <div class="container mx-auto px-4">
+            <div class="mx-auto px-4">
                 <div class="flex items-end justify-end">
                     <div class="w-full lg:w-3/5 lg:pl-20 lg:ml-auto">
                         <h2 class="mb-8 text-5xl font-bold font-heading">{{ __('Thank you') }} {{ $order->user->fullName }} </h2>
