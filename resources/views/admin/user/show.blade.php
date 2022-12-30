@@ -88,12 +88,7 @@ table#example2 {
                                                                 <td>{{$data->city}}</td>
                                                             </tr>
                                                             @endif
-                                                            @if($data->fax != null)
-                                                            <tr>
-                                                                <th>{{ __("Fax") }}</th>
-                                                                <td>{{$data->fax}}</td>
-                                                            </tr>
-                                                            @endif
+                                                            
                                                             @if($data->zip != null)
                                                             <tr>
                                                                 <th>{{ __("Zip Code") }}</th>

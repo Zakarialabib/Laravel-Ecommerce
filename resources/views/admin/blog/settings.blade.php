@@ -35,39 +35,7 @@
                             enctype="multipart/form-data">
                             @csrf
 
-                            <x-form-alert />
-
-                            <div class="row justify-content-center">
-                                <div class="col-lg-3">
-                                  <div class="left-area">
-                                    <h4 class="heading">
-                                        {{ __('Disqus') }}
-                                    </h4>
-                                  </div>
-                                </div>
-                                <div class="col-lg-6">
-                                    <div class="action-list">
-                                        <select class="process select droplinks {{ $gs->is_disqus == 1 ? 'drop-success' : 'drop-danger' }}">
-                                          <option data-val="1" value="{{route('admin-gs-status',['is_disqus',1])}}" {{ $gs->is_disqus == 1 ? 'selected' : '' }}>{{ __('Activated') }}</option>
-                                          <option data-val="0" value="{{route('admin-gs-status',['is_disqus',0])}}" {{ $gs->is_disqus == 0 ? 'selected' : '' }}>{{ __('Deactivated') }}</option>
-                                        </select>
-                                      </div>
-                                </div>
-                              </div>
-                              <div class="row justify-content-center">
-                                  <div class="col-lg-3">
-                                    <div class="left-area">
-                                      <h4 class="heading">
-                                          {{ __('Disqus Website Short Name') }} *
-                                      </h4>
-                                    </div>
-                                  </div>
-                                  <div class="col-lg-6">
-                                      <div class="tawk-area">
-                                        <textarea class="input-field" name="disqus">{{$gs->disqus}}</textarea>
-                                      </div>
-                                  </div>
-                                </div>
+                            <x-form-alert />                                
 
                             <div class="row justify-content-center">
                                 <div class="col-lg-3">
