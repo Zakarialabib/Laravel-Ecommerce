@@ -1,9 +1,9 @@
 @props(['product'])
 
-<div class="px-3 mb-10 bg-white rounded-lg shadow-2xl">
+<div class="mb-5 bg-white rounded-lg shadow-2xl">
     <div class="relative text-center">
         <a href="{{ route('front.product', $product->slug) }}">
-            <img class="w-full h-auto object-cover rounded-t-lg" src="{{ asset('images/products/' . $product->image) }}"
+            <img class="w-full h-auto object-cover rounded-t-lg pt-4" src="{{ asset('images/products/' . $product->image) }}"
                 onerror="this.onerror=null; this.remove();" alt="{{ $product->name }}">
         </a>
         <div class="absolute top-0 right-0 px-4 py-2 bg-orange-500 rounded-bl-lg">
@@ -18,7 +18,9 @@
     </div>
     <div class="p-4 text-center">
         <a href="{{ route('front.product', $product->slug) }}"
-            class="block mb-2 text-lg font-bold font-heading text-orange-500 hover:text-orange-400">{{ $product->name }}</a>
+            class="block mb-2 text-lg font-bold font-heading text-orange-500 hover:text-orange-400">
+            {{ Str::limit($product->name, 35) }}
+        </a>
         @if ($product->status == 1)
             <div class="text-sm font-bold">
                 <span class="text-green-500">● {{ __('in Stock') }}</span>
