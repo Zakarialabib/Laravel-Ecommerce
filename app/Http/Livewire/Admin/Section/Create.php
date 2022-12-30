@@ -33,7 +33,6 @@ class Create extends Component
         'section.title'       => ['nullable', 'string', 'max:255'],
         'section.subtitle'    => ['nullable', 'string', 'max:255'],
         'section.description' => ['nullable'],
-        'section.video'       => ['nullable'],
     ];
 
     public function createSection()
