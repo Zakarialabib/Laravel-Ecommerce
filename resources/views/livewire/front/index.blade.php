@@ -8,7 +8,7 @@
                     <div class="flex flex-wrap -mx-4 py-10"
                         style="background-image: url({{ asset('images/sliders/' . $slider->photo) }});background-size: cover;background-position: center;">
                         <div class="w-full md:w-1/2 px-4 lg:mb-5 sm:mb-2">
-                            <div class="max-w-md lg:py-5 py-10 text-white">
+                            <div class="max-w-md lg:py-5 py-10 text-white px-2">
                                 <h5 class="lg:text-2xl sm:text-md font-bold mb-2">
                                     {{ $slider->subtitle }}
                                 </h5>

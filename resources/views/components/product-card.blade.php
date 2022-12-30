@@ -11,7 +11,7 @@
             <span class="text-white font-bold text-sm">{{ $product->price }}DH</span>
         </div>
         @if ($product->old_price)
-            <div class="absolute top-0 left-0 p-2 bg-red-500 rounded-bl-lg">
+            <div class="absolute top-0 left-0 p-2 bg-red-500 rounded-br-lg">
                 <span class="text-white font-bold text-sm">
                     <del>
                         -{{ $product->discount }}%
