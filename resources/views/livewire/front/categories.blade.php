@@ -1,7 +1,7 @@
 <div>
     <div class="container mx-auto px-4">
         <div class="-mx-4 mb-10 md:mb-5 items-center justify-between">
-            <div class="w-full px-4 flex flex-row items-center">
+            <div class="w-full px-4 flex flex-wrap items-center">
                 <h2 class="mb-1 text-2xl font-bold lg:px-5 sm:px-2">
                     {{ __('Categories') }}
                 </h2>

@@ -1,5 +1,5 @@
 <div>
-    <div class="relative mx-auto px-4 mb-5">
+    <div class="relative mx-auto mb-5">
         <div class="swiper mySwiper">
             <div class="swiper-wrapper">
                 <!-- Slides -->
@@ -8,14 +8,14 @@
                     <div class="flex flex-wrap -mx-4 py-10"
                         style="background-image: url({{ asset('images/sliders/' . $slider->photo) }});background-size: cover;background-position: center;">
                         <div class="w-full md:w-1/2 px-4 lg:mb-5 sm:mb-2">
-                            <div class="max-w-md lg:py-5 py-10 text-black bg-white opacity-75 rounded-md px-4">
-                                <h5 class="text-2xl font-bold text-gray-800 mb-2">
+                            <div class="max-w-md lg:py-5 py-10 text-white">
+                                <h5 class="lg:text-2xl sm:text-md font-bold mb-2">
                                     {{ $slider->subtitle }}
                                 </h5>
-                                <h2 class="text-5xl lg:text-6xl font-semibold font-heading">
+                                <h2 class="lg:text-6xl sm:text-xl font-semibold font-heading">
                                     {{ $slider->title }}
                                 </h2>
-                                <p class="py-10 text-lg text-gray-800">
+                                <p class="py-10 lg:text-lg sm:text-sm">
                                     {!! $slider->details !!}
                                 </p>
                                 @if ($slider->link)

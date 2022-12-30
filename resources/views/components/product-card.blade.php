@@ -3,16 +3,20 @@
 <div class="mb-5 bg-white rounded-lg shadow-2xl">
     <div class="relative text-center">
         <a href="{{ route('front.product', $product->slug) }}">
-            <img class="w-full h-auto object-cover rounded-t-lg pt-4" src="{{ asset('images/products/' . $product->image) }}"
-                onerror="this.onerror=null; this.remove();" alt="{{ $product->name }}">
+            <img class="w-full h-auto object-cover rounded-t-lg pt-4"
+                src="{{ asset('images/products/' . $product->image) }}" onerror="this.onerror=null; this.remove();"
+                alt="{{ $product->name }}">
         </a>
-        <div class="absolute top-0 right-0 px-4 py-2 bg-orange-500 rounded-bl-lg">
-            <span class="text-white font-bold font-heading">{{ $product->price }}DH</span>
+        <div class="absolute top-0 right-0 p-2 bg-orange-500 rounded-bl-lg">
+            <span class="text-white font-bold text-sm">{{ $product->price }}DH</span>
         </div>
         @if ($product->old_price)
-            <div
-                class="absolute top-0 left-0 px-2 py-1 text-xs font-bold font-heading bg-transparent border-2 border-red-500 rounded-full text-red-500">
-                -{{ $product->discount }}%
+            <div class="absolute top-0 left-0 p-2 bg-red-500 rounded-bl-lg">
+                <span class="text-white font-bold text-sm">
+                    <del>
+                        -{{ $product->discount }}%
+                    </del>
+                </span>
             </div>
         @endif
     </div>
@@ -31,6 +35,7 @@
                     {{ __('Out of Stock') }}</span>
             </div>
         @endif
+        @if($product?->reviews)
         <div class="flex justify-center mb-4">
             <div class="flex items-center">
                 @for ($i = 0; $i < 5; $i++)
@@ -53,7 +58,8 @@
                 {{ $product->reviews->count() }} {{ __('Reviews') }}
             </span>
         </div>
-        <div class="flex justify-between">
+        @endif
+        <div class="flex justify-center">
             <livewire:front.add-to-cart :product="$product" :key="$product->id" />
         </div>
     </div>
