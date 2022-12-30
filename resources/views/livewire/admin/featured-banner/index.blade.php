@@ -24,7 +24,7 @@
         <div class="lg:w-1/2 md:w-1/2 sm:w-full my-2 my-md-0">
             <div class="my-2 my-md-0">
                 <input type="text" wire:model.debounce.300ms="search"
-                    class="p-3 leading-5 bg-white dark:bg-dark-eval-2 text-gray-500 dark:text-gray-300 rounded border border-zinc-300 mb-1 text-sm w-full focus:shadow-outline-blue focus:border-blue-500"
+                    class="p-3 leading-5 bg-white text-gray-500 dark:text-gray-300 rounded border border-zinc-300 mb-1 text-sm w-full focus:shadow-outline-blue focus:border-blue-500"
                     placeholder="{{ __('Search') }}" />
             </div>
         </div>
@@ -139,7 +139,7 @@
                         <div class="xl:w-1/2 md:w-1/2 px-3">
                             <x-label for="language_id" :value="__('Language')" required />
                             <x-select-list
-                                class="block bg-white dark:bg-dark-eval-2 text-gray-700 dark:text-gray-300 rounded border border-gray-300 mb-1 text-sm w-full focus:shadow-outline-blue focus:border-blue-500"
+                                class="block bg-white text-gray-700 dark:text-gray-300 rounded border border-gray-300 mb-1 text-sm w-full focus:shadow-outline-blue focus:border-blue-500"
                                 id="language_id" name="language_id" wire:model.defer="featuredbanner.language_id"
                                 :options="$this->listsForFields['languages']" />
                             <x-input-error :messages="$errors->get('featuredbanner.language_id')" for="featuredbanner.language_id" class="mt-2" />
@@ -147,7 +147,7 @@
                         <div class="xl:w-1/2 md:w-1/2 px-3">
                             <x-label for="product_id" :value="__('Product')" />
                             <x-select-list
-                                class="block bg-white dark:bg-dark-eval-2 text-gray-700 dark:text-gray-300 rounded border border-gray-300 mb-1 text-sm w-full focus:shadow-outline-blue focus:border-blue-500"
+                                class="block bg-white text-gray-700 dark:text-gray-300 rounded border border-gray-300 mb-1 text-sm w-full focus:shadow-outline-blue focus:border-blue-500"
                                 id="product_id" name="product_id" wire:model.defer="featuredbanner.product_id"
                                 :options="$this->listsForFields['products']" />
                             <x-input-error :messages="$errors->get('featuredbanner.product_id')" for="featuredbanner.product_id" class="mt-2" />

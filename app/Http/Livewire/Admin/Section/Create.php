@@ -3,11 +3,12 @@
 namespace App\Http\Livewire\Admin\Section;
 
 use App\Models\Section;
+use Illuminate\Support\Collection;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Livewire\Component;
+use App\Models\Language;
 use Livewire\WithFileUploads;
 use Str;
-use App\Http\Livewire\Trix;
 
 class Create extends Component
 {
@@ -16,31 +17,21 @@ class Create extends Component
     public $section;
 
     public $image;
-    
-    public $content;
 
     public $createSection = false;
 
     public $listeners = [
-        Trix::EVENT_VALUE_UPDATED,
         'createSection',
     ];
-    
-    public function onTrixValueUpdate($value)
-    {
-        $this->content = $value;
-    }
-
-    public array $listsForFields = [];
 
     protected $rules = [
-        'section.language_id' => 'required',
-        'section.page' => 'required',
-        'section.title' => 'nullable',
-        'section.subtitle' => 'nullable',
-        'section.custom_html_1' => 'nullable',
-        'section.content' => 'nullable',
-        'section.video' => 'nullable',
+        'section.language_id' => ['required'],
+        'section.page' => ['required'],
+        'section.title' => ['required','string', 'max:255'],
+        'section.subtitle' => ['nullable','string', 'max:255'],
+        'section.custom_html_1' => ['nullable'],
+        'section.content' => ['nullable'],
+        'section.video' => ['nullable'],
     ];
 
     public function createSection()
@@ -52,14 +43,19 @@ class Create extends Component
         $this->createSection = true;
     }
 
+    public function mount (Section $section)
+    {
+        $this->section = $section;
+    }
+
     public function render()
     {
         return view('livewire.admin.section.create');
     }
 
-    public function initListsForFields()
+    public function getLanguagesProperty(): Collection
     {
-        $this->listsForFields['languages'] = Language::pluck('name', 'id')->toArray();
+        return Language::select('name', 'id')->get();
     }
 
     public function save()
@@ -72,7 +68,7 @@ class Create extends Component
             $this->section->image = $imageName;
         }
 
-        $this->section->save();
+        $this->section = Section::create();
 
         $this->emit('refreshIndex');
 

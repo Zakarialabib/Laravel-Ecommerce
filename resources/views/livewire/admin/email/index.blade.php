@@ -14,7 +14,7 @@
                     {{ __('Show items per page') }}
                 </p>
                 <select wire:model="perPage" name="perPage"
-                class="w-20 p-3 leading-5 bg-white dark:bg-dark-eval-2 text-gray-500 dark:text-gray-300 rounded border border-zinc-300 mb-2 text-sm focus:shadow-outline-blue focus:border-blue-300">
+                class="w-20 p-3 leading-5 bg-white text-gray-500 dark:text-gray-300 rounded border border-zinc-300 mb-2 text-sm focus:shadow-outline-blue focus:border-blue-300">
                     @foreach ($paginationOptions as $value)
                         <option value="{{ $value }}">{{ $value }}</option>
                     @endforeach
@@ -24,7 +24,7 @@
         <div class="lg:w-1/2 md:w-1/2 sm:w-full my-2 my-md-0">
             <div class="my-2 my-md-0">
                 <input type="text" wire:model.debounce.300ms="search"
-                    class="p-3 leading-5 bg-white dark:bg-dark-eval-2 text-gray-500 dark:text-gray-300 rounded border border-zinc-300 mb-1 text-sm w-full focus:shadow-outline-blue focus:border-blue-500"
+                    class="p-3 leading-5 bg-white text-gray-500 dark:text-gray-300 rounded border border-zinc-300 mb-1 text-sm w-full focus:shadow-outline-blue focus:border-blue-500"
                     placeholder="{{ __('Search') }}" />
             </div>
         </div>

@@ -134,14 +134,14 @@
                 <div class="mb-4 px-2">
                     <x-label for="head_tags" :value="__('Custom Head Code')" />
                     <textarea
-                        class="p-3 leading-5 bg-white dark:bg-dark-eval-2 text-gray-700 dark:text-gray-300 rounded border border-gray-300 mb-1 text-sm w-full focus:shadow-outline-blue focus:border-blue-500"
+                        class="p-3 leading-5 bg-white text-gray-700 dark:text-gray-300 rounded border border-gray-300 mb-1 text-sm w-full focus:shadow-outline-blue focus:border-blue-500"
                         rows="4" id="head_tags" name="head_tags">{!! Config::get('settings.head_tags') !!}</textarea>
                     <small class="text-red-500">{{ __('Facebook, Google Analytics or other script.') }}</small>
                 </div>
                 <div class="mb-4 px-2">
                     <x-label for="body_tags" :value="__('Custom Body Code')" />
                     <textarea
-                        class="p-3 leading-5 bg-white dark:bg-dark-eval-2 text-gray-700 dark:text-gray-300 rounded border border-gray-300 mb-1 text-sm w-full focus:shadow-outline-blue focus:border-blue-500"
+                        class="p-3 leading-5 bg-white text-gray-700 dark:text-gray-300 rounded border border-gray-300 mb-1 text-sm w-full focus:shadow-outline-blue focus:border-blue-500"
                         rows="4" id="body_tags" name="body_tags">{{ Config::get('settings.body_tags') }}</textarea>
                     <small class="text-red-500">{{ __('Facebook, Google Analytics or other script.') }}</small>
                 </div>
@@ -192,7 +192,7 @@
                 <div class="lg:w-1/2 sm:w-full px-2">
                     <x-label for="currency_position" :value="__('Currency Position')" />
                     <select wire:model="currency_position" name="currency_position" id="currency_position"
-                        class="p-3 leading-5 bg-white dark:bg-dark-eval-2 text-gray-700 dark:text-gray-300 rounded border border-zinc-300 mb-1 text-sm w-full focus:shadow-outline-blue focus:border-blue-500">
+                        class="p-3 leading-5 bg-white text-gray-700 dark:text-gray-300 rounded border border-zinc-300 mb-1 text-sm w-full focus:shadow-outline-blue focus:border-blue-500">
                         <option selected option>
                         <option value="left">{{ __('Left') }}</option>
                         <option value="right">{{ __('Right') }}</option>

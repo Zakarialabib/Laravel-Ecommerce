@@ -2,7 +2,7 @@
 
     <div class="mb-4 {{ $errors->has('permission.title') ? 'is-invalid' : '' }}">
         <x-label required for="title" :value=" __('Title')" />
-        <input class="p-3 leading-5 bg-white dark:bg-dark-eval-2 text-gray-700 dark:text-gray-300 rounded border border-zinc-300 mb-1 text-sm w-full focus:shadow-outline-blue focus:border-blue-500" type="text" name="title" id="title" required wire:model.defer="permission.title">
+        <input class="p-3 leading-5 bg-white text-gray-700 dark:text-gray-300 rounded border border-zinc-300 mb-1 text-sm w-full focus:shadow-outline-blue focus:border-blue-500" type="text" name="title" id="title" required wire:model.defer="permission.title">
         <x-input-error for="permission.title" />
     </div>
 

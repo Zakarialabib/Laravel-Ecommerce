@@ -21,7 +21,7 @@
                     <div class="mt-4 p w-full">
                         <x-label for="category_id" :value="__('Category')" required />
                             <x-select-list
-                                class="block bg-white dark:bg-dark-eval-2 text-gray-700 dark:text-gray-300 rounded border border-gray-300 mb-1 text-sm w-full focus:shadow-outline-blue focus:border-blue-500"
+                                class="block bg-white text-gray-700 dark:text-gray-300 rounded border border-gray-300 mb-1 text-sm w-full focus:shadow-outline-blue focus:border-blue-500"
                                 id="category_id" name="category_id" wire:model="subcategory.category_id"
                                 :options="$this->listsForFields['categories']" />
                         <x-input-error :messages="$errors->get('subcategory.category_id')" for="subcategory.category_id"
@@ -31,7 +31,7 @@
                     <div class="mt-4 p w-full">
                         <x-label for="language_id" :value="__('Language')" required />
                         <x-select-list
-                            class="block bg-white dark:bg-dark-eval-2 text-gray-700 dark:text-gray-300 rounded border border-gray-300 mb-1 text-sm w-full focus:shadow-outline-blue focus:border-blue-500"
+                            class="block bg-white text-gray-700 dark:text-gray-300 rounded border border-gray-300 mb-1 text-sm w-full focus:shadow-outline-blue focus:border-blue-500"
                             id="language_id" name="language_id" wire:model="subcategory.language_id"
                             :options="$this->listsForFields['languages']" />
                         <x-input-error :messages="$errors->get('subcategory.language_id')" for="subcategory.language_id"

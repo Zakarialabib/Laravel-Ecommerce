@@ -11,16 +11,21 @@
             <form enctype="multipart/form-data" wire:submit.prevent="save">
                 <div class="lg:w-1/2 sm:w-full px-2">
                     <x-label for="language_id" :value="__('Language')" />
-                    <x-select-list
-                        class="block bg-white dark:bg-dark-eval-2 text-gray-700 dark:text-gray-300 rounded border border-gray-300 mb-1 text-sm w-full focus:shadow-outline-blue focus:border-blue-500"
-                        id="language_id" name="language_id" wire:model="section.language_id" :options="$this->listsForFields['languages']" />
+                    <select
+                        class="block bg-white text-gray-700 dark:text-gray-300 rounded border border-gray-300 mb-1 text-sm w-full focus:shadow-outline-blue focus:border-blue-500"
+                        id="language_id" name="language_id" wire:model="section.language_id">
+                        @foreach ($this->languages as $language)
+                        
+                            <option value="{{ $language->id }}">{{ $language->name }}</option>
+                        @endforeach
+                    </select>
                     <x-input-error :messages="$errors->get('section.language_id')" for="section.language_id" class="mt-2" />
                 </div>
 
                 <div class="lg:w-1/2 sm:w-full px-2">
                     <x-label for="page" :value="__('Page')" />
                     <select wire:model="section.page"
-                        class="p-3 leading-5 bg-white dark:bg-dark-eval-2 text-gray-700 dark:text-gray-300 rounded border border-zinc-300 mb-1 text-sm w-full focus:shadow-outline-blue focus:border-blue-500  lang"
+                        class="p-3 leading-5 bg-white text-gray-700 dark:text-gray-300 rounded border border-zinc-300 mb-1 text-sm w-full focus:shadow-outline-blue focus:border-blue-500  lang"
                         name="page">
                         <option value="" selected>{{ __('Select a Page') }}</option>
                         <option value="1">{{ __('Home Page') }}</option>
@@ -38,21 +43,21 @@
                 <div class="lg:w-1/2 sm:w-full px-2">
                     <x-label for="title" :value="__('Title')" />
                     <input type="text" name="title" wire:model.lazy="section.title"
-                        class="p-3 leading-5 bg-white dark:bg-dark-eval-2 text-gray-700 dark:text-gray-300 rounded border border-zinc-300 mb-1 text-sm w-full focus:shadow-outline-blue focus:border-blue-500 "
+                        class="p-3 leading-5 bg-white text-gray-700 dark:text-gray-300 rounded border border-zinc-300 mb-1 text-sm w-full focus:shadow-outline-blue focus:border-blue-500 "
                         placeholder="{{ __('Title') }}" value="{{ old('title') }}">
                     <x-input-error :messages="$errors->get('section.title')" for="section.title" class="mt-2" />
                 </div>
                 <div class="lg:w-1/2 sm:w-full px-2">
                     <x-label for="subtitle" :value="__('Subtitle')" />
                     <input type="text" name="subtitle" wire:model.lazy="section.subtitle"
-                        class="p-3 leading-5 bg-white dark:bg-dark-eval-2 text-gray-700 dark:text-gray-300 rounded border border-zinc-300 mb-1 text-sm w-full focus:shadow-outline-blue focus:border-blue-500 "
+                        class="p-3 leading-5 bg-white text-gray-700 dark:text-gray-300 rounded border border-zinc-300 mb-1 text-sm w-full focus:shadow-outline-blue focus:border-blue-500 "
                         placeholder="{{ __('Subtitle') }}" value="{{ old('subtitle') }}">
                     <x-input-error :messages="$errors->get('section.subtitle')" for="section.subtitle" class="mt-2" />
                 </div>
                 <div class="w-full px-2">
                     <x-label for="custom_html_1" :value="__('Custom html')" />
                     <textarea type="text" name="custom_html_1" wire:model.lazy="section.custom_html_1"
-                        class="p-3 leading-5 bg-white dark:bg-dark-eval-2 text-gray-700 dark:text-gray-300 rounded border border-zinc-300 mb-1 text-sm w-full focus:shadow-outline-blue focus:border-blue-500 "
+                        class="p-3 leading-5 bg-white text-gray-700 dark:text-gray-300 rounded border border-zinc-300 mb-1 text-sm w-full focus:shadow-outline-blue focus:border-blue-500 "
                         placeholder="{{ __('Custom html') }}">
                 </textarea>
                     <x-input-error :messages="$errors->get('section.custom_html_1')" for="section.custom_html_1" class="mt-2" />
@@ -73,7 +78,7 @@
                 <div class="lg:w-1/2 sm:w-full px-2">
                     <x-label for="video" :value="__('Video')" />
                     <input type="text" name="video" wire:model.lazy="section.video"
-                        class="p-3 leading-5 bg-white dark:bg-dark-eval-2 text-gray-700 dark:text-gray-300 rounded border border-zinc-300 mb-1 text-sm w-full focus:shadow-outline-blue focus:border-blue-500 "
+                        class="p-3 leading-5 bg-white text-gray-700 dark:text-gray-300 rounded border border-zinc-300 mb-1 text-sm w-full focus:shadow-outline-blue focus:border-blue-500 "
                         placeholder="{{ __('Video') }}" value="{{ old('video') }}">
                     <x-input-error :messages="$errors->get('section.video')" for="section.video" class="mt-2" />
                 </div>
