@@ -36,6 +36,7 @@
     </div>
 </div>
 
+@once
 @push('scripts')
     <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
     <script>
@@ -59,3 +60,4 @@
 @push('styles')
     <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
 @endpush
+@endonce

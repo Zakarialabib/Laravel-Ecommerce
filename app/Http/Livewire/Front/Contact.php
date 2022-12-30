@@ -8,7 +8,7 @@ use App\Models\User;
 use Illuminate\Support\Facades\Mail;
 use Livewire\Component;
 
-class ContactForm extends Component
+class Contact extends Component
 {
     // public Conversation $conversation;
 
@@ -44,7 +44,7 @@ class ContactForm extends Component
 
     public function render()
     {
-        return view('livewire.contact-form');
+        return view('livewire.front.contact');
     }
 
     protected $rules = [
