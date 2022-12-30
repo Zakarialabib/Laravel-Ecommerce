@@ -6,7 +6,7 @@
         $phone = substr($phone, 1);
     }
 
-    $greeting = 'Salam<br>';
+    $greeting = 'Salam,';
 
     $message = "J'ai une Question/Demande d'nformation";
     // Construct the message text.
@@ -16,7 +16,7 @@
     $message = urlencode($message);
     
     // Construct the WhatsApp API endpoint URL.
-    $url = "https://api.whatsapp.com/send?phone=$phone&text=$message";
+    $url = "https://api.whatsapp.com/send?phone=+212$phone&text=$message";
 @endphp
 
 
