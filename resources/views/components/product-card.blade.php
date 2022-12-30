@@ -7,7 +7,7 @@
                 src="{{ asset('images/products/' . $product->image) }}" onerror="this.onerror=null; this.remove();"
                 alt="{{ $product->name }}">
         </a>
-        <div class="absolute top-0 right-0 p-2 bg-orange-500 rounded-bl-lg">
+        <div class="absolute top-0 right-0 mb-3 p-2 bg-orange-500 rounded-bl-lg">
             <span class="text-white font-bold text-sm">{{ $product->price }}DH</span>
         </div>
         @if ($product->old_price)
@@ -27,7 +27,7 @@
         </a>
         @if ($product->status == 1)
             <div class="text-sm font-bold">
-                <span class="text-green-500">● {{ __('in Stock') }}</span>
+                <span class="text-green-500">● {{ __('In Stock') }}</span>
             </div>
         @else
             <div class="text-sm font-bold">
