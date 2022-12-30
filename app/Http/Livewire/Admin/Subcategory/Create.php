@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Livewire\Admin\Subcategory;
 
 use App\Models\Category;
@@ -13,7 +15,8 @@ use Livewire\WithFileUploads;
 
 class Create extends Component
 {
-    use LivewireAlert , WithFileUploads;
+    use LivewireAlert;
+    use WithFileUploads;
 
     public $createSubcategory;
 
@@ -30,7 +33,7 @@ class Create extends Component
     }
 
     public array $rules = [
-        'subcategory.name' => ['required', 'string', 'max:255'],
+        'subcategory.name'        => ['required', 'string', 'max:255'],
         'subcategory.category_id' => ['required'],
         'subcategory.language_id' => ['required'],
     ];

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
@@ -8,6 +10,9 @@ use Config;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use Validator;
+use PriceHelper;
+use stdClass;
+use Exception;
 
 class GeneralSettingController extends Controller
 {
@@ -65,75 +70,86 @@ class GeneralSettingController extends Controller
         else {
             $input = $request->all();
             $data = Generalsetting::findOrFail(1);
+
             if ($file = $request->file('logo')) {
-                $name = \PriceHelper::ImageCreateName($file);
+                $name = PriceHelper::ImageCreateName($file);
                 $data->upload($name, $file, $data->logo);
                 $input['logo'] = $name;
             }
+
             if ($file = $request->file('favicon')) {
-                $name = \PriceHelper::ImageCreateName($file);
+                $name = PriceHelper::ImageCreateName($file);
                 $data->upload($name, $file, $data->favicon);
                 $input['favicon'] = $name;
             }
+
             if ($file = $request->file('deal_background')) {
-                $name = \PriceHelper::ImageCreateName($file);
+                $name = PriceHelper::ImageCreateName($file);
                 $data->upload($name, $file, $data->favicon);
                 $input['deal_background'] = $name;
             }
 
             if ($file = $request->file('breadcrumb_banner')) {
-                $name = \PriceHelper::ImageCreateName($file);
+                $name = PriceHelper::ImageCreateName($file);
                 $data->upload($name, $file, $data->breadcrumb_banner);
                 $input['breadcrumb_banner'] = $name;
             }
+
             if ($file = $request->file('loader')) {
-                $name = \PriceHelper::ImageCreateName($file);
+                $name = PriceHelper::ImageCreateName($file);
                 $data->upload($name, $file, $data->loader);
                 $input['loader'] = $name;
             }
+
             if ($file = $request->file('admin_loader')) {
-                $name = \PriceHelper::ImageCreateName($file);
+                $name = PriceHelper::ImageCreateName($file);
                 $data->upload($name, $file, $data->admin_loader);
                 $input['admin_loader'] = $name;
             }
+
             if ($file = $request->file('affilate_banner')) {
-                $name = \PriceHelper::ImageCreateName($file);
+                $name = PriceHelper::ImageCreateName($file);
                 $data->upload($name, $file, $data->affilate_banner);
                 $input['affilate_banner'] = $name;
             }
+
             if ($file = $request->file('error_banner_404')) {
-                $name = \PriceHelper::ImageCreateName($file);
+                $name = PriceHelper::ImageCreateName($file);
                 $data->upload($name, $file, $data->error_banner_404);
                 $input['error_banner_404'] = $name;
             }
+
             if ($file = $request->file('error_banner_500')) {
-                $name = \PriceHelper::ImageCreateName($file);
+                $name = PriceHelper::ImageCreateName($file);
                 $data->upload($name, $file, $data->error_banner_500);
                 $input['error_banner_500'] = $name;
             }
+
             if ($file = $request->file('popup_background')) {
-                $name = \PriceHelper::ImageCreateName($file);
+                $name = PriceHelper::ImageCreateName($file);
                 $data->upload($name, $file, $data->popup_background);
                 $input['popup_background'] = $name;
             }
+
             if ($file = $request->file('invoice_logo')) {
-                $name = \PriceHelper::ImageCreateName($file);
+                $name = PriceHelper::ImageCreateName($file);
                 $data->upload($name, $file, $data->invoice_logo);
                 $input['invoice_logo'] = $name;
             }
+
             if ($file = $request->file('user_image')) {
-                $name = \PriceHelper::ImageCreateName($file);
+                $name = PriceHelper::ImageCreateName($file);
                 $data->upload($name, $file, $data->user_image);
                 $input['user_image'] = $name;
             }
 
             if ($file = $request->file('footer_logo')) {
-                $name = \PriceHelper::ImageCreateName($file);
+                $name = PriceHelper::ImageCreateName($file);
                 $data->upload($name, $file, $data->footer_logo);
                 $input['footer_logo'] = $name;
             }
 
-            if (! empty($request->product_page)) {
+            if ( ! empty($request->product_page)) {
                 $input['product_page'] = implode(',', $request->product_page);
             } else {
                 $input['product_page'] = null;
@@ -142,6 +158,7 @@ class GeneralSettingController extends Controller
             if ($request->capcha_secret_key) {
                 $this->setEnv('NOCAPTCHA_SECRET', $request->capcha_secret_key, env('NOCAPTCHA_SECRET'));
             }
+
             if ($request->capcha_site_key) {
                 $this->setEnv('NOCAPTCHA_SITEKEY', $request->capcha_site_key, env('NOCAPTCHA_SITEKEY'));
             }
@@ -222,27 +239,28 @@ class GeneralSettingController extends Controller
         Config::set('mail.password', $request->mail_pass);
 
         $datas = [
-            'to' => 'junajunnun@gmail.com',
+            'to'      => 'junajunnun@gmail.com',
             'subject' => 'Test Sms',
-            'body' => 'Test Body',
+            'body'    => 'Test Body',
         ];
 
         $data = [
             'email_body' => $datas['body'],
         ];
 
-        $objDemo = new \stdClass();
+        $objDemo = new stdClass();
         $objDemo->to = $datas['to'];
         $objDemo->from = $request->from_email;
         $objDemo->title = $request->from_name;
         $objDemo->subject = $datas['subject'];
+
         try {
             Mail::send('admin.email.mailbody', $data, function ($message) use ($objDemo) {
                 $message->from($objDemo->from, $objDemo->title);
                 $message->to($objDemo->to);
                 $message->subject($objDemo->subject);
             });
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             return response()->json($e->getMessage());
         }
 
@@ -260,11 +278,13 @@ class GeneralSettingController extends Controller
     {
         $prev = '';
         $data = Generalsetting::findOrFail(1);
+
         if ($field == 'is_debug') {
             $prev = $data->is_debug == 1 ? 'true' : 'false';
         }
         $data[$field] = $value;
         $data->update();
+
         if ($field == 'is_debug') {
             $now = $data->is_debug == 1 ? 'true' : 'false';
             $this->setEnv('APP_DEBUG', $now, $prev);

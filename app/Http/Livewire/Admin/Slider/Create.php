@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Livewire\Admin\Slider;
 
 use App\Models\Language;
@@ -11,7 +13,8 @@ use Livewire\WithFileUploads;
 
 class Create extends Component
 {
-    use LivewireAlert , WithFileUploads;
+    use LivewireAlert;
+    use WithFileUploads;
 
     public $createSlider = false;
 
@@ -31,12 +34,12 @@ class Create extends Component
     }
 
     public array $rules = [
-        'slider.title' => ['required', 'string', 'max:255'],
-        'slider.subtitle' => ['nullable', 'string'],
-        'slider.details' => ['nullable', 'string'],
-        'slider.link' => ['nullable', 'string'],
-        'slider.language_id' => ['nullable'],
-        'slider.bg_color' => ['nullable'],
+        'slider.title'         => ['required', 'string', 'max:255'],
+        'slider.subtitle'      => ['nullable', 'string'],
+        'slider.details'       => ['nullable', 'string'],
+        'slider.link'          => ['nullable', 'string'],
+        'slider.language_id'   => ['nullable'],
+        'slider.bg_color'      => ['nullable'],
         'slider.embeded_video' => ['nullable'],
     ];
 

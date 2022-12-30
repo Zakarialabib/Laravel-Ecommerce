@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Livewire\Front;
 
 use App\Models\Order;
@@ -50,28 +52,28 @@ class Checkout extends Component
         $shipping = Shipping::find($this->shipping_id);
 
         $order = Order::create([
-            'reference' => Order::generateReference(),
-            'shipping_id' => $this->shipping_id,
+            'reference'       => Order::generateReference(),
+            'shipping_id'     => $this->shipping_id,
             'delivery_method' => $shipping->name,
-            'payment_method' => $this->payment_method,
-            'shipping_cost' => $shipping->cost,
-            'first_name' => $this->first_name,
-            'last_name' => $this->last_name,
-            'email' => $this->email,
-            'address' => $this->address,
-            'city' => $this->city,
-            'phone' => $this->phone,
-            'total' => Cart::total(),
-            'user_id' => auth()->user()->id,
-            'order_status' => Order::STATUS_PENDING,
-            'payment_status' => Order::PAYMENT_STATUS_PENDING,
+            'payment_method'  => $this->payment_method,
+            'shipping_cost'   => $shipping->cost,
+            'first_name'      => $this->first_name,
+            'last_name'       => $this->last_name,
+            'email'           => $this->email,
+            'address'         => $this->address,
+            'city'            => $this->city,
+            'phone'           => $this->phone,
+            'total'           => Cart::total(),
+            'user_id'         => auth()->user()->id,
+            'order_status'    => Order::STATUS_PENDING,
+            'payment_status'  => Order::PAYMENT_STATUS_PENDING,
         ]);
 
         foreach (Cart::content() as $item) {
             $order->orderItems()->create([
                 'product_id' => $item->id,
-                'quantity' => $item->qty,
-                'price' => $item->price,
+                'quantity'   => $item->qty,
+                'price'      => $item->price,
             ]);
         }
 
@@ -86,6 +88,7 @@ class Checkout extends Component
     {
         if ($value) {
             $this->shipping = Shipping::find($value);
+
             if ($this->shipping->is_pickup) {
                 $cartTotal = Cart::instance('shopping')->total();
             } else {
@@ -104,8 +107,6 @@ class Checkout extends Component
         $this->cartItems = Cart::instance('shopping')->content();
 
         $this->subTotal = Cart::instance('shopping')->subtotal();
-
-        $this->tax = Cart::instance('shopping')->tax();
 
         $this->shipping = Shipping::find($this->shipping_id);
 

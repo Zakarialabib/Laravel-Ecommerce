@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Database\Seeders;
 
 use App\Models\Section;
@@ -16,19 +18,19 @@ class SectionsSeeder extends Seeder
     {
         Section::insert([
             [
-                'id' => 1,
-                'title' => 'Welcome to BADR LUXURY',
-                'image' => 'image.jpg',
+                'id'             => 1,
+                'title'          => 'Welcome to BADR LUXURY',
+                'image'          => 'image.jpg',
                 'featured_title' => 'BADR LUXURY',
-                'subtitle' => 'BADR LUXURY',
-                'label' => 'BADR LUXURY',
-                'link' => 'https://badrluxury.com/',
-                'description' => 'BADR LUXURY',
-                'status' => '1',
-                'bg_color' => 'bg-green-500',
-                'page' => 'home',
-                'position' => '1',
-                'language_id' => '1',
+                'subtitle'       => 'BADR LUXURY',
+                'label'          => 'BADR LUXURY',
+                'link'           => 'https://badrluxury.com/',
+                'description'    => 'BADR LUXURY',
+                'status'         => '1',
+                'bg_color'       => 'bg-green-500',
+                'page'           => 'home',
+                'position'       => '1',
+                'language_id'    => '1',
             ],
         ]);
     }

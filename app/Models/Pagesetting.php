@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
@@ -21,6 +23,7 @@ class Pagesetting extends Model
     public function upload($name, $file, $oldname)
     {
         $file->move('assets/images', $name);
+
         if ($oldname != null) {
             if (file_exists(public_path().'/assets/images/'.$oldname)) {
                 unlink(public_path().'/assets/images/'.$oldname);

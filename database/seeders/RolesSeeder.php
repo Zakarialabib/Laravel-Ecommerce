@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Database\Seeders;
 
 use App\Models\Role;
@@ -16,13 +18,13 @@ class RolesSeeder extends Seeder
     {
         $roles = [
             [
-                'id' => 1,
-                'name' => Role::ROLE_ADMIN,
+                'id'         => 1,
+                'name'       => Role::ROLE_ADMIN,
                 'guard_name' => Role::ROLE_ADMIN,
             ],
             [
-                'id' => 2,
-                'name' => Role::ROLE_CLIENT,
+                'id'         => 2,
+                'name'       => Role::ROLE_CLIENT,
                 'guard_name' => Role::ROLE_CLIENT,
             ],
         ];

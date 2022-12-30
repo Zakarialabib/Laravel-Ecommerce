@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Livewire\Admin\Blog;
 
 use App\Models\Blog;
@@ -13,11 +15,14 @@ use Livewire\WithFileUploads;
 
 class Create extends Component
 {
-    use LivewireAlert , WithFileUploads;
+    use LivewireAlert;
+    use WithFileUploads;
 
     public $createBlog;
 
     public $image;
+
+    public $blog;
 
     public $listeners = ['createBlog'];
 
@@ -33,13 +38,13 @@ class Create extends Component
     }
 
     public array $rules = [
-        'blog.title' => ['required', 'string', 'max:255'],
-        'blog.category_id' => ['required', 'integer'],
-        'blog.details' => ['required'],
-        'blog.meta_tag' => ['nullable'],
+        'blog.title'            => ['required', 'string', 'max:255'],
+        'blog.category_id'      => ['required', 'integer'],
+        'blog.details'          => ['required'],
+        'blog.meta_tag'         => ['nullable'],
         'blog.meta_description' => ['nullable'],
-        'blog.featured' => ['nullable'],
-        'blog.language_id' => ['required', 'integer'],
+        'blog.featured'         => ['nullable'],
+        'blog.language_id'      => ['required', 'integer'],
     ];
 
     public function render()

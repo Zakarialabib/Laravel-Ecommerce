@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Database\Seeders;
 
 use App\Models\Settings;
@@ -7,124 +9,122 @@ use Illuminate\Database\Seeder;
 
 class SettingSeeder extends Seeder
 {
-    /**
-     * @var array
-     */
+    /** @var array */
     protected $settings = [
         [
-            'key' => 'company_name',
+            'key'   => 'company_name',
             'value' => 'BADR LUXURY',
         ],
         [
-            'key' => 'site_title',
+            'key'   => 'site_title',
             'value' => 'BADR LUXURY',
         ],
         [
-            'key' => 'company_email_address',
+            'key'   => 'company_email_address',
             'value' => 'connect@badrluxury.com',
         ],
         [
-            'key' => 'company_phone',
+            'key'   => 'company_phone',
             'value' => '+212638041919',
         ],
         [
-            'key' => 'company_address',
+            'key'   => 'company_address',
             'value' => 'DerbGhalef , Casablanca, Maroc',
         ],
         [
-            'key' => 'currency_code',
+            'key'   => 'currency_code',
             'value' => 'MAD',
         ],
         [
-            'key' => 'currency_symbol',
+            'key'   => 'currency_symbol',
             'value' => 'DH',
         ],
         [
-            'key' => 'currency_position',
+            'key'   => 'currency_position',
             'value' => 'right',
         ],
         [
-            'key' => 'site_logo',
+            'key'   => 'site_logo',
             'value' => '',
         ],
         [
-            'key' => 'site_favicon',
+            'key'   => 'site_favicon',
             'value' => '',
         ],
         [
-            'key' => 'page_status',
+            'key'   => 'page_status',
             'value' => '1',
         ],
         [
-            'key' => 'footer_copyright_text',
+            'key'   => 'footer_copyright_text',
             'value' => '',
         ],
         [
-            'key' => 'seo_meta_title',
+            'key'   => 'seo_meta_title',
             'value' => 'Badr Luxury',
         ],
         [
-            'key' => 'seo_meta_description',
+            'key'   => 'seo_meta_description',
             'value' => 'Badr Luxury',
         ],
         [
-            'key' => 'social_facebook',
+            'key'   => 'social_facebook',
             'value' => '#',
         ],
         [
-            'key' => 'social_twitter',
+            'key'   => 'social_twitter',
             'value' => '#',
         ],
         [
-            'key' => 'social_instagram',
+            'key'   => 'social_instagram',
             'value' => '#',
         ],
         [
-            'key' => 'social_linkedin',
+            'key'   => 'social_linkedin',
             'value' => '#',
         ],
         [
-            'key' => 'social_whatsapp',
+            'key'   => 'social_whatsapp',
             'value' => '#',
         ],
         [
-            'key' => 'head_tags',
+            'key'   => 'head_tags',
             'value' => '',
         ],
         [
-            'key' => 'body_tags',
+            'key'   => 'body_tags',
             'value' => '',
         ],
         [
-            'key' => 'enableRegistrationTerms',
+            'key'   => 'enableRegistrationTerms',
             'value' => '1',
         ],
         [
-            'key' => 'site_maintenance_message',
+            'key'   => 'site_maintenance_message',
             'value' => 'Site is under maintenance',
         ],
         [
-            'key' => 'site_return',
+            'key'   => 'site_return',
             'value' => '0',
         ],
         [
-            'key' => 'site_refund',
+            'key'   => 'site_refund',
             'value' => '0',
         ],
         [
-            'key' => 'site_terms',
+            'key'   => 'site_terms',
             'value' => '0',
         ],
         [
-            'key' => 'site_privacy',
+            'key'   => 'site_privacy',
             'value' => '0',
         ],
         [
-            'key' => 'site_about',
+            'key'   => 'site_about',
             'value' => '0',
         ],
         [
-            'key' => 'site_contact',
+            'key'   => 'site_contact',
             'value' => '0',
         ],
     ];
@@ -138,7 +138,8 @@ class SettingSeeder extends Seeder
     {
         foreach ($this->settings as $index => $setting) {
             $result = Settings::create($setting);
-            if (! $result) {
+
+            if ( ! $result) {
                 $this->command->info("Insert failed at record $index.");
 
                 return;

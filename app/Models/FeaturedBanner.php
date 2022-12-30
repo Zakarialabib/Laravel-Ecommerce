@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Models;
 
 use App\Support\HasAdvancedFilter;
@@ -9,9 +11,9 @@ class FeaturedBanner extends Model
 {
     use HasAdvancedFilter;
 
-    const StatusInactive = 0;
+    public const StatusInactive = 0;
 
-    const StatusActive = 1;
+    public const StatusActive = 1;
 
     public $orderable = [
         'id', 'title', 'details', 'image', 'status', 'featured', 'language_id',

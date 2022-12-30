@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Livewire\Admin\Blog;
 
 use App\Http\Livewire\WithSorting;
@@ -24,6 +26,8 @@ class Index extends Component
     public int $perPage;
 
     public $editModal = false;
+
+    public $blog;
 
     public $confirmDelete;
 
@@ -72,13 +76,13 @@ class Index extends Component
     }
 
     public array $rules = [
-        'blog.title' => ['required', 'string', 'max:255'],
-        'blog.category_id' => ['required', 'integer'],
-        'blog.details' => ['required'],
-        'blog.meta_tag' => ['nullable'],
+        'blog.title'            => ['required', 'string', 'max:255'],
+        'blog.category_id'      => ['required', 'integer'],
+        'blog.details'          => ['required'],
+        'blog.meta_tag'         => ['nullable'],
         'blog.meta_description' => ['nullable'],
-        'blog.featured' => ['nullable'],
-        'blog.language_id' => ['required', 'integer'],
+        'blog.featured'         => ['nullable'],
+        'blog.language_id'      => ['required', 'integer'],
     ];
 
     public function mount()
@@ -94,8 +98,8 @@ class Index extends Component
     public function render()
     {
         $query = Blog::advancedFilter([
-            's' => $this->search ?: null,
-            'order_column' => $this->sortBy,
+            's'               => $this->search ?: null,
+            'order_column'    => $this->sortBy,
             'order_direction' => $this->sortDirection,
         ]);
 

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
@@ -7,19 +9,7 @@ use App\Models\Subscriber;
 
 class SubscriberController extends Controller
 {
-    //*** JSON Request
-    public function datatables()
-    {
-        $datas = Subscriber::oldest('id')->get();
-        //--- Integrating This Collection Into Datatables
-        return Datatables::of($datas)
-                           ->addColumn('sl', function (Subscriber $data) {
-                               $id = 1;
-
-                               return $id++;
-                           })
-                           ->toJson(); //--- Returning Json Data To Client Side
-    }
+  
 
     public function index()
     {
@@ -34,6 +24,7 @@ class SubscriberController extends Controller
         $output = fopen('php://output', 'w');
         fputcsv($output, ['Subscribers Emails']);
         $result = Subscriber::all();
+
         foreach ($result as $row) {
             fputcsv($output, $row->toArray());
         }

@@ -1,20 +1,25 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Livewire\Admin\Categories;
 
 use App\Models\Category;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Livewire\Component;
 use Livewire\WithFileUploads;
-use Str;
+use Illuminate\Support\Str;
 
 class Create extends Component
 {
-    use LivewireAlert, WithFileUploads;
+    use LivewireAlert;
+    use WithFileUploads;
 
     public $listeners = ['createCategory'];
 
     public $createCategory;
+    
+    public $category;
 
     public $image;
 

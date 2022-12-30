@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Livewire\Admin\Users;
 
 use App\Http\Livewire\WithSorting;
@@ -12,7 +14,9 @@ use Livewire\WithPagination;
 
 class Index extends Component
 {
-    use WithPagination, WithSorting, LivewireAlert;
+    use WithPagination;
+    use WithSorting;
+    use LivewireAlert;
 
     public $listeners = [
         'refreshIndex' => '$refresh', 'showModal', 'editModal',
@@ -20,6 +24,8 @@ class Index extends Component
 
     public $showModal = false;
 
+    public $user;
+    
     public $role;
 
     public $editModal = false;
@@ -69,13 +75,13 @@ class Index extends Component
     }
 
     public array $rules = [
-        'user.name' => 'required|string|max:255',
-        'user.email' => 'required|email|unique:users,email',
-        'user.password' => 'required|string|min:8',
-        'user.phone' => 'required|numeric',
-        'user.city' => 'nullable',
-        'user.country' => 'nullable',
-        'user.address' => 'nullable',
+        'user.name'       => 'required|string|max:255',
+        'user.email'      => 'required|email|unique:users,email',
+        'user.password'   => 'required|string|min:8',
+        'user.phone'      => 'required|numeric',
+        'user.city'       => 'nullable',
+        'user.country'    => 'nullable',
+        'user.address'    => 'nullable',
         'user.tax_number' => 'nullable',
     ];
 
@@ -93,8 +99,8 @@ class Index extends Component
         abort_if(Gate::denies('user_access'), 403);
 
         $query = User::with(['roles'])->advancedFilter([
-            's' => $this->search ?: null,
-            'order_column' => $this->sortBy,
+            's'               => $this->search ?: null,
+            'order_column'    => $this->sortBy,
             'order_direction' => $this->sortDirection,
         ]);
 

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Livewire\Admin\BlogCategory;
 
 use App\Models\BlogCategory;
@@ -11,13 +13,16 @@ use Livewire\WithFileUploads;
 
 class Create extends Component
 {
-    use LivewireAlert , WithFileUploads;
+    use LivewireAlert;
+    use WithFileUploads;
 
     public $createBlogCategory;
 
     public $listeners = ['createBlogCategory'];
 
     public array $listsForFields = [];
+
+    public $blogcategory;
 
     public function mount(BlogCategory $blogcategory)
     {
@@ -28,12 +33,12 @@ class Create extends Component
     }
 
     public array $rules = [
-        'blogcategory.title' => ['required', 'string', 'max:255'],
-        'blogcategory.description' => ['nullable'],
-        'blogcategory.meta_title' => ['nullable'],
+        'blogcategory.title'            => ['required', 'string', 'max:255'],
+        'blogcategory.description'      => ['nullable'],
+        'blogcategory.meta_title'       => ['nullable'],
         'blogcategory.meta_description' => ['nullable'],
-        'blogcategory.featured' => ['nullable'],
-        'blogcategory.language_id' => ['required', 'integer'],
+        'blogcategory.featured'         => ['nullable'],
+        'blogcategory.language_id'      => ['required', 'integer'],
     ];
 
     public function render()

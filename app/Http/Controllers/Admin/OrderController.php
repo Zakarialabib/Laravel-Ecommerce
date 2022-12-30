@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
@@ -30,35 +32,4 @@ class OrderController extends Controller
         return view('admin.order.invoice', compact('order', 'cart'));
     }
 
-    public function emailsub(Request $request)
-    {
-        $gs = Generalsetting::findOrFail(1);
-        if ($gs->is_smtp == 1) {
-            $data = [
-                'to' => $request->to,
-                'subject' => $request->subject,
-                'body' => $request->message,
-            ];
-
-            $mailer = new GeniusMailer();
-            $mailer->sendCustomMail($data);
-        } else {
-            $data = 0;
-            $headers = 'From: '.$gs->from_name.'<'.$gs->from_email.'>';
-            $mail = mail($request->to, $request->subject, $request->message, $headers);
-            if ($mail) {
-                $data = 1;
-            }
-        }
-
-        return response()->json($data);
-    }
-
-    public function printpage($id)
-    {
-        $order = Order::findOrFail($id);
-        $cart = json_decode($order->cart, true);
-
-        return view('admin.order.print', compact('order', 'cart'));
-    }
 }

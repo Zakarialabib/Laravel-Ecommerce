@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Providers;
 
 use App\Models\Language;
@@ -21,7 +23,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
+
     }
 
     /**
@@ -42,12 +44,10 @@ class AppServiceProvider extends ServiceProvider
         // Model::shouldBeStrict(! $this->app->isProduction());
     }
 
-    /**
-     * @return \App\Models\Language|\Illuminate\Database\Eloquent\Model|array|null
-     */
+    /** @return \App\Models\Language|\Illuminate\Database\Eloquent\Model|array|null */
     private function getLanguages()
     {
-        if (! Schema::hasTable('languages')) {
+        if ( ! Schema::hasTable('languages')) {
             return;
         }
 

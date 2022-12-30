@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Models;
 
 use App\Support\HasAdvancedFilter;
@@ -11,15 +13,15 @@ class OrderForms extends Model
 
     public $table = 'orderforms';
 
-    const HOME_FORM = 1;
+    public const HOME_FORM = 1;
 
-    const PRODUCT_FORM = 2;
+    public const PRODUCT_FORM = 2;
 
-    const STATUS_PENDING = 1;
+    public const STATUS_PENDING = 1;
 
-    const STATUS_APPROVED = 2;
+    public const STATUS_APPROVED = 2;
 
-    const STATUS_REJECTED = 3;
+    public const STATUS_REJECTED = 3;
 
     public $orderable = [
         'id',

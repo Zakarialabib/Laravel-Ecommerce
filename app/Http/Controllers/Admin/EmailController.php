@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Controllers\Admin;
 
 use App\Classes\GeniusMailer;
@@ -38,15 +40,16 @@ class EmailController extends Controller
     public function groupemailpost(Request $request)
     {
         $config = Generalsetting::findOrFail(1);
+
         if ($request->type == 0) {
             $users = User::all();
             //Sending Email To Users
             foreach ($users as $user) {
                 if ($config->is_smtp == 1) {
                     $data = [
-                        'to' => $user->email,
+                        'to'      => $user->email,
                         'subject' => $request->subject,
-                        'body' => $request->body,
+                        'body'    => $request->body,
                     ];
 
                     $mailer = new GeniusMailer();
@@ -70,9 +73,9 @@ class EmailController extends Controller
             foreach ($users as $user) {
                 if ($config->is_smtp == 1) {
                     $data = [
-                        'to' => $user->email,
+                        'to'      => $user->email,
                         'subject' => $request->subject,
-                        'body' => $request->body,
+                        'body'    => $request->body,
                     ];
 
                     $mailer = new GeniusMailer();

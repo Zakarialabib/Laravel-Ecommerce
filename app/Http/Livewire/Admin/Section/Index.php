@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Livewire\Admin\Section;
 
 use App\Models\Language;
@@ -10,15 +12,19 @@ use Livewire\Component;
 use Livewire\WithFileUploads;
 use Livewire\WithPagination;
 use App\Http\Livewire\WithSorting;
+use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Str;
 
 class Index extends Component
 {
-    use WithPagination, 
-        LivewireAlert, 
-        WithSorting, 
-        WithFileUploads;
+    use WithPagination;
+    use LivewireAlert;
+    use WithSorting;
+    use WithFileUploads;
 
     public $image;
+    
+    public $section;
 
     public $listeners = [
         'refreshIndex' => '$refresh',
@@ -59,11 +65,10 @@ class Index extends Component
 
     protected $rules = [
         'section.language_id' => 'required',
-        'section.page' => 'required',
-        'section.title' => 'nullable',
-        'section.subtitle' => 'nullable',
+        'section.page'        => 'required',
+        'section.title'       => 'nullable',
+        'section.subtitle'    => 'nullable',
         'section.description' => 'nullable',
-        'section.video' => 'nullable',
     ];
 
     public function getSelectedCountProperty()
@@ -106,8 +111,8 @@ class Index extends Component
         $query = Section::when($this->language_id, function ($query) {
             return $query->where('language_id', $this->language_id);
         })->advancedFilter([
-            's' => $this->search ?: null,
-            'order_column' => $this->sortBy,
+            's'               => $this->search ?: null,
+            'order_column'    => $this->sortBy,
             'order_direction' => $this->sortDirection,
         ]);
 
@@ -133,16 +138,13 @@ class Index extends Component
 
          Section::create([
              'language_id' => $section_details->language_id,
-             'page' => $section_details->page,
-             'title' => $section_details->title,
-             'subtitle' => $section_details->subtitle,
-             'text' => $section_details->text,
-             'button' => $section_details->button,
-             'link' => $section_details->link,
-             'video' => $section_details->video,
-             'image' => $section_details->image,
-             'content' => $section_details->content,
-             'status' => 0,
+             'page'        => $section_details->page,
+             'title'       => $section_details->title,
+             'subtitle'    => $section_details->subtitle,
+             'link'        => $section_details->link,
+             'image'       => $section_details->image,
+             'description'     => $section_details->description,
+             'status'      => 0,
          ]);
          $this->alert('success', __('Section Cloned successfully!'));
      }

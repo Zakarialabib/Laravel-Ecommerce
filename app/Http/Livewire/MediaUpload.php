@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Livewire;
 
 use Jantinnerezo\LivewireAlert\LivewireAlert;
@@ -56,7 +58,7 @@ class MediaUpload extends Component
 
     public function hydrate()
     {
-        //
+
         $this->oldPhotos = $this->photos;
     }
 
@@ -76,6 +78,7 @@ class MediaUpload extends Component
     public function photoSelectionChanged()
     {
         $photoPaths = [];
+
         if ($this->multiple) {
             foreach ($this->photos as $photo) {
                 $photoPath = $photo->getRealPath();

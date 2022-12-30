@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Database\Seeders;
 
 use App\Models\Category;
@@ -16,23 +18,23 @@ class CategorySeeder extends Seeder
     {
         Category::insert([
             [
-                'id' => 1,
-                'name' => 'Montre Homme',
+                'id'    => 1,
+                'name'  => 'Montre Homme',
                 'image' => 'categorie.png',
             ],
             [
-                'id' => 2,
-                'name' => 'Montre Femme',
+                'id'    => 2,
+                'name'  => 'Montre Femme',
                 'image' => 'categorie.png',
             ],
             [
-                'id' => 3,
-                'name' => 'Class',
+                'id'    => 3,
+                'name'  => 'Class',
                 'image' => 'categorie.png',
             ],
             [
-                'id' => 4,
-                'name' => 'Extreme',
+                'id'    => 4,
+                'name'  => 'Extreme',
                 'image' => 'categorie.png',
             ],
         ]);

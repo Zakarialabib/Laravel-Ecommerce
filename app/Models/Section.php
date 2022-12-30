@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Models;
 
 use App\Support\HasAdvancedFilter;
@@ -11,23 +13,23 @@ class Section extends Model
 
     public $table = 'sections';
 
-    const HOME_PAGE = 1;
+    public const HOME_PAGE = 1;
 
-    const ABOUT_PAGE = 2;
+    public const ABOUT_PAGE = 2;
 
-    const BRAND_PAGE = 3;
+    public const BRAND_PAGE = 3;
 
-    const BLOG_PAGE = 4;
+    public const BLOG_PAGE = 4;
 
-    const CATALOG_PAGE = 5;
+    public const CATALOG_PAGE = 5;
 
-    const BRANDS_PAGE = 6;
+    public const BRANDS_PAGE = 6;
 
-    const CONTACT_PAGE = 7;
+    public const CONTACT_PAGE = 7;
 
-    const PRODUCT_PAGE = 8;
+    public const PRODUCT_PAGE = 8;
 
-    const PRIVACY_PAGE = 9;
+    public const PRIVACY_PAGE = 9;
 
     public $orderable = [
         'id',

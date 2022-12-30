@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Livewire\Admin\FeaturedBanner;
 
 use App\Models\FeaturedBanner;
@@ -13,11 +15,14 @@ use Livewire\WithFileUploads;
 
 class Create extends Component
 {
-    use LivewireAlert , WithFileUploads;
+    use LivewireAlert;
+    use WithFileUploads;
 
     public $createFeaturedBanner = false;
 
     public $image;
+    
+    public $featuredbanner;
 
     public $listeners = ['createFeaturedBanner'];
 
@@ -30,11 +35,11 @@ class Create extends Component
     }
 
     protected $rules = [
-        'featuredbanner.title' => ['required', 'string', 'max:255'],
-        'featuredbanner.details' => ['nullable', 'string'],
-        'featuredbanner.link' => ['nullable', 'string'],
-        'featuredbanner.product_id' => ['nullable', 'integer'],
-        'featuredbanner.language_id' => ['nullable', 'integer'],
+        'featuredbanner.title'         => ['required', 'string', 'max:255'],
+        'featuredbanner.details'       => ['nullable', 'string'],
+        'featuredbanner.link'          => ['nullable', 'string'],
+        'featuredbanner.product_id'    => ['nullable', 'integer'],
+        'featuredbanner.language_id'   => ['nullable', 'integer'],
         'featuredbanner.embeded_video' => ['nullable'],
     ];
 

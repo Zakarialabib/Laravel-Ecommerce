@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Livewire\Admin\Section;
 
 use App\Models\Section;
@@ -8,11 +10,12 @@ use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Livewire\Component;
 use App\Models\Language;
 use Livewire\WithFileUploads;
-use Str;
+use Illuminate\Support\Str;
 
 class Create extends Component
 {
-    use LivewireAlert, WithFileUploads;
+    use LivewireAlert;
+    use WithFileUploads;
 
     public $section;
 
@@ -26,11 +29,11 @@ class Create extends Component
 
     public array $rules = [
         'section.language_id' => ['required'],
-        'section.page' => ['required'],
-        'section.title' => ['nullable','string', 'max:255'],
-        'section.subtitle' => ['nullable','string', 'max:255'],
+        'section.page'        => ['required'],
+        'section.title'       => ['nullable', 'string', 'max:255'],
+        'section.subtitle'    => ['nullable', 'string', 'max:255'],
         'section.description' => ['nullable'],
-        'section.video' => ['nullable'],
+        'section.video'       => ['nullable'],
     ];
 
     public function createSection()
@@ -42,7 +45,7 @@ class Create extends Component
         $this->createSection = true;
     }
 
-    public function mount (Section $section)
+    public function mount(Section $section)
     {
         $this->section = $section;
     }

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Livewire\Admin\Categories;
 
 use App\Http\Livewire\WithSorting;
@@ -11,11 +13,14 @@ use Livewire\Component;
 use Livewire\WithFileUploads;
 use Livewire\WithPagination;
 use Maatwebsite\Excel\Facades\Excel;
+use Illuminate\Support\Str;
 
 class Index extends Component
 {
-    use WithPagination, WithSorting,
-        LivewireAlert, WithFileUploads;
+    use WithPagination;
+    use WithSorting;
+    use LivewireAlert;
+    use WithFileUploads;
 
     public $category;
 
@@ -92,8 +97,8 @@ class Index extends Component
     public function render()
     {
         $query = Category::advancedFilter([
-            's' => $this->search ?: null,
-            'order_column' => $this->sortBy,
+            's'               => $this->search ?: null,
+            'order_column'    => $this->sortBy,
             'order_direction' => $this->sortDirection,
         ]);
 
@@ -175,7 +180,7 @@ class Index extends Component
 
         $file = $this->file('file');
 
-        Excel::import(new CategoriesImport, $file);
+        Excel::import(new CategoriesImport(), $file);
 
         $this->alert('success', __('Categories imported successfully.'));
 

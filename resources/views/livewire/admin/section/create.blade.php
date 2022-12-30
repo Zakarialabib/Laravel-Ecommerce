@@ -32,7 +32,6 @@
                         <option value="2">{{ __('About Page') }}</option>
                         <option value="3">{{ __('Partner Page') }}</option>
                         <option value="4">{{ __('Blog Page') }}</option>
-                        <option value="5">{{ __('Service Page') }}</option>
                         <option value="7">{{ __('Contact Page') }}</option>
                         <option value="8">{{ __('Products Page') }}</option>
                         <option value="9">{{ __('Privacy Page') }}</option>
@@ -66,13 +65,6 @@
                         {{ __('Upload 670X418 (Pixel) Size image for best quality. Only jpg, jpeg, png image is allowed.') }}
                     </p>
                     <x-input-error :messages="$errors->get('section.image')" for="section.image" class="mt-2" />
-                </div>
-                <div class="lg:w-1/2 sm:w-full px-2">
-                    <x-label for="video" :value="__('Video')" />
-                    <input type="text" name="video" wire:model.lazy="section.video"
-                        class="p-3 leading-5 bg-white text-gray-700 dark:text-gray-300 rounded border border-zinc-300 mb-1 text-sm w-full focus:shadow-outline-blue focus:border-blue-500 "
-                        placeholder="{{ __('Video') }}" value="{{ old('video') }}">
-                    <x-input-error :messages="$errors->get('section.video')" for="section.video" class="mt-2" />
                 </div>
                 <div class="w-full px-2">
                     <x-button type="submit" primary>

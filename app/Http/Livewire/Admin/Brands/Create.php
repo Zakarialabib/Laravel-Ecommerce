@@ -1,19 +1,22 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Livewire\Admin\Brands;
 
 use App\Models\Brand;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Str;
-use Image;
+use Intervention\Image\Facades\Image;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Livewire\Component;
 use Livewire\WithFileUploads;
-use Storage;
+use Illuminate\Support\Facades\Storage;
 
 class Create extends Component
 {
-    use LivewireAlert , WithFileUploads;
+    use LivewireAlert;
+    use WithFileUploads;
 
     public $createBrand;
 
@@ -33,7 +36,7 @@ class Create extends Component
     }
 
     public array $rules = [
-        'brand.name' => ['required', 'string', 'max:255'],
+        'brand.name'        => ['required', 'string', 'max:255'],
         'brand.description' => ['nullable', 'string'],
     ];
 

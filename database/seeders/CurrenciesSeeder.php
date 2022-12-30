@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Database\Seeders;
 
 use App\Models\Currency;
@@ -16,11 +18,11 @@ class CurrenciesSeeder extends Seeder
     {
         Currency::insert([
             [
-                'id' => 1,
-                'name' => 'Dirham',
-                'symbol' => 'DH',
-                'position' => 'right',
-                'value' => 1,
+                'id'         => 1,
+                'name'       => 'Dirham',
+                'symbol'     => 'DH',
+                'position'   => 'right',
+                'value'      => 1,
                 'is_default' => 1,
             ],
 

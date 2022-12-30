@@ -122,7 +122,7 @@
                         <x-label for="category_id" :value="__('Category')" required />
                             <x-select-list
                                 class="block bg-white text-gray-700 dark:text-gray-300 rounded border border-gray-300 mb-1 text-sm w-full focus:shadow-outline-blue focus:border-blue-500"
-                                id="category_id" name="category_id" wire:model="subcategory.category_id"
+                                id="category_id" name="category_id" multiple wire:model="subcategory.category_id"
                                 :options="$this->listsForFields['categories']" />
                         <x-input-error :messages="$errors->get('subcategory.category_id')" for="subcategory.category_id"
                             class="mt-2" />

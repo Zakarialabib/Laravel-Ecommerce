@@ -33,7 +33,7 @@
                             <x-label for="category_id" :value="__('Category')" required />
                             <x-select-list
                                 class="block bg-white text-gray-700 dark:text-gray-300 rounded border border-gray-300 mb-1 text-sm w-full focus:shadow-outline-blue focus:border-blue-500"
-                                id="category_id" name="category_id" wire:model="product.category_id"
+                                id="category_id" name="category_id"  multiple wire:model="product.category_id"
                                 :options="$this->listsForFields['categories']" />
                         </div>
 
@@ -41,7 +41,7 @@
                             <x-label for="subcategory" :value="__('Subcategory')" />
                             <x-select-list
                                 class="block bg-white text-gray-700 dark:text-gray-300 rounded border border-gray-300 mb-1 text-sm w-full focus:shadow-outline-blue focus:border-blue-500"
-                                id="subcategory_id" name="subcategory_id" wire:model="product.subcategory_id"
+                                id="subcategory_id" name="subcategory_id" multiple  wire:model="product.subcategory_id"
                                 :options="$this->listsForFields['subcategories']" />
                             <x-input-error :messages="$errors->get('subcategory_id')" for="subcategory_id" class="mt-2" />
                         </div>

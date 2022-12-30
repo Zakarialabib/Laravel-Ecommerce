@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Livewire;
 
 use Illuminate\Database\Eloquent\Model;
@@ -8,9 +10,8 @@ use Livewire\Component;
 
 class ToggleButton extends Component
 {
-    public Model $model;
-
     use LivewireAlert;
+    public Model $model;
 
     public $field;
 
@@ -31,12 +32,12 @@ class ToggleButton extends Component
         $this->model->setAttribute($this->field, $value)->save();
 
         $this->alert('success', __('Status Changed successfully!'), [
-            'position' => 'center',
-            'timer' => 3000,
-            'toast' => true,
-            'text' => '',
+            'position'       => 'center',
+            'timer'          => 3000,
+            'toast'          => true,
+            'text'           => '',
             'showDenyButton' => false,
-            'onDenied' => '',
+            'onDenied'       => '',
         ]);
     }
 

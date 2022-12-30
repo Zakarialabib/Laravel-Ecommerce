@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Models;
 
 use App\Support\HasAdvancedFilter;
@@ -10,11 +12,12 @@ use Illuminate\Support\Str;
 
 class Product extends Model implements Buyable
 {
-    use CanBeBought, HasAdvancedFilter;
+    use CanBeBought;
+    use HasAdvancedFilter;
 
-    const StatusInActive = 0;
+    public const StatusInActive = 0;
 
-    const StatusActive = 1;
+    public const StatusActive = 1;
 
     public $orderable = [
         'id',
@@ -38,11 +41,7 @@ class Product extends Model implements Buyable
         'status',
     ];
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
+
     protected $fillable = [
         'name',
         'description',
@@ -88,19 +87,21 @@ class Product extends Model implements Buyable
         return null;
     }
 
-    public function category()
+    /** @return \Illuminate\Database\Eloquent\Relations\BelongsToMany */
+    public function categories()
     {
-        return $this->belongsTo(Category::class, 'category_id', 'id');
+        return $this->belongsToMany(Category::class, 'category_id');
     }
-
+    /** @return \Illuminate\Database\Eloquent\Relations\BelongsTo */
     public function brand()
     {
-        return $this->belongsTo(Brand::class, 'brand_id', 'id');
+        return $this->belongsTo(Brand::class, 'brand_id');
     }
 
-    public function subcategory()
+    /** @return \Illuminate\Database\Eloquent\Relations\BelongsToMany */
+    public function subcategories()
     {
-        return $this->belongsTo(Subcategory::class, 'subcategory_id', 'id');
+        return $this->belongsToMany(Subcategory::class, 'subcategory_id');
     }
 
     public function reviews()

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Livewire\Admin\Product;
 
 use Livewire\Component;
@@ -7,12 +9,10 @@ use App\Models\Product;
 
 class PromoPrices extends Component
 {
-
     public $percentage;
     public $copyPriceToOldPrice;
-    
-    public $promoModal = false;
 
+    public $promoModal = false;
 
     public $listeners = [
         'promoModal',
@@ -23,7 +23,7 @@ class PromoPrices extends Component
         $this->resetErrorBag();
 
         $this->resetValidation();
-        
+
         $this->promoModal = true;
     }
 
@@ -41,10 +41,9 @@ class PromoPrices extends Component
             $product->save();
         }
     }
-    
+
     public function render()
     {
         return view('livewire.admin.product.promo-prices');
     }
-
 }

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
@@ -26,6 +28,7 @@ class CurrencyController extends Controller
         $rules = ['name' => 'unique:currencies', 'sign' => 'unique:currencies'];
         $customs = ['name.unique' => __('This name has already been taken.'), 'sign.unique' => __('This sign has already been taken.')];
         $validator = Validator::make($request->all(), $rules, $customs);
+
         if ($validator->fails()) {
             return response()->json(['errors' => $validator->getMessageBag()->toArray()]);
         }
@@ -97,6 +100,7 @@ class CurrencyController extends Controller
             return __("You cant't remove the main currency.");
         }
         $data = Currency::findOrFail($id);
+
         if ($data->is_default == 1) {
             Currency::where('id', '=', 1)->update(['is_default' => 1]);
         }

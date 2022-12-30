@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Livewire\Admin\Product;
 
 use App\Http\Livewire\Trix;
@@ -8,14 +10,15 @@ use App\Models\Category;
 use App\Models\Product;
 use App\Models\Subcategory;
 use Illuminate\Support\Str;
-use Image;
+use Intervention\Image\Facades\Image;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 
 class Create extends Component
 {
-    use LivewireAlert, WithFileUploads;
+    use LivewireAlert;
+    use WithFileUploads;
 
     public $listeners = [
         Trix::EVENT_VALUE_UPDATED,
@@ -23,6 +26,8 @@ class Create extends Component
     ];
 
     public $createProduct = false;
+
+    public $product;
 
     public $image;
 
@@ -45,18 +50,18 @@ class Create extends Component
     }
 
     protected $rules = [
-        'product.name' => ['required', 'string', 'max:255'],
-        'product.price' => ['required', 'numeric', 'max:2147483647'],
-        'product.old_price' => ['required', 'numeric', 'max:2147483647'],
-        'description' => ['nullable'],
-        'product.meta_title' => ['nullable', 'string', 'max:255'],
+        'product.name'             => ['required', 'string', 'max:255'],
+        'product.price'            => ['required', 'numeric', 'max:2147483647'],
+        'product.old_price'        => ['required', 'numeric', 'max:2147483647'],
+        'description'              => ['nullable'],
+        'product.meta_title'       => ['nullable', 'string', 'max:255'],
         'product.meta_description' => ['nullable', 'string', 'max:255'],
-        'product.meta_keywords' => ['nullable', 'string', 'min:1'],
-        'product.category_id' => ['required', 'integer'],
-        'product.subcategory_id' => ['required', 'integer'],
-        'product.brand_id' => ['nullable', 'integer'],
-        'product.embeded_video' => ['nullable'],
-        'product.condition' => ['nullable'],
+        'product.meta_keywords'    => ['nullable', 'string', 'min:1'],
+        'product.category_id'      => ['required', 'integer'],
+        'product.subcategory_id'   => ['required', 'integer'],
+        'product.brand_id'         => ['nullable', 'integer'],
+        'product.embeded_video'    => ['nullable'],
+        'product.condition'        => ['nullable'],
     ];
 
     public function mount(Product $product)
@@ -112,6 +117,7 @@ class Create extends Component
         // gallery
         if ($this->gallery) {
             $gallery = [];
+
             foreach ($this->gallery as $image) {
                 $imageName = Str::slug($this->product->name).'.'.$image->extension();
                 $image->storeAs('products', $imageName);
@@ -119,6 +125,7 @@ class Create extends Component
             }
             $this->product->gallery = json_encode($gallery);
         }
+
         if ($this->product->save()) {
             $this->product->save();
             $this->alert('success', 'Product created successfully');

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Support;
 
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -46,7 +48,7 @@ class FilterQueryBuilder
             $relatedTable = $relatedModel->getTable();
             $as = "prefix_{$relatedTable}";
 
-            if (! $belongs instanceof BelongsTo) {
+            if ( ! $belongs instanceof BelongsTo) {
                 return;
             }
 

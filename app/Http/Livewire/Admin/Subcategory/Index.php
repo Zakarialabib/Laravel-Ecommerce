@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Livewire\Admin\Subcategory;
 
 use App\Http\Livewire\WithSorting;
@@ -22,6 +24,8 @@ class Index extends Component
     ];
 
     public int $perPage;
+
+    public $subcateogry;
 
     public $editModal = false;
 
@@ -70,7 +74,7 @@ class Index extends Component
     }
 
     public array $rules = [
-        'subcategory.name' => ['required', 'string', 'max:255'],
+        'subcategory.name'        => ['required', 'string', 'max:255'],
         'subcategory.category_id' => ['required', 'integer'],
         'subcategory.language_id' => ['required', 'integer'],
     ];
@@ -87,9 +91,9 @@ class Index extends Component
 
     public function render()
     {
-        $query = Subcategory::with('category')->advancedFilter([
-            's' => $this->search ?: null,
-            'order_column' => $this->sortBy,
+        $query = Subcategory::with('categories')->advancedFilter([
+            's'               => $this->search ?: null,
+            'order_column'    => $this->sortBy,
             'order_direction' => $this->sortDirection,
         ]);
 

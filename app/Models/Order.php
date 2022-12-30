@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Models;
 
 use App\Support\HasAdvancedFilter;
@@ -9,25 +11,25 @@ class Order extends Model
 {
     use HasAdvancedFilter;
 
-    const STATUS_PENDING = 1;
+    public const STATUS_PENDING = 1;
 
-    const STATUS_PROCESSING = 2;
+    public const STATUS_PROCESSING = 2;
 
-    const STATUS_COMPLETED = 3;
+    public const STATUS_COMPLETED = 3;
 
-    const STATUS_CANCELLED = 4;
+    public const STATUS_CANCELLED = 4;
 
-    const STATUS_REFUNDED = 5;
+    public const STATUS_REFUNDED = 5;
 
-    const PAYMENT_STATUS_PENDING = 1;
+    public const PAYMENT_STATUS_PENDING = 1;
 
-    const PAYMENT_STATUS_PROCESSING = 2;
+    public const PAYMENT_STATUS_PROCESSING = 2;
 
-    const PAYMENT_STATUS_COMPLETED = 3;
+    public const PAYMENT_STATUS_COMPLETED = 3;
 
-    const PAYMENT_STATUS_CANCELLED = 4;
+    public const PAYMENT_STATUS_CANCELLED = 4;
 
-    const PAYMENT_STATUS_REFUNDED = 5;
+    public const PAYMENT_STATUS_REFUNDED = 5;
 
     protected $fillable = [
         'user_id', 'reference', 'status', 'currency_id', 'shipping_id',
@@ -59,6 +61,7 @@ class Order extends Model
     public static function generateReference()
     {
         $lastOrder = self::latest()->first();
+
         if ($lastOrder) {
             $number = substr($lastOrder->reference, -6) + 1;
         } else {

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Livewire\Admin\Settings;
 
 use App\Helpers;
@@ -11,7 +13,8 @@ use Livewire\WithFileUploads;
 
 class Index extends Component
 {
-    use WithFileUploads, LivewireAlert;
+    use WithFileUploads;
+    use LivewireAlert;
 
     public $company_name;
 
@@ -24,6 +27,10 @@ class Index extends Component
     public $favicon;
 
     public $siteImage;
+    
+    public $currency_code;
+
+    public $currency_symbol;
 
     public $company_email_address;
 
@@ -110,32 +117,32 @@ class Index extends Component
     public function save()
     {
         $settings = [
-            'company_name' => $this->company_name,
-            'site_title' => $this->site_title,
-            'company_email_address' => $this->company_email_address,
-            'company_phone' => $this->company_phone,
-            'company_address' => $this->company_address,
-            'social_facebook' => $this->social_facebook,
-            'social_twitter' => $this->social_twitter,
-            'social_instagram' => $this->social_instagram,
-            'social_linkedin' => $this->social_linkedin,
-            'social_whatsapp' => $this->social_whatsapp,
-            'head_tags' => $this->head_tags,
-            'body_tags' => $this->body_tags,
-            'seo_meta_title' => $this->seo_meta_title,
-            'seo_meta_description' => $this->seo_meta_description,
-            'footer_copyright_text' => $this->footer_copyright_text,
-            'enableRegistrationTerms' => $this->enableRegistrationTerms,
-            'currency_code' => $this->currency_code,
-            'currency_symbol' => $this->currency_symbol,
-            'currency_position' => $this->currency_position,
+            'company_name'             => $this->company_name,
+            'site_title'               => $this->site_title,
+            'company_email_address'    => $this->company_email_address,
+            'company_phone'            => $this->company_phone,
+            'company_address'          => $this->company_address,
+            'social_facebook'          => $this->social_facebook,
+            'social_twitter'           => $this->social_twitter,
+            'social_instagram'         => $this->social_instagram,
+            'social_linkedin'          => $this->social_linkedin,
+            'social_whatsapp'          => $this->social_whatsapp,
+            'head_tags'                => $this->head_tags,
+            'body_tags'                => $this->body_tags,
+            'seo_meta_title'           => $this->seo_meta_title,
+            'seo_meta_description'     => $this->seo_meta_description,
+            'footer_copyright_text'    => $this->footer_copyright_text,
+            'enableRegistrationTerms'  => $this->enableRegistrationTerms,
+            'currency_code'            => $this->currency_code,
+            'currency_symbol'          => $this->currency_symbol,
+            'currency_position'        => $this->currency_position,
             'site_maintenance_message' => $this->site_maintenance_message,
-            'site_return' => $this->site_return,
-            'site_refund' => $this->site_refund,
-            'site_terms' => $this->site_terms,
-            'site_privacy' => $this->site_privacy,
-            'site_about' => $this->site_about,
-            'site_contact' => $this->site_contact,
+            'site_return'              => $this->site_return,
+            'site_refund'              => $this->site_refund,
+            'site_terms'               => $this->site_terms,
+            'site_privacy'             => $this->site_privacy,
+            'site_about'               => $this->site_about,
+            'site_contact'             => $this->site_contact,
         ];
 
         foreach ($settings as $key => $value) {
@@ -148,6 +155,7 @@ class Index extends Component
     public function uploadFavicon()
     {
         $favicon = $this->upload($this->iconFile, $this->favicon, 'iconFile');
+
         if ($favicon) {
             Settings::set('site_favicon', $favicon);
             $this->alert('success', __('Favicon updated successfully!'));
@@ -176,6 +184,7 @@ class Index extends Component
     public function uploadLogo()
     {
         $logo = $this->upload($this->logoFile, $this->siteImage, 'logoFile');
+
         if ($logo) {
             Settings::set('site_logo', $logo);
             $this->alert('success', __('Logo updated successfully!'));

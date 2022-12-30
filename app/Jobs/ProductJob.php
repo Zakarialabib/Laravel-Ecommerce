@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Jobs;
 
 use App\Imports\ProductImport;
@@ -13,7 +15,10 @@ use Maatwebsite\Excel\Facades\Excel;
 
 class ProductJob implements ShouldQueue
 {
-    use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
+    use Dispatchable;
+    use InteractsWithQueue;
+    use Queueable;
+    use SerializesModels;
 
     protected $filename;
 
@@ -34,7 +39,7 @@ class ProductJob implements ShouldQueue
      */
     public function handle()
     {
-        Excel::import(new ProductImport, public_path('images/products/'.$this->filename));
+        Excel::import(new ProductImport(), public_path('images/products/'.$this->filename));
 
         File::delete(public_path('images/products/'.$this->filename));
     }

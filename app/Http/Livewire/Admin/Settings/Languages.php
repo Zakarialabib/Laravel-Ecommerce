@@ -1,12 +1,15 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Livewire\Admin\Settings;
 
 use App\Models\Language;
-use Artisan;
+use Illuminate\Support\Facades\Artisan;
 use DateTime;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Livewire\Component;
+use Exception;
 
 class Languages extends Component
 {
@@ -30,7 +33,7 @@ class Languages extends Component
      * -------------------------------------------------------------------------------
      *  Set Default Language
      * -------------------------------------------------------------------------------
-     **/
+     */
     public function onSetDefault($id)
     {
         try {
@@ -42,7 +45,7 @@ class Languages extends Component
 
             $this->alert('success', __('Language updated successfully!'));
             $this->mount();
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             $this->alert('error', __($e->getMessage()));
         }
     }
@@ -51,7 +54,7 @@ class Languages extends Component
      * -------------------------------------------------------------------------------
      *  Sync Translations
      * -------------------------------------------------------------------------------
-     **/
+     */
     public function sync($id)
     {
         $languages = Language::findOrFail($id);
@@ -70,13 +73,11 @@ class Languages extends Component
      * -------------------------------------------------------------------------------
      *  Delete Language
      * -------------------------------------------------------------------------------
-     **/
+     */
     public function delete(Language $lang_id)
     {
         $lang_id->delete();
 
         $this->alert('warning', __('Language deleted successfully!'));
-
-        $this->reRenderParent();
     }
 }

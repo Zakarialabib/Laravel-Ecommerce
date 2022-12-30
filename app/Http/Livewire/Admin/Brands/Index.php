@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Livewire\Admin\Brands;
 
 use App\Http\Livewire\WithSorting;
@@ -7,18 +9,20 @@ use App\Imports\BrandsImport;
 use App\Models\Brand;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Str;
-use Image;
+use Intervention\Image\Facades\Image;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 use Livewire\WithPagination;
 use Maatwebsite\Excel\Facades\Excel;
-use Storage;
+use Illuminate\Support\Facades\Storage;
 
 class Index extends Component
 {
-    use WithPagination, WithSorting,
-        LivewireAlert, WithFileUploads;
+    use WithPagination;
+    use WithSorting;
+    use LivewireAlert;
+    use WithFileUploads;
 
     public $brand;
 
@@ -64,7 +68,7 @@ class Index extends Component
     ];
 
     public array $rules = [
-        'brand.name' => ['required', 'string', 'max:255'],
+        'brand.name'        => ['required', 'string', 'max:255'],
         'brand.description' => ['nullable', 'string'],
     ];
 
@@ -102,8 +106,8 @@ class Index extends Component
         abort_if(Gate::denies('brand_access'), 403);
 
         $query = Brand::advancedFilter([
-            's' => $this->search ?: null,
-            'order_column' => $this->sortBy,
+            's'               => $this->search ?: null,
+            'order_column'    => $this->sortBy,
             'order_direction' => $this->sortDirection,
         ]);
 
@@ -225,7 +229,7 @@ class Index extends Component
             'file' => 'required|mimes:xlsx',
         ]);
 
-        Excel::import(new BrandsImport, $this->file);
+        Excel::import(new BrandsImport(), $this->file);
 
         $this->alert('success', 'Brand imported successfully.');
     }

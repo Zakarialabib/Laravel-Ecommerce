@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Livewire\Admin\FeaturedBanner;
 
 use App\Http\Livewire\WithSorting;
@@ -10,12 +12,14 @@ use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 use Livewire\WithPagination;
-use Str;
+use Illuminate\Support\Str;
 
 class Index extends Component
 {
-    use WithPagination, WithSorting,
-        LivewireAlert, WithFileUploads;
+    use WithPagination;
+    use WithSorting;
+    use LivewireAlert;
+    use WithFileUploads;
 
     public $featuredbanner;
 
@@ -77,11 +81,11 @@ class Index extends Component
     }
 
     protected $rules = [
-        'featuredbanner.title' => ['required', 'string', 'max:255'],
-        'featuredbanner.details' => ['nullable', 'string'],
-        'featuredbanner.link' => ['nullable', 'string'],
-        'featuredbanner.product_id' => ['nullable', 'integer'],
-        'featuredbanner.language_id' => ['nullable', 'integer'],
+        'featuredbanner.title'         => ['required', 'string', 'max:255'],
+        'featuredbanner.details'       => ['nullable', 'string'],
+        'featuredbanner.link'          => ['nullable', 'string'],
+        'featuredbanner.product_id'    => ['nullable', 'integer'],
+        'featuredbanner.language_id'   => ['nullable', 'integer'],
         'featuredbanner.embeded_video' => ['nullable'],
     ];
 
@@ -98,8 +102,8 @@ class Index extends Component
     public function render()
     {
         $query = FeaturedBanner::advancedFilter([
-            's' => $this->search ?: null,
-            'order_column' => $this->sortBy,
+            's'               => $this->search ?: null,
+            'order_column'    => $this->sortBy,
             'order_direction' => $this->sortDirection,
         ]);
 
@@ -116,7 +120,6 @@ class Index extends Component
         $featuredbanner->save();
 
         $this->alert('success', __('Featuredbanner featured successfully!'));
-        $this->refreshIndex();
     }
 
     public function editModal(FeaturedBanner $featuredbanner)
@@ -143,7 +146,7 @@ class Index extends Component
 
         $this->featuredbanner->save();
 
-        $this->refreshIndex();
+
 
         $this->alert('success', __('FeaturedBanner updated successfully.'));
 

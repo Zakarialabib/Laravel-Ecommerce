@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Middleware;
 
 use App\Providers\RouteServiceProvider;
@@ -26,6 +28,7 @@ class RedirectIfAuthenticated
                 if (Auth::user()->isAdmin()) {
                     return redirect(RouteServiceProvider::ADMIN_HOME);
                 }
+
                 if (Auth::user()->isClient()) {
                     return redirect(RouteServiceProvider::CLIENT_HOME);
                 }

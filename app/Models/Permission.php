@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Models;
 
 use App\Support\HasAdvancedFilter;
@@ -11,9 +13,9 @@ class Permission extends Model
     use HasFactory;
     use HasAdvancedFilter;
 
-    public $table = 'permissions';
-
     use HasAdvancedFilter;
+
+    public $table = 'permissions';
 
     public $orderable = [
         'id',

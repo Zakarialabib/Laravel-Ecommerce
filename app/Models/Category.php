@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Models;
 
 use App\Support\HasAdvancedFilter;
@@ -9,9 +11,9 @@ class Category extends Model
 {
     use HasAdvancedFilter;
 
-    const StatusInActive = 0;
+    public const StatusInActive = 0;
 
-    const StatusActive = 1;
+    public const StatusActive = 1;
 
     public $orderable = [
         'id', 'name', 'status', 'image',

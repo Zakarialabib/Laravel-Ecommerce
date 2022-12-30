@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Livewire\Admin\Product;
 
 use App\Http\Livewire\Trix;
@@ -9,15 +11,16 @@ use App\Models\Product;
 use App\Models\Subcategory;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Str;
-use Image;
+use Intervention\Image\Facades\Image;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Livewire\Component;
 use Livewire\WithFileUploads;
-use Storage;
+use Illuminate\Support\Facades\Storage;
 
 class Edit extends Component
 {
-    use WithFileUploads, LivewireAlert;
+    use WithFileUploads;
+    use LivewireAlert;
 
     public $product;
 
@@ -33,6 +36,8 @@ class Edit extends Component
 
     public $height = 1000;
 
+    public $description;
+
     public $listeners = [
         Trix::EVENT_VALUE_UPDATED,
         'editModal',
@@ -46,20 +51,20 @@ class Edit extends Component
     }
 
     protected $rules = [
-        'product.code' => ['nullable'],
-        'product.slug' => ['nullable'],
-        'product.name' => ['required', 'string', 'max:255'],
-        'product.price' => ['required', 'numeric', 'max:2147483647'],
-        'product.old_price' => ['nullable', 'numeric', 'max:2147483647'],
-        'product.description' => ['nullable'],
-        'product.meta_title' => ['nullable', 'string', 'max:255'],
+        'product.code'             => ['nullable'],
+        'product.slug'             => ['nullable'],
+        'product.name'             => ['required', 'string', 'max:255'],
+        'product.price'            => ['required', 'numeric', 'max:2147483647'],
+        'product.old_price'        => ['nullable', 'numeric', 'max:2147483647'],
+        'product.description'      => ['nullable'],
+        'product.meta_title'       => ['nullable', 'string', 'max:255'],
         'product.meta_description' => ['nullable', 'string', 'max:255'],
-        'product.meta_keywords' => ['nullable', 'string', 'min:1'],
-        'product.category_id' => ['required', 'integer'],
-        'product.subcategory_id' => ['required', 'integer'],
-        'product.brand_id' => ['nullable', 'integer'],
-        'product.embeded_video' => ['nullable'],
-        'product.condition' => ['nullable'],
+        'product.meta_keywords'    => ['nullable', 'string', 'min:1'],
+        'product.category_id'      => ['required', 'integer'],
+        'product.subcategory_id'   => ['required', 'integer'],
+        'product.brand_id'         => ['nullable', 'integer'],
+        'product.embeded_video'    => ['nullable'],
+        'product.condition'        => ['nullable'],
     ];
 
     public function mount()
@@ -86,7 +91,7 @@ class Edit extends Component
     public function getCategoriesProperty()
     {
         return Category::select('id', 'name')
-                            ->get();
+            ->get();
     }
 
     public function editModal($id)
@@ -98,7 +103,7 @@ class Edit extends Component
         $this->resetValidation();
 
         $this->product = Product::findOrFail($id);
-        
+
         $this->editModal = true;
     }
 
@@ -138,6 +143,7 @@ class Edit extends Component
         // gallery image
         if ($this->gallery) {
             $gallery = [];
+
             foreach ($this->gallery as $key => $value) {
                 $image = $value;
                 $imageName = Str::slug($this->product->name).'-'.$key.'.'.$image->extension();

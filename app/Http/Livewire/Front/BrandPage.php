@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Livewire\Front;
 
 use App\Models\Product;
@@ -15,6 +17,8 @@ class BrandPage extends Component
 
     public array $paginationOptions;
 
+    public $brand;
+
     public $category_id;
 
     public $subcategory_id;
@@ -27,7 +31,7 @@ class BrandPage extends Component
         $this->resetPage();
     }
 
-    public function filterProductSubcategories($category_id)
+    public function filterProductSubcategories($subcategory_id)
     {
         $this->subcategory_id = $subcategory_id;
         $this->resetPage();
@@ -55,7 +59,6 @@ class BrandPage extends Component
 
         return view('livewire.front.brand-page', compact('brand_products'));
     }
-
 
     public function getCategoriesProperty()
     {

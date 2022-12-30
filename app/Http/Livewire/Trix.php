@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Livewire;
 
 use Illuminate\Support\Facades\Storage;
@@ -10,7 +12,7 @@ class Trix extends Component
 {
     use WithFileUploads;
 
-    const EVENT_VALUE_UPDATED = 'onTrixValueUpdate';
+    public const EVENT_VALUE_UPDATED = 'onTrixValueUpdate';
 
     public $value;
 
@@ -40,7 +42,7 @@ class Trix extends Component
                 $url = Storage::url($newFilename);
 
                 $this->dispatchBrowserEvent($trixUploadCompletedEvent, [
-                    'url' => $url,
+                    'url'  => $url,
                     'href' => $url,
                 ]);
             }

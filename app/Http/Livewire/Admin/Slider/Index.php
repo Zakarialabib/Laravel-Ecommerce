@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Livewire\Admin\Slider;
 
 use App\Http\Livewire\Trix;
@@ -10,12 +12,14 @@ use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 use Livewire\WithPagination;
-use Str;
+use Illuminate\Support\Str;
 
 class Index extends Component
 {
-    use WithPagination, WithSorting,
-        LivewireAlert, WithFileUploads;
+    use WithPagination;
+    use WithSorting;
+    use LivewireAlert;
+    use WithFileUploads;
 
     public $slider;
 
@@ -24,7 +28,7 @@ class Index extends Component
     public $listeners = [
         Trix::EVENT_VALUE_UPDATED,
         'refreshIndex' => '$refresh',
-        'showModal', 'editModal', 'delete'
+        'showModal', 'editModal', 'delete',
     ];
 
     public $showModal = false;
@@ -78,12 +82,12 @@ class Index extends Component
     }
 
     protected $rules = [
-        'slider.title' => ['required', 'string', 'max:255'],
-        'slider.subtitle' => ['nullable', 'string'],
-        'slider.details' => ['nullable'],
-        'slider.link' => ['nullable', 'string'],
-        'slider.language_id' => ['nullable', 'integer'],
-        'slider.bg_color' => ['nullable', 'string'],
+        'slider.title'         => ['required', 'string', 'max:255'],
+        'slider.subtitle'      => ['nullable', 'string'],
+        'slider.details'       => ['nullable'],
+        'slider.link'          => ['nullable', 'string'],
+        'slider.language_id'   => ['nullable', 'integer'],
+        'slider.bg_color'      => ['nullable', 'string'],
         'slider.embeded_video' => ['nullable'],
     ];
 
@@ -100,8 +104,8 @@ class Index extends Component
     public function render()
     {
         $query = Slider::advancedFilter([
-            's' => $this->search ?: null,
-            'order_column' => $this->sortBy,
+            's'               => $this->search ?: null,
+            'order_column'    => $this->sortBy,
             'order_direction' => $this->sortDirection,
         ]);
 

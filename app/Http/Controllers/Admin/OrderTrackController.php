@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
@@ -33,13 +35,14 @@ class OrderTrackController extends Controller
         $title = $_GET['title'];
 
         $ck = OrderTrack::where('order_id', '=', $_GET['id'])->where('title', '=', $title)->first();
+
         if ($ck) {
             $ck->order_id = $_GET['id'];
             $ck->title = $_GET['title'];
             $ck->text = $_GET['text'];
             $ck->update();
         } else {
-            $data = new OrderTrack;
+            $data = new OrderTrack();
             $data->order_id = $_GET['id'];
             $data->title = $_GET['title'];
             $data->text = $_GET['text'];
@@ -69,6 +72,7 @@ class OrderTrackController extends Controller
 
         $title = $request->title;
         $ck = OrderTrack::where('order_id', '=', $request->order_id)->where('title', '=', $title)->first();
+
         if ($ck) {
             $ck->order_id = $request->order_id;
             $ck->title = $request->title;
@@ -81,7 +85,7 @@ class OrderTrackController extends Controller
             return response()->json($msg);
         //--- Redirect Section Ends
         } else {
-            $data = new OrderTrack;
+            $data = new OrderTrack();
             $input = $request->all();
             $data->fill($input)->save();
         }
@@ -106,6 +110,7 @@ class OrderTrackController extends Controller
             'title.unique' => __('This title has already been taken.'),
         ];
         $validator = Validator::make($request->all(), $rules, $customs);
+
         if ($validator->fails()) {
             return response()->json(['errors' => $validator->getMessageBag()->toArray()]);
         }

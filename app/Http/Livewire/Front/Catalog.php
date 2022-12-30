@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Livewire\Front;
 
 use App\Http\Livewire\WithSorting;
@@ -11,7 +13,8 @@ use Livewire\WithPagination;
 
 class Catalog extends Component
 {
-    use WithPagination, WithSorting;
+    use WithPagination;
+    use WithSorting;
 
     public int $perPage;
 
@@ -75,7 +78,6 @@ class Catalog extends Component
 
     public function mount()
     {
-        $this->sorting = 'default';
         $this->minPrice = 100;
         $this->maxPrice = 100000;
 
@@ -107,30 +109,37 @@ class Catalog extends Component
             case 'name':
                 $this->sortBy = 'name';
                 $this->sortDirection = 'asc';
+
                 break;
             case 'name-desc':
                 $this->sortBy = 'name';
                 $this->sortDirection = 'desc';
+
                 break;
             case 'price':
                 $this->sortBy = 'price';
                 $this->sortDirection = 'asc';
+
                 break;
             case 'price-desc':
                 $this->sortBy = 'price';
                 $this->sortDirection = 'desc';
+
                 break;
             case 'date':
                 $this->sortBy = 'created_at';
                 $this->sortDirection = 'asc';
+
                 break;
             case 'date-desc':
                 $this->sortBy = 'created_at';
                 $this->sortDirection = 'desc';
+
                 break;
             default:
                 $this->sortBy = 'id';
                 $this->sortDirection = 'desc';
+
                 break;
         }
 

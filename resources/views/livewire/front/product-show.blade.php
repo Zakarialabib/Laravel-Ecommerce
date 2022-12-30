@@ -9,14 +9,11 @@
                     <div>
                         <div class="mb-5 pb-5 border-b">
                             <span class="text-gray-500">
+                                {{ $product->category->name }} /
                                 @isset($product->brand)
                                     <a
                                         href="{{ route('front.brandPage', $product->brand->slug) }}">{{ $product->brand->name }}</a>
-                                @endisset /
-                                {{ $product->category->name }}
-                                @isset($product->subcategory)
-                                    / {{ $product->subcategory->name }}
-                                @endisset
+                                @endisset 
                             </span>
                             <h2 class="mt-2 mb-6 max-w-xl lg:text-5xl sm:text-xl font-bold font-heading">
                                 {{ $product->name }}

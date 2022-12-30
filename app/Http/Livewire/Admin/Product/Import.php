@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Livewire\Admin\Product;
 
 use App\Jobs\ProductJob;
@@ -10,7 +12,8 @@ use Livewire\WithFileUploads;
 
 class Import extends Component
 {
-    use LivewireAlert, WithFileUploads;
+    use LivewireAlert;
+    use WithFileUploads;
 
     public $listeners = [
         'importModal', 'import',

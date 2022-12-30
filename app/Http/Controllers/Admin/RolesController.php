@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Controllers\Admin;
 
 use App\Models\Role;
@@ -28,7 +30,7 @@ class RolesController extends Controller
         abort_if(Gate::denies('access_user_management'), 403);
 
         $request->validate([
-            'name' => 'required|string|max:255',
+            'name'        => 'required|string|max:255',
             'permissions' => 'required|array',
         ]);
 
@@ -55,7 +57,7 @@ class RolesController extends Controller
         abort_if(Gate::denies('access_user_management'), 403);
 
         $request->validate([
-            'name' => 'required|string|max:255',
+            'name'        => 'required|string|max:255',
             'permissions' => 'required|array',
         ]);
 

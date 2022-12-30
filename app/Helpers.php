@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App;
 
 use App\Models\Brand;
@@ -7,15 +9,18 @@ use App\Models\Category;
 use App\Models\Currency;
 use App\Models\Settings;
 use App\Models\Subcategory;
-use Cache;
-use Str;
+use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Str;
+use Intervention\Image\Facades\Image;
+use Illuminate\Support\Facades\Storage;
 
 class Helpers
 {
     /**
      * Fetch Cached settings from database
      *
-     * @return string
+     * @param mixed $key
+     * @return mixed
      */
     public static function settings($key)
     {
@@ -24,6 +29,10 @@ class Helpers
         })->get($key);
     }
 
+    /**
+     * @param mixed $product
+     * @return string|null
+     */
     public static function productLink($product)
     {
         if ($product) {
@@ -33,7 +42,10 @@ class Helpers
         return null;
     }
 
-    // get upload image to db from link
+    /**
+     * @param mixed $image
+     * @return null|string
+     */
     public static function uploadImage($image)
     {
         // Path cannot be empty
@@ -49,7 +61,10 @@ class Helpers
         return $name;
     }
 
-      // get gallery from url and save to uploads/products
+    /**
+     * @param mixed $gallery
+     * @return null|string[]
+     */
     public static function uploadGallery($gallery)
     {
         // Path cannot be empty
@@ -70,25 +85,25 @@ class Helpers
         return $gallery;
     }
 
+
     /**
-     * Create Subcategory
-     *
-     * @return string
+     * @param mixed $subcategory
+     * @param mixed $category
+     * @return mixed
      */
     public static function createSubcategory($subcategory, $category)
     {
         return Subcategory::create([
-            'name' => $subcategory,
-            'slug' => Str::slug($subcategory, '-'),
+            'name'        => $subcategory,
+            'slug'        => Str::slug($subcategory, '-'),
             'categpry_id' => Category::where('name', $category)->first()->id,
-            'language' => '3',
+            'language'    => '3',
         ])->id;
     }
 
     /**
-     * Create Brand
-     *
-     * @return string
+     * @param mixed $brand
+     * @return mixed
      */
     public static function createBrand($brand)
     {
@@ -101,9 +116,14 @@ class Helpers
         ])->id;
     }
 
+    /**
+     * @param mixed $value
+     * @param bool $format
+     * @return mixed
+     */
     public static function format_currency($value, $format = true)
     {
-        if (! $format) {
+        if ( ! $format) {
             return $value;
         }
 
@@ -116,13 +136,18 @@ class Helpers
             : number_format((float) $value, 2, '.', ',').$symbol;
     }
 
+    /**
+     * @param mixed $input
+     * @return string|false|void
+     */
     public function handleUpload($input)
     {
         if (is_array($input)) {
             // handle gallery
             $galleryArray = [];
+
             foreach ($input as $key => $value) {
-                $img = ImageIntervention::make($value->getRealPath())->encode('webp', 85)->resize(1000, 1000, function ($constraint) {
+                $img = Image::make($value->getRealPath())->encode('webp', 85)->resize(1000, 1000, function ($constraint) {
                     $constraint->aspectRatio();
                     $constraint->upsize();
                 });
@@ -132,19 +157,20 @@ class Helpers
                 $galleryArray[] = $value->getClientOriginalName();
             }
 
-            $this->product->gallery = json_encode($galleryArray);
+            return  $this->product->gallery = json_encode($galleryArray);
+            
+
         } else {
             // handle single image
 
-            $img = ImageIntervention::make($input->getRealPath())->encode('webp', 85)->resize(1000, 1000, function ($constraint) {
+            $img = Image::make($input->getRealPath())->encode('webp', 85)->resize(1000, 1000, function ($constraint) {
                 $constraint->aspectRatio();
                 $constraint->upsize();
             });
             $img->stream();
 
             Storage::disk('local_files')->put('products/'.$input->getClientOriginalName(), $img, 'public');
-
-            $this->product->image = $imageName;
+            
         }
     }
 }

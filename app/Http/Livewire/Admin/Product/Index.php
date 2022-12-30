@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Livewire\Admin\Product;
 
 use App\Http\Livewire\WithSorting;
@@ -15,7 +17,10 @@ use Livewire\WithPagination;
 
 class Index extends Component
 {
-    use WithPagination, WithSorting, WithFileUploads, LivewireAlert;
+    use WithPagination;
+    use WithSorting;
+    use WithFileUploads;
+    use LivewireAlert;
 
     public $product;
 
@@ -26,15 +31,15 @@ class Index extends Component
     ];
 
     public $highlightModal = false;
-    
+
     public $promoAllProducts = false;
-    
+
     public $percentage;
 
     public $copyPriceToOldPrice;
-    
+
     public $percentageMethod;
-    
+
     public int $perPage;
 
     public $refreshIndex;
@@ -118,13 +123,13 @@ class Index extends Component
 
     public function render()
     {
-        $query = Product::with(['category' => function ($query) {
+        $query = Product::with(['categories' => function ($query) {
             $query->select('id', 'name');
         }, 'brand' => function ($query) {
             $query->select('id', 'name');
         }])->select('products.*')->advancedFilter([
-            's' => $this->search ?: null,
-            'order_column' => $this->sortBy,
+            's'               => $this->search ?: null,
+            'order_column'    => $this->sortBy,
             'order_direction' => $this->sortDirection,
         ]);
 
@@ -171,7 +176,6 @@ class Index extends Component
 
     public function selectPage()
     {
-
         if (count(array_intersect($this->selected, Product::paginate($this->perPage)->pluck('id')->toArray())) == count(Product::paginate($this->perPage)->pluck('id')->toArray())) {
             $this->selected = [];
         } else {
@@ -186,30 +190,39 @@ class Index extends Component
         if ($this->hot) {
             $this->product->hot = $this->hot;
         }
+
         if ($this->featured) {
             $this->product->featured = $this->featured;
         }
+
         if ($this->best) {
             $this->product->best = $this->best;
         }
+
         if ($this->top) {
             $this->product->top = $this->top;
         }
+
         if ($this->latest) {
             $this->product->latest = $this->latest;
         }
+
         if ($this->big) {
             $this->product->big = $this->big;
         }
+
         if ($this->trending) {
             $this->product->trending = $this->trending;
         }
+
         if ($this->sale) {
             $this->product->sale = $this->sale;
         }
+
         if ($this->is_discount) {
             $this->product->is_discount = $this->is_discount;
         }
+
         if ($this->discount_date) {
             $this->product->discount_date = $this->discount_date;
         }
@@ -236,51 +249,51 @@ class Index extends Component
          $product_details = Product::find($product->id);
          // dd($product_details);
          Product::create([
-             'code' => $product_details->code,
-             'slug' => $product_details->slug,
-             'name' => $product_details->name,
-             'price' => $product_details->price,
-             'description' => $product_details->description,
-             'meta_title' => $product_details->meta_title,
+             'code'             => $product_details->code,
+             'slug'             => $product_details->slug,
+             'name'             => $product_details->name,
+             'price'            => $product_details->price,
+             'description'      => $product_details->description,
+             'meta_title'       => $product_details->meta_title,
              'meta_description' => $product_details->meta_description,
-             'meta_keywords' => $product_details->meta_keywords,
-             'category_id' => $product_details->category_id,
-             'subcategory_id' => $product_details->subcategory_id,
-             'image' => $product_details->image,
-             'brand_id' => $product_details->brand_id,
-             'status' => 0,
+             'meta_keywords'    => $product_details->meta_keywords,
+             'category_id'      => $product_details->category_id,
+             'subcategory_id'   => $product_details->subcategory_id,
+             'image'            => $product_details->image,
+             'brand_id'         => $product_details->brand_id,
+             'status'           => 0,
          ]);
 
-         $this->alert('success', __('Product Cloned successfully!') );
+         $this->alert('success', __('Product Cloned successfully!'));
      }
 
      public function promoAllProducts()
      {
-        $this->promoAllProducts = true;
+         $this->promoAllProducts = true;
      }
 
      public function updateSelected()
-    {
-        $products = Product::whereIn('id', $this->selected)->get();
+     {
+         $products = Product::whereIn('id', $this->selected)->get();
 
-        foreach ($products as $product) {
-            if ($this->copyPriceToOldPrice) {
-                $product->old_price = $product->price;
-            } elseif ($this->percentageMethod == '+') {
-                $product->price = $product->price * (1 + $this->percentage / 100);
-            } else {
-                $product->price = $product->price * (1 - $this->percentage / 100);
-            }
-            $product->save();
-        }
+         foreach ($products as $product) {
+             if ($this->copyPriceToOldPrice) {
+                 $product->old_price = $product->price;
+             } elseif ($this->percentageMethod == '+') {
+                 $product->price = $product->price * (1 + $this->percentage / 100);
+             } else {
+                 $product->price = $product->price * (1 - $this->percentage / 100);
+             }
+             $product->save();
+         }
 
-        $this->alert('success', __('Product Prices changed successfully!') );
-        
-        $this->resetSelected();
-        
-        $this->promoAllProducts = false;
+         $this->alert('success', __('Product Prices changed successfully!'));
 
-        $this->copyPriceToOldPrice = '';
-        $this->percentage = '';
-    }
+         $this->resetSelected();
+
+         $this->promoAllProducts = false;
+
+         $this->copyPriceToOldPrice = '';
+         $this->percentage = '';
+     }
 }

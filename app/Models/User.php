@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
@@ -12,8 +14,11 @@ use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable
 {
-    use HasAdvancedFilter, HasApiTokens,
-        HasFactory, Notifiable, HasRoles;
+    use HasAdvancedFilter;
+    use HasApiTokens;
+    use HasFactory;
+    use Notifiable;
+    use HasRoles;
 
     public $orderable = [
         'id', 'first_name', 'last_name',  'zip', 'city', 'state', 'country', 'address',

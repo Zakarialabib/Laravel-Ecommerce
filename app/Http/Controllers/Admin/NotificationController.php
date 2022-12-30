@@ -1,10 +1,12 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Notification;
-use DB;
+use Illuminate\Support\Facades\DB;
 
 class NotificationController extends Controller
 {
@@ -33,6 +35,7 @@ class NotificationController extends Controller
     public function user_notf_show()
     {
         $datas = Notification::where('user_id', '!=', null)->latest('id')->get();
+
         if ($datas->count() > 0) {
             foreach ($datas as $data) {
                 $data->is_read = 1;
@@ -52,6 +55,7 @@ class NotificationController extends Controller
     public function order_notf_show()
     {
         $datas = Notification::where('order_id', '!=', null)->latest('id')->get();
+
         if ($datas->count() > 0) {
             foreach ($datas as $data) {
                 $data->is_read = 1;
@@ -71,6 +75,7 @@ class NotificationController extends Controller
     public function product_notf_show()
     {
         $datas = Notification::where('product_id', '!=', null)->latest('id')->get();
+
         if ($datas->count() > 0) {
             foreach ($datas as $data) {
                 $data->is_read = 1;
@@ -90,6 +95,7 @@ class NotificationController extends Controller
     public function conv_notf_show()
     {
         $datas = Notification::where('conversation_id', '!=', null)->latest('id')->get();
+
         if ($datas->count() > 0) {
             foreach ($datas as $data) {
                 $data->is_read = 1;

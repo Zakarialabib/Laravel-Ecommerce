@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Livewire\Front;
 
 use App\Mail\ContactForm as MailContactForm;
@@ -24,11 +26,6 @@ class Contact extends Component
         'submit',
     ];
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
     private function resetInputFields()
     {
         $this->name = '';
@@ -48,10 +45,10 @@ class Contact extends Component
     }
 
     protected $rules = [
-        'conversation.name' => 'required',
-        'conversation.email' => 'required|email',
+        'conversation.name'         => 'required',
+        'conversation.email'        => 'required|email',
         'conversation.phone_number' => 'required',
-        'conversation.message' => 'required',
+        'conversation.message'      => 'required',
     ];
 
     public function submit()

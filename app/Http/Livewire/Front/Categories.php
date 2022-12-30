@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Livewire\Front;
 
 use App\Http\Livewire\WithSorting;
@@ -10,7 +12,8 @@ use Livewire\WithPagination;
 
 class Categories extends Component
 {
-    use WithPagination, WithSorting;
+    use WithPagination;
+    use WithSorting;
 
     public int $perPage;
 
@@ -55,7 +58,7 @@ class Categories extends Component
         $this->resetPage();
     }
 
-    public function filterProductSubcategories($category_id)
+    public function filterProductSubcategories($subcategory_id)
     {
         $this->subcategory_id = $subcategory_id;
         $this->resetPage();
@@ -63,7 +66,6 @@ class Categories extends Component
 
     public function mount()
     {
-        $this->sorting = 'default';
         $this->sortBy = 'id';
         $this->sortDirection = 'desc';
         $this->perPage = 15;
@@ -77,30 +79,37 @@ class Categories extends Component
             case 'name':
                 $this->sortBy = 'name';
                 $this->sortDirection = 'asc';
+
                 break;
             case 'name-desc':
                 $this->sortBy = 'name';
                 $this->sortDirection = 'desc';
+
                 break;
             case 'price':
                 $this->sortBy = 'price';
                 $this->sortDirection = 'asc';
+
                 break;
             case 'price-desc':
                 $this->sortBy = 'price';
                 $this->sortDirection = 'desc';
+
                 break;
             case 'date':
                 $this->sortBy = 'created_at';
                 $this->sortDirection = 'asc';
+
                 break;
             case 'date-desc':
                 $this->sortBy = 'created_at';
                 $this->sortDirection = 'desc';
+
                 break;
             default:
                 $this->sortBy = 'id';
                 $this->sortDirection = 'desc';
+
                 break;
         }
 

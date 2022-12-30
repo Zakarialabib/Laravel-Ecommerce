@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Livewire\Front;
 
 use App\Models\Product;
@@ -12,6 +14,14 @@ class AddToCart extends Component
     use LivewireAlert;
 
     public $product;
+
+    public $product_id;
+
+    public $product_name;
+
+    public $product_price;
+
+    public $product_qty;
 
     public $quantity = 1;
 
@@ -34,16 +44,17 @@ class AddToCart extends Component
 
         Cart::instance('shopping')->add($this->product_id, $this->product_name, $this->product_qty, $this->product_price)->associate('App\Models\Product');
 
-        $this->alert('success',
+        $this->alert(
+            'success',
             __('Product added to cart successfully!'),
             [
-                'position' => 'center',
-                'timer' => 3000,
-                'toast' => true,
-                'text' => '',
+                'position'          => 'center',
+                'timer'             => 3000,
+                'toast'             => true,
+                'text'              => '',
                 'confirmButtonText' => 'Ok',
-                'cancelButtonText' => 'Cancel',
-                'showCancelButton' => false,
+                'cancelButtonText'  => 'Cancel',
+                'showCancelButton'  => false,
                 'showConfirmButton' => false,
             ]
         );

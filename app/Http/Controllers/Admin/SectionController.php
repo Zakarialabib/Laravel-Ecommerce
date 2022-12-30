@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
@@ -7,21 +9,13 @@ use App\Models\Section;
 
 class SectionController extends Controller
 {
-    // Index Section
+    /**
+     * @return \Illuminate\Contracts\View\View|\Illuminate\Contracts\View\Factory
+     */
+    
     public function index()
     {
         return view('admin.section.index');
     }
 
-    // Add Section
-    public function create()
-    {
-        return view('admin.section.create');
-    }
-
-    // Section Edit
-    public function edit(Section $section)
-    {
-        return view('admin.section.edit', compact('section'));
-    }
 }
