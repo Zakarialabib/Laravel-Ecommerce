@@ -59,7 +59,7 @@
                 </div>
                 <div class="w-full px-2">
                     <x-label for="content" :value="__('Description')" />
-                    <x-input.rich-text wire:model.lazy="section.content" id="description" />
+                    <x-input-textarea wire:model.lazy="section.content" id="content" />
                     <x-input-error :messages="$errors->get('section.content')" for="section.content" class="mt-2" />
                 </div>
                 <div class="w-full px-2">
