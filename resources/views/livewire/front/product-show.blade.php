@@ -18,7 +18,7 @@
                                     / {{ $product->subcategory->name }}
                                 @endisset
                             </span>
-                            <h2 class="mt-2 mb-6 max-w-xl text-5xl sm:text-xl font-bold font-heading">
+                            <h2 class="mt-2 mb-6 max-w-xl lg:text-5xl sm:text-xl font-bold font-heading">
                                 {{ $product->name }}
                             </h2>
                             <div class="flex items-center">
@@ -43,7 +43,7 @@
                                 </div>
                             </div>
                         </div>
-                        <p class="inline-block mb-8 text-2xl font-bold font-heading text-orange-500">
+                        <p class="inline-block text-2xl font-bold font-heading text-orange-500">
                             <span>
                                 {{ $product->price }}DH
                             </span>
@@ -54,7 +54,7 @@
                             @endif
                         </p>
                         @if ($product->old_price)
-                            <p class="inline-block mb-8 text-blue-300">
+                            <p class="mb-8 text-blue-300">
                                 <span class="font-normal text-base text-gray-400 line-through">
                                     {{ $product->old_price }}DH
                                 </span>
