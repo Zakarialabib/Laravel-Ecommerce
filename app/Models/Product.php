@@ -90,7 +90,7 @@ class Product extends Model implements Buyable
     /** @return \Illuminate\Database\Eloquent\Relations\BelongsToMany */
     public function categories()
     {
-        return $this->belongsToMany(Category::class, 'category_id');
+        return $this->belongsTo(Category::class, 'category_id');
     }
     /** @return \Illuminate\Database\Eloquent\Relations\BelongsTo */
     public function brand()
@@ -101,7 +101,7 @@ class Product extends Model implements Buyable
     /** @return \Illuminate\Database\Eloquent\Relations\BelongsToMany */
     public function subcategories()
     {
-        return $this->belongsToMany(Subcategory::class, 'subcategory_id');
+        return $this->belongsTo(Subcategory::class, 'subcategory_id');
     }
 
     public function reviews()
