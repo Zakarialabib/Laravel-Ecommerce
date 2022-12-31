@@ -1,5 +1,5 @@
 <div>
-    <form wire:submit.prevent="save" class="container mx-auto mb-4 flex justify-center">
+    <form wire:submit.prevent="save" class="container mx-auto mb-4 flex items-center">
         <span class="text-gray-500 font-bold text-center text-md font-heading uppercase py-2">{{ __('Order Now') }}</span>
         <div class="flex flex-wrap items-center">
             <div class="w-full md:w-1/2 pr-2">

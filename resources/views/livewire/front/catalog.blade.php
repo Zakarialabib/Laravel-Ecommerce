@@ -1,8 +1,8 @@
 <div>
     <div class="mx-auto px-4">
-        <div class="-mx-4 mb-10 md:mb-5 items-center justify-between">
-            <div class="w-full lg:w-auto px-4 flex flex-wrap justify-between">
-                <h2 class="mb-1 text-2xl font-bold lg:px-5 sm:px-2">
+        <div class="mb-10 items-center justify-between bg-white py-4">
+            <div class="w-full lg:mb-4 px-4 flex flex-wrap justify-between">
+                <h2 class="lg:text-2xl sm:text-xl font-bold">
                     {{ $this->products->count() }} {{ __('Watches') }}
                 </h2>
                 <div class="w-full sm:w-auto">
@@ -34,32 +34,25 @@
                         <div class="py-6 px-2 text-center bg-gray-50">
                             <a class="font-bold font-heading" href="#">{{ __('Category') }}</a>
                             <ul class="mt-6 -mb-2 flex overflow-x-scroll">
-                                @forelse ($this->categories as $category)
+                                @foreach ($this->categories as $category)
                                     <li class="w-1/2 px-2 mb-2">
                                         <x-button type="button" wire:click="filterCategories({{ $category->id }})"
                                             dangerOutline>
                                             {{ $category->name }} <small> ({{ $category->products->count() }})</small>
                                         </x-button>
-                                        <ul class="hidden text-left mt-2">
-                                            @foreach ($category->subcategories as $subcategory)
-                                                <li class="w-1/2 px-2 mb-2">
-                                                    <x-button type="button"
-                                                        wire:click="filterSubCategories({{ $subcategory->id }})"
-                                                        dangerOutline>
-                                                        {{ $subcategory->name }} <small>
-                                                            ({{ $subcategory->products->count() }})</small>
-                                                    </x-button>
-                                                </li>
-                                            @endforeach
-                                        </ul>
                                     </li>
-                                @empty
-                                    <div class="w-full">
-                                        <h3 class="text-3xl font-bold font-heading text-blue-900">
-                                            {{ __('No products found') }}
-                                        </h3>
-                                    </div>
-                                @endforelse
+                                @endforeach
+
+                                @foreach ($this->subcategories as $subcategory)
+                                    <li class="w-1/2 px-2 mb-2">
+                                        <x-button type="button"
+                                            wire:click="filterSubCategories({{ $subcategory->id }})" dangerOutline>
+                                            {{ $subcategory->name }} <small>
+                                                ({{ $subcategory->products->count() }})
+                                            </small>
+                                        </x-button>
+                                    </li>
+                                @endforeach
                             </ul>
                         </div>
                     </div>
@@ -111,20 +104,17 @@
                                         {{ $category->name }} <small> ({{ $category->products->count() }})</small>
                                     </span>
                                 </button>
-                                <ul>
-                                    @foreach ($category->subcategories as $subcategory)
-                                        <li class="mb-2">
-                                            <button type="button"
-                                                wire:click="filterSubCategories({{ $subcategory->id }})">
-                                                <span
-                                                    class="inline-block px-4 py-2 text-sm font-bold font-heading text-blue-300">
-                                                    {{ $subcategory->name }} <small>
-                                                        ({{ $subcategory->products->count() }})</small>
-                                                </span>
-                                            </button>
-                                        </li>
-                                    @endforeach
-                                </ul>
+                            </li>
+                        @endforeach
+                        @foreach ($this->subcategories as $subcategory)
+                            <li class="mb-2">
+                                <button type="button" wire:click="filterSubCategories({{ $subcategory->id }})">
+                                    <span class="inline-block px-4 py-2 text-sm font-bold font-heading text-blue-300">
+                                        {{ $subcategory->name }} <small>
+                                            ({{ $subcategory->products->count() }})
+                                        </small>
+                                    </span>
+                                </button>
                             </li>
                         @endforeach
                     </ul>

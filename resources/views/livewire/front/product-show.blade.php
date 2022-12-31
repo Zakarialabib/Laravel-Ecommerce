@@ -40,7 +40,7 @@
                                 </div>
                             </div>
                         </div>
-                        <p class="inline-block text-2xl font-bold font-heading text-orange-500">
+                        <p class="inline-block mb-4 text-2xl font-bold font-heading text-orange-500">
                             <span>
                                 {{ $product->price }}DH
                             </span>
