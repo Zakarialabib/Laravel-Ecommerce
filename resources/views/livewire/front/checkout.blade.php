@@ -3,40 +3,40 @@
     <div class="flex flex-wrap -mx-4">
         <div class="w-full lg:w-1/2 px-4">
             <form wire:submit.prevent="checkout">
-                @if( auth()->check() )
-                <div class="flex mb-5 items-center">
-                    <span
-                        class="inline-flex mr-8 items-center justify-center w-12 h-12 rounded-full bg-blue-300 text-white">1</span>
-                    <h3 class="text-2xl font-bold font-heading">
-                        {{ __('Already have an account ?') }}
-                    </h3>
-                </div>
-                <div class="flex flex-wrap">
-                    <div class="w-full px-2 md:w-1/2">
-                        <label class="font-bold font-heading text-gray-600"
-                            for="">{{ __('E-mail address') }}</label>
-                        <input wire:model="email"
-                            class="block w-full mt-4 py-4 px-4 bg-white border border-gray-200 focus:ring-blue-300 focus:border-blue-300 rounded-md"
-                            type="email">
+                @if (auth()->check())
+                    <div class="flex mb-5 items-center">
+                        <span
+                            class="inline-flex mr-8 items-center justify-center w-12 h-12 rounded-full bg-blue-300 text-white">1</span>
+                        <h3 class="text-2xl font-bold font-heading">
+                            {{ __('Already have an account ?') }}
+                        </h3>
                     </div>
-                    <div class="w-full px-2 md:w-1/2">
-                        <label class="font-bold font-heading text-gray-600"
-                            for="">{{ __('Password') }}</label>
-                        <input wire:model="password"
-                            class="block w-full mt-4 py-4 px-4 bg-white border border-gray-200 focus:ring-blue-300 focus:border-blue-300 rounded-md"
-                            type="email">
+                    <div class="flex flex-wrap">
+                        <div class="w-full px-2 md:w-1/2">
+                            <label class="font-bold font-heading text-gray-600"
+                                for="">{{ __('E-mail address') }}</label>
+                            <input wire:model="email"
+                                class="block w-full mt-4 py-4 px-4 bg-white border border-gray-200 focus:ring-blue-300 focus:border-blue-300 rounded-md"
+                                type="email">
+                        </div>
+                        <div class="w-full px-2 md:w-1/2">
+                            <label class="font-bold font-heading text-gray-600"
+                                for="">{{ __('Password') }}</label>
+                            <input wire:model="password"
+                                class="block w-full mt-4 py-4 px-4 bg-white border border-gray-200 focus:ring-blue-300 focus:border-blue-300 rounded-md"
+                                type="email">
+                        </div>
                     </div>
-                </div>
                 @else
-                <div class="flex mb-5 items-center">
-                    <div class="w-full px-2">
-                        <label class="font-bold font-heading text-gray-600"
-                            for="">{{ __('E-mail address') }}</label>
-                        <input wire:model="email"
-                            class="block w-full mt-4 py-4 px-4 bg-white border border-gray-200 focus:ring-blue-300 focus:border-blue-300 rounded-md"
-                            type="email">
+                    <div class="flex mb-5 items-center">
+                        <div class="w-full px-2">
+                            <label class="font-bold font-heading text-gray-600"
+                                for="">{{ __('E-mail address') }}</label>
+                            <input wire:model="email"
+                                class="block w-full mt-4 py-4 px-4 bg-white border border-gray-200 focus:ring-blue-300 focus:border-blue-300 rounded-md"
+                                type="email">
+                        </div>
                     </div>
-                </div>
                 @endif
 
                 <div class="flex mb-5 items-center">
@@ -112,37 +112,37 @@
                             </div>
 
                         </div>
-                        <div class="py-3 px-4 w-full">
+                        <div class="py-3 px-4 w-full bg-white">
                             @if ($shipping_id)
-                                @if ($shipping->is_pickup)
+                                @if ($this->shipping->is_pickup)
                                     <div class="flex mb-8 items-center justify-between pb-5 border-b border-blue-100">
-                                        <span class="text-blue-50">{{ __('Shipping') }}</span>
-                                        <span class="text-xl font-bold font-heading text-white">0 DH</span>
+                                        <span class="text-blue-200">{{ __('Shipping') }}</span>
+                                        <span class="text-xl font-bold font-heading text-gray-800">0 DH</span>
                                     </div>
                                     <div class="flex mb-5 justify-between items-center">
                                         <span
-                                            class="text-xl font-bold font-heading text-white">{{ __('Order total') }}</span>
-                                        <span class="text-xl font-bold font-heading text-white">
+                                            class="text-xl font-bold font-heading text-gray-800">{{ __('Order total') }}</span>
+                                        <span class="text-xl font-bold font-heading text-gray-800">
                                             {{ $cartTotal }} DH
                                         </span>
                                     </div>
                                 @else
                                     <div class="flex mb-2 justify-between items-center">
                                         <span class="text-blue-50">{{ __('Shipping cost') }}</span>
-                                        <span class="text-xl font-bold font-heading text-white">
-                                            {{ $shipping->cost }} DH
+                                        <span class="text-xl font-bold font-heading text-gray-800">
+                                            {{ $this->shipping->cost }} DH
                                     </div>
                                     <div class="flex mb-5 justify-between items-center">
                                         <span class="text-blue-50">{{ __('Shipping to') }}
-                                            {{ $shipping->title }}</span>
+                                            {{ $this->shipping->title }}</span>
                                         </span>
-                                        <span class="text-xl font-bold font-heading text-white">-</span>
+                                        <span class="text-xl font-bold font-heading text-gray-800">-</span>
                                     </div>
                                     <div class="flex mb-5 justify-between items-center">
                                         <span
-                                            class="text-xl font-bold font-heading text-white">{{ __('Order total') }}</span>
-                                        <span class="text-xl font-bold font-heading text-white">
-                                            {{ $cartTotal + $shipping->cost }} DH
+                                            class="text-xl font-bold font-heading text-gray-800">{{ __('Order total') }}</span>
+                                        <span class="text-xl font-bold font-heading text-gray-800">
+                                            {{ $cartTotal }} DH
                                         </span>
                                     </div>
                                 @endif
@@ -157,47 +157,69 @@
                 <div class="flex mb-5 items-center">
                     <h2 class="text-4xl font-bold font-heading">{{ __('Order summary') }}</h2>
                 </div>
-                <div class="mb-5 pb-10 border-b">
+                <div class="mb-5 border-b">
                     <div class="flex flex-wrap -mx-4 mb-5 items-center">
                         @foreach ($cartItems as $item)
-                            <div class="w-full px-4">
-                                <div class="self-stretch w-full lg:w-1/4 px-4">
-                                    <img class="mb-4 lg:mb-0 h-32 lg:h-42 object-contain"
-                                        src="{{ asset('images/products/' . $item->model->image) }}"
-                                        alt="{{ $item->name }}">
-                                </div>
-                                <div class="flex justify-between">
-                                    <div class="pr-2">
-                                        <h3 class="mb-2 text-xl font-bold font-heading">{{ $item->name }}</h3>
+                            <div class="flex flex-wrap w-full mb-10">
+                                <div class="w-full md:w-1/3 mb-6 md:mb-0 px-4">
+                                    <div class="flex h-32 items-center justify-center bg-gray-100">
+                                        @if (!empty($item->model->image))
+                                            <img class="h-full object-contain"
+                                                src="{{ asset('images/products') }}/{{ $item->model->image }}"
+                                                alt="{{ $item->name }}">
+                                        @endif
                                     </div>
-                                    <span class="text-lg text-blue-300 font-bold font-heading">
-                                        {{ $item->price }} DH</span>
-                                    </span>
                                 </div>
-                                <div class="flex items-center justify-between">
-                                    <p class="text-gray-500">{{ __('In Stock') }}</p>
-                                    <div
-                                        class="inline-flex items-center px-4 font-semibold font-heading text-gray-500 border border-gray-200 focus:ring-blue-300 focus:border-blue-300 rounded-md">
-                                        <div class="flex items-center">
-                                            <button wire:click="decreaseQuantity('{{ $item->model->slug }}')"
-                                                class="text-gray-600 hover:text-gray-700 focus:outline-none focus:text-gray-700">
-                                                <svg class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-                                                    <path fill-rule="evenodd"
-                                                        d="M4 10a1 1 0 011-1h10a1 1 0 110 2H5a1 1 0 01-1-1z"
-                                                        clip-rule="evenodd">
-                                                    </path>
-                                                </svg>
-                                            </button>
-                                            <span class="text-gray-700 mx-2">{{ $item->qty }}</span>
-                                            <button wire:click="increaseQuantity('{{ $item->model->slug }}')"
-                                                class="text-gray-600 hover:text-gray-700 focus:outline-none focus:text-gray-700">
-                                                <svg class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-                                                    <path fill-rule="evenodd"
-                                                        d="M10 5a1 1 0 011 1v4h4a1 1 0 110 2h-4v4a1 1 0 11-2 0v-4H5a1 1 0 110-2h4V6a1 1 0 011-1z"
-                                                        clip-rule="evenodd">
-                                                    </path>
-                                                </svg>
-                                            </button>
+                                <div class="w-full md:w-2/3 px-4">
+                                    <div>
+                                        @if (!empty($item->name))
+                                            <h3 class="mb-3 text-xl font-bold font-heading text-gray-900">
+                                                {{ $item->name }}
+                                            </h3>
+                                        @endif
+                                        <div class="flex flex-wrap items-center justify-between">
+                                            <div
+                                                class="inline-flex items-center px-4 font-semibold font-heading text-gray-500 border border-gray-200 focus:ring-blue-300 focus:border-blue-300 rounded-md">
+                                                <div class="flex items-center">
+                                                    @if (!empty($item->price))
+                                                        <p class="text-lg text-blue-500 font-bold font-heading">
+                                                            {{ $item->price }} DH
+                                                        </p>
+                                                    @endif
+                                                    @if (!empty($item->rowId))
+                                                        <button wire:click="decreaseQuantity('{{ $item->rowId }}')"
+                                                            class="text-gray-600 hover:text-gray-700 focus:outline-none focus:text-gray-700">
+                                                            <svg class="h-5 w-5" viewBox="0 0 20 20"
+                                                                fill="currentColor">
+                                                                <path fill-rule="evenodd"
+                                                                    d="M4 10a1 1 0 011-1h10a1 1 0 110 2H5a1 1 0 01-1-1z"
+                                                                    clip-rule="evenodd">
+                                                                </path>
+                                                            </svg>
+                                                        </button>
+                                                    @endif
+                                                    @if (!empty($item->qty))
+                                                        <span class="text-gray-700 mx-2">{{ $item->qty }}</span>
+                                                    @endif
+                                                    @if (!empty($item->rowId))
+                                                        <button wire:click="increaseQuantity('{{ $item->rowId }}')"
+                                                            class="text-gray-600 hover:text-gray-700 focus:outline-none focus:text-gray-700">
+                                                            <svg class="h-5 w-5" viewBox="0 0 20 20"
+                                                                fill="currentColor">
+                                                                <path fill-rule="evenodd"
+                                                                    d="M10 5a1 1 0 011 1v4h4a1 1 0 110 2h-4v4a1 1 0 11-2 0v-4H5a1 1 0 110-2h4V6a1 1 0 011-1z"
+                                                                    clip-rule="evenodd">
+                                                                </path>
+                                                            </svg>
+                                                        </button>
+                                                        <button wire:click="increaseQuantity('{{ $item->rowId }}')"
+                                                            class="text-red-500 hover:text-gray-700 focus:outline-none focus:text-gray-700">
+                                                            <i class="fa fa-trash-alt"></i>
+                                                        </button>
+                                                    @endif
+                                                </div>
+
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -218,17 +240,11 @@
                         <div class="py-3 px-10 rounded-full">
                             <div class="flex justify-between">
                                 <span class="font-medium">{{ __('Shipping') }}</span>
-                                <span class="font-bold font-heading">
-                                    {{ $shipping }} DH
-                                </span>
-                            </div>
-                        </div>
-                        <div class="py-3 px-10 bg-blue-50 rounded-full">
-                            <div class="flex justify-between">
-                                <span class="font-medium">{{ __('Tax') }}</span>
-                                <span class="font-bold font-heading">
-                                    {{ $tax }} DH
-                                </span>
+                                @if (!empty($this->shipping))
+                                    <span class="font-bold font-heading">
+                                        {{ $this->shipping->cost }} DH
+                                    </span>
+                                @endif
                             </div>
                         </div>
                         <div class="py-3 px-10 rounded-full">

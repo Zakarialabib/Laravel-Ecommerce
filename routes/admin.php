@@ -19,6 +19,7 @@ use App\Http\Controllers\Admin\SettingController;
 use App\Http\Controllers\Admin\SliderController;
 use App\Http\Controllers\Admin\SmptController;
 use App\Http\Controllers\Admin\UsersController;
+use App\Http\Controllers\Admin\ShippingController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -65,7 +66,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => 'auth'], fu
     Route::get('/blog/category', [BlogController::class, 'blogcategories'])->name('blogcategories');
 
     Route::get('/settings', [SettingController::class, 'index'])->name('settings');
-    Route::get('/shipping', [SettingController::class, 'index'])->name('setting.shipping');
+    Route::get('/shipping', [ShippingController::class, 'index'])->name('setting.shipping');
     Route::get('/home-customization', [SettingController::class, 'index'])->name('setting.customize');
     Route::get('/content', [SettingController::class, 'index'])->name('setting.content');
 

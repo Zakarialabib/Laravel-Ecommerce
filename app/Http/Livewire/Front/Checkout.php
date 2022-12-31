@@ -14,9 +14,17 @@ class Checkout extends Component
 {
     use LivewireAlert;
 
-    public $listeners = ['checkout' => 'checkout'];
+    public $listeners = [
+        'checkout' => 'checkout',
+        'checkoutCartUpdated' => '$refresh',
+    ];
 
-    // shipping_id
+    public $decreaseQuantity;
+
+    public $increaseQuantity;
+
+    public $removeFromCart;
+
     public $payment_method;
 
     public $shipping_cost;
@@ -35,6 +43,8 @@ class Checkout extends Component
 
     public $phone;
 
+    public $password;
+    
     public $total;
 
     public $order_status;
@@ -88,16 +98,75 @@ class Checkout extends Component
     {
         if ($value) {
             $this->shipping = Shipping::find($value);
-
+            $cost = floatval($this->shipping->cost);
             if ($this->shipping->is_pickup) {
                 $cartTotal = Cart::instance('shopping')->total();
             } else {
-                $cartTotal = Cart::instance('shopping')->total() + $this->shipping->cost;
+                $total = floatval(Cart::instance('shopping')->total());
+                $cartTotal = $total + $cost;
             }
         } else {
             $cartTotal = Cart::instance('shopping')->total();
         }
         $this->emit('cartTotalUpdated', $cartTotal);
+    }
+
+      public function decreaseQuantity($rowId)
+    {
+        $cartItem = Cart::instance('shopping')->get($rowId);
+        $qty = $cartItem->qty - 1;
+        Cart::instance('shopping')->update($rowId, $qty);
+        $this->emit('checkoutCartUpdated');
+    }
+
+    public function increaseQuantity($rowId)
+    {
+        $cartItem = Cart::instance('shopping')->get($rowId);
+        $qty = $cartItem->qty + 1;
+        Cart::instance('shopping')->update($rowId, $qty);
+        $this->emit('checkoutCartUpdated');
+    }
+
+    public function removeFromCart($rowId)
+    {
+        try {
+            Cart::instance('shopping')->remove($rowId);
+            $this->emit('cartCountUpdated');
+            $this->alert(
+                'success',
+                __('Product removed from cart successfully!'),
+                [
+                    'position'          => 'center',
+                    'timer'             => 3000,
+                    'toast'             => true,
+                    'text'              => '',
+                    'confirmButtonText' => 'Ok',
+                    'cancelButtonText'  => 'Cancel',
+                    'showCancelButton'  => false,
+                    'showConfirmButton' => false,
+                ]
+            );
+        } catch (\Exception $e) {
+            $this->alert(
+                'error',
+                __('An error occurred while trying to remove the product from the cart: '.$e->getMessage()),
+                [
+                    'position'          => 'center',
+                    'timer'             => 3000,
+                    'toast'             => true,
+                    'text'              => '',
+                    'confirmButtonText' => 'Ok',
+                    'cancelButtonText'  => 'Cancel',
+                    'showCancelButton'  => false,
+                    'showConfirmButton' => false,
+                ]
+            );
+        }
+    }    
+
+    public function getShippingProperty()
+    {
+        return Shipping::find($this->shipping_id);
     }
 
     public function mount()
@@ -107,8 +176,6 @@ class Checkout extends Component
         $this->cartItems = Cart::instance('shopping')->content();
 
         $this->subTotal = Cart::instance('shopping')->subtotal();
-
-        $this->shipping = Shipping::find($this->shipping_id);
 
         $this->payment_method = 'cash';
 

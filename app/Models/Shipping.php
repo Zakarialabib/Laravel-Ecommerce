@@ -12,15 +12,15 @@ class Shipping extends Model
     use HasAdvancedFilter;
 
     protected $filterable = [
-        'id', 'is_pickup', 'title', 'subtitle', 'cost', 'language_id', 'status',
+        'id', 'is_pickup', 'title', 'subtitle', 'cost', 'status',
     ];
 
     public $orderable = [
-        'id', 'is_pickup', 'title', 'subtitle', 'cost', 'language_id', 'status',
+        'id', 'is_pickup', 'title', 'subtitle', 'cost', 'status',
     ];
 
     protected $fillable = [
-        'is_pickup', 'title', 'subtitle', 'cost', 'language_id', 'status',
+        'is_pickup', 'title', 'subtitle', 'cost', 'status',
     ];
 
     public $timestamps = false;

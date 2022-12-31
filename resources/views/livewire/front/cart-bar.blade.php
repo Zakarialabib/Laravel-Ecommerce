@@ -1,22 +1,14 @@
 <div>
-    
-    <div 
-        class="fixed inset-0 overflow-hidden z-50"
-        {{-- display none  --}}
-        style="display:none"
-        x-on:click.away="showCart = false"
-        x-show="showCart"
-        x-transition:enter="transition ease-out duration-300"
+
+    <div class="fixed inset-0 overflow-hidden z-50" {{-- display none  --}} style="display:none"
+        x-on:click.away="showCart = false" x-show="showCart" x-transition:enter="transition ease-out duration-300"
         x-transition:enter-start="opacity-0 transform translate-y-4"
-        x-transition:enter-end="opacity-100 transform translate-y-0"
-        x-transition:leave="transition ease-in duration-300"
+        x-transition:enter-end="opacity-100 transform translate-y-0" x-transition:leave="transition ease-in duration-300"
         x-transition:leave-start="opacity-100 transform translate-y-0"
-        x-transition:leave-end="opacity-0 transform translate-y-4"
-        x-close-on-escape="true"
-        x-cloak
-    >
+        x-transition:leave-end="opacity-0 transform translate-y-4" x-close-on-escape="true" x-cloak>
         <div class="absolute inset-0 overflow-hidden">
-            <div class="absolute inset-0 bg-gray-500 bg-opacity-75 transition-opacity" aria-hidden="true" x-on:click="showCart = false"></div>
+            <div class="absolute inset-0 bg-gray-500 bg-opacity-75 transition-opacity" aria-hidden="true"
+                x-on:click="showCart = false"></div>
             <section class="absolute inset-y-0 right-0 pl-10 max-w-full flex">
                 <div class="w-screen max-w-md">
                     <div class="h-full flex flex-col bg-white shadow-xl overflow-y-scroll">
@@ -39,54 +31,78 @@
                         </div>
                         <div class="border-t border-gray-200 py-6 px-4 sm:px-6">
                             <div class="w-full -mx-4 items-center">
+
                                 @foreach ($cartItems as $item)
-                                    <div class="flex flex-wrap mb-10">
-                                        <div class="w-full md:w-1/3 mb-6 md:mb-0 px-4">
-                                            <div class="flex h-32 items-center justify-center bg-gray-100">
-                                                <img class="h-full object-contain"
-                                                    src="{{ asset('images/products/' . $item->model->image) }}"
-                                                    alt="{{ $item->name }}">
+
+                                        <div class="flex flex-wrap mb-10">
+                                            <div class="w-full md:w-1/3 mb-6 md:mb-0 px-4">
+                                                <div class="flex h-32 items-center justify-center bg-gray-100">
+                                                    @if (!empty($item->model->image))
+                                                    <img class="h-full object-contain"
+                                                        src="{{ asset('images/products') }}/{{ $item->model->image }}"
+                                                        alt="{{ $item->name }}">
+                                                        @endif
+                                                </div>
                                             </div>
-                                        </div>
-                                        <div class="w-full md:w-2/3 px-4">
-                                            <div>
-                                                <h3 class="mb-3 text-xl font-bold font-heading text-gray-900">
-                                                    {{ $item->name }}</h3>
-                                                <div class="flex flex-wrap items-center justify-between">
-                                                    <div
-                                                        class="inline-flex items-center px-4 font-semibold font-heading text-gray-500 border border-gray-200 focus:ring-blue-300 focus:border-blue-300 rounded-md">
-                                                        <div class="flex items-center">
-                                                            <button
-                                                                wire:click="decreaseQuantity('{{ $item->model->slug }}')"
-                                                                class="text-gray-600 hover:text-gray-700 focus:outline-none focus:text-gray-700">
-                                                                <svg class="h-5 w-5" viewBox="0 0 20 20"
-                                                                    fill="currentColor">
-                                                                    <path fill-rule="evenodd"
-                                                                        d="M4 10a1 1 0 011-1h10a1 1 0 110 2H5a1 1 0 01-1-1z"
-                                                                        clip-rule="evenodd">
-                                                                    </path>
-                                                                </svg>
-                                                            </button>
-                                                            <span class="text-gray-700 mx-2">{{ $item->qty }}</span>
-                                                            <button
-                                                                wire:click="increaseQuantity('{{ $item->model->slug }}')"
-                                                                class="text-gray-600 hover:text-gray-700 focus:outline-none focus:text-gray-700">
-                                                                <svg class="h-5 w-5" viewBox="0 0 20 20"
-                                                                    fill="currentColor">
-                                                                    <path fill-rule="evenodd"
-                                                                        d="M10 5a1 1 0 011 1v4h4a1 1 0 110 2h-4v4a1 1 0 11-2 0v-4H5a1 1 0 110-2h4V6a1 1 0 011-1z"
-                                                                        clip-rule="evenodd">
-                                                                    </path>
-                                                                </svg>
-                                                            </button>
+                                            <div class="w-full md:w-2/3 px-4">
+                                                <div>
+                                                    @if (!empty($item->name))
+                                                    <h3 class="mb-3 text-xl font-bold font-heading text-gray-900">
+                                                        {{ $item->name }}
+                                                    </h3>
+                                                    @endif
+                                                    <div class="flex flex-wrap items-center justify-between">
+                                                        <div
+                                                            class="inline-flex items-center px-4 font-semibold font-heading text-gray-500 border border-gray-200 focus:ring-blue-300 focus:border-blue-300 rounded-md">
+                                                            <div class="flex items-center">
+                                                                @if (!empty($item->price))
+                                                                <p class="text-lg text-blue-500 font-bold font-heading">
+                                                                    {{ $item->price }} DH
+                                                                </p>
+                                                                @endif
+                                                                @if (!empty($item->rowId))
+                                                                <button
+                                                                    wire:click="decreaseQuantity('{{ $item->rowId }}')"
+                                                                    class="text-gray-600 hover:text-gray-700 focus:outline-none focus:text-gray-700">
+                                                                    <svg class="h-5 w-5" viewBox="0 0 20 20"
+                                                                        fill="currentColor">
+                                                                        <path fill-rule="evenodd"
+                                                                            d="M4 10a1 1 0 011-1h10a1 1 0 110 2H5a1 1 0 01-1-1z"
+                                                                            clip-rule="evenodd">
+                                                                        </path>
+                                                                    </svg>
+                                                                </button>
+                                                                @endif
+                                                                @if (!empty($item->qty))
+                                                                <span
+                                                                    class="text-gray-700 mx-2">{{ $item->qty }}</span>
+                                                                @endif
+                                                                @if (!empty($item->rowId))
+                                                                <button
+                                                                    wire:click="increaseQuantity('{{ $item->rowId }}')"
+                                                                    class="text-gray-600 hover:text-gray-700 focus:outline-none focus:text-gray-700">
+                                                                    <svg class="h-5 w-5" viewBox="0 0 20 20"
+                                                                        fill="currentColor">
+                                                                        <path fill-rule="evenodd"
+                                                                            d="M10 5a1 1 0 011 1v4h4a1 1 0 110 2h-4v4a1 1 0 11-2 0v-4H5a1 1 0 110-2h4V6a1 1 0 011-1z"
+                                                                            clip-rule="evenodd">
+                                                                        </path>
+                                                                    </svg>
+                                                                </button>
+                                                                <button
+                                                                    wire:click="increaseQuantity('{{ $item->rowId }}')"
+                                                                    class="text-red-500 hover:text-gray-700 focus:outline-none focus:text-gray-700">
+                                                                    <i class="fa fa-trash-alt"></i>
+                                                                </button>
+                                                                @endif
+                                                            </div>
+
                                                         </div>
-                                                        <p class="text-lg text-blue-500 font-bold font-heading">
-                                                            {{ $item->price }} DH</p>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
+                                    
                                 @endforeach
                             </div>
                         </div>
@@ -109,6 +125,4 @@
 
 
 @push('scripts')
-    
-      
 @endpush

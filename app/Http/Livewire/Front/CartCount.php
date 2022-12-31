@@ -18,11 +18,13 @@ class CartCount extends Component
     public function mount()
     {
         $this->cartCount = Cart::instance('shopping')->count();
+        
     }
 
     public function cartCountUpdated()
     {
         $this->cartCount = Cart::instance('shopping')->count();
+        $this->emit('cartBarUpdated');
     }
 
     public function render()

@@ -56,12 +56,15 @@ class ProductShow extends Component
      public function AddToCart($product_id)
      {
          $product = Product::find($product_id);
+         
          $this->product_id = $product->id;
          $this->product_name = $product->name;
          $this->product_price = $product->price;
          $this->product_qty = $this->quantity;
 
          Cart::instance('shopping')->add($this->product_id, $this->product_name, $this->product_qty, $this->product_price)->associate('App\Models\Product');
+         
+         $this->emit('cartCountUpdated');
 
          $this->alert(
              'success',

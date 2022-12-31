@@ -18,15 +18,16 @@ class CartBar extends Component
     public $increaseQuantity;
 
     public $removeFromCart;
+    
+    public $cartItems;
+
+    public $cartTotal;
 
     public $showCart = false;
 
     public $listeners = [
         'showCart',
         'hideCart',
-        'decreaseQuantity',
-        'increaseQuantity',
-        'removeFromCart',
         'cartBarUpdated',
     ];
 
@@ -41,37 +42,66 @@ class CartBar extends Component
         $this->showCart = true;
     }
 
-    // decreaseQuantity
-
     public function decreaseQuantity($rowId)
     {
-        // dd(Cart::get($rowId));
-
-        $item = Cart::instance('shopping')->get($rowId);
-        $qty = $item->qty - 1;
+        $cartItem = Cart::instance('shopping')->get($rowId);
+        $qty = $cartItem->qty - 1;
         Cart::instance('shopping')->update($rowId, $qty);
         $this->emit('cartBarUpdated');
     }
 
     public function increaseQuantity($rowId)
     {
-        $cart = Cart::instance('shopping')->get($rowId);
-
-        $qty = $cart->qty + 1;
-
+        $cartItem = Cart::instance('shopping')->get($rowId);
+        $qty = $cartItem->qty + 1;
         Cart::instance('shopping')->update($rowId, $qty);
+        $this->emit('cartBarUpdated');
     }
 
     public function removeFromCart($rowId)
     {
-        Cart::instance('shopping')->remove($rowId);
-    }
+        try {
+            Cart::instance('shopping')->remove($rowId);
+            $this->emit('cartCountUpdated');
+            $this->alert(
+                'success',
+                __('Product removed from cart successfully!'),
+                [
+                    'position'          => 'center',
+                    'timer'             => 3000,
+                    'toast'             => true,
+                    'text'              => '',
+                    'confirmButtonText' => 'Ok',
+                    'cancelButtonText'  => 'Cancel',
+                    'showCancelButton'  => false,
+                    'showConfirmButton' => false,
+                ]
+            );
+        } catch (\Exception $e) {
+            $this->alert(
+                'error',
+                __('An error occurred while trying to remove the product from the cart: '.$e->getMessage()),
+                [
+                    'position'          => 'center',
+                    'timer'             => 3000,
+                    'toast'             => true,
+                    'text'              => '',
+                    'confirmButtonText' => 'Ok',
+                    'cancelButtonText'  => 'Cancel',
+                    'showCancelButton'  => false,
+                    'showConfirmButton' => false,
+                ]
+            );
+        }
+    }    
 
-    public function cartbarUpdated()
+    public function cartBarUpdated()
     {
         $this->cartTotal = Cart::instance('shopping')->total();
 
         $this->cartItems = Cart::instance('shopping')->content();
+
+        $this->mount();
     }
 
     public function mount()
@@ -82,6 +112,7 @@ class CartBar extends Component
 
         $this->shipping = Shipping::find($this->shipping_id);
 
+        // dd($this->all());
         $this->initListsForFields();
     }
 

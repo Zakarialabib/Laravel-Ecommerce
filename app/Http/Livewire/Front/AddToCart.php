@@ -34,30 +34,27 @@ class AddToCart extends Component
         $this->product = $product;
     }
 
-    public function AddToCart($product_id)
+    public function AddToCart(Product $product_id)
     {
-        $product = Product::find($product_id);
-        $this->product_id = $product->id;
-        $this->product_name = $product->name;
-        $this->product_price = $product->price;
-        $this->product_qty = $this->quantity;
+        Cart::instance('shopping')->add($product_id, $this->quantity)->associate('App\Models\Product');
 
-        Cart::instance('shopping')->add($this->product_id, $this->product_name, $this->product_qty, $this->product_price)->associate('App\Models\Product');
-
-        $this->alert(
-            'success',
-            __('Product added to cart successfully!'),
-            [
-                'position'          => 'center',
-                'timer'             => 3000,
-                'toast'             => true,
-                'text'              => '',
-                'confirmButtonText' => 'Ok',
-                'cancelButtonText'  => 'Cancel',
-                'showCancelButton'  => false,
-                'showConfirmButton' => false,
-            ]
-        );
+        $this->emit('cartCountUpdated');
+    
+    // If the user cancels the confirmation, display a success message using Livewire's `alert` method
+    $this->alert(
+        'success',
+        __('Product added to cart successfully!'),
+        [
+            'position'          => 'center',
+            'timer'             => 3000,
+            'toast'             => true,
+            'text'              => '',
+            'confirmButtonText' => 'Ok',
+            'cancelButtonText'  => 'Cancel',
+            'showCancelButton'  => false,
+            'showConfirmButton' => false,
+        ]
+    );
     }
 
     public function render()
