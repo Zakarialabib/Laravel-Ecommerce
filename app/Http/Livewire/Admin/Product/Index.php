@@ -123,7 +123,7 @@ class Index extends Component
 
     public function render()
     {
-        $query = Product::with(['categories' => function ($query) {
+        $query = Product::with(['category' => function ($query) {
             $query->select('id', 'name');
         }, 'brand' => function ($query) {
             $query->select('id', 'name');
