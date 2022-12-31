@@ -7,6 +7,7 @@ namespace App\Http\Livewire\Front;
 use App\Http\Livewire\WithSorting;
 use App\Models\Category;
 use App\Models\Product;
+use App\Models\Subcategory;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -129,6 +130,11 @@ class Categories extends Component
     public function getCategoriesProperty()
     {
         return Category::where('status', 1)->with('subcategories')->get();
+    }
+
+    public function getSubcategoriesProperty()
+    {
+        return Subcategory::where('status', 1)->get();
     }
 
     public function render()

@@ -7,6 +7,7 @@ namespace App\Http\Livewire\Front;
 use App\Http\Livewire\WithSorting;
 use App\Models\Brand;
 use App\Models\Category;
+use App\Models\Subcategory;
 use App\Models\Product;
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -98,6 +99,11 @@ class Catalog extends Component
     public function getCategoriesProperty()
     {
         return Category::where('status', 1)->with('subcategories')->get();
+    }
+    
+    public function getSubcategoriesProperty()
+    {
+        return Subcategory::where('status', 1)->get();
     }
 
     public function getBrandsProperty()
