@@ -87,8 +87,8 @@ class Product extends Model implements Buyable
         return null;
     }
 
-    /** @return \Illuminate\Database\Eloquent\Relations\BelongsToMany */
-    public function categories()
+    /** @return \Illuminate\Database\Eloquent\Relations\BelongsTo */
+    public function category()
     {
         return $this->belongsTo(Category::class, 'category_id');
     }
@@ -98,8 +98,8 @@ class Product extends Model implements Buyable
         return $this->belongsTo(Brand::class, 'brand_id');
     }
 
-    /** @return \Illuminate\Database\Eloquent\Relations\BelongsToMany */
-    public function subcategories()
+    /** @return \Illuminate\Database\Eloquent\Relations\BelongsTo */
+    public function subcategory()
     {
         return $this->belongsTo(Subcategory::class, 'subcategory_id');
     }
