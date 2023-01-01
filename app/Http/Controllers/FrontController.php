@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers;
 
+use App\Models\Order;
 use App\Models\Blog;
 use App\Models\Brand;
 use App\Models\Product;

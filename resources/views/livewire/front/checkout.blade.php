@@ -24,7 +24,7 @@
                                 for="">{{ __('Password') }}</label>
                             <input wire:model="password"
                                 class="block w-full mt-4 py-4 px-4 bg-white border border-gray-200 focus:ring-blue-300 focus:border-blue-300 rounded-md"
-                                type="email">
+                                type="pasword">
                         </div>
                     </div>
                 @else
@@ -78,9 +78,9 @@
                         <div class="w-full md:w-1/2 px-4">
                             <label class="font-bold font-heading text-gray-600"
                                 for="">{{ __('Country') }}</label>
-                            <input wire:model="country"
+                            <input wire:model="country" disabled
                                 class="block w-full mt-4 py-4 px-4 bg-white border border-gray-200 focus:ring-blue-300 focus:border-blue-300 rounded-md"
-                                type="text" value="Maroc">
+                                type="text">
                         </div>
                         <div class="w-full md:w-1/2 px-4">
                             <label class="font-bold font-heading text-gray-600"

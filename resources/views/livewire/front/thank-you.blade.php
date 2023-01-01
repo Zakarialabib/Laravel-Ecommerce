@@ -1,15 +1,15 @@
 <div>
     <section class="relative py-10 bg-gray-100">
-        <div class="absolute top-0 left-0 w-full lg:w-2/5 h-64 lg:h-full bottom-0 bg-blue-300">
-            <img class="absolute bottom-0 left-0 w-1/2 lg:w-auto" src="yofte-assets/elements/lines-order.svg" alt="">
-            <img class="w-1/2 ml-auto lg:ml-0 lg:w-full h-full lg:h-auto object-cover"
-                src="yofte-assets/images/placeholder-order.png" alt="">
-        </div>
         <div class="mt-64 lg:mt-0 py-16 bg-white">
             <div class="mx-auto px-4">
                 <div class="flex items-end justify-end">
                     <div class="w-full lg:w-3/5 lg:pl-20 lg:ml-auto">
-                        <h2 class="mb-8 text-5xl font-bold font-heading">{{ __('Thank you') }} {{ $order->user->fullName }} </h2>
+                        <h2 class="mb-8 text-5xl font-bold font-heading">{{ __('Thank you') }} 
+                            @if (!empty($order->user))
+                            {{ $order->user->fullName }}
+                            @endif
+                         </h2>
+                         
                         <p class="mb-12 text-gray-500">{{ __('Your order is processing') }}</p>
                         <div class="flex flex-wrap mb-12">
                             <div class="mr-20">
@@ -35,6 +35,7 @@
                         </div>
                         <div class="mb-6 p-10 shadow-xl">
                             <div class="flex flex-wrap items-center -mx-4">
+                                @dd($order->products)
                                 @foreach ($order->products as $product)
                                     <div class="w-full lg:w-2/6 px-4 mb-8 lg:mb-0">
                                         <img class="w-full h-32 object-contain"

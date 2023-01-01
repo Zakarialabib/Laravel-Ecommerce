@@ -8,6 +8,8 @@ use Livewire\Component;
 
 class Newsletters extends Component
 {
+    public $email;
+    
     public function render()
     {
         return view('livewire.front.newsletters');

@@ -15,7 +15,7 @@ class ThankYou extends Component
 
     public function mount($order)
     {
-        $this->order = Order::findOrFail($order);
+        $this->order = Order::findOrFail($order->id);
     }
 
     public function render()

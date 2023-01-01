@@ -109,8 +109,9 @@ class Product extends Model implements Buyable
         return $this->hasMany(Review::class);
     }
 
+    // Product model
     public function orders()
     {
-        return $this->belongsToMany(Order::class);
+        return $this->belongsToMany(Order::class, 'order_products')->withPivot('qty', 'price', 'tax', 'total');
     }
 }

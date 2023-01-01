@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Http\Livewire\Front;
 
 use App\Models\Order;
+use App\Models\OrderProduct;
 use App\Models\Shipping;
 use Gloudemans\Shoppingcart\Facades\Cart;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
@@ -39,12 +40,12 @@ class Checkout extends Component
 
     public $city;
 
-    public $country;
+    public $country = 'Maroc';
 
     public $phone;
 
     public $password;
-    
+
     public $total;
 
     public $order_status;
@@ -57,41 +58,54 @@ class Checkout extends Component
     {
         $this->validate([
             'shipping_id' => 'required',
+            'first_name' => 'required',
+            'shipping_id' => 'required',
         ]);
+
+        if (Cart::instance('shopping')->count() == 0) {
+        $this->alert('error', __('Your cart is empty'));
+        }
 
         $shipping = Shipping::find($this->shipping_id);
 
         $order = Order::create([
             'reference'       => Order::generateReference(),
             'shipping_id'     => $this->shipping_id,
-            'delivery_method' => $shipping->name,
+            'delivery_method' => $shipping->title,
             'payment_method'  => $this->payment_method,
             'shipping_cost'   => $shipping->cost,
             'first_name'      => $this->first_name,
+            'shipping_name'   => $this->first_name. '-' .$this->last_name,
             'last_name'       => $this->last_name,
             'email'           => $this->email,
             'address'         => $this->address,
+            'shipping_address'=> $this->address,
             'city'            => $this->city,
+            'shipping_city'            => $this->city,
             'phone'           => $this->phone,
-            'total'           => Cart::total(),
+            'shipping_phone'   => $this->phone,
+            'total'           => floatval(Cart::instance('shopping')->total()),
             'user_id'         => auth()->user()->id,
             'order_status'    => Order::STATUS_PENDING,
             'payment_status'  => Order::PAYMENT_STATUS_PENDING,
         ]);
 
-        foreach (Cart::content() as $item) {
-            $order->orderItems()->create([
-                'product_id' => $item->id,
-                'quantity'   => $item->qty,
-                'price'      => $item->price,
+        foreach (Cart::instance('shopping') as $order) {
+            $orderProduct = new OrderProduct([
+                'order_id' => $order->id,
+                'product_id' => $product->id,
+                'quantity' => $item->qty,
+                'price' => $item->price,
             ]);
+            
+            $orderProduct->save();
         }
 
-        Cart::destroy();
+        Cart::instance('shopping')->destroy();
 
         $this->alert('success', __('Order placed successfully!'));
 
-        return redirect()->route('front.thankyou');
+        return redirect()->route('front.thankyou' , ['order' => $order->id]);
     }
 
     public function updatedShippingId($value)

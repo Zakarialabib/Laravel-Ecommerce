@@ -24,7 +24,7 @@ Route::get('/marque/{slug}', [FrontController::class, 'brandPage'])->name('front
 Route::get('/catalog/{slug}', [FrontController::class, 'productShow'])->name('front.product');
 Route::get('/panier', [FrontController::class, 'cart'])->name('front.cart');
 Route::get('/caisse', [FrontController::class, 'checkout'])->name('front.checkout');
-Route::get('/merci-pour-votre-commande', [FrontController::class, 'thankyou'])->name('front.thankyou');
+Route::get('/merci-pour-votre-commande/{order}', [FrontController::class, 'thankyou'])->name('front.thankyou');
 Route::get('/contact', [FrontController::class, 'contact'])->name('front.contact');
 Route::get('/a-propos', [FrontController::class, 'about'])->name('front.about');
 Route::get('/blog', [FrontController::class, 'blog'])->name('front.blog');
