@@ -10,12 +10,8 @@ use Illuminate\Contracts\View\Factory;
 
 class DashboardLayout extends Component
 {
-    /**
-     * Get the view / contents that represents the component.
-     *
-     * @return \Illuminate\View\View
-     */
-    public function render(): View|Factory
+
+    public function render()
     {
         return view('layouts.dashboard');
     }

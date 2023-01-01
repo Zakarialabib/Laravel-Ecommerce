@@ -20,7 +20,7 @@ class DatePicker extends Component
      *
      * @return \Illuminate\Contracts\View\View|string
      */
-    public function render(): View|Factory
+    public function render()
     {
         return view('components.date-picker');
     }
