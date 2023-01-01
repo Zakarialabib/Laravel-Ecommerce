@@ -10,6 +10,8 @@ use Illuminate\Support\Facades\Storage;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Livewire\Component;
 use Livewire\WithFileUploads;
+use Illuminate\Contracts\View\View;
+use Illuminate\Contracts\View\Factory;
 
 class Index extends Component
 {
@@ -27,7 +29,7 @@ class Index extends Component
     public $favicon;
 
     public $siteImage;
-    
+
     public $currency_code;
 
     public $currency_symbol;
@@ -195,7 +197,7 @@ class Index extends Component
         }
     }
 
-    public function render()
+    public function render(): View|Factory
     {
         return view('livewire.admin.settings.index');
     }

@@ -14,6 +14,8 @@ use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 use Livewire\WithPagination;
+use Illuminate\Contracts\View\View;
+use Illuminate\Contracts\View\Factory;
 
 class Index extends Component
 {
@@ -121,7 +123,7 @@ class Index extends Component
         $this->initListsForFields();
     }
 
-    public function render()
+    public function render(): View|Factory
     {
         $query = Product::with(['category' => function ($query) {
             $query->select('id', 'name');

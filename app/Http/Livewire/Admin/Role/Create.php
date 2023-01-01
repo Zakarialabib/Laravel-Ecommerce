@@ -8,6 +8,8 @@ use App\Models\Permission;
 use App\Models\Role;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Livewire\Component;
+use Illuminate\Contracts\View\View;
+use Illuminate\Contracts\View\Factory;
 
 class Create extends Component
 {
@@ -29,7 +31,7 @@ class Create extends Component
         $this->initListsForFields();
     }
 
-    public function render()
+    public function render(): View|Factory
     {
         return view('livewire.admin.role.create');
     }

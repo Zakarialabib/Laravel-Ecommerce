@@ -11,6 +11,8 @@ use Illuminate\Support\Facades\Gate;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Livewire\Component;
 use Livewire\WithPagination;
+use Illuminate\Contracts\View\View;
+use Illuminate\Contracts\View\Factory;
 
 class Index extends Component
 {
@@ -25,7 +27,7 @@ class Index extends Component
     public $showModal = false;
 
     public $user;
-    
+
     public $role;
 
     public $editModal = false;
@@ -94,7 +96,7 @@ class Index extends Component
         $this->orderable = (new User())->orderable;
     }
 
-    public function render()
+    public function render(): View|Factory
     {
         abort_if(Gate::denies('user_access'), 403);
 

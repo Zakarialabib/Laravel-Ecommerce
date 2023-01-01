@@ -9,6 +9,9 @@ use App\Models\EmailTemplate;
 use Illuminate\Http\Response;
 use Livewire\Component;
 use Livewire\WithPagination;
+use Illuminate\Contracts\View\View;
+use Illuminate\Contracts\View\Factory;
+
 
 class Index extends Component
 {
@@ -68,7 +71,7 @@ class Index extends Component
         $this->orderable = (new EmailTemplate())->orderable;
     }
 
-    public function render()
+    public function render(): View|Factory
     {
         $query = EmailTemplate::advancedFilter([
             's'               => $this->search ?: null,

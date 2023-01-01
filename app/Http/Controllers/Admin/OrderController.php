@@ -5,9 +5,7 @@ declare(strict_types=1);
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\Generalsetting;
 use App\Models\Order;
-use Illuminate\Http\Request;
 
 class OrderController extends Controller
 {
@@ -31,5 +29,4 @@ class OrderController extends Controller
 
         return view('admin.order.invoice', compact('order', 'cart'));
     }
-
 }

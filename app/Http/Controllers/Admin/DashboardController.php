@@ -70,7 +70,6 @@ class DashboardController extends Controller
         return view('admin.profile', compact('data'));
     }
 
-  
     public function passwordreset()
     {
         $data = Auth::user();

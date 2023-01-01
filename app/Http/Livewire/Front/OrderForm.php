@@ -7,6 +7,8 @@ namespace App\Http\Livewire\Front;
 use App\Models\OrderForms;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Livewire\Component;
+use Illuminate\Contracts\View\View;
+use Illuminate\Contracts\View\Factory;
 
 class OrderForm extends Component
 {
@@ -33,7 +35,7 @@ class OrderForm extends Component
         $this->product = $product;
     }
 
-    public function render()
+    public function render(): View|Factory
     {
         return view('livewire.front.order-form');
     }

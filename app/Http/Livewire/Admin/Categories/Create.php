@@ -9,6 +9,8 @@ use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 use Illuminate\Support\Str;
+use Illuminate\Contracts\View\View;
+use Illuminate\Contracts\View\Factory;
 
 class Create extends Component
 {
@@ -18,7 +20,7 @@ class Create extends Component
     public $listeners = ['createCategory'];
 
     public $createCategory;
-    
+
     public $category;
 
     public $image;
@@ -32,7 +34,7 @@ class Create extends Component
         $this->category = $category;
     }
 
-    public function render()
+    public function render(): View|Factory
     {
         return view('livewire.admin.categories.create');
     }

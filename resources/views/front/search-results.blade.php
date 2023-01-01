@@ -11,7 +11,7 @@
             </div>
             <div class="w-full lg:w-auto px-4 flex flex-wrap items-center">
               <div class="w-full sm:w-auto mb-4 lg:mr-5">
-                <select class="p-3 leading-5 bg-white text-gray-700 dark:text-gray-300 rounded border border-zinc-300 mb-1 text-sm w-full focus:shadow-outline-blue focus:border-blue-500" name="" id="">
+                <select class="p-3 leading-5 bg-white text-gray-700  rounded border border-zinc-300 mb-1 text-sm w-full focus:shadow-outline-blue focus:border-blue-500" name="" id="">
                   <option value="1">Sort by newest</option>
                   <option value="2">Sort by price</option>
                   <option value="3">Sort by most popular</option>

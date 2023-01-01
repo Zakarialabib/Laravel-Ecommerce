@@ -16,6 +16,8 @@ use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Contracts\View\View;
+use Illuminate\Contracts\View\Factory;
 
 class Edit extends Component
 {
@@ -182,7 +184,7 @@ class Edit extends Component
         $this->emit('refreshIndex');
     }
 
-    public function render()
+    public function render(): View|Factory
     {
         return view('livewire.admin.product.edit');
     }

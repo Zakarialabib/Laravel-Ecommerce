@@ -10,6 +10,8 @@ use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Gate;
 use Livewire\Component;
 use Livewire\WithPagination;
+use Illuminate\Contracts\View\View;
+use Illuminate\Contracts\View\Factory;
 
 class Index extends Component
 {
@@ -67,7 +69,7 @@ class Index extends Component
         $this->orderable = (new Role())->orderable;
     }
 
-    public function render()
+    public function render(): View|Factory
     {
         $query = Role::advancedFilter([
             's'               => $this->search ?: null,

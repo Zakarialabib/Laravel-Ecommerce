@@ -16,6 +16,8 @@
                     <del>
                         -{{ $product->discount }}%
                     </del>
+                    <br>
+                    <small>{{ $product->old_price }}</small>
                 </span>
             </div>
         @endif

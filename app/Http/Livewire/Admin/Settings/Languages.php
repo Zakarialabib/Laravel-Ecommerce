@@ -6,9 +6,11 @@ namespace App\Http\Livewire\Admin\Settings;
 
 use App\Models\Language;
 use Illuminate\Support\Facades\Artisan;
-use DateTime;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
+use Illuminate\Contracts\View\View;
+use Illuminate\Contracts\View\Factory;
 use Livewire\Component;
+use DateTime;
 use Exception;
 
 class Languages extends Component
@@ -24,16 +26,11 @@ class Languages extends Component
         $this->languages = Language::all()->toArray();
     }
 
-    public function render()
+    public function render(): View|Factory
     {
         return view('livewire.translations');
     }
 
-    /**
-     * -------------------------------------------------------------------------------
-     *  Set Default Language
-     * -------------------------------------------------------------------------------
-     */
     public function onSetDefault($id)
     {
         try {

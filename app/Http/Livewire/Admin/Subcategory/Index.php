@@ -12,6 +12,8 @@ use Illuminate\Support\Facades\Gate;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Livewire\Component;
 use Livewire\WithPagination;
+use Illuminate\Contracts\View\View;
+use Illuminate\Contracts\View\Factory;
 
 class Index extends Component
 {
@@ -25,7 +27,7 @@ class Index extends Component
 
     public int $perPage;
 
-    public $subcateogry;
+    public $subcategory;
 
     public $editModal = false;
 
@@ -89,7 +91,8 @@ class Index extends Component
         $this->orderable = (new Subcategory())->orderable;
     }
 
-    public function render()
+
+    public function render(): View|Factory
     {
         $query = Subcategory::with('categories')->advancedFilter([
             's'               => $this->search ?: null,

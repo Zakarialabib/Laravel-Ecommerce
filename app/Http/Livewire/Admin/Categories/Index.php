@@ -14,6 +14,8 @@ use Livewire\WithFileUploads;
 use Livewire\WithPagination;
 use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Support\Str;
+use Illuminate\Contracts\View\View;
+use Illuminate\Contracts\View\Factory;
 
 class Index extends Component
 {
@@ -27,6 +29,8 @@ class Index extends Component
     public $name;
 
     public $image;
+
+    public $file;
 
     public $listeners = [
         'refreshIndex' => '$refresh',
@@ -94,7 +98,7 @@ class Index extends Component
         $this->orderable = (new Category())->orderable;
     }
 
-    public function render()
+    public function render(): View|Factory
     {
         $query = Category::advancedFilter([
             's'               => $this->search ?: null,

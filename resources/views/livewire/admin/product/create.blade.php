@@ -32,7 +32,7 @@
                         <div class="w-full lg:w-1/2 px-3 mb-6 lg:mb-0">
                             <x-label for="category_id" :value="__('Category')" required />
                             <x-select-list
-                                class="block bg-white text-gray-700 dark:text-gray-300 rounded border border-gray-300 mb-1 text-sm w-full focus:shadow-outline-blue focus:border-blue-500"
+                                class="block bg-white text-gray-700 rounded border border-gray-300 mb-1 text-sm w-full focus:shadow-outline-blue focus:border-blue-500"
                                 id="category_id" name="category_id"  multiple wire:model="product.category_id"
                                 :options="$this->listsForFields['categories']" />
                         </div>
@@ -40,7 +40,7 @@
                         <div class="w-full lg:w-1/2 px-3 mb-6 lg:mb-0">
                             <x-label for="subcategory" :value="__('Subcategory')" />
                             <x-select-list
-                                class="block bg-white text-gray-700 dark:text-gray-300 rounded border border-gray-300 mb-1 text-sm w-full focus:shadow-outline-blue focus:border-blue-500"
+                                class="block bg-white text-gray-700 rounded border border-gray-300 mb-1 text-sm w-full focus:shadow-outline-blue focus:border-blue-500"
                                 id="subcategory_id" name="subcategory_id" multiple  wire:model="product.subcategory_id"
                                 :options="$this->listsForFields['subcategories']" />
                             <x-input-error :messages="$errors->get('subcategory_id')" for="subcategory_id" class="mt-2" />
@@ -65,7 +65,7 @@
                         <div class="lg:w-1/3 sm:w-1/2 px-2">
                             <x-label for="brand_id" :value="__('Brand')" />
                             <x-select-list
-                                class="block bg-white text-gray-700 dark:text-gray-300 rounded border border-gray-300 mb-1 text-sm w-full focus:shadow-outline-blue focus:border-blue-500"
+                                class="block bg-white text-gray-700 rounded border border-gray-300 mb-1 text-sm w-full focus:shadow-outline-blue focus:border-blue-500"
                                 id="brand_id" name="brand_id" wire:model="product.brand_id" :options="$this->listsForFields['brands']" />
                         </div>
 

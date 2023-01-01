@@ -7,7 +7,7 @@
                 </h2>
                 <div class="w-full sm:w-auto">
                     <select
-                        class="px-5 py-3 mr-2 leading-5 bg-white text-gray-700 dark:text-gray-300 rounded border border-zinc-300 mb-1 text-sm focus:shadow-outline-blue focus:border-blue-500"
+                        class="px-5 py-3 mr-2 leading-5 bg-white text-gray-700 rounded border border-zinc-300 mb-1 text-sm focus:shadow-outline-blue focus:border-blue-500"
                         id="sortBy" wire:model="sorting">
                         <option disabled>{{ __('Best Selling') }}</option>
                         <option value="name">{{ __('Order Alphabetic, A-Z') }}</option>
@@ -19,7 +19,7 @@
                     </select>
 
                     <select wire:model="perPage" name="perPage"
-                        class="px-5 py-3 leading-5 bg-white text-gray-700 dark:text-gray-300 rounded border border-zinc-300 mb-1 text-sm focus:shadow-outline-blue focus:border-blue-500">
+                        class="px-5 py-3 leading-5 bg-white text-gray-700 rounded border border-zinc-300 mb-1 text-sm focus:shadow-outline-blue focus:border-blue-500">
                         @foreach ($paginationOptions as $value)
                             <option value="{{ $value }}">{{ $value }}</option>
                         @endforeach

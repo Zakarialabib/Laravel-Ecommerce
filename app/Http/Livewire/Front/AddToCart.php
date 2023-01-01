@@ -8,6 +8,8 @@ use App\Models\Product;
 use Gloudemans\Shoppingcart\Facades\Cart;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Livewire\Component;
+use Illuminate\Contracts\View\View;
+use Illuminate\Contracts\View\Factory;
 
 class AddToCart extends Component
 {
@@ -39,25 +41,25 @@ class AddToCart extends Component
         Cart::instance('shopping')->add($product_id, $this->quantity)->associate('App\Models\Product');
 
         $this->emit('cartCountUpdated');
-    
-    // If the user cancels the confirmation, display a success message using Livewire's `alert` method
-    $this->alert(
-        'success',
-        __('Product added to cart successfully!'),
-        [
-            'position'          => 'center',
-            'timer'             => 3000,
-            'toast'             => true,
-            'text'              => '',
-            'confirmButtonText' => 'Ok',
-            'cancelButtonText'  => 'Cancel',
-            'showCancelButton'  => false,
-            'showConfirmButton' => false,
-        ]
-    );
+
+        // If the user cancels the confirmation, display a success message using Livewire's `alert` method
+        $this->alert(
+            'success',
+            __('Product added to cart successfully!'),
+            [
+                'position'          => 'center',
+                'timer'             => 3000,
+                'toast'             => true,
+                'text'              => '',
+                'confirmButtonText' => 'Ok',
+                'cancelButtonText'  => 'Cancel',
+                'showCancelButton'  => false,
+                'showConfirmButton' => false,
+            ]
+        );
     }
 
-    public function render()
+    public function render(): View|Factory
     {
         return view('livewire.front.add-to-cart');
     }

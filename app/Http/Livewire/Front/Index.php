@@ -11,6 +11,8 @@ use App\Models\Section;
 use App\Models\Slider;
 use Illuminate\Support\Collection;
 use Livewire\Component;
+use Illuminate\Contracts\View\View;
+use Illuminate\Contracts\View\Factory;
 
 class Index extends Component
 {
@@ -49,7 +51,7 @@ class Index extends Component
         return Section::where('status', 1)->get();
     }
 
-    public function render()
+    public function render(): View|Factory
     {
         return view('livewire.front.index');
     }

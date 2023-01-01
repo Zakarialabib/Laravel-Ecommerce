@@ -8,6 +8,8 @@ use App\Http\Livewire\WithSorting;
 use App\Models\Order;
 use Livewire\Component;
 use Livewire\WithPagination;
+use Illuminate\Contracts\View\View;
+use Illuminate\Contracts\View\Factory;
 
 class Index extends Component
 {
@@ -69,7 +71,7 @@ class Index extends Component
         $this->orderable = (new Order())->orderable;
     }
 
-    public function render()
+    public function render(): View|Factory
     {
         $query = Order::advancedFilter([
             's'               => $this->search ?: null,

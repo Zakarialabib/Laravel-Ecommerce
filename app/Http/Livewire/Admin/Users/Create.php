@@ -7,6 +7,8 @@ namespace App\Http\Livewire\Admin\Users;
 use App\Models\User;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Livewire\Component;
+use Illuminate\Contracts\View\View;
+use Illuminate\Contracts\View\Factory;
 
 class Create extends Component
 {
@@ -16,7 +18,7 @@ class Create extends Component
 
     public $createUser;
 
-    public $user; 
+    public $user;
 
     public array $rules = [
         'user.name'       => 'required|string|max:255',
@@ -34,7 +36,8 @@ class Create extends Component
         $this->user = $user;
     }
 
-    public function render()
+
+    public function render(): View|Factory
     {
         return view('livewire.admin.users.create');
     }

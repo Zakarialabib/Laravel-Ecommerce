@@ -5,11 +5,11 @@ declare(strict_types=1);
 namespace App\Http\Livewire\Admin\Customer;
 
 use App\Http\Livewire\WithSorting;
-use App\{
-    Models\User
-};
+use App\Models\User;
 use Livewire\Component;
 use Livewire\WithPagination;
+use Illuminate\Contracts\View\View;
+use Illuminate\Contracts\View\Factory;
 
 class Index extends Component
 {
@@ -69,7 +69,7 @@ class Index extends Component
         $this->orderable = (new User())->orderable;
     }
 
-    public function render()
+    public function render(): View|Factory
     {
         $query = User::advancedFilter([
             's'               => $this->search ?: null,

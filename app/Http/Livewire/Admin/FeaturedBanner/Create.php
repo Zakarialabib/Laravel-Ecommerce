@@ -12,6 +12,8 @@ use Illuminate\Support\Str;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Livewire\Component;
 use Livewire\WithFileUploads;
+use Illuminate\Contracts\View\View;
+use Illuminate\Contracts\View\Factory;
 
 class Create extends Component
 {
@@ -21,7 +23,7 @@ class Create extends Component
     public $createFeaturedBanner = false;
 
     public $image;
-    
+
     public $featuredbanner;
 
     public $listeners = ['createFeaturedBanner'];
@@ -43,7 +45,7 @@ class Create extends Component
         'featuredbanner.embeded_video' => ['nullable'],
     ];
 
-    public function render()
+    public function render(): View|Factory
     {
         abort_if(Gate::denies('featuredbanner_create'), 403);
 

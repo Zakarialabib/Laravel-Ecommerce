@@ -12,6 +12,8 @@ use Illuminate\Support\Str;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Livewire\Component;
 use Livewire\WithFileUploads;
+use Illuminate\Contracts\View\View;
+use Illuminate\Contracts\View\Factory;
 
 class Create extends Component
 {
@@ -23,6 +25,8 @@ class Create extends Component
     public $image;
 
     public $blog;
+
+    public $blogcategory;
 
     public $listeners = ['createBlog'];
 
@@ -47,7 +51,7 @@ class Create extends Component
         'blog.language_id'      => ['required', 'integer'],
     ];
 
-    public function render()
+    public function render(): View|Factory
     {
         abort_if(Gate::denies('blog_create'), 403);
 

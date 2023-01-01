@@ -16,6 +16,9 @@ use Livewire\WithFileUploads;
 use Livewire\WithPagination;
 use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Contracts\View\View;
+use Illuminate\Contracts\View\Factory;
+
 
 class Index extends Component
 {
@@ -101,7 +104,7 @@ class Index extends Component
         $this->orderable = (new Brand())->orderable;
     }
 
-    public function render()
+    public function render(): View|Factory
     {
         abort_if(Gate::denies('brand_access'), 403);
 

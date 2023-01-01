@@ -14,6 +14,8 @@ use Intervention\Image\Facades\Image;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Livewire\Component;
 use Livewire\WithFileUploads;
+use Illuminate\Contracts\View\View;
+use Illuminate\Contracts\View\Factory;
 
 class Create extends Component
 {
@@ -80,7 +82,7 @@ class Create extends Component
         return $this->product->gallery;
     }
 
-    public function render()
+    public function render(): View|Factory
     {
         return view('livewire.admin.product.create');
     }

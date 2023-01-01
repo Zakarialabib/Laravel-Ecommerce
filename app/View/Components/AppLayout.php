@@ -15,7 +15,6 @@ class AppLayout extends Component
      */
     public function __construct()
     {
-
     }
 
     /**
@@ -23,7 +22,7 @@ class AppLayout extends Component
      *
      * @return \Illuminate\View\View
      */
-    public function render()
+    public function render(): View
     {
         return view('layouts.app');
     }

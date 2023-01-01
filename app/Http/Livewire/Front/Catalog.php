@@ -11,6 +11,8 @@ use App\Models\Subcategory;
 use App\Models\Product;
 use Livewire\Component;
 use Livewire\WithPagination;
+use Illuminate\Contracts\View\View;
+use Illuminate\Contracts\View\Factory;
 
 class Catalog extends Component
 {
@@ -91,7 +93,7 @@ class Catalog extends Component
         $this->orderable = (new Product())->orderable;
     }
 
-    public function render()
+    public function render(): View|Factory
     {
         return view('livewire.front.catalog');
     }
@@ -100,7 +102,7 @@ class Catalog extends Component
     {
         return Category::where('status', 1)->with('subcategories')->get();
     }
-    
+
     public function getSubcategoriesProperty()
     {
         return Subcategory::where('status', 1)->get();

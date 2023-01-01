@@ -10,6 +10,8 @@ use Illuminate\Support\Facades\Gate;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Livewire\Component;
 use Livewire\WithPagination;
+use Illuminate\Contracts\View\View;
+use Illuminate\Contracts\View\Factory;
 
 class Index extends Component
 {
@@ -18,7 +20,7 @@ class Index extends Component
     use LivewireAlert;
 
     public $listeners = [
-     'refreshIndex' => '$refresh',
+        'refreshIndex' => '$refresh',
     ];
 
     public int $perPage;
@@ -67,7 +69,6 @@ class Index extends Component
         $this->selected = [];
     }
 
-
     public function mount()
     {
         $this->sortBy = 'id';
@@ -77,7 +78,7 @@ class Index extends Component
         $this->orderable = (new Shipping())->orderable;
     }
 
-    public function render()
+    public function render(): View|Factory
     {
         $query = Shipping::advancedFilter([
             's'               => $this->search ?: null,
@@ -98,5 +99,4 @@ class Index extends Component
 
         $this->alert('success', __('shipping deleted successfully.'));
     }
-
 }

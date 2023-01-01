@@ -10,6 +10,8 @@ use App\Models\Product;
 use App\Models\Subcategory;
 use Livewire\Component;
 use Livewire\WithPagination;
+use Illuminate\Contracts\View\View;
+use Illuminate\Contracts\View\Factory;
 
 class Categories extends Component
 {
@@ -137,7 +139,7 @@ class Categories extends Component
         return Subcategory::where('status', 1)->get();
     }
 
-    public function render()
+    public function render(): View|Factory
     {
         return view('livewire.front.categories');
     }

@@ -6,6 +6,8 @@ namespace App\View\Components;
 
 use Illuminate\View\Component;
 use Closure;
+use Illuminate\Contracts\View\View;
+use Illuminate\Contracts\View\Factory;
 
 class Footer extends Component
 {
@@ -16,7 +18,6 @@ class Footer extends Component
      */
     public function __construct()
     {
-
     }
 
     /**
@@ -24,7 +25,7 @@ class Footer extends Component
      *
      * @return \Illuminate\Contracts\View\View|Closure|string
      */
-    public function render()
+    public function render(): View|Factory
     {
         return view('components.footer');
     }

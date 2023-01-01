@@ -10,13 +10,16 @@ use App\Models\Shipping;
 use Gloudemans\Shoppingcart\Facades\Cart;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Livewire\Component;
+use Exception;
+use Illuminate\Contracts\View\View;
+use Illuminate\Contracts\View\Factory;
 
 class Checkout extends Component
 {
     use LivewireAlert;
 
     public $listeners = [
-        'checkout' => 'checkout',
+        'checkout'            => 'checkout',
         'checkoutCartUpdated' => '$refresh',
     ];
 
@@ -58,46 +61,46 @@ class Checkout extends Component
     {
         $this->validate([
             'shipping_id' => 'required',
-            'first_name' => 'required',
-            'shipping_id' => 'required',
+            'first_name'  => 'required',
+            'phone' => 'required',
         ]);
 
         if (Cart::instance('shopping')->count() == 0) {
-        $this->alert('error', __('Your cart is empty'));
+            $this->alert('error', __('Your cart is empty'));
         }
 
         $shipping = Shipping::find($this->shipping_id);
 
         $order = Order::create([
-            'reference'       => Order::generateReference(),
-            'shipping_id'     => $this->shipping_id,
-            'delivery_method' => $shipping->title,
-            'payment_method'  => $this->payment_method,
-            'shipping_cost'   => $shipping->cost,
-            'first_name'      => $this->first_name,
-            'shipping_name'   => $this->first_name. '-' .$this->last_name,
-            'last_name'       => $this->last_name,
-            'email'           => $this->email,
-            'address'         => $this->address,
-            'shipping_address'=> $this->address,
-            'city'            => $this->city,
-            'shipping_city'            => $this->city,
-            'phone'           => $this->phone,
+            'reference'        => Order::generateReference(),
+            'shipping_id'      => $this->shipping_id,
+            'delivery_method'  => $shipping->title,
+            'payment_method'   => $this->payment_method,
+            'shipping_cost'    => $shipping->cost,
+            'first_name'       => $this->first_name,
+            'shipping_name'    => $this->first_name.'-'.$this->last_name,
+            'last_name'        => $this->last_name,
+            'email'            => $this->email,
+            'address'          => $this->address,
+            'shipping_address' => $this->address,
+            'city'             => $this->city,
+            'shipping_city'    => $this->city,
+            'phone'            => $this->phone,
             'shipping_phone'   => $this->phone,
-            'total'           => floatval(Cart::instance('shopping')->total()),
-            'user_id'         => auth()->user()->id,
-            'order_status'    => Order::STATUS_PENDING,
-            'payment_status'  => Order::PAYMENT_STATUS_PENDING,
+            'total'            => floatval(Cart::instance('shopping')->total()),
+            'user_id'          => auth()->user()->id,
+            'order_status'     => Order::STATUS_PENDING,
+            'payment_status'   => Order::PAYMENT_STATUS_PENDING,
         ]);
 
         foreach (Cart::instance('shopping') as $order) {
             $orderProduct = new OrderProduct([
-                'order_id' => $order->id,
+                'order_id'   => $order->id,
                 'product_id' => $product->id,
-                'quantity' => $item->qty,
-                'price' => $item->price,
+                'quantity'   => $order->qty,
+                'price'      => $order->price,
             ]);
-            
+
             $orderProduct->save();
         }
 
@@ -105,7 +108,7 @@ class Checkout extends Component
 
         $this->alert('success', __('Order placed successfully!'));
 
-        return redirect()->route('front.thankyou' , ['order' => $order->id]);
+        return redirect()->route('front.thankyou', ['order' => $order->id]);
     }
 
     public function updatedShippingId($value)
@@ -113,6 +116,7 @@ class Checkout extends Component
         if ($value) {
             $this->shipping = Shipping::find($value);
             $cost = floatval($this->shipping->cost);
+
             if ($this->shipping->is_pickup) {
                 $cartTotal = Cart::instance('shopping')->total();
             } else {
@@ -126,12 +130,12 @@ class Checkout extends Component
     }
 
       public function decreaseQuantity($rowId)
-    {
-        $cartItem = Cart::instance('shopping')->get($rowId);
-        $qty = $cartItem->qty - 1;
-        Cart::instance('shopping')->update($rowId, $qty);
-        $this->emit('checkoutCartUpdated');
-    }
+      {
+          $cartItem = Cart::instance('shopping')->get($rowId);
+          $qty = $cartItem->qty - 1;
+          Cart::instance('shopping')->update($rowId, $qty);
+          $this->emit('checkoutCartUpdated');
+      }
 
     public function increaseQuantity($rowId)
     {
@@ -160,7 +164,7 @@ class Checkout extends Component
                     'showConfirmButton' => false,
                 ]
             );
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             $this->alert(
                 'error',
                 __('An error occurred while trying to remove the product from the cart: '.$e->getMessage()),
@@ -176,7 +180,7 @@ class Checkout extends Component
                 ]
             );
         }
-    }    
+    }
 
     public function getShippingProperty()
     {
@@ -196,7 +200,8 @@ class Checkout extends Component
         $this->initListsForFields();
     }
 
-    public function render()
+
+    public function render(): View|Factory
     {
         return view('livewire.front.checkout');
     }

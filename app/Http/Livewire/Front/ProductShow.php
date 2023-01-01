@@ -10,6 +10,8 @@ use App\Models\Product;
 use Gloudemans\Shoppingcart\Facades\Cart;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Livewire\Component;
+use Illuminate\Contracts\View\View;
+use Illuminate\Contracts\View\Factory;
 
 class ProductShow extends Component
 {
@@ -32,7 +34,7 @@ class ProductShow extends Component
     public $product_price;
 
     public $product_qty;
-    
+
     public $brand_products;
 
     public $listeners = [
@@ -56,14 +58,14 @@ class ProductShow extends Component
      public function AddToCart($product_id)
      {
          $product = Product::find($product_id);
-         
+
          $this->product_id = $product->id;
          $this->product_name = $product->name;
          $this->product_price = $product->price;
          $this->product_qty = $this->quantity;
 
          Cart::instance('shopping')->add($this->product_id, $this->product_name, $this->product_qty, $this->product_price)->associate('App\Models\Product');
-         
+
          $this->emit('cartCountUpdated');
 
          $this->alert(
@@ -92,7 +94,7 @@ class ProductShow extends Component
         $this->category = Category::where('id', $product->category_id)->first();
     }
 
-    public function render()
+    public function render(): View|Factory
     {
         return view('livewire.front.product-show');
     }

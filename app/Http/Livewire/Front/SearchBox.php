@@ -6,6 +6,8 @@ namespace App\Http\Livewire\Front;
 
 use App\Models\Product;
 use Livewire\Component;
+use Illuminate\Contracts\View\View;
+use Illuminate\Contracts\View\Factory;
 
 class SearchBox extends Component
 {
@@ -26,7 +28,7 @@ class SearchBox extends Component
         $this->results = Product::where('name', 'like', '%'.$this->search.'%')->get();
     }
 
-    public function render()
+    public function render(): View|Factory
     {
         return view('livewire.front.search-box');
     }

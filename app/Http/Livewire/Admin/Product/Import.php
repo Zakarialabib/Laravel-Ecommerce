@@ -9,6 +9,8 @@ use Illuminate\Support\Facades\Gate;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Livewire\Component;
 use Livewire\WithFileUploads;
+use Illuminate\Contracts\View\View;
+use Illuminate\Contracts\View\Factory;
 
 class Import extends Component
 {
@@ -23,7 +25,7 @@ class Import extends Component
 
     public $importModal = null;
 
-    public function render()
+    public function render(): View|Factory
     {
         return view('livewire.admin.product.import');
     }

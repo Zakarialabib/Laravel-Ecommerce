@@ -9,8 +9,6 @@ use App\Models\Subscriber;
 
 class SubscriberController extends Controller
 {
-  
-
     public function index()
     {
         return view('admin.subscribers.index');

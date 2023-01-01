@@ -11,6 +11,8 @@ use App\Models\Category;
 use App\Models\Subcategory;
 use Livewire\Component;
 use Livewire\WithPagination;
+use Illuminate\Contracts\View\View;
+use Illuminate\Contracts\View\Factory;
 
 class Brands extends Component
 {
@@ -87,7 +89,7 @@ class Brands extends Component
         $this->orderable = (new Product())->orderable;
     }
 
-    public function render()
+    public function render(): View|Factory
     {
         return view('livewire.front.brands');
     }

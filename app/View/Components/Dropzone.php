@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace App\View\Components;
 
 use Illuminate\View\Component;
+use Illuminate\Contracts\View\View;
+use Illuminate\Contracts\View\Factory;
 
 class Dropzone extends Component
 {
@@ -18,7 +20,7 @@ class Dropzone extends Component
      *
      * @return \Illuminate\Contracts\View\View|string
      */
-    public function render()
+    public function render(): View|Factory
     {
         return view('components.dropzone');
     }

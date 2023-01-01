@@ -2,10 +2,10 @@
 
 @php
     
-$classes = 'transition-colors hover:text-gray-900 dark:hover:text-gray-100';
+$classes = 'transition-colors hover:text-gray-900';
 $active 
-    ? $classes .= ' text-gray-900 dark:text-gray-200' 
-    : $classes .= ' text-gray-500 dark:text-gray-400';
+    ? $classes .= ' text-gray-900' 
+    : $classes .= ' text-gray-500';
 @endphp
 
 <li>

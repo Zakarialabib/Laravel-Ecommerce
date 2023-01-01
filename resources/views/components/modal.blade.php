@@ -26,7 +26,7 @@
     </div>
     <x-modal.card :id="$id" :maxWidth="$maxWidth" {{ $attributes }}>
         <div x-show="show"
-            class="bg-white text-gray-700 dark:text-gray-300 px-4 pt-5 pb-4 sm:p-6 sm:pb-4"
+            class="bg-white text-gray-700  px-4 pt-5 pb-4 sm:p-6 sm:pb-4"
             x-transition:enter="ease-out duration-300"
             x-transition:enter-start="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
             x-transition:enter-end="opacity-100 translate-y-0 sm:scale-100" x-transition:leave="ease-in duration-200"

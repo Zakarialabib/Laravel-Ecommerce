@@ -12,6 +12,8 @@ use Livewire\Component;
 use Livewire\WithFileUploads;
 use Illuminate\Support\Facades\Storage;
 use Exception;
+use Illuminate\Contracts\View\View;
+use Illuminate\Contracts\View\Factory;
 
 class Image extends Component
 {
@@ -149,7 +151,7 @@ class Image extends Component
         }
     }
 
-    public function render()
+    public function render(): View|Factory
     {
         return view('livewire.admin.product.image');
     }

@@ -41,7 +41,6 @@ class Product extends Model implements Buyable
         'status',
     ];
 
-
     protected $fillable = [
         'name',
         'description',
@@ -92,6 +91,7 @@ class Product extends Model implements Buyable
     {
         return $this->belongsTo(Category::class, 'category_id');
     }
+
     /** @return \Illuminate\Database\Eloquent\Relations\BelongsTo */
     public function brand()
     {

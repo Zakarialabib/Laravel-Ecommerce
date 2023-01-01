@@ -19,26 +19,19 @@ class Create extends Component
 
     public $shipping;
 
-
     public function mount(Shipping $shipping)
     {
         $this->shipping = $shipping;
     }
 
-    public function getLanguagesProperty()
-    {
-        return Language::select('name', 'id')->get();
-    }
-   
     public array $rules = [
-        'shipping.is_pickup' => ['required', 'integer'],
-        'shipping.title' => ['required', 'string', 'max:255'],
-        'shipping.subtitle' => ['nullable', 'string'],
-        'shipping.cost' => ['required', 'string'],
-        // 'shipping.language_id' => ['required', 'integer'],   
+        'shipping.is_pickup' => ['nullable', 'integer'],
+        'shipping.title'     => ['required', 'string', 'max:255'],
+        'shipping.subtitle'  => ['nullable', 'string', 'max:255'],
+        'shipping.cost'      => ['required', 'string'],
     ];
 
-    public function render()
+    public function render(): View|Factory
     {
         // abort_if(Gate::denies('shipping_create'), 403);
 
@@ -61,11 +54,9 @@ class Create extends Component
         $this->shipping->save();
 
         $this->alert('success', __('Shipping created successfully.'));
-        
+
         $this->emit('refreshIndex');
-        
+
         $this->createShipping = false;
-
     }
-
 }

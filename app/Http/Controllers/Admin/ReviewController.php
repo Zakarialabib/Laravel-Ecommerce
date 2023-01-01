@@ -8,8 +8,6 @@ use App\Http\Controllers\Controller;
 
 class ReviewController extends Controller
 {
-   
-
     public function index()
     {
         return view('admin.review.index');
@@ -19,6 +17,4 @@ class ReviewController extends Controller
     {
         return view('admin.review.create');
     }
-
-    
 }

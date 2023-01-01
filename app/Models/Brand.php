@@ -23,9 +23,7 @@ class Brand extends Model
         'name', 'description', 'image', 'slug', 'status', 'featured_image', 'meta_title', 'meta_description',
     ];
 
-    /**
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
-     */
+    /** @return \Illuminate\Database\Eloquent\Relations\HasMany */
     public function products()
     {
         return $this->hasMany(Product::class);

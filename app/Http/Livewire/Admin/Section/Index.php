@@ -14,6 +14,8 @@ use Livewire\WithPagination;
 use App\Http\Livewire\WithSorting;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Str;
+use Illuminate\Contracts\View\View;
+use Illuminate\Contracts\View\Factory;
 
 class Index extends Component
 {
@@ -23,7 +25,7 @@ class Index extends Component
     use WithFileUploads;
 
     public $image;
-    
+
     public $section;
 
     public $listeners = [
@@ -106,7 +108,8 @@ class Index extends Component
         $this->initListsForFields();
     }
 
-    public function render()
+
+    public function render(): View|Factory
     {
         $query = Section::when($this->language_id, function ($query) {
             return $query->where('language_id', $this->language_id);
@@ -143,7 +146,7 @@ class Index extends Component
              'subtitle'    => $section_details->subtitle,
              'link'        => $section_details->link,
              'image'       => $section_details->image,
-             'description'     => $section_details->description,
+             'description' => $section_details->description,
              'status'      => 0,
          ]);
          $this->alert('success', __('Section Cloned successfully!'));

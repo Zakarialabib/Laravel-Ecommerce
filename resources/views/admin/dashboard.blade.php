@@ -33,56 +33,56 @@
                     <div class="w-full flex flex-wrap align-center mb-4 js-date-row" id="{{ $key }}">
                         <div class="grid gap-6 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-2 w-full">
                             <div
-                                class="flex items-center p-4 bg-white dark:bg-dark-bg dark:text-gray-300 rounded-lg shadow-md">
+                                class="flex items-center p-4 bg-white rounded-lg shadow-md">
                                 <div>
-                                    <p class="mb-2 text-lg font-medium text-gray-600 dark:text-gray-300">
+                                    <p class="mb-2 text-lg font-medium text-gray-600">
                                         {{ __('Customers') }}
                                     </p>
-                                    <p class="text-3xl sm:text-lg font-bold text-gray-700 dark:text-gray-300">
+                                    <p class="text-3xl sm:text-lg font-bold text-gray-700">
                                         {{ $d['countCustomers'] }}
                                     </p>
                                 </div>
                             </div>
                             <div
-                            class="flex items-center p-4 bg-white dark:bg-dark-bg dark:text-gray-300 rounded-lg shadow-md">
+                            class="flex items-center p-4 bg-white rounded-lg shadow-md">
                             <div>
-                                <p class="mb-2 text-lg font-medium text-gray-600 dark:text-gray-300">
+                                <p class="mb-2 text-lg font-medium text-gray-600">
                                     {{ __('Orders') }}
                                 </p>
-                                <p class="text-3xl sm:text-lg font-bold text-gray-700 dark:text-gray-300">
+                                <p class="text-3xl sm:text-lg font-bold text-gray-700">
                                     {{ $d['ordersCount'] }}
                                 </p>
                             </div>
                         </div>
                             <div
-                                class="flex items-center p-4 bg-white dark:bg-dark-bg dark:text-gray-300 rounded-lg shadow-md">
+                                class="flex items-center p-4 bg-white rounded-lg shadow-md">
                                 <div>
-                                    <p class="mb-2 text-lg font-medium text-gray-600 dark:text-gray-300">
+                                    <p class="mb-2 text-lg font-medium text-gray-600">
                                         {{ __('Orders Pending') }}
                                     </p>
-                                    <p class="text-3xl sm:text-lg font-bold text-gray-700 dark:text-gray-300">
+                                    <p class="text-3xl sm:text-lg font-bold text-gray-700">
                                         {{ $d['orderPending'] }}
                                     </p>
                                 </div>
                             </div>
                             <div
-                                class="flex items-center p-4 bg-white dark:bg-dark-bg dark:text-gray-300 rounded-lg shadow-md">
+                                class="flex items-center p-4 bg-white rounded-lg shadow-md">
                                 <div>
-                                    <p class="mb-2 text-lg font-medium text-gray-600 dark:text-gray-300">
+                                    <p class="mb-2 text-lg font-medium text-gray-600">
                                         {{ __('Orders Processing') }}
                                     </p>
-                                    <p class="text-3xl sm:text-lg font-bold text-gray-700 dark:text-gray-300">
+                                    <p class="text-3xl sm:text-lg font-bold text-gray-700">
                                         {{ $d['orderProcessing'] }}
                                     </p>
                                 </div>
                             </div>
                             <div
-                                class="flex items-center p-4 bg-white dark:bg-dark-bg dark:text-gray-300 rounded-lg shadow-md">
+                                class="flex items-center p-4 bg-white rounded-lg shadow-md">
                                 <div>
-                                    <p class="mb-2 text-lg font-medium text-gray-600 dark:text-gray-300">
+                                    <p class="mb-2 text-lg font-medium text-gray-600">
                                         {{ __('Orders Completed') }}
                                     </p>
-                                    <p class="text-3xl sm:text-lg font-bold text-gray-700 dark:text-gray-300">
+                                    <p class="text-3xl sm:text-lg font-bold text-gray-700">
                                         {{ $d['orderCompleted'] }}
                                     </p>
                                 </div>
@@ -94,57 +94,57 @@
                         id="{{ $key }}">
                         <div class="grid gap-6 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-2 w-full">
                             <div
-                                class="flex items-center p-4 bg-white dark:bg-dark-bg dark:text-gray-300 rounded-lg shadow-md">
+                                class="flex items-center p-4 bg-white rounded-lg shadow-md">
                                 <div>
-                                    <p class="mb-2 text-lg font-medium text-gray-600 dark:text-gray-300">
+                                    <p class="mb-2 text-lg font-medium text-gray-600">
                                         {{ __('Customers') }}
                                     </p>
-                                    <p class="text-3xl sm:text-lg font-bold text-gray-700 dark:text-gray-300">
+                                    <p class="text-3xl sm:text-lg font-bold text-gray-700">
                                         {{ $d['countCustomers'] }}
                                     </p>
                                 </div>
                             </div>
 
                             <div
-                                class="flex items-center p-4 bg-white dark:bg-dark-bg dark:text-gray-300 rounded-lg shadow-md">
+                                class="flex items-center p-4 bg-white rounded-lg shadow-md">
                                 <div>
-                                    <p class="mb-2 text-lg font-medium text-gray-600 dark:text-gray-300">
+                                    <p class="mb-2 text-lg font-medium text-gray-600">
                                         {{ __('Orders') }}
                                     </p>
-                                    <p class="text-3xl sm:text-lg font-bold text-gray-700 dark:text-gray-300">
+                                    <p class="text-3xl sm:text-lg font-bold text-gray-700">
                                         {{ $d['ordersCount'] }}
                                     </p>
                                 </div>
                             </div>
                             <div
-                                class="flex items-center p-4 bg-white dark:bg-dark-bg dark:text-gray-300 rounded-lg shadow-md">
+                                class="flex items-center p-4 bg-white rounded-lg shadow-md">
                                 <div>
-                                    <p class="mb-2 text-lg font-medium text-gray-600 dark:text-gray-300">
+                                    <p class="mb-2 text-lg font-medium text-gray-600">
                                         {{ __('Orders Processing') }}
                                     </p>
-                                    <p class="text-3xl sm:text-lg font-bold text-gray-700 dark:text-gray-300">
+                                    <p class="text-3xl sm:text-lg font-bold text-gray-700">
                                         {{ $d['orderProcessing'] }}
                                     </p>
                                 </div>
                             </div>
                             <div
-                                class="flex items-center p-4 bg-white dark:bg-dark-bg dark:text-gray-300 rounded-lg shadow-md">
+                                class="flex items-center p-4 bg-white rounded-lg shadow-md">
                                 <div>
-                                    <p class="mb-2 text-lg font-medium text-gray-600 dark:text-gray-300">
+                                    <p class="mb-2 text-lg font-medium text-gray-600">
                                         {{ __('Orders Completed') }}
                                     </p>
-                                    <p class="text-3xl sm:text-lg font-bold text-gray-700 dark:text-gray-300">
+                                    <p class="text-3xl sm:text-lg font-bold text-gray-700">
                                         {{ $d['orderCompleted'] }}
                                     </p>
                                 </div>
                             </div>
                             <div
-                                class="flex items-center p-4 bg-white dark:bg-dark-bg dark:text-gray-300 rounded-lg shadow-md">
+                                class="flex items-center p-4 bg-white rounded-lg shadow-md">
                                 <div>
-                                    <p class="mb-2 text-lg font-medium text-gray-600 dark:text-gray-300">
+                                    <p class="mb-2 text-lg font-medium text-gray-600">
                                         {{ __('Orders') }}
                                     </p>
-                                    <p class="text-3xl sm:text-lg font-bold text-gray-700 dark:text-gray-300">
+                                    <p class="text-3xl sm:text-lg font-bold text-gray-700">
                                         {{ $d['ordersCount'] }}
                                     </p>
                                 </div>

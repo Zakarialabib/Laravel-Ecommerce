@@ -12,6 +12,8 @@ use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Contracts\View\View;
+use Illuminate\Contracts\View\Factory;
 
 class Create extends Component
 {
@@ -40,7 +42,8 @@ class Create extends Component
         'brand.description' => ['nullable', 'string'],
     ];
 
-    public function render()
+
+    public function render(): View|Factory
     {
         abort_if(Gate::denies('brand_create'), 403);
 

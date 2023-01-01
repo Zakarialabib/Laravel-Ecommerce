@@ -9,6 +9,8 @@ use App\Models\Conversation;
 use App\Models\User;
 use Illuminate\Support\Facades\Mail;
 use Livewire\Component;
+use Illuminate\Contracts\View\View;
+use Illuminate\Contracts\View\Factory;
 
 class Contact extends Component
 {
@@ -39,7 +41,8 @@ class Contact extends Component
         // $this->conversation = $conversation;
     }
 
-    public function render()
+
+    public function render(): View|Factory
     {
         return view('livewire.front.contact');
     }

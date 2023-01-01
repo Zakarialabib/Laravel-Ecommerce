@@ -2,11 +2,11 @@
     <div class="flex flex-wrap justify-center">
         <div class="lg:w-1/2 md:w-1/2 sm:w-full flex flex-col my-md-0 my-2">
             <div class="my-2 my-md-0">
-                <p class="leading-5 text-black dark:text-gray-300 mb-1 text-sm ">
+                <p class="leading-5 text-black mb-1 text-sm ">
                     {{ __('Show items per page') }}
                 </p>
                 <select wire:model="perPage" name="perPage"
-                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-32 p-1 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-32 p-1">
                     @foreach ($paginationOptions as $value)
                         <option value="{{ $value }}">{{ $value }}</option>
                     @endforeach
@@ -16,7 +16,7 @@
         <div class="lg:w-1/2 md:w-1/2 sm:w-full my-2 my-md-0">
             <div class="my-2 my-md-0">
                 <input type="text" wire:model.debounce.300ms="search"
-                    class="p-3 leading-5 bg-white text-gray-500 dark:text-gray-300 rounded border border-zinc-300 mb-1 text-sm w-full focus:shadow-outline-blue focus:border-blue-500"
+                    class="p-3 leading-5 bg-white text-gray-500 rounded border border-zinc-300 mb-1 text-sm w-full focus:shadow-outline-blue focus:border-blue-500"
                     placeholder="{{ __('Search') }}" />
             </div>
         </div>
@@ -54,10 +54,10 @@
                     </x-table.td>
                     <x-table.td>
                         <x-dropdown
-                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-32 p-1 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-32 p-1">
                             <x-slot name="trigger">
                                 <button type="button"
-                                    class="px-4 text-base font-semibold text-gray-500 hover:text-sky-800 dark:text-slate-400 dark:hover:text-sky-400">
+                                    class="px-4 text-base font-semibold text-gray-500 hover:text-sky-800">
                                     <i class="fas fa-angle-double-down"></i>
                                 </button>
                             </x-slot>
@@ -121,7 +121,7 @@
                     <div class="mt-4 p w-full">
                         <x-label for="category_id" :value="__('Category')" required />
                             <x-select-list
-                                class="block bg-white text-gray-700 dark:text-gray-300 rounded border border-gray-300 mb-1 text-sm w-full focus:shadow-outline-blue focus:border-blue-500"
+                                class="block bg-white text-gray-700 rounded border border-gray-300 mb-1 text-sm w-full focus:shadow-outline-blue focus:border-blue-500"
                                 id="category_id" name="category_id" multiple wire:model="subcategory.category_id"
                                 :options="$this->listsForFields['categories']" />
                         <x-input-error :messages="$errors->get('subcategory.category_id')" for="subcategory.category_id"
@@ -131,7 +131,7 @@
                     <div class="mt-4 p w-full">
                         <x-label for="language_id" :value="__('Language')" required />
                         <x-select-list
-                            class="block bg-white text-gray-700 dark:text-gray-300 rounded border border-gray-300 mb-1 text-sm w-full focus:shadow-outline-blue focus:border-blue-500"
+                            class="block bg-white text-gray-700 rounded border border-gray-300 mb-1 text-sm w-full focus:shadow-outline-blue focus:border-blue-500"
                             id="language_id" name="language_id" wire:model="subcategory.language_id"
                             :options="$this->listsForFields['languages']" />
                         <x-input-error :messages="$errors->get('subcategory.language_id')" for="subcategory.language_id"

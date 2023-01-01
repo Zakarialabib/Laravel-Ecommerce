@@ -16,7 +16,6 @@ class Sidebar extends Component
      */
     public function __construct()
     {
-
     }
 
     /**
@@ -24,7 +23,7 @@ class Sidebar extends Component
      *
      * @return \Illuminate\Contracts\View\View|Closure|string
      */
-    public function render()
+    public function render(): View|Factory
     {
         return view('components.sidebar.sidebar');
     }

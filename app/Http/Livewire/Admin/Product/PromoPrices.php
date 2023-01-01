@@ -6,6 +6,9 @@ namespace App\Http\Livewire\Admin\Product;
 
 use Livewire\Component;
 use App\Models\Product;
+use Illuminate\Contracts\View\View;
+use Illuminate\Contracts\View\Factory;
+
 
 class PromoPrices extends Component
 {
@@ -42,7 +45,7 @@ class PromoPrices extends Component
         }
     }
 
-    public function render()
+    public function render(): View|Factory
     {
         return view('livewire.admin.product.promo-prices');
     }

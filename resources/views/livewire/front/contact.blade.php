@@ -3,15 +3,15 @@
         <div class="w-full lg:w-1/2 xl:w-6/12 px-4">
             <div class="max-w-[570px] mb-12 lg:mb-0">
                 <h2
-                    class="text-black dark:text-slate-400 mb-6 uppercase font-bold text-[32px] sm:text-[40px] lg:text-[36px] xl:text-[40px]">
+                    class="text-black mb-6 uppercase font-bold text-[32px] sm:text-[40px] lg:text-[36px] xl:text-[40px]">
                     {{ __('GET IN TOUCH WITH US') }}
                     <span
-                        class="block mb-4 text-base text-black dark:text-slate-400 font-semibold">
+                        class="block mb-4 text-base text-black font-semibold">
                         {{ __('Contact Us') }}
                     </span>
                 </h2>
 
-                <p class="text-base text-black dark:text-slate-400 leading-relaxed mb-9">
+                <p class="text-base text-black leading-relaxed mb-9">
                     {{ __('For any sales inquery, repair, garantie, feel free to ask') }}
                 </p>
 
@@ -24,9 +24,9 @@
                         </svg>
                     </div>
                     <div class="w-full">
-                        <h4 class="font-bold text-black dark:text-slate-400 text-xl mb-1">
+                        <h4 class="font-bold text-black text-xl mb-1">
                             {{ __('Our Location') }}</h4>
-                        <p class="text-base text-body-color dark:text-slate-300">
+                        <p class="text-base text-body-color ">
                             {{ Helpers::settings('address') }}
                         </p>
                     </div>
@@ -44,9 +44,9 @@
                         </svg>
                     </div>
                     <div class="w-full">
-                        <h4 class="font-bold text-black dark:text-slate-400 text-xl mb-1">
+                        <h4 class="font-bold text-black text-xl mb-1">
                             {{ __('Phone Number') }}</h4>
-                        <p class="text-base text-body-color dark:text-slate-300">
+                        <p class="text-base text-body-color ">
                             <a href="tel:{{ Helpers::settings('company_phone') }}">{{ Helpers::settings('company_phone') }}
                             </a>
                         </p>
@@ -61,10 +61,10 @@
                         </svg>
                     </div>
                     <div class="w-full">
-                        <h4 class="font-bold text-black dark:text-slate-400 text-xl mb-1">
+                        <h4 class="font-bold text-black text-xl mb-1">
                             {{ __('Email Address') }}
                         </h4>
-                        <p class="text-bas dark:text-slate-300 text-body-color"><a
+                        <p class="text-bas  text-body-color"><a
                                 href="mailto:{{ Helpers::settings('company_email_address') }}">{{ Helpers::settings('company_email_address') }}</a>
                         </p>
                     </div>

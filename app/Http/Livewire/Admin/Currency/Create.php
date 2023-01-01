@@ -16,7 +16,7 @@ class Create extends Component
     public $listeners = ['createCurrency'];
 
     public $createCurrency;
-    
+
     public $currency;
 
     public array $rules = [
@@ -31,7 +31,10 @@ class Create extends Component
         $this->currency = $currency;
     }
 
-    public function render()
+    /** 
+     * @return \Illuminate\Contracts\View\View|\Illuminate\Contracts\View\Factory 
+     */
+    public function render(): View|Factory
     {
         abort_if(Gate::denies('currency_create'), 403);
 

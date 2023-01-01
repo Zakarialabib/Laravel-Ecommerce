@@ -2,11 +2,11 @@
     <div class="flex flex-wrap justify-center">
         <div class="lg:w-1/2 md:w-1/2 sm:w-full flex flex-col my-md-0 my-2">
             <div class="my-2 my-md-0">
-                <p class="leading-5 text-black dark:text-gray-300 mb-1 text-sm ">
+                <p class="leading-5 text-black mb-1 text-sm ">
                     {{ __('Show items per page') }}
                 </p>
                 <select wire:model="perPage" name="perPage"
-                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-32 p-1 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-32 p-1">
                     @foreach ($paginationOptions as $value)
                         <option value="{{ $value }}">{{ $value }}</option>
                     @endforeach
@@ -16,7 +16,7 @@
         <div class="lg:w-1/2 md:w-1/2 sm:w-full my-2 my-md-0">
             <div class="my-2 my-md-0">
                 <input type="text" wire:model.debounce.300ms="search"
-                    class="p-3 leading-5 bg-white text-gray-500 dark:text-gray-300 rounded border border-zinc-300 mb-1 text-sm w-full focus:shadow-outline-blue focus:border-blue-500"
+                    class="p-3 leading-5 bg-white text-gray-500 rounded border border-zinc-300 mb-1 text-sm w-full focus:shadow-outline-blue focus:border-blue-500"
                     placeholder="{{ __('Search') }}" />
             </div>
         </div>
@@ -35,14 +35,14 @@
             <x-table.th>
                 {{ __('Category') }}
             </x-table.th>
-          
+
             <x-table.th>
                 {{ __('Actions') }}
             </x-table.th>
         </x-slot>
         <x-table.tbody>
             @forelse($shippings as $shipping)
-                <x-table.tr  wire:loading.class.delay="opacity-50" wire:key="row-{{ $shipping->id }}">
+                <x-table.tr wire:loading.class.delay="opacity-50" wire:key="row-{{ $shipping->id }}">
                     <x-table.td>
                         <input type="checkbox" value="{{ $shipping->id }}" wire:model="selected">
                     </x-table.td>
@@ -53,27 +53,23 @@
                         {{ $shipping->cost }}
                     </x-table.td>
                     <x-table.td>
-                        <x-dropdown
-                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-32 p-1 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                            <x-slot name="trigger">
-                                <button type="button"
-                                    class="px-4 text-base font-semibold text-gray-500 hover:text-sky-800 dark:text-slate-400 dark:hover:text-sky-400">
-                                    <i class="fas fa-angle-double-down"></i>
-                                </button>
-                            </x-slot>
-                            <x-slot name="content">
-                                <x-button primary type="button" 
-                                 wire:click="$emit('editModal', {{ $shipping->id }})"
-                                    wire:loading.attr="disabled">
-                                    <i class="fas fa-edit"></i>
-                                </x-button>
-                                <x-button danger type="button" 
-                                 wire:click="$emit('deleteModal', {{ $shipping->id }})"
-                                    wire:loading.attr="disabled">
-                                    <i class="fas fa-trash-alt"></i>
-                                </x-button>
-                            </x-slot>
-                        </x-dropdown>
+                        @if ($shipping->is_pickup == true)
+                            <x-badge succes>{{ __('Pickup') }}</x-badge>
+                        @else
+                            <x-badge secondary>{{ __('Delivery') }}</x-badge>
+                        @endif
+                    </x-table.td>
+                    <x-table.td>
+                        <div class="flex justify-center">
+                            <x-button primary type="button" wire:click="$emit('editModal', {{ $shipping->id }})"
+                                wire:loading.attr="disabled">
+                                <i class="fas fa-edit"></i>
+                            </x-button>
+                            <x-button danger type="button" wire:click="$emit('deleteModal', {{ $shipping->id }})"
+                                wire:loading.attr="disabled">
+                                <i class="fas fa-trash-alt"></i>
+                            </x-button>
+                        </div>
                     </x-table.td>
                 </x-table.tr>
             @empty
@@ -99,8 +95,8 @@
             {{ $shippings->links() }}
         </div>
     </div>
-   
-    
+
+
     <livewire:admin.shipping.edit />
 
     <livewire:admin.shipping.create />

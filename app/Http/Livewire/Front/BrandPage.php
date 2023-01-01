@@ -8,6 +8,8 @@ use App\Models\Product;
 use App\Models\Category;
 use Livewire\Component;
 use Livewire\WithPagination;
+use Illuminate\Contracts\View\View;
+use Illuminate\Contracts\View\Factory;
 
 class BrandPage extends Component
 {
@@ -44,7 +46,7 @@ class BrandPage extends Component
         $this->paginationOptions = [25, 50, 100];
     }
 
-    public function render()
+    public function render(): View|Factory
     {
         // where status is true
         $brand_products = Product::where('status', 1)

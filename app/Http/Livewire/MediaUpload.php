@@ -58,7 +58,6 @@ class MediaUpload extends Component
 
     public function hydrate()
     {
-
         $this->oldPhotos = $this->photos;
     }
 

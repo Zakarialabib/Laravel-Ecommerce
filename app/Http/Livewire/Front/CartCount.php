@@ -6,6 +6,8 @@ namespace App\Http\Livewire\Front;
 
 use Gloudemans\Shoppingcart\Facades\Cart;
 use Livewire\Component;
+use Illuminate\Contracts\View\View;
+use Illuminate\Contracts\View\Factory;
 
 class CartCount extends Component
 {
@@ -18,7 +20,6 @@ class CartCount extends Component
     public function mount()
     {
         $this->cartCount = Cart::instance('shopping')->count();
-        
     }
 
     public function cartCountUpdated()
@@ -27,7 +28,7 @@ class CartCount extends Component
         $this->emit('cartBarUpdated');
     }
 
-    public function render()
+    public function render(): View|Factory
     {
         return view('livewire.front.cart-count');
     }

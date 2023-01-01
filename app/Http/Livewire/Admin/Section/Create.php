@@ -11,6 +11,8 @@ use Livewire\Component;
 use App\Models\Language;
 use Livewire\WithFileUploads;
 use Illuminate\Support\Str;
+use Illuminate\Contracts\View\View;
+use Illuminate\Contracts\View\Factory;
 
 class Create extends Component
 {
@@ -49,7 +51,7 @@ class Create extends Component
         $this->section = $section;
     }
 
-    public function render()
+    public function render(): View|Factory
     {
         return view('livewire.admin.section.create');
     }

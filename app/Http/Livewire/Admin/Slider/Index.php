@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Http\Livewire\Admin\Slider;
 
-use App\Http\Livewire\Trix;
 use App\Http\Livewire\WithSorting;
 use App\Models\Language;
 use App\Models\Slider;
@@ -13,6 +12,8 @@ use Livewire\Component;
 use Livewire\WithFileUploads;
 use Livewire\WithPagination;
 use Illuminate\Support\Str;
+use Illuminate\Contracts\View\View;
+use Illuminate\Contracts\View\Factory;
 
 class Index extends Component
 {
@@ -26,7 +27,6 @@ class Index extends Component
     public $photo;
 
     public $listeners = [
-        Trix::EVENT_VALUE_UPDATED,
         'refreshIndex' => '$refresh',
         'showModal', 'editModal', 'delete',
     ];
@@ -101,7 +101,8 @@ class Index extends Component
         $this->initListsForFields();
     }
 
-    public function render()
+
+    public function render(): View|Factory
     {
         $query = Slider::advancedFilter([
             's'               => $this->search ?: null,

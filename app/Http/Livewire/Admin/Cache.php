@@ -7,6 +7,8 @@ namespace App\Http\Livewire\Admin;
 use Illuminate\Support\Facades\Artisan;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Livewire\Component;
+use Illuminate\Contracts\View\View;
+use Illuminate\Contracts\View\Factory;
 
 class Cache extends Component
 {
@@ -14,7 +16,7 @@ class Cache extends Component
 
     protected $listeners = ['onClearCache'];
 
-    public function render()
+    public function render(): View|Factory
     {
         return view('livewire.admin.cache');
     }

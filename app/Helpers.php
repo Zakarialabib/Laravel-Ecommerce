@@ -85,7 +85,6 @@ class Helpers
         return $gallery;
     }
 
-
     /**
      * @param mixed $subcategory
      * @param mixed $category
@@ -158,8 +157,6 @@ class Helpers
             }
 
             return  $this->product->gallery = json_encode($galleryArray);
-            
-
         } else {
             // handle single image
 
@@ -170,7 +167,6 @@ class Helpers
             $img->stream();
 
             Storage::disk('local_files')->put('products/'.$input->getClientOriginalName(), $img, 'public');
-            
         }
     }
 }

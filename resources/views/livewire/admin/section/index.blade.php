@@ -3,7 +3,7 @@
         <div class="lg:w-1/2 md:w-1/2 sm:w-full flex flex-col my-md-0 my-2">
             <div class="my-2 my-md-0">
                 <select wire:model="perPage" name="perPage"
-                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-32 p-1 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-32 p-1">
                     @foreach ($paginationOptions as $value)
                         <option value="{{ $value }}">{{ $value }}</option>
                     @endforeach
@@ -22,7 +22,7 @@
         <div class="lg:w-1/2 md:w-1/2 sm:w-full my-2 my-md-0">
             <div class="my-2 my-md-0">
                 <input type="text" wire:model.debounce.300ms="search"
-                    class="p-3 leading-5 bg-white text-gray-500 dark:text-gray-300 rounded border border-zinc-300 mb-1 text-sm w-full focus:shadow-outline-blue focus:border-blue-500"
+                    class="p-3 leading-5 bg-white text-gray-500 rounded border border-zinc-300 mb-1 text-sm w-full focus:shadow-outline-blue focus:border-blue-500"
                     placeholder="{{ __('Search') }}" />
             </div>
         </div>
@@ -147,7 +147,7 @@
                     <div class="lg:w-1/2 sm:w-full px-2">
                         <x-label for="language_id" :value="__('Language')" />
                         <x-select-list
-                            class="block bg-white text-gray-700 dark:text-gray-300 rounded border border-gray-300 mb-1 text-sm w-full focus:shadow-outline-blue focus:border-blue-500"
+                            class="block bg-white text-gray-700 rounded border border-gray-300 mb-1 text-sm w-full focus:shadow-outline-blue focus:border-blue-500"
                             id="language_id" name="language_id" wire:model="section.language_id" :options="$this->listsForFields['languages']" />
                         <x-input-error :messages="$errors->get('section.language_id')" for="section.language_id" class="mt-2" />
                     </div>
@@ -155,7 +155,7 @@
                     <div class="lg:w-1/2 sm:w-full px-2">
                         <x-label for="page" :value="__('Page')" />
                         <select wire:model="section.page"
-                            class="p-3 leading-5 bg-white text-gray-700 dark:text-gray-300 rounded border border-zinc-300 mb-1 text-sm w-full focus:shadow-outline-blue focus:border-blue-500  lang"
+                            class="p-3 leading-5 bg-white text-gray-700 rounded border border-zinc-300 mb-1 text-sm w-full focus:shadow-outline-blue focus:border-blue-500  lang"
                             name="page">
                             <option value="" selected>{{ __('Select a Page') }}</option>
                             <option value="1">{{ __('Home Page') }}</option>
@@ -172,14 +172,14 @@
                     <div class="lg:w-1/2 sm:w-full px-2">
                         <x-label for="title" :value="__('Title')" />
                         <input type="text" name="title" wire:model.lazy="section.title"
-                            class="p-3 leading-5 bg-white text-gray-700 dark:text-gray-300 rounded border border-zinc-300 mb-1 text-sm w-full focus:shadow-outline-blue focus:border-blue-500 "
+                            class="p-3 leading-5 bg-white text-gray-700 rounded border border-zinc-300 mb-1 text-sm w-full focus:shadow-outline-blue focus:border-blue-500 "
                             placeholder="{{ __('Title') }}" value="{{ old('title') }}">
                         <x-input-error :messages="$errors->get('section.title')" for="section.title" class="mt-2" />
                     </div>
                     <div class="lg:w-1/2 sm:w-full px-2">
                         <x-label for="subtitle" :value="__('Subtitle')" />
                         <input type="text" name="subtitle" wire:model.lazy="section.subtitle"
-                            class="p-3 leading-5 bg-white text-gray-700 dark:text-gray-300 rounded border border-zinc-300 mb-1 text-sm w-full focus:shadow-outline-blue focus:border-blue-500 "
+                            class="p-3 leading-5 bg-white text-gray-700 rounded border border-zinc-300 mb-1 text-sm w-full focus:shadow-outline-blue focus:border-blue-500 "
                             placeholder="{{ __('Subtitle') }}" value="{{ old('subtitle') }}">
                         <x-input-error :messages="$errors->get('section.subtitle')" for="section.subtitle" class="mt-2" />
                     </div>

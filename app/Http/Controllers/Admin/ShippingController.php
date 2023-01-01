@@ -12,6 +12,4 @@ class ShippingController extends Controller
     {
         return view('admin.shipping.index');
     }
-
-
 }

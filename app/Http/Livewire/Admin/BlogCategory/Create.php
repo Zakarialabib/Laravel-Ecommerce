@@ -10,6 +10,8 @@ use Illuminate\Support\Facades\Gate;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Livewire\Component;
 use Livewire\WithFileUploads;
+use Illuminate\Contracts\View\View;
+use Illuminate\Contracts\View\Factory;
 
 class Create extends Component
 {
@@ -41,7 +43,7 @@ class Create extends Component
         'blogcategory.language_id'      => ['required', 'integer'],
     ];
 
-    public function render()
+    public function render(): View|Factory
     {
         abort_if(Gate::denies('blogcategory_create'), 403);
 

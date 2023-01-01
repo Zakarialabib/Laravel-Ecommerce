@@ -13,6 +13,8 @@ use Livewire\Component;
 use Livewire\WithFileUploads;
 use Livewire\WithPagination;
 use Illuminate\Support\Str;
+use Illuminate\Contracts\View\View;
+use Illuminate\Contracts\View\Factory;
 
 class Index extends Component
 {
@@ -99,7 +101,7 @@ class Index extends Component
         $this->initListsForFields();
     }
 
-    public function render()
+    public function render(): View|Factory
     {
         $query = FeaturedBanner::advancedFilter([
             's'               => $this->search ?: null,
@@ -145,8 +147,6 @@ class Index extends Component
         }
 
         $this->featuredbanner->save();
-
-
 
         $this->alert('success', __('FeaturedBanner updated successfully.'));
 

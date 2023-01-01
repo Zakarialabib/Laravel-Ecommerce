@@ -6,6 +6,8 @@ namespace App\Http\Livewire\Front;
 
 use App\Models\Order;
 use Livewire\Component;
+use Illuminate\Contracts\View\View;
+use Illuminate\Contracts\View\Factory;
 
 class ThankYou extends Component
 {
@@ -18,7 +20,7 @@ class ThankYou extends Component
         $this->order = Order::findOrFail($order->id);
     }
 
-    public function render()
+    public function render(): View|Factory
     {
         return view('livewire.front.thank-you');
     }

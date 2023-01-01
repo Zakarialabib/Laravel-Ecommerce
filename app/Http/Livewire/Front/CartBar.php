@@ -8,6 +8,9 @@ use App\Models\Shipping;
 use Gloudemans\Shoppingcart\Facades\Cart;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Livewire\Component;
+use Exception;
+use Illuminate\Contracts\View\View;
+use Illuminate\Contracts\View\Factory;
 
 class CartBar extends Component
 {
@@ -18,7 +21,7 @@ class CartBar extends Component
     public $increaseQuantity;
 
     public $removeFromCart;
-    
+
     public $cartItems;
 
     public $cartTotal;
@@ -77,7 +80,7 @@ class CartBar extends Component
                     'showConfirmButton' => false,
                 ]
             );
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             $this->alert(
                 'error',
                 __('An error occurred while trying to remove the product from the cart: '.$e->getMessage()),
@@ -93,7 +96,7 @@ class CartBar extends Component
                 ]
             );
         }
-    }    
+    }
 
     public function cartBarUpdated()
     {
@@ -116,7 +119,7 @@ class CartBar extends Component
         $this->initListsForFields();
     }
 
-    public function render()
+    public function render(): View|Factory
     {
         return view('livewire.front.cart-bar');
     }

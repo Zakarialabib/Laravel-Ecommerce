@@ -1,41 +1,44 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Livewire\Admin\Shipping;
 
 use Livewire\Component;
 use App\Models\Shipping;
 use Illuminate\Support\Facades\Gate;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
+use Illuminate\Contracts\View\View;
+use Illuminate\Contracts\View\Factory;
 
 class Edit extends Component
 {
     use LivewireAlert;
-    
+
     public $shipping;
 
     public $editModal = false;
-    
+
     public $langauges;
 
     public $listeners = [
-        'editModal'
+        'editModal',
     ];
 
     public array $rules = [
         'shipping.is_pickup' => ['nullable'],
-        'shipping.title' => ['required', 'string', 'max:255'],
-        'shipping.subtitle' => ['nullable', 'string'],
-        'shipping.cost' => ['required', 'string'],
+        'shipping.title'     => ['required', 'string', 'max:255'],
+        'shipping.subtitle'  => ['nullable', 'string'],
+        'shipping.cost'      => ['required', 'string'],
         // 'shipping.language_id' => ['required', 'integer'],
     ];
 
     public function mount(Shipping $shipping)
     {
         $this->shipping = $shipping;
-
     }
 
-    public function render()
+    public function render(): View|Factory
     {
         return view('livewire.admin.shipping.edit');
     }
