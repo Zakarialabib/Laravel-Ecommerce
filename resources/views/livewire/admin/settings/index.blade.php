@@ -133,16 +133,15 @@
             <div class="w-full">
                 <div class="mb-4 px-2">
                     <x-label for="head_tags" :value="__('Custom Head Code')" />
-                    <textarea
-                        class="p-3 leading-5 bg-white text-gray-700 rounded border border-gray-300 mb-1 text-sm w-full focus:shadow-outline-blue focus:border-blue-500"
-                        rows="4" id="head_tags" name="head_tags">{!! Config::get('settings.head_tags') !!}</textarea>
+                    <textarea class="p-3 leading-5 bg-white text-gray-700 rounded border border-gray-300 mb-1 text-sm w-full focus:shadow-outline-blue focus:border-blue-500"
+                        rows="4" id="head_tags" name="head_tags" wire:model="head_tags">{!! Config::get('settings.head_tags') !!}</textarea>
                     <small class="text-red-500">{{ __('Facebook, Google Analytics or other script.') }}</small>
                 </div>
                 <div class="mb-4 px-2">
                     <x-label for="body_tags" :value="__('Custom Body Code')" />
                     <textarea
                         class="p-3 leading-5 bg-white text-gray-700 rounded border border-gray-300 mb-1 text-sm w-full focus:shadow-outline-blue focus:border-blue-500"
-                        rows="4" id="body_tags" name="body_tags">{{ Config::get('settings.body_tags') }}</textarea>
+                        rows="4" id="body_tags" name="body_tags" wire:model="body_tags">{{ Config::get('settings.body_tags') }}</textarea>
                     <small class="text-red-500">{{ __('Facebook, Google Analytics or other script.') }}</small>
                 </div>
             </div>
@@ -229,3 +228,6 @@
         </div>
     </form>
 </div>
+
+
+{{-- <x-laravelpopups-popupsettings /> --}}
