@@ -7,6 +7,11 @@
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&display=swap">
     <meta name="csrf-token" content="{{ csrf_token() }}">
+    <!-- Head Tags -->
+    @if (Helpers::settings('head_tags'))
+        {!! Helpers::settings('head_tags') !!}
+    @endif
+    
     <title>
         @yield('title') || {{ Helpers::settings('site_title') }}
     </title>
@@ -42,17 +47,14 @@
 
     @stack('styles')
 
-    <!-- Head Tags -->
-    @if (Helpers::settings('head_tags') != null)
-        {!! Helpers::settings('head_tags') !!}
-    @endif
+    
 
 </head>
 
 <body class="antialiased bg-body text-body font-body" x-data="{ showCart: false }">
     <!-- Body Tags -->
 
-    @if (Helpers::settings('body_tags') != null)
+    @if (Helpers::settings('body_tags'))
         {!! Helpers::settings('body_tags') !!}
     @endif
 
