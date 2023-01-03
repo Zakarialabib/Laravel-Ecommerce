@@ -6,7 +6,6 @@ namespace App\View\Components;
 
 use Illuminate\View\Component;
 use Illuminate\Contracts\View\View;
-use Illuminate\Contracts\View\Factory;
 
 class DatePicker extends Component
 {

@@ -24,12 +24,12 @@ trait HasAdvancedFilter
             // 'limit'           => 'sometimes|required|integer|min:1',
 
             // advanced filter
-            'filter_match' => 'sometimes|required|in:and,or',
-            'f'            => 'sometimes|required|array',
-            'f.*.column'   => 'required|in:'.$this->whiteListColumns(),
-            'f.*.operator' => 'required_with:f.*.column|in:'.$this->allowedOperators(),
-            'f.*.query_1'  => 'required',
-            'f.*.query_2'  => 'required_if:f.*.operator,between,not_between',
+            'filter_match'    => 'sometimes|required|in:and,or',
+            'f'               => 'sometimes|required|array',
+            'f.*.column'      => 'required|in:'.$this->whiteListColumns(),
+            'f.*.operator'    => 'required_with:f.*.column|in:'.$this->allowedOperators(),
+            'f.*.query_1'     => 'required',
+            'f.*.query_2'     => 'required_if:f.*.operator,between,not_between',
         ]);
 
         if ($v->fails()) {

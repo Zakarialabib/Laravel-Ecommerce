@@ -11,23 +11,24 @@
     @if (Helpers::settings('head_tags'))
         {!! Helpers::settings('head_tags') !!}
     @endif
-    
+
     <title>
         @yield('title') || {{ Helpers::settings('site_title') }}
     </title>
 
-    @if (Helpers::settings('site_title'))
-        <meta name="title" content="{{ Helpers::settings('site_title') }}">
+
+    @hasSection('meta')
+        @yield('meta')
     @else
-        <meta name="title" content="@yield('meta_title')">
+        <meta name="title" content="{{ Helpers::settings('seo_meta_title') }}">
+        <meta name="description" content="{{ Helpers::settings('seo_meta_description') }}">
+        <meta property="og:title" content="{{ Helpers::settings('site_title') }}">
+        <meta property="og:description" content="{{ Helpers::settings('seo_meta_description') }}">
+        <meta property="og:url" content="{{ route('front.index') }}" />
     @endif
 
-    <meta name="title" content="{{ Helpers::settings('seo_meta_title') }}">
-    <meta name="description" content="{{ Helpers::settings('seo_meta_description') }}">
-    <meta property="og:description" content="{{ Helpers::settings('seo_meta_description') }}">
     <meta property="og:locale" content="{{ app()->getLocale() }}" />
     <meta property="og:type" content="website" />
-    <meta property="og:url" content="{{ route('front.index') }}" />
     <meta property="og:site_name" content="{{ Helpers::settings('company_name') }}" />
     <meta name="author" content="{{ Helpers::settings('company_name') }}">
 
@@ -47,7 +48,7 @@
 
     @stack('styles')
 
-    
+
 
 </head>
 
@@ -71,7 +72,7 @@
         <x-footer />
 
         <x-whatsapp />
-        
+
     </section>
 
     @vite('resources/js/app.js')

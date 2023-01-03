@@ -62,7 +62,7 @@ class Checkout extends Component
         $this->validate([
             'shipping_id' => 'required',
             'first_name'  => 'required',
-            'phone' => 'required',
+            'phone'       => 'required',
         ]);
 
         if (Cart::instance('shopping')->count() == 0) {
@@ -199,7 +199,6 @@ class Checkout extends Component
 
         $this->initListsForFields();
     }
-
 
     public function render(): View|Factory
     {

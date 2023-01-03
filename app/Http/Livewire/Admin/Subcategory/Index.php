@@ -44,10 +44,10 @@ class Index extends Component
     public array $listsForFields = [];
 
     protected $queryString = [
-        'search' => [
+        'search'        => [
             'except' => '',
         ],
-        'sortBy' => [
+        'sortBy'        => [
             'except' => 'id',
         ],
         'sortDirection' => [
@@ -90,7 +90,6 @@ class Index extends Component
         $this->paginationOptions = [25, 50, 100];
         $this->orderable = (new Subcategory())->orderable;
     }
-
 
     public function render(): View|Factory
     {

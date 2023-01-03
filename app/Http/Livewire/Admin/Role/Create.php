@@ -51,11 +51,11 @@ class Create extends Component
     protected function rules(): array
     {
         return [
-            'role.title' => [
+            'role.title'       => [
                 'string',
                 'required',
             ],
-            'permissions' => [
+            'permissions'      => [
                 'required',
                 'array',
             ],

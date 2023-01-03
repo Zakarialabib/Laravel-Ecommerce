@@ -40,10 +40,10 @@ class Brands extends Component
     public $filterProductSubcategories;
 
     protected $queryString = [
-        'search' => [
+        'search'        => [
             'except' => '',
         ],
-        'sortBy' => [
+        'sortBy'        => [
             'except' => 'id',
         ],
         'sortDirection' => [

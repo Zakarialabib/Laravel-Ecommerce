@@ -19,7 +19,6 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Contracts\View\View;
 use Illuminate\Contracts\View\Factory;
 
-
 class Index extends Component
 {
     use WithPagination;
@@ -59,10 +58,10 @@ class Index extends Component
     public array $paginationOptions;
 
     protected $queryString = [
-        'search' => [
+        'search'        => [
             'except' => '',
         ],
-        'sortBy' => [
+        'sortBy'        => [
             'except' => 'id',
         ],
         'sortDirection' => [

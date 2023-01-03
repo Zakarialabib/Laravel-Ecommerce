@@ -42,7 +42,6 @@ class Create extends Component
         'brand.description' => ['nullable', 'string'],
     ];
 
-
     public function render(): View|Factory
     {
         abort_if(Gate::denies('brand_create'), 403);

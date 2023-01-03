@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Livewire\Admin\Product;
 
 use Livewire\Component;
@@ -7,6 +9,7 @@ use App\Models\Product;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Illuminate\Contracts\View\View;
 use Illuminate\Contracts\View\Factory;
+use Throwable;
 
 class Highlighted extends Component
 {
@@ -35,7 +38,7 @@ class Highlighted extends Component
     public $discount_date;
 
     public $listeners = [
-        'highlightModal'
+        'highlightModal',
     ];
 
     public $highlightModal = false;
@@ -57,58 +60,53 @@ class Highlighted extends Component
             if ($this->hot) {
                 $this->product->hot = $this->hot;
             }
-    
+
             if ($this->featured) {
                 $this->product->featured = $this->featured;
             }
-    
+
             if ($this->best) {
                 $this->product->best = $this->best;
             }
-    
+
             if ($this->top) {
                 $this->product->top = $this->top;
             }
-    
+
             if ($this->latest) {
                 $this->product->latest = $this->latest;
             }
-    
+
             if ($this->big) {
                 $this->product->big = $this->big;
             }
-    
+
             if ($this->trending) {
                 $this->product->trending = $this->trending;
             }
-    
+
             if ($this->sale) {
                 $this->product->sale = $this->sale;
             }
-    
+
             if ($this->is_discount) {
                 $this->product->is_discount = $this->is_discount;
             }
-    
+
             if ($this->discount_date) {
                 $this->product->discount_date = $this->discount_date;
             }
-    
+
             $this->product->save();
-    
+
             $this->alert('success', 'Product highlighted successfully.');
-    
+
             $this->highlightModal = false;
-
-        } catch (\Throwable $th) {
-            
+        } catch (Throwable $th) {
             $this->alert('success', 'Unable to updated Product highlighted.');
-
         }
-
- 
     }
-    
+
     public function render(): View|Factory
     {
         return view('livewire.admin.product.highlighted');

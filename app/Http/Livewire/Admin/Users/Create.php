@@ -36,7 +36,6 @@ class Create extends Component
         $this->user = $user;
     }
 
-
     public function render(): View|Factory
     {
         return view('livewire.admin.users.create');

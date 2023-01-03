@@ -41,7 +41,6 @@ class Contact extends Component
         // $this->conversation = $conversation;
     }
 
-
     public function render(): View|Factory
     {
         return view('livewire.front.contact');

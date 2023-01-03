@@ -10,7 +10,6 @@ use Config;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use Validator;
-use PriceHelper;
 use stdClass;
 use Exception;
 
@@ -152,6 +151,4 @@ class GeneralSettingController extends Controller
         return response()->json($msg);
         //--- Redirect Section Ends
     }
-
-    
 }

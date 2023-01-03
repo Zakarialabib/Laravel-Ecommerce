@@ -32,14 +32,14 @@ class DashboardController extends Controller
                 'orderProcessing' => Order::where('status', '=', 2)->whereDate('created_at', '>=', Carbon::now()->subMonth())->count(),
                 'orderCompleted'  => Order::where('status', '=', 3)->whereDate('created_at', '>=', Carbon::now()->subMonth())->count(),
             ],
-            'semi' => [
+            'semi'  => [
                 'countCustomers'  => User::whereDate('created_at', '>=', Carbon::now()->subMonths(6))->count(),
                 'ordersCount'     => Order::whereDate('created_at', '>=', Carbon::now()->subMonths(6))->count(),
                 'orderPending'    => Order::where('status', '=', 1)->whereDate('created_at', '>=', Carbon::now()->subMonths(6))->count(),
                 'orderProcessing' => Order::where('status', '=', 2)->whereDate('created_at', '>=', Carbon::now()->subMonths(6))->count(),
                 'orderCompleted'  => Order::where('status', '=', 3)->whereDate('created_at', '>=', Carbon::now()->subMonths(6))->count(),
             ],
-            'year' => [
+            'year'  => [
                 'countCustomers'  => User::whereDate('created_at', '>=', Carbon::now()->subYear())->count(),
                 'ordersCount'     => Order::whereDate('created_at', '>=', Carbon::now()->subYear())->count(),
                 'orderPending'    => Order::where('status', '=', 1)->whereDate('created_at', '>=', Carbon::now()->subYear())->count(),

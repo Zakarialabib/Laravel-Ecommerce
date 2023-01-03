@@ -1,6 +1,10 @@
 <div>
-    <form wire:submit.prevent="save" class="container mx-auto mb-4 flex items-center">
-        <span class="text-gray-500 font-bold text-center text-md font-heading uppercase py-2">{{ __('Order Now') }}</span>
+    <form wire:submit.prevent="save" class="container mx-auto mb-4">
+        <div class="flex justify-center mb-4">
+            <h5 class="text-gray-500 font-bold text-center text-md font-heading uppercase py-2">
+                {{ __('Order Now') }}
+            </h5>
+        </div>
         <div class="flex flex-wrap items-center">
             <div class="w-full md:w-1/2 pr-2">
                 <label class="font-bold font-heading text-gray-600" for="">{{ __('FullName') }}</label>

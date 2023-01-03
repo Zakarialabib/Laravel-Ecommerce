@@ -1,9 +1,11 @@
+@section('meta')
+@endsection
 <div>
     <div class="mx-auto px-4">
         <div class="mb-10 items-center justify-between bg-white py-4">
             <div class="w-full lg:mb-4 px-4 flex flex-wrap justify-between">
                 <h2 class="lg:text-2xl sm:text-xl font-bold">
-                    {{ $this->products->count()}} {{ __('Watches') }}
+                    {{ $this->products->count() }} {{ __('Watches') }}
                 </h2>
                 <div class="w-full sm:w-auto">
                     <select
@@ -25,38 +27,36 @@
                     </select>
                 </div>
             </div>
-             <div class="overflow-x-scroll flex py-2 sm:w-full lg:pl-5 sm:pl-0">
-                    @foreach ($this->categories as $category)
-                        <x-button type="button" blackOutline class="mx-2"
-                            wire:click="filterProductCategories({{ $category->id }})">
-                            {{ $category->name }} <small> ({{ $category->products->count()}})</small>
-                        </x-button>
-                    @endforeach
+            <div class="overflow-x-scroll flex py-2 sm:w-full lg:pl-5 sm:pl-0">
+                @foreach ($this->categories as $category)
+                    <x-button type="button" blackOutline class="mx-2"
+                        wire:click="filterProductCategories({{ $category->id }})">
+                        {{ $category->name }} <small> ({{ $category->products->count() }})</small>
+                    </x-button>
+                @endforeach
 
-                    @foreach ($this->subcategories as $subcategory)
-                        <x-button type="button" blackOutline class="mx-2"
-                            wire:click="filterProductSubcategories({{ $subcategory->id }})">
-                            {{ $subcategory->name }} <small> ({{ $subcategory->products->count()}})</small>
-                        </x-button>
-                    @endforeach
-
-                    </div>
-                </div>
+                @foreach ($this->subcategories as $subcategory)
+                    <x-button type="button" blackOutline class="mx-2"
+                        wire:click="filterProductSubcategories({{ $subcategory->id }})">
+                        {{ $subcategory->name }} <small> ({{ $subcategory->products->count() }})</small>
+                    </x-button>
+                @endforeach
+            </div>
         </div>
+    </div>
 
-        <div class="grid gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 mb-10">
-            @forelse ($this->products as $product)
+    <div class="grid gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 mb-10">
+        @forelse ($this->products as $product)
             <x-product-card :product="$product" />
-            @empty
-                <div class="w-full">
-                    <h3 class="text-3xl font-bold font-heading text-blue-900">
-                        {{ __('No products found') }}
-                    </h3>
-                </div>
-            @endforelse
-        </div>
-        <div class="text-center">
-            {{ $this->products->links() }}
-        </div>
+        @empty
+            <div class="w-full">
+                <h3 class="text-3xl font-bold font-heading text-blue-900">
+                    {{ __('No products found') }}
+                </h3>
+            </div>
+        @endforelse
+    </div>
+    <div class="text-center">
+        {{ $this->products->links() }}
     </div>
 </div>

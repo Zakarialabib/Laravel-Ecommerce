@@ -10,7 +10,6 @@ use Illuminate\Contracts\View\Factory;
 
 class SliderController extends Controller
 {
-
     public function index(): View|Factory
     {
         return view('admin.slider.index');

@@ -86,7 +86,7 @@ class MediaUpload extends Component
         } else {
             $photoPaths = $this->photos->getRealPath();
         }
-        
+
         $this->emitUp($this->emitFunction, $photoPaths);
     }
 }

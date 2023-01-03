@@ -9,7 +9,6 @@ use App\Models\Product;
 use Illuminate\Contracts\View\View;
 use Illuminate\Contracts\View\Factory;
 
-
 class PromoPrices extends Component
 {
     public $percentage;

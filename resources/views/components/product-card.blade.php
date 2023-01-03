@@ -6,18 +6,15 @@
             <img class="w-full h-auto object-cover rounded-t-lg pt-4"
                 src="{{ asset('images/products/' . $product->image) }}" onerror="this.onerror=null; this.remove();"
                 alt="{{ $product->name }}">
+            <meta itemprop="image" content="{{ asset('images/products/' . $product->image) }}">
         </a>
         <div class="absolute top-0 right-0 mb-3 p-2 bg-orange-500 rounded-bl-lg">
             <span class="text-white font-bold text-sm">{{ $product->price }}DH</span>
         </div>
         @if ($product->old_price)
-            <div class="absolute top-0 left-0 p-2 bg-red-500 rounded-br-lg">
-                <span class="text-white font-bold text-sm">
-                    <del>
-                        -{{ $product->discount }}%
-                    </del>
-                    <br>
-                    <small>{{ $product->old_price }}</small>
+            <div class="absolute top-0 left-0 p-2 bg-red-600 rounded-br-lg">
+                <span class="text-white font-bold text-md">
+                    <small>{{ $product->old_price }} </small> - {{ $product->discount }}% 
                 </span>
             </div>
         @endif
