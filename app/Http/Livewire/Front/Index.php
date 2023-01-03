@@ -18,17 +18,23 @@ class Index extends Component
 {
     public function getFeaturedProductsProperty()
     {
-        return Product::where('featured', 1)->get();
+        return Product::where('featured', 1)
+                ->inRandomOrder()
+                ->limit(4);
     }
 
     public function getBestOffersProperty()
     {
-        return Product::where('best', 1)->get();
+        return Product::where('best', 1)
+                ->inRandomOrder()
+                ->limit(4);
     }
 
     public function getHotProductsProperty()
     {
-        return Product::where('hot', 1)->get();
+        return Product::where('hot', 1)
+                ->inRandomOrder()
+                ->limit(4);
     }
 
     public function getBrandsProperty(): Collection

@@ -29,10 +29,8 @@ class Index extends Component
     public $listeners = [
         'refreshIndex' => '$refresh',
         'promoAllProducts',
-        'highlightModal', 'delete',
+        'delete',
     ];
-
-    public $highlightModal = false;
 
     public $promoAllProducts = false;
 
@@ -51,26 +49,6 @@ class Index extends Component
     public $selectAll;
 
     public $file;
-
-    public $hot;
-
-    public $featured;
-
-    public $best;
-
-    public $top;
-
-    public $latest;
-
-    public $big;
-
-    public $trending;
-
-    public $sale;
-
-    public $is_discount;
-
-    public $discount_date;
 
     public string $search = '';
 
@@ -158,15 +136,6 @@ class Index extends Component
         $this->resetSelected();
     }
 
-    public function highlightModal(Product $product)
-    {
-        abort_if(Gate::denies('product_access'), 403);
-
-        $this->product = Product::find($product);
-
-        $this->highlightModal = true;
-    }
-
     public function selectAll()
     {
         if (count(array_intersect($this->selected, Product::pluck('id')->toArray())) == count(Product::pluck('id')->toArray())) {
@@ -183,59 +152,6 @@ class Index extends Component
         } else {
             $this->selected = $productIds;
         }
-    }
-
-    public function saveHighlight()
-    {
-        abort_if(Gate::denies('product_access'), 403);
-
-        if ($this->hot) {
-            $this->product->hot = $this->hot;
-        }
-
-        if ($this->featured) {
-            $this->product->featured = $this->featured;
-        }
-
-        if ($this->best) {
-            $this->product->best = $this->best;
-        }
-
-        if ($this->top) {
-            $this->product->top = $this->top;
-        }
-
-        if ($this->latest) {
-            $this->product->latest = $this->latest;
-        }
-
-        if ($this->big) {
-            $this->product->big = $this->big;
-        }
-
-        if ($this->trending) {
-            $this->product->trending = $this->trending;
-        }
-
-        if ($this->sale) {
-            $this->product->sale = $this->sale;
-        }
-
-        if ($this->is_discount) {
-            $this->product->is_discount = $this->is_discount;
-        }
-
-        if ($this->discount_date) {
-            $this->product->discount_date = $this->discount_date;
-        }
-
-        $this->product->save();
-
-        $this->alert('success', 'Product highlighted successfully.');
-
-        $this->reset();
-
-        $this->highlightModal = false;
     }
 
     protected function initListsForFields(): void
