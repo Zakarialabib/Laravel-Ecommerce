@@ -77,8 +77,8 @@ class Index extends Component
 
     public array $rules = [
         'subcategory.name'        => ['required', 'string', 'max:255'],
-        'subcategory.category_id' => ['required', 'integer'],
-        'subcategory.language_id' => ['required', 'integer'],
+        'subcategory.category_id' => ['required'],
+        'subcategory.language_id' => ['required'],
     ];
 
     public function mount()
