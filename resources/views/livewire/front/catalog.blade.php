@@ -147,7 +147,7 @@
                     </ul>
                 </div>
             </div>
-            <div class="w-full lg:w-3/4 px-3">
+            <div class="w-full lg:w-3/4 px-4">
                 <div class="grid gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 mb-10">
                     @foreach ($this->products as $product)
                         <x-product-card :product="$product" />

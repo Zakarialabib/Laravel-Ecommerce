@@ -50,7 +50,7 @@
                 @endforeach
             </div>
         </div>
-        <div class="grid gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 mb-10">
+        <div class="grid gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 mb-10 px-4">
             @forelse ($this->products as $product)
                 <x-product-card :product="$product" />
             @empty
