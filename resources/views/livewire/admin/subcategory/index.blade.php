@@ -50,7 +50,7 @@
                         {{ $subcategory->name }}
                     </x-table.td>
                     <x-table.td>
-                        {{ $subcategory->category->name }}
+                        {{ $subcategory->category?->name }}
                     </x-table.td>
                     <x-table.td>
                         <x-dropdown
