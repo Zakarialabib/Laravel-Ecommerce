@@ -90,49 +90,25 @@ class Categories extends Component
 
     public function render(): View|Factory
     {
-        switch ($this->sorting) {
-            case 'name':
-                $this->sortBy = 'name';
-                $this->sortDirection = 'asc';
-
-                break;
-            case 'name-desc':
-                $this->sortBy = 'name';
-                $this->sortDirection = 'desc';
-
-                break;
-            case 'price':
-                $this->sortBy = 'price';
-                $this->sortDirection = 'asc';
-
-                break;
-            case 'price-desc':
-                $this->sortBy = 'price';
-                $this->sortDirection = 'desc';
-
-                break;
-            case 'date':
-                $this->sortBy = 'created_at';
-                $this->sortDirection = 'asc';
-
-                break;
-            case 'date-desc':
-                $this->sortBy = 'created_at';
-                $this->sortDirection = 'desc';
-
-                break;
-            default:
-                $this->sortBy = 'id';
-                $this->sortDirection = 'desc';
-
-                break;
+        if ($this->sorting == 'name') {
+            $products = Product::where('status', 1)->orderBy('name', 'asc')->paginate($this->perPage);
+        } elseif ($this->sorting == 'name-desc') {
+            $products = Product::where('status', 1)->orderBy('name', 'desc')->paginate($this->perPage);
+        } elseif ($this->sorting == 'price') {
+            $products = Product::where('status', 1)->orderBy('price', 'asc')->paginate($this->perPage);
+        } elseif ($this->sorting == 'price-desc') {
+            $products = Product::where('status', 1)->orderBy('price', 'desc')->paginate($this->perPage);
+        } elseif ($this->sorting == 'date') {
+            $products = Product::where('status', 1)->orderBy('created_at', 'asc')->paginate($this->perPage);
+        } elseif ($this->sorting == 'date-desc') {
+            $products = Product::where('status', 1)->orderBy('created_at', 'desc')->paginate($this->perPage);
+        } elseif ($this->category_id) {
+            $products = Product::where('status', 1)->where('category_id', $this->category_id)->paginate($this->perPage);
+        } elseif ($this->category_id) {
+            $products = Product::where('status', 1)->where('category_id', $this->subcategory_id)->paginate($this->perPage);
+        } else {
+            $products = Product::where('status', 1)->paginate($this->perPage);
         }
-
-        $products =  Product::where('status', 1)
-            ->where('category_id', $this->category_id)
-            ->where('subcategory_id', $this->subcategory_id)
-            ->orderBy($this->sortBy, $this->sortDirection)
-            ->paginate($this->perPage);
 
         return view('livewire.front.categories', compact('products'));
     }

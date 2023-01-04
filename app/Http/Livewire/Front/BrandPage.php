@@ -50,7 +50,9 @@ class BrandPage extends Component
     {
         // where status is true
         $brand_products = Product::where('status', 1)
-            ->where('brand_id', $this->brand->id)
+            ->when($this->brand_id, function ($query) {
+                return $query->where('brand_id', $this->brand_id);
+            })
             ->where('category_id', $this->category_id)
             ->where('subcategory_id', $this->subcategory_id)
             ->paginate($this->perPage);
