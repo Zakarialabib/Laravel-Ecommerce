@@ -66,12 +66,10 @@ class Create extends Component
         $this->validate();
 
         if ($this->photo) {
-            $imageName = Str::slug($this->slider->title).'.'.$this->photo->extension();
+            $imageName = Str::slug($this->slider->title).'-'.Str::random(5).'.'.$this->photo->extension();
             $this->photo->storeAs('sliders', $imageName);
             $this->slider->photo = $imageName;
         }
-
-        // $this->slider->details = $this->details;
 
         $this->slider->save();
 
