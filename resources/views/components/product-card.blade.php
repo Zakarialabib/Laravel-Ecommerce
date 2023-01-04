@@ -9,12 +9,12 @@
             <meta itemprop="image" content="{{ asset('images/products/' . $product->image) }}">
         </a>
         <div class="absolute top-0 right-0 mb-3 p-2 bg-orange-500 rounded-bl-lg">
-            <span class="text-white font-bold text-sm">{{ $product->price }}DH</span>
+            <span class="text-white font-bold text-sm">{{ $product->price }} DH</span>
         </div>
         @if ($product->old_price)
             <div class="absolute top-0 left-0 p-2 bg-red-600 rounded-br-lg">
                 <span class="text-white font-bold text-md">
-                    <small>{{ $product->old_price }} </small> - {{ $product->discount }}% 
+                    <small>{{ $product->old_price }} DH </small> - {{ $product->discount }}% 
                 </span>
             </div>
         @endif

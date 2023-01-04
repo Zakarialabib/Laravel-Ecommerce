@@ -42,7 +42,7 @@ class BrandPage extends Component
     public function mount($brand)
     {
         $this->brand = $brand;
-        $this->perPage = 15;
+        $this->perPage = 25;
         $this->paginationOptions = [25, 50, 100];
     }
 

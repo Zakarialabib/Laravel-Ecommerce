@@ -84,7 +84,7 @@ class Brands extends Component
         $this->sorting = 'default';
         $this->sortBy = 'id';
         $this->sortDirection = 'desc';
-        $this->perPage = 15;
+        $this->perPage = 25;
         $this->paginationOptions = [25, 50, 100];
         $this->orderable = (new Product())->orderable;
     }
