@@ -3,12 +3,19 @@
 <div class="mb-5 bg-white rounded-lg shadow-2xl">
     <div class="relative text-center">
         <a href="{{ route('front.product', $product->slug) }}">
-            <img class="w-full h-[300] object-cover rounded-t-lg py-5"
+            <img class="w-full h-[300px] object-cover rounded-t-lg py-5"
                 src="{{ asset('images/products/' . $product->image) }}" onerror="this.onerror=null; this.remove();"
                 alt="{{ $product->name }}">
             <meta itemprop="image" content="{{ asset('images/products/' . $product->image) }}">
         </a>
     </div>
+    @if ($product->old_price)
+        <div class="absolute top-0 right-0 mb-3 p-2 bg-red-500 rounded-bl-lg">
+            <span class="text-white font-bold text-sm">
+                - {{ $product->discount }}%
+            </span>
+        </div>
+    @endif
     <div class="px-2 pb-4 pt-10 text-center">
         <a href="{{ route('front.product', $product->slug) }}"
             class="block mb-2 text-md font-bold font-heading text-orange-500 hover:text-orange-400">
@@ -26,9 +33,6 @@
         @endif
         <span class="text-orange-700 hover:text-orange-900 font-bold text-md mt-2">{{ $product->price }} DH</span>
         @if ($product->old_price)
-            <span class="bg-red-500 rounded-br-lg font-bold text-sm text-white">
-                - {{ $product->discount }}%
-            </span>
             <p class="text-black font-bold text-sm block my-2">
                 <small><del>{{ $product->old_price }} DH </del></small>
             </p>
