@@ -8,16 +8,6 @@
                 alt="{{ $product->name }}">
             <meta itemprop="image" content="{{ asset('images/products/' . $product->image) }}">
         </a>
-        <div class="absolute button-0 right-0 p-2 bg-orange-500 rounded-bl-lg">
-            <span class="text-white font-bold text-sm">{{ $product->price }} DH</span>
-        </div>
-        @if ($product->old_price)
-            <div class="absolute button-0 left-0 p-2 bg-red-600 rounded-br-lg">
-                <span class="text-white font-bold text-md">
-                    <small>{{ $product->old_price }} DH </small> - {{ $product->discount }}% 
-                </span>
-            </div>
-        @endif
     </div>
     <div class="px-2 pb-4 pt-10 text-center">
         <a href="{{ route('front.product', $product->slug) }}"
@@ -34,29 +24,38 @@
                     {{ __('Out of Stock') }}</span>
             </div>
         @endif
-        @if($product?->reviews)
-        <div class="flex justify-center mb-4">
-            <div class="flex items-center">
-                @for ($i = 0; $i < 5; $i++)
-                    @if ($i < $product->reviews->avg('rating'))
-                        <svg class="w-4 h-4 text-orange-500 fill-current" xmlns="http://www.w3.org/2000/svg"
-                            viewBox="0 0 24 24">
-                            <path
-                                d="M12 17.27l-5.18 2.73 1-5.81-4.24-3.63 5.88-.49L12 6.11l2.45 5.51 5.88.49-4.24 3.63 1 5.81z" />
-                        </svg>
-                    @else
-                        <svg class="w-4 h-4 text-orange-500 fill-current" xmlns="http://www.w3.org/2000/svg"
-                            viewBox="0 0 24 24">
-                            <path
-                                d="M12 17.27l-5.18 2.73 1-5.81-4.24-3.63 5.88-.49L12 6.11l2.45 5.51 5.88.49-4.24 3.63 1 5.81z" />
-                        </svg>
-                    @endif
-                @endfor
-            </div>
-            <span class="ml-2 text-sm text-gray-500 font-body">
-                {{ $product->reviews->count() }} {{ __('Reviews') }}
+        <span class="text-orange-700 hover:text-orange-900 font-bold text-sm">{{ $product->price }} DH</span>
+        @if ($product->old_price)
+            <span class="absolute button-0 left-0 p-2 bg-red-600 rounded-br-lg font-bold text-sm">
+                - {{ $product->discount }}%
             </span>
-        </div>
+            <p class="text-black font-bold text-sm block my-2">
+                <small><del>{{ $product->old_price }} DH </del></small>
+            </p>
+        @endif
+        @if ($product?->reviews)
+            <div class="flex justify-center my-4">
+                <div class="flex items-center">
+                    @for ($i = 0; $i < 5; $i++)
+                        @if ($i < $product->reviews->avg('rating'))
+                            <svg class="w-4 h-4 text-orange-500 fill-current" xmlns="http://www.w3.org/2000/svg"
+                                viewBox="0 0 24 24">
+                                <path
+                                    d="M12 17.27l-5.18 2.73 1-5.81-4.24-3.63 5.88-.49L12 6.11l2.45 5.51 5.88.49-4.24 3.63 1 5.81z" />
+                            </svg>
+                        @else
+                            <svg class="w-4 h-4 text-orange-500 fill-current" xmlns="http://www.w3.org/2000/svg"
+                                viewBox="0 0 24 24">
+                                <path
+                                    d="M12 17.27l-5.18 2.73 1-5.81-4.24-3.63 5.88-.49L12 6.11l2.45 5.51 5.88.49-4.24 3.63 1 5.81z" />
+                            </svg>
+                        @endif
+                    @endfor
+                </div>
+                <span class="ml-2 text-sm text-gray-500 font-body">
+                    {{ $product->reviews->count() }} {{ __('Reviews') }}
+                </span>
+            </div>
         @endif
         <div class="flex justify-center">
             <livewire:front.add-to-cart :product="$product" :key="$product->id" />
