@@ -36,7 +36,7 @@
         </div>
 
         <div x-data="{ activeTabs: 'featuredProducts' }" class="mx-auto px-4">
-            <div class="grid gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 mb-10">
+            <div class="grid gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 mb-10">
                 <div class="py-6 px-10 sm:py-2 sm:px-5 text-left font-bold text-gray-500 uppercase border-b-2 border-gray-100 hover:border-gray-500 focus:outline-none focus:border-gray-500 cursor-pointer"
                     @click="activeTabs = 'featuredProducts'">
                     <h4 class="inline-block" :class="activeTabs === 'featuredProducts' ? 'text-orange-400' : ''">

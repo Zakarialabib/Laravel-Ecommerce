@@ -80,8 +80,12 @@
             </button>
         @endif
 
-        <div class="self-center mr-5 xl:hidden">
+        <div class="flex items-center justify-end mr-5 space-x-2 xl:hidden self-center w-1/2">
+            
+            <livewire:front.search-box />
+
             <livewire:front.cart-count />
+
         </div>
 
         <a class="navbar-burger self-center mr-8 xl:hidden" href="#">

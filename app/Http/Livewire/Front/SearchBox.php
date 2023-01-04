@@ -13,20 +13,49 @@ class SearchBox extends Component
 {
     public $listeners = ['updatedSearch' => 'search'];
 
-    public $search = '';
+    public $search = null;
 
     public $results = [];
 
-    public function mount($search = null)
-    {
-        $this->search = $search;
-        $this->results = Product::where('name', 'like', '%'.$this->search.'%')->get();
-    }
+    public $searchBox = false;
+    
+    protected $queryString = [
+        'search' => [
+            'except' => '',
+            'as'     => 'q',
+        ], 
+    ];
+
+    // public function mount($search = null)
+    // {
+    //     $this->search = $search;
+    // }
 
     public function updatedSearch()
     {
-        $this->results = Product::where('name', 'like', '%'.$this->search.'%')->get();
+        if (strlen($this->search) > 3) {
+            $this->results = Product::where('status' , 1)
+                ->where('name', 'like', '%' . $this->search . '%')
+                ->orWhere('description', 'like', '%' . $this->search . '%')
+                ->limit(5)
+                ->get();
+        } else {
+            $this->results = [];
+        }
     }
+
+    public function hideSearchResults()
+    {
+        $this->searchBox = false;
+        $this->clearSearch();
+    }
+
+    public function clearSearch()
+    {
+        $this->search = '';
+        $this->results = [];
+    }
+
 
     public function render(): View|Factory
     {

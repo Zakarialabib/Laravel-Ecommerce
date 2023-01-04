@@ -19,9 +19,9 @@
             </div>
         @endif
     </div>
-    <div class="p-4 text-center">
+    <div class="px-2 py-4 text-center">
         <a href="{{ route('front.product', $product->slug) }}"
-            class="block mb-2 text-lg font-bold font-heading text-orange-500 hover:text-orange-400">
+            class="block mb-2 text-md font-bold font-heading text-orange-500 hover:text-orange-400">
             {{ Str::limit($product->name, 35) }}
         </a>
         @if ($product->status == 1)

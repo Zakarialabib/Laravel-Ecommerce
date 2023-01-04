@@ -95,7 +95,6 @@
             <div class="hidden lg:block w-1/4 px-3">
                 <div class="mb-6 p-4 bg-gray-50">
                     <h3 class="mb-8 text-2xl font-bold font-heading">{{ __('Category') }}</h3>
-                    {{-- make tree categories and subcategories  --}}
                     <ul>
                         @foreach ($this->categories as $category)
                             <li class="mx-2 mb-2">
@@ -149,7 +148,7 @@
                 </div>
             </div>
             <div class="w-full lg:w-3/4 px-3">
-                <div class="grid gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 mb-10">
+                <div class="grid gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 mb-10">
                     @foreach ($this->products as $product)
                         <x-product-card :product="$product" />
                     @endforeach
