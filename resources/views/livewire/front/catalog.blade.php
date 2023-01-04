@@ -3,7 +3,7 @@
         <div class="mb-10 items-center justify-between bg-white py-4">
             <div class="w-full lg:mb-4 px-4 flex flex-wrap justify-between">
                 <h2 class="lg:text-2xl sm:text-xl font-bold">
-                    {{ $products->count() }} {{ __('Watches') }}
+                    {{ $products->where('status', 1)->count() }} {{ __('Watches') }}
                 </h2>
                 <div class="w-full sm:w-auto">
                     <select
@@ -38,7 +38,7 @@
                                     <li class="w-1/2 px-2 mb-2">
                                         <x-button type="button" wire:click="filterProductCategories({{ $category->id }})"
                                             dangerOutline>
-                                            {{ $category->name }} <small> ({{ $category->products->count() }})</small>
+                                            {{ $category->name }} <small> ({{ $category->products->where('status', 1)->count() }})</small>
                                         </x-button>
                                     </li>
                                 @endforeach
@@ -48,7 +48,7 @@
                                         <x-button type="button"
                                             wire:click="filterProductSubcategories({{ $subcategory->id }})" dangerOutline>
                                             {{ $subcategory->name }} <small>
-                                                ({{ $subcategory->products->count() }})
+                                                ({{ $subcategory->products->where('status', 1)->count() }})
                                             </small>
                                         </x-button>
                                     </li>
@@ -83,7 +83,7 @@
                                     <div class="w-1/2 px-2 mb-2">
                                         <x-button type="button" wire:click="filterProductBrands({{ $brand->id }})"
                                             warningOutline>
-                                            {{ $brand->name }} <small> ({{ $brand->products->count() }})</small>
+                                            {{ $brand->name }} <small> ({{ $brand->products->where('status', 1)->count() }})</small>
                                         </x-button>
                                     </div>
                                 @endforeach
@@ -100,7 +100,7 @@
                             <li class="mx-2 mb-2">
                                 <button type="button" wire:click="filterProductCategories({{ $category->id }})">
                                     <span class="inline-block px-4 py-2 text-sm font-bold font-heading text-blue-300">
-                                        {{ $category->name }} <small> ({{ $category->products->count() }})</small>
+                                        {{ $category->name }} <small> ({{ $category->products->where('status', 1)->count() }})</small>
                                     </span>
                                 </button>
                             </li>
@@ -110,7 +110,7 @@
                                 <button type="button" wire:click="filterProductSubcategories({{ $subcategory->id }})">
                                     <span class="inline-block px-4 py-2 text-sm font-bold font-heading text-blue-300">
                                         {{ $subcategory->name }} <small>
-                                            ({{ $subcategory->products->count() }})
+                                            ({{ $subcategory->products->where('status', 1)->count() }})
                                         </small>
                                     </span>
                                 </button>

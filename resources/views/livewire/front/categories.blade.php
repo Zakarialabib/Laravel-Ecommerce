@@ -5,7 +5,7 @@
         <div class="mb-10 items-center justify-between bg-white py-4">
             <div class="w-full lg:mb-4 px-4 flex flex-wrap justify-between">
                 <h2 class="lg:text-2xl sm:text-xl font-bold">
-                    {{ $products->count() }} {{ __('Watches') }}
+                    {{ $products->where('status', 1)->count() }} {{ __('Watches') }}
                 </h2>
                 <div class="w-full sm:w-auto">
                     <select
@@ -31,14 +31,14 @@
                 @foreach ($this->categories as $category)
                     <x-button type="button" blackOutline class="mx-2"
                         wire:click="filterProductCategories({{ $category->id }})">
-                        {{ $category->name }} <small> ({{ $category->products->count() }})</small>
+                        {{ $category->name }} <small> ({{ $category->products->where('status', 1)->count() }})</small>
                     </x-button>
                 @endforeach
 
                 @foreach ($this->subcategories as $subcategory)
                     <x-button type="button" blackOutline class="mx-2"
                         wire:click="filterProductSubcategories({{ $subcategory->id }})">
-                        {{ $subcategory->name }} <small> ({{ $subcategory->products->count() }})</small>
+                        {{ $subcategory->name }} <small> ({{ $subcategory->products->where('status', 1)->count() }})</small>
                     </x-button>
                 @endforeach
             </div>

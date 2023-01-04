@@ -129,12 +129,8 @@ class Categories extends Component
         }
 
         $products =  Product::where('status', 1)
-            ->when($this->category_id, function ($query) {
-                return $query->where('category_id', $this->category_id);
-            })
-            ->when($this->subcategory_id, function ($query) {
-                return $query->where('subcategory_id', $this->subcategory_id);
-            })
+            ->where('category_id', $this->category_id)
+            ->where('subcategory_id', $this->subcategory_id)
             ->orderBy($this->sortBy, $this->sortDirection)
             ->paginate($this->perPage);
 
