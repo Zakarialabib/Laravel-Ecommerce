@@ -97,26 +97,6 @@ class Catalog extends Component
 
     public function render(): View|Factory
     {
-        return view('livewire.front.catalog');
-    }
-
-    public function getCategoriesProperty()
-    {
-        return Category::where('status', 1)->with('subcategories')->get();
-    }
-
-    public function getSubcategoriesProperty()
-    {
-        return Subcategory::where('status', 1)->get();
-    }
-
-    public function getBrandsProperty()
-    {
-        return Brand::select('id', 'name', 'image', 'featured_image')->get();
-    }
-
-    public function getProductsProperty()
-    {
         switch ($this->sorting) {
             case 'name':
                 $this->sortBy = 'name';
@@ -155,7 +135,7 @@ class Catalog extends Component
                 break;
         }
 
-        return Product::where('status', 1)
+        $products =    Product::where('status', 1)
             ->when($this->category_id, function ($query) {
                 return $query->where('category_id', $this->category_id);
             })
@@ -167,5 +147,24 @@ class Catalog extends Component
             })
             ->orderBy($this->sortBy, $this->sortDirection)
             ->paginate($this->perPage);
+
+        return view('livewire.front.catalog', compact('products'));
     }
+
+    public function getCategoriesProperty()
+    {
+        return Category::where('status', 1)->with('subcategories')->get();
+    }
+
+    public function getSubcategoriesProperty()
+    {
+        return Subcategory::where('status', 1)->get();
+    }
+
+    public function getBrandsProperty()
+    {
+        return Brand::select('id', 'name', 'image', 'featured_image')->get();
+    }
+
+   
 }

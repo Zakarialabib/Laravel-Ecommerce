@@ -3,7 +3,7 @@
         <div class="mb-10 items-center justify-between bg-white py-4">
             <div class="w-full lg:mb-4 px-4 flex flex-wrap justify-between">
                 <h2 class="lg:text-2xl sm:text-xl font-bold">
-                    {{ $this->products->count() }} {{ __('Watches') }}
+                    {{ $products->count() }} {{ __('Watches') }}
                 </h2>
                 <div class="w-full sm:w-auto">
                     <select
@@ -149,12 +149,12 @@
             </div>
             <div class="w-full lg:w-3/4 px-4">
                 <div class="grid gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 mb-10">
-                    @foreach ($this->products as $product)
+                    @foreach ($products as $product)
                         <x-product-card :product="$product" />
                     @endforeach
                 </div>
                 <div class="text-center">
-                    {{ $this->products->links() }}
+                    {{ $products->links() }}
                 </div>
             </div>
         </div>

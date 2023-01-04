@@ -91,11 +91,6 @@ class Brands extends Component
 
     public function render(): View|Factory
     {
-        return view('livewire.front.brands');
-    }
-
-    public function getProductsProperty()
-    {
         switch ($this->sorting) {
             case 'name':
                 $this->sortBy = 'name';
@@ -134,18 +129,20 @@ class Brands extends Component
                 break;
         }
 
-        return Product::where('status', 1)
-            ->when($this->brand_id, function ($query) {
-                $query->where('brand_id', $this->brand_id);
-            })
-            ->when($this->category_id, function ($query) {
-                return $query->where('category_id', $this->category_id);
-            })
-            ->when($this->subcategory_id, function ($query) {
-                return $query->where('subcategory_id', $this->subcategory_id);
-            })
-            ->orderBy($this->sortBy, $this->sortDirection)
-            ->paginate($this->perPage);
+        $products = Product::where('status', 1)
+        ->when($this->brand_id, function ($query) {
+            $query->where('brand_id', $this->brand_id);
+        })
+        ->when($this->category_id, function ($query) {
+            return $query->where('category_id', $this->category_id);
+        })
+        ->when($this->subcategory_id, function ($query) {
+            return $query->where('subcategory_id', $this->subcategory_id);
+        })
+        ->orderBy($this->sortBy, $this->sortDirection)
+        ->paginate($this->perPage);
+
+        return view('livewire.front.brands', compact('products'));
     }
 
     public function getBrandsProperty()

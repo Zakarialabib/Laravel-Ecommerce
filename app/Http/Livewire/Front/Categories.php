@@ -78,7 +78,17 @@ class Categories extends Component
         $this->orderable = (new Product())->orderable;
     }
 
-    public function getProductsProperty()
+    public function getCategoriesProperty()
+    {
+        return Category::where('status', 1)->with('subcategories')->get();
+    }
+
+    public function getSubcategoriesProperty()
+    {
+        return Subcategory::where('status', 1)->get();
+    }
+
+    public function render(): View|Factory
     {
         switch ($this->sorting) {
             case 'name':
@@ -118,7 +128,7 @@ class Categories extends Component
                 break;
         }
 
-        return Product::where('status', 1)
+        $products =  Product::where('status', 1)
             ->when($this->category_id, function ($query) {
                 return $query->where('category_id', $this->category_id);
             })
@@ -127,20 +137,7 @@ class Categories extends Component
             })
             ->orderBy($this->sortBy, $this->sortDirection)
             ->paginate($this->perPage);
-    }
 
-    public function getCategoriesProperty()
-    {
-        return Category::where('status', 1)->with('subcategories')->get();
-    }
-
-    public function getSubcategoriesProperty()
-    {
-        return Subcategory::where('status', 1)->get();
-    }
-
-    public function render(): View|Factory
-    {
-        return view('livewire.front.categories');
+        return view('livewire.front.categories', compact('products'));
     }
 }
