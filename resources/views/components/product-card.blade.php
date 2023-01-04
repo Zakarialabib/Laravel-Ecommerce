@@ -8,14 +8,15 @@
                 alt="{{ $product->name }}">
             <meta itemprop="image" content="{{ asset('images/products/' . $product->image) }}">
         </a>
+
+        @if ($product->old_price && $product->discount != 0)
+            <div class="absolute top-0 right-0 mb-3 p-2 bg-red-500 rounded-bl-lg">
+                <span class="text-white font-bold text-sm">
+                    - {{ $product->discount }}%
+                </span>
+            </div>
+        @endif
     </div>
-    @if ($product->old_price)
-        <div class="absolute top-0 right-0 mb-3 p-2 bg-red-500 rounded-bl-lg">
-            <span class="text-white font-bold text-sm">
-                - {{ $product->discount }}%
-            </span>
-        </div>
-    @endif
     <div class="px-2 pb-4 pt-10 text-center">
         <a href="{{ route('front.product', $product->slug) }}"
             class="block mb-2 text-md font-bold font-heading text-orange-500 hover:text-orange-400">
@@ -32,9 +33,9 @@
             </div>
         @endif
         <span class="text-orange-700 hover:text-orange-900 font-bold text-md mt-2">{{ $product->price }} DH</span>
-        @if ($product->old_price)
+        @if ($product->old_price && $product->discount != 0)
             <p class="text-black font-bold text-sm block my-2">
-                <small><del>{{ $product->old_price }} DH </del></small>
+                <del>{{ $product->old_price }} DH </del>
             </p>
         @endif
         @if ($product?->reviews)

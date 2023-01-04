@@ -61,13 +61,13 @@
                                 <span>
                                     {{ $product->price }}DH
                                 </span>
-                                @if ($product->old_price)
+                                @if ($product->old_price && $product->discount != 0)
                                     <span class="bg-red-500 text-white rounded-xl px-4 py-2 text-sm ml-4">
                                         -{{ $product->discount }}%
                                     </span>
                                 @endif
                             </p>
-                            @if ($product->old_price)
+                            @if ($product->old_price && $product->discount != 0)
                                 <p class="mb-8 text-blue-300">
                                     <span class="font-normal text-base text-gray-400 line-through">
                                         {{ $product->old_price }}DH

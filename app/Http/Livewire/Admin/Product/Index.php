@@ -34,9 +34,11 @@ class Index extends Component
 
     public $promoAllProducts = false;
 
-    public $percentage;
+    public $percentage = null;
 
-    public $copyPriceToOldPrice;
+    public $copyPriceToOldPrice = false;
+    
+    public $copyOldPriceToPrice = false;
 
     public $percentageMethod;
 
@@ -196,11 +198,14 @@ class Index extends Component
 
          foreach ($products as $product) {
              if ($this->copyPriceToOldPrice) {
-                 $product->old_price = $product->price;
+                $product->old_price = $product->price;
+            } elseif ($this->copyOldPriceToPrice) {
+                $product->price = $product->old_price;
+                $product->old_price = null;
              } elseif ($this->percentageMethod == '+') {
-                 $product->price = $product->price * (1 + $this->percentage / 100);
+                $product->price = round(floatval($product->price) * (1 + $this->percentage / 100));
              } else {
-                 $product->price = $product->price * (1 - $this->percentage / 100);
+                $product->price = round(floatval($product->price) * (1 - $this->percentage / 100));
              }
              $product->save();
          }
@@ -212,6 +217,7 @@ class Index extends Component
          $this->promoAllProducts = false;
 
          $this->copyPriceToOldPrice = '';
+         $this->copyOldPriceToPrice = '';
          $this->percentage = '';
      }
 }

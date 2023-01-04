@@ -19,6 +19,7 @@ class Index extends Component
     public function getFeaturedProductsProperty()
     {
         return Product::where('featured', 1)
+            ->where('status', 1)
             ->inRandomOrder()
             ->limit(4)
             ->get();
@@ -27,6 +28,7 @@ class Index extends Component
     public function getBestOffersProperty()
     {
         return Product::where('best', 1)
+            ->where('status', 1)
             ->inRandomOrder()
             ->limit(4)
             ->get();
@@ -35,6 +37,7 @@ class Index extends Component
     public function getHotProductsProperty()
     {
         return Product::where('hot', 1)
+            ->where('status', 1)
             ->inRandomOrder()
             ->limit(4)
             ->get();

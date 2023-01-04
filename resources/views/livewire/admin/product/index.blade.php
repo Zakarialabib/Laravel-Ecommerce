@@ -16,7 +16,7 @@
                 </x-button>
 
                 <x-button primary type="button" wire:click="promoAllProducts" class="ml-3">
-                    {{ __('Promotion for selected products') }}
+                    <i class="fas fa-percent"></i>
                 </x-button>
             @endif
 
@@ -51,7 +51,7 @@
                 {{ __('Category') }}
             </x-table.th>
             <x-table.th sortable wire:click="sortBy('price')" :direction="$sorts['price'] ?? null">
-                {{ __('Price') }}
+                {{ __('Price') }} / {{ __('Old Price') }}
             </x-table.th>
             <x-table.th>
                 {{ __('Image') }}
@@ -86,7 +86,10 @@
                         {{ $product?->category->name }}
                     </x-table.td>
                     <x-table.td>
-                        {{ $product->price }}DH / {{ $product->old_price }}DH
+                        {{ $product->price }}DH /
+                        @if ($product->old_price)
+                            {{ $product->old_price }}DH
+                        @endif
                     </x-table.td>
                     <x-table.td>
                         <x-button type="button" success wire:click="$emit('imageModal', {{ $product->id }})"
@@ -177,22 +180,29 @@
         </x-slot>
         <x-slot name="content">
             <form wire:submit.prevent="updateSelected">
-                <div class="w-full">
+                <div class="w-full mx-auto">
+                    <div class="flex flex-wrap px-4">
 
-                    <div class="w-full px-3 py-2">
-                        <x-label for="percentage" :value="__('Percentage')" />
-                        <x-input id="percentage" class="block mt-1 w-full" type="text" name="percentage"
-                            wire:model="percentage" />
-                        <select name="percentageMethod" wire:model="percentageMethod">
-                            <option value="-">{{ __('Reduce') }} ( - )</option>
-                            <option value="+">{{ __('Increase') }} ( + )</option>
-                        </select>
-                        <x-input-error :messages="$errors->get('percentage')" for="condition" class="mt-2" />
-                    </div>
+                        <div class="w-1/3 px-3 py-2">
+                            <x-label for="percentage" :value="__('Percentage')" />
+                            <x-input id="percentage" class="block mt-1 w-full" type="text" name="percentage"
+                                wire:model="percentage" />
+                            <select name="percentageMethod" wire:model="percentageMethod"
+                                class="block bg-white text-gray-700 rounded border border-gray-300 mb-1 text-sm w-full focus:shadow-outline-blue focus:border-blue-500">
+                                <option value="-">{{ __('Reduce') }} ( - )</option>
+                                <option value="+">{{ __('Increase') }} ( + )</option>
+                            </select>
+                            <x-input-error :messages="$errors->get('percentage')" for="condition" class="mt-2" />
+                        </div>
 
-                    <div class="w-full px-3 py-2">
-                        <x-label for="percentage" :value="__('Copy price to old price')" />
-                        <input type="checkbox" wire:model="copyPriceToOldPrice" id="copy">
+                        <div class="w-1/3 px-3 py-2">
+                            <x-label for="percentage" :value="__('Copy price to old price')" />
+                            <input type="checkbox" wire:model="copyPriceToOldPrice" id="copy">
+                        </div>
+                        <div class="w-1/3 px-3 py-2">
+                            <x-label for="percentage" :value="__('Copy old price to price')" />
+                            <input type="checkbox" wire:model="copyOldPriceToPrice" id="copy">
+                        </div>
                     </div>
 
                     <div class="w-full flex justify-center px-3">

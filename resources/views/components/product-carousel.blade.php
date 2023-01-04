@@ -35,7 +35,7 @@
         <div class="swiper-button-next"></div>
     </div>
     <!-- Thumbnail swiper -->
-    <div class="swiper myThumbs">
+    <div class="swiper myThumbs my-4 h-48 px-4">
         <div class="swiper-wrapper">
             <!-- Slides -->
             <div class="swiper-slide">
@@ -79,7 +79,7 @@
                     prevEl: '.swiper-button-prev',
                 },
             });
-            // Initialize thumbnail swiper
+
             var thumbs = new Swiper(".myThumbs", {
                 slidesPerView: 3,
                 spaceBetween: 10,
@@ -91,6 +91,12 @@
             // Sync main swiper with thumbnail swiper
             swiper.controller.control = thumbs;
             thumbs.controller.control = swiper;
+
+            // Add click event listener to thumbnail images
+            thumbs.on('click', function (e) {
+            // Navigate main swiper to clicked thumbnail
+            swiper.slideTo(thumbs.clickedIndex);
+            });
         </script>
     @endpush
 
