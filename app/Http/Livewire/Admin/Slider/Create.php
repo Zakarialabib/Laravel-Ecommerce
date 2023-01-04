@@ -70,7 +70,7 @@ class Create extends Component
         if ($this->photo) {
             $imageName = Str::slug($this->slider->title).'-'.Str::random(5).'.'.$this->photo->extension();
             
-            $img = Image::make($this->image->getRealPath())->encode('webp', 85);
+            $img = Image::make($this->photo->getRealPath())->encode('webp', 85);
 
             $img->stream();
 
