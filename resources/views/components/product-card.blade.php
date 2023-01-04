@@ -3,7 +3,7 @@
 <div class="mb-5 bg-white rounded-lg shadow-2xl">
     <div class="relative text-center">
         <a href="{{ route('front.product', $product->slug) }}">
-            <img class="w-full h-auto object-cover rounded-t-lg py-5"
+            <img class="w-full h-[300] object-cover rounded-t-lg py-5"
                 src="{{ asset('images/products/' . $product->image) }}" onerror="this.onerror=null; this.remove();"
                 alt="{{ $product->name }}">
             <meta itemprop="image" content="{{ asset('images/products/' . $product->image) }}">
@@ -24,9 +24,9 @@
                     {{ __('Out of Stock') }}</span>
             </div>
         @endif
-        <span class="text-orange-700 hover:text-orange-900 font-bold text-sm">{{ $product->price }} DH</span>
+        <span class="text-orange-700 hover:text-orange-900 font-bold text-md mt-2">{{ $product->price }} DH</span>
         @if ($product->old_price)
-            <span class="absolute button-0 left-0 p-2 bg-red-600 rounded-br-lg font-bold text-sm">
+            <span class="bg-red-500 rounded-br-lg font-bold text-sm text-white">
                 - {{ $product->discount }}%
             </span>
             <p class="text-black font-bold text-sm block my-2">
