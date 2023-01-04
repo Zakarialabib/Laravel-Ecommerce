@@ -146,9 +146,13 @@
                 <div class="flex flex-wrap">
                     <div class="lg:w-1/2 sm:w-full px-2">
                         <x-label for="language_id" :value="__('Language')" />
-                        <x-select-list
+                        <select
                             class="block bg-white text-gray-700 rounded border border-gray-300 mb-1 text-sm w-full focus:shadow-outline-blue focus:border-blue-500"
-                            id="language_id" name="language_id" wire:model="section.language_id" :options="$this->listsForFields['languages']" />
+                            id="language_id" name="language_id" wire:model="section.language_id">
+                            @foreach ($this->languages as $language)
+                                <option value="{{ $language->id }}">{{ $language->name }}</option>
+                            @endforeach
+                        </select>
                         <x-input-error :messages="$errors->get('section.language_id')" for="section.language_id" class="mt-2" />
                     </div>
 
@@ -183,7 +187,7 @@
                             placeholder="{{ __('Subtitle') }}" value="{{ old('subtitle') }}">
                         <x-input-error :messages="$errors->get('section.subtitle')" for="section.subtitle" class="mt-2" />
                     </div>
-                    
+
                     <div class="w-full px-2">
                         <x-label for="description" :value="__('Description')" />
                         <x-input.textarea wire:model.lazy="section.description" id="description" />

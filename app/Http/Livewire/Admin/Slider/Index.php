@@ -16,6 +16,7 @@ use Illuminate\Contracts\View\View;
 use Illuminate\Contracts\View\Factory;
 use Intervention\Image\Facades\Image;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Collection;
 
 class Index extends Component
 {
@@ -48,8 +49,6 @@ class Index extends Component
     public array $selected = [];
 
     public array $paginationOptions;
-
-    public array $listsForFields = [];
 
     protected $queryString = [
         'search'        => [
@@ -100,7 +99,6 @@ class Index extends Component
         $this->perPage = 25;
         $this->paginationOptions = [25, 50, 100];
         $this->orderable = (new Slider())->orderable;
-        $this->initListsForFields();
     }
 
     public function render(): View|Factory
@@ -184,8 +182,8 @@ class Index extends Component
         $this->alert('success', __('Slider deleted successfully.'));
     }
 
-    protected function initListsForFields(): void
+    public function getLanguagesProperty(): Collection
     {
-        $this->listsForFields['languages'] = Language::pluck('name', 'id')->toArray();
+        return Language::select('name', 'id')->get();
     }
 }

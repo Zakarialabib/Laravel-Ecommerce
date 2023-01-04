@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Http\Livewire\Admin\Slider;
 
 use App\Models\Language;
+use App\Models\Slider;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Str;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
@@ -14,6 +15,7 @@ use Illuminate\Contracts\View\View;
 use Illuminate\Contracts\View\Factory;
 use Intervention\Image\Facades\Image;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Collection;
 
 class Create extends Component
 {
@@ -30,11 +32,9 @@ class Create extends Component
         'createSlider',
     ];
 
-    public array $listsForFields = [];
-
-    public function mount()
+    public function mount(Slider $slider)
     {
-        $this->initListsForFields();
+        $this->slider = $slider;
     }
 
     public array $rules = [
@@ -45,6 +45,7 @@ class Create extends Component
         'slider.language_id'   => ['nullable'],
         'slider.bg_color'      => ['nullable'],
         'slider.embeded_video' => ['nullable'],
+        'photo' => ['required'],
     ];
 
     public function render(): View|Factory
@@ -65,7 +66,8 @@ class Create extends Component
 
     public function create()
     {
-        $this->validate();
+        try {
+            $this->validate();
 
         if ($this->photo) {
             $imageName = Str::slug($this->slider->title).'-'.Str::random(5).'.'.$this->photo->extension();
@@ -86,10 +88,15 @@ class Create extends Component
         $this->emit('refreshIndex');
 
         $this->createSlider = false;
+
+        } catch (\Throwable $th) {
+            $this->alert('warning', __('An error happend Slider was not created.'));
+        }
+        
     }
 
-    public function initListsForFields()
+    public function getLanguagesProperty(): Collection
     {
-        $this->listsForFields['languages'] = Language::pluck('name', 'id')->toArray();
+        return Language::select('name', 'id')->get();
     }
 }

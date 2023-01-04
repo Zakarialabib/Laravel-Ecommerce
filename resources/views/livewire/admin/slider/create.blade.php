@@ -20,9 +20,13 @@
                     </div>
                     <div class="xl:w-1/2 md:w-1/2 px-3">
                         <x-label for="language_id" :value="__('Language')" required />
-                        <x-select-list
+                        <select
                             class="block bg-white text-gray-700 rounded border border-gray-300 mb-1 text-sm w-full focus:shadow-outline-blue focus:border-blue-500"
-                            id="language_id" name="language_id" wire:model="slider.language_id" :options="$this->listsForFields['languages']" />
+                            id="language_id" name="language_id" wire:model="slider.language_id">
+                            @foreach ($this->languages as $language)
+                                <option value="{{ $language->id }}">{{ $language->name }}</option>
+                            @endforeach
+                        </select>
                         <x-input-error :messages="$errors->get('slider.language_id')" for="slider.language_id" class="mt-2" />
                     </div>
                     <div class="xl:w-1/2 md:w-1/2 px-3">

@@ -19,7 +19,7 @@
                     {{ __('Promotion for selected products') }}
                 </x-button>
             @endif
-            
+
             @if ($this->selectedCount)
                 <p class="text-sm leading-5">
                     <span class="font-medium">
@@ -83,7 +83,7 @@
                         </a>
                     </x-table.td>
                     <x-table.td>
-                        {{ $product?->category->name }} 
+                        {{ $product?->category->name }}
                     </x-table.td>
                     <x-table.td>
                         {{ $product->price }}DH / {{ $product->old_price }}DH
@@ -108,7 +108,7 @@
                                 </button>
                             </x-slot>
                             <x-slot name="content">
-                                <x-dropdown-link wire:click="highlightModal({{ $product->id }})"
+                                <x-dropdown-link wire:click="$emit('highlightModal',{{ $product->id }})"
                                     wire:loading.attr="disabled">
                                     <i class="fas fa-eye"></i>
                                     {{ __('Highlighted') }}
@@ -148,7 +148,6 @@
 
     <div class="card-body">
         <div class="pt-3">
-
             {{ $products->links() }}
         </div>
     </div>
@@ -161,9 +160,15 @@
     @livewire('admin.product.edit', ['product' => $product])
     <!-- End Edit Modal -->
 
-    <livewire:admin.product.create />
+    <!-- Highlighted Modal -->
+    @livewire('admin.product.highlighted', ['product' => $product])
+    <!-- End Highlighted Modal -->
 
-    {{-- HIGHLIGHT MODAL --}}
+    <!-- Image Modal -->
+    @livewire('admin.product.image', ['product' => $product])
+    <!-- End Image Modal -->
+
+    <livewire:admin.product.create />
 
     <x-modal wire:model="promoAllProducts">
 
@@ -179,8 +184,8 @@
                         <x-input id="percentage" class="block mt-1 w-full" type="text" name="percentage"
                             wire:model="percentage" />
                         <select name="percentageMethod" wire:model="percentageMethod">
-                            <option value="-">{{__('Reduce')}} ( - )</option>
-                            <option value="+">{{__('Increase')}} ( + )</option>
+                            <option value="-">{{ __('Reduce') }} ( - )</option>
+                            <option value="+">{{ __('Increase') }} ( + )</option>
                         </select>
                         <x-input-error :messages="$errors->get('percentage')" for="condition" class="mt-2" />
                     </div>
@@ -199,89 +204,6 @@
             </form>
         </x-slot>
     </x-modal>
-
-    <x-modal wire:model="highlightModal">
-
-        <x-slot name="title">
-            {{ __('Highlight') }}
-        </x-slot>
-        <x-slot name="content">
-            <form wire:submit.prevent="saveHighlight">
-                <div class="flex flex-wrap">
-                    <div class="sm:w-1/2 mb-4 px-2">
-                        <x-label for="featured" :value="__('Featured product')" />
-                        <input id="featured" class="block mt-1 w-full" type="checkbox" name="featured"
-                            wire:model="featured" />
-                        <x-input-error :messages="$errors->get('featured')" for="featured" class="mt-2" />
-                    </div>
-                    <div class="sm:w-1/2 mb-4 px-2">
-                        <x-label for="hot" :value="__('Hot product')" />
-                        <input id="hot" class="block mt-1 w-full" type="checkbox" name="hot"
-                            wire:model="hot" />
-                        <x-input-error :messages="$errors->get('hot')" for="hot" class="mt-2" />
-                    </div>
-                    <div class="sm:w-1/2 mb-4 px-2">
-                        <x-label for="best" :value="__('Best product')" />
-                        <input id="best" class="block mt-1 w-full" type="checkbox" name="best"
-                            wire:model="best" />
-                        <x-input-error :messages="$errors->get('best')" for="best" class="mt-2" />
-                    </div>
-                    <div class="sm:w-1/2 mb-4 px-2">
-                        <x-label for="top" :value="__('Top product')" />
-                        <input id="top" class="block mt-1 w-full" type="checkbox" name="top"
-                            wire:model="top" />
-                        <x-input-error :messages="$errors->get('top')" for="top" class="mt-2" />
-                    </div>
-                    <div class="sm:w-1/2 mb-4 px-2">
-                        <x-label for="latest" :value="__('Latest product')" />
-                        <input id="latest" class="block mt-1 w-full" type="checkbox" name="latest"
-                            wire:model="latest" />
-                        <x-input-error :messages="$errors->get('latest')" for="latest" class="mt-2" />
-                    </div>
-                    <div class="sm:w-1/2 mb-4 px-2">
-                        <x-label for="big" :value="__('Big saving')" />
-                        <input id="big" class="block mt-1 w-full" type="checkbox" name="big"
-                            wire:model="big" />
-                        <x-input-error :messages="$errors->get('big')" for="big" class="mt-2" />
-                    </div>
-                    <div class="sm:w-1/2 mb-4 px-2">
-                        <x-label for="trending" :value="__('Trending')" />
-                        <input id="trending" class="block mt-1 w-full" type="checkbox" name="trending"
-                            wire:model="trending" />
-                        <x-input-error :messages="$errors->get('trending')" for="trending" class="mt-2" />
-                    </div>
-                    <div class="sm:w-1/2 mb-4 px-2">
-                        <x-label for="sale" :value="__('Sale')" />
-                        <input id="sale" class="block mt-1 w-full" type="checkbox" name="sale"
-                            wire:model="sale" />
-                        <x-input-error :messages="$errors->get('sale')" for="sale" class="mt-2" />
-                    </div>
-                    <div class="sm:w-1/2 mb-4 px-2">
-                        <x-label for="is_discount" :value="__('Is Discount')" />
-                        <input id="is_discount" class="block mt-1 w-full" type="checkbox" name="is_discount"
-                            wire:model="is_discount" />
-                        <x-input-error :messages="$errors->get('is_discount')" for="is_discount" class="mt-2" />
-                    </div>
-                    <div class="sm:w-1/2 mb-4 px-2">
-                        <x-label for="discount_date" :value="__('Discount Date')" />
-                        <x-input id="discount_date" class="block mt-1 w-full" type="date" name="discount_date"
-                            wire:model="discount_date" />
-                        <x-input-error :messages="$errors->get('discount_date')" for="discount_date" class="mt-2" />
-                    </div>
-                </div>
-
-
-                <div class="w-full px-3 flex justify-center">
-                    <x-button primary type="submit" class="block w-full text-center" wire:loading.attr="disabled">
-                        {{ __('Save') }}
-                    </x-button>
-                </div>
-            </form>
-        </x-slot>
-    </x-modal>
-
-    {{-- recieve parametre from emit importModal $product --}}
-    @livewire('admin.product.image', ['product' => $product])
 
 </div>
 

@@ -16,6 +16,7 @@ use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Str;
 use Illuminate\Contracts\View\View;
 use Illuminate\Contracts\View\Factory;
+use Illuminate\Support\Collection;
 
 class Index extends Component
 {
@@ -50,8 +51,6 @@ class Index extends Component
     public array $paginationOptions;
 
     public $language_id;
-
-    public array $listsForFields = [];
 
     protected $queryString = [
         'search'        => [
@@ -93,9 +92,9 @@ class Index extends Component
         $this->selected = [];
     }
 
-    protected function initListsForFields(): void
+    public function getLanguagesProperty(): Collection
     {
-        $this->listsForFields['languages'] = Language::pluck('name', 'id')->toArray();
+        return Language::select('name', 'id')->get();
     }
 
     public function mount()
@@ -105,7 +104,6 @@ class Index extends Component
         $this->perPage = 100;
         $this->paginationOptions = [25, 50, 100];
         $this->orderable = (new Section())->orderable;
-        $this->initListsForFields();
     }
 
     public function render(): View|Factory
