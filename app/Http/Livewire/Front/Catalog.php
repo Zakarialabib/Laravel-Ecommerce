@@ -21,8 +21,6 @@ class Catalog extends Component
 
     public int $perPage;
 
-    protected $listeners = ['filterCategories', 'filterSubCategories', 'filterBrands'];
-
     public array $orderable;
 
     public string $search = '';
@@ -41,6 +39,10 @@ class Catalog extends Component
 
     public $sorting;
 
+    public $filterProductCategories;
+    public $filterProductBrands;
+    public $filterProductSubcategories;
+
     protected $queryString = [
         'search'        => [
             'except' => '',
@@ -53,19 +55,19 @@ class Catalog extends Component
         ],
     ];
 
-    public function filterCategories($category_id)
+    public function filterProductCategories($category_id)
     {
         $this->category_id = $category_id;
         $this->resetPage();
     }
 
-    public function filterSubCategories($subcategory_id)
+    public function filterProductSubcategories($subcategory_id)
     {
         $this->subcategory_id = $subcategory_id;
         $this->resetPage();
     }
 
-    public function filterBrands($brand_id)
+    public function filterProductBrands($brand_id)
     {
         $this->brand_id = $brand_id;
         $this->resetPage();

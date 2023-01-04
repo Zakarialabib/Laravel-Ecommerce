@@ -20,21 +20,24 @@ class Index extends Component
     {
         return Product::where('featured', 1)
             ->inRandomOrder()
-            ->limit(4);
+            ->limit(4)
+            ->get();
     }
 
     public function getBestOffersProperty()
     {
         return Product::where('best', 1)
             ->inRandomOrder()
-            ->limit(4);
+            ->limit(4)
+            ->get();
     }
 
     public function getHotProductsProperty()
     {
         return Product::where('hot', 1)
             ->inRandomOrder()
-            ->limit(4);
+            ->limit(4)
+            ->get();
     }
 
     public function getBrandsProperty(): Collection

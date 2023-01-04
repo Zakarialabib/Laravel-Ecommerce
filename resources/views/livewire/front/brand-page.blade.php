@@ -32,27 +32,20 @@
                             wire:click="filterProductCategories({{ $category->id }})">{{ $category->name }}
                         </x-button>
                     @endforeach
-                    <div x-data="{ show: true }" x-init="window.setTimeout(() => show = false, 1000)" x-show.transition.fade.250ms="show"
-                        x-transition:enter="transition-fade-in" x-transition:enter-start="opacity-0"
-                        x-transition:enter-end="opacity-100" x-transition:leave="transition-fade-out"
-                        x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0">
-                        @foreach ($this->categories as $category)
-                            @if ($category->id === $filterProductCategories)
-                                @foreach ($category->subcategories as $subcategory)
-                                    <x-button type="button" blackOutline class="mx-2"
-                                        wire:click="filterProductSubcategories({{ $subcategory->id }})">
-                                        {{ $subcategory->name }}
-                                    </x-button>
-                                @endforeach
-                            @endif
-                        @endforeach
-                    </div>
+
+                    @foreach ($this->subcategories as $subcategory)
+                        <x-button type="button" blackOutline class="mx-2"
+                            wire:click="filterProductSubcategories({{ $subcategory->id }})">
+                            {{ $subcategory->name }}
+                        </x-button>
+                    @endforeach
+
                 </div>
             </div>
         </div>
         <div class="grid gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 mb-10">
             @forelse ($brand_products as $product)
-            <x-product-card :product="$product" />
+                <x-product-card :product="$product" />
             @empty
                 <div class="w-full">
                     <h3 class="text-3xl font-bold font-heading text-blue-900">

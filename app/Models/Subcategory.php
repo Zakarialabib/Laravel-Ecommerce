@@ -25,24 +25,15 @@ class Subcategory extends Model
 
     public $timestamps = false;
 
-    public function childs()
-    {
-        return $this->hasMany('App\Models\Childcategory')->where('status', '=', 1);
-    }
 
-    public function category()
+    public function categories()
     {
-        return $this->belongsTo('App\Models\Category')->withDefault();
+        return $this->belongsTo(Category::class);
     }
 
     public function products()
     {
-        return $this->hasMany('App\Models\Product');
-    }
-
-    public function language()
-    {
-        return $this->belongsTo('App\Models\Language', 'language_id')->withDefault();
+        return $this->hasMany(Product::class);
     }
 
     public function setSlugAttribute($value)
@@ -50,8 +41,5 @@ class Subcategory extends Model
         $this->attributes['slug'] = str_replace(' ', '-', $value);
     }
 
-    public function attributes()
-    {
-        return $this->morphMany('App\Models\Attribute', 'attributable');
-    }
+
 }

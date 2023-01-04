@@ -36,7 +36,7 @@
                             <ul class="mt-6 -mb-2 flex overflow-x-scroll">
                                 @foreach ($this->categories as $category)
                                     <li class="w-1/2 px-2 mb-2">
-                                        <x-button type="button" wire:click="filterCategories({{ $category->id }})"
+                                        <x-button type="button" wire:click="filterProductCategories({{ $category->id }})"
                                             dangerOutline>
                                             {{ $category->name }} <small> ({{ $category->products->count() }})</small>
                                         </x-button>
@@ -46,7 +46,7 @@
                                 @foreach ($this->subcategories as $subcategory)
                                     <li class="w-1/2 px-2 mb-2">
                                         <x-button type="button"
-                                            wire:click="filterSubCategories({{ $subcategory->id }})" dangerOutline>
+                                            wire:click="filterProductSubcategories({{ $subcategory->id }})" dangerOutline>
                                             {{ $subcategory->name }} <small>
                                                 ({{ $subcategory->products->count() }})
                                             </small>
@@ -81,7 +81,7 @@
                             <div class="mt-6 -mb-2 flex overflow-x-scroll">
                                 @foreach ($this->brands as $brand)
                                     <div class="w-1/2 px-2 mb-2">
-                                        <x-button type="button" wire:click="filterBrands({{ $brand->id }})"
+                                        <x-button type="button" wire:click="filterProductBrands({{ $brand->id }})"
                                             warningOutline>
                                             {{ $brand->name }} <small> ({{ $brand->products->count() }})</small>
                                         </x-button>
@@ -98,7 +98,7 @@
                     <ul>
                         @foreach ($this->categories as $category)
                             <li class="mx-2 mb-2">
-                                <button type="button" wire:click="filterCategories({{ $category->id }})">
+                                <button type="button" wire:click="filterProductCategories({{ $category->id }})">
                                     <span class="inline-block px-4 py-2 text-sm font-bold font-heading text-blue-300">
                                         {{ $category->name }} <small> ({{ $category->products->count() }})</small>
                                     </span>
@@ -107,7 +107,7 @@
                         @endforeach
                         @foreach ($this->subcategories as $subcategory)
                             <li class="mb-2">
-                                <button type="button" wire:click="filterSubCategories({{ $subcategory->id }})">
+                                <button type="button" wire:click="filterProductSubcategories({{ $subcategory->id }})">
                                     <span class="inline-block px-4 py-2 text-sm font-bold font-heading text-blue-300">
                                         {{ $subcategory->name }} <small>
                                             ({{ $subcategory->products->count() }})
@@ -137,7 +137,7 @@
                     <ul class="flex flex-wrap items-center">
                         @foreach ($this->brands as $brand)
                             <li class="mx-2 mb-2">
-                                <button type="button" wire:click="filterBrands({{ $brand->id }})">
+                                <button type="button" wire:click="filterProductBrands({{ $brand->id }})">
                                     <span class="inline-block px-4 py-2 text-sm font-bold font-heading text-blue-300">
                                         {{ $brand->name }} <small> ({{ $brand->products->count() }})</small>
                                     </span>
