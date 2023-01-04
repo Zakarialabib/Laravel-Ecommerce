@@ -12,6 +12,8 @@ use Livewire\Component;
 use Livewire\WithFileUploads;
 use Illuminate\Contracts\View\View;
 use Illuminate\Contracts\View\Factory;
+use Intervention\Image\Facades\Image;
+use Illuminate\Support\Facades\Storage;
 
 class Create extends Component
 {
@@ -67,7 +69,13 @@ class Create extends Component
 
         if ($this->photo) {
             $imageName = Str::slug($this->slider->title).'-'.Str::random(5).'.'.$this->photo->extension();
-            $this->photo->storeAs('sliders', $imageName);
+            
+            $img = Image::make($this->image->getRealPath())->encode('webp', 85);
+
+            $img->stream();
+
+            Storage::disk('local_files')->put('sliders/'.$imageName, $img, 'public');
+
             $this->slider->photo = $imageName;
         }
 
