@@ -31,7 +31,7 @@ class Index extends Component
 
     public $listeners = [
         'refreshIndex' => '$refresh',
-        'showModal', 'editModal',
+        'showModal', 'editModal', 'delete'
     ];
 
     public $refreshIndex;
@@ -162,8 +162,9 @@ class Index extends Component
 
      public function update()
      {
-         $this->validate();
-         // if product selected Helpers::productLink($product)
+
+        try {
+            $this->validate();
 
          if ($this->image) {
              $imageName = Str::slug($this->section->title).'-'.date('Y-m-d H:i:s').'.'.$this->image->extension();
@@ -176,5 +177,9 @@ class Index extends Component
          $this->alert('success', __('Section updated successfully!'));
 
          $this->editModal = false;
+        } catch (\Throwable $th) {
+            $this->alert('warning', __('Section was not updated!'));
+        }
+         
      }
 }

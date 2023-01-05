@@ -106,7 +106,7 @@
                                 wire:loading.attr="disabled">
                                 <i class="fas fa-edit"></i>
                             </x-button>
-                            <x-button danger type="button" wire:click="confirm('delete', {{ $section->id }})"
+                            <x-button danger type="button" wire:click="$emit('deleteModal', {{ $section->id }})"
                                 wire:loading.attr="disabled">
                                 <i class="fas fa-trash-alt"></i>
                             </x-button>
@@ -142,7 +142,7 @@
             <!-- Validation Errors -->
             <x-auth-validation-errors class="mb-4" :errors="$errors" />
 
-            <form enctype="multipart/form-data" wire:submit.prevent="submit">
+            <form enctype="multipart/form-data" wire:submit.prevent="update">
                 <div class="flex flex-wrap">
                     <div class="lg:w-1/2 sm:w-full px-2">
                         <x-label for="language_id" :value="__('Language')" />
@@ -201,8 +201,8 @@
                         </p>
                         <x-input-error :messages="$errors->get('section.image')" for="section.image" class="mt-2" />
                     </div>
-                    <div class="float-right p-2 mb-4">
-                        <x-button type="submit" primary>
+                    <div class="w-full px-2 mb-4">
+                        <x-button type="button" class="w-full text-center" primary>
                             {{ __('Save') }}
                         </x-button>
                     </div>
@@ -213,3 +213,25 @@
 
     <livewire:admin.section.create />
 </div>
+
+@push('scripts')
+    <script>
+        document.addEventListener('livewire:load', function() {
+            window.livewire.on('deleteModal', productId => {
+                Swal.fire({
+                    title: 'Are you sure?',
+                    text: "You won't be able to revert this!",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Yes, delete it!'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        window.livewire.emit('delete', productId)
+                    }
+                })
+            })
+        })
+    </script>
+@endpush
