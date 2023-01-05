@@ -3,7 +3,7 @@
         <div class="mb-10 items-center justify-between bg-white py-4">
             <div class="w-full lg:mb-4 px-4 flex flex-wrap justify-between">
                 <h2 class="lg:text-2xl sm:text-xl font-bold">
-                    <div class="text-md mr-4"><a href="/">{{__('Home')}}</a> / <a href="{{ URL::current}}">{{__('Catalog')}}</a> </div> {{ $products->where('status', 1)->count() }} {{ __('Watches') }}
+                    <div class="text-md mr-4"><a href="/">{{__('Home')}}</a> / <a href="{{ URL::current() }}">{{__('Catalog')}}</a> </div> {{ $products->where('status', 1)->count() }} {{ __('Watches') }}
                 </h2>
                 <div class="w-full sm:w-auto">
                     <select

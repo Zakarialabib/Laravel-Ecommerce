@@ -3,7 +3,9 @@
         <div class="mb-10 items-center justify-between bg-white py-4">
             <div class="w-full lg:mb-4 px-4 flex flex-wrap justify-between">
                 <h2 class="lg:text-2xl sm:text-xl font-bold">
-                    <div class="text-md mr-4"><a href="/">{{__('Home')}}</a> / <a href="{{ URL::current}}">{{__('Brands')}}</a> </div>  {{ $products->where('status', 1)->count() }} {{ __('Watches') }}
+                    <div class="text-md mr-4"><a href="/">{{ __('Home') }}</a> / <a
+                            href="{{ URL::current() }}">{{ __('Brands') }}</a> </div>
+                    {{ $products->where('status', 1)->count() }} {{ __('Watches') }}
                 </h2>
                 <div class="w-full sm:w-auto">
                     <select
@@ -27,7 +29,7 @@
                 </div>
             </div>
             <div class="overflow-x-scroll flex sm-w-full py-2 lg:pl-5 sm:pl-0">
-                <h3 class="sm:hidden">{{__('Brands')}}:</h3>
+                <h3 class="sm:hidden">{{ __('Brands') }}:</h3>
                 @foreach ($this->brands as $brand)
                     <x-button type="button" primaryOutline class="mx-2"
                         wire:click="filterProductBrands({{ $brand->id }})">
@@ -36,7 +38,7 @@
                 @endforeach
             </div>
             <div class="overflow-x-scroll flex py-2 sm:w-full lg:pl-5 sm:pl-0">
-                <h3 class="sm:hidden">{{__('Categories')}}:</h3>
+                <h3 class="sm:hidden">{{ __('Categories') }}:</h3>
                 @foreach ($this->categories as $category)
                     <x-button type="button" blackOutline class="mx-2"
                         wire:click="filterProductCategories({{ $category->id }})">
@@ -47,7 +49,8 @@
                 @foreach ($this->subcategories as $subcategory)
                     <x-button type="button" blackOutline class="mx-2"
                         wire:click="filterProductSubcategories({{ $subcategory->id }})">
-                        {{ $subcategory->name }} <small> ({{ $subcategory->products->where('status', 1)->count() }})</small>
+                        {{ $subcategory->name }} <small>
+                            ({{ $subcategory->products->where('status', 1)->count() }})</small>
                     </x-button>
                 @endforeach
             </div>
