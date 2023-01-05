@@ -83,7 +83,7 @@
                         </a>
                     </x-table.td>
                     <x-table.td>
-                        {{ $product?->category->name }}
+                        {{ $product->category?->name }}
                     </x-table.td>
                     <x-table.td>
                         {{ $product->price }}DH /
