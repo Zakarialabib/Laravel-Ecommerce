@@ -21,9 +21,12 @@ class BrandPage extends Component
 
     public $brand;
 
+    public $brand_id;
+
     public $category_id;
 
     public $subcategory_id;
+    
     public $filterProductCategories;
     public $filterProductSubcategories;
 
