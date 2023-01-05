@@ -2,7 +2,7 @@
     <div class="mx-auto px-4">
         <div class="mb-10 items-center justify-between bg-white py-4">
             <div class="w-full mb-4 px-4 flex flex-wrap justify-between">
-                <h2 class="flex space-x-2 sm:text-xl font-bold">
+                <h2 class="flex lg:text-2xl sm:text-xl font-bold my-auto">
                     <p class="flex space-x-2 text-sm my-auto mr-4">
                         <a href="/" class="hover:text-orange-500">
                             <svg class="h-4 w-4 text-gray-500"  viewBox="0 0 16 18" fill="none"

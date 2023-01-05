@@ -1,8 +1,7 @@
 <div>
     <div class="mx-auto px-4">
         <div class="mb-5 items-center justify-between bg-white py-4">
-            <h2 class="flex lg:text-2xl sm:text-xl font-bold">
-                <h2 class="flex space-x-2 sm:text-xl font-bold">
+            <h2 class="flex lg:text-2xl sm:text-xl font-bold my-auto">
                     <p class="flex space-x-2 text-sm my-auto mr-4">
                         <a href="/" class="hover:text-orange-500">
                             <svg class="h-4 w-4 text-gray-500" viewBox="0 0 16 18" fill="none"
@@ -15,7 +14,7 @@
                     </p>
                     {{ $products->where('status', 1)->count() }} {{ __('Watches') }}
                 </h2>
-                <div class="w-full sm:w-auto flex justify-center my-2">
+                <div class="w-full sm:w-auto">
                     <select
                         class="px-5 py-3 mr-2 leading-5 bg-white text-gray-700 rounded border border-zinc-300 mb-1 text-sm focus:shadow-outline-blue focus:border-blue-500"
                         id="sortBy" wire:model="sorting">
