@@ -3,7 +3,7 @@
         <div class="mb-10 items-center justify-between bg-white py-4">
             <div class="w-full lg:mb-4 px-4 flex flex-wrap justify-between">
                 <h2 class="lg:text-2xl sm:text-xl font-bold">
-                    <div class="text-md mr-4"><a href="/">{{__('Home')}}</a> / <a href="{{ URL::current() }}">{{__('Catalog')}}</a> </div> {{ $products->where('status', 1)->count() }} {{ __('Watches') }}
+                    <span class="text-md mr-4"><a href="/">{{__('Home')}}</a> / <a href="{{ URL::current() }}">{{__('Catalog')}}</a> </span> {{ $products->where('status', 1)->count() }} {{ __('Watches') }}
                 </h2>
                 <div class="w-full sm:w-auto">
                     <select
@@ -63,14 +63,14 @@
                             <div class="mt-6 -mb-2">
                                 <input
                                     class="w-full mb-4 outline-none appearance-none bg-gray-100 h-1 rounded cursor-pointer"
-                                    type="range" min="{{ $minPrice }}" max="{{ $maxPrice }}" 
+                                    type="range" min="{{ $$this->minPrice }}" max="{{ $$this->maxPrice }}" 
                                      wire:model="priceRange">
                                 <div class="flex justify-between">
                                     <span class="inline-block text-lg font-bold font-heading text-blue-300">
-                                        {{ $minPrice }}
+                                        {{ $$this->minPrice }}
                                     </span>
                                     <span class="inline-block text-lg font-bold font-heading text-blue-300">
-                                        {{ $maxPrice }}
+                                        {{ $$this->maxPrice }}
                                     </span>
                                 </div>
                             </div>
@@ -127,9 +127,9 @@
                             type="range" min="1" max="100" value="50">
                         <div class="flex justify-between">
                             <span
-                                class="inline-block text-lg font-bold font-heading text-blue-300">{{ $minPrice }}</span>
+                                class="inline-block text-lg font-bold font-heading text-blue-300">{{ $$this->minPrice }}</span>
                             <span
-                                class="inline-block text-lg font-bold font-heading text-blue-300">{{ $maxPrice }}</span>
+                                class="inline-block text-lg font-bold font-heading text-blue-300">{{ $$this->maxPrice }}</span>
                         </div>
                     </div>
                 </div>
@@ -148,7 +148,12 @@
                     </ul>
                 </div>
             </div>
-            <div class="w-full lg:w-3/4 px-4">
+            <div wire:loading.flex class="absolute top-0 left-0 w-full lg:w-3/4 h-full bg-white bg-opacity-75 z-50">
+                <div class="m-auto">
+                    <x-loadingBrand />
+                </div>
+            </div>
+            <div class="w-full lg:w-3/4 px-4" wire:loading.class.delay="opacity-50">
                 <div class="grid gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 mb-10">
                     @foreach ($products as $product)
                         <x-product-card :product="$product" />

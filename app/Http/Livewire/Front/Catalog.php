@@ -73,10 +73,10 @@ class Catalog extends Component
         $this->resetPage();
     }
 
-      public function updatingSearch()
-      {
-          $this->resetPage();
-      }
+    public function updatingSearch()
+    {
+        $this->resetPage();
+    }
 
     public function updatingPerPage()
     {
@@ -99,12 +99,6 @@ class Catalog extends Component
     $this->maxPrice = $priceRange[1];
     }
 
-    public function updated($field)
-    {
-    if ($field === 'minPrice' || $field === 'maxPrice') {
-        $this->filteredPrice = $query->whereBetween('price',[$this->minPrice,$this->maxPrice])->paginate($this->perPage);
-    }
-    }
     public function mount()
     {
         $this->sorting = 'default';
