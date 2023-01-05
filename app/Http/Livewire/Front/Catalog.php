@@ -83,10 +83,30 @@ class Catalog extends Component
         $this->resetPage();
     }
 
+    public function getMinPriceProperty()
+    {
+    return Product::where('status', 1)->min('price');
+    }
+
+    public function getMaxPriceProperty()
+    {
+    return Product::where('status', 1)->max('price');
+    }
+
+    public function filterPriceRange($priceRange)
+    {
+    $this->minPrice = $priceRange[0];
+    $this->maxPrice = $priceRange[1];
+    }
+
+    public function updated($field)
+    {
+    if ($field === 'minPrice' || $field === 'maxPrice') {
+        $this->filteredPrice = $query->whereBetween('price',[$this->minPrice,$this->maxPrice])->paginate($this->perPage);
+    }
+    }
     public function mount()
     {
-        $this->minPrice = 100;
-        $this->maxPrice = 100000;
         $this->sorting = 'default';
         $this->sortBy = 'id';
         $this->sortDirection = 'desc';

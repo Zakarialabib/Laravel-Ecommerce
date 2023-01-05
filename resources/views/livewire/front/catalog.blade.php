@@ -3,7 +3,7 @@
         <div class="mb-10 items-center justify-between bg-white py-4">
             <div class="w-full lg:mb-4 px-4 flex flex-wrap justify-between">
                 <h2 class="lg:text-2xl sm:text-xl font-bold">
-                    {{ $products->where('status', 1)->count() }} {{ __('Watches') }}
+                    <div class="text-md mr-4"><a href="/">{{__('Home')}}</a> / <a href="{{ URL::current}}">{{__('Catalog')}}</a> </div> {{ $products->where('status', 1)->count() }} {{ __('Watches') }}
                 </h2>
                 <div class="w-full sm:w-auto">
                     <select
@@ -63,7 +63,8 @@
                             <div class="mt-6 -mb-2">
                                 <input
                                     class="w-full mb-4 outline-none appearance-none bg-gray-100 h-1 rounded cursor-pointer"
-                                    type="range" min="1" max="10000" value="50">
+                                    type="range" min="{{ $minPrice }}" max="{{ $maxPrice }}" 
+                                     wire:model="priceRange">
                                 <div class="flex justify-between">
                                     <span class="inline-block text-lg font-bold font-heading text-blue-300">
                                         {{ $minPrice }}
