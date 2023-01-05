@@ -110,7 +110,7 @@ class Categories extends Component
             $products = $query->orderBy('created_at', 'desc')->paginate($this->perPage);
         } elseif ($this->category_id) {
             $products = $query->where('category_id', $this->category_id)->paginate($this->perPage);
-        } elseif ($this->category_id) {
+        } elseif ($this->subcategory_id) {
             $products = $query->where('subcategory_id', $this->subcategory_id)->paginate($this->perPage);
         } else {
             $products = $query->paginate($this->perPage);
