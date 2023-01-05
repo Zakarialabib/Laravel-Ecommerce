@@ -1,7 +1,8 @@
 <div>
     <nav class="flex justify-between bg-black border-b">
         <div class="px-4 lg:px-12 py-5 flex w-full items-center">
-            <a class="lg:mr-8 2xl:mr-20 text-3xl font-bold font-heading text-white" href="{{ route('front.index') }}">
+            <a class="lg:mr-8 2xl:mr-20 lg:text-3xl sm:text-xl font-bold font-heading text-white"
+                href="{{ route('front.index') }}">
                 <img class="h-10" src="{{ asset('images/' . Helpers::settings('site_logo')) }}"
                     alt="{{ Helpers::settings('site_title') }}" width="auto" />
             </a>
@@ -81,8 +82,6 @@
         @endif
 
         <div class="flex items-center justify-end mr-5 space-x-2 xl:hidden self-center w-1/2">
-            
-            <livewire:front.search-box />
 
             <livewire:front.cart-count />
 
@@ -101,7 +100,7 @@
     <div class="navbar-backdrop fixed inset-0 bg-gray-800 opacity-25"></div>
     <nav class="relative flex flex-col py-6 px-6 w-full h-full bg-white border-r overflow-y-auto">
         <div class="flex items-center mb-8">
-            <a class="mr-auto text-3xl font-bold font-heading" href="{{ route('front.index') }}">
+            <a class="mr-auto lg:text-3xl sm:text-xl font-bold font-heading" href="{{ route('front.index') }}">
                 <img class="h-10" src="{{ asset('images/' . Helpers::settings('site_logo')) }}"
                     alt="{{ Helpers::settings('site_title') }}" width="auto" />
             </a>
@@ -116,7 +115,7 @@
         <div class="border-t border-gray-900 py-5"></div>
         <div class="flex mb-8 justify-between">
             @if (Auth::check())
-                <div class="w-full text-3xl font-bold font-heading">
+                <div class="w-full lg:text-3xl sm:text-xl font-bold font-heading">
                     <div class="py-3">
                         <a href="#" class="hover:text-orange-500">
                             {{ Auth::user()->first_name }}
@@ -137,24 +136,26 @@
                 </div>
             @else
                 <div class="border-t border-gray-900 py-5"></div>
-                <div class="w-full text-3xl font-bold font-heading">
+                <div class="w-full lg:text-3xl sm:text-xl font-bold font-heading">
                     <div class="py-3">
-                        <a href="{{ route('login') }}">{{ __('Login') }} </a>
+                        <a class="hover:text-orange-500" href="{{ route('login') }}">{{ __('Login') }} </a>
                     </div>
                     {{ __('or') }}
                     <div class="py-3">
-                        <a href="{{ route('register') }}"> {{ __('Register') }}</a>
+                        <a class="hover:text-orange-500" href="{{ route('register') }}"> {{ __('Register') }}</a>
                     </div>
                 </div>
             @endif
-            <div class="flex items-center">
-                <livewire:front.cart-count />
-            </div>
+        </div>
+
+        <div class="flex items-center">
+            <livewire:front.search-box />
+            <livewire:front.cart-count />
         </div>
 
         <div class="border-t border-gray-900 py-5"></div>
 
-        <ul class="text-3xl font-bold font-heading">
+        <ul class="lg:text-3xl sm:text-xl font-bold font-heading">
             <li class="mb-8"><a href="{{ route('front.categories') }}">{{ __('Categories') }}</a></li>
             <li class="mb-8"><a href="{{ route('front.catalog') }}">{{ __('Catalog') }}</a></li>
             <li><a href="{{ route('front.brands') }}">{{ __('Brands') }}</a></li>

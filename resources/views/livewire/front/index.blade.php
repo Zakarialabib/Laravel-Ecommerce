@@ -9,17 +9,17 @@
                             style="background-image: url({{ asset('images/sliders/' . $slider->photo) }});background-size: cover;background-position: center;">
                             <div class="w-full md:w-1/2 px-4 lg:mb-5 sm:mb-2">
                                 <div class="max-w-md lg:py-5 py-10 text-white px-2">
-                                    <h5 class="lg:text-2xl sm:text-md font-bold mb-2 shadow">
+                                    <h5 class="lg:text-2xl sm:text-md font-bold mb-2">
                                         {{ $slider->subtitle }}
                                     </h5>
-                                    <h2 class="lg:text-6xl sm:text-xl font-semibold font-heading shadow">
+                                    <h2 class="lg:text-6xl sm:text-xl font-semibold font-heading">
                                         {{ $slider->title }}
                                     </h2>
-                                    <p class="py-10 lg:text-lg sm:text-sm shadow">
+                                    <p class="py-10 lg:text-lg sm:text-sm">
                                         {!! $slider->details !!}
                                     </p>
                                     @if ($slider->link)
-                                        <a class="inline-block hover:bg-orange-400 text-white font-bold font-heading py-6 px-8 rounded-md uppercase transition duration-200 bg-orange-500 shadow-md"
+                                        <a class="inline-block hover:bg-orange-400 text-white font-bold font-heading py-6 px-8 rounded-md uppercase transition duration-200 bg-orange-500"
                                             href="{{ $slider->link }}">
                                             {{ 'Discover now' }}
                                         </a>

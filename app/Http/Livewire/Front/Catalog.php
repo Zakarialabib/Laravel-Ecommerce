@@ -126,7 +126,9 @@ class Catalog extends Component
         } elseif ($this->category_id) {
             $products = $query->where('category_id', $this->category_id)->paginate($this->perPage);
         } elseif ($this->subcategory_id) {
-            $products = $query->where('subcategory_id', $this->subcategory_id)->paginate($this->perPage);
+            $query->when($this->subcategory_id, function ($query) {
+                return $query->where('subcategory_id', $this->subcategory_id);
+            })->paginate($this->perPage);
         } else {
             $products = $query->paginate($this->perPage);
         }
