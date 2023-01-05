@@ -43,19 +43,21 @@
                 </div>
             </div>
         </div>
-        <div class="grid gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 mb-10">
-            @forelse ($brand_products as $product)
-                <x-product-card :product="$product" />
-            @empty
-                <div class="w-full">
-                    <h3 class="text-3xl font-bold font-heading text-blue-900">
-                        {{ __('No brand products found') }}
-                    </h3>
-                </div>
-            @endforelse
-        </div>
-        <div class="text-center">
-            {{ $brand_products->links() }}
+        <div wire:loading.class.delay="opacity-50">
+            <div class="grid gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 mb-10">
+                @forelse ($brand_products as $product)
+                    <x-product-card :product="$product" />
+                @empty
+                    <div class="w-full">
+                        <h3 class="text-3xl font-bold font-heading text-blue-900">
+                            {{ __('No brand products found') }}
+                        </h3>
+                    </div>
+                @endforelse
+            </div>
+            <div class="text-center">
+                {{ $brand_products->links() }}
+            </div>
         </div>
     </div>
 </div>
