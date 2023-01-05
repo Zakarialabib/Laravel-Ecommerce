@@ -3,7 +3,9 @@
         <div class="mb-10 items-center justify-between bg-white py-4">
             <div class="w-full lg:mb-4 px-4 flex flex-wrap justify-between">
                 <h2 class="lg:text-2xl sm:text-xl font-bold">
-                    <span class="text-md mr-4"><a href="/">{{__('Home')}}</a> / <a href="{{ URL::current() }}">{{__('Catalog')}}</a> </span> {{ $products->where('status', 1)->count() }} {{ __('Watches') }}
+                    <span class="text-md mr-4"><a href="/">{{ __('Home') }}</a> / <a
+                            href="{{ URL::current() }}">{{ __('Catalog') }}</a> </span>
+                    {{ $products->where('status', 1)->count() }} {{ __('Watches') }}
                 </h2>
                 <div class="w-full sm:w-auto">
                     <select
@@ -36,9 +38,11 @@
                             <ul class="mt-6 -mb-2 flex overflow-x-scroll">
                                 @foreach ($this->categories as $category)
                                     <li class="w-1/2 px-2 mb-2">
-                                        <x-button type="button" wire:click="filterProductCategories({{ $category->id }})"
-                                            dangerOutline>
-                                            {{ $category->name }} <small> ({{ $category->products->where('status', 1)->count() }})</small>
+                                        <x-button type="button"
+                                            wire:click="filterProductCategories({{ $category->id }})" dangerOutline>
+                                            {{ $category->name }} <small>
+                                                ({{ $category->products->where('status', 1)->count() }})
+                                            </small>
                                         </x-button>
                                     </li>
                                 @endforeach
@@ -46,7 +50,8 @@
                                 @foreach ($this->subcategories as $subcategory)
                                     <li class="w-1/2 px-2 mb-2">
                                         <x-button type="button"
-                                            wire:click="filterProductSubcategories({{ $subcategory->id }})" dangerOutline>
+                                            wire:click="filterProductSubcategories({{ $subcategory->id }})"
+                                            dangerOutline>
                                             {{ $subcategory->name }} <small>
                                                 ({{ $subcategory->products->where('status', 1)->count() }})
                                             </small>
@@ -63,14 +68,14 @@
                             <div class="mt-6 -mb-2">
                                 <input
                                     class="w-full mb-4 outline-none appearance-none bg-gray-100 h-1 rounded cursor-pointer"
-                                    type="range" min="{{ $$this->minPrice }}" max="{{ $$this->maxPrice }}" 
-                                     wire:model="priceRange">
+                                    type="range" min="{{ $this->minPrice }}" max="{{ $this->maxPrice }}"
+                                    wire:model="priceRange">
                                 <div class="flex justify-between">
                                     <span class="inline-block text-lg font-bold font-heading text-blue-300">
-                                        {{ $$this->minPrice }}
+                                        {{ $this->minPrice }}
                                     </span>
                                     <span class="inline-block text-lg font-bold font-heading text-blue-300">
-                                        {{ $$this->maxPrice }}
+                                        {{ $this->maxPrice }}
                                     </span>
                                 </div>
                             </div>
@@ -84,7 +89,9 @@
                                     <div class="w-1/2 px-2 mb-2">
                                         <x-button type="button" wire:click="filterProductBrands({{ $brand->id }})"
                                             warningOutline>
-                                            {{ $brand->name }} <small> ({{ $brand->products->where('status', 1)->count() }})</small>
+                                            {{ $brand->name }} <small>
+                                                ({{ $brand->products->where('status', 1)->count() }})
+                                            </small>
                                         </x-button>
                                     </div>
                                 @endforeach
@@ -94,18 +101,35 @@
                 </div>
             </div>
             <div class="hidden lg:block w-1/4 px-3">
-                <div class="mb-6 p-4 bg-gray-50">
-                    <h3 class="mb-8 text-2xl font-bold font-heading">{{ __('Category') }}</h3>
-                    <ul>
+                <div class="mb-6 p-4 bg-gray-50" x-data="{ openCategory: true }">
+                    <div class="flex justify-between">
+                        <h3 class="mb-8 text-2xl font-bold font-heading">{{ __('Category') }}</h3>
+                        <button @click="openCategory = !openCategory">
+                            <i class="fa fa-caret-down" aria-hidden="true"></i>
+                        </button>
+                    </div>
+                    <ul x-show="openCategory">
                         @foreach ($this->categories as $category)
-                            <li class="mx-2 mb-2">
+                            <li class="mb-2">
                                 <button type="button" wire:click="filterProductCategories({{ $category->id }})">
                                     <span class="inline-block px-4 py-2 text-sm font-bold font-heading text-blue-300">
-                                        {{ $category->name }} <small> ({{ $category->products->where('status', 1)->count() }})</small>
+                                        {{ $category->name }} <small>
+                                            ({{ $category->products->where('status', 1)->count() }})
+                                        </small>
                                     </span>
                                 </button>
                             </li>
                         @endforeach
+                    </ul>
+                </div>
+                <div class="mb-6 p-4 bg-gray-50" x-data="{ openSubcategory: true }">
+                    <div class="flex justify-between">
+                        <h3 class="mb-8 text-2xl font-bold font-heading">{{ __('Subcategory') }}</h3>
+                        <button @click="openSubcategory = !openSubcategory">
+                            <i class="fa fa-caret-down" aria-hidden="true"></i>
+                        </button>
+                    </div>
+                    <ul x-show="openSubcategory">
                         @foreach ($this->subcategories as $subcategory)
                             <li class="mb-2">
                                 <button type="button" wire:click="filterProductSubcategories({{ $subcategory->id }})">
@@ -127,9 +151,9 @@
                             type="range" min="1" max="100" value="50">
                         <div class="flex justify-between">
                             <span
-                                class="inline-block text-lg font-bold font-heading text-blue-300">{{ $$this->minPrice }}</span>
+                                class="inline-block text-lg font-bold font-heading text-blue-300">{{ $this->minPrice }}</span>
                             <span
-                                class="inline-block text-lg font-bold font-heading text-blue-300">{{ $$this->maxPrice }}</span>
+                                class="inline-block text-lg font-bold font-heading text-blue-300">{{ $this->maxPrice }}</span>
                         </div>
                     </div>
                 </div>
