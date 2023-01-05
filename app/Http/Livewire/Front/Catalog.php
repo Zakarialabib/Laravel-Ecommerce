@@ -93,12 +93,6 @@ class Catalog extends Component
     return Product::where('status', 1)->max('price');
     }
 
-    public function filterPriceRange($priceRange)
-    {
-    $this->minPrice = $priceRange[0];
-    $this->maxPrice = $priceRange[1];
-    }
-
     public function mount()
     {
         $this->sorting = 'default';
@@ -111,32 +105,34 @@ class Catalog extends Component
 
     public function render(): View|Factory
     {
-        $query = Product::where('status', 1)->advancedFilter([
+        $query = Product::where('status', 1)
+                        ->whereBetween('price',[$this->minPrice,$this->maxPrice])
+                        ->advancedFilter([
             's'               => $this->search ?: null,
             'order_column'    => $this->sortBy,
             'order_direction' => $this->sortDirection,
         ]);
-
+        
         if ($this->sorting == 'name') {
-            $products = $query->whereBetween('price',[$this->minPrice,$this->maxPrice])->orderBy('name', 'asc')->paginate($this->perPage);
+            $products = $query->orderBy('name', 'asc')->paginate($this->perPage);
         } elseif ($this->sorting == 'name-desc') {
-            $products = $query->whereBetween('price',[$this->minPrice,$this->maxPrice])->orderBy('name', 'desc')->paginate($this->perPage);
+            $products = $query->orderBy('name', 'desc')->paginate($this->perPage);
         } elseif ($this->sorting == 'price') {
-            $products = $query->whereBetween('price',[$this->minPrice,$this->maxPrice])->orderBy('price', 'asc')->paginate($this->perPage);
+            $products = $query->orderBy('price', 'asc')->paginate($this->perPage);
         } elseif ($this->sorting == 'price-desc') {
-            $products = $query->whereBetween('price',[$this->minPrice,$this->maxPrice])->orderBy('price', 'desc')->paginate($this->perPage);
+            $products = $query->orderBy('price', 'desc')->paginate($this->perPage);
         } elseif ($this->sorting == 'date') {
-            $products = $query->whereBetween('price',[$this->minPrice,$this->maxPrice])->orderBy('created_at', 'asc')->paginate($this->perPage);
+            $products = $query->orderBy('created_at', 'asc')->paginate($this->perPage);
         } elseif ($this->sorting == 'date-desc') {
-            $products = $query->whereBetween('price',[$this->minPrice,$this->maxPrice])->orderBy('created_at', 'desc')->paginate($this->perPage);
+            $products = $query->orderBy('created_at', 'desc')->paginate($this->perPage);
         } elseif ($this->brand_id) {
-            $products = $query->whereBetween('price',[$this->minPrice,$this->maxPrice])->where('brand_id', $this->brand_id)->paginate($this->perPage);
+            $products = $query->where('brand_id', $this->brand_id)->paginate($this->perPage);
         } elseif ($this->category_id) {
-            $products = Product::where('status', 1)->whereBetween('price',[$this->minPrice,$this->maxPrice])->where('category_id', $this->category_id)->paginate($this->perPage);
+            $products = $query->where('category_id', $this->category_id)->paginate($this->perPage);
         } elseif ($this->subcategory_id) {
-            $products = Product::where('status', 1)->whereBetween('price',[$this->minPrice,$this->maxPrice])->where('subcategory_id', $this->subcategory_id)->paginate($this->perPage);
+            $products = $query->where('subcategory_id', $this->subcategory_id)->paginate($this->perPage);
         } else {
-            $products = Product::where('status', 1)->whereBetween('price',[$this->minPrice,$this->maxPrice])->paginate($this->perPage);
+            $products = $query->paginate($this->perPage);
         }
 
         return view('livewire.front.catalog', compact('products'));

@@ -1,7 +1,7 @@
 <div>
     <div class="mx-auto px-4">
-        <div class="mb-10 items-center justify-between bg-white py-4">
-            <div class="w-full lg:mb-4 px-4 flex flex-wrap justify-between">
+        <div class="mb-5 items-center justify-between bg-white py-4">
+            <div class="w-full px-4 flex flex-wrap justify-between">
                 <h2 class="lg:text-2xl sm:text-xl font-bold">
                     <span class="text-md mr-4"><a href="/">{{ __('Home') }}</a> / <a
                             href="{{ URL::current() }}">{{ __('Catalog') }}</a> </span>
@@ -102,8 +102,8 @@
             </div>
             <div class="hidden lg:block w-1/4 px-3">
                 <div class="mb-6 p-4 bg-gray-50" x-data="{ openCategory: true }">
-                    <div class="flex justify-between">
-                        <h3 class="mb-8 text-2xl font-bold font-heading">{{ __('Category') }}</h3>
+                    <div class="flex justify-between mb-8">
+                        <h3 class="text-xl font-bold font-heading">{{ __('Category') }}</h3>
                         <button @click="openCategory = !openCategory">
                             <i class="fa fa-caret-down" aria-hidden="true"></i>
                         </button>
@@ -123,8 +123,8 @@
                     </ul>
                 </div>
                 <div class="mb-6 p-4 bg-gray-50" x-data="{ openSubcategory: true }">
-                    <div class="flex justify-between">
-                        <h3 class="mb-8 text-2xl font-bold font-heading">{{ __('Subcategory') }}</h3>
+                    <div class="flex justify-between mb-8">
+                        <h3 class="text-xl font-bold font-heading">{{ __('Subcategory') }}</h3>
                         <button @click="openSubcategory = !openSubcategory">
                             <i class="fa fa-caret-down" aria-hidden="true"></i>
                         </button>
@@ -148,18 +148,26 @@
                     <h3 class="mb-8 text-2xl font-bold font-heading">{{ __('Price') }}</h3>
                     <div>
                         <input class="w-full mb-4 outline-none appearance-none bg-gray-100 h-1 rounded cursor-pointer"
-                            type="range" min="1" max="100" value="50">
+                            type="range" min="{{ $this->minPrice }}" max="{{ $this->maxPrice }}"
+                            wire:model="priceRange">
                         <div class="flex justify-between">
-                            <span
-                                class="inline-block text-lg font-bold font-heading text-blue-300">{{ $this->minPrice }}</span>
-                            <span
-                                class="inline-block text-lg font-bold font-heading text-blue-300">{{ $this->maxPrice }}</span>
+                            <span class="inline-block text-lg font-bold font-heading text-blue-300">
+                                {{ $this->minPrice }}
+                            </span>
+                            <span class="inline-block text-lg font-bold font-heading text-blue-300">
+                                {{ $this->maxPrice }}
+                            </span>
                         </div>
                     </div>
                 </div>
-                <div class="mb-6 p-4 bg-gray-50">
-                    <h3 class="mb-8 text-2xl font-bold font-heading">{{ __('Brands') }}</h3>
-                    <ul class="flex flex-wrap items-center">
+                <div class="mb-6 p-4 bg-gray-50" x-data="{ openbrands: true }">
+                    <div class="flex justify-between mb-8">
+                        <h3 class="text-xl font-bold font-heading">{{ __('Brands') }}</h3>
+                        <button @click="openbrands = !openbrands">
+                            <i class="fa fa-caret-down" aria-hidden="true"></i>
+                        </button>
+                    </div>
+                    <ul x-show="openbrands" class="flex flex-wrap items-center">
                         @foreach ($this->brands as $brand)
                             <li class="mx-2 mb-2">
                                 <button type="button" wire:click="filterProductBrands({{ $brand->id }})">
@@ -170,11 +178,6 @@
                             </li>
                         @endforeach
                     </ul>
-                </div>
-            </div>
-            <div wire:loading.flex class="absolute top-0 left-0 w-full lg:w-3/4 h-full bg-white bg-opacity-75 z-50">
-                <div class="m-auto">
-                    <x-loadingBrand />
                 </div>
             </div>
             <div class="w-full lg:w-3/4 px-4" wire:loading.class.delay="opacity-50">
