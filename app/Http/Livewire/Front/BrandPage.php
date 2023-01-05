@@ -26,7 +26,7 @@ class BrandPage extends Component
     public $category_id;
 
     public $subcategory_id;
-    
+
     public $filterProductCategories;
     public $filterProductSubcategories;
 
@@ -65,6 +65,11 @@ class BrandPage extends Component
 
     public function getCategoriesProperty()
     {
-        return Category::where('status', 1)->with('subcategories')->get();
+        return Category::where('status', 1)->get();
+    }
+    
+    public function getSubcategoriesProperty()
+    {
+        return Subcategory::where('status', 1)->get();
     }
 }
