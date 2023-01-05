@@ -105,7 +105,7 @@ class Categories extends Component
         } elseif ($this->category_id) {
             $products = Product::where('status', 1)->where('category_id', $this->category_id)->paginate($this->perPage);
         } elseif ($this->category_id) {
-            $products = Product::where('status', 1)->where('category_id', $this->subcategory_id)->paginate($this->perPage);
+            $products = Product::where('status', 1)->where('subcategory_id', $this->subcategory_id)->paginate($this->perPage);
         } else {
             $products = Product::where('status', 1)->paginate($this->perPage);
         }
