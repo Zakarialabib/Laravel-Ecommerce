@@ -14,15 +14,21 @@ class Sitemaps extends Model
         // Define the URLs that should be included in the sitemap
         $urls = [
             // URLs for your static pages
-            '/page-1',
-            '/page-2',
+            '/catalog',
+            '/categories',
+            '/marques',
+            '/catalog',
+            '/contact',
+            '/a-propos',
+            '/blog',
+            '/faq',
             // URLs for your dynamic pages
-            '/posts/1',
-            '/posts/2',
+            '/marque/slug',
+            '/blog/slug',
         ];
 
         // Generate the sitemap using the defined URLs
-        SitemapGenerator::create('http://example.com')
+        SitemapGenerator::create('http://badrluxury.com')
             ->hasCrawled($urls)
             ->writeToFile(public_path('sitemap.xml'));
     }

@@ -30,6 +30,8 @@ class Catalog extends Component
     public $maxPrice;
 
     public $minPrice;
+    
+    public $priceRange;
 
     public $category_id;
 
@@ -83,18 +85,11 @@ class Catalog extends Component
         $this->resetPage();
     }
 
-    public function getMinPriceProperty()
-    {
-    return Product::where('status', 1)->min('price');
-    }
-
-    public function getMaxPriceProperty()
-    {
-    return Product::where('status', 1)->max('price');
-    }
-
+ 
     public function mount()
     {
+        $this->minPrice = 350;
+        $this->maxPrice = 99999;
         $this->sorting = 'default';
         $this->sortBy = 'id';
         $this->sortDirection = 'desc';
@@ -106,7 +101,8 @@ class Catalog extends Component
     public function render(): View|Factory
     {
         $query = Product::where('status', 1)
-                        ->whereBetween('price',[$this->minPrice,$this->maxPrice])
+                        ->where('price', '>=', $this->minPrice)
+                        ->where('price', '<=', $this->maxPrice)
                         ->advancedFilter([
             's'               => $this->search ?: null,
             'order_column'    => $this->sortBy,

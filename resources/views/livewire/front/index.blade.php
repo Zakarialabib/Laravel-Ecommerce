@@ -9,17 +9,17 @@
                             style="background-image: url({{ asset('images/sliders/' . $slider->photo) }});background-size: cover;background-position: center;">
                             <div class="w-full md:w-1/2 px-4 lg:mb-5 sm:mb-2">
                                 <div class="max-w-md lg:py-5 py-10 text-white px-2">
-                                    <h5 class="lg:text-2xl sm:text-md font-bold mb-2">
+                                    <h5 class="lg:text-2xl sm:text-md font-bold mb-2 shadow">
                                         {{ $slider->subtitle }}
                                     </h5>
-                                    <h2 class="lg:text-6xl sm:text-xl font-semibold font-heading">
+                                    <h2 class="lg:text-6xl sm:text-xl font-semibold font-heading shadow">
                                         {{ $slider->title }}
                                     </h2>
-                                    <p class="py-10 lg:text-lg sm:text-sm">
+                                    <p class="py-10 lg:text-lg sm:text-sm shadow">
                                         {!! $slider->details !!}
                                     </p>
                                     @if ($slider->link)
-                                        <a class="inline-block hover:bg-orange-400 text-white font-bold font-heading py-6 px-8 rounded-md uppercase transition duration-200 bg-orange-500"
+                                        <a class="inline-block hover:bg-orange-400 text-white font-bold font-heading py-6 px-8 rounded-md uppercase transition duration-200 bg-orange-500 shadow-md"
                                             href="{{ $slider->link }}">
                                             {{ 'Discover now' }}
                                         </a>
@@ -36,26 +36,26 @@
         </div>
 
         <div x-data="{ activeTabs: 'featuredProducts' }" class="mx-auto px-4">
-            <div class="grid gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 mb-10">
-                <div class="py-6 px-10 sm:py-2 sm:px-5 text-left font-bold text-gray-500 uppercase border-b-2 border-gray-100 hover:border-gray-500 focus:outline-none focus:border-gray-500 cursor-pointer"
+            <div class="grid gap-4 xl:grid-cols-4 lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 mb-10 ">
+                <div class="py-5 px-8 sm:py-2 sm:px-5 text-left font-bold text-gray-500 uppercase border-b-2 border-gray-100 hover:border-gray-500 focus:outline-none focus:border-gray-500 cursor-pointer"
                     @click="activeTabs = 'featuredProducts'">
                     <h4 class="inline-block" :class="activeTabs === 'featuredProducts' ? 'text-orange-400' : ''">
                         {{ __('Featured Products') }}
                     </h4>
                 </div>
-                <div class="py-6 px-10 sm:py-2 sm:px-5 text-left font-bold text-gray-500 uppercase border-b-2 border-gray-100 hover:border-gray-500 focus:outline-none focus:border-gray-500 cursor-pointer"
+                <div class="py-5 px-8 sm:py-2 sm:px-5 text-left font-bold text-gray-500 uppercase border-b-2 border-gray-100 hover:border-gray-500 focus:outline-none focus:border-gray-500 cursor-pointer"
                     @click="activeTabs = 'bestOfers'">
                     <h4 class="inline-block" :class="activeTabs === 'bestOfers' ? 'text-orange-400' : ''">
                         {{ __('Best Offers') }}
                     </h4>
                 </div>
-                <div class="py-6 px-10 sm:py-2 sm:px-5 text-left font-bold text-gray-500 uppercase border-b-2 border-gray-100 hover:border-gray-500 focus:outline-none focus:border-gray-500 cursor-pointer"
+                <div class="py-5 px-8 sm:py-2 sm:px-5 text-left font-bold text-gray-500 uppercase border-b-2 border-gray-100 hover:border-gray-500 focus:outline-none focus:border-gray-500 cursor-pointer"
                     @click="activeTabs = 'hotProducts'">
                     <h4 class="inline-block" :class="activeTabs === 'hotProducts' ? 'text-orange-400' : ''">
                         {{ __('Hot Products') }}
                     </h4>
                 </div>
-                <div class="py-6 px-10 sm:py-2 sm:px-5 text-left font-bold text-gray-500 uppercase border-b-2 border-gray-100 hover:border-gray-500 focus:outline-none focus:border-gray-500 cursor-pointer"
+                <div class="py-5 px-8 sm:py-2 sm:px-5 text-left font-bold text-gray-500 uppercase border-b-2 border-gray-100 hover:border-gray-500 focus:outline-none focus:border-gray-500 cursor-pointer"
                     @click="activeTabs = 'brands'">
                     <h4 class="inline-block" :class="activeTabs === 'brands' ? 'text-orange-400' : ''">
                         {{ __('Brands') }}
