@@ -1,14 +1,20 @@
-# appEcom
+# Laravel Ecommerce - 
 
-This is a powerful e-commerce application, with a lot of features, and it's still under development.
+Laravel Ecommerce shopping cart project! This project is a full-featured online store platform, built using the Laravel & Tall stack. You can easily set up and manage your own online store, with a complete with for managing orders, products, and website informations. Some of the key features of our shopping cart include:
 
+- A clean and intuitive user interface for browsing and purchasing products
+- A powerful and flexible backend for managing orders, products, and customers
+    
 ## Roadmap
 
 - [x] Dashboard
 - [x] Products
-- [x] Categorires
+- [x] Categories
+- [x] SubCategorires
 - [x] Brands
-- [x] Pages 
+- [x] Shipping
+- [x] Settings
+- [ ] Pages 
 
 ## Requirements
 
