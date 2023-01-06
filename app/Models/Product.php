@@ -9,6 +9,7 @@ use Gloudemans\Shoppingcart\CanBeBought;
 use Gloudemans\Shoppingcart\Contracts\Buyable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Product extends Model implements Buyable
 {
@@ -86,22 +87,53 @@ class Product extends Model implements Buyable
         return null;
     }
 
-    /** @return \Illuminate\Database\Eloquent\Relations\BelongsTo */
-    public function category()
+
+    public function category(): BelongsTo
     {
         return $this->belongsTo(Category::class, 'category_id');
     }
 
-    /** @return \Illuminate\Database\Eloquent\Relations\BelongsTo */
-    public function brand()
+    public function brand(): BelongsTo
     {
         return $this->belongsTo(Brand::class, 'brand_id');
     }
 
-    /** @return \Illuminate\Database\Eloquent\Relations\BelongsTo */
-    public function subcategory()
+    public function subcategory(): BelongsTo
     {
         return $this->belongsTo(Subcategory::class, 'subcategory_id');
+    }
+
+   /**
+     * Scope a query to only include the product with the highest price.
+     *
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeHighestPrice($query)
+    {
+        return $query->orderBy('price', 'desc')->first();
+    }
+
+    /**
+     * Scope a query to only include the product with the lowest price.
+     *
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeLowestPrice($query)
+    {
+        return $query->orderBy('price', 'asc')->first();
+    }
+
+    /**
+     * Scope a query to only include active products.
+     *
+     * @param  \Illuminate\Database\Eloquent\Builder  $query
+     * @return void
+     */
+    public function scopeActive($query)
+    {
+        $query->where('status', 1);
     }
 
     public function reviews()

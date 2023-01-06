@@ -31,7 +31,7 @@ class PromoPrices extends Component
 
     public function update()
     {
-        $products = Product::where('status', 1)->get();
+        $products = Product::active()->get();
 
         foreach ($products as $product) {
             if ($this->copyPriceToOldPrice) {

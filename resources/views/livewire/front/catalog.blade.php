@@ -13,7 +13,7 @@
                             </svg>
                         </a> / <a class="hover:text-orange-500" href="{{ URL::current() }}"> {{ __('Catalog') }} </a> /
                     </p>
-                    {{ $products->where('status', 1)->count() }} {{ __('Watches') }}
+                    {{ $products->active()->count() }} {{ __('Watches') }}
                 </h2>
                 <div class="w-full sm:w-auto">
                     <select
@@ -49,7 +49,7 @@
                                         dangerOutline>
                                         {{ $category->name }}
                                         <span class="text-sm ml-2">
-                                            ({{ $category->products->where('status', 1)->count() }})
+                                            ({{ $category->products->active()->count() }})
                                         </span>
                                     </x-button>
                                 </li>
@@ -61,7 +61,7 @@
                                         wire:click="filterProductSubcategories({{ $subcategory->id }})" dangerOutline>
                                         {{ $subcategory->name }}
                                         <span class="text-sm ml-2">
-                                            ({{ $subcategory->products->where('status', 1)->count() }})
+                                            ({{ $subcategory->products->active()->count() }})
                                         </span>
                                     </x-button>
                                 </li>
@@ -99,7 +99,7 @@
                                         warningOutline>
                                         {{ $brand->name }}
                                         <span class="text-sm ml-2">
-                                            ({{ $brand->products->where('status', 1)->count() }})
+                                            ({{ $brand->products->active()->count() }})
                                         </span>
                                     </x-button>
                                 </div>
@@ -122,7 +122,7 @@
                                 <button type="button" wire:click="filterProductCategories({{ $category->id }})">
                                     <span class="inline-block px-4 py-2 text-sm font-bold font-heading text-blue-300">
                                         {{ $category->name }} <small>
-                                            ({{ $category->products->where('status', 1)->count() }})
+                                            ({{ $category->products->active()->count() }})
                                         </small>
                                     </span>
                                 </button>
@@ -143,7 +143,7 @@
                                 <button type="button" wire:click="filterProductSubcategories({{ $subcategory->id }})">
                                     <span class="inline-block px-4 py-2 text-sm font-bold font-heading text-blue-300">
                                         {{ $subcategory->name }} <small>
-                                            ({{ $subcategory->products->where('status', 1)->count() }})
+                                            ({{ $subcategory->products->active()->count() }})
                                         </small>
                                     </span>
                                 </button>

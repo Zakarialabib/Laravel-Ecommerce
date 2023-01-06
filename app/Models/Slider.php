@@ -31,8 +31,15 @@ class Slider extends Model
 
     public $timestamps = false;
 
-    public function language()
+    /**
+     * Scope a query to only include active products.
+     *
+     * @param  \Illuminate\Database\Eloquent\Builder  $query
+     * @return void
+     */
+    public function scopeActive($query)
     {
-        return $this->belongsTo(Language::class, 'language_id');
+        $query->where('status', 1);
     }
+    
 }

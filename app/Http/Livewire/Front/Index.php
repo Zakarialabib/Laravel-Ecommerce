@@ -16,28 +16,28 @@ use Illuminate\Contracts\View\Factory;
 
 class Index extends Component
 {
-    public function getFeaturedProductsProperty()
+    public function getFeaturedProductsProperty(): Collection
     {
         return Product::where('featured', 1)
-            ->where('status', 1)
+            ->active()
             ->inRandomOrder()
             ->limit(4)
             ->get();
     }
 
-    public function getBestOffersProperty()
+    public function getBestOffersProperty(): Collection
     {
         return Product::where('best', 1)
-            ->where('status', 1)
+            ->active()
             ->inRandomOrder()
             ->limit(4)
             ->get();
     }
 
-    public function getHotProductsProperty()
+    public function getHotProductsProperty(): Collection
     {
         return Product::where('hot', 1)
-            ->where('status', 1)
+            ->active()
             ->inRandomOrder()
             ->limit(4)
             ->get();
@@ -45,12 +45,12 @@ class Index extends Component
 
     public function getBrandsProperty(): Collection
     {
-        return Brand::with('products')->where('status', 1)->get();
+        return Brand::with('products')->active()->get();
     }
 
     public function getSlidersProperty(): Collection
     {
-        return Slider::where('status', 1)->get();
+        return Slider::active()->get();
     }
 
     public function getFeaturedbannerProperty()
@@ -60,7 +60,7 @@ class Index extends Component
 
     public function getSectionsProperty(): Collection
     {
-        return Section::where('status', 1)->get();
+        return Section::where('status', 1)->limit(4)->get();
     }
 
     public function render(): View|Factory

@@ -53,7 +53,7 @@ class BrandPage extends Component
     public function render(): View|Factory
     {
         // where status is true
-        $brand_products = Product::where('status', 1)
+        $brand_products = Product::active()
             ->when($this->brand_id, function ($query) {
                 return $query->where('brand_id', $this->brand_id);
             })

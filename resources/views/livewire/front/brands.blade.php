@@ -13,7 +13,7 @@
                             </svg> 
                         </a>  /  <a class="hover:text-orange-500" href="{{ URL::current() }}">  {{ __('Brands') }}  </a>  /
                     </p>
-                    {{ $products->where('status', 1)->count() }} {{ __('Watches') }}
+                    {{ $products->active()->count() }} {{ __('Watches') }}
                 </h2>
                 <div class="w-full sm:w-auto flex justify-center my-2">
                     <select
@@ -43,7 +43,7 @@
                         wire:click="filterProductBrands({{ $brand->id }})">
                         {{ $brand->name }}
                         <span class="text-sm ml-2">
-                            ({{ $brand->products->where('status', 1)->count() }})
+                            ({{ $brand->products->active()->count() }})
                         </span>
                     </x-button>
                 @endforeach
@@ -55,7 +55,7 @@
                         wire:click="filterProductCategories({{ $category->id }})">
                         {{ $category->name }}
                         <span class="text-sm ml-2">
-                            ({{ $category->products->where('status', 1)->count() }})
+                            ({{ $category->products->active()->count() }})
                         </span>
                     </x-button>
                 @endforeach
@@ -65,7 +65,7 @@
                         wire:click="filterProductSubcategories({{ $subcategory->id }})">
                         {{ $subcategory->name }}
                         <span class="text-sm ml-2">
-                            ({{ $subcategory->products->where('status', 1)->count() }})
+                            ({{ $subcategory->products->active()->count() }})
                         </span>
                     </x-button>
                 @endforeach
