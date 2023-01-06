@@ -15,7 +15,35 @@
                         class="block bg-white text-gray-700 rounded border border-gray-300 mb-1 text-sm w-full focus:shadow-outline-blue focus:border-blue-500"
                         id="language_id" name="language_id" wire:model="section.language_id">
                         @foreach ($this->languages as $language)
-                        
+                            <option value="{{ $language->id }}">{{ $language->name }}</option>
+                        @endforeach
+                    </select>
+                    <x-input-error :messages="$errors->get('section.language_id')" for="section.language_id" class="mt-2" />
+                </div>
+
+                <div class="lg:w-1/2 sm:w-full px-2">
+                    <x-label for="page" :value="__('Page')" />
+                    <select wire:model="section.page"
+                        class="p-3 leading-5 bg-white text-gray-700 rounded border border-zinc-300 mb-1 text-sm w-full focus:shadow-outline-blue focus:border-blue-500  lang"
+                        name="page">
+                        <option value="" selected>{{ __('Select a Page') }}</option>
+                        <option value="1">{{ __('Home Page') }}</option>
+                        <option value="2">{{ __('About Page') }}</option>
+                        <option value="3">{{ __('Partner Page') }}</option>
+                        <option value="4">{{ __('Blog Page') }}</option>
+                        <option value="7">{{ __('Contact Page') }}</option>
+                        <option value="8">{{ __('Products Page') }}</option>
+                        <option value="9">{{ __('Privacy Page') }}</option>
+                    </select>
+                    <x-input-error :messages="$errors->get('section.page')" for="section.page" class="mt-2" />
+                </div>
+
+                <div class="lg:w-1/2 sm:w-full px-2">
+                    <x-label for="language_id" :value="__('Language')" />
+                    <select
+                        class="block bg-white text-gray-700 rounded border border-gray-300 mb-1 text-sm w-full focus:shadow-outline-blue focus:border-blue-500"
+                        id="language_id" name="language_id" wire:model="section.language_id">
+                        @foreach ($this->languages as $language)
                             <option value="{{ $language->id }}">{{ $language->name }}</option>
                         @endforeach
                     </select>
@@ -53,6 +81,7 @@
                         placeholder="{{ __('Subtitle') }}" value="{{ old('subtitle') }}">
                     <x-input-error :messages="$errors->get('section.subtitle')" for="section.subtitle" class="mt-2" />
                 </div>
+
                 <div class="w-full px-2">
                     <x-label for="description" :value="__('Description')" />
                     <x-input.textarea wire:model.lazy="section.description" id="description" />

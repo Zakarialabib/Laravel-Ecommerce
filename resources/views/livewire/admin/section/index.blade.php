@@ -32,10 +32,10 @@
         <x-slot name="thead">
             <x-table.th>#</x-table.th>
             <x-table.th>
-                {{ __('Title') }}
+                {{ __('Page') }}
             </x-table.th>
             <x-table.th>
-                {{ __('Page') }}
+                {{ __('Title') }}
             </x-table.th>
             <x-table.th>
                 {{ __('Status') }}
@@ -135,7 +135,7 @@
 
     <x-modal wire:model="editModal">
         <x-slot name="title">
-            {{ __('Edit Slider') }}
+            {{ __('Edit Section') }}
         </x-slot>
 
         <x-slot name="content">
@@ -202,7 +202,7 @@
                         <x-input-error :messages="$errors->get('section.image')" for="section.image" class="mt-2" />
                     </div>
                     <div class="w-full px-2 mb-4">
-                        <x-button type="button" class="w-full text-center" primary>
+                        <x-button type="submit" class="w-full text-center" primary>
                             {{ __('Save') }}
                         </x-button>
                     </div>

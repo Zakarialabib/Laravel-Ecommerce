@@ -23,10 +23,4 @@ class Page extends Model
         'title', 'slug', 'details', 'meta_title', 'meta_description', 'language_id', 'photo',
     ];
 
-    public $timestamps = false;
-
-    public function language()
-    {
-        return $this->belongsTo('App\Models\Language', 'language_id')->withDefault();
-    }
 }

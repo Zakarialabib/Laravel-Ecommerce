@@ -66,7 +66,7 @@
                                 </button>
                             </x-slot>
                             <x-slot name="content">
-                                <x-dropdown-link data-href="{{ route('admin-page-edit', $page->id) }}" class="edit"
+                                {{-- <x-dropdown-link data-href="{{ route('admin-page-edit', $page->id) }}" class="edit"
                                     data-toggle="modal" data-target="#modal1"> <i class="fas fa-edit"></i>
                                     {{ __('Edit') }}
                                 </x-dropdown-link>
@@ -74,7 +74,7 @@
                                     data-href="{{ route('admin-page-delete', $page->id) }}" data-toggle="modal"
                                     data-target="#confirm-delete" class="delete"><i
                                         class="fas fa-trash-alt"></i>{{ __('Delete') }}
-                                </x-dropdown-link>
+                                </x-dropdown-link> --}}
                             </x-slot>
                         </x-dropdown>
                     </x-table.td>

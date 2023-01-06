@@ -37,7 +37,9 @@
                 </div>
             </div>
             <div class="float-right">
-                <!-- Button trigger livewire modal -->
+                <x-button primary type="button" onclick="Livewire.emit('createTemplate')">
+                    {{ __('Create from template') }}
+                </x-button>
                 <x-button primary type="button" href="{{ route('admin.page.create') }}">
                     {{ __('Create Page') }}
                 </x-button>
@@ -48,6 +50,9 @@
     <x-card>
         <div>
             @livewire('admin.page.index')
+        </div>
+        <div>
+            @livewire('admin.page.template')
         </div>
     </x-card>
 </x-dashboard-layout>
