@@ -14,7 +14,7 @@
                         </a> / <a class="hover:text-orange-500" href="{{ URL::current() }}">  {{ __('Categories') }}  </a>
                          / 
                     </p>
-                     {{ $products->active()->count() }} {{ __('Watches') }}
+                     {{ $products->count() }} {{ __('Watches') }}
                 </h2>
                 <div class="w-full sm:w-auto flex justify-center my-2">
                     <select

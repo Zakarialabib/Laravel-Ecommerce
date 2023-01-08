@@ -84,7 +84,6 @@ class Catalog extends Component
     {
         $this->resetPage();
     }
-
  
     public function mount()
     {
