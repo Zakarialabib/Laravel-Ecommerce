@@ -19,8 +19,8 @@ return new class () extends Migration {
             $table->string('title');
             $table->text('details');
             $table->string('image')->nullable();
-            $table->boolean('status')->default(1);
-            $table->boolean('featured')->default(0);
+            $table->boolean('status')->default(true);
+            $table->boolean('featured')->default(false);
             $table->string('link')->nullable();
             $table->foreignId('language_id')->nullable()->constrained('languages')->nullOnDelete();
             $table->foreignId('product_id')->nullable()->constrained('products')->nullOnDelete();

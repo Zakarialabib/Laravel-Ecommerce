@@ -20,7 +20,7 @@ return new class () extends Migration {
             $table->string('symbol');
             $table->string('position');
             $table->float('value');
-            $table->string('is_default')->default(0);
+            $table->string('is_default')->default(false);
             $table->timestamps();
         });
     }

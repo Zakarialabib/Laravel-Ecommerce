@@ -6,21 +6,23 @@ namespace App\Http\Livewire\Front;
 
 use App\Models\Order;
 use App\Models\OrderProduct;
+use App\Models\PaymentGateway;
 use App\Models\Shipping;
+use Exception;
 use Gloudemans\Shoppingcart\Facades\Cart;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Livewire\Component;
-use Exception;
-use Illuminate\Contracts\View\View;
-use Illuminate\Contracts\View\Factory;
 
 class Checkout extends Component
 {
     use LivewireAlert;
 
     public $listeners = [
-        'checkout'            => 'checkout',
+        'checkout' => 'checkout',
         'checkoutCartUpdated' => '$refresh',
+        'confirmed',
     ];
 
     public $decreaseQuantity;
@@ -55,14 +57,33 @@ class Checkout extends Component
 
     public $shipping_id;
 
-    public $listsForFields = [];
+    public $cartTotal;
+    
+    public $productId;
+
+    public function confirmed()
+    {
+        Cart::instance('shopping')->remove($this->productId);
+        $this->emit('cartCountUpdated');
+        $this->emit('checkoutCartUpdated');
+    }
+
+    public function getCartItemsProperty()
+    {
+        return Cart::instance('shopping')->content();
+    }
+
+    public function getSubTotalProperty()
+    {
+        return Cart::instance('shopping')->subtotal();
+    }
 
     public function checkout()
     {
         $this->validate([
             'shipping_id' => 'required',
-            'first_name'  => 'required',
-            'phone'       => 'required',
+            'first_name' => 'required',
+            'phone' => 'required',
         ]);
 
         if (Cart::instance('shopping')->count() == 0) {
@@ -72,36 +93,63 @@ class Checkout extends Component
         $shipping = Shipping::find($this->shipping_id);
 
         $order = Order::create([
-            'reference'        => Order::generateReference(),
-            'shipping_id'      => $this->shipping_id,
-            'delivery_method'  => $shipping->title,
-            'payment_method'   => $this->payment_method,
-            'shipping_cost'    => $shipping->cost,
-            'first_name'       => $this->first_name,
-            'shipping_name'    => $this->first_name.'-'.$this->last_name,
-            'last_name'        => $this->last_name,
-            'email'            => $this->email,
-            'address'          => $this->address,
+            'reference' => Order::generateReference(),
+            'shipping_id' => $this->shipping_id,
+            'delivery_method' => $shipping->title,
+            'payment_method' => $this->payment_method,
+            'shipping_cost' => $shipping->cost,
+            'first_name' => $this->first_name,
+            'shipping_name' => $this->first_name.'-'.$this->last_name,
+            'last_name' => $this->last_name,
+            'email' => $this->email,
+            'address' => $this->address,
             'shipping_address' => $this->address,
-            'city'             => $this->city,
-            'shipping_city'    => $this->city,
-            'phone'            => $this->phone,
-            'shipping_phone'   => $this->phone,
-            'total'            => floatval(Cart::instance('shopping')->total()),
-            'user_id'          => auth()->user()->id,
-            'order_status'     => Order::STATUS_PENDING,
-            'payment_status'   => Order::PAYMENT_STATUS_PENDING,
+            'city' => $this->city,
+            'shipping_city' => $this->city,
+            'phone' => $this->phone,
+            'shipping_phone' => $this->phone,
+            'total' => $this->cartTotal,
+            'user_id' => auth()->user()->id,
+            'order_status' => Order::STATUS_PENDING,
+            'payment_status' => Order::PAYMENT_STATUS_PENDING,
         ]);
 
         foreach (Cart::instance('shopping') as $order) {
             $orderProduct = new OrderProduct([
-                'order_id'   => $order->id,
+                'order_id' => $order->id,
                 'product_id' => $product->id,
-                'quantity'   => $order->qty,
-                'price'      => $order->price,
+                'quantity' => $order->qty,
+                'price' => $order->price,
             ]);
 
             $orderProduct->save();
+        }
+
+        if($this->payment_method == 'paypal')
+        {
+            $cartItems = Cart::instance('shopping')->content();
+           
+            $product['items'] = [
+                [
+                    'name' => 'Nike Joyride 2',
+                    'price' => 112,
+                    'desc'  => 'Running shoes for Men',
+                    'qty' => 2
+                ]
+            ];
+      
+            $product['order_id'] = 1;
+            $product['invoice_description'] = "Order #{$product['invoice_id']} Bill";
+            $product['return_url'] = route('success.payment');
+            $product['cancel_url'] = route('cancel.payment');
+            $product['total'] = 224;
+      
+            $paypalModule = new ExpressCheckout;
+      
+            $res = $paypalModule->setExpressCheckout($product);
+            $res = $paypalModule->setExpressCheckout($product, true);
+      
+            return redirect($res['paypal_link']);
         }
 
         Cart::instance('shopping')->destroy();
@@ -115,18 +163,21 @@ class Checkout extends Component
     {
         if ($value) {
             $this->shipping = Shipping::find($value);
-            $cost = floatval($this->shipping->cost);
-
-            if ($this->shipping->is_pickup) {
-                $cartTotal = Cart::instance('shopping')->total();
-            } else {
-                $total = floatval(Cart::instance('shopping')->total());
-                $cartTotal = $total + $cost;
-            }
-        } else {
-            $cartTotal = Cart::instance('shopping')->total();
         }
-        $this->emit('cartTotalUpdated', $cartTotal);
+    }
+
+    public function updateCartTotal()
+    {
+        $this->cartTotal = $this->calculateCartTotal();
+    }
+
+    public function calculateCartTotal()
+    {
+        $total = Cart::instance('shopping')->total();
+        $shipping = Shipping::find($this->shipping_id);
+        $cost = $shipping->cost;
+        $this->cartTotal = $total + $cost;
+        return $this->cartTotal;
     }
 
       public function decreaseQuantity($rowId)
@@ -147,57 +198,30 @@ class Checkout extends Component
 
     public function removeFromCart($rowId)
     {
-        try {
-            Cart::instance('shopping')->remove($rowId);
-            $this->emit('cartCountUpdated');
-            $this->alert(
-                'success',
-                __('Product removed from cart successfully!'),
-                [
-                    'position'          => 'center',
-                    'timer'             => 3000,
-                    'toast'             => true,
-                    'text'              => '',
-                    'confirmButtonText' => 'Ok',
-                    'cancelButtonText'  => 'Cancel',
-                    'showCancelButton'  => false,
-                    'showConfirmButton' => false,
-                ]
-            );
-        } catch (Exception $e) {
-            $this->alert(
-                'error',
-                __('An error occurred while trying to remove the product from the cart: '.$e->getMessage()),
-                [
-                    'position'          => 'center',
-                    'timer'             => 3000,
-                    'toast'             => true,
-                    'text'              => '',
-                    'confirmButtonText' => 'Ok',
-                    'cancelButtonText'  => 'Cancel',
-                    'showCancelButton'  => false,
-                    'showConfirmButton' => false,
-                ]
-            );
-        }
+        $this->productId = $rowId;
+
+        $this->confirm(
+            __('Remove from cart ?'),
+            [
+                'position' => 'center',
+                'showConfirmButton' => true,
+                'confirmButtonText' => 'confirm',
+                'onConfirmed' => 'confirmed' ,
+                'showCancelButton' => true,
+                'cancelButtonText' => 'cancel',
+            ]
+        );
+       
     }
 
-    public function getShippingProperty()
+    public function getShippingsProperty()
     {
-        return Shipping::find($this->shipping_id);
+        return Shipping::select('id', 'title')->get();
     }
 
-    public function mount()
+    public function getPaymentMethodsProperty()
     {
-        $this->cartTotal = Cart::instance('shopping')->total();
-
-        $this->cartItems = Cart::instance('shopping')->content();
-
-        $this->subTotal = Cart::instance('shopping')->subtotal();
-
-        $this->payment_method = 'cash';
-
-        $this->initListsForFields();
+        return PaymentGateway::active()->get();
     }
 
     public function render(): View|Factory
@@ -205,8 +229,4 @@ class Checkout extends Component
         return view('livewire.front.checkout');
     }
 
-    protected function initListsForFields(): void
-    {
-        $this->listsForFields['shippings'] = Shipping::pluck('title', 'id')->toArray();
-    }
 }

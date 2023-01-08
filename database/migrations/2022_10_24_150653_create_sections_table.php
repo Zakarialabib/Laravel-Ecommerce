@@ -23,7 +23,7 @@ return new class () extends Migration {
             $table->text('label')->nullable();
             $table->string('link')->nullable();
             $table->text('description')->nullable();
-            $table->boolean('status')->default(1);
+            $table->boolean('status')->default(true);
             $table->string('bg_color')->nullable();
             $table->string('page')->nullable();
             $table->string('position')->nullable();

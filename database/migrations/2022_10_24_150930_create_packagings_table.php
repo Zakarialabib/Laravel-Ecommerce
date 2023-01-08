@@ -18,7 +18,7 @@ return new class () extends Migration {
             $table->id();
             $table->string('title');
             $table->string('subtitle');
-            $table->decimal('cost', 10, 2)->default(0);
+            $table->decimal('cost', 10, 2)->default(false);
             $table->timestamps();
         });
     }

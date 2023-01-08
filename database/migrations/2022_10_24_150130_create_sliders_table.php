@@ -21,9 +21,9 @@ return new class () extends Migration {
             $table->string('details')->nullable();
             $table->string('photo');
             $table->string('bg_color')->nullable();
-            $table->boolean('featured')->default(0);
+            $table->boolean('featured')->default(false);
             $table->string('link')->nullable();
-            $table->string('status')->default(1);
+            $table->string('status')->default(true);
             $table->foreignId('language_id')->nullable()->constrained('languages')->nullOnDelete();
             $table->timestamps();
         });

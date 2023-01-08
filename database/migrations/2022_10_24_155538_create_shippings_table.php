@@ -16,11 +16,11 @@ return new class () extends Migration {
     {
         Schema::create('shippings', function (Blueprint $table) {
             $table->id();
-            $table->boolean('is_pickup')->default(0);
+            $table->boolean('is_pickup')->default(false);
             $table->string('title');
             $table->string('subtitle')->nullable();
-            $table->decimal('cost', 10, 2)->default(0);
-            $table->boolean('status')->default(1);
+            $table->decimal('cost', 10, 2)->default(false);
+            $table->boolean('status')->default(true);
             $table->timestamps();
         });
     }

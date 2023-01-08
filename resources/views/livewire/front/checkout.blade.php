@@ -92,13 +92,13 @@
                         <div class="w-full md:w-1/2 px-4">
                             <label class="font-bold font-heading text-gray-600"
                                 for="">{{ __('Payment method') }}</label>
-                            <div class="flex flex-wrap -mx-4 mb-5">
-                                <label class="flex px-4 w-full sm:w-auto items-center" for="">
-                                    <input type="radio" name="paymentType" value="cash" wire:model="payment_method"
-                                        checked>
-                                    <span class="ml-5 text-sm">{{ __('Cash on Delivery') }}</span>
-                                </label>
-                            </div>
+                            <select
+                                class="block bg-white text-gray-700 rounded border border-gray-300 mb-1 text-sm w-full focus:shadow-outline-blue focus:border-blue-500"
+                                id="payment_method" name="payment_method" wire:model="payment_method">
+                                @foreach ($this->paymentmethods as $paymentmethod)
+                                    <option value="{{ $paymentmethod->name }}">{{ $paymentmethod->name }}</option>
+                                @endforeach
+                            </select>
                         </div>
 
                         <div class="mb-5 w-full md:w-1/2 px-4">
@@ -106,47 +106,15 @@
                                 <label class="font-bold font-heading text-gray-600">
                                     {{ __('Shipping methods') }}
                                 </label>
-                                <x-select-list
+                                <select
                                     class="block bg-white text-gray-700 rounded border border-gray-300 mb-1 text-sm w-full focus:shadow-outline-blue focus:border-blue-500"
-                                    id="shipping_id" name="shipping_id" wire:model="shipping_id" :options="$this->listsForFields['shippings']" />
+                                    id="shipping_id" name="shipping_id" wire:model="shipping_id" wire:change="updateCartTotal">
+                                    @foreach ($this->shippings as $shipping)
+                                        <option value="{{ $shipping->id }}">{{ $shipping->title }}</option>
+                                    @endforeach
+                                </select>
                             </div>
 
-                        </div>
-                        <div class="py-3 px-4 w-full bg-white">
-                            @if ($shipping_id)
-                                @if ($this->shipping->is_pickup)
-                                    <div class="flex mb-8 items-center justify-between pb-5 border-b border-blue-100">
-                                        <span class="text-blue-200">{{ __('Shipping') }}</span>
-                                        <span class="text-xl font-bold font-heading text-gray-800">0 DH</span>
-                                    </div>
-                                    <div class="flex mb-5 justify-between items-center">
-                                        <span
-                                            class="text-xl font-bold font-heading text-gray-800">{{ __('Order total') }}</span>
-                                        <span class="text-xl font-bold font-heading text-gray-800">
-                                            {{ $cartTotal }} DH
-                                        </span>
-                                    </div>
-                                @else
-                                    <div class="flex mb-2 justify-between items-center">
-                                        <span class="text-blue-50">{{ __('Shipping cost') }}</span>
-                                        <span class="text-xl font-bold font-heading text-gray-800">
-                                            {{ $this->shipping->cost }} DH
-                                    </div>
-                                    <div class="flex mb-5 justify-between items-center">
-                                        <span class="text-blue-50">{{ __('Shipping to') }}
-                                            {{ $this->shipping->title }}</span>
-                                        </span>
-                                        <span class="text-xl font-bold font-heading text-gray-800">-</span>
-                                    </div>
-                                    <div class="flex mb-5 justify-between items-center">
-                                        <span
-                                            class="text-xl font-bold font-heading text-gray-800">{{ __('Order total') }}</span>
-                                        <span class="text-xl font-bold font-heading text-gray-800">
-                                            {{ $cartTotal }} DH
-                                        </span>
-                                    </div>
-                                @endif
-                            @endif
                         </div>
                     </div>
                 </div>
@@ -159,7 +127,7 @@
                 </div>
                 <div class="mb-5 border-b">
                     <div class="flex flex-wrap -mx-4 mb-5 items-center">
-                        @foreach ($cartItems as $item)
+                        @foreach ($this->cartItems as $item)
                             <div class="flex flex-wrap w-full mb-10">
                                 <div class="w-full md:w-1/3 mb-6 md:mb-0 px-4">
                                     <div class="flex h-32 items-center justify-center bg-gray-100">
@@ -180,7 +148,7 @@
                                         <div class="flex flex-wrap items-center justify-between">
                                             <div
                                                 class="inline-flex items-center px-4 font-semibold font-heading text-gray-500 border border-gray-200 focus:ring-blue-300 focus:border-blue-300 rounded-md">
-                                                <div class="flex items-center">
+                                                <div class="flex items-center space-x-2">
                                                     @if (!empty($item->price))
                                                         <p class="text-lg text-blue-500 font-bold font-heading">
                                                             {{ $item->price }} DH
@@ -212,7 +180,7 @@
                                                                 </path>
                                                             </svg>
                                                         </button>
-                                                        <button wire:click="increaseQuantity('{{ $item->rowId }}')"
+                                                        <button wire:click="removeFromCart('{{ $item->rowId }}')"
                                                             class="text-red-500 hover:text-gray-700 focus:outline-none focus:text-gray-700">
                                                             <i class="fa fa-trash-alt"></i>
                                                         </button>
@@ -233,7 +201,7 @@
                             <div class="flex justify-between">
                                 <span class="font-medium">{{ __('Subtotal') }}</span>
                                 <span class="font-bold font-heading">
-                                    {{ $subTotal }} DH
+                                    {{ $this->subTotal }} DH
                                 </span>
                             </div>
                         </div>
@@ -251,7 +219,7 @@
                             <div class="flex justify-between">
                                 <span class="text-base md:text-xl font-bold font-heading">{{ __('Total') }}</span>
                                 <span class="font-bold font-heading">
-                                    {{ $cartTotal }} DH
+                                    {{ $this->cartTotal }} DH
                                 </span>
                             </div>
                         </div>

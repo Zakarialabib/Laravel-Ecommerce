@@ -24,7 +24,7 @@ class CreateOrderFormsTable extends Migration
             $table->string('address')->nullable();
 
             $table->string('type');
-            $table->tinyInteger('status')->default(0);
+            $table->tinyInteger('status')->default(false);
 
             $table->string('subject')->nullable();
             $table->string('message')->nullable();

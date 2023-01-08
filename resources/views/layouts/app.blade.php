@@ -4,6 +4,10 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="dns-prefetch" href="{{ request()->getSchemeAndHttpHost() }}">
+    <link rel="preconnect" href="{{ request()->getSchemeAndHttpHost() }}">
+    <link rel="prefetch" href="{{ request()->getSchemeAndHttpHost() }}">
+    <link rel="prerender" href="{{ request()->getSchemeAndHttpHost() }}">
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&display=swap">
     <meta name="csrf-token" content="{{ csrf_token() }}">
@@ -58,6 +62,8 @@
     @if (Helpers::settings('body_tags'))
         {!! Helpers::settings('body_tags') !!}
     @endif
+    
+    <x-loading-mask />
 
     <section class="relative">
         <x-header />

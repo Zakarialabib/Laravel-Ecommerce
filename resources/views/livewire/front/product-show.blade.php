@@ -17,7 +17,7 @@
             <div class="mx-auto px-4">
                 <div class="flex flex-wrap -mx-4 mb-14">
                     <div class="w-full md:w-1/2 px-4 mb-8 md:mb-0">
-                        <x-product-carousel :image="$product->image" :gallery="$product->gallery" :video="$product->embeded_video" />
+                        <x-product-carousel :product="$product"  />
                     </div>
                     <div class="w-full md:w-1/2 px-4">
                         <div>
