@@ -12,8 +12,8 @@
 @endsection
 
 <div>
-    <div itemscope itemtype="http://schema.org/Product">
-        <section class="py-10">
+    <section itemscope itemtype="http://schema.org/Product">
+        <div class="py-10">
             <div class="mx-auto px-4">
                 <div class="flex flex-wrap -mx-4 mb-14">
                     <div class="w-full md:w-1/2 px-4 mb-8 md:mb-0">
@@ -299,6 +299,13 @@
                     </div>
                 </div>
             </div>
-        </section>
-    </div>
+            <div class="mx-auto px-4">
+                <div class="mb-8 grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3 -mx-2 px-2">
+                    @foreach ($relatedProducts as $product)
+                        <x-product-card :product="$product" />
+                    @endforeach
+                </div>
+            </div>
+        </div>
+    </section>
 </div>

@@ -88,8 +88,12 @@ class ProductShow extends Component
     {
         $this->product = $product;
 
-        $this->brand_products = Product::where('brand_id', $product->brand_id)->take(3)->get();
-        $this->relatedProducts = Product::where('category_id', $product->category_id)->where('id', '!=', $product->id)->get();
+        $this->brand_products = Product::active()->where('brand_id', $product->brand_id)->take(3)->get();
+        $this->relatedProducts = Product::active()
+                                        ->inRandomOrder()
+                                        ->limit(4)
+                                        ->get();
+
         $this->brand = Brand::where('id', $product->brand_id)->first();
         $this->category = Category::where('id', $product->category_id)->first();
     }

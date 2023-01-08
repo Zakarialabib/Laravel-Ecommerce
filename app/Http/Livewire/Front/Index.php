@@ -45,7 +45,7 @@ class Index extends Component
 
     public function getBrandsProperty(): Collection
     {
-        return Brand::with('products')->active()->get();
+        return Brand::with('products')->get();
     }
 
     public function getSlidersProperty(): Collection
@@ -60,7 +60,7 @@ class Index extends Component
 
     public function getSectionsProperty(): Collection
     {
-        return Section::where('status', 1)->limit(4)->get();
+        return Section::active()->limit(4)->get();
     }
 
     public function render(): View|Factory
