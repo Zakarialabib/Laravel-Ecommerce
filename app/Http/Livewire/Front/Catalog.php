@@ -31,8 +31,6 @@ class Catalog extends Component
 
     public $minPrice;
 
-    public $priceRange;
-
     public $category_id;
 
     public $subcategory_id;

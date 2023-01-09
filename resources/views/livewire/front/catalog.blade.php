@@ -54,16 +54,17 @@
         <div class="flex flex-wrap -mx-3">
             <div class="flex flex-wrap w-full lg:hidden px-3">
                 <div class="w-full px-2 mb-4" x-data="{ openFilters: false }">
-                    <div class="py-6 px-2 text-center bg-gray-50">
+                    <div class="py-6 px-3 text-center bg-gray-50">
                         <div class="flex justify-between mb-8">
                             <h3 class="text-xl font-bold font-heading">{{ __('Filters') }}</h3>
                             <button @click="openFilters = !openFilters">
                                 <i class="fa fa-caret-down" aria-hidden="true"></i>
                             </button>
                         </div>
-                        <div x-data="{ openFilters: false }">
-                            <div class="w-full px-2 flex overflow-x-scroll bg-gray-50">
-                                <ul class="mt-6 w-full">
+                        <div x-show="openFilters">
+                            <div class="w-full px-2 overflow-x-scroll bg-gray-50">
+                                <ul class="my-6 w-full flex">
+                                    <a class="font-bold font-heading" href="#">{{ __('Categories') }}</a>
                                     @foreach ($this->categories as $category)
                                         <li class="w-1/2 px-2 mb-2">
                                             <x-button type="button"
@@ -91,14 +92,13 @@
                                     @endforeach
                                 </ul>
 
-
                                 <div class="mb-6 text-center w-full">
                                     <a class="font-bold font-heading" href="#">{{ __('Price') }}</a>
                                     <div class="mt-6 -mb-2">
-                                        <input
-                                            class="w-full mb-4 outline-none appearance-none bg-gray-100 h-1 rounded cursor-pointer"
-                                            type="range" min="{{ $this->minPrice }}" max="{{ $this->maxPrice }}"
-                                            wire:model="priceRange">
+                                        <input class="w-full mb-4 outline-none appearance-none rounded cursor-pointer"
+                                            type="text" wire:model="minPrice">
+                                        <input class="w-full mb-4 outline-none appearance-none rounded cursor-pointer"
+                                            type="text" wire:model="maxPrice">
                                         <div class="flex justify-between">
                                             <span class="inline-block text-lg font-bold font-heading text-blue-300">
                                                 {{ $this->minPrice }}
@@ -182,10 +182,10 @@
                     <div class="mb-6 p-4 bg-gray-50">
                         <h3 class="mb-8 text-2xl font-bold font-heading">{{ __('Price') }}</h3>
                         <div>
-                            <input
-                                class="w-full mb-4 outline-none appearance-none bg-gray-100 h-1 rounded cursor-pointer"
-                                type="range" min="{{ $this->minPrice }}" max="{{ $this->maxPrice }}"
-                                wire:model="priceRange">
+                            <input class="w-full mb-4 outline-none appearance-none rounded cursor-pointer"
+                                type="text" wire:model="minPrice">
+                            <input class="w-full mb-4 outline-none appearance-none rounded cursor-pointer"
+                                type="text" wire:model="maxPrice">
                             <div class="flex justify-between">
                                 <span class="inline-block text-lg font-bold font-heading text-blue-300">
                                     {{ $this->minPrice }}
