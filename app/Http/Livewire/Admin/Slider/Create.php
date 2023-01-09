@@ -57,9 +57,7 @@ class Create extends Component
 
     public function createSlider()
     {
-        $this->resetErrorBag();
-
-        $this->resetValidation();
+        $this->reset();
 
         $this->createSlider = true;
     }

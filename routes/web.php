@@ -19,6 +19,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', [FrontController::class, 'index'])->name('front.index');
 Route::get('/catalog', [FrontController::class, 'catalog'])->name('front.catalog');
 Route::get('/categories', [FrontController::class, 'categories'])->name('front.categories');
+Route::get('/categories/{name}', [FrontController::class, 'subcategoryPage'])->name('front.subcategoryPage');
 Route::get('/marques', [FrontController::class, 'brands'])->name('front.brands');
 Route::get('/marque/{slug}', [FrontController::class, 'brandPage'])->name('front.brandPage');
 Route::get('/catalog/{slug}', [FrontController::class, 'productShow'])->name('front.product');
@@ -30,7 +31,10 @@ Route::get('/a-propos', [FrontController::class, 'about'])->name('front.about');
 Route::get('/blog', [FrontController::class, 'blog'])->name('front.blog');
 Route::get('/blog/{slug}', [FrontController::class, 'blogPage'])->name('front.blogPage');
 Route::get('/faq', [FrontController::class, 'faq'])->name('front.faq');
-Route::get('/sitemaps', [FrontController::class, 'generateSitemaps']);
+Route::get('/generate-sitemap', [FrontController::class, 'generateSitemaps']);
+Route::middleware('auth')->group(function (){  
+    Route::get('/mon-compte', [FrontController::class, 'myaccount'])->name('front.myaccount'); 
+});
 
 require __DIR__.'/auth.php';
 require __DIR__.'/admin.php';

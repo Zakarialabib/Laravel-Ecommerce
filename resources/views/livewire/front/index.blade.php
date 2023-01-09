@@ -1,174 +1,185 @@
 <div>
     <div class="relative mx-auto mb-5">
-        <div class="swiper mySwiper">
-            <div class="swiper-wrapper">
-                <!-- Slides -->
-                @foreach ($this->sliders as $slider)
-                    <div class="swiper-slide">
-                        <div class="flex flex-wrap -mx-4 py-10"
-                            style="background-image: url({{ asset('images/sliders/' . $slider->photo) }});background-size: cover;background-position: center;">
-                            <div class="w-full md:w-1/2 px-4 lg:mb-5 sm:mb-2">
-                                <div class="max-w-md lg:py-5 py-10 text-white px-2">
-                                    <h5 class="lg:text-2xl sm:text-md font-bold mb-2">
-                                        {{ $slider->subtitle }}
-                                    </h5>
-                                    <h2 class="lg:text-6xl sm:text-xl font-semibold font-heading">
-                                        {{ $slider->title }}
-                                    </h2>
-                                    <p class="py-10 lg:text-lg sm:text-sm">
-                                        {!! $slider->details !!}
-                                    </p>
-                                    @if ($slider->link)
-                                        <a class="inline-block hover:bg-orange-400 text-white font-bold font-heading py-6 px-8 rounded-md uppercase transition duration-200 bg-orange-500"
-                                            href="{{ $slider->link }}">
-                                            {{ 'Discover now' }}
-                                        </a>
-                                    @endif
+        <div class="w-full py-5 px-4 mx-auto">
+            <div class="swiper mySwiper">
+                <div class="swiper-wrapper">
+                    <!-- Slides -->
+                    @foreach ($this->sliders as $slider)
+                        <div class="swiper-slide">
+                            <div class="flex flex-wrap -mx-4 py-10"
+                                style="background-image: url({{ asset('images/sliders/' . $slider->photo) }});background-size: cover;background-position: center;">
+                                <div class="w-full md:w-1/2 px-4 lg:mb-5 sm:mb-2">
+                                    <div class="max-w-md lg:py-5 py-10 text-white px-2">
+                                        <h5 class="lg:text-2xl sm:text-md font-bold mb-2">
+                                            {{ $slider->subtitle }}
+                                        </h5>
+                                        <h2 class="lg:text-6xl sm:text-xl font-semibold font-heading">
+                                            {{ $slider->title }}
+                                        </h2>
+                                        <p class="py-10 lg:text-lg sm:text-sm">
+                                            {!! $slider->details !!}
+                                        </p>
+                                        @if ($slider->link)
+                                            <a class="inline-block hover:bg-orange-400 text-white font-bold font-heading py-6 px-8 rounded-md uppercase transition duration-200 bg-orange-500"
+                                                href="{{ $slider->link }}">
+                                                {{ 'Discover now' }}
+                                            </a>
+                                        @endif
+                                    </div>
                                 </div>
                             </div>
+                        </div>
+                    @endforeach
+                </div>
+                <div class="swiper-pagination"></div>
+                <div class="swiper-button-prev"></div>
+                <div class="swiper-button-next"></div>
+            </div>
+        </div>
+        <div class="w-full py-5 px-4 mx-auto">
+            <div class="flex flex-col">
+                <h2 class="text-2xl font-bold text-center mb-4">
+                    {{ __('Choose your favorite choice') }}
+                </h2>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 mt-4 gap-4">
+                    @foreach ($this->subcategories as $subcategory)
+                        <div class="flex items-start p-4 rounded-xl shadow-lg bg-white">
+                            <a href="{{ route('front.subcategoryPage', $subcategory->name) }}">
+                                <div
+                                    class="flex items-center justify-center bg-blue-50 h-12 w-12 rounded-full border border-blue-100">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-blue-400" fill="none"
+                                        viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                            d="M7 8h10M7 12h4m1 8l-4-4H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-3l-4 4z" />
+                                    </svg>
+                                </div>
+
+                                <div class="ml-4">
+                                    <h2 class="font-semibold">{{ $subcategory->name }}</h2>
+                                    <p class="mt-2 text-sm text-gray-500">{{ $subcategory->products->count }}</p>
+                                </div>
+                            </a>
+                        </div>
+                    @endforeach
+                </div>
+            </div>
+        </div>
+        <div class="w-full py-5 px-4 mx-auto">
+            <div x-data="{ activeTabs: 'featuredProducts' }">
+                <div class="grid gap-4 xl:grid-cols-4 lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 mb-10 ">
+                    <div class="py-5 px-8 sm:py-2 sm:px-5 text-left font-bold text-gray-500 uppercase border-b-2 border-gray-100 hover:border-gray-500 focus:outline-none focus:border-gray-500 cursor-pointer"
+                        @click="activeTabs = 'featuredProducts'">
+                        <h4 class="inline-block" :class="activeTabs === 'featuredProducts' ? 'text-orange-400' : ''">
+                            {{ __('Featured Products') }}
+                        </h4>
+                    </div>
+                    <div class="py-5 px-8 sm:py-2 sm:px-5 text-left font-bold text-gray-500 uppercase border-b-2 border-gray-100 hover:border-gray-500 focus:outline-none focus:border-gray-500 cursor-pointer"
+                        @click="activeTabs = 'bestOfers'">
+                        <h4 class="inline-block" :class="activeTabs === 'bestOfers' ? 'text-orange-400' : ''">
+                            {{ __('Best Offers') }}
+                        </h4>
+                    </div>
+                    <div class="py-5 px-8 sm:py-2 sm:px-5 text-left font-bold text-gray-500 uppercase border-b-2 border-gray-100 hover:border-gray-500 focus:outline-none focus:border-gray-500 cursor-pointer"
+                        @click="activeTabs = 'hotProducts'">
+                        <h4 class="inline-block" :class="activeTabs === 'hotProducts' ? 'text-orange-400' : ''">
+                            {{ __('Hot Products') }}
+                        </h4>
+                    </div>
+                    <div class="py-5 px-8 sm:py-2 sm:px-5 text-left font-bold text-gray-500 uppercase border-b-2 border-gray-100 hover:border-gray-500 focus:outline-none focus:border-gray-500 cursor-pointer"
+                        @click="activeTabs = 'brands'">
+                        <h4 class="inline-block" :class="activeTabs === 'brands' ? 'text-orange-400' : ''">
+                            {{ __('Brands') }}
+                        </h4>
+                    </div>
+                </div>
+                <div x-show="activeTabs === 'featuredProducts'" class="px-5">
+                    <div role="featuredProducts" aria-labelledby="tab-0" id="tab-panel-0" tabindex="0"
+                        class="w-full mb-16">
+                        <div class="grid gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 ">
+                            @forelse ($this->featuredProducts as $product)
+                                <x-product-card :product="$product" />
+                            @empty
+                                <div class="w-full">
+                                    <h3 class="text-3xl font-bold font-heading text-blue-900">
+                                        {{ __('No products found') }}
+                                    </h3>
+                                </div>
+                            @endforelse
                         </div>
                     </div>
-                @endforeach
-            </div>
-            <div class="swiper-pagination"></div>
-            <div class="swiper-button-prev"></div>
-            <div class="swiper-button-next"></div>
-        </div>
-
-        <div x-data="{ activeTabs: 'featuredProducts' }" class="mx-auto px-4">
-            <div class="grid gap-4 xl:grid-cols-4 lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 mb-10 ">
-                <div class="py-5 px-8 sm:py-2 sm:px-5 text-left font-bold text-gray-500 uppercase border-b-2 border-gray-100 hover:border-gray-500 focus:outline-none focus:border-gray-500 cursor-pointer"
-                    @click="activeTabs = 'featuredProducts'">
-                    <h4 class="inline-block" :class="activeTabs === 'featuredProducts' ? 'text-orange-400' : ''">
-                        {{ __('Featured Products') }}
-                    </h4>
                 </div>
-                <div class="py-5 px-8 sm:py-2 sm:px-5 text-left font-bold text-gray-500 uppercase border-b-2 border-gray-100 hover:border-gray-500 focus:outline-none focus:border-gray-500 cursor-pointer"
-                    @click="activeTabs = 'bestOfers'">
-                    <h4 class="inline-block" :class="activeTabs === 'bestOfers' ? 'text-orange-400' : ''">
-                        {{ __('Best Offers') }}
-                    </h4>
-                </div>
-                <div class="py-5 px-8 sm:py-2 sm:px-5 text-left font-bold text-gray-500 uppercase border-b-2 border-gray-100 hover:border-gray-500 focus:outline-none focus:border-gray-500 cursor-pointer"
-                    @click="activeTabs = 'hotProducts'">
-                    <h4 class="inline-block" :class="activeTabs === 'hotProducts' ? 'text-orange-400' : ''">
-                        {{ __('Hot Products') }}
-                    </h4>
-                </div>
-                <div class="py-5 px-8 sm:py-2 sm:px-5 text-left font-bold text-gray-500 uppercase border-b-2 border-gray-100 hover:border-gray-500 focus:outline-none focus:border-gray-500 cursor-pointer"
-                    @click="activeTabs = 'brands'">
-                    <h4 class="inline-block" :class="activeTabs === 'brands' ? 'text-orange-400' : ''">
-                        {{ __('Brands') }}
-                    </h4>
-                </div>
-            </div>
-            <div x-show="activeTabs === 'featuredProducts'" class="px-5">
-                <div role="featuredProducts" aria-labelledby="tab-0" id="tab-panel-0" tabindex="0">
-                    <section>
-                        <div class="container mx-auto">
-                            <div class="w-full mb-16">
-                                <div class="grid gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 ">
-                                    @forelse ($this->featuredProducts as $product)
-                                        <x-product-card :product="$product" />
-                                    @empty
-                                        <div class="w-full">
-                                            <h3 class="text-3xl font-bold font-heading text-blue-900">
-                                                {{ __('No products found') }}
-                                            </h3>
-                                        </div>
-                                    @endforelse
+                <div x-show="activeTabs === 'bestOfers'" class="px-5">
+                    <div role="bestOfers" aria-labelledby="tab-1" id="tab-panel-1" tabindex="0" class="w-full mb-16">
+                        <div class="grid gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 ">
+                            @forelse ($this->bestOffers as $product)
+                                <x-product-card :product="$product" />
+                            @empty
+                                <div class="w-full">
+                                    <h3 class="text-3xl font-bold font-heading text-blue-900">
+                                        {{ __('No products found') }}
+                                    </h3>
                                 </div>
-                            </div>
+                            @endforelse
                         </div>
-                    </section>
+                    </div>
                 </div>
-            </div>
-            <div x-show="activeTabs === 'bestOfers'" class="px-5">
-                <div role="bestOfers" aria-labelledby="tab-1" id="tab-panel-1" tabindex="0">
-                    <section>
-                        <div class="container mx-auto">
-                            <div class="w-full mb-16">
-                                <div class="grid gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 ">
-                                    @forelse ($this->bestOffers as $product)
-                                        <x-product-card :product="$product" />
-                                    @empty
-                                        <div class="w-full">
-                                            <h3 class="text-3xl font-bold font-heading text-blue-900">
-                                                {{ __('No products found') }}
-                                            </h3>
-                                        </div>
-                                    @endforelse
+                <div x-show="activeTabs === 'hotProducts'" class="px-5">
+                    <div role="hotProducts" aria-labelledby="tab-2" id="tab-panel-2" tabindex="0"
+                        class="w-full mb-16">
+                        <div class="grid gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 ">
+                            @forelse ($this->hotProducts as $product)
+                                <x-product-card :product="$product" />
+                            @empty
+                                <div class="w-full">
+                                    <h3 class="text-3xl font-bold font-heading text-blue-900">
+                                        {{ __('No products found') }}
+                                    </h3>
                                 </div>
-                            </div>
+                            @endforelse
                         </div>
-                    </section>
+                    </div>
                 </div>
-            </div>
-            <div x-show="activeTabs === 'hotProducts'" class="px-5">
-                <div role="hotProducts" aria-labelledby="tab-2" id="tab-panel-2" tabindex="0">
-                    <section>
-                        <div class="container mx-auto">
-                            <div class="w-full mb-16">
-                                <div class="grid gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 ">
-                                    @forelse ($this->hotProducts as $product)
-                                        <x-product-card :product="$product" />
-                                    @empty
-                                        <div class="w-full">
-                                            <h3 class="text-3xl font-bold font-heading text-blue-900">
-                                                {{ __('No products found') }}
-                                            </h3>
+                <div x-show="activeTabs === 'brands'" class="px-5">
+                    <div role="brands" aria-labelledby="tab-3" id="tab-panel-3" tabindex="0" class="w-full mb-16">
+                        <div
+                            class="grid gap-2 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 w-full py-10">
+                            @forelse ($this->brands as $brand)
+                                <div class="flex flex-col items-center rounded-md">
+                                    <a class="block mb-5" href="{{ route('front.brandPage', $brand->slug) }}">
+                                        <div class="relative">
+                                            <img class="w-full h-24 object-contain" loading="lazy"
+                                                src="{{ asset('images/brands/' . $brand->image) }}"
+                                                onerror="this.onerror=null; this.remove();" alt="{{ $brand->name }}">
                                         </div>
-                                    @endforelse
-                                </div>
-                            </div>
-                        </div>
-                    </section>
-                </div>
-            </div>
-            <div x-show="activeTabs === 'brands'" class="px-5">
-                <div role="brands" aria-labelledby="tab-3" id="tab-panel-3" tabindex="0">
-                    <div class="container mx-auto">
-                        <div class="flex mb-5">
-                            <div
-                                class="grid gap-2 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 w-full py-10">
-                                @forelse ($this->brands as $brand)
-                                    <div class="flex flex-col items-center rounded-md">
-                                        <a class="block mb-5" href="{{ route('front.brandPage', $brand->slug) }}">
-                                            <div class="relative">
-                                                <img class="w-full h-24 object-contain" loading="lazy"
-                                                    src="{{ asset('images/brands/' . $brand->image) }}"
-                                                    onerror="this.onerror=null; this.remove();"
-                                                    alt="{{ $brand->name }}">
-                                            </div>
-                                        </a>
-                                        <a class="my-2 text-center mb-2"
-                                            href="{{ route('front.brandPage', $brand->slug) }}">
-                                            <h3 class="mb-3 text-3xl font-bold font-heading text-blue-900">
-                                                {{ $brand->name }}
-                                            </h3>
-                                            {{-- count products in brand  --}}
-                                            <p class="text-xl font-bold font-heading text-white">
-                                                <span class="text-blue-900">
-                                                    {{ $brand->products->count() }} {{ __('products') }}
-                                                </span>
-                                            </p>
-                                        </a>
-                                    </div>
-                                @empty
-                                    <div class="w-full">
-                                        <h3 class="text-3xl font-bold font-heading text-blue-900">
-                                            {{ __('No brands found') }}
+                                    </a>
+                                    <a class="my-2 text-center mb-2"
+                                        href="{{ route('front.brandPage', $brand->slug) }}">
+                                        <h3 class="mb-3 text-3xl font-bold font-heading text-blue-900">
+                                            {{ $brand->name }}
                                         </h3>
-                                    </div>
-                                @endforelse
-                            </div>
+                                        {{-- count products in brand  --}}
+                                        <p class="text-xl font-bold font-heading text-white">
+                                            <span class="text-blue-900">
+                                                {{ $brand->products->count() }} {{ __('products') }}
+                                            </span>
+                                        </p>
+                                    </a>
+                                </div>
+                            @empty
+                                <div class="w-full">
+                                    <h3 class="text-3xl font-bold font-heading text-blue-900">
+                                        {{ __('No brands found') }}
+                                    </h3>
+                                </div>
+                            @endforelse
                         </div>
+
                     </div>
                 </div>
             </div>
         </div>
-
-        <section class="py-5 px-4 mx-auto bg-gray-100">
+        <div class="py-5 px-4 mx-auto bg-gray-100">
             <div class="grid gap-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-4 w-full py-10">
                 @forelse ($this->sections as $section)
                     <div class="px-3 mb-6">
@@ -192,8 +203,7 @@
                     </div>
                 @endforelse
             </div>
-        </section>
-        <!-- End Features -->
+        </div>
     </div>
 </div>
 

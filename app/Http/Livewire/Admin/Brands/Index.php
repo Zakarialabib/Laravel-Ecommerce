@@ -69,8 +69,19 @@ class Index extends Component
         ],
     ];
 
+    public function getImagePreviewProperty()
+    {
+        return $this->brand->image;
+    }
+
+    public function getFeaturedImagePreviewProperty()
+    {
+        return $this->brand->featured_image;
+    }
+
     public array $rules = [
         'brand.name'        => ['required', 'string', 'max:255'],
+        'brand.slug' => ['required', 'string'],
         'brand.description' => ['nullable', 'string'],
     ];
 

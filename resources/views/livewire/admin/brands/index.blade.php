@@ -126,25 +126,30 @@
 
                     <div class="w-full px-3 mb-6 md:mb-0">
                         <x-label for="description" :value="__('Description')" />
-                        <x-input.rich-text wire:model.lazy="brand.description" id="description" />
+                        <x-input.textarea wire:model.lazy="brand.description" id="description" />
                         <x-input-error :messages="$errors->get('brand.description')" for="brand.description" class="mt-2" />
                     </div>
 
                     <div class="w-full py-2 px-3 mb-4">
-                        <x-media-upload title="{{ __('Logo') }}" name="image" wire:model="image" :preview="$image" :file="$image"
-                            single types="PNG / JPEG / WEBP" fileTypes="image/*" />
+                        <x-label for="Brand Logo" :value="__('Brand Logo')" />
+                        <x-media-upload title="{{ __('Brand Logo') }}" name="image" wire:model="image"
+                                :file="$image" :preview="$this->imagepreview" single types="PNG / JPEG / WEBP"
+                                fileTypes="image/*" />
                     </div>
 
                     <div class="w-full py-2 px-3 mb-4">
                         <x-media-upload title="{{ __('Featured Image') }}" name="featured_image"
-                            wire:model="featured_image" :file="$featured_image" :preview="$featured_image" single types="PNG / JPEG / WEBP"
-                            fileTypes="image/*" />
+                             :file="$featured_image" :preview="$this->featuredimagepreview" single types="PNG / JPEG / WEBP"
+                                fileTypes="image/*" /> />
                     </div>
 
-                    <div class="w-full px-3">
+                    <div class="w-full px-3 my-2">
                         <x-button primary type="submit" wire:loading.attr="disabled">
                             {{ __('Update') }}
                         </x-button>
+                        <span class="sr-only ml-2" wire:loading wire:target="update">
+                            {{ __('Updating...') }}
+                        </span>
                     </div>
                 </div>
             </form>

@@ -8,8 +8,9 @@ use App\Models\Order;
 use App\Models\Blog;
 use App\Models\Brand;
 use App\Models\Product;
-use App\Models\Sitemaps;
+use App\Models\Subcategory;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class FrontController extends Controller
 {
@@ -35,6 +36,18 @@ class FrontController extends Controller
     public function categories()
     {
         return view('front.categories');
+    }
+
+    public function subcategories()
+    {
+        return view('front.subcategories');
+    }
+
+     public function SubcategoryPage($name)
+    {
+        $subcategory = Subcategory::where('name', $name)->first();
+
+        return view('front.brand-page', compact('brand'));
     }
 
     public function brands()
@@ -89,15 +102,16 @@ class FrontController extends Controller
         return view('front.order-summary', compact('order'));
     }
 
-    public function generateSitemaps(Request $request)
+    public function myaccount(User $customer)
     {
-        // Create a new instance of the SiteGenerator model
-        $generator = new Sitemaps();
+        $customer = Auth::user();
+        
+        return view('front.user-account',['customer'=>$customer]);   
+    }
 
-        // Generate the sitemap
-        $generator->generate();
-
-        // Redirect the user to the sitemap page
-        return redirect('/sitemap.xml');
+    public function generateSitemaps()
+    {
+       SitemapGenerator::create(config('app.url'))
+        ->writeToFile(public_path('sitemap.xml'));
     }
 }

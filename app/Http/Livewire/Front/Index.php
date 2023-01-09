@@ -9,6 +9,7 @@ use App\Models\FeaturedBanner;
 use App\Models\Product;
 use App\Models\Section;
 use App\Models\Slider;
+use App\Models\Subcategory;
 use Illuminate\Support\Collection;
 use Livewire\Component;
 use Illuminate\Contracts\View\View;
@@ -16,6 +17,12 @@ use Illuminate\Contracts\View\Factory;
 
 class Index extends Component
 {
+    public function getSubcategoriesProperty(): Collection
+    {
+        return Subcategory::inRandomOrder()
+                            ->limit(4)
+                            ->get();
+    }
     public function getFeaturedProductsProperty(): Collection
     {
         return Product::where('featured', 1)

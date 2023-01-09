@@ -46,15 +46,6 @@ Alpine.data("mainState", () => {
         });
     };
 
-    Alpine.data("loadingMask", () => ({
-        pageLoaded: false,
-        init() {
-            window.onload = (event) => {
-                this.pageLoaded = true
-            };
-        }
-    }));
-
     const getTheme = () => {
         if (window.localStorage.getItem("dark")) {
             return JSON.parse(window.localStorage.getItem("dark"));
@@ -116,6 +107,14 @@ Alpine.data("mainState", () => {
     };
 });
 
+Alpine.data("loadingMask", () => ({
+    pageLoaded: false,
+    init() {
+        window.onload = (event) => {
+            this.pageLoaded = true
+        };
+    }
+}));
 
 Alpine.plugin(collapse)
 

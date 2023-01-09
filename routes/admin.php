@@ -78,4 +78,5 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => 'auth'], fu
     Route::get('/roles', [RolesController::class, 'index'])->name('roles');
     Route::get('/permissions', [UsersController::class, 'permissions'])->name('permissions');
     Route::get('/currencies', [SettingController::class, 'currencies'])->name('currencies');
+    Route::get('/popupsettings', [SettingController::class, 'popupsettings'])->name('popupsettings');
 });

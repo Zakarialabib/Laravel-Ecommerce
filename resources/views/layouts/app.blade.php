@@ -52,8 +52,6 @@
 
     @stack('styles')
 
-
-
 </head>
 
 <body class="antialiased bg-body text-body font-body" x-data="{ showCart: false }">

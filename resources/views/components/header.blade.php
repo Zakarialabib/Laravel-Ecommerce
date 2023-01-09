@@ -52,12 +52,14 @@
                         <x-dropdown-link :href="route('admin.settings')">
                             {{ __('Settings') }}
                         </x-dropdown-link>
+                    @else
+
+                    <x-dropdown-link href="{{ route('front.myaccount') }}">
+                    {{ __('My account') }}
+                    </x-dropdown-link>
+                    
                     @endif
-
-                    {{-- <x-dropdown-link href="{{ route('profile.show') }}">
-                    {{ __('Profile') }}
-                </x-dropdown-link> --}}
-
+                    
                     <div class="border-t border-gray-100"></div>
 
                     <!-- Authentication -->
@@ -99,7 +101,7 @@
 <div class="hidden navbar-menu fixed top-0 left-0 bottom-0 w-5/6 max-w-sm z-50">
     <div class="navbar-backdrop fixed inset-0 bg-gray-800 opacity-25"></div>
     <nav class="relative flex flex-col py-6 px-6 w-full h-full bg-white border-r overflow-y-auto">
-        <div class="flex items-center mb-8">
+        <div class="flex items-center mb-2">
             <a class="mr-auto lg:text-3xl sm:text-xl font-bold font-heading" href="{{ route('front.index') }}">
                 <img class="h-10" src="{{ asset('images/' . Helpers::settings('site_logo')) }}"
                     alt="{{ Helpers::settings('site_title') }}" width="auto" />
@@ -112,7 +114,7 @@
                 </svg>
             </button>
         </div>
-        <div class="border-t border-gray-900 py-5"></div>
+        <div class="border-t border-gray-900 py-2"></div>
         <div class="flex mb-8 justify-between">
             @if (Auth::check())
                 <div class="w-full lg:text-3xl sm:text-xl font-bold font-heading">
@@ -132,10 +134,16 @@
                                 {{ __('Settings') }}
                             </a>
                         </div>
+                    @else
+                    <div class="py-3">
+                        <a class="hover:text-orange-500" href="{{ route('front.myaccount') }}">
+                            {{ __('My account') }}
+                        </a>
+                    </div>
                     @endif
                 </div>
             @else
-                <div class="border-t border-gray-900 py-5"></div>
+                <div class="border-t border-gray-900 py-2"></div>
                 <div class="w-full lg:text-3xl sm:text-xl font-bold font-heading">
                     <div class="py-3">
                         <a class="hover:text-orange-500" href="{{ route('login') }}">{{ __('Login') }} </a>
@@ -148,12 +156,13 @@
             @endif
         </div>
 
-        <div class="flex items-center">
+        <div class="flex items-center justify-between bg-blue-500 px-4">
             <livewire:front.search-box />
+            
             <livewire:front.cart-count />
         </div>
 
-        <div class="border-t border-gray-900 py-5"></div>
+        <div class="border-t border-gray-900 py-2"></div>
 
         <ul class="lg:text-3xl sm:text-xl font-bold font-heading">
             <li class="mb-8"><a href="{{ route('front.categories') }}">{{ __('Categories') }}</a></li>

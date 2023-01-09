@@ -1,7 +1,7 @@
 <div>
     <div class="mx-auto px-4">
         <div class="mb-10 items-center justify-between bg-white py-4">
-            <div class="w-full mb-4 px-4 flex flex-wrap justify-between">
+            <div class="w-full lg:mb-4 px-4 flex flex-wrap justify-between">
                 <div class="py-4 flex items-center flex-wrap">
                     <ul class="flex flex-wrap items-center">
                         <li class="inline-flex items-center">
@@ -17,7 +17,7 @@
                         </li>
                         <li class="inline-flex items-center">
                             <a href="{{ URL::current() }}" class="text-gray-600 hover:text-blue-500">
-                                {{ __('Brands') }}
+                                {{ __('SubCategories') }}
                             </a>
 
                             <span class="mx-4 h-auto text-gray-400 font-medium">/</span>
@@ -29,8 +29,8 @@
                         </li>
                     </ul>
                 </div>
-
-                <div class="w-full sm:w-auto flex justify-center my-2 overflow-x-scroll">
+                
+                <div class="w-full sm:w-auto flex justify-center my-2">
                     <select
                         class="px-4 py-2 mr-2 leading-4 bg-white text-gray-700 rounded border border-zinc-300 mb-1 text-xs focus:shadow-outline-blue focus:border-blue-500"
                         id="sortBy" wire:model="sorting">
@@ -52,29 +52,7 @@
                 </div>
             </div>
             <div class="overflow-x-scroll flex w-full py-2 lg:mb-4 px-4 ">
-                <h3 class="px-2 mr-2">{{ __('Brands') }}:</h3>
-                @foreach ($this->brands as $brand)
-                    <x-button type="button" primaryOutline class="mx-2"
-                        wire:click="filterProductBrands({{ $brand->id }})">
-                        {{ $brand->name }}
-                        <span class="text-sm ml-2">
-                            ({{ $brand->count() }})
-                        </span>
-                    </x-button>
-                @endforeach
-            </div>
-            <div class="overflow-x-scroll flex w-full py-2 lg:mb-4 px-4 ">
-                <h3 class="px-2 mr-2">{{ __('Categories') }}:</h3>
-                @foreach ($this->categories as $category)
-                    <x-button type="button" blackOutline class="mx-2"
-                        wire:click="filterProductCategories({{ $category->id }})">
-                        {{ $category->name }}
-                        <span class="text-sm ml-2">
-                            ({{ $category->count() }})
-                        </span>
-                    </x-button>
-                @endforeach
-
+                <h3 class="px-2 mr-2">{{ __('SubCategories') }}:</h3>
                 @foreach ($this->subcategories as $subcategory)
                     <x-button type="button" blackOutline class="mx-2"
                         wire:click="filterProductSubcategories({{ $subcategory->id }})">
@@ -86,21 +64,22 @@
                 @endforeach
             </div>
         </div>
-        <div wire:loading.class.delay="opacity-50">
-            <div class="grid gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 mb-10 px-4">
-                @forelse ($products as $product)
-                    <x-product-card :product="$product" />
-                @empty
-                    <div class="w-full">
-                        <h3 class="text-3xl font-bold font-heading text-blue-900">
-                            {{ __('No products found') }}
-                        </h3>
-                    </div>
-                @endforelse
+    </div>
+
+    <div wire:loading.class.delay="opacity-50">
+    <div class="grid gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 mb-10 px-4">
+        @forelse ($products as $product)
+            <x-product-card :product="$product" />
+        @empty
+            <div class="w-full">
+                <h3 class="text-3xl font-bold font-heading text-blue-900">
+                    {{ __('No products found') }}
+                </h3>
             </div>
-            <div class="text-center">
-                {{ $products->links() }}
-            </div>
-        </div>
+        @endforelse
+    </div>
+    <div class="text-center">
+        {{ $products->links() }}
+    </div>
     </div>
 </div>

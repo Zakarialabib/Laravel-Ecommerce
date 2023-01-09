@@ -25,22 +25,24 @@
                     </div>
                     <div class="w-full py-2 px-3 mb-4">
                         <x-label for="description" :value="__('Description')" />
-                        <x-input.rich-text wire:model.lazy="brand.description" id="description" />
+                        <x-input.textarea wire:model.lazy="brand.description" id="description" />
                         <x-input-error :messages="$errors->get('brand.description')" for="brand.description" class="mt-2" />
                     </div>
 
                     <div class="w-full py-2 px-3 mb-4">
-                        <x-media-upload title="{{ __('Logo') }}" name="image" wire:model="image" :file="$image"
+                        <x-label for="image" :value="__('Brand Logo')" />
+                        <x-media-upload title="{{ __('Brand Logo') }}" name="image" wire:model="image" :file="$image"
                             single types="PNG / JPEG / WEBP" fileTypes="image/*" />
                     </div>
 
                     <div class="w-full py-2 px-3 mb-4">
+                        <x-label for="featured_image" :value="__('Featured image')" />
                         <x-media-upload title="{{ __('Featured Image') }}" name="featured_image"
                             wire:model="featured_image" :file="$featured_image" single types="PNG / JPEG / WEBP"
                             fileTypes="image/*" />
                     </div>
 
-                    <div class="w-full flex justify-start space-x-2">
+                    <div class="w-full px-3 my-2">
                         <x-button primary type="submit" wire:loading.attr="disabled">
                             {{ __('Create') }}
                         </x-button>
