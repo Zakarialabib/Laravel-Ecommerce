@@ -32,12 +32,12 @@ class Create extends Component
     }
 
     public array $rules = [
-        'page.title' => ['required', 'string', 'max:255'],
-        'page.slug' => ['required','unique:pages','max:255'],
-        'page.details' => ['required'],
-        'page.meta_title' => ['nullable|max:255'],
+        'page.title'            => ['required', 'string', 'max:255'],
+        'page.slug'             => ['required', 'unique:pages', 'max:255'],
+        'page.details'          => ['required'],
+        'page.meta_title'       => ['nullable|max:255'],
         'page.meta_description' => ['nullable|max:255'],
-        'page.language_id' => ['required|integer']
+        'page.language_id'      => ['required|integer'],
     ];
 
     public function render(): View|Factory
@@ -59,7 +59,7 @@ class Create extends Component
     public function create()
     {
         $this->validate();
-        
+
         $this->page->slug = Str::slug($this->page->name);
 
         if ($this->photo) {

@@ -18,12 +18,12 @@ class SearchBox extends Component
     public $results = [];
 
     public $searchBox = false;
-    
+
     protected $queryString = [
         'search' => [
             'except' => '',
             'as'     => 'q',
-        ], 
+        ],
     ];
 
     // public function mount($search = null)
@@ -34,9 +34,9 @@ class SearchBox extends Component
     public function updatedSearch()
     {
         if (strlen($this->search) > 3) {
-            $this->results = Product::where('status' , 1)
-                ->where('name', 'like', '%' . $this->search . '%')
-                ->orWhere('description', 'like', '%' . $this->search . '%')
+            $this->results = Product::where('status', 1)
+                ->where('name', 'like', '%'.$this->search.'%')
+                ->orWhere('description', 'like', '%'.$this->search.'%')
                 ->limit(5)
                 ->get();
         } else {
@@ -55,7 +55,6 @@ class SearchBox extends Component
         $this->search = '';
         $this->results = [];
     }
-
 
     public function render(): View|Factory
     {

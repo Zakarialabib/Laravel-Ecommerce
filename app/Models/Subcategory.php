@@ -25,7 +25,6 @@ class Subcategory extends Model
 
     public $timestamps = false;
 
-
     public function category()
     {
         return $this->belongsTo(Category::class);
@@ -40,6 +39,4 @@ class Subcategory extends Model
     {
         $this->attributes['slug'] = str_replace(' ', '-', $value);
     }
-
-
 }

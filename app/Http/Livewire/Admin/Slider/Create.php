@@ -16,6 +16,7 @@ use Illuminate\Contracts\View\Factory;
 use Intervention\Image\Facades\Image;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Collection;
+use Throwable;
 
 class Create extends Component
 {
@@ -45,7 +46,7 @@ class Create extends Component
         'slider.language_id'   => ['nullable'],
         'slider.bg_color'      => ['nullable'],
         'slider.embeded_video' => ['nullable'],
-        'photo' => ['required'],
+        'photo'                => ['required'],
     ];
 
     public function render(): View|Factory
@@ -67,30 +68,28 @@ class Create extends Component
         try {
             $this->validate();
 
-        if ($this->photo) {
-            $imageName = Str::slug($this->slider->title).'-'.Str::random(5).'.'.$this->photo->extension();
-            
-            $img = Image::make($this->photo->getRealPath())->encode('webp', 85);
+            if ($this->photo) {
+                $imageName = Str::slug($this->slider->title).'-'.Str::random(5).'.'.$this->photo->extension();
 
-            $img->stream();
+                $img = Image::make($this->photo->getRealPath())->encode('webp', 85);
 
-            Storage::disk('local_files')->put('sliders/'.$imageName, $img, 'public');
+                $img->stream();
 
-            $this->slider->photo = $imageName;
-        }
+                Storage::disk('local_files')->put('sliders/'.$imageName, $img, 'public');
 
-        $this->slider->save();
+                $this->slider->photo = $imageName;
+            }
 
-        $this->alert('success', __('Slider created successfully.'));
+            $this->slider->save();
 
-        $this->emit('refreshIndex');
+            $this->alert('success', __('Slider created successfully.'));
 
-        $this->createSlider = false;
+            $this->emit('refreshIndex');
 
-        } catch (\Throwable $th) {
+            $this->createSlider = false;
+        } catch (Throwable $th) {
             $this->alert('warning', __('An error happend Slider was not created.'));
         }
-        
     }
 
     public function getLanguagesProperty(): Collection

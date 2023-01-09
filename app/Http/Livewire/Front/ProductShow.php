@@ -90,9 +90,9 @@ class ProductShow extends Component
 
         $this->brand_products = Product::active()->where('brand_id', $product->brand_id)->take(3)->get();
         $this->relatedProducts = Product::active()
-                                        ->inRandomOrder()
-                                        ->limit(4)
-                                        ->get();
+            ->inRandomOrder()
+            ->limit(4)
+            ->get();
 
         $this->brand = Brand::where('id', $product->brand_id)->first();
         $this->category = Category::where('id', $product->category_id)->first();

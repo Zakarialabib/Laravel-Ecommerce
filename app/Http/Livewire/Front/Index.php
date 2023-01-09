@@ -20,10 +20,11 @@ class Index extends Component
     public function getSubcategoriesProperty(): Collection
     {
         return Subcategory::with('products')
-                            ->inRandomOrder()
-                            ->limit(4)
-                            ->get();
+            ->inRandomOrder()
+            ->limit(4)
+            ->get();
     }
+
     public function getFeaturedProductsProperty(): Collection
     {
         return Product::where('featured', 1)

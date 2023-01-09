@@ -87,7 +87,6 @@ class Product extends Model implements Buyable
         return null;
     }
 
-
     public function category(): BelongsTo
     {
         return $this->belongsTo(Category::class, 'category_id');
@@ -104,11 +103,11 @@ class Product extends Model implements Buyable
     }
 
    /**
-     * Scope a query to only include the product with the highest price.
-     *
-     * @param \Illuminate\Database\Eloquent\Builder $query
-     * @return \Illuminate\Database\Eloquent\Builder
-     */
+    * Scope a query to only include the product with the highest price.
+    *
+    * @param \Illuminate\Database\Eloquent\Builder $query
+    * @return \Illuminate\Database\Eloquent\Builder
+    */
     public function scopeHighestPrice($query)
     {
         return $query->orderBy('price', 'desc')->first();

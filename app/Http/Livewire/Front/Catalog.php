@@ -30,7 +30,7 @@ class Catalog extends Component
     public $maxPrice;
 
     public $minPrice;
-    
+
     public $priceRange;
 
     public $category_id;
@@ -84,7 +84,7 @@ class Catalog extends Component
     {
         $this->resetPage();
     }
- 
+
     public function mount()
     {
         $this->minPrice = Product::lowestPrice()->price;
@@ -100,13 +100,13 @@ class Catalog extends Component
     public function render(): View|Factory
     {
         $query = Product::active()
-                        ->whereBetween('price',[$this->minPrice,$this->maxPrice])
-                        ->advancedFilter([
-            's'               => $this->search ?: null,
-            'order_column'    => $this->sortBy,
-            'order_direction' => $this->sortDirection,
-        ]);
-        
+            ->whereBetween('price', [$this->minPrice, $this->maxPrice])
+            ->advancedFilter([
+                's'               => $this->search ?: null,
+                'order_column'    => $this->sortBy,
+                'order_direction' => $this->sortDirection,
+            ]);
+
         if ($this->sorting == 'name') {
             $products = $query->orderBy('name', 'asc')->paginate($this->perPage);
         } elseif ($this->sorting == 'name-desc') {
@@ -148,6 +148,4 @@ class Catalog extends Component
     {
         return Brand::select('id', 'name', 'image', 'featured_image')->get();
     }
-
-   
 }

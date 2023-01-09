@@ -1,6 +1,6 @@
 <div>
-    <div class="mx-auto px-4">
-        <div class="mb-10 items-center justify-between bg-white py-4">
+    <div class="w-full px-4 mx-auto">
+        <div class="mb-5 items-center justify-between bg-white py-4">
             <div class="w-full lg:mb-4 px-4 flex flex-wrap justify-between">
                 <div class="py-4 flex items-center flex-wrap">
                     <ul class="flex flex-wrap items-center">
@@ -29,7 +29,7 @@
                         </li>
                     </ul>
                 </div>
-                
+
                 <div class="w-full sm:w-auto flex justify-center my-2">
                     <select
                         class="px-4 py-2 mr-2 leading-4 bg-white text-gray-700 rounded border border-zinc-300 mb-1 text-xs focus:shadow-outline-blue focus:border-blue-500"
@@ -64,22 +64,22 @@
                 @endforeach
             </div>
         </div>
-    </div>
 
-    <div wire:loading.class.delay="opacity-50">
-    <div class="grid gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 mb-10 px-4">
-        @forelse ($products as $product)
-            <x-product-card :product="$product" />
-        @empty
-            <div class="w-full">
-                <h3 class="text-3xl font-bold font-heading text-blue-900">
-                    {{ __('No products found') }}
-                </h3>
+        <div wire:loading.class.delay="opacity-50">
+            <div class="grid gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 mb-10 px-4">
+                @forelse ($products as $product)
+                    <x-product-card :product="$product" />
+                @empty
+                    <div class="w-full">
+                        <h3 class="text-3xl font-bold font-heading text-blue-900">
+                            {{ __('No products found') }}
+                        </h3>
+                    </div>
+                @endforelse
             </div>
-        @endforelse
-    </div>
-    <div class="text-center">
-        {{ $products->links() }}
-    </div>
+            <div class="text-center">
+                {{ $products->links() }}
+            </div>
+        </div>
     </div>
 </div>

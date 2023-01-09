@@ -45,10 +45,10 @@ class Popup extends Model
      * @var array
      */
     protected $casts = [
-        'status' => 'boolean',
-        'delay' => 'integer',
-        'duration' => 'integer',
-        'visits' => 'integer',
+        'status'     => 'boolean',
+        'delay'      => 'integer',
+        'duration'   => 'integer',
+        'visits'     => 'integer',
         'is_default' => 'boolean',
     ];
 
@@ -61,6 +61,4 @@ class Popup extends Model
     {
         return PopupFactory::new();
     }
-
-
 }

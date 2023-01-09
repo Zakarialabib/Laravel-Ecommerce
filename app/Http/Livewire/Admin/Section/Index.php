@@ -17,6 +17,7 @@ use Illuminate\Support\Str;
 use Illuminate\Contracts\View\View;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Support\Collection;
+use Throwable;
 
 class Index extends Component
 {
@@ -31,7 +32,7 @@ class Index extends Component
 
     public $listeners = [
         'refreshIndex' => '$refresh',
-        'showModal', 'editModal', 'delete'
+        'showModal', 'editModal', 'delete',
     ];
 
     public $refreshIndex;
@@ -162,24 +163,22 @@ class Index extends Component
 
      public function update()
      {
+         try {
+             $this->validate();
 
-        try {
-            $this->validate();
+             if ($this->image) {
+                 $imageName = Str::slug($this->section->title).'-'.date('Y-m-d H:i:s').'.'.$this->image->extension();
+                 $this->image->storeAs('sections', $imageName);
+                 $this->section->image = $imageName;
+             }
 
-         if ($this->image) {
-             $imageName = Str::slug($this->section->title).'-'.date('Y-m-d H:i:s').'.'.$this->image->extension();
-             $this->image->storeAs('sections', $imageName);
-             $this->section->image = $imageName;
+             $this->section->save();
+
+             $this->alert('success', __('Section updated successfully!'));
+
+             $this->editModal = false;
+         } catch (Throwable $th) {
+             $this->alert('warning', __('Section was not updated!'));
          }
-
-         $this->section->save();
-
-         $this->alert('success', __('Section updated successfully!'));
-
-         $this->editModal = false;
-        } catch (\Throwable $th) {
-            $this->alert('warning', __('Section was not updated!'));
-        }
-         
      }
 }

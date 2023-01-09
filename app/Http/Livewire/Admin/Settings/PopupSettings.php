@@ -1,9 +1,12 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Https\Livewire;
 
 use Livewire\Component;
 use App\Models\Popup;
+use Throwable;
 
 class PopupSettings extends Component
 {
@@ -30,15 +33,15 @@ class PopupSettings extends Component
     public $ctaUrl;
 
     public array $rules = [
-        'width'  => ['required', 'string', 'max:15'],
-        'frequency'  => ['nullable', 'string'],
-        'timing'  => ['nullable', 'string', 'max:255'],
-        'delay'  => ['nullable', 'string'],
-        'duration'  => ['nullable', 'string', 'max:255'],
-        'backgroundColor'  => ['nullable', 'string','max:15'],
-        'content'  => ['required', 'string'],
-        'ctaText'  => ['required', 'string'],
-        'ctaUrl'  => ['required', 'string'],
+        'width'           => ['required', 'string', 'max:15'],
+        'frequency'       => ['nullable', 'string'],
+        'timing'          => ['nullable', 'string', 'max:255'],
+        'delay'           => ['nullable', 'string'],
+        'duration'        => ['nullable', 'string', 'max:255'],
+        'backgroundColor' => ['nullable', 'string', 'max:15'],
+        'content'         => ['required', 'string'],
+        'ctaText'         => ['required', 'string'],
+        'ctaUrl'          => ['required', 'string'],
     ];
 
     public function setDefault($id)
@@ -52,7 +55,6 @@ class PopupSettings extends Component
         $this->popup->save();
     }
 
-
     public function popupModal($id, $popup = null)
     {
         $this->modalId = $id;
@@ -65,36 +67,32 @@ class PopupSettings extends Component
         try {
             // save new popup
             $this->popup = Popup::create([
-                'width' => $this->width,
-                'frequency' => $this->frequency,
-                'timing' => $this->timing,
-                'delay' => $this->delay,
-                'duration' => $this->duration,
+                'width'           => $this->width,
+                'frequency'       => $this->frequency,
+                'timing'          => $this->timing,
+                'delay'           => $this->delay,
+                'duration'        => $this->duration,
                 'backgroundColor' => $this->backgroundColor,
-                'content' => $this->content,
-                'ctaText' => $this->ctaText,
-                'ctaUrl' => $this->ctaUrl,
+                'content'         => $this->content,
+                'ctaText'         => $this->ctaText,
+                'ctaUrl'          => $this->ctaUrl,
             ]);
-            
+
             // show succes message
             session()->flash('message', 'Popup settings created successfully!');
-    
-            $this->popupModal = false;
-        } catch (\Throwable $th) {
 
+            $this->popupModal = false;
+        } catch (Throwable $th) {
             // show error message
             session()->flash('message', 'Something unsual happend !?');
         }
-        
-        
     }
 
     public function update($popup)
     {
         $this->popup = Popup::find($popup->id); // retrieve the popup setting from the database
-        
-        try {
 
+        try {
             $this->width = $this->popup->width;
             $this->frequency = $this->popup->frequency;
             $this->timing = $this->popup->timing;
@@ -106,25 +104,23 @@ class PopupSettings extends Component
             $this->ctaUrl = $this->popup->cta_url;
 
             $this->popup->save();
-    
+
             // Emit an event based on the chosen timing option, passing along the corresponding delay/interval/duration value as an argument
-    
+
             match ($this->timing) {
-                'delay' => $this->emit('showDelay', $this->delay),
+                'delay'    => $this->emit('showDelay', $this->delay),
                 'duration' => $this->emit('showDuration', $this->duration),
                 'interval' => $this->emit('showInterval', $this->interval),
             };
-    
+
             // Show success message
             session()->flash('message', __('Popup settings updated successfully!'));
-    
-            $this->popupModal = false;
 
-        } catch (\Throwable $th) {
+            $this->popupModal = false;
+        } catch (Throwable $th) {
             // Show error message
             session()->flash('message', __('Something not working !'));
         }
-       
     }
 
     public function render()

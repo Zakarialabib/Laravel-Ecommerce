@@ -1,12 +1,14 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Livewire\Admin\Section;
 
 use Livewire\Component;
 use App\Models\Section;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
-use App\Models\Language;
 use Livewire\WithFileUploads;
+use Throwable;
 
 class Template extends Component
 {
@@ -23,20 +25,21 @@ class Template extends Component
     public $listeners = [
         'createTemplate',
     ];
+
     public function mount()
     {
         $this->templates = config('templates');
     }
 
     public function createTemplate()
-    {   
+    {
         $this->resetErrorBag();
 
         $this->resetValidation();
 
         $this->createTemplate = true;
     }
-    
+
     public function updatedSelectTemplate()
     {
         $this->selectedTemplate = $this->templates[$this->selectTemplate];
@@ -46,30 +49,28 @@ class Template extends Component
     {
         try {
             $section = [
-                'title' => $this->selectedTemplate['title'],
-                'subtitle' => $this->selectedTemplate['subtitle'],
+                'title'          => $this->selectedTemplate['title'],
+                'subtitle'       => $this->selectedTemplate['subtitle'],
                 'featured_title' => $this->selectedTemplate['featured_title'],
-                'label' => $this->selectedTemplate['label'],
-                'description' => $this->selectedTemplate['description'],
-                'bg_color' => $this->selectedTemplate['bg_color'],
-                'position' => $this->selectedTemplate['position'],
-                'link' => $this->selectedTemplate['link'],
+                'label'          => $this->selectedTemplate['label'],
+                'description'    => $this->selectedTemplate['description'],
+                'bg_color'       => $this->selectedTemplate['bg_color'],
+                'position'       => $this->selectedTemplate['position'],
+                'link'           => $this->selectedTemplate['link'],
             ];
-    
+
             Section::create($section);
 
             $this->sections[] = $section;
-            
+
             $this->emit('refreshIndex');
 
-            $this->createTemplate = false ;
+            $this->createTemplate = false;
 
             $this->alert('success', __('Section created successfully!'));
-
-        } catch (\Throwable $th) {
+        } catch (Throwable $th) {
             $this->alert('warning', __('Section Was not created!'));
         }
-    
     }
 
     public function render()

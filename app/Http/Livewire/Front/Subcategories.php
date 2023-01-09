@@ -52,7 +52,6 @@ class Subcategories extends Component
         $this->resetPage();
     }
 
-
     public function filterProductSubcategories($subcategory_id)
     {
         $this->subcategory_id = $subcategory_id;

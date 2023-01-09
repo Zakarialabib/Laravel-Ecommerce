@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace App\Http\Livewire\Front;
 
-use App\Models\Shipping;
-use Exception;
 use Gloudemans\Shoppingcart\Facades\Cart;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
@@ -41,11 +39,9 @@ class CartBar extends Component
 
     public function confirmed()
     {
-        
         Cart::instance('shopping')->remove($this->productId);
         $this->emit('cartCountUpdated');
         $this->emit('cartBarUpdated');
-        
     }
 
     public function showCart()
@@ -76,15 +72,14 @@ class CartBar extends Component
         $this->confirm(
             __('Remove from cart ?'),
             [
-                'position' => 'center',
+                'position'          => 'center',
                 'showConfirmButton' => true,
                 'confirmButtonText' => 'confirm',
-                'onConfirmed' => 'confirmed' ,
-                'showCancelButton' => true,
-                'cancelButtonText' => 'cancel',
+                'onConfirmed'       => 'confirmed',
+                'showCancelButton'  => true,
+                'cancelButtonText'  => 'cancel',
             ]
         );
-       
     }
 
     public function cartBarUpdated()
@@ -108,5 +103,4 @@ class CartBar extends Component
     {
         return view('livewire.front.cart-bar');
     }
-
 }

@@ -81,7 +81,7 @@ class Index extends Component
 
     public array $rules = [
         'brand.name'        => ['required', 'string', 'max:255'],
-        'brand.slug' => ['required', 'string'],
+        'brand.slug'        => ['required', 'string'],
         'brand.description' => ['nullable', 'string'],
     ];
 

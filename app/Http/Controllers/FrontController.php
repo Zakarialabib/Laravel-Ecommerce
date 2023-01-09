@@ -9,7 +9,6 @@ use App\Models\Blog;
 use App\Models\Brand;
 use App\Models\Product;
 use App\Models\Subcategory;
-use Illuminate\Http\Request;
 use Spatie\Sitemap\SitemapGenerator;
 use Illuminate\Support\Facades\Auth;
 
@@ -45,11 +44,11 @@ class FrontController extends Controller
     }
 
      public function SubcategoryPage($slug)
-    {
-        $subcategory = Subcategory::where('slug', $slug)->first();
+     {
+         $subcategory = Subcategory::where('slug', $slug)->first();
 
-        return view('front.subcategory-page', compact('subcategory'));
-    }
+         return view('front.subcategory-page', compact('subcategory'));
+     }
 
     public function brands()
     {
@@ -106,13 +105,13 @@ class FrontController extends Controller
     public function myaccount(User $customer)
     {
         $customer = Auth::user();
-        
-        return view('front.user-account',['customer'=>$customer]);   
+
+        return view('front.user-account', ['customer' => $customer]);
     }
 
     public function generateSitemaps()
     {
-       SitemapGenerator::create(config('app.url'))
-        ->writeToFile(public_path('sitemap.xml'));
+        SitemapGenerator::create(config('app.url'))
+            ->writeToFile(public_path('sitemap.xml'));
     }
 }

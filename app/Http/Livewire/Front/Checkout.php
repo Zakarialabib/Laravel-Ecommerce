@@ -8,7 +8,6 @@ use App\Models\Order;
 use App\Models\OrderProduct;
 use App\Models\PaymentGateway;
 use App\Models\Shipping;
-use Exception;
 use Gloudemans\Shoppingcart\Facades\Cart;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
@@ -20,7 +19,7 @@ class Checkout extends Component
     use LivewireAlert;
 
     public $listeners = [
-        'checkout' => 'checkout',
+        'checkout'            => 'checkout',
         'checkoutCartUpdated' => '$refresh',
         'confirmed',
     ];
@@ -58,7 +57,7 @@ class Checkout extends Component
     public $shipping_id;
 
     public $cartTotal;
-    
+
     public $productId;
 
     public function confirmed()
@@ -82,8 +81,8 @@ class Checkout extends Component
     {
         $this->validate([
             'shipping_id' => 'required',
-            'first_name' => 'required',
-            'phone' => 'required',
+            'first_name'  => 'required',
+            'phone'       => 'required',
         ]);
 
         if (Cart::instance('shopping')->count() == 0) {
@@ -93,62 +92,61 @@ class Checkout extends Component
         $shipping = Shipping::find($this->shipping_id);
 
         $order = Order::create([
-            'reference' => Order::generateReference(),
-            'shipping_id' => $this->shipping_id,
-            'delivery_method' => $shipping->title,
-            'payment_method' => $this->payment_method,
-            'shipping_cost' => $shipping->cost,
-            'first_name' => $this->first_name,
-            'shipping_name' => $this->first_name.'-'.$this->last_name,
-            'last_name' => $this->last_name,
-            'email' => $this->email,
-            'address' => $this->address,
+            'reference'        => Order::generateReference(),
+            'shipping_id'      => $this->shipping_id,
+            'delivery_method'  => $shipping->title,
+            'payment_method'   => $this->payment_method,
+            'shipping_cost'    => $shipping->cost,
+            'first_name'       => $this->first_name,
+            'shipping_name'    => $this->first_name.'-'.$this->last_name,
+            'last_name'        => $this->last_name,
+            'email'            => $this->email,
+            'address'          => $this->address,
             'shipping_address' => $this->address,
-            'city' => $this->city,
-            'shipping_city' => $this->city,
-            'phone' => $this->phone,
-            'shipping_phone' => $this->phone,
-            'total' => $this->cartTotal,
-            'user_id' => auth()->user()->id,
-            'order_status' => Order::STATUS_PENDING,
-            'payment_status' => Order::PAYMENT_STATUS_PENDING,
+            'city'             => $this->city,
+            'shipping_city'    => $this->city,
+            'phone'            => $this->phone,
+            'shipping_phone'   => $this->phone,
+            'total'            => $this->cartTotal,
+            'user_id'          => auth()->user()->id,
+            'order_status'     => Order::STATUS_PENDING,
+            'payment_status'   => Order::PAYMENT_STATUS_PENDING,
         ]);
 
         foreach (Cart::instance('shopping') as $order) {
             $orderProduct = new OrderProduct([
-                'order_id' => $order->id,
+                'order_id'   => $order->id,
                 'product_id' => $product->id,
-                'quantity' => $order->qty,
-                'price' => $order->price,
+                'quantity'   => $order->qty,
+                'price'      => $order->price,
             ]);
 
             $orderProduct->save();
         }
 
-        if($this->payment_method == 'paypal')
-        {
+        if ($this->payment_method == 'paypal') {
             $cartItems = Cart::instance('shopping')->content();
-           
+
             $product['items'] = [
                 [
-                    'name' => 'Nike Joyride 2',
+                    'name'  => 'Nike Joyride 2',
                     'price' => 112,
                     'desc'  => 'Running shoes for Men',
-                    'qty' => 2
-                ]
+                    'qty'   => 2,
+                ],
             ];
-      
+
             $product['order_id'] = 1;
             $product['invoice_description'] = "Order #{$product['invoice_id']} Bill";
             $product['return_url'] = route('success.payment');
             $product['cancel_url'] = route('cancel.payment');
             $product['total'] = 224;
-      
-            $paypalModule = new ExpressCheckout;
-      
+
+            $paypalModule = new ExpressCheckout();
+
             $res = $paypalModule->setExpressCheckout($product);
             $res = $paypalModule->setExpressCheckout($product, true);
-      
+
             return redirect($res['paypal_link']);
         }
 
@@ -177,6 +175,7 @@ class Checkout extends Component
         $shipping = Shipping::find($this->shipping_id);
         $cost = $shipping->cost;
         $this->cartTotal = $total + $cost;
+
         return $this->cartTotal;
     }
 
@@ -203,15 +202,14 @@ class Checkout extends Component
         $this->confirm(
             __('Remove from cart ?'),
             [
-                'position' => 'center',
+                'position'          => 'center',
                 'showConfirmButton' => true,
                 'confirmButtonText' => 'confirm',
-                'onConfirmed' => 'confirmed' ,
-                'showCancelButton' => true,
-                'cancelButtonText' => 'cancel',
+                'onConfirmed'       => 'confirmed',
+                'showCancelButton'  => true,
+                'cancelButtonText'  => 'cancel',
             ]
         );
-       
     }
 
     public function getShippingsProperty()
@@ -228,5 +226,4 @@ class Checkout extends Component
     {
         return view('livewire.front.checkout');
     }
-
 }

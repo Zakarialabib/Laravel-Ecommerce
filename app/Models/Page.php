@@ -22,5 +22,4 @@ class Page extends Model
     protected $fillable = [
         'title', 'slug', 'details', 'meta_title', 'meta_description', 'language_id', 'photo',
     ];
-
 }
