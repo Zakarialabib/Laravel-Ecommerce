@@ -19,7 +19,8 @@ class Index extends Component
 {
     public function getSubcategoriesProperty(): Collection
     {
-        return Subcategory::inRandomOrder()
+        return Subcategory::with('products')
+                            ->inRandomOrder()
                             ->limit(4)
                             ->get();
     }
