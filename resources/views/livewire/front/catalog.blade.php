@@ -63,7 +63,7 @@
                         </div>
                         <div x-data="{ openFilters: false }">
                             <div class="w-full px-2 flex overflow-x-scroll bg-gray-50">
-                                <ul class="mt-6 >
+                                <ul class="mt-6 w-full">
                                     @foreach ($this->categories as $category)
                                         <li class="w-1/2 px-2 mb-2">
                                             <x-button type="button"
@@ -92,7 +92,7 @@
                                 </ul>
 
 
-                                <div class="mb-6 text-center">
+                                <div class="mb-6 text-center w-full">
                                     <a class="font-bold font-heading" href="#">{{ __('Price') }}</a>
                                     <div class="mt-6 -mb-2">
                                         <input
@@ -111,7 +111,7 @@
                                 </div>
 
 
-                                <div class="mb-6 text-center">
+                                <div class="w-full mb-6 text-center">
                                     <a class="font-bold font-heading" href="#">{{ __('Brands') }}</a>
                                     <div class="mt-6 -mb-2 flex overflow-x-scroll">
                                         @foreach ($this->brands as $brand)
