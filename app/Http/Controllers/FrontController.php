@@ -10,6 +10,7 @@ use App\Models\Brand;
 use App\Models\Product;
 use App\Models\Subcategory;
 use Illuminate\Http\Request;
+use Spatie\Sitemap\SitemapGenerator;
 use Illuminate\Support\Facades\Auth;
 
 class FrontController extends Controller
