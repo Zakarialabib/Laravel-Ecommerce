@@ -1,5 +1,5 @@
 <div>
-    <div class="mx-auto px-4">
+    <div class="w-full px-4 mx-auto">
         <div class="mb-10 items-center justify-between bg-white py-4">
             <div class="w-full lg:mb-4 px-4 flex flex-wrap justify-between">
                 <div class="py-4 flex items-center flex-wrap">

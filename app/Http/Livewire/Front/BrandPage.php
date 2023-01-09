@@ -22,8 +22,6 @@ class BrandPage extends Component
 
     public $brand;
 
-    public $brand_id;
-
     public $category_id;
 
     public $subcategory_id;
@@ -52,13 +50,14 @@ class BrandPage extends Component
 
     public function render(): View|Factory
     {
-        // where status is true
         $brand_products = Product::active()
-            ->when($this->brand_id, function ($query) {
-                return $query->where('brand_id', $this->brand_id);
+            ->where('brand_id', $this->brand)
+            ->when($this->category_id, function ($query) {
+                return $query->where('category_id', $this->category_id);
             })
-            ->where('category_id', $this->category_id)
-            ->where('subcategory_id', $this->subcategory_id)
+            ->when($this->subcategory_id, function ($query) {
+                return $query->where('subcategory_id', $this->subcategory_id);
+            })
             ->paginate($this->perPage);
 
         return view('livewire.front.brand-page', compact('brand_products'));

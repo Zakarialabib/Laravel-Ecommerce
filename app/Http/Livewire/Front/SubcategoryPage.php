@@ -21,16 +21,6 @@ class SubcategoryPage extends Component
 
     public $subcategory;
 
-    public $subcategory_id;
-
-    public $filterProductSubcategories;
-
-    public function filterProductSubcategories($subcategory_id)
-    {
-        $this->subcategory_id = $subcategory_id;
-        $this->resetPage();
-    }
-
     public function mount($subcategory)
     {
         $this->subcategory = $subcategory;
@@ -42,14 +32,9 @@ class SubcategoryPage extends Component
     {
         // where status is true
         $subcategory_products = Product::active()
-            ->where('subcategory_id', $this->subcategory_id)
+            ->where('subcategory_id', $this->subcategory)
             ->paginate($this->perPage);
 
         return view('livewire.front.subcategory-page', compact('subcategory_products'));
-    }
-
-    public function getSubcategoriesProperty()
-    {
-        return Subcategory::where('status', 1)->get();
     }
 }
