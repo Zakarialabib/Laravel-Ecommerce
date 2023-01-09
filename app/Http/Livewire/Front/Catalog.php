@@ -87,8 +87,8 @@ class Catalog extends Component
  
     public function mount()
     {
-        $this->minPrice = Product::highestPrice();
-        $this->maxPrice = Product::lowestPrice(); 
+        $this->minPrice = Product::lowestPrice()->price;
+        $this->maxPrice = Product::highestPrice()->price;
         $this->sorting = 'default';
         $this->sortBy = 'id';
         $this->sortDirection = 'desc';
@@ -100,8 +100,7 @@ class Catalog extends Component
     public function render(): View|Factory
     {
         $query = Product::active()
-                        ->where('price', '>=', $this->minPrice)
-                        ->where('price', '<=', $this->maxPrice)
+                        ->whereBetween('price',[$this->minPrice,$this->maxPrice])
                         ->advancedFilter([
             's'               => $this->search ?: null,
             'order_column'    => $this->sortBy,
