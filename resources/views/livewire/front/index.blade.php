@@ -45,7 +45,7 @@
                 <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 mt-4 gap-4">
                     @foreach ($this->subcategories as $subcategory)
                         <div class="flex items-start p-4 rounded-xl shadow-lg bg-white">
-                            <a href="{{ route('front.subcategoryPage', $subcategory->name) }}">
+                            <a href="{{ route('front.subcategoryPage', $subcategory->slug) }}">
                                 <div
                                     class="flex items-center justify-center bg-blue-50 h-12 w-12 rounded-full border border-blue-100">
                                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-blue-400" fill="none"

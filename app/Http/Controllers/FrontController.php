@@ -44,11 +44,11 @@ class FrontController extends Controller
         return view('front.subcategories');
     }
 
-     public function SubcategoryPage($name)
+     public function SubcategoryPage($slug)
     {
-        $subcategory = Subcategory::where('name', $name)->first();
+        $subcategory = Subcategory::where('slug', $slug)->first();
 
-        return view('front.brand-page', compact('brand'));
+        return view('front.subcategory-page', compact('subcategory'));
     }
 
     public function brands()
