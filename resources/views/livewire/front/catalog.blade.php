@@ -95,16 +95,13 @@
                                 <div class="mb-6 text-center w-full">
                                     <a class="font-bold font-heading" href="#">{{ __('Price') }}</a>
                                     <div class="mt-6 -mb-2">
-                                        <input class="w-full mb-4 outline-none appearance-none rounded cursor-pointer"
-                                            type="text" wire:model="minPrice">
-                                        <input class="w-full mb-4 outline-none appearance-none rounded cursor-pointer"
-                                            type="text" wire:model="maxPrice">
+                                        
                                         <div class="flex justify-between">
                                             <span class="inline-block text-lg font-bold font-heading text-blue-300">
-                                                {{ $this->minPrice }}
+                                                <input type="text" class="w-full" wire:model="minPrice">
                                             </span>
                                             <span class="inline-block text-lg font-bold font-heading text-blue-300">
-                                                {{ $this->maxPrice }}
+                                                <input type="text" class="w-full" wire:model="maxPrice">
                                             </span>
                                         </div>
                                     </div>
@@ -182,16 +179,12 @@
                     <div class="mb-6 p-4 bg-gray-50">
                         <h3 class="mb-8 text-2xl font-bold font-heading">{{ __('Price') }}</h3>
                         <div>
-                            <input class="w-full mb-4 outline-none appearance-none rounded cursor-pointer"
-                                type="text" wire:model="minPrice">
-                            <input class="w-full mb-4 outline-none appearance-none rounded cursor-pointer"
-                                type="text" wire:model="maxPrice">
                             <div class="flex justify-between">
                                 <span class="inline-block text-lg font-bold font-heading text-blue-300">
-                                    {{ $this->minPrice }}
+                                    <input type="text" class="w-full" wire:model="minPrice">
                                 </span>
                                 <span class="inline-block text-lg font-bold font-heading text-blue-300">
-                                    {{ $this->maxPrice }}
+                                    <input type="text" class="w-full" wire:model="maxPrice">
                                 </span>
                             </div>
                         </div>

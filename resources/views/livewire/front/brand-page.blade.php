@@ -43,7 +43,7 @@
 
         <div wire:loading.class.delay="opacity-50">
             <div class="grid gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 mb-10">
-                @forelse ($brand_products as $product)
+                @forelse ($this->brandproducts as $product)
                     <x-product-card :product="$product" />
                 @empty
                     <div class="w-full">
@@ -54,7 +54,7 @@
                 @endforelse
             </div>
             <div class="text-center">
-                {{ $brand_products->links() }}
+                {{ $this->brand_products->links() }}
             </div>
         </div>
     </div>

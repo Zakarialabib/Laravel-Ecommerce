@@ -44,7 +44,7 @@
 
         <div>
             <div class="grid gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 mb-10">
-                @forelse ($subcategory_products as $product)
+                @forelse ($this->subcategoryproducts as $product)
                     <x-product-card :product="$product" />
                 @empty
                     <div class="w-full">
@@ -55,7 +55,7 @@
                 @endforelse
             </div>
             <div class="text-center">
-                {{ $subcategory_products->links() }}
+                {{ $this->subcategoryproducts->links() }}
             </div>
         </div>
     </div>

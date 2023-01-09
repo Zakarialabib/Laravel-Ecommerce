@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Http\Livewire\Front;
 
+use App\Models\Brand;
 use App\Models\Product;
 use App\Models\Category;
 use App\Models\Subcategory;
@@ -43,24 +44,27 @@ class BrandPage extends Component
 
     public function mount($brand)
     {
-        $this->brand = $brand;
+        $this->brand = Brand::findOrFail($brand->id);
         $this->perPage = 25;
         $this->paginationOptions = [25, 50, 100];
     }
 
     public function render(): View|Factory
     {
-        $brand_products = Product::active()
-            ->where('brand_id', $this->brand)
-            ->when($this->category_id, function ($query) {
-                return $query->where('category_id', $this->category_id);
-            })
-            ->when($this->subcategory_id, function ($query) {
-                return $query->where('subcategory_id', $this->subcategory_id);
-            })
-            ->paginate($this->perPage);
+        return view('livewire.front.brand-page');
+    }
 
-        return view('livewire.front.brand-page', compact('brand_products'));
+    public function getBrandProductsProperty()
+    {
+        return Product::active()
+        ->where('brand_id', $this->brand->id)
+        ->when($this->category_id, function ($query) {
+            return $query->where('category_id', $this->category_id);
+        })
+        ->when($this->subcategory_id, function ($query) {
+            return $query->where('subcategory_id', $this->subcategory_id);
+        })
+        ->paginate($this->perPage);
     }
 
     public function getCategoriesProperty()
