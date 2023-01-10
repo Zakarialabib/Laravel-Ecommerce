@@ -28,16 +28,13 @@ class SubcategoryPage extends Component
         $this->paginationOptions = [25, 50, 100];
     }
 
-    public function getSubcategeriessProperty()
-    {
-        return Product::active()
-        ->where('subcategory_id', $this->subcategory->id)
-        ->paginate($this->perPage);
-    }
-
     public function render(): View|Factory
     {
 
-        return view('livewire.front.subcategory-page');
+        $subcategory_products = Product::active()
+        ->where('subcategory_id', $this->subcategory->id)
+        ->paginate($this->perPage);
+
+        return view('livewire.front.subcategory-page', compact ('subcategory_products'));
     }
 }
