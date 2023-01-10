@@ -39,7 +39,7 @@
             <div class="float-right">
                 <!-- Button trigger livewire modal -->
                 <x-button primary type="button" onclick="Livewire.emit('popupModal')">
-                    {{ __('Create from template') }}
+                    {{ __('Create') }}
                 </x-button>
             </div>
         </div>
@@ -47,7 +47,7 @@
 
     <x-card>
         <div>
-            @livewire('admin.settings.popupseetings')
+            @livewire('admin.settings.popupsettings')
         </div>
     </x-card>
 </x-dashboard-layout>
