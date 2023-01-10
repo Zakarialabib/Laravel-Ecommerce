@@ -98,7 +98,7 @@
         </x-sidebar.dropdown>
     @endcan
 
-    <x-sidebar.dropdown title="{{ __('Pages Settings') }}" :active="Str::startsWith( request()->route()->uri(), 'pages', )">
+    <x-sidebar.dropdown title="{{ __('Content') }}" :active="Str::startsWith( request()->route()->uri(), 'pages', )">
         <x-slot name="icon">
             <span class="inline-block mr-3">
                 <i class="fas fa-file-alt w-5 h-5"></i>
@@ -108,11 +108,7 @@
         <x-sidebar.sublink title="{{ __('Sections') }}" href="{{ route('admin.sections') }}" :active="request()->routeIs('admin.sections')" />
         <x-sidebar.sublink title="{{ __('Sliders') }}" href="{{ route('admin.sliders') }}" :active="request()->routeIs('admin.sliders')" />
         <x-sidebar.sublink title="{{ __('Featured Banners') }}" href="{{ route('admin.featuredBanners') }}" :active="request()->routeIs('admin.featuredBanners')" />
-        
         <x-sidebar.sublink title="{{ __('Contact Us Page') }}" href="{{ route('admin.page.contact') }}" :active="request()->routeIs('admin.page.contact')" />
-        <x-sidebar.sublink title="{{ __('Site Content') }}" href="{{ route('admin.setting.content') }}" :active="request()->routeIs('admin.setting.content')" />
-        <x-sidebar.sublink title="{{ __('Home Page Customization') }}" href="{{ route('admin.setting.customize') }}" :active="request()->routeIs('admin.setting.customize')" />
-        <x-sidebar.sublink title="{{ __('Customize Menu Links') }}" href="{{ route('admin.page.menulinks') }}" :active="request()->routeIs('admin.page.menulinks')" />
     </x-sidebar.dropdown>
 
         <x-sidebar.dropdown title="{{ __('Settings') }}" :active="Str::startsWith(

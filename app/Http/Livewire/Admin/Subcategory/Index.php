@@ -41,8 +41,6 @@ class Index extends Component
 
     public array $paginationOptions;
 
-    public array $listsForFields = [];
-
     protected $queryString = [
         'search'        => [
             'except' => '',
@@ -77,14 +75,13 @@ class Index extends Component
 
     public array $rules = [
         'subcategory.name'        => ['required', 'string', 'max:255'],
-        'subcategory.category_id' => ['required', 'integer'],
+        'subcategory.category_id' => ['required', 'array'],
         'subcategory.language_id' => ['nullable'],
         'subcategory.slug'        => ['required'],
     ];
 
     public function mount()
     {
-        $this->initListsForFields();
         $this->sortBy = 'id';
         $this->sortDirection = 'desc';
         $this->perPage = 25;
@@ -140,9 +137,13 @@ class Index extends Component
         $this->alert('success', __('Subcategory deleted successfully.'));
     }
 
-    protected function initListsForFields(): void
+    public function getCategoriesProperty()
     {
-        $this->listsForFields['categories'] = Category::pluck('name', 'id')->toArray();
-        $this->listsForFields['languages'] = Language::pluck('name', 'id')->toArray();
+        return Category::select('name', 'id')->get();
+    }
+   
+    public function getLanguagesProperty()
+    {
+        return Language::select('name', 'id')->get();
     }
 }

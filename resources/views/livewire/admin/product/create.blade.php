@@ -31,18 +31,26 @@
                     <div class="flex flex-wrap -mx-2 mb-3">
                         <div class="w-full lg:w-1/2 px-3 mb-6 lg:mb-0">
                             <x-label for="category_id" :value="__('Category')" required />
-                            <x-select-list
+                            <select
                                 class="block bg-white text-gray-700 rounded border border-gray-300 mb-1 text-sm w-full focus:shadow-outline-blue focus:border-blue-500"
-                                id="category_id" name="category_id"  multiple wire:model="product.category_id"
-                                :options="$this->listsForFields['categories']" />
+                                id="category_id" name="category_id" multiple wire:model="product.category_id">
+                                <option value="" disabled>{{ __('Select Category') }}</option>
+                                @foreach ($this->categories as $category)
+                                    <option value="{{ $category->id }}">{{ $category->name }}</option>
+                                @endforeach
+                                <x-input-error :messages="$errors->get('product.category_id')" for="product.category_id" class="mt-2" />
+                            </select>
                         </div>
 
                         <div class="w-full lg:w-1/2 px-3 mb-6 lg:mb-0">
                             <x-label for="subcategory" :value="__('Subcategory')" />
-                            <x-select-list
+                            <select
                                 class="block bg-white text-gray-700 rounded border border-gray-300 mb-1 text-sm w-full focus:shadow-outline-blue focus:border-blue-500"
-                                id="subcategory_id" name="subcategory_id" multiple  wire:model="product.subcategory_id"
-                                :options="$this->listsForFields['subcategories']" />
+                                id="subcategory_id" name="subcategory_id" multiple wire:model="product.subcategory_id">
+                                @foreach ($this->subcategories as $subcategory)
+                                    <option value="{{ $subcategory->id }}">{{ $subcategory->name }}</option>
+                                @endforeach
+                            </select>
                             <x-input-error :messages="$errors->get('subcategory_id')" for="subcategory_id" class="mt-2" />
                         </div>
 
@@ -58,15 +66,20 @@
                             <x-label for="old_price" :value="__('Old Price')" required />
                             <x-input id="old_price" class="block mt-1 w-full" type="number" name="old_price"
                                 wire:model="product.old_price" />
-                            <x-input-error :messages="$errors->get('old_price')" for="old_price" class="mt-2" />
+                            <x-input-error :messages="$errors->get('product.old_price')" for="old_price" class="mt-2" />
 
                         </div>
 
                         <div class="lg:w-1/3 sm:w-1/2 px-2">
                             <x-label for="brand_id" :value="__('Brand')" />
-                            <x-select-list
+                            <select
                                 class="block bg-white text-gray-700 rounded border border-gray-300 mb-1 text-sm w-full focus:shadow-outline-blue focus:border-blue-500"
-                                id="brand_id" name="brand_id" wire:model="product.brand_id" :options="$this->listsForFields['brands']" />
+                                id="brand_id" name="brand_id" wire:model="product.brand_id">
+                                @foreach ($this->brands as $brand)
+                                    <option value="{{ $brand->id }}">{{ $brand->name }}</option>
+                                @endforeach
+                            </select>
+                            <x-input-error :messages="$errors->get('product.brand_id')" for="brand_id" class="mt-2" />
                         </div>
 
                         <div class="lg:w-1/3 sm:w-1/2 px-2">

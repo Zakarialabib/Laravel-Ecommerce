@@ -7,12 +7,12 @@ namespace App\Http\Controllers;
 use App\Models\Order;
 use App\Models\Blog;
 use App\Models\Brand;
-use App\Models\Product;
 use App\Models\Subcategory;
+use App\Models\User;
+use App\Models\Product;
 use Carbon\Carbon;
 use Spatie\Sitemap\Sitemap;
 use Spatie\Sitemap\Tags\Url;
-use Spatie\Sitemap\SitemapGenerator;
 use Illuminate\Support\Facades\Auth;
 
 class FrontController extends Controller

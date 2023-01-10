@@ -156,7 +156,7 @@ class Helpers
                 $galleryArray[] = $value->getClientOriginalName();
             }
 
-            return  $this->product->gallery = json_encode($galleryArray);
+            return json_encode($galleryArray);
         } else {
             // handle single image
 

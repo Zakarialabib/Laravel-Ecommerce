@@ -55,13 +55,11 @@
                     </x-table.td>
                     <x-table.td class="overflow-hidden text-clip whitespace-pre" style="white-space: initial">
                         @if ($order->user_id == null)
-                        {{ $order->customer_name }} - 
-                        {{ $order->customer_email }} -
-                        {{ $order->customer_phone }}
+                        {{ $order->customer->name }} - 
+                        {{ $order->customer->email }} -
+                        {{ $order->customer->phone }}
                         @else
-                        <a href="{{ route('admin-user-show', $order->user_id) }}" class="uppercase">
-                            {{ $order->customer_name }} 
-                        </a>
+                            {{ $order->customer->name }} 
                         @endif
                     </x-table.td>
                     <x-table.td>
@@ -104,7 +102,7 @@
                         {{ $order->totalQty }}
                     </x-table.td>
                     <x-table.td>
-                        {{ \PriceHelper::showOrderCurrencyPrice(($order->pay_amount + $order->wallet_price) * $order->currency_value, $order->currency_sign) }}
+                        {{-- {{ }} --}}
                     </x-table.td>
                     <x-table.td>
                         <x-dropdown
@@ -116,36 +114,14 @@
                                 </button>
                             </x-slot>
                             <x-slot name="content">
-                                <x-dropdown-link href="{{ route('admin-order-show', $order->id) }}"> <i
+                                <x-dropdown-link href=""> <i
                                         class="fas fa-eye"></i>
                                     {{ __('View Details') }}
                                 </x-dropdown-link>
-                                <x-dropdown-link href="{{ route('admin-order-edit', $order->id) }}"> <i
+                                <x-dropdown-link href=""> <i
                                         class="fas fa-edit"></i>
                                     {{ __('Edit') }}
                                 </x-dropdown-link>
-                                <x-dropdown-link href="javascript:;" class="send"
-                                    data-email="'{{ $order->customer_email }}" data-toggle="modal"
-                                    data-target="#vendorform">
-                                    <i class="fas fa-envelope"></i>
-                                    {{ __('Send') }}
-                                </x-dropdown-link>
-                                <x-dropdown-link data-href="{{ route('admin-order-track', $order->id) }}"
-                                    class="track" data-toggle="modal" data-target="#modal1">
-                                    <i class="fas fa-truck"></i>
-                                    {{ __('Track Order') }}
-                                </x-dropdown-link>
-                                <x-dropdown-link href="javascript:;"
-                                    data-href="{{ route('admin-order-edit', $order->id) }}" class="track"
-                                    data-toggle="modal" data-target="#modal1">
-                                    <i class="fas fa-dollar-sign"></i>
-                                    {{ __('Delivery Status') }}
-                                </x-dropdown-link>
-                                {{-- <x-dropdown-link href="javascript:;"
-                                    data-href="{{ route('admin-prod-delete', $order->id) }}" data-toggle="modal"
-                                    data-target="#confirm-delete" class="delete"><i
-                                        class="fas fa-trash-alt"></i>{{ __('Delete') }}
-                                </x-dropdown-link> --}}
                             </x-slot>
                         </x-dropdown>
                     </x-table.td>

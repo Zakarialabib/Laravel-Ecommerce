@@ -26,17 +26,14 @@ class Create extends Component
 
     public $subcategory;
 
-    public array $listsForFields = [];
-
     public function mount(Subcategory $subcategory)
     {
         $this->subcategory = $subcategory;
-        $this->initListsForFields();
     }
 
     public array $rules = [
         'subcategory.name'        => ['required', 'string', 'max:255'],
-        'subcategory.category_id' => ['required', 'integer'],
+        'subcategory.category_id' => ['required', 'array'],
         'subcategory.language_id' => ['nullable'],
     ];
 
@@ -69,9 +66,13 @@ class Create extends Component
         $this->createSubcategory = false;
     }
 
-    protected function initListsForFields(): void
+    public function getCategoriesProperty()
     {
-        $this->listsForFields['categories'] = Category::pluck('name', 'id')->toArray();
-        $this->listsForFields['languages'] = Language::pluck('name', 'id')->toArray();
+        return Category::select('name', 'id')->get();
+    }
+   
+    public function getLanguagesProperty()
+    {
+        return Language::select('name', 'id')->get();
     }
 }

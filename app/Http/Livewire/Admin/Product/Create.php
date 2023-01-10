@@ -140,10 +140,20 @@ class Create extends Component
         }
     }
 
-    protected function initListsForFields(): void
+
+    public function getCategoriesProperty()
     {
-        $this->listsForFields['categories'] = Category::pluck('name', 'id')->toArray();
-        $this->listsForFields['brands'] = Brand::pluck('name', 'id')->toArray();
-        $this->listsForFields['subcategories'] = Subcategory::pluck('name', 'id')->toArray();
+        return Category::select('name', 'id')->get();
     }
+
+    public function getBrandsProperty()
+    {
+        return Brand::select('name', 'id')->get();
+    }
+
+    public function getSubcategoriesProperty()
+    {
+        return Subcategory::select('name', 'id')->get();
+    }
+
 }
