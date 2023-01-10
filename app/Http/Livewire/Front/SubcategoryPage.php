@@ -28,7 +28,7 @@ class SubcategoryPage extends Component
         $this->paginationOptions = [25, 50, 100];
     }
 
-    public function getSubcategeriesProductsProperty()
+    public function getSubcategeriessProperty()
     {
         return Product::active()
         ->where('subcategory_id', $this->subcategory->id)
