@@ -110,7 +110,7 @@
                             </div>
                             <div>
                                 @if ($product->status == 1)
-                                    <a class="block hover:bg-orange-400 text-center text-white font-bold font-heading py-2 px-4 rounded-md uppercase transition duration-200 bg-orange-500 cursor-pointer"
+                                    <a class="block hover:bg-orange-400 text-center text-white font-bold font-heading py-2 px-4 rounded-md uppercase bg-orange-500 cursor-pointer"
                                         wire:click="AddToCart({{ $product->id }}, '{{ $product->name }}', {{ $product->price }})">
                                         {{ __('Add to cart') }}
                                     </a>

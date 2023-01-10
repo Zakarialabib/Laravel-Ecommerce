@@ -3,8 +3,8 @@
         <div class="px-4 lg:px-12 py-5 flex w-full items-center">
             <a class="lg:mr-8 2xl:mr-20 lg:text-3xl sm:text-xl font-bold font-heading text-white"
                 href="{{ route('front.index') }}">
-                <img class="h-10" src="{{ asset('images/' . Helpers::settings('site_logo')) }}"
-                    alt="{{ Helpers::settings('site_title') }}" width="auto" />
+                <img class="w-auto h-10" src="{{ asset('images/' . Helpers::settings('site_logo')) }}"
+                    loading="lazy" alt="{{ Helpers::settings('site_title') }}" />
             </a>
 
             <ul class="hidden xl:flex px-4 mx-auto font-semibold font-heading">
@@ -103,8 +103,8 @@
     <nav class="relative flex flex-col py-6 px-6 w-full h-full bg-white border-r overflow-y-auto">
         <div class="flex items-center mb-2">
             <a class="mr-auto lg:text-3xl sm:text-xl font-bold font-heading" href="{{ route('front.index') }}">
-                <img class="h-10" src="{{ asset('images/' . Helpers::settings('site_logo')) }}"
-                    alt="{{ Helpers::settings('site_title') }}" width="auto" />
+                <img class="w-auto h-10" src="{{ asset('images/' . Helpers::settings('site_logo')) }}"
+                    alt="{{ Helpers::settings('site_title') }}" loading="lazy" />
             </a>
             <button class="navbar-close">
                 <svg class="h-2 w-2 text-gray-500 cursor-pointer" width="10" height="10" viewbox="0 0 10 10"

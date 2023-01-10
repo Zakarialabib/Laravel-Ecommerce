@@ -16,6 +16,6 @@ class SettingController extends Controller
 
     public function popupsettings()
     {
-        return view('admin.settings.popupsettings', compact('setting'));
+        return view('admin.settings.popupsettings');
     }
 }
