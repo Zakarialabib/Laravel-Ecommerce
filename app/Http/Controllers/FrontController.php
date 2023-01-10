@@ -10,10 +10,9 @@ use App\Models\Brand;
 use App\Models\Product;
 use App\Models\Subcategory;
 use Carbon\Carbon;
+use Spatie\Sitemap\Sitemap;
 use Spatie\Sitemap\Tags\Url;
-use Spatie\Sitemap\Tags\Sitemap;
-use Spatie\Sitemap\SitemapIndex;
-use Spatie\Sitemap\SitemapGenerator;
+use Spatie\Sitemap\Tags\SitemapGenerator;
 use Illuminate\Support\Facades\Auth;
 
 class FrontController extends Controller
@@ -115,7 +114,7 @@ class FrontController extends Controller
 
     public function generateSitemaps()
     {
-        $sitemap =  SitemapIndex::create()
+        $sitemap =  Sitemap::create()
         ->add(
             Url::create('/')
                 ->setLastModificationDate(Carbon::yesterday())
