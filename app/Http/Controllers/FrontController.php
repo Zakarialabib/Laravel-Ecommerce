@@ -147,22 +147,31 @@ class FrontController extends Controller
             ->setPriority(0.2)
         );
 
-        Product::active()->get()->each( function (Product $product) use ($sitemap) {
-            $sitemap->add(Url::create("/{$product->slug}"));
-        });
-
-        Brand::all()->each( function (Brand $brand) use ($sitemap) {
-            $sitemap->add(Url::create("/brand/{$brand->slug}"));
-        });
-
-        Subcategory::all()->each( function (Subcategory $subcategory) use ($sitemap) {
-            $sitemap->add(Url::create("/subcategory/{$subcategory->slug}"));
-        });
-
         $sitemap->writeToFile( public_path("sitemap.xml"));
 
-        SitemapGenerator::create(config('app.url'))
-            ->writeToFile(public_path('pages_sitemap.xml'));
+        $products_sitemaps = Sitemap::create();
+
+        Product::active()->get()->each( function (Product $product) use ($products_sitemaps) {
+            $products_sitemaps->add(Url::create("/{$product->slug}"));
+        });
+
+        $products_sitemaps->writeToFile( public_path("products_sitemap.xml"));
+        
+        $brands_sitemaps = Sitemap::create();
+
+        Brand::all()->each( function (Brand $brand) use ($brands_sitemaps) {
+            $brands_sitemaps->add(Url::create("/brand/{$brand->slug}"));
+        });
+
+        $brands_sitemaps->writeToFile( public_path("brands_sitemap.xml"));
+
+        $subcategories_sitemaps = Sitemap::create();
+
+        Subcategory::all()->each( function (Subcategory $subcategory) use ($subcategories_sitemaps) {
+            $subcategories_sitemaps->add(Url::create("/subcategory/{$subcategory->slug}"));
+        });
+
+        $subcategories_sitemaps->writeToFile( public_path("subcategories_sitemap.xml"));
 
     }
 }
