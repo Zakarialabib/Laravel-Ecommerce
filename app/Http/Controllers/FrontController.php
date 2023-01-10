@@ -12,7 +12,7 @@ use App\Models\Subcategory;
 use Carbon\Carbon;
 use Spatie\Sitemap\Sitemap;
 use Spatie\Sitemap\Tags\Url;
-use Spatie\Sitemap\Tags\SitemapGenerator;
+use Spatie\Sitemap\SitemapGenerator;
 use Illuminate\Support\Facades\Auth;
 
 class FrontController extends Controller
