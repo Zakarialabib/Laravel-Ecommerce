@@ -259,8 +259,8 @@
                             <div class="bg-white rounded-lg shadow-2xl">
                                 <div class="relative text-center">
                                     <a href="{{ route('front.product', $product->slug) }}">
-                                        <img class="w-full h-auto object-cover rounded-t-lg"
-                                            src="{{ asset('images/products/' . $product->image) }}" alt="">
+                                        <img class="w-full h-auto object-cover rounded-t-lg" loading="lazy"
+                                            src="{{ asset('images/products/' . $product->image) }}" alt="{{ $product->name }}">
                                     </a>
                                     <div class="absolute top-0 right-0 px-4 py-2 bg-orange-500 rounded-bl-lg">
                                         <span class="text-white font-bold font-heading">{{ $product->price }}DH</span>

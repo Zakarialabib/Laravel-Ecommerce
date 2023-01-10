@@ -10,7 +10,7 @@
             <!-- Slides -->
             <div class="swiper-slide">
                 <img src="{{ asset('images/products/' . $product->image) }}" 
-                alt="{{ $product->Name }}" 
+                alt="{{ $product->name }}"  loading="lazy"
                 class="w-full h-full object-cover">
             </div>
 
@@ -19,7 +19,8 @@
                     <div class="swiper-slide">
                         <img src="{{ asset('images/products/' . $item) }}" 
                             class="w-full h-full object-cover"
-                            alt="{{ $product->Name }}" >
+                            alt="{{ $product->name }}" 
+                            loading="lazy">
                     </div>
                 @endforeach
             @endif

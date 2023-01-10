@@ -5,7 +5,7 @@
         <a href="{{ route('front.product', $product->slug) }}">
             <img class="w-full h-[300px] object-cover rounded-t-lg py-5"
                 src="{{ asset('images/products/' . $product->image) }}" onerror="this.onerror=null; this.remove();"
-                alt="{{ $product->name }}">
+                alt="{{ $product->name }}"  loading="lazy">
             <meta itemprop="image" content="{{ asset('images/products/' . $product->image) }}">
         </a>
 

@@ -61,7 +61,7 @@
         {!! Helpers::settings('body_tags') !!}
     @endif
     
-    <x-loading-mask />
+    {{-- <x-loading-mask /> --}}
 
     <section class="relative">
         <x-header />
