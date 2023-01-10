@@ -9,6 +9,10 @@ use App\Models\Blog;
 use App\Models\Brand;
 use App\Models\Product;
 use App\Models\Subcategory;
+use Carbon\Carbon;
+use Spatie\Sitemap\Tags\Url;
+use Spatie\Sitemap\Tags\Sitemap;
+use Spatie\Sitemap\SitemapIndex;
 use Spatie\Sitemap\SitemapGenerator;
 use Illuminate\Support\Facades\Auth;
 
@@ -111,7 +115,60 @@ class FrontController extends Controller
 
     public function generateSitemaps()
     {
-        SitemapGenerator::create(config('app.url'))
+        SitemapIndex::create()
+            ->add(Sitemap::create('/pages_sitemap.xml')
+                ->setLastModificationDate(Carbon::yesterday()))
+            ->add(Sitemap::create('/posts_sitemap.xml')
+                ->setLastModificationDate(Carbon::yesterday()))
             ->writeToFile(public_path('sitemap.xml'));
+            
+        Product::active()->get()->each( function (Product $product) use ($sitemap) {
+            $sitemap->add(Url::create("/{$product->slug}"));
+        });
+
+        Brand::all()->each( function (Brand $brand) use ($sitemap) {
+            $sitemap->add(Url::create("/brand/{$brand->slug}"));
+        });
+
+        Subcategory::all()->each( function (Subcategory $subcategory) use ($sitemap) {
+            $sitemap->add(Url::create("/subcategory/{$subcategory->slug}"));
+        });
+
+        SitemapGenerator::create(config('app.url'))
+            ->getSitemap()
+            ->add(
+                Url::create('/')
+                    ->setLastModificationDate(Carbon::yesterday())
+                    ->setChangeFrequency(Url::CHANGE_FREQUENCY_YEARLY)
+                    ->setPriority(1.0)
+            )
+            ->add(Url::create(route('front.catalog'))
+                ->setLastModificationDate(Carbon::yesterday())
+                ->setChangeFrequency(Url::CHANGE_FREQUENCY_YEARLY)
+                ->setPriority(0.9)
+            )
+            ->add(Url::create(route('front.brands'))
+                ->setLastModificationDate(Carbon::yesterday())
+                ->setChangeFrequency(Url::CHANGE_FREQUENCY_YEARLY)
+                ->setPriority(0.8)
+            )
+            ->add(Url::create(route('front.categories'))
+                ->setLastModificationDate(Carbon::yesterday())
+                ->setChangeFrequency(Url::CHANGE_FREQUENCY_YEARLY)
+                ->setPriority(0.7)
+            )
+            ->add(Url::create(route('front.about'))
+                ->setLastModificationDate(Carbon::yesterday())
+                ->setChangeFrequency(Url::CHANGE_FREQUENCY_YEARLY)
+                ->setPriority(0.7)
+            )
+            ->add(Url::create(route('front.contact'))
+                ->setLastModificationDate(Carbon::yesterday())
+                ->setChangeFrequency(Url::CHANGE_FREQUENCY_YEARLY)
+                ->setPriority(0.2)
+            )
+
+
+            ->writeToFile(public_path('pages_sitemap.xml'));
     }
 }
