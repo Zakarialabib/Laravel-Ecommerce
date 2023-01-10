@@ -58,8 +58,6 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => 'auth'], fu
     Route::get('/order-forms', [PageController::class, 'orderForms'])->name('orderforms');
 
     Route::get('/sliders', [SliderController::class, 'index'])->name('sliders');
-    Route::get('/contact', [PageController::class, 'index'])->name('page.contact');
-    Route::get('/menulinks', [SettingController::class, 'index'])->name('page.menulinks');
 
     Route::get('/blogs', [BlogController::class, 'index'])->name('blogs');
     Route::get('/blog/settings', [BlogController::class, 'settings'])->name('blog.settings');
@@ -67,8 +65,6 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => 'auth'], fu
 
     Route::get('/settings', [SettingController::class, 'index'])->name('settings');
     Route::get('/shipping', [ShippingController::class, 'index'])->name('setting.shipping');
-    Route::get('/home-customization', [SettingController::class, 'index'])->name('setting.customize');
-    Route::get('/content', [SettingController::class, 'index'])->name('setting.content');
     Route::get('/popupsettings', [SettingController::class, 'popupsettings'])->name('setting.popupsettings');
 
     Route::get('/report', [ReportController::class, 'index'])->name('report');

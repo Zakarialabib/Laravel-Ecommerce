@@ -100,7 +100,6 @@ class Index extends Component
         $this->paginationOptions = [25, 50, 100];
         $this->orderable = (new Product())->orderable;
         $this->file = null;
-        $this->initListsForFields();
     }
 
     public function render(): View|Factory
@@ -152,15 +151,8 @@ class Index extends Component
         if (count(array_intersect($this->selected, Product::paginate($this->perPage)->pluck('id')->toArray())) == count(Product::paginate($this->perPage)->pluck('id')->toArray())) {
             $this->selected = [];
         } else {
-            $this->selected = $productIds;
+            $this->selected = array_intersect($this->selected, Product::paginate($this->perPage)->pluck('id')->toArray());
         }
-    }
-
-    protected function initListsForFields(): void
-    {
-        $this->listsForFields['categories'] = Category::pluck('name', 'id')->toArray();
-        $this->listsForFields['brands'] = Brand::pluck('name', 'id')->toArray();
-        $this->listsForFields['subcategories'] = Subcategory::pluck('name', 'id')->toArray();
     }
 
      // Product  Clone

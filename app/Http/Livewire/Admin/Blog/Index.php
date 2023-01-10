@@ -84,7 +84,7 @@ class Index extends Component
         'blog.meta_tag'         => ['nullable'],
         'blog.meta_description' => ['nullable'],
         'blog.featured'         => ['nullable'],
-        'blog.language_id'      => ['required', 'integer'],
+        'blog.language_id'      => ['nullable', 'integer'],
     ];
 
     public function mount()

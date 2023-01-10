@@ -7,10 +7,19 @@ namespace App\Https\Livewire;
 use Livewire\Component;
 use App\Models\Popup;
 use Throwable;
+use Jantinnerezo\LivewireAlert\LivewireAlert;
+use App\Http\Livewire\WithSorting;
+use Livewire\WithPagination;
 
 class PopupSettings extends Component
 {
+    use LivewireAlert;
+    use WithPagination;
+    use WithSorting;
+
     public $popups;
+    
+    public $popup;
 
     public $popupModal = false;
 
@@ -44,6 +53,46 @@ class PopupSettings extends Component
         'ctaUrl'          => ['required', 'string'],
     ];
 
+    public array $orderable;
+
+    public string $search = '';
+
+    public array $selected = [];
+
+    public array $paginationOptions;
+
+    protected $queryString = [
+        'search'        => [
+            'except' => '',
+        ],
+        'sortBy'        => [
+            'except' => 'id',
+        ],
+        'sortDirection' => [
+            'except' => 'desc',
+        ],
+    ];
+
+    public function getSelectedCountProperty()
+    {
+        return count($this->selected);
+    }
+
+    public function updatingSearch()
+    {
+        $this->resetPage();
+    }
+
+    public function updatingPerPage()
+    {
+        $this->resetPage();
+    }
+
+    public function resetSelected()
+    {
+        $this->selected = [];
+    }
+
     public function setDefault($id)
     {
         Popup::where('is_default', '=', true)->update(['is_default' => false]);
@@ -55,9 +104,8 @@ class PopupSettings extends Component
         $this->popup->save();
     }
 
-    public function popupModal($id, $popup = null)
+    public function popupModal($popup = null)
     {
-        $this->modalId = $id;
         $this->popup = $popup;
         $this->popupModal = true;
     }
@@ -79,12 +127,12 @@ class PopupSettings extends Component
             ]);
 
             // show succes message
-            session()->flash('message', 'Popup settings created successfully!');
+            $this->alert§('succes', __('Popup settings created successfully !'));
 
             $this->popupModal = false;
         } catch (Throwable $th) {
             // show error message
-            session()->flash('message', 'Something unsual happend !?');
+            $this->alert§('warning', __('Something not working !'));
         }
     }
 
@@ -114,12 +162,12 @@ class PopupSettings extends Component
             };
 
             // Show success message
-            session()->flash('message', __('Popup settings updated successfully!'));
-
+            $this->alert§('succes', __('Popup settings updated successfully!'));
+            
             $this->popupModal = false;
         } catch (Throwable $th) {
             // Show error message
-            session()->flash('message', __('Something not working !'));
+            $this->alert§('warning', __('Something not working !'));
         }
     }
 
@@ -127,6 +175,6 @@ class PopupSettings extends Component
     {
         $popups = Popup::all();
 
-        return view('admin.settings.popupsettings', compact('popups'));
+        return view('livewire.admin.settings.popupsettings', compact('popups'));
     }
 }

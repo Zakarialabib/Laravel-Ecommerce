@@ -33,7 +33,7 @@ class Create extends Component
 
     public array $rules = [
         'subcategory.name'        => ['required', 'string', 'max:255'],
-        'subcategory.category_id' => ['required', 'array'],
+        'subcategory.category_id' => ['nullable', 'array'],
         'subcategory.language_id' => ['nullable'],
     ];
 

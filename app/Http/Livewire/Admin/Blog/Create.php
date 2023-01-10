@@ -36,8 +36,6 @@ class Create extends Component
     {
         $this->blog = $blog;
 
-        $this->blogcategory->language_id = 1;
-
         $this->initListsForFields();
     }
 
@@ -48,7 +46,7 @@ class Create extends Component
         'blog.meta_tag'         => ['nullable'],
         'blog.meta_description' => ['nullable'],
         'blog.featured'         => ['nullable'],
-        'blog.language_id'      => ['required', 'integer'],
+        'blog.language_id'      => ['nullable', 'integer'],
     ];
 
     public function render(): View|Factory

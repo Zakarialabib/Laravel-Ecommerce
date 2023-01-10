@@ -19,7 +19,7 @@ return new class () extends Migration {
             $table->string('name');
             $table->string('slug');
             $table->tinyInteger('status')->default(true);
-            $table->foreignId('category_id')->nullable()->constrained('categories')->nullOnDelete();
+            $table->bigInteger('category_id')->nullable();
             $table->foreignId('language_id')->nullable()->constrained('languages')->nullOnDelete();
             $table->timestamps();
         });

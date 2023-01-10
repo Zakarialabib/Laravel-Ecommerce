@@ -49,9 +49,6 @@
                 {{ __('Status') }}
             </x-table.th>
             <x-table.th>
-                {{ __('Roles') }}
-            </x-table.th>
-            <x-table.th>
                 {{ __('Actions') }}
             </x-table.th>
         </x-slot>
@@ -74,14 +71,6 @@
                         <livewire:toggle-button :model="$user" field="status" key="{{ $user->id }}" />
                     </x-table.td>
 
-                    <x-table.td>
-                        <select wire:model="role" class="form-control">
-                            {{-- <option value="">{{ $user->roles->name }}</option> --}}
-                            @foreach ($this->roles as $id => $name)
-                                <option value="{{ $id }}">{{ $name }}</option>
-                            @endforeach
-                        </select>
-                    </x-table.td>
                     <x-table.td>
                         <div class="flex justify-start space-x-2">
                             <x-button secondary wire:click="showModal({{ $user->id }})" type="button"
