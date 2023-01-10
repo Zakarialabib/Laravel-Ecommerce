@@ -67,8 +67,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => 'auth'], fu
 
     Route::get('/settings', [SettingController::class, 'index'])->name('settings');
     Route::get('/shipping', [ShippingController::class, 'index'])->name('setting.shipping');
-    Route::get('/home-customization', [SettingController::class, 'index'])->name('setting.customize');
-    Route::get('/content', [SettingController::class, 'index'])->name('setting.content');
+    Route::get('/popupsettings', [SettingController::class, 'popupsettings'])->name('setting.popupsettings');
 
     Route::get('/report', [ReportController::class, 'index'])->name('report');
 
@@ -78,5 +77,4 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => 'auth'], fu
     Route::get('/roles', [RolesController::class, 'index'])->name('roles');
     Route::get('/permissions', [UsersController::class, 'permissions'])->name('permissions');
     Route::get('/currencies', [SettingController::class, 'currencies'])->name('currencies');
-    Route::get('/popupsettings', [SettingController::class, 'popupsettings'])->name('popupsettings');
 });
