@@ -69,7 +69,6 @@ class Create extends Component
     public function mount(Product $product)
     {
         $this->product = $product;
-        $this->initListsForFields();
     }
 
     public function getImagePreviewProperty()
