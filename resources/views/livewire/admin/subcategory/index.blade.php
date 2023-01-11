@@ -53,27 +53,16 @@
                         {{ $subcategory->category?->name }}
                     </x-table.td>
                     <x-table.td>
-                        <x-dropdown
-                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-32 p-1">
-                            <x-slot name="trigger">
-                                <button type="button"
-                                    class="px-4 text-base font-semibold text-gray-500 hover:text-sky-800">
-                                    <i class="fas fa-angle-double-down"></i>
-                                </button>
-                            </x-slot>
-                            <x-slot name="content">
-                                <x-button primary type="button"
-                                    wire:click="$emit('editModal', {{ $subcategory->id }})"
-                                    wire:loading.attr="disabled">
-                                    <i class="fas fa-edit"></i>
-                                </x-button>
-                                <x-button danger type="button"
-                                    wire:click="$emit('deleteModal', {{ $subcategory->id }})"
-                                    wire:loading.attr="disabled">
-                                    <i class="fas fa-trash-alt"></i>
-                                </x-button>
-                            </x-slot>
-                        </x-dropdown>
+                        <div class="flex justify-start space-x-2">
+                            <x-button primary type="button" wire:click="$emit('editModal', {{ $subcategory->id }})"
+                                wire:loading.attr="disabled">
+                                <i class="fas fa-edit"></i>
+                            </x-button>
+                            <x-button danger type="button" wire:click="$emit('deleteModal', {{ $subcategory->id }})"
+                                wire:loading.attr="disabled">
+                                <i class="fas fa-trash-alt"></i>
+                            </x-button>
+                        </div>
                     </x-table.td>
                 </x-table.tr>
             @empty
@@ -99,6 +88,7 @@
             {{ $subcategories->links() }}
         </div>
     </div>
+    
     <!-- Edit Modal -->
     <x-modal wire:model="editModal">
         <x-slot name="title">
@@ -128,7 +118,7 @@
                         <x-label for="category_id" :value="__('Category')" required />
                         <select
                             class="block bg-white text-gray-700 rounded border border-gray-300 mb-1 text-sm w-full focus:shadow-outline-blue focus:border-blue-500"
-                            id="category_id" name="category_id"  wire:model="subcategory.category_id">
+                            id="category_id" name="category_id" wire:model="subcategory.category_id">
                             <option value="" disabled>{{ __('Select Category') }}</option>
                             @foreach ($this->categories as $category)
                                 <option value="{{ $category->id }}">{{ $category->name }}</option>
@@ -160,14 +150,13 @@
     </x-modal>
     <!-- End Edit Modal -->
 
-
     <livewire:admin.subcategory.create />
 </div>
 
 @push('page_scripts')
     <script>
         document.addEventListener('livewire:load', function() {
-            window.livewire.on('deleteModal', categoryId => {
+            window.livewire.on('deleteModal', subcategoryId => {
                 Swal.fire({
                     title: 'Are you sure?',
                     text: "You won't be able to revert this!",
@@ -178,7 +167,7 @@
                     confirmButtonText: 'Yes, delete it!'
                 }).then((result) => {
                     if (result.isConfirmed) {
-                        window.livewire.emit('delete', categoryId)
+                        window.livewire.emit('delete', subcategoryId)
                     }
                 })
             })

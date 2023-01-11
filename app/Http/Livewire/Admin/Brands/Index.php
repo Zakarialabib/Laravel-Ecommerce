@@ -71,12 +71,12 @@ class Index extends Component
 
     public function getImagePreviewProperty()
     {
-        return $this->brand->image;
+        return $this->brand?->image;
     }
 
     public function getFeaturedImagePreviewProperty()
     {
-        return $this->brand->featured_image;
+        return $this->brand?->featured_image;
     }
 
     public array $rules = [

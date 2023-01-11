@@ -23,6 +23,7 @@ class Index extends Component
 
     public $listeners = [
         'editModal', 'refreshIndex' => '$refresh',
+        'delete'
     ];
 
     public int $perPage;
