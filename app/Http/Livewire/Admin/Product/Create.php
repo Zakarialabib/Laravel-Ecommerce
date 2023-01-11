@@ -60,7 +60,7 @@ class Create extends Component
         'product.meta_description' => ['nullable', 'string', 'max:255'],
         'product.meta_keywords'    => ['nullable', 'string', 'min:1'],
         'product.category_id'      => ['required', 'integer'],
-        'product.subcategory_id'   => ['required', 'integer'],
+        'product.subcategory_id'   => ['required'],
         'product.brand_id'         => ['nullable', 'integer'],
         'product.embeded_video'    => ['nullable'],
         'product.condition'        => ['nullable'],
