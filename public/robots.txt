@@ -12,8 +12,9 @@ Disallow:
 
 Disallow: /cgi-bin/
 Disallow: /login
+Disallow: /register
 Disallow: /admin/*
 Disallow: /panier
 Disallow: /caisse
 
-Sitemap: https://badrluxury.cm/sitemap.xml
+Sitemap: https://badrluxury.com/sitemap.xml

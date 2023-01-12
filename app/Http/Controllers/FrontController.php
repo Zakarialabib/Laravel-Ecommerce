@@ -14,6 +14,8 @@ use Carbon\Carbon;
 use Spatie\Sitemap\Sitemap;
 use Spatie\Sitemap\Tags\Url;
 use Illuminate\Support\Facades\Auth;
+use Spatie\Sitemap\SitemapIndex;
+use Spatie\Sitemap\Tags\SitemapTags;
 
 class FrontController extends Controller
 {
@@ -114,7 +116,16 @@ class FrontController extends Controller
 
     public function generateSitemaps()
     {
-        $sitemap =  Sitemap::create()
+
+        $sitemapIndexPath = SitemapIndex::create()
+        ->add('/products_sitemap.xml')
+        ->add('/brands_sitemap.xml')
+        ->add('/pages_sitemap.xml')
+        ->add('/subcategories_sitemap.xml');
+
+        $sitemapIndexPath->writeToFile(public_path("sitemap.xml"));
+
+        $sitemap = Sitemap::create()
         ->add(
             Url::create('/')
                 ->setLastModificationDate(Carbon::yesterday())
@@ -139,15 +150,15 @@ class FrontController extends Controller
         ->add(Url::create(route('front.about'))
             ->setLastModificationDate(Carbon::yesterday())
             ->setChangeFrequency(Url::CHANGE_FREQUENCY_YEARLY)
-            ->setPriority(0.7)
+            ->setPriority(0.6)
         )
         ->add(Url::create(route('front.contact'))
             ->setLastModificationDate(Carbon::yesterday())
             ->setChangeFrequency(Url::CHANGE_FREQUENCY_YEARLY)
-            ->setPriority(0.2)
+            ->setPriority(0.5)
         );
 
-        $sitemap->writeToFile( public_path("sitemap.xml"));
+        $sitemap->writeToFile( public_path("pages_sitemap.xml"));
 
         $products_sitemaps = Sitemap::create();
 

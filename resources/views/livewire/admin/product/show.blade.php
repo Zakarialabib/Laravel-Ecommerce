@@ -37,7 +37,7 @@
                                     {{ __('Category') }}
                                 </x-table.th>
                                 <x-table.td>
-                                    {{ $product->category->name }}
+                                    {{ $product->category?->name }}
                                 </x-table.td>
                             </x-table.tr>
                             <x-table.tr>
@@ -45,7 +45,7 @@
                                     {{ __('Brand') }}
                                 </x-table.th>
                                 <x-table.td>
-                                    {{ $product->brand->name }}
+                                    {{ $product->brand?->name }}
                                 </x-table.td>
                             </x-table.tr>
                             <x-table.tr>
