@@ -64,7 +64,6 @@
                         <div x-show="openFilters">
                             <div class="w-full px-2 overflow-x-scroll bg-gray-50">
                                 <ul class="my-6 w-full flex">
-                                    <a class="font-bold font-heading" href="#">{{ __('Categories') }}</a>
                                     @foreach ($this->categories as $category)
                                         <li class="w-1/2 px-2 mb-2">
                                             <x-button type="button"
@@ -93,9 +92,8 @@
                                 </ul>
 
                                 <div class="mb-6 text-center w-full">
-                                    <a class="font-bold font-heading" href="#">{{ __('Price') }}</a>
+                                    <p class="font-bold font-heading">{{ __('Price budget') }}</p>
                                     <div class="mt-6 -mb-2">
-                                        
                                         <div class="flex justify-between">
                                             <span class="inline-block text-lg font-bold font-heading text-blue-300">
                                                 <input type="text" class="w-full" wire:model="minPrice">
@@ -109,7 +107,7 @@
 
 
                                 <div class="w-full mb-6 text-center">
-                                    <a class="font-bold font-heading" href="#">{{ __('Brands') }}</a>
+                                    <p class="font-bold font-heading">{{ __('Brands') }}</p>
                                     <div class="mt-6 -mb-2 flex overflow-x-scroll">
                                         @foreach ($this->brands as $brand)
                                             <div class="w-1/2 px-2 mb-2">
@@ -177,7 +175,7 @@
                     </div>
 
                     <div class="mb-6 p-4 bg-gray-50">
-                        <h3 class="mb-8 text-2xl font-bold font-heading">{{ __('Price') }}</h3>
+                        <h3 class="mb-8 text-2xl font-bold font-heading">{{ __('Price budget') }}</h3>
                         <div>
                             <div class="flex justify-between">
                                 <span class="inline-block text-lg font-bold font-heading text-blue-300">
@@ -210,16 +208,17 @@
                         </ul>
                     </div>
                 </div>
-                <div class="w-full lg:w-3/4 px-4" wire:loading.class.delay="opacity-50">
-                    <div class="grid gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 mb-10">
-                        @foreach ($products as $product)
-                            <x-product-card :product="$product" />
-                        @endforeach
-                    </div>
-                    <div class="text-center">
-                        {{ $products->links() }}
-                    </div>
+            </div>
+            <div class="w-full lg:w-3/4 px-4" wire:loading.class.delay="opacity-50">
+                <div class="grid gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 mb-10">
+                    @foreach ($products as $product)
+                        <x-product-card :product="$product" />
+                    @endforeach
+                </div>
+                <div class="text-center">
+                    {{ $products->links() }}
                 </div>
             </div>
         </div>
     </div>
+</div>
