@@ -127,86 +127,83 @@
                         </div>
                     </div>
                 </div>
-                <div class="hidden lg:block w-1/4 px-3">
-                    <div class="mb-6 p-4 bg-gray-50" x-data="{ openCategory: true }">
-                        <div class="flex justify-between mb-8">
-                            <h3 class="text-xl font-bold font-heading">{{ __('Category') }}</h3>
-                            <button @click="openCategory = !openCategory">
-                                <i class="fa fa-caret-down" aria-hidden="true"></i>
-                            </button>
-                        </div>
-                        <ul x-show="openCategory">
-                            @foreach ($this->categories as $category)
-                                <li class="mb-2">
-                                    <button type="button" wire:click="filterProductCategories({{ $category->id }})">
-                                        <span
-                                            class="inline-block px-4 py-2 text-sm font-bold font-heading text-blue-300">
-                                            {{ $category->name }} <small>
-                                                ({{ $category->count() }})
-                                            </small>
-                                        </span>
-                                    </button>
-                                </li>
-                            @endforeach
-                        </ul>
+            </div>
+            <div class="hidden lg:block w-1/4 px-3">
+                <div class="mb-6 p-4 bg-gray-50" x-data="{ openCategory: true }">
+                    <div class="flex justify-between mb-8">
+                        <h3 class="text-xl font-bold font-heading">{{ __('Category') }}</h3>
+                        <button @click="openCategory = !openCategory">
+                            <i class="fa fa-caret-down" aria-hidden="true"></i>
+                        </button>
                     </div>
-                    <div class="mb-6 p-4 bg-gray-50" x-data="{ openSubcategory: true }">
-                        <div class="flex justify-between mb-8">
-                            <h3 class="text-xl font-bold font-heading">{{ __('Subcategory') }}</h3>
-                            <button @click="openSubcategory = !openSubcategory">
-                                <i class="fa fa-caret-down" aria-hidden="true"></i>
-                            </button>
-                        </div>
-                        <ul x-show="openSubcategory">
-                            @foreach ($this->subcategories as $subcategory)
-                                <li class="mb-2">
-                                    <button type="button"
-                                        wire:click="filterProductSubcategories({{ $subcategory->id }})">
-                                        <span
-                                            class="inline-block px-4 py-2 text-sm font-bold font-heading text-blue-300">
-                                            {{ $subcategory->name }} <small>
-                                                ({{ $subcategory->count() }})
-                                            </small>
-                                        </span>
-                                    </button>
-                                </li>
-                            @endforeach
-                        </ul>
+                    <ul x-show="openCategory">
+                        @foreach ($this->categories as $category)
+                            <li class="mb-2">
+                                <button type="button" wire:click="filterProductCategories({{ $category->id }})">
+                                    <span class="inline-block px-4 py-2 text-sm font-bold font-heading text-blue-300">
+                                        {{ $category->name }} <small>
+                                            ({{ $category->count() }})
+                                        </small>
+                                    </span>
+                                </button>
+                            </li>
+                        @endforeach
+                    </ul>
+                </div>
+                <div class="mb-6 p-4 bg-gray-50" x-data="{ openSubcategory: true }">
+                    <div class="flex justify-between mb-8">
+                        <h3 class="text-xl font-bold font-heading">{{ __('Subcategory') }}</h3>
+                        <button @click="openSubcategory = !openSubcategory">
+                            <i class="fa fa-caret-down" aria-hidden="true"></i>
+                        </button>
                     </div>
+                    <ul x-show="openSubcategory">
+                        @foreach ($this->subcategories as $subcategory)
+                            <li class="mb-2">
+                                <button type="button"
+                                    wire:click="filterProductSubcategories({{ $subcategory->id }})">
+                                    <span class="inline-block px-4 py-2 text-sm font-bold font-heading text-blue-300">
+                                        {{ $subcategory->name }} <small>
+                                            ({{ $subcategory->count() }})
+                                        </small>
+                                    </span>
+                                </button>
+                            </li>
+                        @endforeach
+                    </ul>
+                </div>
 
-                    <div class="mb-6 p-4 bg-gray-50">
-                        <h3 class="mb-8 text-2xl font-bold font-heading">{{ __('Price budget') }}</h3>
-                        <div>
-                            <div class="flex justify-between">
-                                <span class="inline-block text-lg font-bold font-heading text-blue-300">
-                                    <input type="text" class="w-full" wire:model="minPrice">
-                                </span>
-                                <span class="inline-block text-lg font-bold font-heading text-blue-300">
-                                    <input type="text" class="w-full" wire:model="maxPrice">
-                                </span>
-                            </div>
+                <div class="mb-6 p-4 bg-gray-50">
+                    <h3 class="mb-8 text-2xl font-bold font-heading">{{ __('Price budget') }}</h3>
+                    <div>
+                        <div class="flex justify-between">
+                            <span class="inline-block text-lg font-bold font-heading text-blue-300">
+                                <input type="text" class="w-full" wire:model="minPrice">
+                            </span>
+                            <span class="inline-block text-lg font-bold font-heading text-blue-300">
+                                <input type="text" class="w-full" wire:model="maxPrice">
+                            </span>
                         </div>
                     </div>
-                    <div class="mb-6 p-4 bg-gray-50" x-data="{ openbrands: true }">
-                        <div class="flex justify-between mb-8">
-                            <h3 class="text-xl font-bold font-heading">{{ __('Brands') }}</h3>
-                            <button @click="openbrands = !openbrands">
-                                <i class="fa fa-caret-down" aria-hidden="true"></i>
-                            </button>
-                        </div>
-                        <ul x-show="openbrands" class="flex flex-wrap items-center">
-                            @foreach ($this->brands as $brand)
-                                <li class="mx-2 mb-2">
-                                    <button type="button" wire:click="filterProductBrands({{ $brand->id }})">
-                                        <span
-                                            class="inline-block px-4 py-2 text-sm font-bold font-heading text-blue-300">
-                                            {{ $brand->name }} <small> ({{ $brand->products->count() }})</small>
-                                        </span>
-                                    </button>
-                                </li>
-                            @endforeach
-                        </ul>
+                </div>
+                <div class="mb-6 p-4 bg-gray-50" x-data="{ openbrands: true }">
+                    <div class="flex justify-between mb-8">
+                        <h3 class="text-xl font-bold font-heading">{{ __('Brands') }}</h3>
+                        <button @click="openbrands = !openbrands">
+                            <i class="fa fa-caret-down" aria-hidden="true"></i>
+                        </button>
                     </div>
+                    <ul x-show="openbrands" class="flex flex-wrap items-center">
+                        @foreach ($this->brands as $brand)
+                            <li class="mx-2 mb-2">
+                                <button type="button" wire:click="filterProductBrands({{ $brand->id }})">
+                                    <span class="inline-block px-4 py-2 text-sm font-bold font-heading text-blue-300">
+                                        {{ $brand->name }} <small> ({{ $brand->products->count() }})</small>
+                                    </span>
+                                </button>
+                            </li>
+                        @endforeach
+                    </ul>
                 </div>
             </div>
             <div class="w-full lg:w-3/4 px-4" wire:loading.class.delay="opacity-50">
