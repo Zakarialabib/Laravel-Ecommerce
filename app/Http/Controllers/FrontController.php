@@ -181,8 +181,7 @@ class FrontController extends Controller
         $subcategories_sitemaps = Sitemap::create();
 
         Subcategory::select('id','slug','updated_at')->get()->each( function (Subcategory $subcategory) use ($subcategories_sitemaps) {
-            $subcategories_sitemaps->add(Url::create("/subcategory/{$subcategory->slug}")
-                                            ->setLastModificationDate($subcategory->updated_at));
+            $subcategories_sitemaps->add(Url::create("/subcategory/{$subcategory->slug}"));
         });
 
         $subcategories_sitemaps->writeToFile( public_path("subcategories_sitemap.xml"));
