@@ -299,13 +299,15 @@
                     </div>
                 </div>
             </div>
-            <div class="mx-auto px-4">
-                <div class="mb-8 grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3 -mx-2 px-2">
-                    @foreach ($relatedProducts as $product)
-                        <x-product-card :product="$product" />
-                    @endforeach
-                </div>
+        </div>
+
+        <div class="mx-auto px-6">
+            <div class="mb-8 grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4 -mx-2 px-2">
+                @foreach ($relatedProducts as $product)
+                    <x-product-card :product="$product" />
+                @endforeach
             </div>
         </div>
+
     </section>
 </div>

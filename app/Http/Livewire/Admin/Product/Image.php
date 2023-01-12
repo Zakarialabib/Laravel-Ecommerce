@@ -141,7 +141,7 @@ class Image extends Component
 
             $this->imageModal = false;
 
-            return redirect()->route('admin.products');
+            // return redirect()->route('admin.products');
         } catch (Exception $e) {
             $this->alert('warning', __('Product image was not updated.'));
         }
