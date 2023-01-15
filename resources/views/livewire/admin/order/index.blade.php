@@ -59,7 +59,7 @@
                         {{ $order->customer->email }} -
                         {{ $order->customer->phone }}
                         @else
-                            {{ $order->customer->name }} 
+                            {{ $order->customer?->name }} 
                         @endif
                     </x-table.td>
                     <x-table.td>

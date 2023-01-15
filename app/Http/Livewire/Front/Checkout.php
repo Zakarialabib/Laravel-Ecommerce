@@ -6,7 +6,6 @@ namespace App\Http\Livewire\Front;
 
 use App\Models\Order;
 use App\Models\OrderProduct;
-use App\Models\PaymentGateway;
 use App\Models\Shipping;
 use Gloudemans\Shoppingcart\Facades\Cart;
 use Illuminate\Contracts\View\Factory;
@@ -124,31 +123,7 @@ class Checkout extends Component
             $orderProduct->save();
         }
 
-        if ($this->payment_method == 'paypal') {
-            $cartItems = Cart::instance('shopping')->content();
-
-            $product['items'] = [
-                [
-                    'name'  => 'Nike Joyride 2',
-                    'price' => 112,
-                    'desc'  => 'Running shoes for Men',
-                    'qty'   => 2,
-                ],
-            ];
-
-            $product['order_id'] = 1;
-            $product['invoice_description'] = "Order #{$product['invoice_id']} Bill";
-            $product['return_url'] = route('success.payment');
-            $product['cancel_url'] = route('cancel.payment');
-            $product['total'] = 224;
-
-            $paypalModule = new ExpressCheckout();
-
-            $res = $paypalModule->setExpressCheckout($product);
-            $res = $paypalModule->setExpressCheckout($product, true);
-
-            return redirect($res['paypal_link']);
-        }
+        
 
         Cart::instance('shopping')->destroy();
 
@@ -217,11 +192,7 @@ class Checkout extends Component
         return Shipping::select('id', 'title')->get();
     }
 
-    public function getPaymentMethodsProperty()
-    {
-        return PaymentGateway::active()->get();
-    }
-
+ 
     public function render(): View|Factory
     {
         return view('livewire.front.checkout');
