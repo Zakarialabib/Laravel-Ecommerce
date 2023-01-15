@@ -96,10 +96,10 @@
                                     <div class="mt-6 -mb-2">
                                         <div class="flex justify-between">
                                             <span class="inline-block text-lg font-bold font-heading text-blue-300">
-                                                <input type="text" class="w-full" wire:model="minPrice">
+                                                <input type="text" class="w-full" wire:model="maxPrice">
                                             </span>
                                             <span class="inline-block text-lg font-bold font-heading text-blue-300">
-                                                <input type="text" class="w-full" wire:model="maxPrice">
+                                                <input type="text" class="w-full" wire:model="minPrice">
                                             </span>
                                         </div>
                                     </div>
@@ -178,10 +178,10 @@
                     <div>
                         <div class="flex justify-between">
                             <span class="inline-block text-lg font-bold font-heading text-blue-300">
-                                <input type="text" class="w-full" wire:model="minPrice">
+                                <input type="text" class="w-full" wire:model="maxPrice">
                             </span>
                             <span class="inline-block text-lg font-bold font-heading text-blue-300">
-                                <input type="text" class="w-full" wire:model="maxPrice">
+                                <input type="text" class="w-full" wire:model="minPrice">
                             </span>
                         </div>
                     </div>

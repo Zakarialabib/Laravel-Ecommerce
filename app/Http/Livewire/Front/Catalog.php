@@ -85,8 +85,8 @@ class Catalog extends Component
 
     public function mount()
     {
-        $this->minPrice = Product::lowestPrice()->price;
-        $this->maxPrice = Product::highestPrice()->price;
+        $this->minPrice = Product::active()->lowestPrice()->price;
+        $this->maxPrice = Product::active()->highestPrice()->price;
         $this->sorting = 'default';
         $this->sortBy = 'id';
         $this->sortDirection = 'desc';

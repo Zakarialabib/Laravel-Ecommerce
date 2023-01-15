@@ -29,7 +29,7 @@ class Index extends Component
     public $brand;
 
     public $listeners = [
-        'refreshIndex' => '$refresh',
+        'refreshIndex' => '$refresh', 'delete',
         'showModal', 'editModal', 'importModal',
     ];
 

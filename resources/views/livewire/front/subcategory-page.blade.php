@@ -17,9 +17,15 @@
                         </li>
                         <li class="inline-flex items-center">
                             <a href="{{ URL::current() }}" class="text-gray-600 hover:text-blue-500">
-                                {{ $subcategory->name }}
+                                {{ $subcategory->category?->name }}
                             </a>
 
+                            <span class="mx-4 h-auto text-gray-400 font-medium">/</span>
+                        </li>
+                        <li class="inline-flex items-center">
+                            <a href="{{ URL::current() }}" class="text-gray-600 hover:text-blue-500">
+                                {{ $subcategory->name }}
+                            </a>
                             <span class="mx-4 h-auto text-gray-400 font-medium">/</span>
                         </li>
                         <li class="inline-flex items-center ml-2">
