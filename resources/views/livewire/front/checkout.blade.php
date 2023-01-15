@@ -4,7 +4,7 @@
         <div class="w-full lg:w-1/2 px-4">
             <form wire:submit.prevent="checkout">
                 @if (auth()->check())
-                    <div class="flex mb-5 items-center">
+                    <div class="flex my-5 items-center">
                         <span
                             class="inline-flex mr-8 items-center justify-center w-12 h-12 rounded-full bg-blue-300 text-white">1</span>
                         <h3 class="text-2xl font-bold font-heading">
@@ -18,6 +18,7 @@
                             <input wire:model="email"
                                 class="block w-full mt-4 py-4 px-4 bg-white border border-gray-200 focus:ring-blue-300 focus:border-blue-300 rounded-md"
                                 type="email">
+                            <x-input-error :messages="$errors->get('email')" for="email" class="mt-2" />
                         </div>
                         <div class="w-full px-2 md:w-1/2">
                             <label class="font-bold font-heading text-gray-600"
@@ -25,21 +26,23 @@
                             <input wire:model="password"
                                 class="block w-full mt-4 py-4 px-4 bg-white border border-gray-200 focus:ring-blue-300 focus:border-blue-300 rounded-md"
                                 type="pasword">
+                            <x-input-error :messages="$errors->get('password')" for="password" class="mt-2" />
                         </div>
                     </div>
                 @else
-                    <div class="flex mb-5 items-center">
+                    <div class="flex my-5 items-center">
                         <div class="w-full px-2">
                             <label class="font-bold font-heading text-gray-600"
                                 for="">{{ __('E-mail address') }}</label>
                             <input wire:model="email"
                                 class="block w-full mt-4 py-4 px-4 bg-white border border-gray-200 focus:ring-blue-300 focus:border-blue-300 rounded-md"
                                 type="email">
+                            <x-input-error :messages="$errors->get('email')" for="email" class="mt-2" />
                         </div>
                     </div>
                 @endif
 
-                <div class="flex mb-5 items-center">
+                <div class="flex my-5 items-center">
                     <span
                         class="inline-flex mr-8 items-center justify-center w-12 h-12 rounded-full bg-purple-300 text-white">2</span>
                     <h3 class="text-2xl font-bold font-heading">{{ __('Shipping informations') }}</h3>
@@ -48,31 +51,35 @@
                     <div class="flex flex-wrap">
                         <div class="w-full md:w-1/2 px-4">
                             <label class="font-bold font-heading text-gray-600"
-                                for="">{{ __('First name') }}</label>
-                            <input wire:model="first_name"
+                                for="first_name">{{ __('First name') }}</label>
+                            <input wire:model="first_name" id="first_name"
                                 class="block w-full mt-4 py-4 px-4 bg-white border border-gray-200 focus:ring-blue-300 focus:border-blue-300 rounded-md"
                                 type="text">
+                            <x-input-error :messages="$errors->get('first_name')" for="first_name" class="mt-2" />
                         </div>
                         <div class="w-full md:w-1/2 px-4">
                             <label class="font-bold font-heading text-gray-600"
-                                for="">{{ __('Last name') }}</label>
-                            <input wire:model="last_name"
+                                for="last_name">{{ __('Last name') }}</label>
+                            <input wire:model="last_name" id="last_name"
                                 class="block w-full mt-4 py-4 px-4 bg-white border border-gray-200 focus:ring-blue-300 focus:border-blue-300 rounded-md"
                                 type="text">
+                            <x-input-error :messages="$errors->get('last_name')" for="last_name" class="mt-2" />
                         </div>
                         <div class="w-full md:w-1/2 px-4">
                             <label class="font-bold font-heading text-gray-600"
-                                for="">{{ __('Phone') }}</label>
-                            <input wire:model="phone"
+                                for="phone">{{ __('Phone') }}</label>
+                            <input wire:model="phone" id="phone"
                                 class="block w-full mt-4 py-4 px-4 bg-white border border-gray-200 focus:ring-blue-300 focus:border-blue-300 rounded-md"
-                                type="text">
+                                type="number">
+                            <x-input-error :messages="$errors->get('phone')" for="phone" class="mt-2" />
                         </div>
                         <div class="w-full md:w-1/2 px-4">
                             <label class="font-bold font-heading text-gray-600"
-                                for="">{{ __('Address') }}</label>
-                            <input wire:model="address"
+                                for="address">{{ __('Address') }}</label>
+                            <input wire:model="address" id="address"
                                 class="block w-full mt-4 py-4 px-4 bg-white border border-gray-200 focus:ring-blue-300 focus:border-blue-300 rounded-md"
                                 type="text">
+                            <x-input-error :messages="$errors->get('address')" for="address" class="mt-2" />
                         </div>
 
                         <div class="w-full md:w-1/2 px-4">
@@ -81,24 +88,26 @@
                             <input wire:model="country" disabled
                                 class="block w-full mt-4 py-4 px-4 bg-white border border-gray-200 focus:ring-blue-300 focus:border-blue-300 rounded-md"
                                 type="text">
+                            <x-input-error :messages="$errors->get('country')" for="country" class="mt-2" />
                         </div>
                         <div class="w-full md:w-1/2 px-4">
                             <label class="font-bold font-heading text-gray-600"
-                                for="">{{ __('City') }}</label>
-                            <input wire:model="city"
+                                for="city">{{ __('City') }}</label>
+                            <input wire:model="city" id="city"
                                 class="block w-full mt-4 py-4 px-4 bg-white border border-gray-200 focus:ring-blue-300 focus:border-blue-300 rounded-md"
                                 type="text">
+                            <x-input-error :messages="$errors->get('city')" for="city" class="mt-2" />
                         </div>
                         <div class="w-full md:w-1/2 px-4">
                             <label class="font-bold font-heading text-gray-600"
                                 for="">{{ __('Payment method') }}</label>
-                                <div class="flex flex-wrap -mx-4 mb-5">
-                                    <label class="flex px-4 w-full sm:w-auto items-center" for="">
-                                        <input type="radio" name="payment_method" value="cash" wire:model="payment_method"
-                                            checked>
-                                        <span class="ml-5 text-sm">{{ __('Cash on Delivery') }}</span>
-                                    </label>
-                                </div>
+                            <div class="flex flex-wrap -mx-4 mb-5">
+                                <label class="flex px-4 w-full sm:w-auto items-center" for="">
+                                    <input type="radio" name="payment_method" value="cash"
+                                        wire:model="payment_method" checked>
+                                    <span class="ml-5 text-sm">{{ __('Cash on Delivery') }}</span>
+                                </label>
+                            </div>
                         </div>
                         <div class="mb-5 w-full md:w-1/2 px-4">
                             <div>
@@ -107,15 +116,16 @@
                                 </label>
                                 <select
                                     class="block bg-white text-gray-700 rounded border border-gray-300 mb-1 text-sm w-full focus:shadow-outline-blue focus:border-blue-500"
-                                    id="shipping_id" name="shipping_id" wire:model="shipping_id" wire:change="updateCartTotal">
-                                    <option value="">{{__('Choose shipping method')}}</option>
+                                    id="shipping_id" name="shipping_id" wire:model="shipping_id"
+                                    wire:change="updateCartTotal">
+                                    <option value="">{{ __('Choose Shipping Method') }}</option>
                                     @foreach ($this->shippings as $shipping)
                                         <option value="{{ $shipping->id }}">{{ $shipping->title }}</option>
                                     @endforeach
                                 </select>
                             </div>
                         </div>
-                       
+
                     </div>
                 </div>
             </form>

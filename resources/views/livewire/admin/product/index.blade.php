@@ -75,10 +75,11 @@
                             class="w-10 h-10 rounded-full object-cover">
                     </x-table.td>
                     <x-table.td>
-                        <button type="button" wire:click="$emit('showModal',{{ $product->id }})">
-                            {{ Str::limit($product->name, 60) }}
-                        </button>
-                        <a class="ml-2 text-blue-500" href="{{ route('front.product', $product->slug) }}">
+                        <a href="#" wire:click="$emit('showModal',{{ $product->id }})">
+                            {{ Str::limit($product->name, 55) }} - 
+                            <span class="bg-red-500 py-2 px-3 text-sm">{{ $product->brand?->name }}</span>
+                        </a>
+                        <a class="ml-2 text-blue-500" href="{{ route('front.product', $product->slug) }}" target="_blank">
                             <i class="fas fa-eye"></i>
                         </a>
                     </x-table.td>

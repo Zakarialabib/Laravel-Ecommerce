@@ -93,11 +93,21 @@ class Checkout extends Component
 
         $shipping = Shipping::find($this->shipping_id);
 
-        $user = User::create([
-            'name' => $this->first_name.'-'.$this->last_name,
-            'email' => $this->email,
-            'password' => bcrypt($this->password),
-        ]);
+        if (!auth()->check()) {
+            $user = User::create([
+                'first_name' => $this->first_name,
+                'last_name' => $this->last_name,
+                'city'  => $this->city,
+                'country'   => $this->country,
+                'address'   => $this->address,
+                'phone'     => $this->phone,
+                'email' => $this->email,
+                'password' => bcrypt($this->password),
+            ]);
+
+            Auth::login($user);
+            
+        }
 
         $order = Order::create([
             'reference'        => Order::generateReference(),
@@ -124,7 +134,6 @@ class Checkout extends Component
         
 
         foreach (Cart::instance('shopping') as $item) {
-            // dd($item);
             $orderProduct = new OrderProduct([
                 'order_id'   => $order->id,
                 'product_id' => $item->id,
@@ -160,11 +169,10 @@ class Checkout extends Component
     public function calculateCartTotal()
     {
         if($this->shipping_id){
-        $total = Cart::instance('shopping')->total();
-        $shipping = Shipping::find($this->shipping_id);
-        $cost = $shipping->cost;
-        // dd(f($total + $cost));
-        $this->cartTotal = $total + $cost;
+            $total = Cart::instance('shopping')->total();
+            $shipping = Shipping::find($this->shipping_id);
+            $cost = $shipping->cost;
+            $this->cartTotal = $total + $cost;
         }
         return $this->cartTotal;
     }
