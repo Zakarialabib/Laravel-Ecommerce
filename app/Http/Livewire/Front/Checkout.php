@@ -7,6 +7,7 @@ namespace App\Http\Livewire\Front;
 use App\Models\Order;
 use App\Models\OrderProduct;
 use App\Models\Shipping;
+use App\Models\User;
 use Gloudemans\Shoppingcart\Facades\Cart;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
@@ -92,6 +93,12 @@ class Checkout extends Component
 
         $shipping = Shipping::find($this->shipping_id);
 
+        $user = User::create([
+            'name' => $this->first_name.'-'.$this->last_name,
+            'email' => $this->email,
+            'password' => bcrypt($this->password),
+        ]);
+
         $order = Order::create([
             'reference'        => Order::generateReference(),
             'shipping_id'      => $this->shipping_id,
@@ -114,8 +121,10 @@ class Checkout extends Component
             'payment_status'   => Order::PAYMENT_STATUS_PENDING,
         ]);
 
+        
+
         foreach (Cart::instance('shopping') as $item) {
-            dd($item);
+            // dd($item);
             $orderProduct = new OrderProduct([
                 'order_id'   => $order->id,
                 'product_id' => $item->id,
@@ -154,7 +163,7 @@ class Checkout extends Component
         $total = Cart::instance('shopping')->total();
         $shipping = Shipping::find($this->shipping_id);
         $cost = $shipping->cost;
-        dd(f($total + $cost));
+        // dd(f($total + $cost));
         $this->cartTotal = $total + $cost;
         }
         return $this->cartTotal;

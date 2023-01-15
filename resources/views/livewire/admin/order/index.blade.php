@@ -30,9 +30,6 @@
             <x-table.th>
                 {{ __('Customer Infos') }}
             </x-table.th>
-            <x-table.th>
-                {{ __('Order Number') }}
-            </x-table.th>
             <x-table.th sortable wire:click="sortBy('status')" :direction="$sorts['status'] ?? null">
                 {{ __('Status') }}
                 @include('components.table.sort', ['field' => 'status'])
@@ -55,54 +52,38 @@
                     </x-table.td>
                     <x-table.td class="overflow-hidden text-clip whitespace-pre" style="white-space: initial">
                         @if ($order->user_id == null)
-                        {{ $order->customer->name }} - 
-                        {{ $order->customer->email }} -
-                        {{ $order->customer->phone }}
+                            {{ $order->customer->name }} -
+                            {{ $order->customer->email }} -
+                            {{ $order->customer->phone }}
                         @else
-                            {{ $order->customer?->name }} 
+                            {{ $order->customer?->name }}
                         @endif
                     </x-table.td>
                     <x-table.td>
-                        <a class="text-bold active:text-blue-500" href="{{ route('admin-order-show', $order->id) }}">
-                            {{ $order->order_number }}
-                        </a>
-                    </x-table.td>
-                    <x-table.td>
                         @if ($order->status == 'pending')
-                            <a href="javascript:;" data-href="{{ route('admin-order-edit', $order->id) }}"
-                                class="track" data-toggle="modal" data-target="#modal1">
-                                <span class="p-2 text-center leading-5 rounded border border-blue-300 mb-1 text-sm w-full focus:shadow-outline-blue focus:border-blue-500 bg-blue-500 text-white">
-                                    {{ __('Pending') }}
-                                </span>
-                            </a>
+                            <span
+                                class="p-2 text-center leading-5 rounded border border-blue-300 mb-1 text-sm w-full focus:shadow-outline-blue focus:border-blue-500 bg-blue-500 text-white">
+                                {{ __('Pending') }}
+                            </span>
                         @elseif($order->status == 'processing')
-                            <a href="javascript:;" data-href="{{ route('admin-order-edit', $order->id) }}"
-                                class="track" data-toggle="modal" data-target="#modal1">
-                                <span class="bg-yellow-500 text-white p-2 text-center leading-5 rounded border border-yellow-300 mb-1 text-sm w-full focus:shadow-outline-yellow focus:border-yellow-500">
-                                    {{ __('Processing') }}
-                                </span>
-                            </a>
+                            <span
+                                class="bg-yellow-500 text-white p-2 text-center leading-5 rounded border border-yellow-300 mb-1 text-sm w-full focus:shadow-outline-yellow focus:border-yellow-500">
+                                {{ __('Processing') }}
+                            </span>
                         @elseif($order->status == 'completed')
-                            <a href="javascript:;" data-href="{{ route('admin-order-edit', $order->id) }}"
-                                class="track" data-toggle="modal" data-target="#modal1">
-                                <span class="bg-green-500 text-white p-2 text-center leading-5 rounded border border-green-300 mb-1 text-sm w-full focus:shadow-outline-green focus:border-green-500">
-                                    {{ __('Completed') }}
-                                </span>
-                            </a>
+                            <span
+                                class="bg-green-500 text-white p-2 text-center leading-5 rounded border border-green-300 mb-1 text-sm w-full focus:shadow-outline-green focus:border-green-500">
+                                {{ __('Completed') }}
+                            </span>
                         @elseif($order->status == 'declined')
-                            <a href="javascript:;" data-href="{{ route('admin-order-edit', $order->id) }}"
-                                class="track" data-toggle="modal" data-target="#modal1">
-                                <span class="bg-red-500 text-white py-2 text-center leading-5 rounded border border-red-300 mb-1 text-sm w-full focus:shadow-outline-red focus:border-red-500">
-                                    {{ __('Declined') }}
-                                </span>
-                            </a>
+                            <span
+                                class="bg-red-500 text-white py-2 text-center leading-5 rounded border border-red-300 mb-1 text-sm w-full focus:shadow-outline-red focus:border-red-500">
+                                {{ __('Declined') }}
+                            </span>
                         @endif
                     </x-table.td>
                     <x-table.td>
                         {{ $order->totalQty }}
-                    </x-table.td>
-                    <x-table.td>
-                        {{-- {{ }} --}}
                     </x-table.td>
                     <x-table.td>
                         <x-dropdown
@@ -114,12 +95,10 @@
                                 </button>
                             </x-slot>
                             <x-slot name="content">
-                                <x-dropdown-link href=""> <i
-                                        class="fas fa-eye"></i>
+                                <x-dropdown-link href=""> <i class="fas fa-eye"></i>
                                     {{ __('View Details') }}
                                 </x-dropdown-link>
-                                <x-dropdown-link href=""> <i
-                                        class="fas fa-edit"></i>
+                                <x-dropdown-link href=""> <i class="fas fa-edit"></i>
                                     {{ __('Edit') }}
                                 </x-dropdown-link>
                             </x-slot>
