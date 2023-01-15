@@ -46,7 +46,7 @@
                     @foreach ($this->subcategories as $subcategory)
                         <div class="flex items-start p-4 rounded-xl shadow-lg bg-white">
                             <a href="{{ route('front.subcategoryPage', $subcategory->slug) }}" class="w-full">
-                                <h2 class="font-semibold">{{ $subcategory->name }}</h2>
+                                <h2 class="font-semibold">{{ $subcategory->name }} {{ $subcategory->category?->name }}</h2>
                                 <p class="mt-2 text-sm text-gray-500">{{ $subcategory->products->count() }}</p>
                             </a>
                         </div>

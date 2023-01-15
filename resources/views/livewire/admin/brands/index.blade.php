@@ -138,9 +138,10 @@
                     </div>
 
                     <div class="w-full py-2 px-3 mb-4">
+                        <x-label for="Brand Logo" :value="__('Featured image')" />
                         <x-media-upload title="{{ __('Featured Image') }}" name="featured_image"
                              :file="$featured_image" :preview="$this->featuredimagepreview" single types="PNG / JPEG / WEBP"
-                                fileTypes="image/*" /> />
+                            fileTypes="image/*" />
                     </div>
 
                     <div class="w-full px-3 my-2">

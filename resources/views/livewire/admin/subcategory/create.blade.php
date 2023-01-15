@@ -23,7 +23,7 @@
                         <select
                             class="block bg-white text-gray-700 rounded border border-gray-300 mb-1 text-sm w-full focus:shadow-outline-blue focus:border-blue-500"
                             id="category_id" name="category_id"  wire:model="subcategory.category_id">
-                            <option value="" disabled>{{ __('Select Category') }}</option>
+                            <option value="">{{ __('Select Category') }}</option>
                             @foreach ($this->categories as $category)
                                 <option value="{{ $category->id }}">{{ $category->name }}</option>
                             @endforeach
