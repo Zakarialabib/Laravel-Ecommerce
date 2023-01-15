@@ -80,12 +80,12 @@ class Categories extends Component
 
     public function getCategoriesProperty()
     {
-        return Category::where('status', 1)->with('subcategories')->get();
+        return Category::active()->with('subcategories')->get();
     }
 
     public function getSubcategoriesProperty()
     {
-        return Subcategory::where('status', 1)->get();
+        return Subcategory::active()->get();
     }
 
     public function render(): View|Factory

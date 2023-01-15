@@ -77,7 +77,7 @@
                     <x-table.td>
                         <a href="#" wire:click="$emit('showModal',{{ $product->id }})">
                             {{ Str::limit($product->name, 55) }} - 
-                            <span class="bg-red-500 py-2 px-3 text-sm">{{ $product->brand?->name }}</span>
+                            <span class="bg-red-500 py-2 px-3 rounded text-white text-xs">{{ $product->brand?->name }}</span>
                         </a>
                         <a class="ml-2 text-blue-500" href="{{ route('front.product', $product->slug) }}" target="_blank">
                             <i class="fas fa-eye"></i>
@@ -87,9 +87,9 @@
                         {{ $product->category?->name }}
                     </x-table.td>
                     <x-table.td>
-                        {{ $product->price }}DH /
+                        {{ $product->price }}DH 
                         @if ($product->old_price)
-                            {{ $product->old_price }}DH
+                            // {{ $product->old_price }}DH
                         @endif
                     </x-table.td>
                     <x-table.td>

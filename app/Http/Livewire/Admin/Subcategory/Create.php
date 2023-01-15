@@ -70,7 +70,7 @@ class Create extends Component
     {
         return Category::select('name', 'id')->get();
     }
-   
+
     public function getLanguagesProperty()
     {
         return Language::select('name', 'id')->get();

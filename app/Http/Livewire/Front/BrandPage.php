@@ -57,23 +57,23 @@ class BrandPage extends Component
     public function getBrandProductsProperty()
     {
         return Product::active()
-        ->where('brand_id', $this->brand->id)
-        ->when($this->category_id, function ($query) {
-            return $query->where('category_id', $this->category_id);
-        })
-        ->when($this->subcategory_id, function ($query) {
-            return $query->where('subcategory_id', $this->subcategory_id);
-        })
-        ->paginate($this->perPage);
+            ->where('brand_id', $this->brand->id)
+            ->when($this->category_id, function ($query) {
+                return $query->where('category_id', $this->category_id);
+            })
+            ->when($this->subcategory_id, function ($query) {
+                return $query->where('subcategory_id', $this->subcategory_id);
+            })
+            ->paginate($this->perPage);
     }
 
     public function getCategoriesProperty()
     {
-        return Category::where('status', 1)->get();
+        return Category::active()->get();
     }
 
     public function getSubcategoriesProperty()
     {
-        return Subcategory::where('status', 1)->get();
+        return Subcategory::active()->get();
     }
 }

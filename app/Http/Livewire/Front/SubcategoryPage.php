@@ -30,11 +30,10 @@ class SubcategoryPage extends Component
 
     public function render(): View|Factory
     {
-
         $subcategory_products = Product::active()
-        ->where('subcategory_id', $this->subcategory->id)
-        ->paginate($this->perPage);
+            ->where('subcategory_id', $this->subcategory->id)
+            ->paginate($this->perPage);
 
-        return view('livewire.front.subcategory-page', compact ('subcategory_products'));
+        return view('livewire.front.subcategory-page', compact('subcategory_products'));
     }
 }

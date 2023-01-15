@@ -18,7 +18,7 @@ class PopupSettings extends Component
     use WithSorting;
 
     public $popups;
-    
+
     public $popup;
 
     public $popupModal = false;
@@ -163,7 +163,7 @@ class PopupSettings extends Component
 
             // Show success message
             $this->alert§('succes', __('Popup settings updated successfully!'));
-            
+
             $this->popupModal = false;
         } catch (Throwable $th) {
             // Show error message

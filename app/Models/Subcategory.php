@@ -25,6 +25,17 @@ class Subcategory extends Model
 
     public $timestamps = false;
 
+    /**
+     * Scope a query to only include active products.
+     *
+     * @param  \Illuminate\Database\Eloquent\Builder  $query
+     * @return void
+     */
+    public function scopeActive($query)
+    {
+        $query->where('status', 1);
+    }
+
     public function category()
     {
         return $this->belongsTo(Category::class);

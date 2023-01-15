@@ -23,7 +23,7 @@ class Index extends Component
 
     public $listeners = [
         'editModal', 'refreshIndex' => '$refresh',
-        'delete'
+        'delete',
     ];
 
     public int $perPage;
@@ -142,7 +142,7 @@ class Index extends Component
     {
         return Category::select('name', 'id')->get();
     }
-   
+
     public function getLanguagesProperty()
     {
         return Language::select('name', 'id')->get();

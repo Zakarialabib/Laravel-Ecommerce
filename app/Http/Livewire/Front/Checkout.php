@@ -93,20 +93,19 @@ class Checkout extends Component
 
         $shipping = Shipping::find($this->shipping_id);
 
-        if (!auth()->check()) {
+        if ( ! auth()->check()) {
             $user = User::create([
                 'first_name' => $this->first_name,
-                'last_name' => $this->last_name,
-                'city'  => $this->city,
-                'country'   => $this->country,
-                'address'   => $this->address,
-                'phone'     => $this->phone,
-                'email' => $this->email,
-                'password' => bcrypt($this->password),
+                'last_name'  => $this->last_name,
+                'city'       => $this->city,
+                'country'    => $this->country,
+                'address'    => $this->address,
+                'phone'      => $this->phone,
+                'email'      => $this->email,
+                'password'   => bcrypt($this->password),
             ]);
 
             Auth::login($user);
-            
         }
 
         $order = Order::create([
@@ -131,8 +130,6 @@ class Checkout extends Component
             'payment_status'   => Order::PAYMENT_STATUS_PENDING,
         ]);
 
-        
-
         foreach (Cart::instance('shopping') as $item) {
             $orderProduct = new OrderProduct([
                 'order_id'   => $order->id,
@@ -140,13 +137,12 @@ class Checkout extends Component
                 'qty'        => $item->qty,
                 'price'      => $item->price,
                 'user_id'    => auth()->user()->id,
-                'total'     => $item->total,
+                'total'      => $item->total,
             ]);
 
             $orderProduct->save();
         }
 
-    
         Cart::instance('shopping')->destroy();
 
         $this->alert('success', __('Order placed successfully!'));
@@ -168,12 +164,13 @@ class Checkout extends Component
 
     public function calculateCartTotal()
     {
-        if($this->shipping_id){
+        if ($this->shipping_id) {
             $total = Cart::instance('shopping')->total();
             $shipping = Shipping::find($this->shipping_id);
             $cost = $shipping->cost;
             $this->cartTotal = $total + $cost;
         }
+
         return $this->cartTotal;
     }
 
@@ -215,7 +212,6 @@ class Checkout extends Component
         return Shipping::select('id', 'title')->get();
     }
 
- 
     public function render(): View|Factory
     {
         return view('livewire.front.checkout');

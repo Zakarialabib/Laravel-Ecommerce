@@ -34,7 +34,7 @@ class SearchBox extends Component
     public function updatedSearch()
     {
         if (strlen($this->search) > 3) {
-            $this->results = Product::where('status', 1)
+            $this->results = Product::active()
                 ->where('name', 'like', '%'.$this->search.'%')
                 ->orWhere('description', 'like', '%'.$this->search.'%')
                 ->limit(5)

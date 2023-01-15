@@ -5,10 +5,7 @@ declare(strict_types=1);
 namespace App\Http\Livewire\Admin\Product;
 
 use App\Http\Livewire\WithSorting;
-use App\Models\Brand;
-use App\Models\Category;
 use App\Models\Product;
-use App\Models\Subcategory;
 use Illuminate\Support\Facades\Gate;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Livewire\Component;

@@ -29,6 +29,17 @@ class Category extends Model
         'image',
     ];
 
+    /**
+     * Scope a query to only include active products.
+     *
+     * @param  \Illuminate\Database\Eloquent\Builder  $query
+     * @return void
+     */
+    public function scopeActive($query)
+    {
+        $query->where('status', 1);
+    }
+
     public function products()
     {
         return $this->hasMany(Product::class, 'category_id');

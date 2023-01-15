@@ -139,7 +139,6 @@ class Create extends Component
         }
     }
 
-
     public function getCategoriesProperty()
     {
         return Category::select('name', 'id')->get();
@@ -154,5 +153,4 @@ class Create extends Component
     {
         return Subcategory::select('name', 'id')->get();
     }
-
 }

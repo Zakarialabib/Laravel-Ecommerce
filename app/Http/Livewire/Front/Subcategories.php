@@ -70,7 +70,7 @@ class Subcategories extends Component
 
     public function getSubcategoriesProperty()
     {
-        return Subcategory::where('status', 1)->get();
+        return Subcategory::active()->get();
     }
 
     public function render(): View|Factory
