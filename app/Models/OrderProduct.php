@@ -11,7 +11,6 @@ class OrderProduct extends Model
 {
     use HasFactory;
 
-    // OrderProduct model
     public function order()
     {
         return $this->belongsTo(Order::class);

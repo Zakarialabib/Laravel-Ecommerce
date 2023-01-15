@@ -22,6 +22,8 @@ class CartBar extends Component
 
     public $cartTotal;
 
+    // public $cartItems;
+
     public $showCart = false;
 
     public $productId;

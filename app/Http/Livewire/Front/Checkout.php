@@ -29,7 +29,7 @@ class Checkout extends Component
 
     public $removeFromCart;
 
-    public $payment_method;
+    public $payment_method = 'cash';
 
     public $shipping_cost;
 
@@ -42,6 +42,8 @@ class Checkout extends Component
     public $address;
 
     public $city;
+
+    public $shipping;
 
     public $country = 'Maroc';
 
@@ -112,19 +114,21 @@ class Checkout extends Component
             'payment_status'   => Order::PAYMENT_STATUS_PENDING,
         ]);
 
-        foreach (Cart::instance('shopping') as $order) {
+        foreach (Cart::instance('shopping') as $item) {
+            dd($item);
             $orderProduct = new OrderProduct([
                 'order_id'   => $order->id,
-                'product_id' => $product->id,
-                'quantity'   => $order->qty,
-                'price'      => $order->price,
+                'product_id' => $item->id,
+                'qty'        => $item->qty,
+                'price'      => $item->price,
+                'user_id'    => auth()->user()->id,
+                'total'     => $item->total,
             ]);
 
             $orderProduct->save();
         }
 
-        
-
+    
         Cart::instance('shopping')->destroy();
 
         $this->alert('success', __('Order placed successfully!'));
@@ -146,11 +150,13 @@ class Checkout extends Component
 
     public function calculateCartTotal()
     {
+        if($this->shipping_id){
         $total = Cart::instance('shopping')->total();
         $shipping = Shipping::find($this->shipping_id);
         $cost = $shipping->cost;
+        dd(f($total + $cost));
         $this->cartTotal = $total + $cost;
-
+        }
         return $this->cartTotal;
     }
 

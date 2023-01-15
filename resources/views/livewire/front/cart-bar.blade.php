@@ -31,7 +31,6 @@
                         </div>
                         <div class="border-t border-gray-200 py-6 px-4 sm:px-6">
                             <div class="w-full -mx-4 items-center">
-
                                 @foreach ($this->cartItems as $item)
                                     <div class="flex flex-wrap mb-10">
                                         <div class="w-full md:w-1/3 mb-6 md:mb-0 px-4">

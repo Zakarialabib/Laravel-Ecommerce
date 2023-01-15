@@ -92,15 +92,14 @@
                         <div class="w-full md:w-1/2 px-4">
                             <label class="font-bold font-heading text-gray-600"
                                 for="">{{ __('Payment method') }}</label>
-                            <select
-                                class="block bg-white text-gray-700 rounded border border-gray-300 mb-1 text-sm w-full focus:shadow-outline-blue focus:border-blue-500"
-                                id="payment_method" name="payment_method" wire:model="payment_method">
-                                @foreach ($this->paymentmethods as $paymentmethod)
-                                    <option value="{{ $paymentmethod->name }}">{{ $paymentmethod->name }}</option>
-                                @endforeach
-                            </select>
+                                <div class="flex flex-wrap -mx-4 mb-5">
+                                    <label class="flex px-4 w-full sm:w-auto items-center" for="">
+                                        <input type="radio" name="payment_method" value="cash" wire:model="payment_method"
+                                            checked>
+                                        <span class="ml-5 text-sm">{{ __('Cash on Delivery') }}</span>
+                                    </label>
+                                </div>
                         </div>
-
                         <div class="mb-5 w-full md:w-1/2 px-4">
                             <div>
                                 <label class="font-bold font-heading text-gray-600">
@@ -109,13 +108,14 @@
                                 <select
                                     class="block bg-white text-gray-700 rounded border border-gray-300 mb-1 text-sm w-full focus:shadow-outline-blue focus:border-blue-500"
                                     id="shipping_id" name="shipping_id" wire:model="shipping_id" wire:change="updateCartTotal">
+                                    <option value="">{{__('Choose shipping method')}}</option>
                                     @foreach ($this->shippings as $shipping)
                                         <option value="{{ $shipping->id }}">{{ $shipping->title }}</option>
                                     @endforeach
                                 </select>
                             </div>
-
                         </div>
+                       
                     </div>
                 </div>
             </form>
