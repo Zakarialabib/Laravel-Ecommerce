@@ -151,7 +151,7 @@ class Index extends Component
 
         if ($this->image) {
             // with str slug with name date
-            $imageName = Str::slug($this->brand->name).'.'.$this->image->extension();
+            $imageName = Str::slug($this->brand->name).'-'.Str::random(5).'.'.$this->image->extension();
             $width = 500;
             $height = 500;
 
