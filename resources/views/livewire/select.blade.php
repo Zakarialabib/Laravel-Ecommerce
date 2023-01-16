@@ -11,7 +11,7 @@
             @endforeach
         @elseif($selectType === 'subcategory_id')
             @foreach ($this->subcategories as $subcategory)
-                <option value="{{ $subcategory->id }}">{{ $subcategory->name }}</option>
+                <option value="{{ $subcategory->id }}">{{ $subcategory->category?->name }}{{ $subcategory->name }}</option>
             @endforeach
         @endif
     </select>
