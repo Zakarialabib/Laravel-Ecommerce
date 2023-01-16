@@ -51,7 +51,6 @@ class Select extends Component
 
     public function updated($field, $value)
     {
-        // dd($this->all());
         $this->model->setAttribute($this->field, $value)->save();
 
         $this->alert('success', __('Status Changed successfully!'), [
@@ -63,7 +62,7 @@ class Select extends Component
             'onDenied'       => '',
         ]);
 
-        $this->emit('refreshIndex');
+        // $this->emit('refreshIndex');
     }
 
     public function render()
