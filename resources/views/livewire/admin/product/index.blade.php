@@ -48,7 +48,17 @@
                 {{ __('Name') }}
             </x-table.th>
             <x-table.th>
-                {{ __('Category') }}
+                <select name="" id="" wire:change="$emit('changeSelectType', $event.target.value)">
+                    <option value="category_id" selected>
+                        {{ __('Category') }}
+                    </option>
+                    <option value="subcategory_id">
+                        {{ __('Subcategory') }}
+                    </option>
+                    <option value="brand_id">
+                        {{ __('Brand') }}
+                    </option>
+                </select>
             </x-table.th>
             <x-table.th sortable wire:click="sortBy('price')" :direction="$sorts['price'] ?? null">
                 {{ __('Price') }} / {{ __('Old Price') }}
@@ -59,7 +69,6 @@
             <x-table.th sortable wire:click="sortBy('status')" :direction="$sorts['status'] ?? null">
                 {{ __('Status') }}
             </x-table.th>
-
             <x-table.th>
                 {{ __('Actions') }}
             </x-table.th>
@@ -76,18 +85,22 @@
                     </x-table.td>
                     <x-table.td>
                         <a href="#" wire:click="$emit('showModal',{{ $product->id }})">
-                            {{ Str::limit($product->name, 55) }} - 
-                            <span class="bg-red-500 py-2 px-3 rounded text-white text-xs">{{ $product->brand?->name }}</span>
+                            {{ Str::limit($product->name, 55) }} -
+                            <span class="mx-2 text-red-500 text-xs">{{ $product->brand?->name }}</span>
                         </a>
-                        <a class="ml-2 text-blue-500" href="{{ route('front.product', $product->slug) }}" target="_blank">
+                        <a class="ml-2 text-blue-500" href="{{ route('front.product', $product->slug) }}"
+                            target="_blank">
                             <i class="fas fa-eye"></i>
                         </a>
+                    </x-table.td>
+                    <x-table.td>
+                        <livewire:select :model="$product" key="{{ $product->id }}" />
                     </x-table.td>
                     <x-table.td>
                         {{ $product->category?->name }}
                     </x-table.td>
                     <x-table.td>
-                        {{ $product->price }}DH 
+                        {{ $product->price }}DH
                         @if ($product->old_price)
                             // {{ $product->old_price }}DH
                         @endif
@@ -126,7 +139,7 @@
                                     <i class="fas fa-eye"></i>
                                     {{ __('View') }}
                                 </x-dropdown-link>
-                                <x-dropdown-link wire:click="$emit('editModal', {{ $product->id }})" 
+                                <x-dropdown-link wire:click="$emit('editModal', {{ $product->id }})"
                                     wire:loading.attr="disabled">
                                     <i class="fas fa-edit"></i>
                                     {{ __('Edit') }}

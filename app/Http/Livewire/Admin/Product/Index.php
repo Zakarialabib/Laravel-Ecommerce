@@ -6,6 +6,7 @@ namespace App\Http\Livewire\Admin\Product;
 
 use App\Http\Livewire\WithSorting;
 use App\Models\Product;
+use App\Models\Subcategory;
 use Illuminate\Support\Facades\Gate;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Livewire\Component;
@@ -54,8 +55,6 @@ class Index extends Component
     public array $selected = [];
 
     public array $paginationOptions;
-
-    public array $listsForFields = [];
 
     protected $queryString = [
         'search'        => [
@@ -209,4 +208,5 @@ class Index extends Component
          $this->copyOldPriceToPrice = '';
          $this->percentage = '';
      }
+
 }
