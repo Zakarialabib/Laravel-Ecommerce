@@ -96,9 +96,7 @@
                     <x-table.td>
                         <livewire:select :model="$product" key="{{ $product->id }}" />
                     </x-table.td>
-                    <x-table.td>
-                        {{ $product->category?->name }}
-                    </x-table.td>
+
                     <x-table.td>
                         {{ $product->price }}DH
                         @if ($product->old_price)
