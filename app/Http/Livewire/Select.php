@@ -17,7 +17,7 @@ class Select extends Component
     
     public Model $model;
 
-    public $field;;
+    public $field;
     
     public $selectType = 'category_id';
 
