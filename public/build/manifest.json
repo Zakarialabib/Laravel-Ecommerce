@@ -5,16 +5,16 @@
     "isEntry": true,
     "css": [
       "assets/app.a3093c82.css",
-      "assets/app.cbcf1961.css"
+      "assets/app.57c15293.css"
     ]
-  },
-  "resources/css/app.css": {
-    "file": "assets/app.cbcf1961.css",
-    "src": "resources/css/app.css",
-    "isEntry": true
   },
   "resources/js/app.css": {
     "file": "assets/app.a3093c82.css",
     "src": "resources/js/app.css"
+  },
+  "resources/css/app.css": {
+    "file": "assets/app.57c15293.css",
+    "src": "resources/css/app.css",
+    "isEntry": true
   }
 }

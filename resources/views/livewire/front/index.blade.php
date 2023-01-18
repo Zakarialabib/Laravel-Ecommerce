@@ -20,7 +20,7 @@
                                             {!! $slider->details !!}
                                         </p>
                                         @if ($slider->link)
-                                            <a class="inline-block hover:bg-orange-400 text-white font-bold font-heading py-6 px-8 rounded-md uppercase transition duration-200 bg-orange-500"
+                                            <a class="inline-block hover:bg-red-400 text-white font-bold font-heading py-6 px-8 rounded-md uppercase transition duration-200 bg-red-500"
                                                 href="{{ $slider->link }}">
                                                 {{ 'Discover now' }}
                                             </a>
