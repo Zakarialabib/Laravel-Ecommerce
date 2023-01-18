@@ -14,13 +14,8 @@ return new class () extends Migration {
      */
     public function up()
     {
-        Schema::create('pagesettings', function (Blueprint $table) {
-            $table->id();
-            $table->boolean('topbar')->default(true);
-            $table->boolean('bottombar')->default(true);
-            $table->string('topheader')->nullable();
-
-            $table->timestamps();
+        Schema::table('categories', function (Blueprint $table) {
+            $table->string('slug');
         });
     }
 
@@ -31,6 +26,8 @@ return new class () extends Migration {
      */
     public function down()
     {
-        Schema::dropIfExists('pagesettings');
+        Schema::table('categories', function (Blueprint $table) {
+            $table->removeColumn('slug');
+        });
     }
 };

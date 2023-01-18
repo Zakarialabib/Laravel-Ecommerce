@@ -65,8 +65,12 @@
     {{-- <x-loading-mask /> --}}
 
     <section class="relative">
+
+        <x-topheader />
+
         <x-header />
-        <x-headerbar />
+
+        <x-bottomheader />
 
         @yield('content')
 

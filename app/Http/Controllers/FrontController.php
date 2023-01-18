@@ -42,6 +42,12 @@ class FrontController extends Controller
         return view('front.categories');
     }
 
+    public function categoryPage($slug)
+    {
+        $category = Category::where('slug', $slug)->first();
+        return view('front.category-page', compact('subcategory'));
+    }
+
     public function subcategories()
     {
         return view('front.subcategories');
