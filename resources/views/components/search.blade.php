@@ -1,12 +1,11 @@
 @props([
     'searchBox' => false,
     'search' => null, 
-    'results',
-    'wide' => false,
+    'results'
 ])
 
 <div>
-    <div x-data="{ searchBox: {{ $searchBox ? 'true' }} }" 
+    <div x-data="{ searchBox: true }" 
     class="relative" 
     @click.away="searchBox = false">
         <div class="flex items-center max-w-xs rounded-lg">
