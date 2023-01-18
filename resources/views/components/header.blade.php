@@ -63,7 +63,22 @@
             </button>
         </div>
         <div class="border-t border-gray-900 py-2"></div>
-        <div class="flex mb-8 justify-between">
+
+        <div class="flex items-center justify-between bg-red-600 px-2">
+            <livewire:front.search-box />
+        </div>
+
+        <div class="border-t border-gray-900 py-2"></div>
+
+        <ul class="lg:text-3xl sm:text-xl font-bold font-heading">
+            <li class="mb-8"><a href="{{ route('front.categories') }}">{{ __('Categories') }}</a></li>
+            <li class="mb-8"><a href="{{ route('front.catalog') }}">{{ __('Catalog') }}</a></li>
+            <li><a href="{{ route('front.brands') }}">{{ __('Brands') }}</a></li>
+        </ul>
+        
+        <div class="border-t border-gray-900 py-2"></div>
+        
+        <div class="flex justify-between">
             @if (Auth::check())
                 <div class="w-full lg:text-3xl sm:text-xl font-bold font-heading">
                     <div class="py-3">
@@ -104,17 +119,6 @@
             @endif
         </div>
 
-        <div class="flex items-center justify-between bg-red-600 px-2">
-            <livewire:front.search-box />
-        </div>
-
-        <div class="border-t border-gray-900 py-2"></div>
-
-        <ul class="lg:text-3xl sm:text-xl font-bold font-heading">
-            <li class="mb-8"><a href="{{ route('front.categories') }}">{{ __('Categories') }}</a></li>
-            <li class="mb-8"><a href="{{ route('front.catalog') }}">{{ __('Catalog') }}</a></li>
-            <li><a href="{{ route('front.brands') }}">{{ __('Brands') }}</a></li>
-        </ul>
     </nav>
 </div>
 
