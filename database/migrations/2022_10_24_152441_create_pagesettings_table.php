@@ -19,6 +19,8 @@ return new class () extends Migration {
             $table->boolean('topbar')->default(true);
             $table->boolean('bottombar')->default(true);
             $table->string('topheader')->nullable();
+            $table->string('topheader_bgcolor')->nullable();
+            $table->string('bottombar_bgcolor')->nullable();
 
             $table->timestamps();
         });

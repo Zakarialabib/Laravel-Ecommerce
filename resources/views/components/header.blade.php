@@ -8,15 +8,15 @@
             </a>
 
             <ul class="hidden md:flex px-4 mx-auto font-semibold font-heading">
-                <li class="mr-12"><a class="text-gray-100 hover:text-gray-600" href="{{ route('front.categories') }}">
+                <li class="mr-12"><a class="text-gray-100 hover:text-red-600 hover:underline" href="{{ route('front.categories') }}">
                         {{ __('Categories') }}
                     </a>
                 </li>
-                <li class="mr-12"><a class="text-gray-100 hover:text-gray-600" href="{{ route('front.catalog') }}">
+                <li class="mr-12"><a class="text-gray-100 hover:text-red-600 hover:underline" href="{{ route('front.catalog') }}">
                         {{ __('Catalog') }}
                     </a>
                 </li>
-                <li><a class="text-gray-100 hover:text-gray-600" href="{{ route('front.brands') }}">
+                <li><a class="text-gray-100 hover:text-red-600 hover:underline" href="{{ route('front.brands') }}">
                         {{ __('Brands') }}
                     </a>
                 </li>
@@ -71,9 +71,9 @@
         <div class="border-t border-gray-900 mb-6 py-2"></div>
 
         <ul class="lg:text-3xl sm:text-xl font-bold font-heading">
-            <li class="mb-8"><a href="{{ route('front.categories') }}">{{ __('Categories') }}</a></li>
-            <li class="mb-8"><a href="{{ route('front.catalog') }}">{{ __('Catalog') }}</a></li>
-            <li><a href="{{ route('front.brands') }}">{{ __('Brands') }}</a></li>
+            <li class="mb-8 hover:underline"><a href="{{ route('front.categories') }}">{{ __('Categories') }}</a></li>
+            <li class="mb-8 hover:underline"><a href="{{ route('front.catalog') }}">{{ __('Catalog') }}</a></li>
+            <li class="hover:underline"><a href="{{ route('front.brands') }}">{{ __('Brands') }}</a></li>
         </ul>
         
         <div class="border-t border-gray-900 py-2"></div>
