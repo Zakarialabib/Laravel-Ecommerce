@@ -41,7 +41,7 @@
                             <x-label for="subcategory" :value="__('Subcategory')" />
                             <x-select-list
                                 class="block bg-white text-gray-700 rounded border border-gray-300 mb-1 text-sm w-full focus:shadow-outline-blue focus:border-blue-500"
-                                id="product.subcategory_id" name="product.subcategory_id" multiple
+                                id="product.subcategory_id" name="product.subcategory_id"
                                 wire:model="product.subcategory_id" :options="$this->listsForFields['subcategories']" />
                             <x-input-error :messages="$errors->get('product.subcategory_id')" for="product.subcategory_id" class="mt-2" />
                         </div>

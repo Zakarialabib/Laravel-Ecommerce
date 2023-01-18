@@ -46,7 +46,7 @@
                             <x-label for="subcategory" :value="__('Subcategory')" />
                             <select
                                 class="block bg-white text-gray-700 rounded border border-gray-300 mb-1 text-sm w-full focus:shadow-outline-blue focus:border-blue-500"
-                                id="subcategory_id" name="subcategory_id" multiple wire:model="product.subcategory_id">
+                                id="subcategory_id" name="subcategory_id" wire:model="product.subcategory_id">
                                 @foreach ($this->subcategories as $subcategory)
                                     <option value="{{ $subcategory->id }}">{{ $subcategory->name }}</option>
                                 @endforeach
