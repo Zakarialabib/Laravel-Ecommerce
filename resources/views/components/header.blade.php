@@ -31,7 +31,9 @@
         </div>
 
         <div class="flex items-center justify-end mr-5 space-x-2 xl:hidden self-center w-1/2">
-
+            
+            <livewire:front.search-box />
+            
             <livewire:front.cart-count />
 
         </div>
@@ -103,10 +105,8 @@
             @endif
         </div>
 
-        <div class="flex items-center justify-between bg-blue-500 px-4">
+        <div class="flex items-center justify-between bg-red-600 px-2">
             <livewire:front.search-box />
-            
-            <livewire:front.cart-count />
         </div>
 
         <div class="border-t border-gray-900 py-2"></div>

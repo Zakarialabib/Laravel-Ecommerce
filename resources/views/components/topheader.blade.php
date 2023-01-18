@@ -1,7 +1,7 @@
-<div class="py-2 bg-red-600">
-    <div class="flex items-center justify-between">
-        <p class="text-xs text-center font-semibold font-heading text-blue-100 hover:text-orange-400">BADR
-            LUXURY - SINCE 1983 - THE BEST OF EVERYTHING
+<div class="px-6 py-2 bg-red-600 text-white hover:text-blue-500">
+    <div class="flex items-center justify-center md:justify-between">
+        <p class="text-xs text-center font-semibold font-heading">
+            BADR LUXURY - SINCE 1983 - THE BEST OF EVERYTHING
         </p>
         @if (Auth::check())
             <x-dropdown align="right" width="56">
@@ -48,7 +48,7 @@
                 </x-slot>
             </x-dropdown>
         @else
-            <button class="flex-shrink-0 hidden xl:block px-8 border-l">
+            <button class="flex-shrink-0 hidden md:block px-8 border-l">
                 <div class="flex items-center text-gray-100">
                     <a href="{{ route('login') }}" class="mr-2 font-medium">{{ __('Login') }} </a>
                     {{ __('or') }}

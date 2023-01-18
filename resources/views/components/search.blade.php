@@ -6,7 +6,7 @@
 ])
 
 <div>
-    <div x-data="{ searchBox: {{ $searchBox ? 'true' : 'false' }} }" 
+    <div x-data="{ searchBox: {{ $searchBox ? 'true' }} }" 
     class="relative" 
     @click.away="searchBox = false">
         <div class="flex items-center max-w-xs rounded-lg">
