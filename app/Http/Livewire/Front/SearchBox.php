@@ -17,7 +17,7 @@ class SearchBox extends Component
 
     public $results = [];
 
-    public $searchBox = false;
+    public $searchBox = true;
 
     protected $queryString = [
         'search' => [
