@@ -19,7 +19,7 @@
     </div>
     <div class="px-2 pb-4 pt-10 text-center">
         <a href="{{ route('front.product', $product->slug) }}"
-            class="block mb-2 text-md font-bold font-heading text-orange-500 hover:text-orange-400">
+            class="block mb-2 text-md font-bold font-heading hover:text-red-400">
             {{ Str::limit($product->name, 35) }}
         </a>
         @if ($product->status == 1)
@@ -32,7 +32,7 @@
                     {{ __('Out of Stock') }}</span>
             </div>
         @endif
-        <span class="text-orange-700 hover:text-orange-900 font-bold text-md mt-2">{{ $product->price }} DH</span>
+        <span class="hover:text-orange-900 font-bold text-md mt-2">{{ $product->price }} DH</span>
         @if ($product->old_price && $product->discount != 0)
             <p class="text-black font-bold text-sm block my-2">
                 <del>{{ $product->old_price }} DH </del>

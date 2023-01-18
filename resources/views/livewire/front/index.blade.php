@@ -61,25 +61,25 @@
                 <div class="grid gap-4 xl:grid-cols-4 lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 mb-10 ">
                     <div class="py-5 px-8 sm:py-2 sm:px-5 text-left font-bold text-gray-500 uppercase border-b-2 border-gray-100 hover:border-gray-500 focus:outline-none focus:border-gray-500 cursor-pointer"
                         @click="activeTabs = 'featuredProducts'">
-                        <h4 class="inline-block" :class="activeTabs === 'featuredProducts' ? 'text-orange-400' : ''">
+                        <h4 class="inline-block" :class="activeTabs === 'featuredProducts' ? 'text-red-400' : ''">
                             {{ __('Featured Products') }}
                         </h4>
                     </div>
                     <div class="py-5 px-8 sm:py-2 sm:px-5 text-left font-bold text-gray-500 uppercase border-b-2 border-gray-100 hover:border-gray-500 focus:outline-none focus:border-gray-500 cursor-pointer"
                         @click="activeTabs = 'bestOfers'">
-                        <h4 class="inline-block" :class="activeTabs === 'bestOfers' ? 'text-orange-400' : ''">
+                        <h4 class="inline-block" :class="activeTabs === 'bestOfers' ? 'text-red-400' : ''">
                             {{ __('Best Offers') }}
                         </h4>
                     </div>
                     <div class="py-5 px-8 sm:py-2 sm:px-5 text-left font-bold text-gray-500 uppercase border-b-2 border-gray-100 hover:border-gray-500 focus:outline-none focus:border-gray-500 cursor-pointer"
                         @click="activeTabs = 'hotProducts'">
-                        <h4 class="inline-block" :class="activeTabs === 'hotProducts' ? 'text-orange-400' : ''">
+                        <h4 class="inline-block" :class="activeTabs === 'hotProducts' ? 'text-red-400' : ''">
                             {{ __('Hot Products') }}
                         </h4>
                     </div>
                     <div class="py-5 px-8 sm:py-2 sm:px-5 text-left font-bold text-gray-500 uppercase border-b-2 border-gray-100 hover:border-gray-500 focus:outline-none focus:border-gray-500 cursor-pointer"
                         @click="activeTabs = 'brands'">
-                        <h4 class="inline-block" :class="activeTabs === 'brands' ? 'text-orange-400' : ''">
+                        <h4 class="inline-block" :class="activeTabs === 'brands' ? 'text-red-400' : ''">
                             {{ __('Brands') }}
                         </h4>
                     </div>

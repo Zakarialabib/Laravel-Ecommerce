@@ -116,7 +116,7 @@
 
                             </div>
                         </div>
-                        <a class="block text-center px-8 py-4 bg-orange-300 hover:bg-orange-400 text-white font-bold font-heading uppercase rounded-md transition duration-200"
+                        <a class="block text-center px-8 py-4 bg-red-500 hover:bg-red-700 text-white font-bold font-heading uppercase rounded-md transition duration-200"
                             href="{{ route('front.home') }}">
                             {{ __('Go back Shopping') }}
                         </a>

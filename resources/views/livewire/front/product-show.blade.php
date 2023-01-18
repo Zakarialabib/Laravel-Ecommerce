@@ -12,7 +12,7 @@
 @endsection
 
 <div>
-    <section itemscope itemtype="http://schema.org/Product">
+    <div itemscope itemtype="http://schema.org/Product">
         <div class="py-10">
             <div class="mx-auto px-4">
                 <div class="flex flex-wrap -mx-4 mb-14">
@@ -57,7 +57,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <p class="inline-block mb-4 text-2xl font-bold font-heading text-orange-500">
+                            <p class="inline-block mb-4 text-2xl font-bold font-heading">
                                 <span>
                                     {{ $product->price }}DH
                                 </span>
@@ -110,7 +110,7 @@
                             </div>
                             <div>
                                 @if ($product->status == 1)
-                                    <a class="block hover:bg-red-400 text-center text-white font-bold font-heading py-2 px-4 rounded-md uppercase bg-red-500 cursor-pointer"
+                                    <a class="block hover:bg-red-600 text-center text-white font-bold font-heading py-2 px-4 rounded-md uppercase bg-red-600 cursor-pointer"
                                         wire:click="AddToCart({{ $product->id }}, '{{ $product->name }}', {{ $product->price }})">
                                         {{ __('Add to cart') }}
                                     </a>
@@ -165,27 +165,27 @@
                     <div
                         class="inline-block py-6 px-10 text-left font-bold font-heading text-gray-500 uppercase border-b-2 border-gray-100 hover:border-gray-500 focus:outline-none focus:border-gray-500">
                         <button @click="activeTab = 'description'"
-                            :class="activeTab === 'description' ? 'text-orange-400' : ''">
+                            :class="activeTab === 'description' ? 'text-red-400' : ''">
                             {{ __('Description') }}
                         </button>
                     </div>
                     <div
                         class="inline-block py-6 px-10 text-left font-bold font-heading text-gray-500 uppercase border-b-2 border-gray-100 hover:border-gray-500 focus:outline-none focus:border-gray-500">
                         <button @click="activeTab = 'reviews'"
-                            :class="activeTab === 'reviews' ? 'text-orange-400' : ''">
+                            :class="activeTab === 'reviews' ? 'text-red-400' : ''">
                             {{ __('Reviews') }}
                         </button>
                     </div>
                     <div
                         class="inline-block py-6 px-10 text-left font-bold font-heading text-gray-500 uppercase border-b-2 border-gray-100 hover:border-gray-500 focus:outline-none focus:border-gray-500">
                         <button @click="activeTab = 'shipping'"
-                            :class="activeTab === 'shipping' ? 'text-orange-400' : ''">
+                            :class="activeTab === 'shipping' ? 'text-red-400' : ''">
                             {{ __('Shipping & Returns') }}
                         </button>
                     </div>
                     <div
                         class="inline-block py-6 px-10 text-left font-bold font-heading text-gray-500 uppercase border-b-2 border-gray-100 hover:border-gray-500 focus:outline-none focus:border-gray-500">
-                        <button @click="activeTab = 'brands'" :class="activeTab === 'brands' ? 'text-orange-400' : ''">
+                        <button @click="activeTab = 'brands'" :class="activeTab === 'brands' ? 'text-red-400' : ''">
                             {{ __('Product Brand') }}
                         </button>
                     </div>
@@ -256,58 +256,22 @@
                 <div x-show="activeTab === 'brands'" class="px-5 mb-10">
                     <div class="mb-8 grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3 -mx-2 px-2">
                         @foreach ($brand_products as $product)
-                            <div class="bg-white rounded-lg shadow-2xl">
-                                <div class="relative text-center">
-                                    <a href="{{ route('front.product', $product->slug) }}">
-                                        <img class="w-full h-auto object-cover rounded-t-lg" loading="lazy"
-                                            src="{{ asset('images/products/' . $product->image) }}" alt="{{ $product->name }}">
-                                    </a>
-                                    <div class="absolute top-0 right-0 px-4 py-2 bg-orange-500 rounded-bl-lg">
-                                        <span class="text-white font-bold font-heading">{{ $product->price }}DH</span>
-                                    </div>
-                                </div>
-                                <div class="p-4 text-center">
-                                    <a href="{{ route('front.product', $product->slug) }}"
-                                        class="block mb-2 text-lg sm:text-md font-bold font-heading text-orange-500 hover:text-orange-400">
-                                        {{ $product->name }}
-                                    </a>
-                                    <div class="flex justify-center mb-4">
-                                        <div class="flex items-center">
-                                            @for ($i = 0; $i < 5; $i++)
-                                                @if ($i < $product->reviews->avg('rating'))
-                                                    <svg class="w-4 h-4 text-orange-500 fill-current"
-                                                        xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                                                        <path
-                                                            d="M12 17.27l-5.18 2.73 1-5.81-4.24-3.63 5.88-.49L12 6.11l2.45 5.51 5.88.49-4.24 3.63 1 5.81z" />
-                                                    </svg>
-                                                @else
-                                                    <svg class="w-4 h-4 text-orange-500 fill-current"
-                                                        xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                                                        <path
-                                                            d="M12 17.27l-5.18 2.73 1-5.81-4.24-3.63 5.88-.49L12 6.11l2.45 5.51 5.88.49-4.24 3.63 1 5.81z" />
-                                                    </svg>
-                                                @endif
-                                            @endfor
-                                        </div>
-                                        <span
-                                            class="ml-2 text-sm text-gray-500 font-body">{{ $product->reviews->count() }}
-                                            {{ __('Reviews') }}</span>
-                                    </div>
-                                </div>
-                            </div>
+                             <x-product-card :product="$product" />
                         @endforeach
                     </div>
                 </div>
             </div>
         </div>
 
-        <div class="mx-auto px-6">
+        <div class="mx-auto px-6 py-4">
+            <h4 class="mb-2 text-xl font-bold font-heading">
+                {{ __('Related Products') }}
+            </h4>
             <div class="mb-8 grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4 -mx-2 px-2">
                 @foreach ($relatedProducts as $product)
                     <x-product-card :product="$product" />
                 @endforeach
             </div>
         </div>
-
-    </section>
+    </div>
 </div>

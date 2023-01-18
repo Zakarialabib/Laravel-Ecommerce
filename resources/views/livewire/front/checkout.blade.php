@@ -236,7 +236,7 @@
                     </div>
                 </div>
                 <button
-                    class="block w-full py-4 bg-orange-300 hover:bg-orange-400 text-center text-white font-bold font-heading uppercase rounded-md transition duration-200"
+                    class="block w-full py-4 bg-red-500 hover:bg-red-700 text-center text-white font-bold font-heading uppercase rounded-md transition duration-200"
                     type="button" wire:click="checkout">
                     {{ __('Confirm Order') }}
                 </button>

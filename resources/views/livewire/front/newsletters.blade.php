@@ -9,7 +9,7 @@
                     <input wire:model="email" type="email" name="email"
                         class="inline-block w-full pt-8 pb-4 px-8 placeholder-gray-900 border-0 focus:ring-transparent focus:outline-none rounded-md">
                 </div>
-                <a class="inline-block w-auto hover:bg-orange-400 text-white font-bold font-heading py-6 px-8 rounded-md uppercase text-center bg-orange-500"
+                <a class="inline-block w-auto hover:bg-red-600 text-white font-bold font-heading py-6 px-8 rounded-md uppercase text-center bg-red-600"
                     wire:click="subscribe">
                     {{ __('Join') }}
                 </a>

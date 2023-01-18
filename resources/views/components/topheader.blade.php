@@ -1,4 +1,4 @@
-<div class="px-6 py-2 bg-red-800 text-white">
+<div class="px-6 py-2 bg-red-600 text-white">
     <div class="flex items-center justify-center md:justify-between">
         <p class="text-xs text-center font-semibold font-heading hover:text-gray-400 hover:underline">
             BADR LUXURY - SINCE 1983 - THE BEST OF EVERYTHING
@@ -9,7 +9,7 @@
                     <div class="py-5 px-6 flex w-full items-center">
                         <div class="flex items-center">
                             <span
-                                class="bg-orange-500 rounded-md text-center text-white px-6 py-2 cursor-pointer text-sm font-semibold font-heading">
+                                class="bg-red-600 rounded-md text-center text-white px-6 py-2 cursor-pointer text-sm font-semibold font-heading">
                                 {{ Auth::user()->first_name }}
                             </span>
                         </div>

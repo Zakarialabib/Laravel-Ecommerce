@@ -26,7 +26,7 @@
             </div>
             <div class="w-full flex py-2 justify-center">
                 <button wire:click="save" wire:loading.attr="disabled"
-                    class="block hover:bg-red-400 text-center text-white font-bold font-heading py-2 px-4 rounded-md uppercase bg-red-500 cursor-pointer">
+                    class="block hover:bg-red-600 text-center text-white font-bold font-heading py-2 px-4 rounded-md uppercase bg-red-600 cursor-pointer">
                     {{ __('Order Now') }}
                 </button>
             </div>

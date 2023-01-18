@@ -82,24 +82,24 @@
             @if (Auth::check())
                 <div class="w-full lg:text-3xl sm:text-xl font-bold font-heading">
                     <div class="py-3">
-                        <a href="#" class="hover:text-orange-500">
+                        <a href="#" class="hover:text-red-500">
                             {{ Auth::user()->first_name }}
                         </a>
                     </div>
                     @if (Auth::user()->isAdmin())
                         <div class="py-3">
-                            <a class="hover:text-orange-500" href="{{ route('admin.dashboard') }}">
+                            <a class="hover:text-red-500" href="{{ route('admin.dashboard') }}">
                                 {{ __('Dashboard') }}
                             </a>
                         </div>
                         <div class="py-3">
-                            <a class="hover:text-orange-500" href="{{ route('admin.settings') }} ">
+                            <a class="hover:text-red-500" href="{{ route('admin.settings') }} ">
                                 {{ __('Settings') }}
                             </a>
                         </div>
                     @else
                     <div class="py-3">
-                        <a class="hover:text-orange-500" href="{{ route('front.myaccount') }}">
+                        <a class="hover:text-red-500" href="{{ route('front.myaccount') }}">
                             {{ __('My account') }}
                         </a>
                     </div>
@@ -109,11 +109,11 @@
                 <div class="border-t border-gray-900 py-2"></div>
                 <div class="w-full lg:text-3xl sm:text-xl font-bold font-heading">
                     <div class="py-3">
-                        <a class="hover:text-orange-500" href="{{ route('login') }}">{{ __('Login') }} </a>
+                        <a class="hover:text-red-500" href="{{ route('login') }}">{{ __('Login') }} </a>
                     </div>
                     {{ __('or') }}
                     <div class="py-3">
-                        <a class="hover:text-orange-500" href="{{ route('register') }}"> {{ __('Register') }}</a>
+                        <a class="hover:text-red-500" href="{{ route('register') }}"> {{ __('Register') }}</a>
                     </div>
                 </div>
             @endif
