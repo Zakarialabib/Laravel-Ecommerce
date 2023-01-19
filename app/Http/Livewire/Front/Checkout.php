@@ -159,20 +159,18 @@ class Checkout extends Component
 
     public function updateCartTotal()
     {
-        $this->cartTotal = $this->calculateCartTotal();
-    }
-
-    public function calculateCartTotal()
-    {
         if ($this->shipping_id) {
-            $total = Cart::instance('shopping')->total();
             $shipping = Shipping::find($this->shipping_id);
             $cost = $shipping->cost;
-            $this->cartTotal = $total + $cost;
+            $total = Cart::instance('shopping')->total();
+            if($cost > 0){
+                $this->cartTotal = $total + $cost;
+            }else{
+                $this->cartTotal = $total;
+            }
         }
-
-        return $this->cartTotal;
     }
+
 
       public function decreaseQuantity($rowId)
       {
