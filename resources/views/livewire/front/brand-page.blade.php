@@ -1,3 +1,11 @@
+@section('meta')
+    <meta itemprop="url" content="{{ URL::current() }}">
+    <meta property="og:title" content="{{ $brand->meta_title }}">
+    <meta property="og:description" content="{!! $brand->meta_description !!}">
+    <meta property="og:url" content="{{ URL::current() }}">
+    <meta property="og:image" content="{{ asset('images/brands/' . $brand->image) }}">
+@endsection
+
 <div>
     <div class="w-full px-4 mx-auto">
         <div class="relative bg-white overflow-hidden mb-5">

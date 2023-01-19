@@ -36,7 +36,7 @@
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="{{ Helpers::settings('company_name') }}" />
     <meta name="author" content="{{ Helpers::settings('company_name') }}">
-
+    {{-- <link rel="canonical" href="{{ URL::current() }}"> --}}
     <meta name="robots" content="all,follow">
 
     <link rel="icon" href="{{ asset('images/' . Helpers::settings('site_favicon')) }}" type="image/x-icon">

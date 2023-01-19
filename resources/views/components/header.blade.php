@@ -64,11 +64,11 @@
         </div>
         <div class="border-t border-gray-900 py-2"></div>
 
-        <div class="flex items-center bg-red-600 px-2">
+        <div class="flex justify-center bg-red-600 px-2">
             <livewire:front.search-box />
         </div>
 
-        <div class="border-t border-gray-900 mb-6 py-2"></div>
+        <div class="border-t border-gray-900 mb-4 py-2"></div>
 
         <ul class="lg:text-3xl sm:text-xl font-bold font-heading">
             <li class="mb-8 hover:underline"><a href="{{ route('front.categories') }}">{{ __('Categories') }}</a></li>
@@ -76,7 +76,7 @@
             <li class="hover:underline"><a href="{{ route('front.brands') }}">{{ __('Brands') }}</a></li>
         </ul>
         
-        <div class="border-t border-gray-900 py-2"></div>
+        <div class="border-t border-gray-900 mt-6 py-2"></div>
         
         <div class="flex justify-between">
             @if (Auth::check())

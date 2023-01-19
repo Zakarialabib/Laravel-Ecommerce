@@ -1,3 +1,9 @@
+@section('meta')
+    <meta itemprop="url" content="{{ URL::current() }}">
+    <meta property="og:title" content="{{ $subcategory->name }}">
+    <meta property="og:url" content="{{ URL::current() }}">
+@endsection
+
 <div>
     <div class="w-full px-4 mx-auto">
         <div class="mb-5 items-center justify-between bg-white py-4">
