@@ -228,9 +228,11 @@
                         <div class="py-3 px-10 rounded-full">
                             <div class="flex justify-between">
                                 <span class="text-base md:text-xl font-bold font-heading">{{ __('Total') }}</span>
+                                @if (!empty($this->cartTotal))
                                 <span class="font-bold font-heading">
                                     {{ $this->cartTotal }} DH
                                 </span>
+                                @endif
                             </div>
                         </div>
                     </div>

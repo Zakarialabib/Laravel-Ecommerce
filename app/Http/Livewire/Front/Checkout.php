@@ -210,6 +210,11 @@ class Checkout extends Component
         return Shipping::select('id', 'title')->get();
     }
 
+    public function getCartTotalProperty()
+    {
+        return Cart::instance('shopping')->total();
+    }
+
     public function render(): View|Factory
     {
         return view('livewire.front.checkout');
