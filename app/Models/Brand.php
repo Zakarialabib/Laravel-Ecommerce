@@ -24,6 +24,17 @@ class Brand extends Model
         'name', 'description', 'image', 'slug', 'status', 'featured_image', 'meta_title', 'meta_description',
     ];
 
+        /**
+     * Scope a query to only include active products.
+     *
+     * @param  \Illuminate\Database\Eloquent\Builder  $query
+     * @return void
+     */
+    public function scopeActive($query)
+    {
+        $query->where('status', 1);
+    }
+
     public function products(): HasMany
     {
         return $this->hasMany(Product::class);

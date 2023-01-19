@@ -144,6 +144,6 @@ class Catalog extends Component
 
     public function getBrandsProperty()
     {
-        return Brand::select('id', 'name', 'image', 'featured_image')->get();
+        return Brand::select('id', 'name')->active()->get();
     }
 }

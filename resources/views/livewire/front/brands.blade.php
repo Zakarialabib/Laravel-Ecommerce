@@ -58,7 +58,7 @@
                         wire:click="filterProductBrands({{ $brand->id }})">
                         {{ $brand->name }}
                         <span class="text-sm ml-2">
-                            ({{ $brand->products->active()->count() }})
+                            ({{ $brand->products->count() }})
                         </span>
                     </x-button>
                 @endforeach
@@ -70,7 +70,7 @@
                         wire:click="filterProductCategories({{ $category->id }})">
                         {{ $category->name }}
                         <span class="text-sm ml-2">
-                            ({{ $category->products->active()->count() }})
+                            ({{ $category->products->count() }})
                         </span>
                     </x-button>
                 @endforeach
@@ -80,7 +80,7 @@
                         wire:click="filterProductSubcategories({{ $subcategory->id }})">
                         {{ $subcategory->name }}
                         <span class="text-sm ml-2">
-                            ({{ $subcategory->products->active()->count() }})
+                            ({{ $subcategory->products->count() }})
                         </span>
                     </x-button>
                 @endforeach
