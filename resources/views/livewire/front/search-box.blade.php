@@ -14,7 +14,7 @@
             </button>
         </div>
         @if (!empty($search))
-            <div x-show="searchBox" 
+            <div 
                 x-transition:enter="transition-all duration-300"
                 x-transition:enter-start="opacity-0"
                 x-transition:enter-end="opacity-100"

@@ -1,6 +1,6 @@
 <div>
 
-    <div class="fixed inset-0 overflow-hidden z-50" {{-- display none  --}} style="display:none"
+    <div class="fixed inset-0 overflow-hidden z-50" style="display:none"
         x-on:click.away="showCart = false" x-show="showCart" x-transition:enter="transition ease-out duration-300"
         x-transition:enter-start="opacity-0 transform translate-y-4"
         x-transition:enter-end="opacity-100 transform translate-y-0" x-transition:leave="transition ease-in duration-300"
