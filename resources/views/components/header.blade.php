@@ -21,7 +21,7 @@
                     </a>
                 </li>
             </ul>
-            <div class="hidden md:flex items-center text-gray-100">
+            <div class="hidden md:flex items-center text-gray-100 space-x-2">
 
                 <livewire:front.search-box />
 
@@ -30,7 +30,7 @@
             </div>
         </div>
 
-        <div class="flex items-center justify-end mr-5 space-x-2 md:hidden self-center w-1/2">
+        <div class="flex items-center justify-end mr-5 md:hidden self-center w-1/2">
     
             
             <livewire:front.cart-count />

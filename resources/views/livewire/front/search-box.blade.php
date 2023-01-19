@@ -1,6 +1,6 @@
 <div>
-    <div x-data="{ searchBox: {{ $searchBox ? 'true' : 'false' }} }" class="relative w-full mr-6" @click.away="searchBox = false">
-        <div class="flex items-center max-w-md rounded-lg">
+    <div x-data="{ searchBox: {{ $searchBox ? 'true' : 'false' }} }" class="relative w-full" @click.away="searchBox = false">
+        <div class="flex items-center max-w-md rounded-lg mx-4">
             <button type="button" @click="searchBox = !searchBox"
                 class="flex items-center justify-center w-10 h-10 text-gray-100 rounded-l-lg focus:outline-none">
                 <i class="fa fa-search mr-5 text-gray-100"></i>
