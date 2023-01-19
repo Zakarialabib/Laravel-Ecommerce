@@ -7,11 +7,8 @@
             <x-dropdown align="right" width="56">
                 <x-slot name="trigger">
                     <div class="py-5 px-6 flex w-full items-center">
-                        <div class="flex items-center">
-                            <span
-                                class="bg-red-600 rounded-md text-center text-white px-6 py-2 cursor-pointer text-sm font-semibold font-heading">
-                                {{ Auth::user()->first_name }}
-                            </span>
+                        <div class="flex items-center text-white">
+                            {{ Auth::user()->first_name }}
                         </div>
                     </div>
                 </x-slot>
@@ -27,13 +24,11 @@
                             {{ __('Settings') }}
                         </x-dropdown-link>
                     @else
-
-                    <x-dropdown-link href="{{ route('front.myaccount') }}">
-                    {{ __('My account') }}
-                    </x-dropdown-link>
-                    
+                        <x-dropdown-link href="{{ route('front.myaccount') }}">
+                            {{ __('My account') }}
+                        </x-dropdown-link>
                     @endif
-                    
+
                     <div class="border-t border-gray-100"></div>
 
                     <!-- Authentication -->
@@ -49,10 +44,13 @@
             </x-dropdown>
         @else
             <button class="flex-shrink-0 hidden md:block px-4 border-l">
-                <div class="flex items-center text-white">
-                    <a href="{{ route('login') }}" class="mr-2 text-xs text-center font-semibold font-heading hover:text-gray-400 hover:underline">{{ __('Login') }} </a>
-                    {{ __('or') }}
-                    <a href="{{ route('register') }}" class="ml-2 text-xs text-center font-semibold font-heading hover:text-gray-400 hover:underline"> {{ __('Register') }}</a>
+                <div class="flex items-center text-white space-x-2">
+                    <a href="{{ route('login') }}"
+                        class="mr-2 text-xs text-center font-semibold font-heading hover:text-gray-400 hover:underline">{{ __('Login') }}
+                    </a>
+                    <a href="{{ route('register') }}"
+                        class="ml-2 text-xs text-center font-semibold font-heading hover:text-gray-400 hover:underline">
+                        {{ __('Register') }}</a>
                 </div>
             </button>
         @endif

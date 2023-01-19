@@ -71,7 +71,7 @@
                                                 dangerOutline>
                                                 {{ $category->name }}
                                                 <span class="text-sm ml-2">
-                                                    ({{ $category->count() }})
+                                                    ({{ $category->products->count() }})
                                                 </span>
                                             </x-button>
                                         </li>
@@ -84,7 +84,7 @@
                                                 dangerOutline>
                                                 {{ $subcategory->name }}
                                                 <span class="text-sm ml-2">
-                                                    ({{ $subcategory->count() }})
+                                                    ({{ $subcategory->products->count() }})
                                                 </span>
                                             </x-button>
                                         </li>
@@ -116,7 +116,7 @@
                                                     warningOutline>
                                                     {{ $brand->name }}
                                                     <span class="text-sm ml-2">
-                                                        ({{ $brand->count() }})
+                                                        ({{ $brand->products->count() }})
                                                     </span>
                                                 </x-button>
                                             </div>
@@ -142,7 +142,7 @@
                                 <button type="button" wire:click="filterProductCategories({{ $category->id }})">
                                     <span class="inline-block px-4 py-2 text-sm font-bold font-heading text-blue-300">
                                         {{ $category->name }} <small>
-                                            ({{ $category->count() }})
+                                            ({{ $category->products->count() }})
                                         </small>
                                     </span>
                                 </button>
@@ -164,7 +164,7 @@
                                     wire:click="filterProductSubcategories({{ $subcategory->id }})">
                                     <span class="inline-block px-4 py-2 text-sm font-bold font-heading text-blue-300">
                                         {{ $subcategory->name }} <small>
-                                            ({{ $subcategory->count() }})
+                                            ({{ $subcategory->products->count() }})
                                         </small>
                                     </span>
                                 </button>
