@@ -12,75 +12,74 @@
 @endsection
 
 <div>
-    <div itemscope itemtype="http://schema.org/Product">
-        <div class="py-10">
-            <div class="mx-auto px-4">
-                <div class="flex flex-wrap -mx-4 mb-14">
-                    <div class="w-full md:w-1/2 px-4 mb-8 md:mb-0">
-                        <x-product-carousel :product="$product" />
-                    </div>
+    <div itemscope itemtype="http://schema.org/Product" class="py-10">
+        <div class="mx-auto px-4">
+            <div class="flex flex-wrap -mx-4 mb-14">
+                <div class="w-full md:w-1/2 px-4 mb-8 md:mb-0">
+                    <x-product-carousel :product="$product" />
+                </div>
 
-                    <div class="w-full md:w-1/2 px-4" itemprop="offers" itemscope itemtype="http://schema.org/Offer">
+                <div class="w-full md:w-1/2 px-4" itemprop="offers" itemscope itemtype="http://schema.org/Offer">
 
-                        <div class="mb-5 pb-5 border-b">
-                            <span class="text-gray-500">
-                                {{ $product->category?->name }} /
-                                @isset($product->brand)
-                                    <a
-                                        href="{{ route('front.brandPage', $product->brand->slug) }}">{{ $product->brand->name }}</a>
-                                @endisset
-                                <meta itemprop="brand" content="{{ $product->brand }}">
-                            </span>
-                            <h2 class="mt-2 mb-6 max-w-xl lg:text-5xl sm:text-xl font-bold font-heading">
-                                {{ $product->name }}
-                            </h2>
-                            <meta itemprop="name" content="{{ $product->name }}">
+                    <div class="mb-5 pb-5 border-b">
+                        <span class="text-gray-500">
+                            {{ $product->category?->name }} /
+                            @isset($product->brand)
+                                <a
+                                    href="{{ route('front.brandPage', $product->brand->slug) }}">{{ $product->brand->name }}</a>
+                            @endisset
+                            <meta itemprop="brand" content="{{ $product->brand }}">
+                        </span>
+                        <h2 class="mt-2 mb-6 max-w-xl lg:text-5xl sm:text-xl font-bold font-heading">
+                            {{ $product->name }}
+                        </h2>
+                        <meta itemprop="name" content="{{ $product->name }}">
+                        <div class="flex items-center">
                             <div class="flex items-center">
-                                <div class="flex items-center">
-                                    @for ($i = 0; $i < 5; $i++)
-                                        @if ($i < $product->reviews->avg('rating'))
-                                            <svg class="w-4 h-4 text-orange-500 fill-current"
-                                                xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                                                <path
-                                                    d="M12 17.27l-5.18 2.73 1-5.81-4.24-3.63 5.88-.49L12 6.11l2.45 5.51 5.88.49-4.24 3.63 1 5.81z" />
-                                            </svg>
-                                        @else
-                                            <svg class="w-4 h-4 text-orange-500 fill-current"
-                                                xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                                                <path
-                                                    d="M12 17.27l-5.18 2.73 1-5.81-4.24-3.63 5.88-.49L12 6.11l2.45 5.51 5.88.49-4.24 3.63 1 5.81z" />
-                                            </svg>
-                                        @endif
-                                    @endfor
-                                    <span class="ml-2 text-sm text-gray-500 font-body">{{ $product->reviews->count() }}
-                                        {{ __('Reviews') }}</span>
-                                </div>
+                                @for ($i = 0; $i < 5; $i++)
+                                    @if ($i < $product->reviews->avg('rating'))
+                                        <svg class="w-4 h-4 text-orange-500 fill-current"
+                                            xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                            <path
+                                                d="M12 17.27l-5.18 2.73 1-5.81-4.24-3.63 5.88-.49L12 6.11l2.45 5.51 5.88.49-4.24 3.63 1 5.81z" />
+                                        </svg>
+                                    @else
+                                        <svg class="w-4 h-4 text-orange-500 fill-current"
+                                            xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                            <path
+                                                d="M12 17.27l-5.18 2.73 1-5.81-4.24-3.63 5.88-.49L12 6.11l2.45 5.51 5.88.49-4.24 3.63 1 5.81z" />
+                                        </svg>
+                                    @endif
+                                @endfor
+                                <span class="ml-2 text-sm text-gray-500 font-body">{{ $product->reviews->count() }}
+                                    {{ __('Reviews') }}</span>
                             </div>
                         </div>
-                        <p class="inline-block mb-4 text-2xl font-bold font-heading">
-                            <span>
-                                {{ $product->price }}DH
-                            </span>
-                            @if ($product->old_price && $product->discount != 0)
-                                <span class="bg-red-500 text-white rounded-xl px-4 py-2 text-sm ml-4">
-                                    -{{ $product->discount }}%
-                                </span>
-                            @endif
-                            <meta itemprop="price" content="{{ $product->price }}">
-                            <meta itemprop="priceCurrency" content="MAD">
-                        </p>
-                        @if ($product->old_price && $product->discount != 0)
-                            <p class="mb-8 text-blue-300">
-                                <span class="font-normal text-base text-gray-400 line-through">
-                                    {{ $product->old_price }}DH
-                                </span>
-                            </p>
-                        @endif
-
-                        <link itemprop="availability" href="http://schema.org/InStock">
-                        <link itemprop="itemCondition" href="http://schema.org/NewCondition">
-
                     </div>
+                    <p class="inline-block mb-4 text-2xl font-bold font-heading">
+                        <span>
+                            {{ $product->price }}DH
+                        </span>
+                        @if ($product->old_price && $product->discount != 0)
+                            <span class="bg-red-500 text-white rounded-xl px-4 py-2 text-sm ml-4">
+                                -{{ $product->discount }}%
+                            </span>
+                        @endif
+                        <meta itemprop="price" content="{{ $product->price }}">
+                        <meta itemprop="priceCurrency" content="MAD">
+                    </p>
+                    @if ($product->old_price && $product->discount != 0)
+                        <p class="mb-8 text-blue-300">
+                            <span class="font-normal text-base text-gray-400 line-through">
+                                {{ $product->old_price }}DH
+                            </span>
+                        </p>
+                    @endif
+
+                    <link itemprop="availability" href="http://schema.org/InStock">
+                    <link itemprop="itemCondition" href="http://schema.org/NewCondition">
+
+
                     <div class="flex mb-5 pb-5 border-b">
                         <div class="mr-6">
                             <div
@@ -153,7 +152,6 @@
                         </a>
                     </div>
                 </div>
-
 
                 <div x-data="{ activeTab: 'description' }" class="mx-auto px-4 border bg-white shadow-xl">
                     <div class="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 mb-10">
@@ -271,4 +269,5 @@
             </div>
         </div>
     </div>
+</div>
 </div>
