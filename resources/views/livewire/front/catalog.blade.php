@@ -24,7 +24,7 @@
                         </li>
                         <li class="inline-flex items-center ml-2">
                             <p class="lg:text-2xl sm:text-xl font-bold text-gray-600 hover:text-blue-500">
-                                {{ $products->active()->count() }} {{ __('Watches') }}
+                                {{ $products->count() }} {{ __('Watches') }}
                             </p>
                         </li>
                     </ul>
