@@ -1,7 +1,7 @@
 <div>
 
-    <div class="fixed inset-0 overflow-hidden z-50" style="display:none"
-        x-on:click.away="showCart = false" x-show="showCart" x-transition:enter="transition ease-out duration-300"
+    <div class="fixed inset-0 overflow-hidden z-50" style="display:none" x-on:click.away="showCart = false"
+        x-show="showCart" x-transition:enter="transition ease-out duration-300"
         x-transition:enter-start="opacity-0 transform translate-y-4"
         x-transition:enter-end="opacity-100 transform translate-y-0" x-transition:leave="transition ease-in duration-300"
         x-transition:leave-start="opacity-100 transform translate-y-0"
@@ -9,7 +9,7 @@
         <div class="absolute inset-0 overflow-hidden">
             <div class="absolute inset-0 bg-gray-500 bg-opacity-75 transition-opacity" aria-hidden="true"
                 x-on:click="showCart = false"></div>
-            <section class="absolute inset-y-0 right-0 pl-10 max-w-full flex">
+            <div class="absolute inset-y-0 right-0 pl-10 max-w-full flex">
                 <div class="w-screen max-w-sm">
                     <div class="h-full flex flex-col bg-white shadow-xl overflow-y-scroll">
                         <div class="flex-1 py-6 overflow-y-auto px-4 sm:px-6">
@@ -107,23 +107,21 @@
                                 @endforelse
                             </div>
                         </div>
-                        @if ($this->cartTotal)
-                            <div class="p-6 md:p-12 bg-gray-900">
-                                <h2 class="mb-6 text-4xl font-bold font-heading text-white">{{ __('Cart totals') }}
-                                </h2>
-                                <div class="flex mb-8 items-center justify-between pb-5 border-b border-blue-100">
-                                    <span class="text-blue-50">{{ __('Subtotal') }}</span>
-                                    <span class="text-xl font-bold font-heading text-white">
-                                        {{ $this->cartTotal }}DH
-                                    </span>
-                                </div>
-                                <a class="block w-full py-4 bg-red-500 hover:bg-red-800 text-center text-white font-bold font-heading uppercase rounded-md transition duration-200"
-                                    href="{{ route('front.checkout') }}">{{ __('Go to Checkout') }}</a>
+                        <div class="p-6 md:p-12 bg-gray-900">
+                            <h2 class="mb-6 text-4xl font-bold font-heading text-white">{{ __('Cart totals') }}
+                            </h2>
+                            <div class="flex mb-8 items-center justify-between pb-5 border-b border-blue-100">
+                                <span class="text-blue-50">{{ __('Subtotal') }}</span>
+                                <span class="text-xl font-bold font-heading text-white">
+                                    {{ $this->cartTotal }}DH
+                                </span>
                             </div>
-                        @endif
+                            <a class="block w-full py-4 bg-red-500 hover:bg-red-800 text-center text-white font-bold font-heading uppercase rounded-md transition duration-200"
+                                href="{{ route('front.checkout') }}">{{ __('Go to Checkout') }}</a>
+                        </div>
                     </div>
                 </div>
-            </section>
+            </div>
         </div>
     </div>
 </div>
