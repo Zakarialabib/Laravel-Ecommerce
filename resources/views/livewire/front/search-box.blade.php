@@ -2,11 +2,11 @@
     <div x-data="{ searchBox: {{ $searchBox ? 'true' : 'false' }} }" class="relative w-full" @click.away="searchBox = false">
         <div class="flex items-center max-w-md mx-4">
             <button type="button" @click="searchBox = !searchBox"
-                class="h-full absolute z-20 top-0 px-4 flex items-center bg-black border-gray-200 hover:border-red-400 focus:border-red-400 rounded-l-lg focus:outline-none">
+                class="h-full absolute z-20 top-0 px-2 flex items-center bg-black border-gray-200 hover:border-red-400 focus:border-red-400 focus:outline-none">
                 <i class="fa fa-search text-gray-100"></i>
             </button>
             <input type="text" wire:model="search" placeholder="{{ __('Search for products') }}" autocomplete=""
-                class="w-full border-0 focus:ring-transparent bg-gray-100 text-gray-900 text-xs focus:outline-none py-2 px-8 rounded-md">
+                class="w-full border-0 focus:ring-transparent bg-gray-100 text-gray-900 text-xs focus:outline-none py-2 px-10 rounded-md">
             <button type="button" wire:click="clearSearch"
                 class="h-full absolute z-20 top-0 right-0 flex items-center text-gray-800 focus:outline-none">
                 <i class="fa fa-times mr-5 text-gray-900"></i>

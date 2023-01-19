@@ -6,7 +6,7 @@
                     <!-- Slides -->
                     @foreach ($this->sliders as $slider)
                         <div class="swiper-slide">
-                            <div class="flex flex-wrap -mx-4 py-10"
+                            <div class="flex flex-wrap -mx-4 py-10 px-4"
                                 style="background-image: url({{ asset('images/sliders/' . $slider->photo) }});background-size: cover;background-position: center;">
                                 <div class="w-full md:w-1/2 px-4 lg:mb-5 sm:mb-2">
                                     <div class="max-w-md lg:py-5 py-10 text-white px-2">
