@@ -27,20 +27,36 @@
                                 {{ $products->count() }} {{ __('Watches') }}
                             </p>
                         </li>
+                        <li>
+                            <p class="mx-4 space-x-2">
+                                @if (isset($category_id))
+                                    {{ \App\Helpers::categoryName($category_id) }}
+                                    <button type="button" wire:click="clearFilter('category')"
+                                        class="text-red-500">X</button>
+                                @endif
+                                @if (isset($brand_id))
+                                    {{ \App\Helpers::brandName($brand_id) }}
+                                    <button type="button" wire:click="clearFilter('brand')"
+                                        class="text-red-500">X</button>
+                                @endif
+                                @if (isset($subcategory_id))
+                                    {{ \App\Helpers::subcategoryName($subcategory_id) }}
+                                    <button type="button" wire:click="clearFilter('subcategory')"
+                                        class="text-red-500">X</button>
+                                @endif
+                            </p>
+                        </li>
                     </ul>
                 </div>
 
                 <div class="w-full sm:w-auto flex justify-center my-2 overflow-x-scroll">
                     <select
-                        class="px-4 py-2 mr-2 leading-4 bg-white text-gray-700 rounded border border-zinc-300 mb-1 text-xs focus:shadow-outline-blue focus:border-blue-500"
+                        class="px-5 py-3 mr-2 leading-5 bg-white text-gray-700 rounded border border-zinc-300 mb-1 text-sm focus:shadow-outline-blue focus:border-blue-500"
                         id="sortBy" wire:model="sorting">
-                        <option disabled>{{ __('Best Selling') }}</option>
-                        <option value="name">{{ __('Order Alphabetic, A-Z') }}</option>
-                        <option value="name-desc">{{ __('Order Alphabetic, Z-A') }}</option>
-                        <option value="price">{{ __('Price, low to high') }}</option>
-                        <option value="price-desc">{{ __('Price, high to low') }}</option>
-                        <option value="date">{{ __('Date, new to old') }}</option>
-                        <option value="date-desc">{{ __('Date, old to new') }}</option>
+                        <option disabled>{{ __('Choose filters') }}</option>
+                        @foreach ($sortingOptions as $value => $label)
+                            <option value="{{ $value }}">{{ $label }}</option>
+                        @endforeach
                     </select>
 
                     <select wire:model="perPage" name="perPage"
@@ -52,10 +68,9 @@
                 </div>
             </div>
             <div class="overflow-x-scroll flex w-full py-2 lg:mb-4 px-4 ">
-                <h3 class="px-2 mr-2">{{ __('Brands') }}:</h3>
                 @foreach ($this->brands as $brand)
                     <x-button type="button" primaryOutline class="mx-2"
-                        wire:click="filterProductBrands({{ $brand->id }})">
+                        wire:click="filterProducts('brand', {{ $brand->id }})">
                         {{ $brand->name }}
                         <span class="text-sm ml-2">
                             ({{ $brand->products->count() }})
@@ -64,10 +79,10 @@
                 @endforeach
             </div>
             <div class="overflow-x-scroll flex w-full py-2 lg:mb-4 px-4 ">
-                <h3 class="px-2 mr-2">{{ __('Categories') }}:</h3>
+
                 @foreach ($this->categories as $category)
                     <x-button type="button" blackOutline class="mx-2"
-                        wire:click="filterProductCategories({{ $category->id }})">
+                        wire:click="filterProducts('category', {{ $category->id }})">
                         {{ $category->name }}
                         <span class="text-sm ml-2">
                             ({{ $category->products->count() }})
@@ -77,7 +92,7 @@
 
                 @foreach ($this->subcategories as $subcategory)
                     <x-button type="button" blackOutline class="mx-2"
-                        wire:click="filterProductSubcategories({{ $subcategory->id }})">
+                        wire:click="filterProducts('subcategory', {{ $subcategory->id }})">
                         {{ $subcategory->name }}
                         <span class="text-sm ml-2">
                             ({{ $subcategory->products->count() }})

@@ -163,14 +163,14 @@ class Checkout extends Component
             $shipping = Shipping::find($this->shipping_id);
             $cost = $shipping->cost;
             $total = Cart::instance('shopping')->total();
-            if($cost > 0){
+
+            if ($cost > 0) {
                 $this->cartTotal = $total + $cost;
-            }else{
+            } else {
                 $this->cartTotal = $total;
             }
         }
     }
-
 
       public function decreaseQuantity($rowId)
       {

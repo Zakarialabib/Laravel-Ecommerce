@@ -21,10 +21,6 @@ class Catalog extends Component
 
     public int $perPage;
 
-    public array $orderable;
-
-    public string $search = '';
-
     public array $paginationOptions;
 
     public $maxPrice;
@@ -39,42 +35,57 @@ class Catalog extends Component
 
     public $sorting;
 
-    public $filterProductCategories;
-    public $filterProductBrands;
-    public $filterProductSubcategories;
+    public $sortingOptions;
+
+    public $selectedFilters = [];
 
     protected $queryString = [
-        'search'        => [
-            'except' => '',
-        ],
-        'sortBy'        => [
-            'except' => 'id',
-        ],
-        'sortDirection' => [
-            'except' => 'desc',
-        ],
+        'category_id'    => ['except' => '', 'as' => 'c'],
+        'subcategory_id' => ['except' => '', 'as' => 's'],
+        'brand_id'       => ['except' => '', 'as' => 'b'],
+        'sorting'        => ['except' => '', 'as' => 'f'],
+        'maxPrice'       => ['except' => '', 'as' => 'max'],
+        'minPrice'       => ['except' => '', 'as' => 'min'],
     ];
 
-    public function filterProductCategories($category_id)
+    public function filterProducts($type, $value)
     {
-        $this->category_id = $category_id;
+        switch($type) {
+            case 'category':
+                $this->category_id = $value;
+
+                break;
+            case 'subcategory':
+                $this->subcategory_id = $value;
+
+                break;
+            case 'brand':
+                $this->brand_id = $value;
+
+                break;
+        }
         $this->resetPage();
     }
 
-    public function filterProductSubcategories($subcategory_id)
+    public function clearFilter($filter)
     {
-        $this->subcategory_id = $subcategory_id;
-        $this->resetPage();
-    }
+        switch($filter) {
+            case 'category':
+                $this->category_id = null;
+                unset($this->selectedFilters['category']);
 
-    public function filterProductBrands($brand_id)
-    {
-        $this->brand_id = $brand_id;
-        $this->resetPage();
-    }
+                break;
+            case 'subcategory':
+                $this->subcategory_id = null;
+                unset($this->selectedFilters['subcategory']);
 
-    public function updatingSearch()
-    {
+                break;
+            case 'brand':
+                $this->brand_id = null;
+                unset($this->selectedFilters['brand']);
+
+                break;
+        }
         $this->resetPage();
     }
 
@@ -85,25 +96,38 @@ class Catalog extends Component
 
     public function mount()
     {
-        $this->minPrice = Product::active()->lowestPrice()->price;
-        $this->maxPrice = Product::active()->highestPrice()->price;
-        $this->sorting = 'default';
-        $this->sortBy = 'id';
-        $this->sortDirection = 'desc';
+        $this->sortingOptions = [
+            'name-asc'   => __('Order Alphabetic, A-Z'),
+            'name-desc'  => __('Order Alphabetic, Z-A'),
+            'price-asc'  => __('Price, low to high'),
+            'price-desc' => __('Price, high to low'),
+            'date-asc'   => __('Date, new to old'),
+            'date-desc'  => __('Date, old to new'),
+        ];
+        $this->selectedFilters = [];
+
         $this->perPage = 25;
         $this->paginationOptions = [25, 50, 100];
-        $this->orderable = (new Product())->orderable;
     }
 
     public function render(): View|Factory
     {
         $query = Product::active()
-            ->whereBetween('price', [$this->minPrice, $this->maxPrice])
-            ->advancedFilter([
-                's'               => $this->search ?: null,
-                'order_column'    => $this->sortBy,
-                'order_direction' => $this->sortDirection,
-            ]);
+            ->when($this->minPrice, function ($query) {
+                return $query->where('price', '>=', $this->minPrice);
+            })
+            ->when($this->maxPrice, function ($query) {
+                return $query->where('price', '<=', $this->maxPrice);
+            })
+            ->when($this->category_id, function ($query) {
+                return $query->where('category_id', $this->category_id);
+            })
+            ->when($this->subcategory_id, function ($query) {
+                return $query->where('subcategory_id', $this->subcategory_id);
+            })
+            ->when($this->brand_id, function ($query) {
+                return $query->where('brand_id', $this->brand_id);
+            });
 
         if ($this->sorting == 'name') {
             $products = $query->orderBy('name', 'asc')->paginate($this->perPage);
@@ -117,14 +141,6 @@ class Catalog extends Component
             $products = $query->orderBy('created_at', 'asc')->paginate($this->perPage);
         } elseif ($this->sorting == 'date-desc') {
             $products = $query->orderBy('created_at', 'desc')->paginate($this->perPage);
-        } elseif ($this->brand_id) {
-            $products = $query->where('brand_id', $this->brand_id)->paginate($this->perPage);
-        } elseif ($this->category_id) {
-            $products = $query->where('category_id', $this->category_id)->paginate($this->perPage);
-        } elseif ($this->subcategory_id) {
-            $query->when($this->subcategory_id, function ($query) {
-                return $query->where('subcategory_id', $this->subcategory_id);
-            })->paginate($this->perPage);
         } else {
             $products = $query->paginate($this->perPage);
         }

@@ -14,23 +14,23 @@ use Livewire\Component;
 class Select extends Component
 {
     use LivewireAlert;
-    
+
     public Model $model;
 
     public $field;
-    
+
     public $selectType = 'category_id';
 
     public $subcategory_id;
 
     public $brand_id;
-    
+
     public $category_id;
 
     public $uniqueId;
 
     protected $listeners = ['updating', 'changeSelectType'];
-    
+
     public function changeSelectType($value)
     {
         $this->selectType = $value;
@@ -40,7 +40,7 @@ class Select extends Component
     public function mount(Model $model)
     {
         $this->model = $model;
-        $this->field  = 'category_id';
+        $this->field = 'category_id';
         $this->category_id = $this->model->category_id;
         $this->subcategory_id = $this->model->subcategory_id;
         $this->brand_id = $this->model->brand_id;
@@ -69,7 +69,7 @@ class Select extends Component
     {
         return view('livewire.select');
     }
-    
+
     public function getCategoriesProperty()
     {
         return Category::select('name', 'id')->get();
@@ -79,9 +79,9 @@ class Select extends Component
     {
         return Subcategory::select('name', 'id')->get();
     }
-   
+
     public function getBrandsProperty()
-     {
-         return Brand::select('name', 'id')->get();
-     }
+    {
+        return Brand::select('name', 'id')->get();
+    }
 }

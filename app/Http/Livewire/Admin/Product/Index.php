@@ -6,7 +6,6 @@ namespace App\Http\Livewire\Admin\Product;
 
 use App\Http\Livewire\WithSorting;
 use App\Models\Product;
-use App\Models\Subcategory;
 use Illuminate\Support\Facades\Gate;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Livewire\Component;
@@ -208,5 +207,4 @@ class Index extends Component
          $this->copyOldPriceToPrice = '';
          $this->percentage = '';
      }
-
 }

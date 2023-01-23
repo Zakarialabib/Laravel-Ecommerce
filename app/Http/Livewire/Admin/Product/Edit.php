@@ -95,7 +95,7 @@ class Edit extends Component
         return Category::select('id', 'name')
             ->get();
     }
-    
+
     public function getSubcategoriesProperty()
     {
         return Subcategory::select('name', 'id')->get();

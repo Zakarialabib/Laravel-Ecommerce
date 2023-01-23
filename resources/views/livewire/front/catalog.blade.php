@@ -27,19 +27,35 @@
                                 {{ $products->count() }} {{ __('Watches') }}
                             </p>
                         </li>
+                        <li>
+                            <p class="mx-4 space-x-2">
+                                @if (isset($category_id))
+                                    {{ \App\Helpers::categoryName($category_id) }}
+                                    <button type="button" wire:click="clearFilter('category')"
+                                        class="text-red-500">X</button>
+                                @endif
+                                @if (isset($brand_id))
+                                    {{ \App\Helpers::brandName($brand_id) }}
+                                    <button type="button" wire:click="clearFilter('brand')"
+                                        class="text-red-500">X</button>
+                                @endif
+                                @if (isset($subcategory_id))
+                                    {{ \App\Helpers::subcategoryName($subcategory_id) }}
+                                    <button type="button" wire:click="clearFilter('subcategory')"
+                                        class="text-red-500">X</button>
+                                @endif
+                            </p>
+                        </li>
                     </ul>
                 </div>
                 <div class="w-full sm:w-auto flex justify-center my-2 overflow-x-scroll">
                     <select
                         class="px-5 py-3 mr-2 leading-5 bg-white text-gray-700 rounded border border-zinc-300 mb-1 text-sm focus:shadow-outline-blue focus:border-blue-500"
                         id="sortBy" wire:model="sorting">
-                        <option disabled>{{ __('Best Selling') }}</option>
-                        <option value="name">{{ __('Order Alphabetic, A-Z') }}</option>
-                        <option value="name-desc">{{ __('Order Alphabetic, Z-A') }}</option>
-                        <option value="price">{{ __('Price, low to high') }}</option>
-                        <option value="price-desc">{{ __('Price, high to low') }}</option>
-                        <option value="date">{{ __('Date, new to old') }}</option>
-                        <option value="date-desc">{{ __('Date, old to new') }}</option>
+                        <option disabled>{{ __('Choose filters') }}</option>
+                        @foreach ($sortingOptions as $value => $label)
+                            <option value="{{ $value }}">{{ $label }}</option>
+                        @endforeach
                     </select>
                     <select
                         class="px-5 py-3 mr-3 leading-5 bg-white text-gray-700 rounded border border-zinc-300 mb-1 text-sm focus:shadow-outline-blue focus:border-blue-500"
@@ -67,7 +83,7 @@
                                     @foreach ($this->categories as $category)
                                         <li class="w-1/2 px-2 mb-2">
                                             <x-button type="button"
-                                                wire:click="filterProductCategories({{ $category->id }})"
+                                                wire:click="filterProducts('category', {{ $category->id }})"
                                                 dangerOutline>
                                                 {{ $category->name }}
                                                 <span class="text-sm ml-2">
@@ -80,7 +96,7 @@
                                     @foreach ($this->subcategories as $subcategory)
                                         <li class="w-1/2 px-2 mb-2">
                                             <x-button type="button"
-                                                wire:click="filterProductSubcategories({{ $subcategory->id }})"
+                                                wire:click="filterProducts('subcategory', {{ $subcategory->id }})"
                                                 dangerOutline>
                                                 {{ $subcategory->name }}
                                                 <span class="text-sm ml-2">
@@ -96,10 +112,12 @@
                                     <div class="mt-6 -mb-2">
                                         <div class="flex justify-between">
                                             <span class="inline-block text-lg font-bold font-heading text-blue-300">
-                                                <input type="text" class="w-full" wire:model="maxPrice">
+                                                <p class="">{{ __('Min Price') }}</p>
+                                                <x-input type="text" wire:model="minPrice" placeholder="350" />
                                             </span>
                                             <span class="inline-block text-lg font-bold font-heading text-blue-300">
-                                                <input type="text" class="w-full" wire:model="minPrice">
+                                                <p class="">{{ __('Max Price') }}</p>
+                                                <x-input type="text" wire:model="maxPrice" placeholder="1000" />
                                             </span>
                                         </div>
                                     </div>
@@ -112,7 +130,7 @@
                                         @foreach ($this->brands as $brand)
                                             <div class="w-1/2 px-2 mb-2">
                                                 <x-button type="button"
-                                                    wire:click="filterProductBrands({{ $brand->id }})"
+                                                    wire:click="filterProducts('brand', {{ $brand->id }})"
                                                     warningOutline>
                                                     {{ $brand->name }}
                                                     <span class="text-sm ml-2">
@@ -139,7 +157,7 @@
                     <ul x-show="openCategory">
                         @foreach ($this->categories as $category)
                             <li class="mb-2">
-                                <button type="button" wire:click="filterProductCategories({{ $category->id }})">
+                                <button type="button" wire:click="filterProducts('category', {{ $category->id }})">
                                     <span class="inline-block px-4 py-2 text-sm font-bold font-heading text-blue-300">
                                         {{ $category->name }} <small>
                                             ({{ $category->products->count() }})
@@ -149,6 +167,11 @@
                             </li>
                         @endforeach
                     </ul>
+                    @if (!empty($category_id))
+                        <div class="text-right">
+                            <button wire:click="clearFilter('category')">{{ __('Clear') }}</button>
+                        </div>
+                    @endif
                 </div>
                 <div class="mb-6 p-4 bg-gray-50" x-data="{ openSubcategory: true }">
                     <div class="flex justify-between mb-8">
@@ -161,7 +184,7 @@
                         @foreach ($this->subcategories as $subcategory)
                             <li class="mb-2">
                                 <button type="button"
-                                    wire:click="filterProductSubcategories({{ $subcategory->id }})">
+                                    wire:click="filterProducts('subcategory', {{ $subcategory->id }})">
                                     <span class="inline-block px-4 py-2 text-sm font-bold font-heading text-blue-300">
                                         {{ $subcategory->name }} <small>
                                             ({{ $subcategory->products->count() }})
@@ -171,6 +194,11 @@
                             </li>
                         @endforeach
                     </ul>
+                    @if (!empty($subcategory_id))
+                        <div class="text-right">
+                            <button wire:click="clearFilter('subcategory')">{{ __('Clear') }}</button>
+                        </div>
+                    @endif
                 </div>
 
                 <div class="mb-6 p-4 bg-gray-50">
@@ -178,10 +206,12 @@
                     <div>
                         <div class="flex justify-between">
                             <span class="inline-block text-lg font-bold font-heading text-blue-300">
-                                <input type="text" class="w-full" wire:model="maxPrice">
+                                <p class="">{{ __('Min Price') }}</p>
+                                <x-input type="text" wire:model="minPrice" placeholder="350" />
                             </span>
                             <span class="inline-block text-lg font-bold font-heading text-blue-300">
-                                <input type="text" class="w-full" wire:model="minPrice">
+                                <p class="">{{ __('Max Price') }}</p>
+                                <x-input type="text" wire:model="maxPrice" placeholder="1000" />
                             </span>
                         </div>
                     </div>
@@ -196,7 +226,7 @@
                     <ul x-show="openbrands" class="flex flex-wrap items-center">
                         @foreach ($this->brands as $brand)
                             <li class="mx-2 mb-2">
-                                <button type="button" wire:click="filterProductBrands({{ $brand->id }})">
+                                <button type="button" wire:click="filterProducts('brand', {{ $brand->id }})">
                                     <span class="inline-block px-4 py-2 text-sm font-bold font-heading text-blue-300">
                                         {{ $brand->name }} <small> ({{ $brand->products->count() }})</small>
                                     </span>
@@ -204,13 +234,24 @@
                             </li>
                         @endforeach
                     </ul>
+                    @if (!empty($brand_id))
+                        <div class="text-right">
+                            <button wire:click="clearFilter('brand')">{{ __('Clear') }}</button>
+                        </div>
+                    @endif
                 </div>
             </div>
             <div class="w-full lg:w-3/4 px-4" wire:loading.class.delay="opacity-50">
                 <div class="grid gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 mb-10">
-                    @foreach ($products as $product)
+                    @forelse ($products as $product)
                         <x-product-card :product="$product" />
-                    @endforeach
+                    @empty
+                        <div class="w-full">
+                            <h3 class="text-3xl font-bold font-heading text-blue-900">
+                                {{ __('No products found') }}
+                            </h3>
+                        </div>
+                    @endforelse
                 </div>
                 <div class="text-center">
                     {{ $products->links() }}

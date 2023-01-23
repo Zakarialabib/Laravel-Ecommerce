@@ -21,10 +21,6 @@ class Brands extends Component
 
     public int $perPage;
 
-    public array $orderable;
-
-    public string $search = '';
-
     public array $paginationOptions;
 
     public $category_id;
@@ -35,67 +31,87 @@ class Brands extends Component
 
     public $sorting;
 
-    public $filterProductCategories;
-    public $filterProductBrands;
-    public $filterProductSubcategories;
+    public $sortingOptions;
+
+    public $selectedFilters = [];
 
     protected $queryString = [
-        'search'        => [
-            'except' => '',
-        ],
-        'sortBy'        => [
-            'except' => 'id',
-        ],
-        'sortDirection' => [
-            'except' => 'desc',
-        ],
+        'category_id'    => ['except' => '', 'as' => 'c',],
+        'subcategory_id' => ['except' => '', 'as' => 's'],
+        'brand_id'       => ['except' => '', 'as' => 'b'],
+        'sorting'        => ['except' => '', 'as' => 'filters'],
     ];
-
-    public function updatingSearch()
-    {
-        $this->resetPage();
-    }
 
     public function updatingPerPage()
     {
         $this->resetPage();
     }
 
-    public function filterProductBrands($brand_id)
+    public function filterProducts($type, $value)
     {
-        $this->brand_id = $brand_id;
+        switch($type) {
+            case 'category':
+                $this->category_id = $value;
+
+                break;
+            case 'subcategory':
+                $this->subcategory_id = $value;
+
+                break;
+            case 'brand':
+                $this->brand_id = $value;
+                break;
+        }
         $this->resetPage();
     }
 
-    public function filterProductCategories($category_id)
-    {
-        $this->category_id = $category_id;
-        $this->resetPage();
-    }
+      public function clearFilter($filter)
+      {
+          switch($filter) {
+              case 'category':
+                  $this->category_id = null;
+                  unset($this->selectedFilters['category']);
 
-    public function filterProductSubcategories($subcategory_id)
-    {
-        $this->subcategory_id = $subcategory_id;
-        $this->resetPage();
-    }
+                  break;
+              case 'subcategory':
+                  $this->subcategory_id = null;
+                  unset($this->selectedFilters['subcategory']);
+                  break;
+            case 'brand':
+                    $this->brand_id = null;
+                    unset($this->selectedFilters['brand']);
+            break;    
+
+          }
+          $this->resetPage();
+      }
 
     public function mount()
     {
-        $this->sorting = 'default';
-        $this->sortBy = 'id';
-        $this->sortDirection = 'desc';
+        $this->sortingOptions = [
+            'name-asc'   => __('Order Alphabetic, A-Z'),
+            'name-desc'  => __('Order Alphabetic, Z-A'),
+            'price-asc'  => __('Price, low to high'),
+            'price-desc' => __('Price, high to low'),
+            'date-asc'   => __('Date, new to old'),
+            'date-desc'  => __('Date, old to new'),
+        ];
         $this->perPage = 25;
         $this->paginationOptions = [25, 50, 100];
-        $this->orderable = (new Product())->orderable;
     }
 
     public function render(): View|Factory
     {
-        $query = Product::active()->advancedFilter([
-            's'               => $this->search ?: null,
-            'order_column'    => $this->sortBy,
-            'order_direction' => $this->sortDirection,
-        ]);
+        $query = Product::active()
+            ->when($this->category_id, function ($query) {
+                return $query->where('category_id', $this->category_id);
+            })
+            ->when($this->subcategory_id, function ($query) {
+                return $query->where('subcategory_id', $this->subcategory_id);
+            })
+            ->when($this->brand_id, function ($query) {
+                return $query->where('brand_id', $this->brand_id);
+            });
 
         if ($this->sorting == 'name') {
             $products = $query->orderBy('name', 'asc')->paginate($this->perPage);
@@ -109,12 +125,6 @@ class Brands extends Component
             $products = $query->orderBy('created_at', 'asc')->paginate($this->perPage);
         } elseif ($this->sorting == 'date-desc') {
             $products = $query->orderBy('created_at', 'desc')->paginate($this->perPage);
-        } elseif ($this->brand_id) {
-            $products = $query->where('brand_id', $this->brand_id)->paginate($this->perPage);
-        } elseif ($this->category_id) {
-            $products = $query->where('category_id', $this->category_id)->paginate($this->perPage);
-        } elseif ($this->subcategory_id) {
-            $products = $query->where('subcategory_id', $this->subcategory_id)->paginate($this->perPage);
         } else {
             $products = $query->paginate($this->perPage);
         }

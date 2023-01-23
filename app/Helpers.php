@@ -29,6 +29,28 @@ class Helpers
         })->get($key);
     }
 
+    public static function getActiveCategories()
+    {
+        return Category::active()
+            ->select('id', 'name')
+            ->get();
+    }
+
+    public static function categoryName($category_id)
+    {
+        return Category::find($category_id)->name;
+    }
+
+    public static function subcategoryName($subcategory_id)
+    {
+        return Subcategory::find($subcategory_id)->name;
+    }
+
+    public static function brandName($brand_id)
+    {
+        return Brand::find($brand_id)->name;
+    }
+
     /**
      * @param mixed $product
      * @return string|null
