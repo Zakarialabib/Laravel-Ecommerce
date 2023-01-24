@@ -45,30 +45,11 @@ class Language extends Model
         return $this->hasMany('App\Models\Subcategory', 'language_id');
     }
 
-    public function childcategories()
-    {
-        return $this->hasMany('App\Models\Childcategory', 'language_id');
-    }
-
-    public function faqs()
-    {
-        return $this->hasMany('App\Models\Faq', 'language_id');
-    }
-
-    public function packages()
-    {
-        return $this->hasMany('App\Models\Package', 'language_id');
-    }
-
     public function pages()
     {
         return $this->hasMany('App\Models\Page', 'language_id');
     }
 
-    public function pickups()
-    {
-        return $this->hasMany('App\Models\Pickup', 'language_id');
-    }
 
     public function shippings()
     {

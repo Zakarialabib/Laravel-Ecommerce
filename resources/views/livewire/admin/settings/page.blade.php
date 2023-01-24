@@ -91,14 +91,6 @@
         <div class="flex justifiy-center">
 
             <div class="lg:w-1/2 sm:w-full px-2 justify-between">
-                <label for="faq">{{ __('Faq') }} *</label>
-                <label class="switch">
-                    <input type="checkbox" name="faq" value="1" {{ $data->faq == 1 ? 'checked' : '' }}>
-                    <span class="slider round"></span>
-                </label>
-            </div>
-
-            <div class="lg:w-1/2 sm:w-full px-2 justify-between">
                 <label for="contact_us">{{ __('Contact Us') }} *</label>
                 <label class="switch">
                     <input type="checkbox" name="contact" value="1" {{ $data->contact == 1 ? 'checked' : '' }}>

@@ -107,14 +107,14 @@ Alpine.data("mainState", () => {
     };
 });
 
-Alpine.data("loadingMask", () => ({
-    pageLoaded: false,
-    init() {
-        window.onload = (event) => {
-            this.pageLoaded = true
-        };
-    }
-}));
+// Alpine.data("loadingMask", () => ({
+//     pageLoaded: false,
+//     init() {
+//         window.onload = (event) => {
+//             this.pageLoaded = true
+//         };
+//     }
+// }));
 
 Alpine.plugin(collapse)
 

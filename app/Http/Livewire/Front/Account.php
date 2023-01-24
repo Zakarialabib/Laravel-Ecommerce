@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Auth;
 
 class Account extends Component
 {
-    public $customer;
+    public $user;
     public $first_name;
     public $last_name;
     public $phone;
@@ -25,17 +25,17 @@ class Account extends Component
         'submit',
     ];
 
-    public function mount(User $customer)
+    public function mount(User $user)
     {
-        // $customer =   User::find(Auth::user()->id);
-        $this->first_name = $customer->first_name;
-        $this->last_name = $customer->last_name;
-        $this->address = $customer->address;
-        $this->phone = $customer->phone;
-        $this->city = $customer->city;
-        $this->country = $customer->country;
-        $this->email = $customer->email;
-        $this->password = $customer->password;
+        $user =   User::find(Auth::user()->id);
+        $this->first_name = $user->first_name;
+        $this->last_name = $user->last_name;
+        $this->address = $user->address;
+        $this->phone = $user->phone;
+        $this->city = $user->city;
+        $this->country = $user->country;
+        $this->email = $user->email;
+        $this->password = $user->password;
     }
 
     protected $rules = [

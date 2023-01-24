@@ -1,3 +1,5 @@
+@section('title', __('Orderforms'))
+
 <x-dashboard-layout>
     
     <section class="py-3 px-4">

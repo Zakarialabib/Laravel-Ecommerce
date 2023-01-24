@@ -7,6 +7,7 @@ namespace App\Http\Controllers;
 use App\Models\Order;
 use App\Models\Blog;
 use App\Models\Brand;
+use App\Models\Category;
 use App\Models\Subcategory;
 use App\Models\User;
 use App\Models\Product;
@@ -46,7 +47,7 @@ class FrontController extends Controller
     {
         $category = Category::where('slug', $slug)->first();
 
-        return view('front.category-page', compact('subcategory'));
+        return view('front.category-page', compact('category'));
     }
 
     public function subcategories()

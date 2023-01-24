@@ -78,34 +78,37 @@
                             </button>
                         </div>
                         <div x-show="openFilters">
-                            <div class="w-full px-2 overflow-x-scroll bg-gray-50">
-                                <ul class="my-6 w-full flex">
-                                    @foreach ($this->categories as $category)
-                                        <li class="w-1/2 px-2 mb-2">
-                                            <x-button type="button"
-                                                wire:click="filterProducts('category', {{ $category->id }})"
-                                                dangerOutline>
-                                                {{ $category->name }}
-                                                <span class="text-sm ml-2">
-                                                    ({{ $category->products->count() }})
-                                                </span>
-                                            </x-button>
-                                        </li>
-                                    @endforeach
-
-                                    @foreach ($this->subcategories as $subcategory)
-                                        <li class="w-1/2 px-2 mb-2">
-                                            <x-button type="button"
-                                                wire:click="filterProducts('subcategory', {{ $subcategory->id }})"
-                                                dangerOutline>
-                                                {{ $subcategory->name }}
-                                                <span class="text-sm ml-2">
-                                                    ({{ $subcategory->products->count() }})
-                                                </span>
-                                            </x-button>
-                                        </li>
-                                    @endforeach
-                                </ul>
+                            <div class="w-full">
+                                <div class="w-full mb-6 text-center">
+                                    <ul class="mb-2 flex overflow-x-scroll">
+                                        @foreach ($this->categories as $category)
+                                            <li class="w-1/2 px-2 mb-2">
+                                                <x-button type="button"
+                                                    wire:click="filterProducts('category', {{ $category->id }})"
+                                                    dangerOutline>
+                                                    {{ $category->name }}
+                                                    <span class="text-sm ml-2">
+                                                        ({{ $category->products->count() }})
+                                                    </span>
+                                                </x-button>
+                                            </li>
+                                        @endforeach
+                                    </ul>
+                                    <ul class="my-6 w-full overflow-x-scroll">
+                                        @foreach ($this->subcategories as $subcategory)
+                                            <li class="w-1/2 px-2 mb-2">
+                                                <x-button type="button"
+                                                    wire:click="filterProducts('subcategory', {{ $subcategory->id }})"
+                                                    dangerOutline>
+                                                    {{ $subcategory->name }}
+                                                    <span class="text-sm ml-2">
+                                                        ({{ $subcategory->products->count() }})
+                                                    </span>
+                                                </x-button>
+                                            </li>
+                                        @endforeach
+                                    </ul>
+                                </div>
 
                                 <div class="mb-6 text-center w-full">
                                     <p class="font-bold font-heading">{{ __('Price budget') }}</p>
@@ -122,7 +125,6 @@
                                         </div>
                                     </div>
                                 </div>
-
 
                                 <div class="w-full mb-6 text-center">
                                     <p class="font-bold font-heading">{{ __('Brands') }}</p>
@@ -141,6 +143,7 @@
                                         @endforeach
                                     </div>
                                 </div>
+
                             </div>
                         </div>
                     </div>

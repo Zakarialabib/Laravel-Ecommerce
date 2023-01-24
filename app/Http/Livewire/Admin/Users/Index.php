@@ -100,7 +100,7 @@ class Index extends Component
     {
         abort_if(Gate::denies('user_access'), 403);
 
-        $query = User::with(['roles'])->advancedFilter([
+        $query = User::with('roles')->advancedFilter([
             's'               => $this->search ?: null,
             'order_column'    => $this->sortBy,
             'order_direction' => $this->sortDirection,

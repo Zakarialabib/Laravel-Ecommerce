@@ -92,7 +92,7 @@ class Index extends Component
 
     public function render(): View|Factory
     {
-        $query = Subcategory::with('category')->advancedFilter([
+        $query = Subcategory::with('categories')->advancedFilter([
             's'               => $this->search ?: null,
             'order_column'    => $this->sortBy,
             'order_direction' => $this->sortDirection,
