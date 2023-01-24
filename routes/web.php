@@ -3,7 +3,9 @@
 declare(strict_types=1);
 
 use App\Http\Controllers\FrontController;
+use App\Http\Controllers\ErrorController;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Http\Request;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,6 +17,9 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
+
+require __DIR__.'/auth.php';
+require __DIR__.'/admin.php';
 
 Route::get('/', [FrontController::class, 'index'])->name('front.index');
 Route::get('/catalog', [FrontController::class, 'catalog'])->name('front.catalog');
@@ -32,9 +37,12 @@ Route::get('/a-propos', [FrontController::class, 'about'])->name('front.about');
 Route::get('/blog', [FrontController::class, 'blog'])->name('front.blog');
 Route::get('/blog/{slug}', [FrontController::class, 'blogPage'])->name('front.blogPage');
 Route::get('/generate-sitemap', [FrontController::class, 'generateSitemaps']);
+
+
 Route::middleware('auth')->group(function () {
     Route::get('/mon-compte', [FrontController::class, 'myaccount'])->name('front.myaccount');
 });
 
-require __DIR__.'/auth.php';
-require __DIR__.'/admin.php';
+Route::fallback(function (Request $request) {
+    return app()->make(ErrorController::class)->notFound($request);
+});

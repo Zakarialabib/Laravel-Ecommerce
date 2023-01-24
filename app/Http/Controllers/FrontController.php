@@ -183,7 +183,7 @@ class FrontController extends Controller
         $brands_sitemaps = Sitemap::create();
 
         Brand::select('id', 'slug', 'updated_at')->get()->each(function (Brand $brand) use ($brands_sitemaps) {
-            $brands_sitemaps->add(Url::create("/brand/{$brand->slug}")
+            $brands_sitemaps->add(Url::create("/marque/{$brand->slug}")
                 ->setLastModificationDate($brand->updated_at));
         });
 
@@ -192,7 +192,7 @@ class FrontController extends Controller
         $subcategories_sitemaps = Sitemap::create();
 
         Subcategory::select('id', 'slug', 'updated_at')->get()->each(function (Subcategory $subcategory) use ($subcategories_sitemaps) {
-            $subcategories_sitemaps->add(Url::create("/subcategory/{$subcategory->slug}"));
+            $subcategories_sitemaps->add(Url::create("/categorie/{$subcategory->slug}"));
         });
 
         $subcategories_sitemaps->writeToFile(public_path('subcategories_sitemap.xml'));

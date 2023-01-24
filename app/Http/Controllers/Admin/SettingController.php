@@ -18,4 +18,9 @@ class SettingController extends Controller
     {
         return view('admin.settings.popupsettings');
     }
+   
+    public function redirects()
+    {
+        return view('admin.settings.redirects');
+    }
 }

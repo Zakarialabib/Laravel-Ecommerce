@@ -66,6 +66,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => 'auth'], fu
     Route::get('/settings', [SettingController::class, 'index'])->name('settings');
     Route::get('/shipping', [ShippingController::class, 'index'])->name('setting.shipping');
     Route::get('/popupsettings', [SettingController::class, 'popupsettings'])->name('setting.popupsettings');
+    Route::get('/redirects', [SettingController::class, 'redirects'])->name('setting.redirects');
 
     Route::get('/report', [ReportController::class, 'index'])->name('report');
 
