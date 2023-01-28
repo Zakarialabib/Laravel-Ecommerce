@@ -36,6 +36,11 @@
                     </a>
                 </div>
             </div>
+            <div class="float-right">
+                <x-button primary href="{{route('generate-sitemaps')}}" >
+                    {{ __('Regenerate sitemaps') }}
+                </x-button>
+            </div>
         </div>
     </section>
 

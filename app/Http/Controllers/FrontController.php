@@ -123,7 +123,8 @@ class FrontController extends Controller
 
     public function generateSitemaps()
     {
-        $sitemapIndexPath = SitemapIndex::create()
+        try {
+            $sitemapIndexPath = SitemapIndex::create()
             ->add('/products_sitemap.xml')
             ->add('/brands_sitemap.xml')
             ->add('/pages_sitemap.xml')
@@ -196,5 +197,11 @@ class FrontController extends Controller
         });
 
         $subcategories_sitemaps->writeToFile(public_path('subcategories_sitemap.xml'));
+        
+            return back();
+        } catch (\Throwable $th) {
+            return back();
+        }
+       
     }
 }

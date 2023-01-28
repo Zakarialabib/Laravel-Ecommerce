@@ -245,6 +245,7 @@
                 </div>
             </div>
             <div class="w-full lg:w-3/4 px-4" wire:loading.class.delay="opacity-50">
+                <div itemscope itemtype="https://schema.org/ItemList">
                 <div class="grid gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 mb-10">
                     @forelse ($products as $product)
                         <x-product-card :product="$product" />
@@ -259,6 +260,7 @@
                 <div class="text-center">
                     {{ $products->links() }}
                 </div>
+                </div>  
             </div>
         </div>
     </div>

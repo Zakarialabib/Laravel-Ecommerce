@@ -36,7 +36,7 @@ Route::get('/contact', [FrontController::class, 'contact'])->name('front.contact
 Route::get('/a-propos', [FrontController::class, 'about'])->name('front.about');
 Route::get('/blog', [FrontController::class, 'blog'])->name('front.blog');
 Route::get('/blog/{slug}', [FrontController::class, 'blogPage'])->name('front.blogPage');
-Route::get('/generate-sitemap', [FrontController::class, 'generateSitemaps']);
+Route::get('/generate-sitemap', [FrontController::class, 'generateSitemaps'])->name('generate-sitemaps');
 
 
 Route::middleware('auth')->group(function () {
