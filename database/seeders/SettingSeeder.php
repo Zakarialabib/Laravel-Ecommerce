@@ -21,7 +21,7 @@ class SettingSeeder extends Seeder
         ],
         [
             'key'   => 'company_email_address',
-            'value' => 'connect@badrluxury.com',
+            'value' => 'connect@zakarialabib.com',
         ],
         [
             'key'   => 'company_phone',
@@ -29,7 +29,7 @@ class SettingSeeder extends Seeder
         ],
         [
             'key'   => 'company_address',
-            'value' => 'DerbGhalef , Casablanca, Maroc',
+            'value' => 'Casablanca, Maroc',
         ],
         [
             'key'   => 'currency_code',
