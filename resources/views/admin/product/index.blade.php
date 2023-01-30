@@ -36,12 +36,29 @@
                     </a>
                 </div>
             </div>
-            <div class="float-right">
-                <x-button warning type="button" onclick="Livewire.emit('importModal')" wire:loading.attr="disabled">
-                    {{ __('Import') }}
+            <div class="flex flex-wrap space-x-2 float-right">
+                <x-dropdown align="right" width="48" class="w-auto mr-2">
+                    <x-slot name="trigger" class="inline-flex">
+                        <x-button secondary type="button" class="text-white flex items-center">
+                            <i class="fas fa-angle-double-down w-4 h-4"></i>
+                        </x-button>
+                    </x-slot>
+                    <x-slot name="content">
+                        <x-dropdown-link onclick="Livewire.emit('importModal')" wire:loading.attr="disabled">
+                            {{ __('Import') }}
+                        </x-dropdown-link>
+                        <x-dropdown-link onclick="Livewire.emit('exportAll')" wire:loading.attr="disabled">
+                            {{ __('PDF') }}
+                        </x-dropdown-link>
+                        <x-dropdown-link onclick="Livewire.emit('downloadAll')" wire:loading.attr="disabled">
+                            {{ __('Excel') }}
+                        </x-dropdown-link>
+                    </x-slot>
+                </x-dropdown>
+
+                <x-button primary type="button" onclick="Livewire.emit('createProduct')">
+                    {{ __('Create Product') }}
                 </x-button>
-                
-                <x-button primary type="button" onclick="Livewire.emit('createProduct')">{{ __('Create') }}</x-button>
             </div>
         </div>
     </section>
@@ -53,5 +70,5 @@
     </x-card>
 
     <livewire:admin.product.import />
-    
+
 </x-dashboard-layout>

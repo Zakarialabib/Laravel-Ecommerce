@@ -18,6 +18,12 @@
                 <x-button primary type="button" wire:click="promoAllProducts" class="ml-3">
                     <i class="fas fa-percent"></i>
                 </x-button>
+                <x-button success type="button" wire:click="downloadSelected" wire:loading.attr="disabled">
+                    {{ __('EXCEL') }}
+                </x-button>
+                <x-button warning type="button" wire:click="exportSelected" wire:loading.attr="disabled">
+                    {{ __('PDF') }}
+                </x-button>
             @endif
 
             @if ($this->selectedCount)
@@ -48,7 +54,7 @@
                 {{ __('Name') }}
             </x-table.th>
             <x-table.th>
-                <select name="" id="" wire:change="$emit('changeSelectType', $event.target.value)">
+                <select wire:model="selectType"  wire:change="$emit('changeSelectType', $event.target.value)">
                     <option value="category_id" selected>
                         {{ __('Category') }}
                     </option>

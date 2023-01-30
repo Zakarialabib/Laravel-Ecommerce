@@ -45,9 +45,11 @@ class Select extends Component
         $this->subcategory_id = $this->model->subcategory_id;
         $this->brand_id = $this->model->brand_id;
 
-        $this->selectType = (bool) $this->model->getAttribute($this->field);
+        $this->selectType = $this->model->getAttribute($this->field);
         $this->uniqueId = uniqid();
     }
+
+          
 
     public function updated($field, $value)
     {

@@ -32,14 +32,6 @@ class Popup extends Model
     ];
 
     /**
-     * The attributes that should be hidden for serialization.
-     *
-     *
-     * @var array
-     */
-    protected $hidden = [];
-
-    /**
      * The attributes that should be cast.
      *
      * @var array
@@ -57,8 +49,5 @@ class Popup extends Model
         return $query->where('is_default', true)->first();
     }
 
-    protected static function newFactory()
-    {
-        return PopupFactory::new();
-    }
+  
 }

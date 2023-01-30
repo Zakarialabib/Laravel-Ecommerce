@@ -25,6 +25,9 @@ class Categories extends Component
     public $category_id;
 
     public $subcategory_id;
+    
+    public $brand_id;
+    
     public $sorting;
 
     public $sortingOptions;

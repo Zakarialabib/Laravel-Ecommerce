@@ -11,3 +11,4 @@ Homestead.json
 .phpunit.result.cache
 config/database.php
 *.stub
+*.xlsx

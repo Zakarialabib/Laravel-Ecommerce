@@ -13,6 +13,8 @@ use Livewire\WithFileUploads;
 use Livewire\WithPagination;
 use Illuminate\Contracts\View\View;
 use Illuminate\Contracts\View\Factory;
+use App\Exports\ProductExport;
+use Symfony\Component\HttpFoundation\BinaryFileResponse;
 
 class Index extends Component
 {
@@ -26,8 +28,11 @@ class Index extends Component
     public $listeners = [
         'refreshIndex' => '$refresh',
         'promoAllProducts',
-        'delete',
+        'delete', 'downloadAll',
+        'exportAll'
     ];
+    
+    public $selectType;
 
     public $promoAllProducts = false;
 
@@ -48,6 +53,8 @@ class Index extends Component
     public $selectAll;
 
     public $file;
+    
+    public float $price;
 
     public string $search = '';
 
@@ -95,6 +102,7 @@ class Index extends Component
         $this->paginationOptions = [25, 50, 100];
         $this->orderable = (new Product())->orderable;
         $this->file = null;
+        $this->selectType = 'category_id';
     }
 
     public function render(): View|Factory
@@ -206,5 +214,36 @@ class Index extends Component
          $this->copyPriceToOldPrice = '';
          $this->copyOldPriceToPrice = '';
          $this->percentage = '';
+     }
+
+      public function downloadSelected()
+    {
+
+        $products = Product::whereIn('id', $this->selected)->get();
+
+        return (new ProductExport($products))->download('products.xls', \Maatwebsite\Excel\Excel::XLS);
+    }
+
+    public function downloadAll(Product $products)
+    {
+
+        return (new ProductExport($products))->download('products.xls', \Maatwebsite\Excel\Excel::XLS);
+    }
+
+
+     public function exportSelected(): BinaryFileResponse
+     { 
+        return $this->callExport()->forModels($this->selected)->download('products.pdf', \Maatwebsite\Excel\Excel::MPDF);
+     }
+ 
+     public function exportAll(): BinaryFileResponse
+     {
+ 
+         return $this->callExport()->download('products.pdf', \Maatwebsite\Excel\Excel::MPDF);
+     }
+ 
+     private function callExport(): ProductExport
+     {
+         return (new ProductExport());
      }
 }

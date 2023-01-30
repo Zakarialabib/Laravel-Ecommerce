@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Https\Livewire;
+namespace App\Http\Livewire\Admin\Settings;
 
 use Livewire\Component;
 use App\Models\Popup;

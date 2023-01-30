@@ -29,24 +29,24 @@ class Popups extends Component
 
     public string $ctaUrl;
 
-    public function mount()
+    protected $listeners = ['showDelay','showDuration','showInterval'];
+
+    public function showDelay($delay)
     {
-        $this->show = false;
+        $this->delay = $delay;
+        $this->show = true;
+    }
 
-        $this->listen('showDelay', function ($delay) {
-            $this->delay = $delay;
-            $this->show = true;
-        });
+    public function showDuration($duration)
+    {
+        $this->duration = $duration;
+        $this->show = true;
+    }
 
-        $this->listen('showDuration', function ($duration) {
-            $this->duration = $duration;
-            $this->show = true;
-        });
-
-        $this->listen('showInterval', function ($interval) {
-            $this->interval = $interval;
-            $this->show = true;
-        });
+    public function showInterval($interval)
+    {
+        $this->interval = $interval;
+        $this->show = true;
     }
 
     public function render()

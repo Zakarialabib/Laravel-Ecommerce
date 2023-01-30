@@ -188,6 +188,7 @@ return [
         Spatie\Permission\PermissionServiceProvider::class,
         Maatwebsite\Excel\ExcelServiceProvider::class,
         Intervention\Image\ImageServiceProvider::class,
+        Shreesthapit\Corewebvitals\CoreWebVitalServiceProvider::class,
         /*
          * Application Service Providers...
          */

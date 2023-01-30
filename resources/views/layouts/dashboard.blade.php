@@ -25,7 +25,6 @@
 </head>
 
 <body class="antialiased bg-body text-body font-body"  dir="ltr">
-    <x-loading-mask />
     <div @resize.window="handleWindowResize">
         <div class="min-h-screen">
             <!-- Sidebar -->

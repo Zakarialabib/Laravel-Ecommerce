@@ -1,15 +1,6 @@
 @section('title', __('Dashboard'))
 <x-dashboard-layout>
-    <div class="content-area">
-
-        @if (Session::has('cache'))
-            <div class="alert alert-success validation">
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
-                        aria-hidden="true">×</span></button>
-                <h3 class="text-center">{{ Session::get('cache') }}</h3>
-            </div>
-        @endif
-
+    <div>
         <div class="bg-white">
             <div class="md:inline-flex float-right pt-2 pb-5 sm:flex sm:flex-wrap">
                 <x-button type="button" primary data-date="today" class="js-date mr-2 active">
@@ -156,13 +147,14 @@
 
         </div>
 
+        <x-core-web-vital-core-web-component/>
+
         <div class="flex flex-row my-4">
 
             <div class="lg:w-1/2 md:w-full6">
                 <x-card>
                     <h5 class="font-bold py-2 text-xl">{{ __('Recent Order(s)') }}</h5>
                     <div class="card-body">
-
                         <div class="">
                             <x-table>
                                 <x-slot name="thead">
