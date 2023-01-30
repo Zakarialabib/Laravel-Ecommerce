@@ -42,10 +42,8 @@ Laravel Ecommerce shopping cart project! This project is a full-featured online 
 
 - Home
 ![Home](screens/home.png)
-- BrandPage
-![BrandPage](screens/brands-page.png)
-- CartSideBar
-![CartSideBar](screens/cart-sidebar.png)
+- Catalog
+![Catalog](screens/Catalog.png)
 - Dashboard
 ![Dashboard](screens/dashboard.png)
 - DashboardProducts
