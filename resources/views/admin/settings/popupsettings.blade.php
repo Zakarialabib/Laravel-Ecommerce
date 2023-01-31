@@ -47,7 +47,7 @@
 
     <x-card>
         <div>
-            @livewire('admin.settings.popupsettings')
+            @livewire('admin.settings.popup-settings')
         </div>
     </x-card>
 </x-dashboard-layout>

@@ -17,8 +17,6 @@ class PopupSettings extends Component
     use WithPagination;
     use WithSorting;
 
-    public $popups;
-
     public $popup;
 
     public $popupModal = false;
@@ -175,6 +173,6 @@ class PopupSettings extends Component
     {
         $popups = Popup::all();
 
-        return view('livewire.admin.settings.popupsettings', compact('popups'));
+        return view('livewire.admin.settings.popup-settings', compact('popups'));
     }
 }

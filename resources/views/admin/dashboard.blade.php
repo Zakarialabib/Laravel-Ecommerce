@@ -147,8 +147,6 @@
 
         </div>
 
-        <x-core-web-vital-core-web-component/>
-
         <div class="flex flex-row my-4">
 
             <div class="lg:w-1/2 md:w-full6">
@@ -216,6 +214,9 @@
                 </x-card>
             </div>
         </div>
+        
+        <x-core-web-vital-insight-component/>
+
     </div>
 </x-dashboard-layout>
 
