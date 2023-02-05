@@ -22,8 +22,6 @@
         </div>
     </div>
 
-    {{-- <x-loader /> --}}
-
     <x-table>
         <x-slot name="thead">
             <x-table.th>#</x-table.th>

@@ -22,7 +22,7 @@
         </div>
     </div>
 
-    <x-loader />
+    
 
     <x-table>
         <x-slot name="thead">
