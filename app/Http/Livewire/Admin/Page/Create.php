@@ -37,14 +37,14 @@ class Create extends Component
         'page.details'          => ['required'],
         'page.meta_title'       => ['nullable|max:255'],
         'page.meta_description' => ['nullable|max:255'],
-        'page.language_id'      => ['required|integer'],
+        'page.language_id'      => ['nullable'],
     ];
 
     public function render(): View|Factory
     {
-        abort_if(Gate::denies('page_create'), 403);
+        // abort_if(Gate::denies('page_create'), 403);
 
-        return view('livewire.admin.pages.create');
+        return view('livewire.admin.page.create');
     }
 
     public function createPage()

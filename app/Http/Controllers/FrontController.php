@@ -10,6 +10,7 @@ use App\Models\Brand;
 use App\Models\Category;
 use App\Models\Subcategory;
 use App\Models\User;
+use App\Models\Page;
 use App\Models\Product;
 use Carbon\Carbon;
 use Spatie\Sitemap\Sitemap;
@@ -101,9 +102,9 @@ class FrontController extends Controller
         return view('front.blog', compact('blogs'));
     }
 
-    public function blogPage(Blog $id)
+    public function blogPage($slug)
     {
-        $blog = Blog::findorfail($id);
+        $blog = Blog::where('slug', $slug)->firstOrFail();
 
         return view('front.blog-page', compact('blog'));
     }
@@ -112,6 +113,12 @@ class FrontController extends Controller
     public function thankyou(Order $order)
     {
         return view('front.order-summary', compact('order'));
+    }
+
+    public function dynamicPage($slug)
+    {
+        $page = Page::where('slug',$slug)->firstOrFail();
+        return view('front.dynamic-page', compact('page'));
     }
 
     public function myaccount(User $customer)
