@@ -38,7 +38,7 @@ class Create extends Component
         'blogcategory.title'            => ['required', 'string', 'max:255'],
         'blogcategory.description'      => ['nullable'],
         'blogcategory.meta_title'       => ['nullable'],
-        'blogcategory.meta_description' => ['nullable'],
+        'blogcategory.meta_desc' => ['nullable'],
         'blogcategory.featured'         => ['nullable'],
         'blogcategory.language_id'      => ['required', 'integer'],
     ];

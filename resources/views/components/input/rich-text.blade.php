@@ -1,15 +1,24 @@
+<!-- resources/views/components/quill.blade.php -->
 <div
     class="rounded-md shadow-sm"
-    x-data="{
-        value: @entangle($attributes->wire('model')),
-        isFocused() { return document.activeElement !== this.$refs.trix },
-        setValue() { this.$refs.trix.editor.loadHTML(this.value) },
-    }"
-    x-init="setValue(); $watch('value', () => isFocused() && setValue())"
-    x-on:trix-change="value = $event.target.value"
-    {{ $attributes->whereDoesntStartWith('wire:model') }}
     wire:ignore
 >
-    <input id="x" type="hidden">
-    <trix-editor x-ref="trix" input="x" class="prose max-w-full form-textarea block transition duration-150 ease-in-out sm:text-sm sm:leading-5"></trix-editor>
+    <div x-data
+    x-ref="quillEditor"
+    x-init="
+      quill = new Quill($refs.quillEditor, {theme: 'snow'});
+      quill.on('text-change', function () {
+        $dispatch('input', quill.root.innerHTML);
+      });
+    "
+     class="prose max-w-full form-textarea block transition duration-150 ease-in-out sm:text-sm sm:leading-5"></div>
 </div>
+
+
+<!-- add the script to the Blade layout file -->
+@push('styles')
+<link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
+@endpush
+@push('scripts')
+    <script src="https://cdn.quilljs.com/1.3.7/quill.js"></script>
+@endpush
