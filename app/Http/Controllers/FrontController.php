@@ -16,6 +16,8 @@ use Spatie\Sitemap\Sitemap;
 use Spatie\Sitemap\Tags\Url;
 use Illuminate\Support\Facades\Auth;
 use Spatie\Sitemap\SitemapIndex;
+use Illuminate\Support\Facades\Log;
+
 
 class FrontController extends Controller
 {
@@ -124,83 +126,19 @@ class FrontController extends Controller
     public function generateSitemaps()
     {
         try {
-            $sitemapIndexPath = SitemapIndex::create()
-            ->add('/products_sitemap.xml')
-            ->add('/brands_sitemap.xml')
-            ->add('/pages_sitemap.xml')
-            ->add('/subcategories_sitemap.xml');
+            
+            \Artisan::call('generate:sitemap');
 
-        $sitemapIndexPath->writeToFile(public_path('sitemap.xml'));
+            Log::info('Backup completed successfully!');
 
-        $sitemap = Sitemap::create()
-            ->add(
-                Url::create('/')
-                    ->setLastModificationDate(Carbon::yesterday())
-                    ->setChangeFrequency(Url::CHANGE_FREQUENCY_YEARLY)
-                    ->setPriority(1.0)
-            )
-            ->add(
-                Url::create(route('front.catalog'))
-                    ->setLastModificationDate(Carbon::yesterday())
-                    ->setChangeFrequency(Url::CHANGE_FREQUENCY_YEARLY)
-                    ->setPriority(0.9)
-            )
-            ->add(
-                Url::create(route('front.brands'))
-                    ->setLastModificationDate(Carbon::yesterday())
-                    ->setChangeFrequency(Url::CHANGE_FREQUENCY_YEARLY)
-                    ->setPriority(0.8)
-            )
-            ->add(
-                Url::create(route('front.categories'))
-                    ->setLastModificationDate(Carbon::yesterday())
-                    ->setChangeFrequency(Url::CHANGE_FREQUENCY_YEARLY)
-                    ->setPriority(0.7)
-            )
-            ->add(
-                Url::create(route('front.about'))
-                    ->setLastModificationDate(Carbon::yesterday())
-                    ->setChangeFrequency(Url::CHANGE_FREQUENCY_YEARLY)
-                    ->setPriority(0.6)
-            )
-            ->add(
-                Url::create(route('front.contact'))
-                    ->setLastModificationDate(Carbon::yesterday())
-                    ->setChangeFrequency(Url::CHANGE_FREQUENCY_YEARLY)
-                    ->setPriority(0.5)
-            );
-
-        $sitemap->writeToFile(public_path('pages_sitemap.xml'));
-
-        $products_sitemaps = Sitemap::create();
-
-        Product::select('id', 'slug', 'updated_at')->active()->get()->each(function (Product $product) use ($products_sitemaps) {
-            $products_sitemaps->add(Url::create("catalog/{$product->slug}")
-                ->setLastModificationDate($product->updated_at));
-        });
-
-        $products_sitemaps->writeToFile(public_path('products_sitemap.xml'));
-
-        $brands_sitemaps = Sitemap::create();
-
-        Brand::select('id', 'slug', 'updated_at')->get()->each(function (Brand $brand) use ($brands_sitemaps) {
-            $brands_sitemaps->add(Url::create("/marque/{$brand->slug}")
-                ->setLastModificationDate($brand->updated_at));
-        });
-
-        $brands_sitemaps->writeToFile(public_path('brands_sitemap.xml'));
-
-        $subcategories_sitemaps = Sitemap::create();
-
-        Subcategory::select('id', 'slug', 'updated_at')->get()->each(function (Subcategory $subcategory) use ($subcategories_sitemaps) {
-            $subcategories_sitemaps->add(Url::create("/categorie/{$subcategory->slug}"));
-        });
-
-        $subcategories_sitemaps->writeToFile(public_path('subcategories_sitemap.xml'));
-        
             return back();
+
         } catch (\Throwable $th) {
+            
+            Log::info('Backup failed!', $th->getMessage());
+
             return back();
+
         }
        
     }

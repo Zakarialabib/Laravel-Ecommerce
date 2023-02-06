@@ -25,7 +25,7 @@ class ErrorController extends Controller
                 'old_url' => $request->url(),
                 'new_url' => url('/'),
             ]);
-
+            // return redirect($redirectUrl, $redirect['http_status_code']);
             return redirect(url('/'));
             }
         } catch (\Throwable $th) {

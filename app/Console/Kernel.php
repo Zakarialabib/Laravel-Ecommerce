@@ -6,9 +6,16 @@ namespace App\Console;
 
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
+use App\Console\Commands\Backup;
+use App\Console\Commands\GenerateSitemap;
 
 class Kernel extends ConsoleKernel
 {
+    protected $commands = [
+        Backup::class,
+        GenerateSitemap::class,
+    ];
+
     /**
      * Define the application's command schedule.
      *
@@ -17,7 +24,29 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        // $schedule->command('inspire')->hourly();
+        //  some config somewhere
+        if (config('backup.schedule') == 1) {
+            $schedule->command(Backup::class)->daily();
+        } elseif (config('backup.schedule') == 2) {
+            $schedule->command(Backup::class)->weekly();
+
+        } elseif (config('backup.schedule') == 3) {
+            $schedule->command(Backup::class)->monthly();
+        }
+        
+        if (config('sitemap.schedule') == 1) {
+
+            $schedule->command(GenerateSitemap::class)->daily();
+
+        } elseif (config('sitemap.schedule') == 2) {
+
+            $schedule->command(GenerateSitemap::class)->weekly();
+
+        } elseif (config('sitemap.schedule') == 3) {
+
+            $schedule->command(GenerateSitemap::class)->monthly();
+
+        }
     }
 
     /**

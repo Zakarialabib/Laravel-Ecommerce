@@ -9,8 +9,8 @@ use App\Models\Brand;
 use App\Models\Subcategory;
 use App\Models\Product;
 use Spatie\Sitemap\Sitemap;
-use Spatie\Sitemap\SitemapIndex;
 use Spatie\Sitemap\Tags\Url;
+use Spatie\Sitemap\SitemapIndex;
 
 class GenerateSitemap extends Command
 {
@@ -35,65 +35,97 @@ class GenerateSitemap extends Command
 
     public function handle()
     {
-        $sitemapIndex = SitemapIndex::create();
-
-        if ( ! file_exists(public_path('sitemap'))) {
-            mkdir(public_path('sitemap'), 0775, true);
-        }
-
-        $productChunks = Product::select(['id', 'slug', 'updated_at'])
-            ->active()
-            ->chunk(5000, function ($products, $chunk) use ($sitemapIndex) {
-                $sitemapName = 'products_sitemap_'.$chunk.'.xml';
-                $sitemap = Sitemap::create();
-
-                foreach ($products as $product) {
-                    $sitemap->add(Url::create('/catalog'.$product->slug)
-                        ->setLastModificationDate($product->updated_at));
-                }
-
-                $sitemap->writeToFile(public_path($sitemapName));
-                $sitemapIndex->add($sitemapName);
-            });
-
-        $subcategories = $this->subcategories();
-        $sitemapIndex->add($subcategories);
-
-        $brands = $this->brands();
-        $sitemapIndex->add($brands);
-
-        $sitemapIndex->writeToFile(public_path('sitemap/sitemap.xml'));
+        $this->generateSitemapIndex();
+        $this->generatePagesSitemap();
+        $this->generateProductsSitemap();
+        $this->generateBrandsSitemap();
+        $this->generateSubcategoriesSitemap();
     }
 
-    public function subcategories()
+    protected function generateSitemapIndex()
     {
-        $subcategories = Subcategory::get();
-        $sitemapName = 'subcategories.xml';
+        $sitemapIndex = SitemapIndex::create()
+            ->add('/products_sitemap.xml')
+            ->add('/brands_sitemap.xml')
+            ->add('/pages_sitemap.xml')
+            ->add('/subcategories_sitemap.xml');
+        $sitemapIndex->writeToFile(public_path('sitemap.xml'));
+        
+        
+    }
+
+    protected function generatePagesSitemap()
+    {
+        $sitemap = Sitemap::create()
+        ->add(
+            Url::create('/')
+                ->setLastModificationDate(Carbon::yesterday())
+                ->setChangeFrequency(Url::CHANGE_FREQUENCY_YEARLY)
+                ->setPriority(1.0)
+        )
+        ->add(
+            Url::create(route('front.catalog'))
+                ->setLastModificationDate(Carbon::yesterday())
+                ->setChangeFrequency(Url::CHANGE_FREQUENCY_YEARLY)
+                ->setPriority(0.9)
+        )
+        ->add(
+            Url::create(route('front.brands'))
+                ->setLastModificationDate(Carbon::yesterday())
+                ->setChangeFrequency(Url::CHANGE_FREQUENCY_YEARLY)
+                ->setPriority(0.8)
+        )
+        ->add(
+            Url::create(route('front.categories'))
+                ->setLastModificationDate(Carbon::yesterday())
+                ->setChangeFrequency(Url::CHANGE_FREQUENCY_YEARLY)
+                ->setPriority(0.7)
+        )
+        ->add(
+            Url::create(route('front.about'))
+                ->setLastModificationDate(Carbon::yesterday())
+                ->setChangeFrequency(Url::CHANGE_FREQUENCY_YEARLY)
+                ->setPriority(0.6)
+        )
+        ->add(
+            Url::create(route('front.contact'))
+                ->setLastModificationDate(Carbon::yesterday())
+                ->setChangeFrequency(Url::CHANGE_FREQUENCY_YEARLY)
+                ->setPriority(0.5)
+        );
+
+        $sitemap->writeToFile(public_path('pages_sitemap.xml'));
+    }
+
+    protected function generateProductsSitemap()
+    {
+        $sitemap = Sitemap::create();
+        Product::select('id', 'slug', 'updated_at')->active()->get()->each(function (Product $product) use ($sitemap) {
+            $sitemap->add(Url::create("catalog/{$product->slug}")
+                ->setLastModificationDate($product->updated_at));
+        });
+        $sitemap->writeToFile(public_path('products_sitemap.xml'));
+    }
+
+    protected function generateBrandsSitemap()
+    {
+        $sitemap = Sitemap::create();
+        Brand::select('id', 'slug', 'updated_at')->get()->each(function (Brand $brand) use ($sitemap) {
+            $sitemap->add(Url::create("/marque/{$brand->slug}")
+                ->setLastModificationDate($brand->updated_at));
+        });
+        $sitemap->writeToFile(public_path('brands_sitemap.xml'));
+    }
+
+    protected function generateSubcategoriesSitemap()
+    {
         $sitemap = Sitemap::create();
 
-        foreach ($subcategories as $subcategory) {
-            $url = 'categories/'.$subcategory->slug;
-            $sitemap->add(Url::create($url)
-                ->setLastModificationDate(now()));
-        }
-        $sitemap->writeToFile(public_path($sitemapName));
+        Subcategory::select('id', 'slug', 'updated_at')->get()->each(function (Subcategory $subcategory) use ($sitemap) {
+            $sitemap->add(Url::create("/categorie/{$subcategory->slug}"));
+        });
 
-        return $sitemapName;
+        $sitemap->writeToFile(public_path('subcategories_sitemap.xml'));
     }
 
-    public function brands()
-    {
-        $brands = Brand::get();
-        $sitemapName = 'brands.xml';
-        $sitemap = Sitemap::create();
-
-        foreach ($brands as $brand) {
-            $url = 'marque/'.$brand->slug;
-            $sitemap->add(Url::create($url)
-                ->setLastModificationDate(now()));
-        }
-        $sitemap->writeToFile(public_path($sitemapName));
-
-        return $sitemapName;
-    }
 }
