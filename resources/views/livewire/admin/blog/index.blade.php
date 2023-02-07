@@ -30,8 +30,6 @@
         </div>
     </div>
 
-    <x-loader />
-
     <x-table>
         <x-slot name="thead">
             <x-table.th>#</x-table.th>
@@ -40,9 +38,6 @@
             </x-table.th>
             <x-table.th>
                 {{ __('Title') }}
-            </x-table.th>
-            <x-table.th>
-                {{ __('Views') }}
             </x-table.th>
             <x-table.th>
                 {{ __('Status') }}
@@ -67,9 +62,6 @@
                         {{ $blog->title }}
                     </x-table.td>
                     <x-table.td>
-                        {{ $blog->views }}
-                    </x-table.td>
-                    <x-table.td>
                         <livewire:toggle-button :model="$blog" field="status" key="{{ $blog->id }}" />
                     </x-table.td>
                     <x-table.td>
@@ -82,11 +74,11 @@
                                 </button>
                             </x-slot>
                             <x-slot name="content">
-                                <x-button primary type="button"  wire:click="$emit('editModal', {{ $blog->id }})"
+                                <x-button primary type="button" wire:click="$emit('editModal', {{ $blog->id }})"
                                     wire:loading.attr="disabled">
                                     <i class="fas fa-edit"></i>
                                 </x-button>
-                                <x-button danger type="button"  wire:click="$emit('deleteModal', {{ $blog->id }})"
+                                <x-button danger type="button" wire:click="$emit('deleteModal', {{ $blog->id }})"
                                     wire:loading.attr="disabled">
                                     <i class="fas fa-trash-alt"></i>
                                 </x-button>
@@ -109,84 +101,79 @@
             {{ $blogs->links() }}
         </div>
     </div>
- <!-- Edit Modal -->
- <x-modal wire:model="editModal">
-    <x-slot name="title">
-        {{ __('Edit Blog') }}
-    </x-slot>
+    <!-- Edit Modal -->
+    <x-modal wire:model="editModal">
+        <x-slot name="title">
+            {{ __('Edit Blog') }}
+        </x-slot>
 
-    <x-slot name="content">
-        <!-- Validation Errors -->
-        <x-auth-validation-errors class="mb-4" :errors="$errors" />
-        <form wire:submit.prevent="update">
-            <div class="flex flex-wrap px-4">
-               
-                <div class="xl:w-1/2 md:w-1/2 px-3">
-                    <x-label for="title" :value="__('Name')" />
-                    <x-input id="title" class="block mt-1 w-full" type="text" name="title"
-                        wire:model.defer="blog.title" />
-                    <x-input-error :messages="$errors->get('blog.title')" for="blog.title" class="mt-2" />
-                </div>
+        <x-slot name="content">
+            <!-- Validation Errors -->
+            <x-auth-validation-errors class="mb-4" :errors="$errors" />
+            <form wire:submit.prevent="update">
+                <div class="flex flex-wrap px-4">
 
-                <div class="xl:w-1/2 md:w-1/2 px-3">
-                    <x-label for="category_id" :value="__('Category')" required />
+                    <div class="xl:w-1/2 md:w-1/2 px-3">
+                        <x-label for="title" :value="__('Name')" />
+                        <x-input id="title" class="block mt-1 w-full" type="text" name="title"
+                            wire:model.defer="blog.title" />
+                        <x-input-error :messages="$errors->get('blog.title')" for="blog.title" class="mt-2" />
+                    </div>
+
+                    <div class="xl:w-1/2 md:w-1/2 px-3">
+                        <x-label for="category_id" :value="__('Category')" required />
                         <x-select-list
                             class="block bg-white text-gray-700 rounded border border-gray-300 mb-1 text-sm w-full focus:shadow-outline-blue focus:border-blue-500"
-                            id="category_id" name="category_id" wire:model="blog.category_id"
-                            :options="$this->listsForFields['categories']" />
-                    <x-input-error :messages="$errors->get('blog.category_id')" for="blog.category_id"
-                        class="mt-2" />
+                            id="category_id" name="category_id" wire:model="blog.category_id" :options="$this->listsForFields['categories']" />
+                        <x-input-error :messages="$errors->get('blog.category_id')" for="blog.category_id" class="mt-2" />
+                    </div>
+
+                    <div class="w-full px-3 mb-4">
+                        <x-label for="language_id" :value="__('Description')" required />
+                        <x-input.rich-text wire:model.lazy="blog.description" id="description" />
+                    </div>
+
+                    <div class="xl:w-1/2 md:w-1/2 px-3">
+                        <x-label for="language_id" :value="__('Language')" required />
+                        <x-select-list
+                            class="block bg-white text-gray-700 rounded border border-gray-300 mb-1 text-sm w-full focus:shadow-outline-blue focus:border-blue-500"
+                            id="language_id" name="language_id" wire:model="blog.language_id" :options="$this->listsForFields['languages']" />
+                        <x-input-error :messages="$errors->get('blog.language_id')" for="blog.language_id" class="mt-2" />
+                    </div>
+
+                    <div class="w-full px-3">
+                        <x-button primary type="submit" wire:loading.attr="disabled">
+                            {{ __('Update') }}
+                        </x-button>
+                    </div>
                 </div>
-
-                <div class="w-full px-3 mb-4">
-                    <x-label for="language_id" :value="__('Description')" required />
-                <x-input.rich-text wire:model.lazy="blog.description" id="description" />
-                </div>
-
-                <div class="xl:w-1/2 md:w-1/2 px-3">
-                    <x-label for="language_id" :value="__('Language')" required />
-                    <x-select-list
-                        class="block bg-white text-gray-700 rounded border border-gray-300 mb-1 text-sm w-full focus:shadow-outline-blue focus:border-blue-500"
-                        id="language_id" name="language_id" wire:model="blog.language_id"
-                        :options="$this->listsForFields['languages']" />
-                    <x-input-error :messages="$errors->get('blog.language_id')" for="blog.language_id"
-                        class="mt-2" />
-                </div>
-
-                <div class="w-full px-3">
-                    <x-button primary type="submit" wire:loading.attr="disabled">
-                        {{ __('Update') }}
-                    </x-button>
-                </div>
-            </div>
-        </form>
-    </x-slot>
-</x-modal>
-<!-- End Edit Modal -->
+            </form>
+        </x-slot>
+    </x-modal>
+    <!-- End Edit Modal -->
 
 
-<livewire:admin.blog.create />
+    <livewire:admin.blog.create />
 </div>
 
 @push('page_scripts')
-<script>
-    document.addEventListener('livewire:load', function() {
-        window.livewire.on('deleteModal', categoryId => {
-            Swal.fire({
-                title: 'Are you sure?',
-                text: "You won't be able to revert this!",
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#3085d6',
-                cancelButtonColor: '#d33',
-                confirmButtonText: 'Yes, delete it!'
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    window.livewire.emit('delete', categoryId)
-                }
+    <script>
+        document.addEventListener('livewire:load', function() {
+            window.livewire.on('deleteModal', categoryId => {
+                Swal.fire({
+                    title: 'Are you sure?',
+                    text: "You won't be able to revert this!",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Yes, delete it!'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        window.livewire.emit('delete', categoryId)
+                    }
+                })
             })
         })
-    })
-</script>
+    </script>
 @endpush
-

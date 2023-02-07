@@ -51,7 +51,7 @@ class Create extends Component
 
     public function render(): View|Factory
     {
-        abort_if(Gate::denies('blog_create'), 403);
+        // abort_if(Gate::denies('blog_create'), 403);
 
         return view('livewire.admin.blog.create');
     }
