@@ -22,7 +22,7 @@
         </div>
     </div>
 
-    <x-loader />
+    
 
     <x-table>
         <x-slot name="thead">
@@ -32,10 +32,7 @@
                 @include('components.table.sort', ['field' => 'title'])
             </x-table.th>
             <x-table.th>
-                {{ __('Header') }}
-            </x-table.th>
-            <x-table.th>
-                {{ __('Footer') }}
+                {{ __('Slug') }}
             </x-table.th>
             <x-table.th>
                 {{ __('Actions') }}
@@ -51,10 +48,9 @@
                         {{ $page->title }}
                     </x-table.td>
                     <x-table.td>
-                        <livewire:toggle-button :model="$page" field="header" key="{{ $page->id }}" />
-                    </x-table.td>
-                    <x-table.td>
-                        <livewire:toggle-button :model="$page" field="footer" key="{{ $page->id }}" />
+                        <a href="{{ route('front.dynamicPage' , $page->slug )}}" target="_blank">
+                            {{ $page->slug }}
+                        </a>
                     </x-table.td>
                     <x-table.td>
                         <x-dropdown
@@ -66,15 +62,12 @@
                                 </button>
                             </x-slot>
                             <x-slot name="content">
-                                {{-- <x-dropdown-link data-href="{{ route('admin-page-edit', $page->id) }}" class="edit"
-                                    data-toggle="modal" data-target="#modal1"> <i class="fas fa-edit"></i>
+                                <x-dropdown-link wire:click="$emit('editModal', {{ $page->id }})"> <i class="fas fa-edit"></i>
                                     {{ __('Edit') }}
                                 </x-dropdown-link>
-                                <x-dropdown-link href="javascript:;"
-                                    data-href="{{ route('admin-page-delete', $page->id) }}" data-toggle="modal"
-                                    data-target="#confirm-delete" class="delete"><i
-                                        class="fas fa-trash-alt"></i>{{ __('Delete') }}
-                                </x-dropdown-link> --}}
+                                <x-dropdown-link wire:click="$emit('deleteModal', {{ $page->id }})"><i class="fas fa-trash-alt"></i>
+                                    {{ __('Delete') }}
+                                </x-dropdown-link>
                             </x-slot>
                         </x-dropdown>
                     </x-table.td>
@@ -102,4 +95,9 @@
             {{ $pages->links() }}
         </div>
     </div>
+    
+    <livewire:admin.page.edit />
+
+    <livewire:admin.page.create />
+
 </div>

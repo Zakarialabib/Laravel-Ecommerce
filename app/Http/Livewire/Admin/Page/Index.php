@@ -16,6 +16,11 @@ class Index extends Component
     use WithPagination;
     use WithSorting;
 
+    public $listeners = [
+        'refreshIndex' => '$refresh',
+        'delete',
+    ];
+
     public int $perPage;
 
     public array $orderable;
@@ -81,4 +86,14 @@ class Index extends Component
 
         return view('livewire.admin.page.index', compact('pages'));
     }
+
+    public function delete(Page $page)
+    {
+        abort_if(Gate::denies('page_delete'), 403);
+
+        $page->delete();
+
+        $this->alert('success', 'Page deleted successfully.');
+    }
+
 }
