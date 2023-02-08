@@ -1,4 +1,4 @@
-@section('title', $brand->name)
+@section('title', $brand?->name)
 
 <x-app-layout>
       <section class="py-5 px-4 bg-gray-100">

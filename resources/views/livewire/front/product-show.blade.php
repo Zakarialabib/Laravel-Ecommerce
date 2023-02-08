@@ -4,9 +4,9 @@
     <meta property="og:description" content="{!! $product->meta_description !!}">
     <meta property="og:url" content="{{ URL::current() }}">
     <meta property="og:image" content="{{ asset('images/products/' . $product->image) }}">
-    <meta property="og:image:secure_url" content="{{ asset('images/products/' . $product->image) }}"> >
-    <meta property="og:image:width" content="1000" >
-    <meta property="og:image:height" content="1000" >
+    <meta property="og:image:secure_url" content="{{ asset('images/products/' . $product->image) }}">
+    <meta property="og:image:width" content="1000">
+    <meta property="og:image:height" content="1000">
     <meta property="product:brand" content="{{ $product->brand?->name }}">
     <meta property="product:availability" content="in stock">
     <meta property="product:condition" content="new">
@@ -29,7 +29,6 @@
 
                     <div class="w-full md:w-1/2 px-4">
                         <div itemprop="offers" itemscope itemtype="http://schema.org/Offer">
-
                             <div class="mb-5 pb-5 border-b">
                                 <span class="text-gray-500">
                                     {{ $product->category?->name }} /
@@ -46,30 +45,30 @@
                                 </h2>
 
                                 <div class="flex items-center">
-                                    <div class="flex items-center">
-                                        <div itemprop="aggregateRating" itemtype="https://schema.org/AggregateRating" itemscope>
-                                            <meta itemprop="reviewCount" content="{{ $product->reviews->count() }}" >
-                                            @for ($i = 0; $i < 5; $i++)
-                                                @if ($i < $product->reviews->avg('rating'))
-                                                    <meta itemprop="ratingValue" content="{{ $product->reviews->avg('rating') }}" >
-                                                    <svg class="w-4 h-4 text-orange-500 fill-current"
-                                                        xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                                                        <path
-                                                            d="M12 17.27l-5.18 2.73 1-5.81-4.24-3.63 5.88-.49L12 6.11l2.45 5.51 5.88.49-4.24 3.63 1 5.81z" />
-                                                    </svg>
-                                                @else
-                                                    <svg class="w-4 h-4 text-orange-500 fill-current"
-                                                        xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                                                        <path
-                                                            d="M12 17.27l-5.18 2.73 1-5.81-4.24-3.63 5.88-.49L12 6.11l2.45 5.51 5.88.49-4.24 3.63 1 5.81z" />
-                                                    </svg>
-                                                @endif
-                                            @endfor
+                                    <div class="flex items-center" itemprop="aggregateRating"
+                                        itemtype="https://schema.org/AggregateRating" itemscope>
+                                        <meta itemprop="reviewCount" content="{{ $product->reviews->count() }}">
+                                        @for ($i = 0; $i < 5; $i++)
+                                            @if ($i < $product->reviews->avg('rating'))
+                                                <meta itemprop="ratingValue"
+                                                    content="{{ $product->reviews->avg('rating') }}">
+                                                <svg class="w-4 h-4 text-orange-500 fill-current"
+                                                    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                                    <path
+                                                        d="M12 17.27l-5.18 2.73 1-5.81-4.24-3.63 5.88-.49L12 6.11l2.45 5.51 5.88.49-4.24 3.63 1 5.81z" />
+                                                </svg>
+                                            @else
+                                                <svg class="w-4 h-4 text-orange-500 fill-current"
+                                                    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                                    <path
+                                                        d="M12 17.27l-5.18 2.73 1-5.81-4.24-3.63 5.88-.49L12 6.11l2.45 5.51 5.88.49-4.24 3.63 1 5.81z" />
+                                                </svg>
+                                            @endif
+                                        @endfor
 
-                                            <span
-                                                class="ml-2 text-sm text-gray-500 font-body">{{ $product->reviews->count() }}
-                                                {{ __('Reviews') }}</span>
-                                        </div>
+                                        <span
+                                            class="ml-2 text-sm text-gray-500 font-body">{{ $product->reviews->count() }}
+                                            {{ __('Reviews') }}</span>
                                     </div>
                                 </div>
                             </div>
@@ -90,7 +89,7 @@
                                     <meta itemprop="priceCurrency" content="MAD">
                                     <link itemprop="availability" href="http://schema.org/InStock">
                                     <link itemprop="itemCondition" href="http://schema.org/NewCondition">
-                                    <meta itemprop="priceValidUntil" content="2023-12-30" >
+                                    <meta itemprop="priceValidUntil" content="2023-12-30">
 
                                 </p>
 

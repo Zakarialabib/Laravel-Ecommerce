@@ -1,4 +1,4 @@
-@section('title', __('Blog'))
+@section('title', $blog?->title)
 <x-app-layout>
     <section>
         <article itemscope itemtype="http://schema.org/Article" class="max-w-prose mx-auto py-8">

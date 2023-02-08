@@ -34,7 +34,7 @@ class FrontController extends Controller
 
     public function productShow($slug)
     {
-        $product = Product::where('slug', $slug)->first();
+        $product = Product::where('slug', $slug)->firstOrFail();
 
         return view('front.product', compact('product'));
     }
@@ -46,7 +46,7 @@ class FrontController extends Controller
 
     public function categoryPage($slug)
     {
-        $category = Category::where('slug', $slug)->first();
+        $category = Category::where('slug', $slug)->firstOrFail();
 
         return view('front.category-page', compact('category'));
     }
@@ -58,7 +58,7 @@ class FrontController extends Controller
 
      public function SubcategoryPage($slug)
      {
-         $subcategory = Subcategory::where('slug', $slug)->first();
+         $subcategory = Subcategory::where('slug', $slug)->firstOrFail();
 
          return view('front.subcategory-page', compact('subcategory'));
      }
@@ -70,7 +70,7 @@ class FrontController extends Controller
 
     public function brandPage($slug)
     {
-        $brand = Brand::where('slug', $slug)->first();
+        $brand = Brand::where('slug', $slug)->firstOrFail();
 
         return view('front.brand-page', compact('brand'));
     }
@@ -123,7 +123,7 @@ class FrontController extends Controller
 
     public function myaccount(User $customer)
     {
-        $customer = Auth::user();
+        $customer = User::where('id', auth()->user()->id)->get();
 
         return view('front.user-account', ['customer' => $customer]);
     }
