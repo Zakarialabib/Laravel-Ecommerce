@@ -19,6 +19,7 @@ return new class extends Migration
             $table->id();
             $table->string('old_url'); 
             $table->string('new_url')->nullable(); 
+            $table->string('http_status_code')->nullable(); 
             $table->boolean('status')->default(true); 
             $table->timestamps();
             $table->softDeletes();
