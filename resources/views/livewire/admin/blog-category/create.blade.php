@@ -35,23 +35,20 @@
                             wire:model.defer="blogcategory.meta_desc" />
                         <x-input-error :messages="$errors->get('blogcategory.meta_desc')" for="blogcategory.meta_desc" class="mt-2" />
                     </div>
-                    <div class="w-full py-2 px-3">
-                        <x-label for="featured" :value="__('Featured')" />
-                        <input type="checkbox" name="featured" wire:model.defer="blogcategory.featured" />
+                    <div class="mt-4 px-3 w-full">
+                        <x-label for="language_id" :value="__('Language')" required />
+                        <x-select-list
+                            class="block bg-white text-gray-700 rounded border border-gray-300 mb-1 text-sm w-full focus:shadow-outline-blue focus:border-blue-500"
+                            id="language_id" name="language_id" wire:model="blogcategory.language_id" :options="$this->listsForFields['languages']" />
+                        <x-input-error :messages="$errors->get('blogcategory.language_id')" for="blogcategory.language_id" class="mt-2" />
                     </div>
                 </div>
 
 
-                <div class="mt-4 px-3 w-full">
-                    <x-label for="language_id" :value="__('Language')" required />
-                    <x-select-list
-                        class="block bg-white text-gray-700 rounded border border-gray-300 mb-1 text-sm w-full focus:shadow-outline-blue focus:border-blue-500"
-                        id="language_id" name="language_id" wire:model="blogcategory.language_id" :options="$this->listsForFields['languages']" />
-                    <x-input-error :messages="$errors->get('blogcategory.language_id')" for="blogcategory.language_id" class="mt-2" />
-                </div>
+              
 
-                <div class="w-full flex justify-start space-x-2">
-                    <x-button primary type="submit" wire:loading.attr="disabled">
+                <div class="w-full flex px-3">
+                    <x-button primary type="submit" class="w-full" wire:loading.attr="disabled">
                         {{ __('Create') }}
                     </x-button>
                 </div>

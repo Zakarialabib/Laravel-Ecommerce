@@ -15,24 +15,24 @@ use Livewire\WithFileUploads;
 use Illuminate\Contracts\View\View;
 use Illuminate\Contracts\View\Factory;
 
-class Create extends Component
+class Edit extends Component
 {
     use LivewireAlert;
     use WithFileUploads;
 
-    public $createBlog = false;
+    public $editModal = false;
 
     public $image;
 
     public $blog;
 
-    public $listeners = ['createBlog'];
+    public $listeners = ['editModal'];
 
     public array $listsForFields = [];
 
-    public function mount(Blog $blog)
+    public function mount()
     {
-        $this->blog = $blog;
+        
 
         $this->initListsForFields();
     }
@@ -40,6 +40,7 @@ class Create extends Component
     protected $rules = [
         'blog.title'            => 'required|min:3|max:255',
         'blog.category_id'      => 'required|integer',
+        'blog.slug'           => 'required|string',
         'blog.details'          => 'required|min:3',
         'blog.language_id'      => 'nullable|integer',
         'blog.meta_title'      => 'nullable|max:100',
@@ -50,37 +51,40 @@ class Create extends Component
     {
         // abort_if(Gate::denies('blog_create'), 403);
 
-        return view('livewire.admin.blog.create');
+        return view('livewire.admin.blog.edit');
     }
 
-    public function createBlog()
+ 
+    public function editModal($id)
     {
+        // abort_if(Gate::denies('blog_edit'), 403);
+
         $this->resetErrorBag();
 
         $this->resetValidation();
 
-        $this->createBlog = true;
+        $this->blog = Blog::where('id', $id)->firstOrFail();        
+
+        $this->editModal = true;
     }
 
-    public function create()
+    public function update()
     {
         $this->validate();
-
-        $this->blog->slug = Str::slug($this->blog->title);
 
         if ($this->image) {
             $imageName = Str::slug($this->blog->title).'.'.$this->image->extension();
             $this->image->storeAs('blogs', $imageName);
             $this->blog->image = $imageName;
         }
-
+        
         $this->blog->save();
 
         $this->emit('refreshIndex');
 
-        $this->alert('success', __('Blog created successfully.'));
+        $this->alert('success', __('Blog updated successfully.'));
 
-        $this->createBlog = false;
+        $this->editModal = false;
     }
 
     protected function initListsForFields(): void

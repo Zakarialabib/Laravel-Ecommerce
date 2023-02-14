@@ -81,7 +81,6 @@ class Index extends Component
         'blogcategory.description'      => ['nullable'],
         'blogcategory.meta_title'       => ['nullable'],
         'blogcategory.meta_desc' => ['nullable'],
-        'blogcategory.featured'         => ['nullable'],
         'blogcategory.language_id'      => ['required', 'integer'],
     ];
 
@@ -108,31 +107,32 @@ class Index extends Component
         return view('livewire.admin.blog-category.index', compact('blogcategories'));
     }
 
-    public function editModal(BlogCategory $blogcategory)
+    public function editModal($blogcategory)
     {
-        abort_if(Gate::denies('blogcategory_edit'), 403);
+        // abort_if(Gate::denies('blogcategory_edit'), 403);
 
         $this->resetErrorBag();
 
         $this->resetValidation();
 
-        $this->blogcategory = $blogcategory;
+        $this->blogcategory = BlogCategory::findOrFail($blogcategory);
 
         $this->editModal = true;
     }
 
     public function update()
     {
-        abort_if(Gate::denies('blogcategory_edit'), 403);
 
         $this->validate();
-        // condition if save close modal if not stay
-        if ($this->blogcategory->save()) {
-            $this->editModal = false;
-            $this->alert('success', __('BlogCategory updated successfully'));
-        } else {
-            $this->alert('error', __('BlogCategory not updated'));
-        }
+
+        $this->blogcategory->save();
+        
+        $this->alert('success', __('BlogCategory updated successfully'));
+        
+        $this->editModal = false;
+        
+        $this->emit('refreshIndex');
+        
     }
 
     public function delete(BlogCategory $blogcategory)

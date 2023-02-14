@@ -40,7 +40,7 @@
                 @include('components.table.sort', ['field' => 'name'])
             </x-table.th>
             <x-table.th>
-                {{ __('Slug') }}
+                {{ __('Featured') }}
             </x-table.th>
             <x-table.th>
                 {{ __('Actions') }}
@@ -56,7 +56,7 @@
                         {{ $blogcategory->title }}
                     </x-table.td>
                     <x-table.td>
-                        {{ $blogcategory->featured }}
+                        <livewire:toggle-button :model="$blogcategory" field="featured" key="{{ $blogcategory->id }}" />
                     </x-table.td>
                     <x-table.td>
                         <x-dropdown
@@ -115,7 +115,7 @@
                             wire:model.defer="blogcategory.title" />
                         <x-input-error :messages="$errors->get('blogcategory.title')" for="blogcategory.title" class="mt-2" />
                     </div>
-                    <div class="w-full py-2 px-3">
+                    <div class="xl:w-1/2 md:w-1/2 px-3">
                         <x-label for="description" :value="__('Description')" />
                         <x-input id="description" class="block mt-1 w-full" type="text" name="description"
                             wire:model.defer="blogcategory.description" />
@@ -133,11 +133,6 @@
                             wire:model.defer="blogcategory.meta_desc" />
                         <x-input-error :messages="$errors->get('blogcategory.meta_desc')" for="blogcategory.meta_desc" class="mt-2" />
                     </div>
-                    <div class="xl:w-1/2 md:w-1/2 px-3">
-                        <x-label for="featured" :value="__('Featured')" />
-                        <input type="checkbox" name="featured" wire:model.defer="blogcategory.featured" />
-                    </div>
-                   
                 </div>
 
                 <div class="w-full px-3">
