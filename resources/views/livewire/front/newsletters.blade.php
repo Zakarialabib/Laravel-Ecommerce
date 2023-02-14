@@ -6,13 +6,13 @@
                 <div class="relative flex-1">
                     <span
                         class="absolute top-0 left-0 ml-8 mt-4 font-semibold font-heading text-xs text-gray-400">{{ __('Drop your e-mail') }}</span>
-                    <input wire:model="email" type="email" name="email"
+                    <input wire:model.lazy="email" type="email" name="email"
                         class="inline-block w-full pt-8 pb-4 px-8 placeholder-gray-900 border-0 focus:ring-transparent focus:outline-none rounded-md">
+                    <x-input-error :messages="$errors->get('email')" for="email" class="mt-2" />
                 </div>
-                <a class="inline-block w-auto hover:bg-red-600 text-white font-bold font-heading py-6 px-8 rounded-md uppercase text-center bg-red-600"
-                    wire:click="subscribe">
+                <button type="submit" class="inline-block w-auto cursor-pointer hover:bg-red-600 text-white font-bold font-heading py-6 px-8 rounded-md uppercase text-center bg-red-600">
                     {{ __('Join') }}
-                </a>
+                </button>
             </div>
         </div>
     </form>
