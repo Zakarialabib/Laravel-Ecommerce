@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 use App\Http\Controllers\FrontController;
 use App\Http\Controllers\ErrorController;
+use App\Http\Controllers\UploadController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
 
@@ -20,6 +21,8 @@ use Illuminate\Http\Request;
 
 require __DIR__.'/auth.php';
 require __DIR__.'/admin.php';
+
+Route::post('/uploads', [UploadController::class, 'upload'])->name('upload');
 
 Route::get('/', [FrontController::class, 'index'])->name('front.index');
 Route::get('/catalog', [FrontController::class, 'catalog'])->name('front.catalog');

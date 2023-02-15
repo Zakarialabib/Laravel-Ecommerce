@@ -25,7 +25,7 @@
                     </div>
                     <div class="w-full px-3 mb-6 lg:mb-0">
                         <x-label for="description" :value="__('Description')" />
-                        <livewire:trix :value="$description">
+                        <x-input.rich-text wire:model.debounce.2000ms="description" id="description" />
                     </div>
 
                     <div class="flex flex-wrap -mx-2 mb-3">

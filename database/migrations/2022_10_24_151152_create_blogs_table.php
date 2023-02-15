@@ -24,6 +24,7 @@ return new class () extends Migration {
             $table->boolean('featured')->default(false);
             $table->text('meta_title')->nullable();
             $table->text('meta_desc')->nullable();
+            $table->foreignId('category_id')->nullable()->constrained('blog_categories')->nullOnDelete();
             $table->foreignId('language_id')->nullable()->constrained('languages')->nullOnDelete();
             $table->timestamps();
         });

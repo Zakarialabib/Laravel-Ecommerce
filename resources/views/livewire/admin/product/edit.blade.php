@@ -81,7 +81,7 @@
 
                         <div class="w-full mb-4">
                             <x-label for="description" :value="__('Description')" />
-                            <x-input.rich-text wire:model.lazy="product.description" id="description" />
+                            <x-input.rich-text wire:model.debounce.2000ms="product.description" id="description" />
                         </div>
 
                         <div class="w-full px-4 my-2">

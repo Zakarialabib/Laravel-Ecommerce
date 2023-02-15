@@ -20,13 +20,11 @@ class Create extends Component
     use LivewireAlert;
     use WithFileUploads;
 
-    public $createBlog;
+    public $createBlog = false;
 
     public $image;
 
     public $blog;
-
-    public $blogcategory;
 
     public $listeners = ['createBlog'];
 
@@ -39,14 +37,13 @@ class Create extends Component
         $this->initListsForFields();
     }
 
-    public array $rules = [
-        'blog.title'            => ['required', 'string', 'max:255'],
-        'blog.category_id'      => ['required', 'integer'],
-        'blog.details'          => ['required'],
-        'blog.meta_tag'         => ['nullable'],
-        'blog.meta_description' => ['nullable'],
-        'blog.featured'         => ['nullable'],
-        'blog.language_id'      => ['nullable', 'integer'],
+    protected $rules = [
+        'blog.title'            => 'required|min:3|max:255',
+        'blog.category_id'      => 'required|integer',
+        'blog.details'          => 'required|min:3',
+        'blog.language_id'      => 'nullable|integer',
+        'blog.meta_title'      => 'nullable|max:100',
+        'blog.meta_desc'      => 'nullable|max:200',
     ];
 
     public function render(): View|Factory

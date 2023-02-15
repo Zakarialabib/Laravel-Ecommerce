@@ -4,7 +4,7 @@ import "perfect-scrollbar/css/perfect-scrollbar.css";
 import * as FilePond from 'filepond'
 import 'filepond/dist/filepond.min.css';
 import swal from 'sweetalert2';
-
+import "quill/dist/quill.snow.css";
 import Alpine from 'alpinejs'
 import collapse from '@alpinejs/collapse'
 import focus from "@alpinejs/focus";
@@ -107,15 +107,6 @@ Alpine.data("mainState", () => {
     };
 });
 
-// Alpine.data("loadingMask", () => ({
-//     pageLoaded: false,
-//     init() {
-//         window.onload = (event) => {
-//             this.pageLoaded = true
-//         };
-//     }
-// }));
-
 Alpine.plugin(collapse)
 
 window.Alpine = Alpine;
@@ -125,3 +116,5 @@ window.Swal = swal;
 window.FilePond = FilePond
 
 Alpine.start();
+
+

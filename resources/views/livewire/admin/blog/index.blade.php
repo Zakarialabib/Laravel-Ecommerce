@@ -65,25 +65,14 @@
                         <livewire:toggle-button :model="$blog" field="status" key="{{ $blog->id }}" />
                     </x-table.td>
                     <x-table.td>
-                        <x-dropdown
-                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-32 p-1">
-                            <x-slot name="trigger">
-                                <button type="button"
-                                    class="px-4 text-base font-semibold text-gray-500 hover:text-sky-800">
-                                    <i class="fas fa-angle-double-down"></i>
-                                </button>
-                            </x-slot>
-                            <x-slot name="content">
-                                <x-button primary type="button" wire:click="$emit('editModal', {{ $blog->id }})"
-                                    wire:loading.attr="disabled">
-                                    <i class="fas fa-edit"></i>
-                                </x-button>
-                                <x-button danger type="button" wire:click="$emit('deleteModal', {{ $blog->id }})"
-                                    wire:loading.attr="disabled">
-                                    <i class="fas fa-trash-alt"></i>
-                                </x-button>
-                            </x-slot>
-                        </x-dropdown>
+                        <x-button primary type="button" wire:click="$emit('editModal',{{ $blog->id }})"
+                            wire:loading.attr="disabled">
+                            <i class="fas fa-edit"></i>
+                        </x-button>
+                        <x-button danger type="button" wire:click="$emit('deleteModal', {{ $blog->id }})"
+                            wire:loading.attr="disabled">
+                            <i class="fas fa-trash-alt"></i>
+                        </x-button>
                     </x-table.td>
                 </x-table.tr>
             @empty
@@ -101,59 +90,11 @@
             {{ $blogs->links() }}
         </div>
     </div>
-    <!-- Edit Modal -->
-    <x-modal wire:model="editModal">
-        <x-slot name="title">
-            {{ __('Edit Blog') }}
-        </x-slot>
-
-        <x-slot name="content">
-            <!-- Validation Errors -->
-            <x-auth-validation-errors class="mb-4" :errors="$errors" />
-            <form wire:submit.prevent="update">
-                <div class="flex flex-wrap px-4">
-
-                    <div class="xl:w-1/2 md:w-1/2 px-3">
-                        <x-label for="title" :value="__('Name')" />
-                        <x-input id="title" class="block mt-1 w-full" type="text" name="title"
-                            wire:model.defer="blog.title" />
-                        <x-input-error :messages="$errors->get('blog.title')" for="blog.title" class="mt-2" />
-                    </div>
-
-                    <div class="xl:w-1/2 md:w-1/2 px-3">
-                        <x-label for="category_id" :value="__('Category')" required />
-                        <x-select-list
-                            class="block bg-white text-gray-700 rounded border border-gray-300 mb-1 text-sm w-full focus:shadow-outline-blue focus:border-blue-500"
-                            id="category_id" name="category_id" wire:model="blog.category_id" :options="$this->listsForFields['categories']" />
-                        <x-input-error :messages="$errors->get('blog.category_id')" for="blog.category_id" class="mt-2" />
-                    </div>
-
-                    <div class="w-full px-3 mb-4">
-                        <x-label for="language_id" :value="__('Description')" required />
-                        <x-input.rich-text wire:model.lazy="blog.description" id="description" />
-                    </div>
-
-                    <div class="xl:w-1/2 md:w-1/2 px-3">
-                        <x-label for="language_id" :value="__('Language')" required />
-                        <x-select-list
-                            class="block bg-white text-gray-700 rounded border border-gray-300 mb-1 text-sm w-full focus:shadow-outline-blue focus:border-blue-500"
-                            id="language_id" name="language_id" wire:model="blog.language_id" :options="$this->listsForFields['languages']" />
-                        <x-input-error :messages="$errors->get('blog.language_id')" for="blog.language_id" class="mt-2" />
-                    </div>
-
-                    <div class="w-full px-3">
-                        <x-button primary type="submit" wire:loading.attr="disabled">
-                            {{ __('Update') }}
-                        </x-button>
-                    </div>
-                </div>
-            </form>
-        </x-slot>
-    </x-modal>
-    <!-- End Edit Modal -->
-
 
     <livewire:admin.blog.create />
+    
+    @livewire('admin.blog.edit', ['blog' => $blog])
+    
 </div>
 
 @push('page_scripts')
