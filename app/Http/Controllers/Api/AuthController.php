@@ -23,7 +23,7 @@ class AuthController extends Controller
             'X-Requested-With' => 'XMLHttpRequest',
         ],
         'json' => [
-            'email' => 'your-email@example.com',
+            'email' => 'admin@gmail.com',
             'password' => 'your-password',
         ],
     ]);
