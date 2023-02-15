@@ -1,8 +1,8 @@
 <div>
     <div class="relative mx-auto mb-5">
-        <div class="w-full mx-auto">
+        {{-- <div class="w-full mx-auto">
         @livewire('front.step-wizard')
-        </div>
+        </div> --}}
         <div class="w-full mx-auto">
             <div class="swiper mySwiper">
                 <div class="swiper-wrapper">

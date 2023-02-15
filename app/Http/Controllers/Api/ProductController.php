@@ -8,6 +8,11 @@ use App\Http\Resources\ProductResource;
 use App\Http\Resources\ProductCollection;
 use App\Models\Product;
 use App\Models\Category;
+use Illuminate\Support\Str;
+use Illuminate\Support\Arr;
+use App\Http\Requests\ProductRequest;
+use Illuminate\Support\Facades\Log;
+
 
 class ProductController extends Controller
 {
@@ -40,6 +45,23 @@ class ProductController extends Controller
           ]);
     
           return new ProductResource($product);
+    }
+
+    public function bulkStore(ProductRequest $request)
+    {
+  
+        $products = collect($request->all())->map(function($arr, $key) {
+            return Arr::except($arr, ['categoryId']);
+        });
+    
+        try {
+            Product::insert($products->toArray());
+            Log::info('Bulk store operation completed successfully.');
+            return response()->json(['message' => 'Products uploaded successfully.']);
+        } catch (\Exception $e) {
+            Log::warning('Bulk store operation failed: ' . $e->getMessage());
+            return response()->json(['message' => 'Failed to upload products.'], 500);
+        }
     }
 
     /**

@@ -6,41 +6,23 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class AuthController extends Controller
 {
 
-    public function authenticate(Request $request)
-{
-    $url = $request->input('url');
-    $token = $request->input('token');
+    public function login(Request $request)
+    {
+        $credentials = $request->only('email', 'password');
 
-    $client = new Client();
-    $response = $client->request('GET', $url.'/sanctum/csrf-cookie');
-    $response = $client->request('POST', $url.'/login', [
-        'headers' => [
-            'Accept' => 'application/json',
-            'X-Requested-With' => 'XMLHttpRequest',
-        ],
-        'json' => [
-            'email' => 'admin@gmail.com',
-            'password' => 'your-password',
-        ],
-    ]);
-    $response = $client->request('GET', $url.'/api/user', [
-        'headers' => [
-            'Accept' => 'application/json',
-            'Authorization' => 'Bearer '.$token,
-        ],
-    ]);
-
-    $user = json_decode($response->getBody(), true);
-    
-    // Store the API token and authenticated user in the session
-    session(['api_token' => $token, 'api_user' => $user]);
-    
-    return response()->json(['data' => 'Authenticated successfully']);
-}
+        if (Auth::attempt($credentials)) {
+            $user = Auth::user();
+            $token = $user->createToken('inventory', ['read', 'write']);
+            return response()->json(['api_token' => $token->plainTextToken]);
+        } else {
+            return response()->json(['error' => 'Invalid login credentials'], 401);
+        }
+    }
 
 
     /**
