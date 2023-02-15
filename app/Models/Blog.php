@@ -19,6 +19,7 @@ class Blog extends Model
         'slug',
         'status',
         'featured',
+        'category_id',
         'meta_title',
         'meta_desc',
         'language_id',
@@ -32,6 +33,7 @@ class Blog extends Model
         'slug',
         'status',
         'featured',
+        'category_id',
         'meta_title',
         'meta_desc',
         'language_id',
@@ -44,31 +46,19 @@ class Blog extends Model
         'slug',
         'status',
         'featured',
+        'category_id',
         'meta_title',
         'meta_desc',
         'language_id',
     ];
 
-    protected $dates = ['created_at'];
-
-    public $timestamps = false;
-
-    public static function boot()
-    {
-        parent::boot();
-
-        static::creating(function ($model) {
-            $model->created_at = $model->freshTimestamp();
-        });
-    }
-
     public function category()
     {
-        return $this->belongsTo('App\Models\BlogCategory', 'category_id')->withDefault();
+        return $this->belongsTo(BlogCategory::class);
     }
 
     public function language()
     {
-        return $this->belongsTo('App\Models\Language', 'language_id')->withDefault();
+        return $this->belongsTo(Language::class);
     }
 }
