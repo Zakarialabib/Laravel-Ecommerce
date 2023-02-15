@@ -31,7 +31,11 @@ class SubscribedMail extends Mailable
     {
         return $this->from(('admin@mail.com'))
             ->replyTo(request()->input('email'))
+<<<<<<< Updated upstream
             ->subject(formatTitle([__('Susbscription'), config('app.name')]))
+=======
+            ->subject(__('Susbscription'), config('app.name'))
+>>>>>>> Stashed changes
             ->subject(__('Thank you for your subscription'))
             ->markdown('vendor.notifications.email', [
                 'introLines' => [__('We will get you updated once we will.')],
