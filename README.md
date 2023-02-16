@@ -1,20 +1,10 @@
-# Laravel Ecommerce - 
+# Laravel Ecommerce CMS
 
-Laravel Ecommerce shopping cart project! This project is a full-featured online store platform, built using the Laravel & Tall stack. You can easily set up and manage your own online store, with a complete with for managing orders, products, and website informations. Some of the key features of our shopping cart include:
+Introducing Laravel Ecommerce CMS - the ultimate e-commerce platform that offers multi-currency and multi-language support, lightning-fast response times, and complete customization freedom for store owners. Our powerful schema product rich results and redirection management features will help you boost your store's visibility and drive more traffic to your website.
 
-- A clean and intuitive user interface for browsing and purchasing products
-- A powerful and flexible backend for managing orders, products, and customers
-    
-## Roadmap
+This project offers a wide range of features to test and optimize, from creating and managing products, categories, and orders to setting up payment gateways and shipping options. Our user-friendly interface ensures that you can easily manage your store without any technical knowledge or expertise.
 
-- [x] Dashboard
-- [x] Products
-- [x] Categories
-- [x] SubCategorires
-- [x] Brands
-- [x] Shipping
-- [x] Settings
-- [ ] Pages 
+Our upcoming API release will allow you to effortlessly sync your inventory and manage orders with ease. The user-friendly interface makes it easy for even those with limited technical expertise to create and manage products, categories, and orders. Plus, with our extensive customization options, you can tailor your store to your unique business needs.
 
 ## Requirements
 
