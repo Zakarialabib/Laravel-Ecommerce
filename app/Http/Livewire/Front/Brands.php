@@ -6,13 +6,13 @@ namespace App\Http\Livewire\Front;
 
 use App\Http\Livewire\WithSorting;
 use App\Models\Brand;
-use App\Models\Product;
 use App\Models\Category;
+use App\Models\Product;
 use App\Models\Subcategory;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
 use Livewire\Component;
 use Livewire\WithPagination;
-use Illuminate\Contracts\View\View;
-use Illuminate\Contracts\View\Factory;
 
 class Brands extends Component
 {
@@ -36,10 +36,10 @@ class Brands extends Component
     public $selectedFilters = [];
 
     protected $queryString = [
-        'category_id'    => ['except' => '', 'as' => 'c',],
+        'category_id' => ['except' => '', 'as' => 'c'],
         'subcategory_id' => ['except' => '', 'as' => 's'],
-        'brand_id'       => ['except' => '', 'as' => 'b'],
-        'sorting'        => ['except' => '', 'as' => 'filters'],
+        'brand_id' => ['except' => '', 'as' => 'b'],
+        'sorting' => ['except' => '', 'as' => 'filters'],
     ];
 
     public function updatingPerPage()
@@ -77,11 +77,10 @@ class Brands extends Component
                   $this->subcategory_id = null;
                   unset($this->selectedFilters['subcategory']);
                   break;
-            case 'brand':
-                    $this->brand_id = null;
-                    unset($this->selectedFilters['brand']);
-            break;    
-
+              case 'brand':
+                  $this->brand_id = null;
+                  unset($this->selectedFilters['brand']);
+                  break;
           }
           $this->resetPage();
       }
@@ -89,12 +88,12 @@ class Brands extends Component
     public function mount()
     {
         $this->sortingOptions = [
-            'name-asc'   => __('Order Alphabetic, A-Z'),
-            'name-desc'  => __('Order Alphabetic, Z-A'),
-            'price-asc'  => __('Price, low to high'),
+            'name-asc' => __('Order Alphabetic, A-Z'),
+            'name-desc' => __('Order Alphabetic, Z-A'),
+            'price-asc' => __('Price, low to high'),
             'price-desc' => __('Price, high to low'),
-            'date-asc'   => __('Date, new to old'),
-            'date-desc'  => __('Date, old to new'),
+            'date-asc' => __('Date, new to old'),
+            'date-desc' => __('Date, old to new'),
         ];
         $this->perPage = 25;
         $this->paginationOptions = [25, 50, 100];
@@ -113,17 +112,17 @@ class Brands extends Component
                 return $query->where('brand_id', $this->brand_id);
             });
 
-        if ($this->sorting == 'name') {
+        if ($this->sorting === 'name') {
             $products = $query->orderBy('name', 'asc')->paginate($this->perPage);
-        } elseif ($this->sorting == 'name-desc') {
+        } elseif ($this->sorting === 'name-desc') {
             $products = $query->orderBy('name', 'desc')->paginate($this->perPage);
-        } elseif ($this->sorting == 'price') {
+        } elseif ($this->sorting === 'price') {
             $products = $query->orderBy('price', 'asc')->paginate($this->perPage);
-        } elseif ($this->sorting == 'price-desc') {
+        } elseif ($this->sorting === 'price-desc') {
             $products = $query->orderBy('price', 'desc')->paginate($this->perPage);
-        } elseif ($this->sorting == 'date') {
+        } elseif ($this->sorting === 'date') {
             $products = $query->orderBy('created_at', 'asc')->paginate($this->perPage);
-        } elseif ($this->sorting == 'date-desc') {
+        } elseif ($this->sorting === 'date-desc') {
             $products = $query->orderBy('created_at', 'desc')->paginate($this->perPage);
         } else {
             $products = $query->paginate($this->perPage);

@@ -6,19 +6,19 @@ namespace App\Http\Livewire\Admin\BlogCategory;
 
 use App\Models\BlogCategory;
 use App\Models\Language;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
 use Illuminate\Support\Facades\Gate;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Livewire\Component;
 use Livewire\WithFileUploads;
-use Illuminate\Contracts\View\View;
-use Illuminate\Contracts\View\Factory;
 
 class Create extends Component
 {
     use LivewireAlert;
     use WithFileUploads;
 
-    public $createBlogCategory =false;
+    public $createBlogCategory = false;
 
     public $listeners = ['createBlogCategory'];
 
@@ -26,20 +26,20 @@ class Create extends Component
 
     public $blogcategory;
 
+    protected $rules = [
+        'blogcategory.title' => 'required|string|max:255',
+        'blogcategory.description' => 'nullable',
+        'blogcategory.meta_title' => 'nullable|max:100',
+        'blogcategory.meta_desc' => 'nullable|max:200',
+        'blogcategory.language_id' => 'required|integer',
+    ];
+
     public function mount(BlogCategory $blogcategory)
     {
         $this->blogcategory = $blogcategory;
 
         $this->initListsForFields();
     }
-
-    protected $rules = [
-        'blogcategory.title'            => 'required|string|max:255',
-        'blogcategory.description'      => 'nullable',
-        'blogcategory.meta_title'       => 'nullable|max:100',
-        'blogcategory.meta_desc'         => 'nullable|max:200',
-        'blogcategory.language_id'      => 'required|integer',
-    ];
 
     public function render(): View|Factory
     {
@@ -62,13 +62,12 @@ class Create extends Component
         $this->validate();
 
         $this->blogcategory->save();
-        
+
         $this->alert('success', __('BlogCategory created successfully.'));
 
         $this->createBlogCategory = false;
-        
+
         $this->emit('refreshIndex');
-        
     }
 
     protected function initListsForFields(): void

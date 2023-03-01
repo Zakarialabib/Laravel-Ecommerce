@@ -5,17 +5,15 @@ declare(strict_types=1);
 namespace App\Imports;
 
 use App\Models\Product;
-use Maatwebsite\Excel\Concerns\SkipsEmptyRows;
 use Maatwebsite\Excel\Concerns\ToModel;
 
 class ImportUpdates implements ToModel
 {
-
     public function model(array $row)
     {
         $product = Product::where('code', $row[0])->first();
 
-        if (!$product) {
+        if (! $product) {
             return null;
         }
 
@@ -30,5 +28,4 @@ class ImportUpdates implements ToModel
 
         return null;
     }
-    
 }

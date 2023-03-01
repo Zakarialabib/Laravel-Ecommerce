@@ -6,16 +6,16 @@ namespace App\Http\Livewire\Admin\Slider;
 
 use App\Models\Language;
 use App\Models\Slider;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
+use Intervention\Image\Facades\Image;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Livewire\Component;
 use Livewire\WithFileUploads;
-use Illuminate\Contracts\View\View;
-use Illuminate\Contracts\View\Factory;
-use Intervention\Image\Facades\Image;
-use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Collection;
 use Throwable;
 
 class Create extends Component
@@ -33,21 +33,21 @@ class Create extends Component
         'createSlider',
     ];
 
+    public array $rules = [
+        'slider.title' => ['required', 'string', 'max:255'],
+        'slider.subtitle' => ['nullable', 'string'],
+        'slider.details' => ['nullable', 'string'],
+        'slider.link' => ['nullable', 'string'],
+        'slider.language_id' => ['nullable'],
+        'slider.bg_color' => ['nullable'],
+        'slider.embeded_video' => ['nullable'],
+        'photo' => ['required'],
+    ];
+
     public function mount(Slider $slider)
     {
         $this->slider = $slider;
     }
-
-    public array $rules = [
-        'slider.title'         => ['required', 'string', 'max:255'],
-        'slider.subtitle'      => ['nullable', 'string'],
-        'slider.details'       => ['nullable', 'string'],
-        'slider.link'          => ['nullable', 'string'],
-        'slider.language_id'   => ['nullable'],
-        'slider.bg_color'      => ['nullable'],
-        'slider.embeded_video' => ['nullable'],
-        'photo'                => ['required'],
-    ];
 
     public function render(): View|Factory
     {

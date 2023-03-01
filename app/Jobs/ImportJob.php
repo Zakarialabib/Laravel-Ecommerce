@@ -38,7 +38,7 @@ class ImportJob implements ShouldQueue
      * @return void
      */
     public function handle()
-    {        
+    {
         Excel::import(new ImportUpdates(), public_path('images/products/'.$this->filename));
 
         File::delete(public_path('images/products/'.$this->filename));

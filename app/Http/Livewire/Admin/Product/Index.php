@@ -4,16 +4,16 @@ declare(strict_types=1);
 
 namespace App\Http\Livewire\Admin\Product;
 
+use App\Exports\ProductExport;
 use App\Http\Livewire\WithSorting;
 use App\Models\Product;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
 use Illuminate\Support\Facades\Gate;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 use Livewire\WithPagination;
-use Illuminate\Contracts\View\View;
-use Illuminate\Contracts\View\Factory;
-use App\Exports\ProductExport;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
 
 class Index extends Component
@@ -29,9 +29,9 @@ class Index extends Component
         'refreshIndex' => '$refresh',
         'promoAllProducts',
         'delete', 'downloadAll',
-        'exportAll'
+        'exportAll',
     ];
-    
+
     public $selectType;
 
     public $promoAllProducts = false;
@@ -53,7 +53,7 @@ class Index extends Component
     public $selectAll;
 
     public $file;
-    
+
     public float $price;
 
     public string $search = '';
@@ -63,10 +63,10 @@ class Index extends Component
     public array $paginationOptions;
 
     protected $queryString = [
-        'search'        => [
+        'search' => [
             'except' => '',
         ],
-        'sortBy'        => [
+        'sortBy' => [
             'except' => 'id',
         ],
         'sortDirection' => [
@@ -111,9 +111,10 @@ class Index extends Component
             $query->select('id', 'name');
         }, 'brand' => function ($query) {
             $query->select('id', 'name');
-        }])->select('products.*')->advancedFilter([
-            's'               => $this->search ?: null,
-            'order_column'    => $this->sortBy,
+        },
+        ])->select('products.*')->advancedFilter([
+            's' => $this->search ?: null,
+            'order_column' => $this->sortBy,
             'order_direction' => $this->sortDirection,
         ]);
 
@@ -142,7 +143,7 @@ class Index extends Component
 
     public function selectAll()
     {
-        if (count(array_intersect($this->selected, Product::pluck('id')->toArray())) == count(Product::pluck('id')->toArray())) {
+        if (count(array_intersect($this->selected, Product::pluck('id')->toArray())) === count(Product::pluck('id')->toArray())) {
             $this->selected = [];
         } else {
             $this->selected = Product::pluck('id')->toArray();
@@ -151,7 +152,7 @@ class Index extends Component
 
     public function selectPage()
     {
-        if (count(array_intersect($this->selected, Product::paginate($this->perPage)->pluck('id')->toArray())) == count(Product::paginate($this->perPage)->pluck('id')->toArray())) {
+        if (count(array_intersect($this->selected, Product::paginate($this->perPage)->pluck('id')->toArray())) === count(Product::paginate($this->perPage)->pluck('id')->toArray())) {
             $this->selected = [];
         } else {
             $this->selected = array_intersect($this->selected, Product::paginate($this->perPage)->pluck('id')->toArray());
@@ -164,19 +165,19 @@ class Index extends Component
          $product_details = Product::find($product->id);
          // dd($product_details);
          Product::create([
-             'code'             => $product_details->code,
-             'slug'             => $product_details->slug,
-             'name'             => $product_details->name,
-             'price'            => $product_details->price,
-             'description'      => $product_details->description,
-             'meta_title'       => $product_details->meta_title,
+             'code' => $product_details->code,
+             'slug' => $product_details->slug,
+             'name' => $product_details->name,
+             'price' => $product_details->price,
+             'description' => $product_details->description,
+             'meta_title' => $product_details->meta_title,
              'meta_description' => $product_details->meta_description,
-             'meta_keywords'    => $product_details->meta_keywords,
-             'category_id'      => $product_details->category_id,
-             'subcategory_id'   => $product_details->subcategory_id,
-             'image'            => $product_details->image,
-             'brand_id'         => $product_details->brand_id,
-             'status'           => 0,
+             'meta_keywords' => $product_details->meta_keywords,
+             'category_id' => $product_details->category_id,
+             'subcategory_id' => $product_details->subcategory_id,
+             'image' => $product_details->image,
+             'brand_id' => $product_details->brand_id,
+             'status' => 0,
          ]);
 
          $this->alert('success', __('Product Cloned successfully!'));
@@ -197,7 +198,7 @@ class Index extends Component
              } elseif ($this->copyOldPriceToPrice) {
                  $product->price = $product->old_price;
                  $product->old_price = null;
-             } elseif ($this->percentageMethod == '+') {
+             } elseif ($this->percentageMethod === '+') {
                  $product->price = round(floatval($product->price) * (1 + $this->percentage / 100));
              } else {
                  $product->price = round(floatval($product->price) * (1 - $this->percentage / 100));
@@ -217,33 +218,29 @@ class Index extends Component
      }
 
       public function downloadSelected()
-    {
+      {
+          $products = Product::whereIn('id', $this->selected)->get();
 
-        $products = Product::whereIn('id', $this->selected)->get();
-
-        return (new ProductExport($products))->download('products.xls', \Maatwebsite\Excel\Excel::XLS);
-    }
+          return (new ProductExport($products))->download('products.xls', \Maatwebsite\Excel\Excel::XLS);
+      }
 
     public function downloadAll(Product $products)
     {
-
         return (new ProductExport($products))->download('products.xls', \Maatwebsite\Excel\Excel::XLS);
     }
 
-
      public function exportSelected(): BinaryFileResponse
-     { 
-        return $this->callExport()->forModels($this->selected)->download('products.pdf', \Maatwebsite\Excel\Excel::MPDF);
+     {
+         return $this->callExport()->forModels($this->selected)->download('products.pdf', \Maatwebsite\Excel\Excel::MPDF);
      }
- 
+
      public function exportAll(): BinaryFileResponse
      {
- 
          return $this->callExport()->download('products.pdf', \Maatwebsite\Excel\Excel::MPDF);
      }
- 
+
      private function callExport(): ProductExport
      {
-         return (new ProductExport());
+         return new ProductExport();
      }
 }

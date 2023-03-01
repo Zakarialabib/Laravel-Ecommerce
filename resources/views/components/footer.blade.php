@@ -63,7 +63,7 @@
                 </div>
             </div>
             <div class="w-full lg:w-2/5 px-4 order-first lg:order-1 mb-100">
-                <livewire:front.newsletters />
+                <livewire:front.newsletters-form />
                 <div class="w-full flex flex-wrap lg:justify-between sm:justify-center">
                     <div class="w-full md:w-auto flex">
                         <a class="inline-flex items-center justify-center w-12 h-12 mr-2 rounded-full"

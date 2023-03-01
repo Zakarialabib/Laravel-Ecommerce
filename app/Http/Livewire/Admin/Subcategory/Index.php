@@ -8,12 +8,12 @@ use App\Http\Livewire\WithSorting;
 use App\Models\Category;
 use App\Models\Language;
 use App\Models\Subcategory;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
 use Illuminate\Support\Facades\Gate;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Livewire\Component;
 use Livewire\WithPagination;
-use Illuminate\Contracts\View\View;
-use Illuminate\Contracts\View\Factory;
 
 class Index extends Component
 {
@@ -42,11 +42,18 @@ class Index extends Component
 
     public array $paginationOptions;
 
+    public array $rules = [
+        'subcategory.name' => ['required', 'string', 'max:255'],
+        'subcategory.category_id' => ['nullable', 'integer'],
+        'subcategory.language_id' => ['nullable'],
+        'subcategory.slug' => ['required'],
+    ];
+
     protected $queryString = [
-        'search'        => [
+        'search' => [
             'except' => '',
         ],
-        'sortBy'        => [
+        'sortBy' => [
             'except' => 'id',
         ],
         'sortDirection' => [
@@ -74,13 +81,6 @@ class Index extends Component
         $this->selected = [];
     }
 
-    public array $rules = [
-        'subcategory.name'        => ['required', 'string', 'max:255'],
-        'subcategory.category_id' => ['nullable', 'integer'],
-        'subcategory.language_id' => ['nullable'],
-        'subcategory.slug'        => ['required'],
-    ];
-
     public function mount()
     {
         $this->sortBy = 'id';
@@ -93,8 +93,8 @@ class Index extends Component
     public function render(): View|Factory
     {
         $query = Subcategory::with('categories')->advancedFilter([
-            's'               => $this->search ?: null,
-            'order_column'    => $this->sortBy,
+            's' => $this->search ?: null,
+            'order_column' => $this->sortBy,
             'order_direction' => $this->sortDirection,
         ]);
 

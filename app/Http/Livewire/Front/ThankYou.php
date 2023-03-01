@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace App\Http\Livewire\Front;
 
 use App\Models\Order;
-use Livewire\Component;
-use Illuminate\Contracts\View\View;
 use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
+use Livewire\Component;
 
 class ThankYou extends Component
 {

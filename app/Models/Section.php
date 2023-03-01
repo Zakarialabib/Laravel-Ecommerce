@@ -11,8 +11,6 @@ class Section extends Model
 {
     use HasAdvancedFilter;
 
-    public $table = 'sections';
-
     public const HOME_PAGE = 1;
 
     public const ABOUT_PAGE = 2;
@@ -30,6 +28,8 @@ class Section extends Model
     public const PRODUCT_PAGE = 8;
 
     public const PRIVACY_PAGE = 9;
+
+    public $table = 'sections';
 
     public $orderable = [
         'id',
@@ -82,6 +82,7 @@ class Section extends Model
      * Scope a query to only include active products.
      *
      * @param  \Illuminate\Database\Eloquent\Builder  $query
+     *
      * @return void
      */
     public function scopeActive($query)

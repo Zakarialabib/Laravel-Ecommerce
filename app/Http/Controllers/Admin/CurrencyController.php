@@ -96,12 +96,12 @@ class CurrencyController extends Controller
 
     public function destroy($id)
     {
-        if ($id == 1) {
+        if ($id === 1) {
             return __("You cant't remove the main currency.");
         }
         $data = Currency::findOrFail($id);
 
-        if ($data->is_default == 1) {
+        if ($data->is_default === 1) {
             Currency::where('id', '=', 1)->update(['is_default' => 1]);
         }
         $data->delete();

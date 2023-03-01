@@ -1,5 +1,5 @@
 @section('meta')
-    <meta itemprop="url" content="{{ URL::current() }}">
+    <meta itemprop="url" content="{{ URL::current() }}" />
     <meta property="og:title" content="{{ $product->meta_title }}">
     <meta property="og:description" content="{!! $product->meta_description !!}">
     <meta property="og:url" content="{{ URL::current() }}">
@@ -18,8 +18,8 @@
     <div class="py-10">
         <div itemtype="https://schema.org/Product" itemscope>
 
-            <meta itemprop="name" content="{{ $product->name }}">
-            <meta itemprop="description" content="{{ $product->description }}">
+            <meta itemprop="name" content="{{ $product->name }}" />
+            <meta itemprop="description" content="{{ $product->description }}" />
 
             <div class="mx-auto px-4">
                 <div class="flex flex-wrap -mx-4 mb-14">
@@ -37,7 +37,7 @@
                                             href="{{ route('front.brandPage', $product->brand?->slug) }}">{{ $product->brand?->name }}</a>
                                     @endisset
                                     <div itemprop="brand" itemtype="https://schema.org/Brand" itemscope>
-                                        <meta itemprop="brand" content="{{ $product->brand?->name }}">
+                                        <meta itemprop="brand" content="{{ $product->brand?->name }}" />
                                     </div>
                                 </span>
                                 <h2 class="mt-2 mb-6 max-w-xl lg:text-5xl sm:text-xl font-bold font-heading">

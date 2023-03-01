@@ -30,6 +30,6 @@ class CustomerRegistration extends Mailable
      */
     public function build()
     {
-        return $this->view('email-templates.customer-registration')->with(['name'=>$this->name]);
+        return $this->view('email-templates.customer-registration')->with(['name' => $this->name]);
     }
 }

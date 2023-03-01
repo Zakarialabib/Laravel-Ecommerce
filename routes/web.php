@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-use App\Http\Controllers\FrontController;
 use App\Http\Controllers\ErrorController;
+use App\Http\Controllers\FrontController;
 use App\Http\Controllers\UploadController;
-use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Route;
 
 /*
 |--------------------------------------------------------------------------
@@ -41,7 +41,6 @@ Route::get('/blog', [FrontController::class, 'blog'])->name('front.blog');
 Route::get('/blog/{slug}', [FrontController::class, 'blogPage'])->name('front.blogPage');
 Route::get('/page/{slug}', [FrontController::class, 'dynamicPage'])->name('front.dynamicPage');
 Route::get('/generate-sitemap', [FrontController::class, 'generateSitemaps'])->name('generate-sitemaps');
-
 
 Route::middleware('auth')->group(function () {
     Route::get('/mon-compte', [FrontController::class, 'myaccount'])->name('front.myaccount');

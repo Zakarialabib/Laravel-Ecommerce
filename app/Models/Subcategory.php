@@ -11,6 +11,12 @@ class Subcategory extends Model
 {
     use HasAdvancedFilter;
 
+    public $orderable = [
+        'id', 'category_id', 'name', 'slug', 'language_id',
+    ];
+
+    public $timestamps = false;
+
     protected $fillable = [
         'category_id', 'name', 'slug', 'language_id',
     ];
@@ -19,16 +25,11 @@ class Subcategory extends Model
         'id', 'category_id', 'name', 'slug', 'language_id',
     ];
 
-    public $orderable = [
-        'id', 'category_id', 'name', 'slug', 'language_id',
-    ];
-
-    public $timestamps = false;
-
     /**
      * Scope a query to only include active products.
      *
      * @param  \Illuminate\Database\Eloquent\Builder  $query
+     *
      * @return void
      */
     public function scopeActive($query)

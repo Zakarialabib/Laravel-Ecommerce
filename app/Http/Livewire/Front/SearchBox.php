@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace App\Http\Livewire\Front;
 
 use App\Models\Product;
-use Livewire\Component;
-use Illuminate\Contracts\View\View;
 use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
+use Livewire\Component;
 
 class SearchBox extends Component
 {
@@ -22,7 +22,7 @@ class SearchBox extends Component
     protected $queryString = [
         'search' => [
             'except' => '',
-            'as'     => 'q',
+            'as' => 'q',
         ],
     ];
 

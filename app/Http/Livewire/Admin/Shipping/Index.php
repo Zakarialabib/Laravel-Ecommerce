@@ -6,12 +6,11 @@ namespace App\Http\Livewire\Admin\Shipping;
 
 use App\Http\Livewire\WithSorting;
 use App\Models\Shipping;
-use Illuminate\Support\Facades\Gate;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Livewire\Component;
 use Livewire\WithPagination;
-use Illuminate\Contracts\View\View;
-use Illuminate\Contracts\View\Factory;
 
 class Index extends Component
 {
@@ -38,10 +37,10 @@ class Index extends Component
     public array $paginationOptions;
 
     protected $queryString = [
-        'search'        => [
+        'search' => [
             'except' => '',
         ],
-        'sortBy'        => [
+        'sortBy' => [
             'except' => 'id',
         ],
         'sortDirection' => [
@@ -81,8 +80,8 @@ class Index extends Component
     public function render(): View|Factory
     {
         $query = Shipping::advancedFilter([
-            's'               => $this->search ?: null,
-            'order_column'    => $this->sortBy,
+            's' => $this->search ?: null,
+            'order_column' => $this->sortBy,
             'order_direction' => $this->sortDirection,
         ]);
 

@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace App\Http\Livewire\Admin\Settings;
 
-use Livewire\Component;
-use App\Models\Popup;
-use Throwable;
-use Jantinnerezo\LivewireAlert\LivewireAlert;
 use App\Http\Livewire\WithSorting;
+use App\Models\Popup;
+use Jantinnerezo\LivewireAlert\LivewireAlert;
+use Livewire\Component;
 use Livewire\WithPagination;
+use Throwable;
 
 class PopupSettings extends Component
 {
@@ -40,15 +40,15 @@ class PopupSettings extends Component
     public $ctaUrl;
 
     public array $rules = [
-        'width'           => ['required', 'string', 'max:15'],
-        'frequency'       => ['nullable', 'string'],
-        'timing'          => ['nullable', 'string', 'max:255'],
-        'delay'           => ['nullable', 'string'],
-        'duration'        => ['nullable', 'string', 'max:255'],
+        'width' => ['required', 'string', 'max:15'],
+        'frequency' => ['nullable', 'string'],
+        'timing' => ['nullable', 'string', 'max:255'],
+        'delay' => ['nullable', 'string'],
+        'duration' => ['nullable', 'string', 'max:255'],
         'backgroundColor' => ['nullable', 'string', 'max:15'],
-        'content'         => ['required', 'string'],
-        'ctaText'         => ['required', 'string'],
-        'ctaUrl'          => ['required', 'string'],
+        'content' => ['required', 'string'],
+        'ctaText' => ['required', 'string'],
+        'ctaUrl' => ['required', 'string'],
     ];
 
     public array $orderable;
@@ -60,10 +60,10 @@ class PopupSettings extends Component
     public array $paginationOptions;
 
     protected $queryString = [
-        'search'        => [
+        'search' => [
             'except' => '',
         ],
-        'sortBy'        => [
+        'sortBy' => [
             'except' => 'id',
         ],
         'sortDirection' => [
@@ -113,15 +113,15 @@ class PopupSettings extends Component
         try {
             // save new popup
             $this->popup = Popup::create([
-                'width'           => $this->width,
-                'frequency'       => $this->frequency,
-                'timing'          => $this->timing,
-                'delay'           => $this->delay,
-                'duration'        => $this->duration,
+                'width' => $this->width,
+                'frequency' => $this->frequency,
+                'timing' => $this->timing,
+                'delay' => $this->delay,
+                'duration' => $this->duration,
                 'backgroundColor' => $this->backgroundColor,
-                'content'         => $this->content,
-                'ctaText'         => $this->ctaText,
-                'ctaUrl'          => $this->ctaUrl,
+                'content' => $this->content,
+                'ctaText' => $this->ctaText,
+                'ctaUrl' => $this->ctaUrl,
             ]);
 
             // show succes message
@@ -154,7 +154,7 @@ class PopupSettings extends Component
             // Emit an event based on the chosen timing option, passing along the corresponding delay/interval/duration value as an argument
 
             match ($this->timing) {
-                'delay'    => $this->emit('showDelay', $this->delay),
+                'delay' => $this->emit('showDelay', $this->delay),
                 'duration' => $this->emit('showDuration', $this->duration),
                 'interval' => $this->emit('showInterval', $this->interval),
             };

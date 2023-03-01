@@ -7,13 +7,12 @@ namespace App\Http\Livewire\Admin\Blog;
 use App\Models\Blog;
 use App\Models\BlogCategory;
 use App\Models\Language;
-use Illuminate\Support\Facades\Gate;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
 use Illuminate\Support\Str;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Livewire\Component;
 use Livewire\WithFileUploads;
-use Illuminate\Contracts\View\View;
-use Illuminate\Contracts\View\Factory;
 
 class Edit extends Component
 {
@@ -30,22 +29,20 @@ class Edit extends Component
 
     public array $listsForFields = [];
 
+    protected $rules = [
+        'blog.title' => 'required|min:3|max:255',
+        'blog.category_id' => 'required|integer',
+        'blog.slug' => 'required|string',
+        'blog.details' => 'required|min:3',
+        'blog.language_id' => 'nullable|integer',
+        'blog.meta_title' => 'nullable|max:100',
+        'blog.meta_desc' => 'nullable|max:200',
+    ];
+
     public function mount()
     {
-        
-
         $this->initListsForFields();
     }
-
-    protected $rules = [
-        'blog.title'            => 'required|min:3|max:255',
-        'blog.category_id'      => 'required|integer',
-        'blog.slug'           => 'required|string',
-        'blog.details'          => 'required|min:3',
-        'blog.language_id'      => 'nullable|integer',
-        'blog.meta_title'      => 'nullable|max:100',
-        'blog.meta_desc'      => 'nullable|max:200',
-    ];
 
     public function render(): View|Factory
     {
@@ -54,7 +51,6 @@ class Edit extends Component
         return view('livewire.admin.blog.edit');
     }
 
- 
     public function editModal($id)
     {
         // abort_if(Gate::denies('blog_edit'), 403);
@@ -63,7 +59,7 @@ class Edit extends Component
 
         $this->resetValidation();
 
-        $this->blog = Blog::where('id', $id)->firstOrFail();        
+        $this->blog = Blog::where('id', $id)->firstOrFail();
 
         $this->editModal = true;
     }
@@ -77,7 +73,7 @@ class Edit extends Component
             $this->image->storeAs('blogs', $imageName);
             $this->blog->image = $imageName;
         }
-        
+
         $this->blog->save();
 
         $this->emit('refreshIndex');

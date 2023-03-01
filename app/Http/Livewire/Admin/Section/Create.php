@@ -4,15 +4,15 @@ declare(strict_types=1);
 
 namespace App\Http\Livewire\Admin\Section;
 
+use App\Models\Language;
 use App\Models\Section;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Str;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Livewire\Component;
-use App\Models\Language;
 use Livewire\WithFileUploads;
-use Illuminate\Support\Str;
-use Illuminate\Contracts\View\View;
-use Illuminate\Contracts\View\Factory;
 
 class Create extends Component
 {
@@ -30,16 +30,16 @@ class Create extends Component
     ];
 
     public array $rules = [
-        'section.language_id'    => ['required'],
-        'section.page'           => ['required'],
-        'section.title'          => ['required', 'string', 'max:255'],
+        'section.language_id' => ['required'],
+        'section.page' => ['required'],
+        'section.title' => ['required', 'string', 'max:255'],
         'section.featured_title' => ['nullable', 'string', 'max:255'],
-        'section.subtitle'       => ['nullable', 'string', 'max:255'],
-        'section.label'          => ['nullable', 'string', 'max:255'],
-        'section.description'    => ['nullable'],
-        'section.bg_color'       => ['nullable'],
-        'section.position'       => ['nullable'],
-        'section.link'           => ['nullable'],
+        'section.subtitle' => ['nullable', 'string', 'max:255'],
+        'section.label' => ['nullable', 'string', 'max:255'],
+        'section.description' => ['nullable'],
+        'section.bg_color' => ['nullable'],
+        'section.position' => ['nullable'],
+        'section.link' => ['nullable'],
     ];
 
     public function createSection()

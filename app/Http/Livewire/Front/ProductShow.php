@@ -8,10 +8,10 @@ use App\Models\Brand;
 use App\Models\Category;
 use App\Models\Product;
 use Gloudemans\Shoppingcart\Facades\Cart;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Livewire\Component;
-use Illuminate\Contracts\View\View;
-use Illuminate\Contracts\View\Factory;
 
 class ProductShow extends Component
 {
@@ -47,12 +47,12 @@ class ProductShow extends Component
 
     public function decreaseQuantity()
     {
-        $this->quantity = $this->quantity - 1;
+        $this->quantity -= 1;
     }
 
     public function increaseQuantity()
     {
-        $this->quantity = $this->quantity + 1;
+        $this->quantity += 1;
     }
 
      public function AddToCart($product_id)
@@ -72,13 +72,13 @@ class ProductShow extends Component
              'success',
              __('Product added to cart successfully!'),
              [
-                 'position'          => 'center',
-                 'timer'             => 3000,
-                 'toast'             => true,
-                 'text'              => '',
+                 'position' => 'center',
+                 'timer' => 3000,
+                 'toast' => true,
+                 'text' => '',
                  'confirmButtonText' => 'Ok',
-                 'cancelButtonText'  => 'Cancel',
-                 'showCancelButton'  => false,
+                 'cancelButtonText' => 'Cancel',
+                 'showCancelButton' => false,
                  'showConfirmButton' => false,
              ]
          );

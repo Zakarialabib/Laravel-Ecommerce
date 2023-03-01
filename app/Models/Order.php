@@ -31,8 +31,8 @@ class Order extends Model
 
     public const PAYMENT_STATUS_REFUNDED = 5;
 
-    protected $fillable = [
-        'user_id', 'reference', 'status', 'currency_id', 'shipping_id',
+    public $orderable = [
+        'id', 'user_id', 'reference', 'status', 'currency_id', 'shipping_id',
         'cart', 'delivery_method', 'payment_method', 'totalQty', 'payment_status',
         'packaging_id', 'order_note', 'products', 'total', 'subtotal', 'tax',
         'shipping_name', 'shipping_email', 'shipping_phone', 'shipping_address',
@@ -40,8 +40,8 @@ class Order extends Model
         'created_at', 'updated_at',
     ];
 
-    public $orderable = [
-        'id', 'user_id', 'reference', 'status', 'currency_id', 'shipping_id',
+    protected $fillable = [
+        'user_id', 'reference', 'status', 'currency_id', 'shipping_id',
         'cart', 'delivery_method', 'payment_method', 'totalQty', 'payment_status',
         'packaging_id', 'order_note', 'products', 'total', 'subtotal', 'tax',
         'shipping_name', 'shipping_email', 'shipping_phone', 'shipping_address',

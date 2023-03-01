@@ -11,7 +11,7 @@ class Blog extends Model
 {
     use HasAdvancedFilter;
 
-    protected $filterable = [
+    public $orderable = [
         'id',
         'title',
         'details',
@@ -25,7 +25,7 @@ class Blog extends Model
         'language_id',
     ];
 
-    public $orderable = [
+    protected $filterable = [
         'id',
         'title',
         'details',

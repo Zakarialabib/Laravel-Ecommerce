@@ -19,6 +19,8 @@ class FeaturedBanner extends Model
         'id', 'title', 'details', 'image', 'status', 'featured', 'language_id',
     ];
 
+    public $timestamps = false;
+
     protected $filterable = [
         'id', 'title', 'details', 'image', 'status', 'featured', 'language_id',
     ];
@@ -26,8 +28,6 @@ class FeaturedBanner extends Model
     protected $fillable = [
         'title', 'details', 'image', 'embeded_video', 'status', 'featured', 'link', 'language_id', 'product_id',
     ];
-
-    public $timestamps = false;
 
     public function product()
     {

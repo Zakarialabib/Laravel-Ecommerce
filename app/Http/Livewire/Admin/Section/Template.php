@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace App\Http\Livewire\Admin\Section;
 
-use Livewire\Component;
 use App\Models\Section;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
+use Livewire\Component;
 use Livewire\WithFileUploads;
 use Throwable;
 
@@ -49,14 +49,14 @@ class Template extends Component
     {
         try {
             $section = [
-                'title'          => $this->selectedTemplate['title'],
-                'subtitle'       => $this->selectedTemplate['subtitle'],
+                'title' => $this->selectedTemplate['title'],
+                'subtitle' => $this->selectedTemplate['subtitle'],
                 'featured_title' => $this->selectedTemplate['featured_title'],
-                'label'          => $this->selectedTemplate['label'],
-                'description'    => $this->selectedTemplate['description'],
-                'bg_color'       => $this->selectedTemplate['bg_color'],
-                'position'       => $this->selectedTemplate['position'],
-                'link'           => $this->selectedTemplate['link'],
+                'label' => $this->selectedTemplate['label'],
+                'description' => $this->selectedTemplate['description'],
+                'bg_color' => $this->selectedTemplate['bg_color'],
+                'position' => $this->selectedTemplate['position'],
+                'link' => $this->selectedTemplate['link'],
             ];
 
             Section::create($section);

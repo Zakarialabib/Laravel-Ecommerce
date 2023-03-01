@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace App\Console\Commands;
 
-use Illuminate\Console\Command;
 use App\Models\Brand;
-use App\Models\Subcategory;
 use App\Models\Product;
+use App\Models\Subcategory;
+use Illuminate\Console\Command;
 use Spatie\Sitemap\Sitemap;
-use Spatie\Sitemap\Tags\Url;
 use Spatie\Sitemap\SitemapIndex;
+use Spatie\Sitemap\Tags\Url;
 
 class GenerateSitemap extends Command
 {
@@ -50,49 +50,47 @@ class GenerateSitemap extends Command
             ->add('/pages_sitemap.xml')
             ->add('/subcategories_sitemap.xml');
         $sitemapIndex->writeToFile(public_path('sitemap.xml'));
-        
-        
     }
 
     protected function generatePagesSitemap()
     {
         $sitemap = Sitemap::create()
-        ->add(
-            Url::create('/')
-                ->setLastModificationDate(Carbon::yesterday())
-                ->setChangeFrequency(Url::CHANGE_FREQUENCY_YEARLY)
-                ->setPriority(1.0)
-        )
-        ->add(
-            Url::create(route('front.catalog'))
-                ->setLastModificationDate(Carbon::yesterday())
-                ->setChangeFrequency(Url::CHANGE_FREQUENCY_YEARLY)
-                ->setPriority(0.9)
-        )
-        ->add(
-            Url::create(route('front.brands'))
-                ->setLastModificationDate(Carbon::yesterday())
-                ->setChangeFrequency(Url::CHANGE_FREQUENCY_YEARLY)
-                ->setPriority(0.8)
-        )
-        ->add(
-            Url::create(route('front.categories'))
-                ->setLastModificationDate(Carbon::yesterday())
-                ->setChangeFrequency(Url::CHANGE_FREQUENCY_YEARLY)
-                ->setPriority(0.7)
-        )
-        ->add(
-            Url::create(route('front.about'))
-                ->setLastModificationDate(Carbon::yesterday())
-                ->setChangeFrequency(Url::CHANGE_FREQUENCY_YEARLY)
-                ->setPriority(0.6)
-        )
-        ->add(
-            Url::create(route('front.contact'))
-                ->setLastModificationDate(Carbon::yesterday())
-                ->setChangeFrequency(Url::CHANGE_FREQUENCY_YEARLY)
-                ->setPriority(0.5)
-        );
+            ->add(
+                Url::create('/')
+                    ->setLastModificationDate(Carbon::yesterday())
+                    ->setChangeFrequency(Url::CHANGE_FREQUENCY_YEARLY)
+                    ->setPriority(1.0)
+            )
+            ->add(
+                Url::create(route('front.catalog'))
+                    ->setLastModificationDate(Carbon::yesterday())
+                    ->setChangeFrequency(Url::CHANGE_FREQUENCY_YEARLY)
+                    ->setPriority(0.9)
+            )
+            ->add(
+                Url::create(route('front.brands'))
+                    ->setLastModificationDate(Carbon::yesterday())
+                    ->setChangeFrequency(Url::CHANGE_FREQUENCY_YEARLY)
+                    ->setPriority(0.8)
+            )
+            ->add(
+                Url::create(route('front.categories'))
+                    ->setLastModificationDate(Carbon::yesterday())
+                    ->setChangeFrequency(Url::CHANGE_FREQUENCY_YEARLY)
+                    ->setPriority(0.7)
+            )
+            ->add(
+                Url::create(route('front.about'))
+                    ->setLastModificationDate(Carbon::yesterday())
+                    ->setChangeFrequency(Url::CHANGE_FREQUENCY_YEARLY)
+                    ->setPriority(0.6)
+            )
+            ->add(
+                Url::create(route('front.contact'))
+                    ->setLastModificationDate(Carbon::yesterday())
+                    ->setChangeFrequency(Url::CHANGE_FREQUENCY_YEARLY)
+                    ->setPriority(0.5)
+            );
 
         $sitemap->writeToFile(public_path('pages_sitemap.xml'));
     }
@@ -127,5 +125,4 @@ class GenerateSitemap extends Command
 
         $sitemap->writeToFile(public_path('subcategories_sitemap.xml'));
     }
-
 }

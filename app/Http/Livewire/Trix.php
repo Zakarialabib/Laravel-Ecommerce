@@ -34,7 +34,7 @@ class Trix extends Component
     public function completeUpload(string $uploadedUrl, string $trixUploadCompletedEvent)
     {
         foreach ($this->photos as $photo) {
-            if ($photo->getFilename() == $uploadedUrl) {
+            if ($photo->getFilename() === $uploadedUrl) {
                 // store in the public/photos location
                 $newFilename = $photo->store('public/photos');
 
@@ -42,7 +42,7 @@ class Trix extends Component
                 $url = Storage::url($newFilename);
 
                 $this->dispatchBrowserEvent($trixUploadCompletedEvent, [
-                    'url'  => $url,
+                    'url' => $url,
                     'href' => $url,
                 ]);
             }

@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace App\Http\Livewire\Admin\Shipping;
 
 use App\Models\Shipping;
-use Illuminate\Support\Facades\Gate;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Livewire\Component;
 
@@ -19,17 +18,17 @@ class Create extends Component
 
     public $shipping;
 
+    public array $rules = [
+        'shipping.is_pickup' => ['nullable', 'integer'],
+        'shipping.title' => ['required', 'string', 'max:255'],
+        'shipping.subtitle' => ['nullable', 'string', 'max:255'],
+        'shipping.cost' => ['required', 'string'],
+    ];
+
     public function mount(Shipping $shipping)
     {
         $this->shipping = $shipping;
     }
-
-    public array $rules = [
-        'shipping.is_pickup' => ['nullable', 'integer'],
-        'shipping.title'     => ['required', 'string', 'max:255'],
-        'shipping.subtitle'  => ['nullable', 'string', 'max:255'],
-        'shipping.cost'      => ['required', 'string'],
-    ];
 
     public function render(): View|Factory
     {

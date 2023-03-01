@@ -2,14 +2,10 @@
 
 namespace App\Notifications\Admin;
 
-use Carbon\Carbon;
-use Illuminate\Bus\Queueable;
 use App\Enums\NotificationType;
 use App\Traits\MakeNotification;
+use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Notification;
-use Illuminate\Contracts\Queue\ShouldQueue;
-use Illuminate\Notifications\Messages\MailMessage;
-use Illuminate\Notifications\Messages\BroadcastMessage;
 
 class NewOrderNotification extends Notification
 {
@@ -34,6 +30,7 @@ class NewOrderNotification extends Notification
      * Get the notification's delivery channels.
      *
      * @param  mixed  $notifiable
+     *
      * @return array
      */
     public function via($notifiable)
@@ -45,15 +42,16 @@ class NewOrderNotification extends Notification
      * Get the array representation of the notification.
      *
      * @param  mixed  $notifiable
+     *
      * @return array
      */
     public function toArray($notifiable)
     {
-        return  $this->make([
-            "title"    => "__('A new order placed')",
-            "subtitle" => "__('Customer Name'): {$this->order->customer->name}",
-            "link"     => "/admin/orders/{$this->order->id}",
-            "type"     => NotificationType::INFO(),
+        return $this->make([
+            'title' => "__('A new order placed')",
+            'subtitle' => "__('Customer Name'): {$this->order->customer->name}",
+            'link' => "/admin/orders/{$this->order->id}",
+            'type' => NotificationType::INFO(),
         ]);
     }
 }

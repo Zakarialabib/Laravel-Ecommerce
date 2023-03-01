@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace App\Http\Livewire\Admin;
 
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
 use Illuminate\Support\Facades\Artisan;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Livewire\Component;
-use Illuminate\Contracts\View\View;
-use Illuminate\Contracts\View\Factory;
 
 class Cache extends Component
 {

@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Review extends Model
 {
+    public $timestamps = false;
     // rating
     protected $fillable = [
         'rating',
@@ -20,6 +21,4 @@ class Review extends Model
     {
         return $this->belongsTo(Product::class);
     }
-
-    public $timestamps = false;
 }

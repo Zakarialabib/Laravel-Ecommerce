@@ -6,10 +6,10 @@ namespace App\Http\Livewire\Admin\Role;
 
 use App\Models\Permission;
 use App\Models\Role;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Livewire\Component;
-use Illuminate\Contracts\View\View;
-use Illuminate\Contracts\View\Factory;
 
 class Edit extends Component
 {
@@ -52,11 +52,11 @@ class Edit extends Component
     protected function rules(): array
     {
         return [
-            'role.title'       => [
+            'role.title' => [
                 'string',
                 'required',
             ],
-            'permissions'      => [
+            'permissions' => [
                 'required',
                 'array',
             ],

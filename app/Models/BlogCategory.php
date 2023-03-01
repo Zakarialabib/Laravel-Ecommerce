@@ -11,6 +11,18 @@ class BlogCategory extends Model
 {
     use HasAdvancedFilter;
 
+    public $orderable = [
+        'id',
+        'title',
+        'description',
+        'meta_tag',
+        'meta_description',
+        'featured',
+        'language_id',
+    ];
+
+    public $timestamps = false;
+
     protected $fillable = [
         'title',
         'description',
@@ -29,18 +41,6 @@ class BlogCategory extends Model
         'featured',
         'language_id',
     ];
-
-    public $orderable = [
-        'id',
-        'title',
-        'description',
-        'meta_tag',
-        'meta_description',
-        'featured',
-        'language_id',
-    ];
-
-    public $timestamps = false;
 
     public function blogs()
     {

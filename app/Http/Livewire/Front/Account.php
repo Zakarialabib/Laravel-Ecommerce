@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace App\Http\Livewire\Front;
 
-use Livewire\Component;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
+use Livewire\Component;
 
 class Account extends Component
 {
@@ -25,9 +25,19 @@ class Account extends Component
         'submit',
     ];
 
+    protected $rules = [
+        'email' => 'email',
+        'first_name' => 'required|string',
+        'last_name' => 'required|string',
+        'address' => 'max:255',
+        'phone' => 'required|numeric|max:1O',
+        'city' => 'city|string',
+        'country' => 'nullable',
+    ];
+
     public function mount(User $user)
     {
-        $user =   User::find(Auth::user()->id);
+        $user = User::find(Auth::user()->id);
         $this->first_name = $user->first_name;
         $this->last_name = $user->last_name;
         $this->address = $user->address;
@@ -37,16 +47,6 @@ class Account extends Component
         $this->email = $user->email;
         $this->password = $user->password;
     }
-
-    protected $rules = [
-        'email'      => 'email',
-        'first_name' => 'required|string',
-        'last_name'  => 'required|string',
-        'address'    => 'max:255',
-        'phone'      => 'required|numeric|max:1O',
-        'city'       => 'city|string',
-        'country'    => 'nullable',
-    ];
 
     public function save()
     {

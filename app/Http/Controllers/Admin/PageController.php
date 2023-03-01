@@ -17,7 +17,7 @@ class PageController extends Controller
     {
         return view('admin.orderforms.index');
     }
-  
+
     public function settings()
     {
         return view('admin.page.settings');

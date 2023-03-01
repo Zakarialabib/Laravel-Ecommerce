@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Http\Livewire\Front;
 
-use Livewire\Component;
 use App\Models\Popup;
+use Livewire\Component;
 
 class Popups extends Component
 {

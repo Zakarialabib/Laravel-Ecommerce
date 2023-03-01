@@ -16,10 +16,10 @@ use App\Http\Controllers\Admin\ReportController;
 use App\Http\Controllers\Admin\RolesController;
 use App\Http\Controllers\Admin\SectionController;
 use App\Http\Controllers\Admin\SettingController;
+use App\Http\Controllers\Admin\ShippingController;
 use App\Http\Controllers\Admin\SliderController;
 use App\Http\Controllers\Admin\SmptController;
 use App\Http\Controllers\Admin\UsersController;
-use App\Http\Controllers\Admin\ShippingController;
 use Illuminate\Support\Facades\Route;
 
 /*

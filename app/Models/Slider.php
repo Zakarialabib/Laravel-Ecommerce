@@ -11,11 +11,11 @@ class Slider extends Model
 {
     use HasAdvancedFilter;
 
-    public $table = 'sliders';
-
     public const StatusInactive = 0;
 
     public const StatusActive = 1;
+
+    public $table = 'sliders';
 
     public $orderable = [
         'id', 'title', 'subtitle', 'featured', 'link', 'language_id',
@@ -25,16 +25,17 @@ class Slider extends Model
         'id', 'title', 'subtitle', 'featured', 'link', 'language_id',
     ];
 
+    public $timestamps = false;
+
     protected $fillable = [
         'title', 'subtitle', 'details', 'embeded_video', 'photo', 'featured', 'link', 'language_id', 'bg_color', 'status',
     ];
-
-    public $timestamps = false;
 
     /**
      * Scope a query to only include active products.
      *
      * @param  \Illuminate\Database\Eloquent\Builder  $query
+     *
      * @return void
      */
     public function scopeActive($query)

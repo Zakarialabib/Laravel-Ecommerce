@@ -10,10 +10,10 @@ use App\Models\Product;
 use App\Models\Section;
 use App\Models\Slider;
 use App\Models\Subcategory;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
 use Illuminate\Support\Collection;
 use Livewire\Component;
-use Illuminate\Contracts\View\View;
-use Illuminate\Contracts\View\Factory;
 
 class Index extends Component
 {

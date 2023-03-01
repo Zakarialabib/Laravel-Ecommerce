@@ -5,15 +5,15 @@ declare(strict_types=1);
 namespace App\Http\Livewire\Admin\Brands;
 
 use App\Models\Brand;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Intervention\Image\Facades\Image;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Livewire\Component;
 use Livewire\WithFileUploads;
-use Illuminate\Support\Facades\Storage;
-use Illuminate\Contracts\View\View;
-use Illuminate\Contracts\View\Factory;
 
 class Create extends Component
 {
@@ -32,15 +32,15 @@ class Create extends Component
 
     public $listeners = ['createBrand'];
 
+    public array $rules = [
+        'brand.name' => ['required', 'string', 'max:255'],
+        'brand.description' => ['nullable', 'string'],
+    ];
+
     public function mount(Brand $brand)
     {
         $this->brand = $brand;
     }
-
-    public array $rules = [
-        'brand.name'        => ['required', 'string', 'max:255'],
-        'brand.description' => ['nullable', 'string'],
-    ];
 
     public function render(): View|Factory
     {
