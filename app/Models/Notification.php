@@ -39,6 +39,4 @@ class Notification extends Model
     {
         return Notification::where('product_id', '!=', null)->where('is_read', '=', 0)->latest('id')->get()->count();
     }
-
- 
 }

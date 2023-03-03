@@ -38,7 +38,7 @@ class Backup extends Command
      */
     public function handle()
     {
-        if (config('backup.status') == 1) {
+        if (config('backup.status') === 1) {
             $artisan_command = '';
 
             switch (config('backup.content')) {
@@ -62,16 +62,13 @@ class Backup extends Command
             try {
                 if (count($command) > 1) {
                     \Artisan::call(trim($command[0]), [trim($command[1]) => true]);
-
                 } else {
                     \Artisan::call(array_first($command));
                 }
                 Log::info('Backup completed successfully!');
-
             } catch (\Exception $e) {
                 \Log::info('backup update failed - ' . $e->getMessage());
             }
-
         }
     }
 }

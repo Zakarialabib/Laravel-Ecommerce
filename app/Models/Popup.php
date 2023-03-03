@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Popup extends Model
@@ -15,7 +15,7 @@ class Popup extends Model
     /**
      * The attributes that are mass assignable.
      *
-     * @var string[]
+     * @var array<string>
      */
     protected $fillable = [
         'width',
@@ -37,10 +37,10 @@ class Popup extends Model
      * @var array
      */
     protected $casts = [
-        'status'     => 'boolean',
-        'delay'      => 'integer',
-        'duration'   => 'integer',
-        'visits'     => 'integer',
+        'status' => 'boolean',
+        'delay' => 'integer',
+        'duration' => 'integer',
+        'visits' => 'integer',
         'is_default' => 'boolean',
     ];
 
@@ -48,6 +48,4 @@ class Popup extends Model
     {
         return $query->where('is_default', true)->first();
     }
-
-  
 }

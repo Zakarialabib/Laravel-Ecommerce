@@ -74,12 +74,12 @@ class CartBar extends Component
         $this->confirm(
             __('Remove from cart ?'),
             [
-                'position'          => 'center',
+                'position' => 'center',
                 'showConfirmButton' => true,
                 'confirmButtonText' => 'confirm',
-                'onConfirmed'       => 'confirmed',
-                'showCancelButton'  => true,
-                'cancelButtonText'  => 'cancel',
+                'onConfirmed' => 'confirmed',
+                'showCancelButton' => true,
+                'cancelButtonText' => 'cancel',
             ]
         );
     }

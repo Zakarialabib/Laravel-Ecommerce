@@ -33,6 +33,7 @@ class Category extends Model
      * Scope a query to only include active products.
      *
      * @param  \Illuminate\Database\Eloquent\Builder  $query
+     *
      * @return void
      */
     public function scopeActive($query)
@@ -48,6 +49,5 @@ class Category extends Model
     public function subcategories()
     {
         return $this->hasMany(Subcategory::class, 'category_id');
-        
     }
 }

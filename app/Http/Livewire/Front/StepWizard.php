@@ -10,19 +10,18 @@ use Livewire\Component;
 
 class StepWizard extends Component
 {
-    
     public $step = 0;
     public $giftOrSelf;
     public $category_id;
     public $brand_id;
     public $subcategory_id;
     public $minPrice = 0;
-    public $maxPrice =  '1000';
+    public $maxPrice = '1000';
     public $options = null;
     public $price = 0;
 
-    public $listeners =[
-        'resetPage' => '$refresh'
+    public $listeners = [
+        'resetPage' => '$refresh',
     ];
 
     public function nextStep()
@@ -56,19 +55,17 @@ class StepWizard extends Component
     {
         $this->minPrice = $value;
     }
-    
+
     public function updatedMaxPrice($value)
     {
         $this->maxPrice = $value;
     }
-    
+
     public function updateSubcategoryId($subcategory_id)
     {
         $this->subcategory_id = $subcategory_id;
         $this->nextStep();
     }
-    
-   
 
     public function clearFilter($filter)
     {

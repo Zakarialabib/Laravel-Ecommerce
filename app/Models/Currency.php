@@ -11,17 +11,17 @@ class Currency extends Model
 {
     use HasAdvancedFilter;
 
-    protected $filterable = [
+    public $orderable = [
         'id', 'name', 'sign', 'value',
     ];
 
-    public $orderable = [
+    public $timestamps = false;
+
+    protected $filterable = [
         'id', 'name', 'sign', 'value',
     ];
 
     protected $fillable = [
         'name', 'sign', 'value',
     ];
-
-    public $timestamps = false;
 }

@@ -11,15 +11,15 @@ class Subscriber extends Model
 {
     use HasAdvancedFilter;
 
-    protected $filterable = [
-        'email', 'id',
-    ];
-
     public $orderable = [
         'email', 'id',
     ];
 
-    protected $fillable = ['email'];
-
     public $timestamps = false;
+
+    protected $filterable = [
+        'email', 'id',
+    ];
+
+    protected $fillable = ['email'];
 }

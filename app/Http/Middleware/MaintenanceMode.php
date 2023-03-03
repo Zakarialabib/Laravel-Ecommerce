@@ -13,7 +13,7 @@ class MaintenanceMode
     {
         $gs = Generalsetting::find(1);
 
-        if ($gs->is_maintain == 1) {
+        if ($gs->is_maintain === 1) {
             return redirect()->route('front-maintenance');
         }
 

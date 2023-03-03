@@ -11,10 +11,6 @@ class EmailTemplate extends Model
 {
     use HasAdvancedFilter;
 
-    protected $fillable = [
-        'id', 'email_type', 'email_subject', 'email_body', 'status',
-    ];
-
     public $orderable = [
         'id', 'email_type', 'email_subject', 'email_body', 'status',
     ];
@@ -24,4 +20,8 @@ class EmailTemplate extends Model
     ];
 
     public $timestamps = false;
+
+    protected $fillable = [
+        'id', 'email_type', 'email_subject', 'email_body', 'status',
+    ];
 }

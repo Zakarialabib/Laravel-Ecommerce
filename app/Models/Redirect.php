@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
 use App\Support\HasAdvancedFilter;
+use Illuminate\Database\Eloquent\Model;
 
 class Redirect extends Model
 {
@@ -17,7 +17,7 @@ class Redirect extends Model
         'new_url',
         'status',
         'created_at',
-        'updated_at'
+        'updated_at',
     ];
     public $filterable = [
         'id',
@@ -25,9 +25,9 @@ class Redirect extends Model
         'new_url',
         'status',
         'created_at',
-        'updated_at'
+        'updated_at',
     ];
-        /**
+    /**
      * The attributes that are mass assignable.
      *
      * @var array<int, string>
@@ -37,7 +37,6 @@ class Redirect extends Model
         'new_url',
         'status',
     ];
-    
 
     /**
      * The attributes that should be cast.

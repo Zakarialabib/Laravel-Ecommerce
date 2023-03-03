@@ -7,7 +7,10 @@ namespace App\Http\Livewire\Admin\Brands;
 use App\Http\Livewire\WithSorting;
 use App\Imports\BrandsImport;
 use App\Models\Brand;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Intervention\Image\Facades\Image;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
@@ -15,9 +18,6 @@ use Livewire\Component;
 use Livewire\WithFileUploads;
 use Livewire\WithPagination;
 use Maatwebsite\Excel\Facades\Excel;
-use Illuminate\Support\Facades\Storage;
-use Illuminate\Contracts\View\View;
-use Illuminate\Contracts\View\Factory;
 
 class Index extends Component
 {
@@ -57,11 +57,17 @@ class Index extends Component
 
     public array $paginationOptions;
 
+    public array $rules = [
+        'brand.name' => ['required', 'string', 'max:255'],
+        'brand.slug' => ['required', 'string'],
+        'brand.description' => ['nullable', 'string'],
+    ];
+
     protected $queryString = [
-        'search'        => [
+        'search' => [
             'except' => '',
         ],
-        'sortBy'        => [
+        'sortBy' => [
             'except' => 'id',
         ],
         'sortDirection' => [
@@ -78,12 +84,6 @@ class Index extends Component
     {
         return $this->brand?->featured_image;
     }
-
-    public array $rules = [
-        'brand.name'        => ['required', 'string', 'max:255'],
-        'brand.slug'        => ['required', 'string'],
-        'brand.description' => ['nullable', 'string'],
-    ];
 
     public function getSelectedCountProperty()
     {
@@ -119,8 +119,8 @@ class Index extends Component
         abort_if(Gate::denies('brand_access'), 403);
 
         $query = Brand::advancedFilter([
-            's'               => $this->search ?: null,
-            'order_column'    => $this->sortBy,
+            's' => $this->search ?: null,
+            'order_column' => $this->sortBy,
             'order_direction' => $this->sortDirection,
         ]);
 

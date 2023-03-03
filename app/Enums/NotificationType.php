@@ -10,8 +10,8 @@ namespace App\Enums;
  */
 class NotificationType extends Enum
 {
-    private const INFO    = 'info';
+    private const INFO = 'info';
     private const WARNING = 'warning';
     private const SUCCESS = 'success';
-    private const DANGER  = 'danger';
+    private const DANGER = 'danger';
 }

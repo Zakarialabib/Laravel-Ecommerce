@@ -11,8 +11,6 @@ class OrderForms extends Model
 {
     use HasAdvancedFilter;
 
-    public $table = 'orderforms';
-
     public const HOME_FORM = 1;
 
     public const PRODUCT_FORM = 2;
@@ -22,6 +20,8 @@ class OrderForms extends Model
     public const STATUS_APPROVED = 2;
 
     public const STATUS_REJECTED = 3;
+
+    public $table = 'orderforms';
 
     public $orderable = [
         'id',

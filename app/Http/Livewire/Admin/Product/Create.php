@@ -9,13 +9,13 @@ use App\Models\Brand;
 use App\Models\Category;
 use App\Models\Product;
 use App\Models\Subcategory;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
 use Illuminate\Support\Str;
 use Intervention\Image\Facades\Image;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Livewire\Component;
 use Livewire\WithFileUploads;
-use Illuminate\Contracts\View\View;
-use Illuminate\Contracts\View\Factory;
 
 class Create extends Component
 {
@@ -41,6 +41,21 @@ class Create extends Component
 
     public array $listsForFields = [];
 
+    protected $rules = [
+        'product.name' => ['required', 'string', 'max:255'],
+        'product.price' => ['required', 'numeric', 'max:2147483647'],
+        'product.old_price' => ['required', 'numeric', 'max:2147483647'],
+        'description' => ['nullable'],
+        'product.meta_title' => ['nullable', 'string', 'max:255'],
+        'product.meta_description' => ['nullable', 'string', 'max:255'],
+        'product.meta_keywords' => ['nullable', 'string', 'min:1'],
+        'product.category_id' => ['required', 'integer'],
+        'product.subcategory_id' => ['required'],
+        'product.brand_id' => ['nullable', 'integer'],
+        'product.embeded_video' => ['nullable'],
+        'product.condition' => ['nullable'],
+    ];
+
     public function updated($propertyName)
     {
         $this->validateOnly($propertyName);
@@ -50,21 +65,6 @@ class Create extends Component
     {
         $this->description = $value;
     }
-
-    protected $rules = [
-        'product.name'             => ['required', 'string', 'max:255'],
-        'product.price'            => ['required', 'numeric', 'max:2147483647'],
-        'product.old_price'        => ['required', 'numeric', 'max:2147483647'],
-        'description'              => ['nullable'],
-        'product.meta_title'       => ['nullable', 'string', 'max:255'],
-        'product.meta_description' => ['nullable', 'string', 'max:255'],
-        'product.meta_keywords'    => ['nullable', 'string', 'min:1'],
-        'product.category_id'      => ['required', 'integer'],
-        'product.subcategory_id'   => ['required'],
-        'product.brand_id'         => ['nullable', 'integer'],
-        'product.embeded_video'    => ['nullable'],
-        'product.condition'        => ['nullable'],
-    ];
 
     public function mount(Product $product)
     {

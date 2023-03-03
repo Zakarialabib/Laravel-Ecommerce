@@ -4,19 +4,16 @@ declare(strict_types=1);
 
 namespace App\Http\Livewire\Admin\Page;
 
-
 use App\Models\Page;
-use Illuminate\Support\Facades\Gate;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
 use Illuminate\Support\Str;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Livewire\Component;
 use Livewire\WithFileUploads;
-use Illuminate\Contracts\View\View;
-use Illuminate\Contracts\View\Factory;
 
 class Edit extends Component
 {
-
     use LivewireAlert;
     use WithFileUploads;
 
@@ -28,19 +25,19 @@ class Edit extends Component
 
     public $listeners = ['editModal'];
 
+    public array $rules = [
+        'page.title' => ['required', 'string', 'max:255'],
+        'page.slug' => ['required', 'unique:pages', 'max:255'],
+        'page.details' => ['required'],
+        'page.meta_title' => ['nullable|max:255'],
+        'page.meta_description' => ['nullable|max:255'],
+        'page.language_id' => ['nullable|integer'],
+    ];
+
     public function mount(Page $page)
     {
         $this->page = $page;
     }
-
-    public array $rules = [
-        'page.title'            => ['required', 'string', 'max:255'],
-        'page.slug'             => ['required', 'unique:pages', 'max:255'],
-        'page.details'          => ['required'],
-        'page.meta_title'       => ['nullable|max:255'],
-        'page.meta_description' => ['nullable|max:255'],
-        'page.language_id'      => ['nullable|integer'],
-    ];
 
     public function render(): View|Factory
     {
@@ -81,4 +78,3 @@ class Edit extends Component
         $this->editModal = false;
     }
 }
-

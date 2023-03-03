@@ -20,9 +20,9 @@ class Create extends Component
     public $currency;
 
     public array $rules = [
-        'currency.name'          => 'required|string|max:255',
-        'currency.code'          => 'required|string|max:255',
-        'currency.symbol'        => 'required|string|max:255',
+        'currency.name' => 'required|string|max:255',
+        'currency.code' => 'required|string|max:255',
+        'currency.symbol' => 'required|string|max:255',
         'currency.exchange_rate' => 'required|numeric',
     ];
 

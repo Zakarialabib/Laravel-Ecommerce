@@ -8,13 +8,13 @@ use App\Http\Livewire\WithSorting;
 use App\Models\FeaturedBanner;
 use App\Models\Language;
 use App\Models\Product;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
+use Illuminate\Support\Str;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 use Livewire\WithPagination;
-use Illuminate\Support\Str;
-use Illuminate\Contracts\View\View;
-use Illuminate\Contracts\View\Factory;
 
 class Index extends Component
 {
@@ -51,15 +51,24 @@ class Index extends Component
     public array $listsForFields = [];
 
     protected $queryString = [
-        'search'        => [
+        'search' => [
             'except' => '',
         ],
-        'sortBy'        => [
+        'sortBy' => [
             'except' => 'id',
         ],
         'sortDirection' => [
             'except' => 'desc',
         ],
+    ];
+
+    protected $rules = [
+        'featuredbanner.title' => ['required', 'string', 'max:255'],
+        'featuredbanner.details' => ['nullable', 'string'],
+        'featuredbanner.link' => ['nullable', 'string'],
+        'featuredbanner.product_id' => ['nullable', 'integer'],
+        'featuredbanner.language_id' => ['nullable', 'integer'],
+        'featuredbanner.embeded_video' => ['nullable'],
     ];
 
     public function getSelectedCountProperty()
@@ -82,15 +91,6 @@ class Index extends Component
         $this->selected = [];
     }
 
-    protected $rules = [
-        'featuredbanner.title'         => ['required', 'string', 'max:255'],
-        'featuredbanner.details'       => ['nullable', 'string'],
-        'featuredbanner.link'          => ['nullable', 'string'],
-        'featuredbanner.product_id'    => ['nullable', 'integer'],
-        'featuredbanner.language_id'   => ['nullable', 'integer'],
-        'featuredbanner.embeded_video' => ['nullable'],
-    ];
-
     public function mount()
     {
         $this->sortBy = 'id';
@@ -104,8 +104,8 @@ class Index extends Component
     public function render(): View|Factory
     {
         $query = FeaturedBanner::advancedFilter([
-            's'               => $this->search ?: null,
-            'order_column'    => $this->sortBy,
+            's' => $this->search ?: null,
+            'order_column' => $this->sortBy,
             'order_direction' => $this->sortDirection,
         ]);
 

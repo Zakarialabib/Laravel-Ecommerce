@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace App\Http\Livewire;
 
-use Illuminate\Database\Eloquent\Model;
-use App\Models\Subcategory;
 use App\Models\Brand;
 use App\Models\Category;
+use App\Models\Subcategory;
+use Illuminate\Database\Eloquent\Model;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Livewire\Component;
 
@@ -49,19 +49,17 @@ class Select extends Component
         $this->uniqueId = uniqid();
     }
 
-          
-
     public function updated($field, $value)
     {
         $this->model->setAttribute($this->field, $value)->save();
 
         $this->alert('success', __('Status Changed successfully!'), [
-            'position'       => 'center',
-            'timer'          => 3000,
-            'toast'          => true,
-            'text'           => '',
+            'position' => 'center',
+            'timer' => 3000,
+            'toast' => true,
+            'text' => '',
             'showDenyButton' => false,
-            'onDenied'       => '',
+            'onDenied' => '',
         ]);
 
         // $this->emit('refreshIndex');

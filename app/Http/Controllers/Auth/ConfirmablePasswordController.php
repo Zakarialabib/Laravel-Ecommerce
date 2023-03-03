@@ -26,12 +26,13 @@ class ConfirmablePasswordController extends Controller
      * Confirm the user's password.
      *
      * @param  \Illuminate\Http\Request  $request
+     *
      * @return mixed
      */
     public function store(Request $request)
     {
-        if ( ! Auth::guard('web')->validate([
-            'email'    => $request->user()->email,
+        if (! Auth::guard('web')->validate([
+            'email' => $request->user()->email,
             'password' => $request->password,
         ])) {
             throw ValidationException::withMessages([
@@ -43,10 +44,10 @@ class ConfirmablePasswordController extends Controller
 
         if (Auth::user()->isAdmin()) {
             return redirect()->intended(RouteServiceProvider::ADMIN_HOME);
-        } elseif (Auth::user()->isClient()) {
-            return redirect()->intended(RouteServiceProvider::CLIENT_HOME);
-        } else {
-            return redirect('/');
         }
+        if (Auth::user()->isClient()) {
+            return redirect()->intended(RouteServiceProvider::CLIENT_HOME);
+        }
+        return redirect('/');
     }
 }

@@ -7,7 +7,6 @@ namespace App\Providers;
 use App\Models\Language;
 use App\Models\Settings;
 use App\Observers\SettingsObserver;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\URL;
@@ -46,7 +45,7 @@ class AppServiceProvider extends ServiceProvider
     /** @return \App\Models\Language|\Illuminate\Database\Eloquent\Model|array|null */
     private function getLanguages()
     {
-        if ( ! Schema::hasTable('languages')) {
+        if (! Schema::hasTable('languages')) {
             return;
         }
 

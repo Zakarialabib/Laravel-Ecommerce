@@ -4,14 +4,14 @@ declare(strict_types=1);
 
 namespace App\Http\Livewire\Admin\Product;
 
-use App\Jobs\ProductJob;
 use App\Jobs\ImportJob;
+use App\Jobs\ProductJob;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
 use Illuminate\Support\Facades\Gate;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Livewire\Component;
 use Livewire\WithFileUploads;
-use Illuminate\Contracts\View\View;
-use Illuminate\Contracts\View\Factory;
 
 class Import extends Component
 {
@@ -20,7 +20,7 @@ class Import extends Component
 
     public $listeners = [
         'importModal', 'import',
-        'importUpdates'
+        'importUpdates',
     ];
 
     public $file;
@@ -47,7 +47,7 @@ class Import extends Component
     {
         abort_if(Gate::denies('product_access'), 403);
 
-        if ($this->file->extension() == 'xlsx' || $this->file->extension() == 'xls') {
+        if ($this->file->extension() === 'xlsx' || $this->file->extension() === 'xls') {
             $filename = time().'-product.'.$this->file->getClientOriginalExtension();
             $this->file->storeAs('products', $filename);
 
@@ -60,14 +60,14 @@ class Import extends Component
 
         $this->emit('refreshIndex');
 
-        $this->importModal = false;            
+        $this->importModal = false;
     }
 
     public function import()
     {
         abort_if(Gate::denies('product_access'), 403);
 
-        if ($this->file->extension() == 'xlsx' || $this->file->extension() == 'xls') {
+        if ($this->file->extension() === 'xlsx' || $this->file->extension() === 'xls') {
             $filename = time().'-product.'.$this->file->getClientOriginalExtension();
             $this->file->storeAs('products', $filename);
 

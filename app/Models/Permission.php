@@ -49,6 +49,7 @@ class Permission extends Model
      * Determine if the permission belongs to the role.
      *
      * @param  mixed  $role
+     *
      * @return bool
      */
     public function inRole($role)

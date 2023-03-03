@@ -16,14 +16,14 @@ class Language extends Model
 
     public const IS_NOT_DEFAULT = 0;
 
+    public $timestamps = false;
+
     protected $fillable = [
         'name',
         'code',
         'status',
         'is_default',
     ];
-
-    public $timestamps = false;
 
     public function blogs()
     {
@@ -49,7 +49,6 @@ class Language extends Model
     {
         return $this->hasMany('App\Models\Page', 'language_id');
     }
-
 
     public function shippings()
     {

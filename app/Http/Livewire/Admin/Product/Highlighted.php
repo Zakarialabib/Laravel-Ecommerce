@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace App\Http\Livewire\Admin\Product;
 
-use Livewire\Component;
 use App\Models\Product;
-use Jantinnerezo\LivewireAlert\LivewireAlert;
-use Illuminate\Contracts\View\View;
 use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
+use Jantinnerezo\LivewireAlert\LivewireAlert;
+use Livewire\Component;
 use Throwable;
 
 class Highlighted extends Component

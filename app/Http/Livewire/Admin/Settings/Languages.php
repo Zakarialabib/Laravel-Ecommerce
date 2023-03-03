@@ -5,13 +5,13 @@ declare(strict_types=1);
 namespace App\Http\Livewire\Admin\Settings;
 
 use App\Models\Language;
-use Illuminate\Support\Facades\Artisan;
-use Jantinnerezo\LivewireAlert\LivewireAlert;
-use Illuminate\Contracts\View\View;
-use Illuminate\Contracts\View\Factory;
-use Livewire\Component;
 use DateTime;
 use Exception;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
+use Illuminate\Support\Facades\Artisan;
+use Jantinnerezo\LivewireAlert\LivewireAlert;
+use Livewire\Component;
 
 class Languages extends Component
 {

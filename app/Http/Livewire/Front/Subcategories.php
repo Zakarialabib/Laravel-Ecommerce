@@ -7,10 +7,10 @@ namespace App\Http\Livewire\Front;
 use App\Http\Livewire\WithSorting;
 use App\Models\Product;
 use App\Models\Subcategory;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
 use Livewire\Component;
 use Livewire\WithPagination;
-use Illuminate\Contracts\View\View;
-use Illuminate\Contracts\View\Factory;
 
 class Subcategories extends Component
 {
@@ -31,10 +31,10 @@ class Subcategories extends Component
     public $filterProductSubcategories;
 
     protected $queryString = [
-        'search'        => [
+        'search' => [
             'except' => '',
         ],
-        'sortBy'        => [
+        'sortBy' => [
             'except' => 'id',
         ],
         'sortDirection' => [
@@ -76,22 +76,22 @@ class Subcategories extends Component
     public function render(): View|Factory
     {
         $query = Product::active()->advancedFilter([
-            's'               => $this->search ?: null,
-            'order_column'    => $this->sortBy,
+            's' => $this->search ?: null,
+            'order_column' => $this->sortBy,
             'order_direction' => $this->sortDirection,
         ]);
 
-        if ($this->sorting == 'name') {
+        if ($this->sorting === 'name') {
             $products = $query->orderBy('name', 'asc')->paginate($this->perPage);
-        } elseif ($this->sorting == 'name-desc') {
+        } elseif ($this->sorting === 'name-desc') {
             $products = $query->orderBy('name', 'desc')->paginate($this->perPage);
-        } elseif ($this->sorting == 'price') {
+        } elseif ($this->sorting === 'price') {
             $products = $query->orderBy('price', 'asc')->paginate($this->perPage);
-        } elseif ($this->sorting == 'price-desc') {
+        } elseif ($this->sorting === 'price-desc') {
             $products = $query->orderBy('price', 'desc')->paginate($this->perPage);
-        } elseif ($this->sorting == 'date') {
+        } elseif ($this->sorting === 'date') {
             $products = $query->orderBy('created_at', 'asc')->paginate($this->perPage);
-        } elseif ($this->sorting == 'date-desc') {
+        } elseif ($this->sorting === 'date-desc') {
             $products = $query->orderBy('created_at', 'desc')->paginate($this->perPage);
         } elseif ($this->subcategory_id) {
             $products = $query->where('subcategory_id', $this->subcategory_id)->paginate($this->perPage);

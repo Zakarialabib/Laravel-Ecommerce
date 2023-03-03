@@ -9,15 +9,15 @@ use App\Models\Brand;
 use App\Models\Category;
 use App\Models\Product;
 use App\Models\Subcategory;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Intervention\Image\Facades\Image;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Livewire\Component;
 use Livewire\WithFileUploads;
-use Illuminate\Support\Facades\Storage;
-use Illuminate\Contracts\View\View;
-use Illuminate\Contracts\View\Factory;
 
 class Edit extends Component
 {
@@ -47,37 +47,31 @@ class Edit extends Component
 
     public array $listsForFields = [];
 
+    protected $rules = [
+        'product.code' => ['nullable'],
+        'product.slug' => ['nullable'],
+        'product.name' => ['required', 'string', 'max:255'],
+        'product.price' => ['required', 'numeric', 'max:2147483647'],
+        'product.old_price' => ['nullable', 'numeric', 'max:2147483647'],
+        'product.description' => ['nullable'],
+        'product.meta_title' => ['nullable', 'string', 'max:255'],
+        'product.meta_description' => ['nullable', 'string', 'max:255'],
+        'product.meta_keywords' => ['nullable', 'string', 'min:1'],
+        'product.category_id' => ['required', 'integer'],
+        'product.subcategory_id' => ['required'],
+        'product.brand_id' => ['nullable', 'integer'],
+        'product.embeded_video' => ['nullable'],
+        'product.condition' => ['nullable'],
+    ];
+
     public function onTrixValueUpdate($value)
     {
         $this->description = $value;
     }
 
-    protected $rules = [
-        'product.code'             => ['nullable'],
-        'product.slug'             => ['nullable'],
-        'product.name'             => ['required', 'string', 'max:255'],
-        'product.price'            => ['required', 'numeric', 'max:2147483647'],
-        'product.old_price'        => ['nullable', 'numeric', 'max:2147483647'],
-        'product.description'      => ['nullable'],
-        'product.meta_title'       => ['nullable', 'string', 'max:255'],
-        'product.meta_description' => ['nullable', 'string', 'max:255'],
-        'product.meta_keywords'    => ['nullable', 'string', 'min:1'],
-        'product.category_id'      => ['required', 'integer'],
-        'product.subcategory_id'   => ['required'],
-        'product.brand_id'         => ['nullable', 'integer'],
-        'product.embeded_video'    => ['nullable'],
-        'product.condition'        => ['nullable'],
-    ];
-
     public function mount()
     {
         $this->initListsForFields();
-    }
-
-    protected function initListsForFields(): void
-    {
-        $this->listsForFields['brands'] = Brand::pluck('name', 'id')->toArray();
-        $this->listsForFields['subcategories'] = Subcategory::pluck('name', 'id')->toArray();
     }
 
     public function getImagePreviewProperty()
@@ -192,5 +186,11 @@ class Edit extends Component
     public function render(): View|Factory
     {
         return view('livewire.admin.product.edit');
+    }
+
+    protected function initListsForFields(): void
+    {
+        $this->listsForFields['brands'] = Brand::pluck('name', 'id')->toArray();
+        $this->listsForFields['subcategories'] = Subcategory::pluck('name', 'id')->toArray();
     }
 }

@@ -26,6 +26,7 @@ class AuthenticatedSessionController extends Controller
      * Handle an incoming authentication request.
      *
      * @param  \App\Http\Requests\Auth\LoginRequest  $request
+     *
      * @return \Illuminate\Http\RedirectResponse
      */
     public function store(LoginRequest $request)
@@ -36,17 +37,18 @@ class AuthenticatedSessionController extends Controller
 
         if (Auth::user()->isAdmin()) {
             return redirect()->intended(RouteServiceProvider::ADMIN_HOME);
-        } elseif (Auth::user()->isClient()) {
-            return redirect()->intended(RouteServiceProvider::CLIENT_HOME);
-        } else {
-            return redirect('/');
         }
+        if (Auth::user()->isClient()) {
+            return redirect()->intended(RouteServiceProvider::CLIENT_HOME);
+        }
+        return redirect('/');
     }
 
     /**
      * Destroy an authenticated session.
      *
      * @param  \Illuminate\Http\Request  $request
+     *
      * @return \Illuminate\Http\RedirectResponse
      */
     public function destroy(Request $request)

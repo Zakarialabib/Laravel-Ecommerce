@@ -5,10 +5,10 @@ declare(strict_types=1);
 namespace App\Http\Livewire\Front;
 
 use App\Models\OrderForms;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Livewire\Component;
-use Illuminate\Contracts\View\View;
-use Illuminate\Contracts\View\Factory;
 
 class OrderForm extends Component
 {
@@ -43,17 +43,17 @@ class OrderForm extends Component
     public function save()
     {
         $this->validate([
-            'name'    => 'required',
-            'phone'   => 'required',
+            'name' => 'required',
+            'phone' => 'required',
             'address' => 'required',
         ]);
 
         $order = OrderForms::create([
-            'name'    => $this->name,
-            'phone'   => $this->phone,
+            'name' => $this->name,
+            'phone' => $this->phone,
             'address' => $this->address,
-            'type'    => OrderForms::PRODUCT_FORM,
-            'status'  => OrderForms::STATUS_PENDING,
+            'type' => OrderForms::PRODUCT_FORM,
+            'status' => OrderForms::STATUS_PENDING,
             'subject' => 'New request for '.$this->product->name,
             'message' => $this->name.' has sent a request for '.$this->product->name,
         ]);

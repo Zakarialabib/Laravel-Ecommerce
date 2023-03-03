@@ -25,7 +25,7 @@ class Settings extends Model
             $setting->save();
         } else {
             $setting = self::create([
-                'key'   => $key,
+                'key' => $key,
                 'value' => $value,
             ]);
         }

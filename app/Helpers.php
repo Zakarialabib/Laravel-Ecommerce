@@ -10,9 +10,9 @@ use App\Models\Currency;
 use App\Models\Settings;
 use App\Models\Subcategory;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Intervention\Image\Facades\Image;
-use Illuminate\Support\Facades\Storage;
 
 class Helpers
 {
@@ -20,6 +20,7 @@ class Helpers
      * Fetch Cached settings from database
      *
      * @param mixed $key
+     *
      * @return mixed
      */
     public static function settings($key)
@@ -53,6 +54,7 @@ class Helpers
 
     /**
      * @param mixed $product
+     *
      * @return string|null
      */
     public static function productLink($product)
@@ -66,7 +68,8 @@ class Helpers
 
     /**
      * @param mixed $image
-     * @return null|string
+     *
+     * @return string|null
      */
     public static function uploadImage($image)
     {
@@ -85,7 +88,8 @@ class Helpers
 
     /**
      * @param mixed $gallery
-     * @return null|string[]
+     *
+     * @return array<string>|null
      */
     public static function uploadGallery($gallery)
     {
@@ -95,7 +99,7 @@ class Helpers
         }
 
         $gallery = explode(',', $gallery);
-        $gallery = array_map(function ($image) {
+        return array_map(function ($image) {
             $image = file_get_contents($image);
             $name = Str::random(10).'.jpg';
             $path = public_path().'/images/products/'.$name;
@@ -103,27 +107,27 @@ class Helpers
 
             return $name;
         }, $gallery);
-
-        return $gallery;
     }
 
     /**
      * @param mixed $subcategory
      * @param mixed $category
+     *
      * @return mixed
      */
     public static function createSubcategory($subcategory, $category)
     {
         return Subcategory::create([
-            'name'        => $subcategory,
-            'slug'        => Str::slug($subcategory, '-'),
+            'name' => $subcategory,
+            'slug' => Str::slug($subcategory, '-'),
             'categpry_id' => Category::where('name', $category)->first()->id,
-            'language'    => '3',
+            'language' => '3',
         ])->id;
     }
 
     /**
      * @param mixed $brand
+     *
      * @return mixed
      */
     public static function createBrand($brand)
@@ -140,11 +144,12 @@ class Helpers
     /**
      * @param mixed $value
      * @param bool $format
+     *
      * @return mixed
      */
     public static function format_currency($value, $format = true)
     {
-        if ( ! $format) {
+        if (! $format) {
             return $value;
         }
 
@@ -152,13 +157,14 @@ class Helpers
         $position = $currency->position;
         $symbol = $currency->symbol;
 
-        return 'prefix' === $position
+        return $position === 'prefix'
             ? $symbol.number_format((float) $value, 2, '.', ',')
             : number_format((float) $value, 2, '.', ',').$symbol;
     }
 
     /**
      * @param mixed $input
+     *
      * @return string|false|void
      */
     public function handleUpload($input)
@@ -179,16 +185,15 @@ class Helpers
             }
 
             return json_encode($galleryArray);
-        } else {
-            // handle single image
-
-            $img = Image::make($input->getRealPath())->encode('webp', 85)->resize(1000, 1000, function ($constraint) {
-                $constraint->aspectRatio();
-                $constraint->upsize();
-            });
-            $img->stream();
-
-            Storage::disk('local_files')->put('products/'.$input->getClientOriginalName(), $img, 'public');
         }
+        // handle single image
+
+        $img = Image::make($input->getRealPath())->encode('webp', 85)->resize(1000, 1000, function ($constraint) {
+            $constraint->aspectRatio();
+            $constraint->upsize();
+        });
+        $img->stream();
+
+        Storage::disk('local_files')->put('products/'.$input->getClientOriginalName(), $img, 'public');
     }
 }

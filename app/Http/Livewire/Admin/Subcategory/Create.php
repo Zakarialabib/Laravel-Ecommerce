@@ -7,13 +7,13 @@ namespace App\Http\Livewire\Admin\Subcategory;
 use App\Models\Category;
 use App\Models\Language;
 use App\Models\Subcategory;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Str;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Livewire\Component;
 use Livewire\WithFileUploads;
-use Illuminate\Contracts\View\View;
-use Illuminate\Contracts\View\Factory;
 
 class Create extends Component
 {
@@ -26,16 +26,16 @@ class Create extends Component
 
     public $subcategory;
 
+    public array $rules = [
+        'subcategory.name' => ['required', 'string', 'max:255'],
+        'subcategory.category_id' => ['nullable', 'integer'],
+        'subcategory.language_id' => ['nullable'],
+    ];
+
     public function mount(Subcategory $subcategory)
     {
         $this->subcategory = $subcategory;
     }
-
-    public array $rules = [
-        'subcategory.name'        => ['required', 'string', 'max:255'],
-        'subcategory.category_id' => ['nullable', 'integer'],
-        'subcategory.language_id' => ['nullable'],
-    ];
 
     public function render(): View|Factory
     {

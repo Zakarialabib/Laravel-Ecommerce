@@ -7,12 +7,12 @@ namespace App\Http\Livewire\Admin\BlogCategory;
 use App\Http\Livewire\WithSorting;
 use App\Models\BlogCategory;
 use App\Models\Language;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
 use Illuminate\Support\Facades\Gate;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Livewire\Component;
 use Livewire\WithPagination;
-use Illuminate\Contracts\View\View;
-use Illuminate\Contracts\View\Factory;
 
 class Index extends Component
 {
@@ -44,11 +44,19 @@ class Index extends Component
 
     public array $listsForFields = [];
 
+    public array $rules = [
+        'blogcategory.title' => ['required', 'string', 'max:255'],
+        'blogcategory.description' => ['nullable'],
+        'blogcategory.meta_title' => ['nullable'],
+        'blogcategory.meta_desc' => ['nullable'],
+        'blogcategory.language_id' => ['required', 'integer'],
+    ];
+
     protected $queryString = [
-        'search'        => [
+        'search' => [
             'except' => '',
         ],
-        'sortBy'        => [
+        'sortBy' => [
             'except' => 'id',
         ],
         'sortDirection' => [
@@ -76,14 +84,6 @@ class Index extends Component
         $this->selected = [];
     }
 
-    public array $rules = [
-        'blogcategory.title'            => ['required', 'string', 'max:255'],
-        'blogcategory.description'      => ['nullable'],
-        'blogcategory.meta_title'       => ['nullable'],
-        'blogcategory.meta_desc' => ['nullable'],
-        'blogcategory.language_id'      => ['required', 'integer'],
-    ];
-
     public function mount()
     {
         $this->sortBy = 'id';
@@ -97,8 +97,8 @@ class Index extends Component
     public function render(): View|Factory
     {
         $query = BlogCategory::advancedFilter([
-            's'               => $this->search ?: null,
-            'order_column'    => $this->sortBy,
+            's' => $this->search ?: null,
+            'order_column' => $this->sortBy,
             'order_direction' => $this->sortDirection,
         ]);
 
@@ -122,17 +122,15 @@ class Index extends Component
 
     public function update()
     {
-
         $this->validate();
 
         $this->blogcategory->save();
-        
+
         $this->alert('success', __('BlogCategory updated successfully'));
-        
+
         $this->editModal = false;
-        
+
         $this->emit('refreshIndex');
-        
     }
 
     public function delete(BlogCategory $blogcategory)

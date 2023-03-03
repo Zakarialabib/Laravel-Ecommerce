@@ -6,12 +6,12 @@ namespace App\Http\Livewire\Admin\Settings;
 
 use App\Helpers;
 use App\Models\Settings;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
 use Illuminate\Support\Facades\Storage;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Livewire\Component;
 use Livewire\WithFileUploads;
-use Illuminate\Contracts\View\View;
-use Illuminate\Contracts\View\Factory;
 
 class Index extends Component
 {
@@ -119,32 +119,32 @@ class Index extends Component
     public function save()
     {
         $settings = [
-            'company_name'             => $this->company_name,
-            'site_title'               => $this->site_title,
-            'company_email_address'    => $this->company_email_address,
-            'company_phone'            => $this->company_phone,
-            'company_address'          => $this->company_address,
-            'social_facebook'          => $this->social_facebook,
-            'social_twitter'           => $this->social_twitter,
-            'social_instagram'         => $this->social_instagram,
-            'social_linkedin'          => $this->social_linkedin,
-            'social_whatsapp'          => $this->social_whatsapp,
-            'head_tags'                => $this->head_tags,
-            'body_tags'                => $this->body_tags,
-            'seo_meta_title'           => $this->seo_meta_title,
-            'seo_meta_description'     => $this->seo_meta_description,
-            'footer_copyright_text'    => $this->footer_copyright_text,
-            'enableRegistrationTerms'  => $this->enableRegistrationTerms,
-            'currency_code'            => $this->currency_code,
-            'currency_symbol'          => $this->currency_symbol,
-            'currency_position'        => $this->currency_position,
+            'company_name' => $this->company_name,
+            'site_title' => $this->site_title,
+            'company_email_address' => $this->company_email_address,
+            'company_phone' => $this->company_phone,
+            'company_address' => $this->company_address,
+            'social_facebook' => $this->social_facebook,
+            'social_twitter' => $this->social_twitter,
+            'social_instagram' => $this->social_instagram,
+            'social_linkedin' => $this->social_linkedin,
+            'social_whatsapp' => $this->social_whatsapp,
+            'head_tags' => $this->head_tags,
+            'body_tags' => $this->body_tags,
+            'seo_meta_title' => $this->seo_meta_title,
+            'seo_meta_description' => $this->seo_meta_description,
+            'footer_copyright_text' => $this->footer_copyright_text,
+            'enableRegistrationTerms' => $this->enableRegistrationTerms,
+            'currency_code' => $this->currency_code,
+            'currency_symbol' => $this->currency_symbol,
+            'currency_position' => $this->currency_position,
             'site_maintenance_message' => $this->site_maintenance_message,
-            'site_return'              => $this->site_return,
-            'site_refund'              => $this->site_refund,
-            'site_terms'               => $this->site_terms,
-            'site_privacy'             => $this->site_privacy,
-            'site_about'               => $this->site_about,
-            'site_contact'             => $this->site_contact,
+            'site_return' => $this->site_return,
+            'site_refund' => $this->site_refund,
+            'site_terms' => $this->site_terms,
+            'site_privacy' => $this->site_privacy,
+            'site_about' => $this->site_about,
+            'site_contact' => $this->site_contact,
         ];
 
         foreach ($settings as $key => $value) {
@@ -168,21 +168,6 @@ class Index extends Component
         }
     }
 
-    private function upload($filename, $name, $validateName)
-    {
-        $this->validate([
-            $validateName => 'required|mimes:jpeg,png,jpg,gif,svg|max:1048',
-        ]);
-
-        if ($name != null) {
-            Storage::delete('logo/'.$name);
-        }
-
-        $url = $filename->store('logo');
-
-        return $url;
-    }
-
     public function uploadLogo()
     {
         $logo = $this->upload($this->logoFile, $this->siteImage, 'logoFile');
@@ -200,5 +185,18 @@ class Index extends Component
     public function render(): View|Factory
     {
         return view('livewire.admin.settings.index');
+    }
+
+    private function upload($filename, $name, $validateName)
+    {
+        $this->validate([
+            $validateName => 'required|mimes:jpeg,png,jpg,gif,svg|max:1048',
+        ]);
+
+        if ($name !== null) {
+            Storage::delete('logo/'.$name);
+        }
+
+        return $filename->store('logo');
     }
 }

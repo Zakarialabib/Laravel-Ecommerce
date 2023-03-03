@@ -11,11 +11,11 @@ class Page extends Model
 {
     use HasAdvancedFilter;
 
-    protected $filterable = [
+    public $orderable = [
         'id', 'title', 'slug', 'details', 'meta_title', 'meta_description', 'language_id', 'photo',
     ];
 
-    public $orderable = [
+    protected $filterable = [
         'id', 'title', 'slug', 'details', 'meta_title', 'meta_description', 'language_id', 'photo',
     ];
 

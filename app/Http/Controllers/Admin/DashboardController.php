@@ -7,9 +7,9 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Order;
 use App\Models\User;
-use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Session;
 
@@ -19,32 +19,32 @@ class DashboardController extends Controller
     {
         $customData = [
             'today' => [
-                'countCustomers'  => User::whereDate('created_at', '>=', Carbon::now())->count(),
-                'ordersCount'     => Order::whereDate('created_at', '>=', Carbon::now())->count(),
-                'orderPending'    => Order::where('status', '=', 1)->whereDate('created_at', '>=', Carbon::now())->count(),
+                'countCustomers' => User::whereDate('created_at', '>=', Carbon::now())->count(),
+                'ordersCount' => Order::whereDate('created_at', '>=', Carbon::now())->count(),
+                'orderPending' => Order::where('status', '=', 1)->whereDate('created_at', '>=', Carbon::now())->count(),
                 'orderProcessing' => Order::where('status', '=', 2)->whereDate('created_at', '>=', Carbon::now())->count(),
-                'orderCompleted'  => Order::where('status', '=', 3)->whereDate('created_at', '>=', Carbon::now())->count(),
+                'orderCompleted' => Order::where('status', '=', 3)->whereDate('created_at', '>=', Carbon::now())->count(),
             ],
             'month' => [
-                'countCustomers'  => User::whereDate('created_at', '>=', Carbon::now()->subMonth())->count(),
-                'ordersCount'     => Order::whereDate('created_at', '>=', Carbon::now()->subMonth())->count(),
-                '$orderPending'   => Order::where('status', '=', 1)->whereDate('created_at', '>=', Carbon::now()->subMonth())->count(),
+                'countCustomers' => User::whereDate('created_at', '>=', Carbon::now()->subMonth())->count(),
+                'ordersCount' => Order::whereDate('created_at', '>=', Carbon::now()->subMonth())->count(),
+                '$orderPending' => Order::where('status', '=', 1)->whereDate('created_at', '>=', Carbon::now()->subMonth())->count(),
                 'orderProcessing' => Order::where('status', '=', 2)->whereDate('created_at', '>=', Carbon::now()->subMonth())->count(),
-                'orderCompleted'  => Order::where('status', '=', 3)->whereDate('created_at', '>=', Carbon::now()->subMonth())->count(),
+                'orderCompleted' => Order::where('status', '=', 3)->whereDate('created_at', '>=', Carbon::now()->subMonth())->count(),
             ],
-            'semi'  => [
-                'countCustomers'  => User::whereDate('created_at', '>=', Carbon::now()->subMonths(6))->count(),
-                'ordersCount'     => Order::whereDate('created_at', '>=', Carbon::now()->subMonths(6))->count(),
-                'orderPending'    => Order::where('status', '=', 1)->whereDate('created_at', '>=', Carbon::now()->subMonths(6))->count(),
+            'semi' => [
+                'countCustomers' => User::whereDate('created_at', '>=', Carbon::now()->subMonths(6))->count(),
+                'ordersCount' => Order::whereDate('created_at', '>=', Carbon::now()->subMonths(6))->count(),
+                'orderPending' => Order::where('status', '=', 1)->whereDate('created_at', '>=', Carbon::now()->subMonths(6))->count(),
                 'orderProcessing' => Order::where('status', '=', 2)->whereDate('created_at', '>=', Carbon::now()->subMonths(6))->count(),
-                'orderCompleted'  => Order::where('status', '=', 3)->whereDate('created_at', '>=', Carbon::now()->subMonths(6))->count(),
+                'orderCompleted' => Order::where('status', '=', 3)->whereDate('created_at', '>=', Carbon::now()->subMonths(6))->count(),
             ],
-            'year'  => [
-                'countCustomers'  => User::whereDate('created_at', '>=', Carbon::now()->subYear())->count(),
-                'ordersCount'     => Order::whereDate('created_at', '>=', Carbon::now()->subYear())->count(),
-                'orderPending'    => Order::where('status', '=', 1)->whereDate('created_at', '>=', Carbon::now()->subYear())->count(),
+            'year' => [
+                'countCustomers' => User::whereDate('created_at', '>=', Carbon::now()->subYear())->count(),
+                'ordersCount' => Order::whereDate('created_at', '>=', Carbon::now()->subYear())->count(),
+                'orderPending' => Order::where('status', '=', 1)->whereDate('created_at', '>=', Carbon::now()->subYear())->count(),
                 'orderProcessing' => Order::where('status', '=', 2)->whereDate('created_at', '>=', Carbon::now()->subYear())->count(),
-                'orderCompleted'  => Order::where('status', '=', 3)->whereDate('created_at', '>=', Carbon::now()->subYear())->count(),
+                'orderCompleted' => Order::where('status', '=', 3)->whereDate('created_at', '>=', Carbon::now()->subYear())->count(),
             ],
         ];
 
@@ -83,7 +83,7 @@ class DashboardController extends Controller
 
         if ($request->cpass) {
             if (Hash::check($request->cpass, $admin->password)) {
-                if ($request->newpass == $request->renewpass) {
+                if ($request->newpass === $request->renewpass) {
                     $input['password'] = Hash::make($request->newpass);
                 } else {
                     return response()->json(['errors' => [0 => __('Confirm password does not match.')]]);
