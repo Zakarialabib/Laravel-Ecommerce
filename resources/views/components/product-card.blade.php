@@ -1,13 +1,13 @@
 @props(['product'])
 <div itemprop="itemListElement" itemscope itemtype="https://schema.org/Product">
     <div class="mb-5 bg-white rounded-lg shadow-2xl">
-        <div itemprop="offers" itemscope itemtype="https://schema.org/Offer">
+        <div>
             <div class="relative text-center">
                 <a href="{{ route('front.product', $product->slug) }}" itemprop="url">
                     <img class="w-full h-[300px] object-cover rounded-t-lg py-5"
                         src="{{ asset('images/products/' . $product->image) }}"
                         onerror="this.onerror=null; this.remove();" alt="{{ $product->name }}" loading="lazy">
-                    <meta itemprop="image" content="{{ asset('images/products/' . $product->image) }}">
+                    <meta itemprop="image" content="{{ asset('images/products/' . $product->image) }}" />
 
                 </a>
 
