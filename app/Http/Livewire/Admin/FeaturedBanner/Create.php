@@ -66,7 +66,7 @@ class Create extends Component
         $this->validate();
 
         if ($this->image) {
-            $imageName = Str::slug($this->featuredbanner->title).'-'.date('Y-m-d H:i:s').'.'.$this->image->extension();
+            $imageName = Str::slug($this->featuredbanner->title).'-'.Str::random(3).'.'.$this->image->extension();
             $this->image->storeAs('featuredbanners', $imageName);
             $this->featuredbanner->image = $imageName;
         }

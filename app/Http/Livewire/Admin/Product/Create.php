@@ -105,7 +105,7 @@ class Create extends Component
         $this->product->slug = Str::slug($this->product->name);
 
         if ($this->image) {
-            $imageName = Str::slug($this->product->name).'-'.date('Y-m-d H:i:s').'.'.$this->image->extension();
+            $imageName = Str::slug($this->product->name).'-'.Str::random(3).'.'.$this->image->extension();
 
             $imageName = Image::make($this->image)->resize(1000, 1000, function ($constraint) {
                 $constraint->aspectRatio();

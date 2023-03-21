@@ -71,7 +71,7 @@ class Create extends Component
         $this->validate();
 
         if ($this->image) {
-            $imageName = Str::slug($this->section->title).'-'.date('Y-m-d H:i:s').'.'.$this->image->extension();
+            $imageName = Str::slug($this->section->title).'-'.Str::random(3).'.'.$this->image->extension();
             $this->image->storeAs('sections', $imageName);
             $this->section->image = $imageName;
         }

@@ -9,6 +9,7 @@ use Illuminate\Contracts\View\View;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Livewire\Component;
 use Livewire\WithPagination;
+use App\Enums\RedirectionStatus;
 
 class Redirects extends Component
 {
@@ -89,7 +90,7 @@ class Redirects extends Component
     public function update()
     {
         $this->validate();
-
+        
         $this->redirect->save();
 
         $this->alert('warning', __('Redirect updated successfully!'));
