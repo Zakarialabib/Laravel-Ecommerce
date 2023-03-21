@@ -56,7 +56,7 @@
         [x-cloak] {
             display: none;
         }
-    </style>™
+    </style>
 </head>
 
 <body class="antialiased bg-body text-body font-body" x-data="{ showCart: false }">
