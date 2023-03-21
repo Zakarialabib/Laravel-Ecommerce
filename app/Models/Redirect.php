@@ -6,6 +6,7 @@ namespace App\Models;
 
 use App\Support\HasAdvancedFilter;
 use Illuminate\Database\Eloquent\Model;
+use App\Enums\RedirectionStatus;
 
 class Redirect extends Model
 {
@@ -45,5 +46,6 @@ class Redirect extends Model
      */
     protected $casts = [
         'status' => 'boolean',
+        'http_status_code' => RedirectionStatus::class,
     ];
 }
