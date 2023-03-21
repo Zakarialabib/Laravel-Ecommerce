@@ -9,12 +9,14 @@ use Gloudemans\Shoppingcart\CanBeBought;
 use Gloudemans\Shoppingcart\Contracts\Buyable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Support\Str;
 
 class Product extends Model implements Buyable
 {
     use CanBeBought;
     use HasAdvancedFilter;
+    use HasFactory;
 
     public const StatusInActive = 0;
 
