@@ -30,7 +30,7 @@ class FrontController extends Controller
 
     public function productShow($slug)
     {
-        $product = Product::where('slug', $slug)->firstOrFail();
+        $product = Product::where('slug', $slug)->first() ?? abort(404);;
 
         return view('front.product', compact('product'));
     }
@@ -42,7 +42,7 @@ class FrontController extends Controller
 
     public function categoryPage($slug)
     {
-        $category = Category::where('slug', $slug)->firstOrFail();
+        $category = Category::where('slug', $slug)->first() ?? abort(404);;
 
         return view('front.category-page', compact('category'));
     }
@@ -54,7 +54,7 @@ class FrontController extends Controller
 
      public function SubcategoryPage($slug)
      {
-         $subcategory = Subcategory::where('slug', $slug)->firstOrFail();
+         $subcategory = Subcategory::where('slug', $slug)->first() ?? abort(404);;
 
          return view('front.subcategory-page', compact('subcategory'));
      }
@@ -66,7 +66,7 @@ class FrontController extends Controller
 
     public function brandPage($slug)
     {
-        $brand = Brand::where('slug', $slug)->firstOrFail();
+        $brand = Brand::where('slug', $slug)->first() ?? abort(404);;
 
         return view('front.brand-page', compact('brand'));
     }
@@ -100,7 +100,7 @@ class FrontController extends Controller
 
     public function blogPage($slug)
     {
-        $blog = Blog::where('slug', $slug)->firstOrFail();
+        $blog = Blog::where('slug', $slug)->first() ?? abort(404);;
 
         return view('front.blog-page', compact('blog'));
     }
@@ -113,7 +113,7 @@ class FrontController extends Controller
 
     public function dynamicPage($slug)
     {
-        $page = Page::where('slug', $slug)->firstOrFail();
+        $page = Page::where('slug', $slug)->first() ?? abort(404);;
         return view('front.dynamic-page', compact('page'));
     }
 
