@@ -6,20 +6,21 @@ namespace App\Models;
 
 use App\Support\HasAdvancedFilter;
 use Illuminate\Database\Eloquent\Model;
+use App\Enums\OrderStatus;
 
 class Order extends Model
 {
     use HasAdvancedFilter;
 
-    public const STATUS_PENDING = 1;
+    public const STATUS_PENDING = 0;
 
-    public const STATUS_PROCESSING = 2;
+    public const STATUS_PROCESSING = 1;
 
-    public const STATUS_COMPLETED = 3;
+    public const STATUS_COMPLETED = 2;
 
-    public const STATUS_CANCELLED = 4;
+    public const STATUS_CANCELLED = 3;
 
-    public const STATUS_REFUNDED = 5;
+    public const STATUS_REFUNDED = 4;
 
     public const PAYMENT_STATUS_PENDING = 1;
 
@@ -56,6 +57,10 @@ class Order extends Model
         'shipping_name', 'shipping_email', 'shipping_phone', 'shipping_address',
         'shipping_city', 'shipping_zip', 'shipping_state', 'shipping_country',
         'created_at', 'updated_at',
+    ];
+
+    protected $casts = [
+        'status' => OrderStatus::class,
     ];
 
     public static function generateReference()
