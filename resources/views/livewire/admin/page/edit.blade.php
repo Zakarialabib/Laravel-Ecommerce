@@ -1,10 +1,4 @@
 <div>
-<<<<<<< Updated upstream
-=======
-<<<<<<< Updated upstream
-    {{-- A good traveler has no fixed plans and is not intent upon arriving. --}}
-=======
->>>>>>> Stashed changes
     <!-- Edit Modal -->
     <x-modal wire:model="editModal">
         <x-slot name="title">
@@ -27,11 +21,7 @@
                     </div>
                     <div class="w-full px-2">
                         <x-label for="details" :value="__('Details')" />
-<<<<<<< Updated upstream
-                        <x-input.textarea wire:model="page.details" id="details" />
-=======
                         <x-input.rich-text wire:model.debounce.2000ms="page.details" id="details" />
->>>>>>> Stashed changes
                         <x-input-error :messages="$errors->get('page.details')" for="page.details" class="mt-2" />
                     </div>
 
@@ -63,8 +53,4 @@
         </x-slot>
     </x-modal>
     <!-- End Edit Modal -->
-<<<<<<< Updated upstream
-=======
->>>>>>> Stashed changes
->>>>>>> Stashed changes
 </div>

@@ -11,11 +11,6 @@
 
             <form wire:submit.prevent="create">
                 <div class="flex flex-wrap -mx-3 space-y-0">
-<<<<<<< Updated upstream
-=======
-<<<<<<< Updated upstream
-=======
->>>>>>> Stashed changes
                     <div class="lg:w-1/2 sm:w-full px-2">
                         <x-label for="title" :value="__('Title')" />
                         <x-input wire:model="page.title" type="text" />
@@ -26,18 +21,9 @@
                     </div>
                     <div class="w-full px-2">
                         <x-label for="details" :value="__('Details')" />
-<<<<<<< Updated upstream
-                        <x-input.textarea wire:model="page.details" id="details" />
-                        <x-input-error :messages="$errors->get('page.details')" for="page.details" class="mt-2" />
-                    </div>
-
-=======
                         <x-input.rich-text wire:model.debounce.2000ms="page.details" id="details" />
                         <x-input-error :messages="$errors->get('page.details')" for="page.details" class="mt-2" />
                     </div>
-
->>>>>>> Stashed changes
->>>>>>> Stashed changes
                     <div class="xl:w-1/2 md:w-1/2 px-3">
                         <x-label for="meta_title" :value="__('Meta title')" />
                         <x-input id="meta_title" class="block mt-1 w-full" type="text" name="meta_title"
