@@ -21,11 +21,15 @@
 
     @vite('resources/css/app.css')
     @stack('styles')
-
+    <style>
+        [x-cloak] {
+            display: none;
+        }
+    </style>
 </head>
 
-<body class="antialiased bg-body text-body font-body"  dir="ltr">
-    <div @resize.window="handleWindowResize">
+<body class="antialiased bg-gray-50 text-body font-body"  dir="ltr" >
+    <div @resize.window="handleWindowResize" x-cloak>
         <div class="min-h-screen">
             <!-- Sidebar -->
             <x-sidebar.sidebar />

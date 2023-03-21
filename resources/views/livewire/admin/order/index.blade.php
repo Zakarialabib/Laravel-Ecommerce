@@ -60,25 +60,35 @@
                         @endif
                     </x-table.td>
                     <x-table.td>
-                        @if ($order->status == 'pending')
-                            <span
+                        @if ($order->status == \App\Enums\OrderStatus::PENDING)
+                        <span
                                 class="p-2 text-center leading-5 rounded border border-blue-300 mb-1 text-sm w-full focus:shadow-outline-blue focus:border-blue-500 bg-blue-500 text-white">
                                 {{ __('Pending') }}
                             </span>
-                        @elseif($order->status == 'processing')
+                        @elseif($order->status == \App\Enums\OrderStatus::PROCESSING)
                             <span
                                 class="bg-yellow-500 text-white p-2 text-center leading-5 rounded border border-yellow-300 mb-1 text-sm w-full focus:shadow-outline-yellow focus:border-yellow-500">
                                 {{ __('Processing') }}
                             </span>
-                        @elseif($order->status == 'completed')
+                        @elseif($order->status == \App\Enums\OrderStatus::COMPLETED)
                             <span
                                 class="bg-green-500 text-white p-2 text-center leading-5 rounded border border-green-300 mb-1 text-sm w-full focus:shadow-outline-green focus:border-green-500">
                                 {{ __('Completed') }}
                             </span>
-                        @elseif($order->status == 'declined')
+                        @elseif($order->status == \App\Enums\OrderStatus::CANCELED)
                             <span
                                 class="bg-red-500 text-white py-2 text-center leading-5 rounded border border-red-300 mb-1 text-sm w-full focus:shadow-outline-red focus:border-red-500">
                                 {{ __('Declined') }}
+                            </span>
+                        @elseif($order->status == \App\Enums\OrderStatus::SHIPPED)
+                            <span
+                                class="bg-red-500 text-white py-2 text-center leading-5 rounded border border-red-300 mb-1 text-sm w-full focus:shadow-outline-red focus:border-red-500">
+                                {{ __('Shipped') }}
+                            </span>
+                        @elseif($order->status == \App\Enums\OrderStatus::RETURNED)
+                            <span
+                                class="bg-red-500 text-white py-2 text-center leading-5 rounded border border-red-300 mb-1 text-sm w-full focus:shadow-outline-red focus:border-red-500">
+                                {{ __('Returned') }}
                             </span>
                         @endif
                     </x-table.td>

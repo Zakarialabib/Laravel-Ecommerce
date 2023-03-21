@@ -52,7 +52,11 @@
         crossorigin="anonymous" referrerpolicy="no-referrer" />
 
     @stack('styles')
-
+    <style>
+        [x-cloak] {
+            display: none;
+        }
+    </style>™
 </head>
 
 <body class="antialiased bg-body text-body font-body" x-data="{ showCart: false }">
