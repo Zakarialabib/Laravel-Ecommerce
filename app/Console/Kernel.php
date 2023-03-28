@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Console;
 
+use App\Enums\BackupSchedule;
 use App\Console\Commands\Backup;
 use App\Console\Commands\GenerateSitemap;
 use Illuminate\Console\Scheduling\Schedule;
@@ -26,12 +27,15 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule)
     {
         //  some config somewhere
-        if (config('backup.schedule') === 1) {
-            $schedule->command(Backup::class)->daily();
-        } elseif (config('backup.schedule') === 2) {
-            $schedule->command(Backup::class)->weekly();
-        } elseif (config('backup.schedule') === 3) {
-            $schedule->command(Backup::class)->monthly();
+        if (config('backup.schedule') === BackupSchedule::DAILY) {
+            $schedule->command('backup:monitor')->daily()->at('17:00');
+            $schedule->command(Backup::class)->daily()->at('17:00');
+        } elseif (config('backup.schedule') === BackupSchedule::WEEKLY) {
+            $schedule->command('backup:monitor')->weekly()->at('17:00');
+            $schedule->command(Backup::class)->weekly()->at('17:00');
+        } elseif (config('backup.schedule') === BackupSchedule::MONTHLY) {
+            $schedule->command('backup:monitor')->monthly()->at('17:00');
+            $schedule->command(Backup::class)->monthly()->at('17:00');
         }
 
         if (config('sitemap.schedule') === 1) {

@@ -1,9 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Console\Commands;
 
+use Artisan;
+use Exception;
 use Illuminate\Console\Command;
-use Illuminate\Support\Facades\Log;
+use Log;
 
 class Backup extends Command
 {
@@ -38,36 +42,43 @@ class Backup extends Command
      */
     public function handle()
     {
-        if (config('backup.status') === 1) {
+        if (settings()->backup_status === 1) {
             $artisan_command = '';
 
-            switch (config('backup.content')) {
+            switch (settings()->backup_content) {
                 case 'db': {
                     $artisan_command = 'backup:run & --only-db';
-                    break;
-                }
-                case 'db_storage': {
-                    config(['backup.source.files.include' => 'storage/public']);
-                    $artisan_command = 'backup:run';
+
                     break;
                 }
                 case 'all': {
                     config(['backup.source.files.include' => base_path()]);
                     $artisan_command = 'backup:run';
+
                     break;
                 }
             }
 
             $command = explode('&', $artisan_command);
+
             try {
+                ini_set('max_execution_time', 600);
+
                 if (count($command) > 1) {
-                    \Artisan::call(trim($command[0]), [trim($command[1]) => true]);
-                } else {
-                    \Artisan::call(array_first($command));
+                    
+                    Artisan::call(trim($command[0]), [trim($command[1]) => true]);
+                    $output = \Artisan::output();
+                    if (strpos($output, 'Backup failed because')) {
+                        preg_match('/Backup failed because(.*?)$/ms', $output, $match);
+                        // $message .= "Backup Manager -- backup process failed because ";
+                        // $message .= isset($match[1]) ? $match[1] : '';
+                        Log::error('Backup Manager -- backup process failed because' . PHP_EOL . $output);
+                    } else {
+                        Log::info("Backup Manager -- backup process has started");
+                    }
                 }
-                Log::info('Backup completed successfully!');
-            } catch (\Exception $e) {
-                \Log::info('backup update failed - ' . $e->getMessage());
+            } catch (Exception $e) {
+                Log::info('backup update failed - '.$e->getMessage());
             }
         }
     }
