@@ -148,7 +148,6 @@
         </div>
 
         <div class="flex flex-row my-4">
-
             <div class="lg:w-1/2 md:w-full6">
                 <x-card>
                     <h5 class="font-bold py-2 text-xl">{{ __('Recent Order(s)') }}</h5>
@@ -214,8 +213,6 @@
                 </x-card>
             </div>
         </div>
-        
-        <x-core-web-vital-insight-component/>
 
     </div>
 </x-dashboard-layout>

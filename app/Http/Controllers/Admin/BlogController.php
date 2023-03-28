@@ -14,9 +14,4 @@ class BlogController extends Controller
     {
         return view('admin.blog.index');
     }
-
-    public function blogcategories(): View|Factory
-    {
-        return view('admin.blog.category.index');
-    }
 }

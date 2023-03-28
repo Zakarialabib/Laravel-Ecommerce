@@ -6,6 +6,7 @@
     "license": "MIT",
     "require": {
         "php": "^8.0.2",
+        "akaunting/laravel-firewall": "^2.1",
         "bumbummen99/shoppingcart": "^4.2",
         "carlos-meneses/laravel-mpdf": "^2.1",
         "guzzlehttp/guzzle": "^7.2",

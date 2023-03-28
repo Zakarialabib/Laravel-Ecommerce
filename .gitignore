@@ -12,3 +12,4 @@ Homestead.json
 config/database.php
 *.stub
 *.xlsx
+composer.lock

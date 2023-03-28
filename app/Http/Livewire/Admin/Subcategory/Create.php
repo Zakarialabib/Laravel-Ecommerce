@@ -32,11 +32,6 @@ class Create extends Component
         'subcategory.language_id' => ['nullable'],
     ];
 
-    public function mount(Subcategory $subcategory)
-    {
-        $this->subcategory = $subcategory;
-    }
-
     public function render(): View|Factory
     {
         abort_if(Gate::denies('subcategory_create'), 403);
@@ -50,6 +45,8 @@ class Create extends Component
 
         $this->resetValidation();
 
+        $this->subcategory = new Subcategory();
+
         $this->createSubcategory = true;
     }
 
@@ -62,7 +59,9 @@ class Create extends Component
         $this->subcategory->save();
 
         $this->alert('success', __('Subcategory created successfully.'));
+        
         $this->emit('refreshIndex');
+
         $this->createSubcategory = false;
     }
 

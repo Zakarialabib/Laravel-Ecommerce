@@ -50,7 +50,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"
         integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
-
+ 
     @stack('styles')
     <style>
         [x-cloak] {
@@ -59,15 +59,13 @@
     </style>
 </head>
 
-<body class="antialiased bg-body text-body font-body" x-data="{ showCart: false }">
+<body class="antialiased bg-gray-50 text-body font-body" x-data="{ showCart: false }">
     <!-- Body Tags -->
 
     @if (Helpers::settings('body_tags'))
         {!! Helpers::settings('body_tags') !!}
     @endif
     
-    {{-- <x-loading-mask /> --}}
-
     <section class="relative">
 
         <x-topheader />

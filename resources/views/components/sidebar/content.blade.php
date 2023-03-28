@@ -67,7 +67,6 @@
         </x-slot>
         @can('blog_access')
         <x-sidebar.sublink title="{{ __('All Blog') }}" href="{{ route('admin.blogs') }}" :active="request()->routeIs('admin.blogs')" />
-        <x-sidebar.sublink title="{{ __('Blog Settings') }}" href="{{ route('admin.blog.settings') }}" :active="request()->routeIs('admin.blog.settings')" />
         <x-sidebar.sublink title="{{ __('Blog Categories') }}" href="{{ route('admin.blogcategories') }}" :active="request()->routeIs('admin.blogcategories')" />
         @endcan
     </x-sidebar.dropdown>

@@ -150,7 +150,7 @@ class Index extends Component
 
     public function editModal(User $user)
     {
-        abort_if(Gate::denies('user_edit'), 403);
+        // abort_if(Gate::denies('user_edit'), 403);
 
         $this->resetErrorBag();
 

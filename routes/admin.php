@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 use App\Http\Controllers\Admin\BlogController;
+use App\Http\Controllers\Admin\BlogCategoryController;
 use App\Http\Controllers\Admin\BrandController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\DashboardController;
@@ -33,7 +34,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => 'auth'], function () {
+Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth','role:ADMIN','firewall.all']], function () {
     // change lang
     Route::get('/lang/{lang}', [DashboardController::class, 'changeLanguage'])->name('changelanguage');
 
@@ -60,8 +61,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => 'auth'], fu
     Route::get('/sliders', [SliderController::class, 'index'])->name('sliders');
 
     Route::get('/blogs', [BlogController::class, 'index'])->name('blogs');
-    Route::get('/blog/settings', [BlogController::class, 'settings'])->name('blog.settings');
-    Route::get('/blog/category', [BlogController::class, 'blogcategories'])->name('blogcategories');
+    Route::get('/blog/category', [BlogCategoryController::class, 'index'])->name('blogcategories');
 
     Route::get('/settings', [SettingController::class, 'index'])->name('settings');
     Route::get('/shipping', [ShippingController::class, 'index'])->name('setting.shipping');
