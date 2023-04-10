@@ -174,7 +174,7 @@ class Index extends Component
              'meta_description' => $product_details->meta_description,
              'meta_keywords' => $product_details->meta_keywords,
              'category_id' => $product_details->category_id,
-             'subcategory_id' => $product_details->subcategory_id,
+             'subcategories' => $product_details->subcategories,
              'image' => $product_details->image,
              'brand_id' => $product_details->brand_id,
              'status' => 0,

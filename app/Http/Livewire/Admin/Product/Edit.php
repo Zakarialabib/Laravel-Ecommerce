@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Http\Livewire\Admin\Product;
 
-use App\Http\Livewire\Trix;
+use App\Helpers;
 use App\Models\Brand;
 use App\Models\Category;
 use App\Models\Product;
@@ -12,12 +12,10 @@ use App\Models\Subcategory;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Support\Facades\Gate;
-use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Str;
-use Intervention\Image\Facades\Image;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Livewire\Component;
 use Livewire\WithFileUploads;
+use App\Http\Livewire\Quill;
 
 class Edit extends Component
 {
@@ -41,11 +39,9 @@ class Edit extends Component
     public $description;
 
     public $listeners = [
-        Trix::EVENT_VALUE_UPDATED,
         'editModal',
+        Quill::EVENT_VALUE_UPDATED
     ];
-
-    public array $listsForFields = [];
 
     protected $rules = [
         'product.code' => ['nullable'],
@@ -58,30 +54,26 @@ class Edit extends Component
         'product.meta_description' => ['nullable', 'string', 'max:255'],
         'product.meta_keywords' => ['nullable', 'string', 'min:1'],
         'product.category_id' => ['required', 'integer'],
-        'product.subcategory_id' => ['required'],
+        'product.subcategories' => ['required', 'array', 'min:1'],
+        'product.subcategories.*' => ['integer', 'distinct:strict'],
         'product.brand_id' => ['nullable', 'integer'],
         'product.embeded_video' => ['nullable'],
         'product.condition' => ['nullable'],
     ];
 
-    public function onTrixValueUpdate($value)
+    public function quill_value_updated($value)
     {
-        $this->description = $value;
-    }
-
-    public function mount()
-    {
-        $this->initListsForFields();
+        $this->product->description = $value;
     }
 
     public function getImagePreviewProperty()
     {
-        return $this->product->image;
+        return $this->product?->image;
     }
 
     public function getGalleryPreviewProperty()
     {
-        return $this->product->gallery;
+        return $this->product?->gallery;
     }
 
     public function getCategoriesProperty()
@@ -90,9 +82,19 @@ class Edit extends Component
             ->get();
     }
 
+    public function getBrandsProperty()
+    {
+        return Brand::select('name', 'id')->get();
+    }
+
     public function getSubcategoriesProperty()
     {
         return Subcategory::select('name', 'id')->get();
+    }
+
+    public function updatedProductSubcategories()
+    {
+        $this->product->subcategories;
     }
 
     public function editModal($id)
@@ -115,28 +117,7 @@ class Edit extends Component
         $this->validate();
 
         if ($this->image) {
-            $imageName = Str::slug($this->product->name).'-'.Str::random(5).'.'.$this->image->extension();
-
-            $img = Image::make($this->image->getRealPath())->encode('webp', 85);
-
-            // we need to resize image, otherwise it will be cropped
-            if ($img->width() > $this->width) {
-                $img->resize($this->width, null, function ($constraint) {
-                    $constraint->aspectRatio();
-                });
-            }
-
-            if ($img->height() > $this->height) {
-                $img->resize(null, $this->height, function ($constraint) {
-                    $constraint->aspectRatio();
-                });
-            }
-
-            $img->resizeCanvas($this->width, $this->height, 'center', false, '#ffffff');
-
-            $img->stream();
-
-            Storage::disk('local_files')->put('products/'.$imageName, $img, 'public');
+            $imageName = Helpers::handleUpload($this->image, $this->width, $this->height, $this->product->name);
 
             $this->product->image = $imageName;
         }
@@ -144,33 +125,12 @@ class Edit extends Component
         // gallery image
         if ($this->gallery) {
             $gallery = [];
-
+        
             foreach ($this->gallery as $key => $value) {
-                $image = $value;
-                $imageName = Str::slug($this->product->name).'-'.$key.'.'.$image->extension();
-
-                $img = Image::make($image->getRealPath())->encode('webp', 85);
-
-                // we need to resize image, otherwise it will be cropped
-                if ($img->width() > $this->width) {
-                    $img->resize($this->width, null, function ($constraint) {
-                        $constraint->aspectRatio();
-                    });
-                }
-
-                if ($img->height() > $this->height) {
-                    $img->resize(null, $this->height, function ($constraint) {
-                        $constraint->aspectRatio();
-                    });
-                }
-
-                $img->resizeCanvas($this->width, $this->height, 'center', false, '#ffffff');
-
-                $img->stream();
-                Storage::disk('local_files')->put('products/'.$imageName, $img, 'public');
+                $imageName = Helpers::handleUpload($value, $this->width, $this->height, $this->product->name);
                 $gallery[] = $imageName;
             }
-
+        
             $this->product->gallery = json_encode($gallery);
         }
 
@@ -188,9 +148,4 @@ class Edit extends Component
         return view('livewire.admin.product.edit');
     }
 
-    protected function initListsForFields(): void
-    {
-        $this->listsForFields['brands'] = Brand::pluck('name', 'id')->toArray();
-        $this->listsForFields['subcategories'] = Subcategory::pluck('name', 'id')->toArray();
-    }
 }

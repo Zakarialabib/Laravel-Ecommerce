@@ -2,7 +2,7 @@
     <x-modal wire:model="highlightModal">
 
         <x-slot name="title">
-            {{ __('Highlight') }} - {{ $product->name}}
+            {{ __('Highlight') }} - {{ $product?->name}}
         </x-slot>
         
         <x-slot name="content">

@@ -43,18 +43,15 @@
             <div class="flex flex-col">
                 <h2 class="text-2xl font-bold text-center mb-4">
                     {{ __('Choose your favorite choice') }}
-                </h2>
+                </h2> 
 
                 <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 mt-4 gap-4">
                     @foreach ($this->subcategories as $subcategory)
-                        @if ($subcategory->products->count() > 1)
-                            <div class="flex items-start p-4 rounded-xl shadow-lg bg-white">
-                                <a href="{{ route('front.subcategoryPage', $subcategory->slug) }}" class="w-full">
-                                    <h2 class="font-semibold">{{ $subcategory->category?->name }} {{ $subcategory->name }}</h2>
-                                    <p class="mt-2 text-sm text-gray-500">{{ $subcategory->products->count() }}</p>
-                                </a>
-                            </div>
-                        @endif
+                        <div class="flex items-start p-4 rounded-xl shadow-lg bg-white">
+                            <a href="{{ route('front.subcategoryPage', $subcategory->slug) }}" class="w-full">
+                                <h2 class="font-semibold">{{ $subcategory->category?->name }} {{ $subcategory->name }}</h2>
+                            </a>
+                        </div>
                     @endforeach
                 </div>
             </div>

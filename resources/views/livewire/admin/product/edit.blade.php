@@ -31,7 +31,8 @@
                                 id="category_id" name="category_id" wire:model="product.category_id">
                                 <option value="">{{ __('Select Category') }}</option>
                                 @foreach ($this->categories as $category)
-                                    <option value="{{ $category->id }}">{{ $category->name }}</option>
+                                    <option value="{{ $category->id }}"
+                                        @if ($product->category_id == $category->id) selected @endif>{{ $category->name }}</option>
                                 @endforeach
                                 <x-input-error :messages="$errors->get('product.category_id')" for="product.category_id" class="mt-2" />
                             </select>
@@ -39,11 +40,13 @@
 
                         <div class="sm:w-full lg:w-1/2 px-3 ">
                             <x-label for="subcategory" :value="__('Subcategory')" />
-                            <select
+                            <select multiple id="subcategories" name="subcategories"
                                 class="block bg-white text-gray-700 rounded border border-gray-300 mb-1 text-sm w-full focus:shadow-outline-blue focus:border-blue-500"
-                                id="subcategory_id" name="subcategory_id" wire:model="product.subcategory_id">
+                                wire:model="product.subcategories">
                                 @foreach ($this->subcategories as $subcategory)
-                                    <option value="{{ $subcategory->id }}">{{ $subcategory->category?->name }} {{ $subcategory->name }}</option>
+                                    <option value="{{ $subcategory->id }}"
+                                        @if ($product?->subcategories == $subcategory->id) selected @endif>{{ $subcategory->name }}
+                                    </option>
                                 @endforeach
                             </select>
                             <x-input-error :messages="$errors->get('subcategory_id')" for="subcategory_id" class="mt-2" />
@@ -67,9 +70,16 @@
 
                         <div class="sm:w-full lg:w-1/2 px-3 ">
                             <x-label for="brand_id" :value="__('Brand')" />
-                            <x-select-list
+                            <select
                                 class="block bg-white text-gray-700 rounded border border-gray-300 mb-1 text-sm w-full focus:shadow-outline-blue focus:border-blue-500"
-                                id="brand_id" name="brand_id" wire:model="product.brand_id" :options="$this->listsForFields['brands']" />
+                                id="brand_id" name="brand_id" wire:model="product.brand_id">
+                                <option value="">{{ __('Select Brand') }}</option>
+                                @foreach ($this->brands as $brand)
+                                    <option value="{{ $brand->id }}"
+                                        @if ($product->brand_id == $brand->id) selected @endif>{{ $brand->name }}</option>
+                                @endforeach
+                                <x-input-error :messages="$errors->get('product.brand_id')" for="product.brand_id" class="mt-2" />
+                            </select>
                         </div>
 
                         <div class="sm:w-full lg:w-1/2 px-3 ">
@@ -79,12 +89,12 @@
                             <x-input-error :messages="$errors->get('product.condition')" for="product.condition" class="mt-2" />
                         </div>
 
-                        <div class="w-full mb-4">
+                        <div class="w-full mb-4 px-3">
                             <x-label for="description" :value="__('Description')" />
-                            <x-input.rich-text wire:model.debounce.2000ms="product.description" id="description" />
+                            <livewire:quill :value="$description" />
                         </div>
 
-                        <div class="w-full px-4 my-2">
+                        <div class="w-full px-3 my-2">
                             <x-label for="image" :value="__('Product Image')" />
                             <x-media-upload title="{{ __('Product Image') }}" name="image" wire:model="image"
                                 :file="$image" :preview="$this->imagepreview" single types="PNG / JPEG / WEBP"
@@ -92,7 +102,7 @@
                         </div>
 
 
-                        <div class="w-full px-4 my-2">
+                        <div class="w-full px-3 my-2">
                             <x-label for="gallery" :value="__('Gallery')" />
                             <x-media-upload title="{{ __('Gallery') }}" name="gallery" wire:model="gallery"
                                 :preview="$this->gallerypreview" :file="$gallery" multiple types="PNG / JPEG / WEBP"

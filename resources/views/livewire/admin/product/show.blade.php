@@ -1,14 +1,14 @@
 <div>
     <x-modal wire:model="showModal">
         <x-slot name="title">
-            {{ __('Show Product') }} - {{ $product->name }}
+            {{ __('Show Product') }} - {{ $product?->name }}
         </x-slot>
 
         <x-slot name="content">
             <div class="px-4 mx-auto mb-4">
                 <div class="w-full mb-3">
                     <div class="flex justify-center px-3">
-                        <img src="{{ asset('images/products/' . $product->image) }}" alt="{{ $product->name }}"
+                        <img src="{{ asset('images/products/' . $product?->image) }}" alt="{{ $product?->name }}"
                             class="w-32 h-32 rounded-full">
                     </div>
                 </div>
@@ -20,7 +20,7 @@
                                     {{ __('Product Code') }}
                                 </x-table.th>
                                 <x-table.td>
-                                    {{ $product->code }}
+                                    {{ $product?->code }}
                                 </x-table.td>
                             </x-table.tr>
 
@@ -29,7 +29,7 @@
                                     {{ __('Name') }}
                                 </x-table.th>
                                 <x-table.td>
-                                    {{ $product->name }}
+                                    {{ $product?->name }}
                                 </x-table.td>
                             </x-table.tr>
                             <x-table.tr>
@@ -37,7 +37,7 @@
                                     {{ __('Category') }}
                                 </x-table.th>
                                 <x-table.td>
-                                    {{ $product->category?->name }}
+                                    {{ $product?->category?->name }}
                                 </x-table.td>
                             </x-table.tr>
                             <x-table.tr>
@@ -45,7 +45,7 @@
                                     {{ __('Brand') }}
                                 </x-table.th>
                                 <x-table.td>
-                                    {{ $product->brand?->name }}
+                                    {{ $product?->brand?->name }}
                                 </x-table.td>
                             </x-table.tr>
                             <x-table.tr>
@@ -53,7 +53,7 @@
                                     {{ __('Old Price') }}
                                 </x-table.th>
                                 <x-table.td>
-                                    {{ $product->old_price }}
+                                    {{ $product?->old_price }}
                                 </x-table.td>
                             </x-table.tr>
                             <x-table.tr>
@@ -61,7 +61,7 @@
                                     {{ __('Price') }}
                                 </x-table.th>
                                 <x-table.td>
-                                    {{ $product->price }}
+                                    {{ $product?->price }}
                                 </x-table.td>
                             </x-table.tr>
 
@@ -70,7 +70,7 @@
                                     {{ __('Description') }}
                                 </x-table.th>
                                 <x-table.td>
-                                    {!! $product->description !!}
+                                    {!! $product?->description !!}
                                 </x-table.td>
                             </x-table.tr>
                         </x-table-responsive>

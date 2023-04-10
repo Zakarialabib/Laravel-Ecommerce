@@ -23,9 +23,10 @@
                             <x-input-error :messages="$errors->get('code')" for="code" class="mt-2" />
                         </div>
                     </div>
+
                     <div class="w-full px-3 mb-6 lg:mb-0">
                         <x-label for="description" :value="__('Description')" />
-                        <x-input.rich-text wire:model.debounce.2000ms="description" id="description" />
+                        <livewire:quill :value="$description" />
                     </div>
 
                     <div class="flex flex-wrap -mx-2 mb-3">
@@ -43,12 +44,13 @@
                         </div>
 
                         <div class="w-full lg:w-1/2 px-3 mb-6 lg:mb-0">
-                            <x-label for="subcategory" :value="__('Subcategory')" />
-                            <select
+                            <x-label for="subcategories" :value="__('Subcategories')" />
+                            <select multiple id="subcategories" name="subcategories"
                                 class="block bg-white text-gray-700 rounded border border-gray-300 mb-1 text-sm w-full focus:shadow-outline-blue focus:border-blue-500"
-                                id="subcategory_id" name="subcategory_id" wire:model="product.subcategory_id">
+                                wire:model="product.subcategories">
                                 @foreach ($this->subcategories as $subcategory)
-                                    <option value="{{ $subcategory->id }}">{{ $subcategory->name }}</option>
+                                    <option value="{{ $subcategory->id }}">{{ $subcategory->name }}
+                                    </option>
                                 @endforeach
                             </select>
                             <x-input-error :messages="$errors->get('subcategory_id')" for="subcategory_id" class="mt-2" />
@@ -70,7 +72,7 @@
 
                         </div>
 
-                        <div class="lg:w-1/3 sm:w-1/2 px-2">
+                        <div class="w-full lg:w-1/2 px-3 mb-6 lg:mb-0">
                             <x-label for="brand_id" :value="__('Brand')" />
                             <select
                                 class="block bg-white text-gray-700 rounded border border-gray-300 mb-1 text-sm w-full focus:shadow-outline-blue focus:border-blue-500"
@@ -82,7 +84,7 @@
                             <x-input-error :messages="$errors->get('product.brand_id')" for="brand_id" class="mt-2" />
                         </div>
 
-                        <div class="lg:w-1/3 sm:w-1/2 px-2">
+                        <div class="w-full lg:w-1/2 px-3 mb-6 lg:mb-0">
                             <x-label for="video" :value="__('Condition')" />
                             <x-input id="condition" class="block mt-1 w-full" type="text" name="condition"
                                 wire:model="product.condition" />

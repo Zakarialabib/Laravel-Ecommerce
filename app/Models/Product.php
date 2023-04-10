@@ -10,6 +10,8 @@ use Gloudemans\Shoppingcart\Contracts\Buyable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 use Illuminate\Support\Str;
 
 class Product extends Model implements Buyable
@@ -73,7 +75,15 @@ class Product extends Model implements Buyable
         'discount_date',
     ];
 
-    // get name set slug with Str::
+    /**
+     * The attributes that should be cast to native types.
+     *
+     * @var array
+     */
+    protected $casts = [
+        'subcategories' => 'array',
+    ];
+
     public function setNameAttribute($value)
     {
         $this->attributes['name'] = $value;
@@ -99,9 +109,9 @@ class Product extends Model implements Buyable
         return $this->belongsTo(Brand::class, 'brand_id');
     }
 
-    public function subcategory(): BelongsTo
+    public function subcategory(): HasManyThrough
     {
-        return $this->belongsTo(Subcategory::class, 'subcategory_id');
+        return $this->hasManyThrough(Subcategory::class, Category::class);
     }
 
     /**

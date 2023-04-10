@@ -58,9 +58,7 @@
                     <x-button type="button" blackOutline class="mx-2"
                         wire:click="filterProductSubcategories({{ $subcategory->id }})">
                         {{ $subcategory->name }}
-                        <span class="text-sm ml-2">
-                            ({{ $subcategory->products->count() }})
-                        </span>
+
                     </x-button>
                 @endforeach
             </div>

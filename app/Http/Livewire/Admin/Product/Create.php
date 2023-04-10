@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Http\Livewire\Admin\Product;
 
-use App\Http\Livewire\Trix;
+use App\Helpers;
 use App\Models\Brand;
 use App\Models\Category;
 use App\Models\Product;
@@ -12,10 +12,10 @@ use App\Models\Subcategory;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Support\Str;
-use Intervention\Image\Facades\Image;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Livewire\Component;
 use Livewire\WithFileUploads;
+use App\Http\Livewire\Quill;
 
 class Create extends Component
 {
@@ -23,10 +23,11 @@ class Create extends Component
     use WithFileUploads;
 
     public $listeners = [
-        Trix::EVENT_VALUE_UPDATED,
         'createProduct',
+        Quill::EVENT_VALUE_UPDATED
     ];
 
+    
     public $createProduct = false;
 
     public $product;
@@ -39,6 +40,10 @@ class Create extends Component
 
     public $description = null;
 
+    public $width = 1000;
+
+    public $height = 1000;
+
     public array $listsForFields = [];
 
     protected $rules = [
@@ -50,25 +55,25 @@ class Create extends Component
         'product.meta_description' => ['nullable', 'string', 'max:255'],
         'product.meta_keywords' => ['nullable', 'string', 'min:1'],
         'product.category_id' => ['required', 'integer'],
-        'product.subcategory_id' => ['required'],
+        'product.subcategories' => ['required', 'array', 'min:1'],
+        'product.subcategories.*' => ['integer', 'distinct:strict'],
         'product.brand_id' => ['nullable', 'integer'],
         'product.embeded_video' => ['nullable'],
         'product.condition' => ['nullable'],
     ];
+
+    public function quill_value_updated($value){
+        $this->description = $value;
+    }
 
     public function updated($propertyName)
     {
         $this->validateOnly($propertyName);
     }
 
-    public function onTrixValueUpdate($value)
+    public function updatedProductSubcategories()
     {
-        $this->description = $value;
-    }
-
-    public function mount(Product $product)
-    {
-        $this->product = $product;
+        $this->product->subcategories()->sync($this->product->subcategories);
     }
 
     public function getImagePreviewProperty()
@@ -92,6 +97,8 @@ class Create extends Component
 
         $this->resetValidation();
 
+        $this->product = new Product();
+
         $this->createProduct = true;
     }
 
@@ -105,38 +112,32 @@ class Create extends Component
         $this->product->slug = Str::slug($this->product->name);
 
         if ($this->image) {
-            $imageName = Str::slug($this->product->name).'-'.Str::random(3).'.'.$this->image->extension();
-
-            $imageName = Image::make($this->image)->resize(1000, 1000, function ($constraint) {
-                $constraint->aspectRatio();
-            });
-
-            $this->image->storeAs('products', $imageName);
+            $imageName = Helpers::handleUpload($this->image, $this->width, $this->height, $this->product->name);
 
             $this->product->image = $imageName;
         }
+
         // gallery
         if ($this->gallery) {
             $gallery = [];
 
             foreach ($this->gallery as $image) {
-                $imageName = Str::slug($this->product->name).'.'.$image->extension();
+                $imageName = Str::slug($this->product->name) . '.' . $image->extension();
                 $image->storeAs('products', $imageName);
                 $gallery[] = $imageName;
             }
             $this->product->gallery = json_encode($gallery);
         }
+        
+        $this->product->subcategories = $this->subcategories;
 
-        if ($this->product->save()) {
-            $this->product->save();
-            $this->alert('success', 'Product created successfully');
+        $this->product->save();
 
-            $this->emit('refreshIndex');
+        $this->alert('success', 'Product created successfully');
 
-            $this->createProduct = false;
-        } else {
-            $this->alert('error', __('Something went wrong'));
-        }
+        $this->emit('refreshIndex');
+
+        $this->createProduct = false;
     }
 
     public function getCategoriesProperty()
