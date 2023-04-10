@@ -19,21 +19,18 @@ class Catalog extends Component
     use WithPagination;
     use WithSorting;
 
-    public int $perPage;
+    public int $perPage = 25;
 
-    public array $paginationOptions;
+    public $paginationOptions = [25, 50, 100];
 
-    public $maxPrice;
-
-    public $minPrice;
-
-    public $category_id;
+    public ?int $maxPrice;
+    public ?int $minPrice;
+    public ?int $category_id;
 
     public $subcategory_id;
 
-    public $brand_id;
-
-    public $sorting;
+    public ?int $brand_id;
+    public ?string $sorting;
 
     public $sortingOptions;
 
@@ -104,10 +101,6 @@ class Catalog extends Component
             'date-asc' => __('Date, new to old'),
             'date-desc' => __('Date, old to new'),
         ];
-        $this->selectedFilters = [];
-
-        $this->perPage = 25;
-        $this->paginationOptions = [25, 50, 100];
     }
 
     public function render(): View|Factory
@@ -123,7 +116,7 @@ class Catalog extends Component
                 return $query->where('category_id', $this->category_id);
             })
             ->when($this->subcategory_id, function ($query) {
-                return $query->where('subcategory_id', $this->subcategory_id);
+                return $query->whereIn('subcategories', $this->subcategory_id);
             })
             ->when($this->brand_id, function ($query) {
                 return $query->where('brand_id', $this->brand_id);

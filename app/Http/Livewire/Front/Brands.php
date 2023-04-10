@@ -106,7 +106,7 @@ class Brands extends Component
                 return $query->where('category_id', $this->category_id);
             })
             ->when($this->subcategory_id, function ($query) {
-                return $query->where('subcategory_id', $this->subcategory_id);
+                return $query->where('subcategories', $this->subcategory_id);
             })
             ->when($this->brand_id, function ($query) {
                 return $query->where('brand_id', $this->brand_id);

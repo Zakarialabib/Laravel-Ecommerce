@@ -47,13 +47,14 @@ class Categories extends Component
 
     public function filterProducts($type, $value)
     {
-        switch($type) {
+        switch ($type) {
             case 'category':
                 $this->category_id = $value;
 
                 break;
             case 'subcategory':
-                $this->subcategory_id = $value;
+                $this->subcategory_id = [$value];
+                $this->selectedFilters['subcategory'] = Subcategory::find($value)->name;
 
                 break;
             case 'brand':
@@ -64,22 +65,25 @@ class Categories extends Component
         $this->resetPage();
     }
 
-     public function clearFilter($filter)
-     {
-         switch($filter) {
-             case 'category':
-                 $this->category_id = null;
-                 unset($this->selectedFilters['category']);
+    public function clearFilter($filter)
+    {
+        switch ($filter) {
+            case 'category':
+                $this->category_id = null;
+                unset($this->selectedFilters['category']);
 
-                 break;
-             case 'subcategory':
-                 $this->subcategory_id = null;
-                 unset($this->selectedFilters['subcategory']);
-
-                 break;
-         }
-         $this->resetPage();
-     }
+                break;
+            case 'subcategory':
+                $this->subcategory_id = null;
+                unset($this->selectedFilters['subcategory']);
+                break;
+            case 'brand':
+                $this->brand_id = null;
+                unset($this->selectedFilters['brand']);
+                break;
+        }
+        $this->resetPage();
+    }
 
     public function mount()
     {
@@ -112,7 +116,7 @@ class Categories extends Component
                 return $query->where('category_id', $this->category_id);
             })
             ->when($this->subcategory_id, function ($query) {
-                return $query->where('subcategory_id', $this->subcategory_id);
+                return $query->whereIn('subcategories', $this->subcategory_id);
             });
 
         if ($this->sorting === 'name') {
