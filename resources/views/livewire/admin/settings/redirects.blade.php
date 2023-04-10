@@ -124,7 +124,7 @@
                         <x-label for="new_url" :value="__('New url')" />
                         <input type="text" name="new_url" wire:model.lazy="redirect.new_url"
                             class="p-3 leading-5 bg-white text-gray-700 rounded border border-zinc-300 mb-1 text-sm w-full focus:shadow-outline-blue focus:border-blue-500 "
-                            placeholder="{{ __('new_url') }}" value="{{ old('new_url') }}">
+                            placeholder="{{ __('New url') }}" value="{{ old('new_url') }}">
                         <x-input-error :messages="$errors->get('redirect.new_url')" for="redirect.new_url" class="mt-2" />
                     </div>
 

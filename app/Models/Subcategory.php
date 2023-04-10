@@ -36,7 +36,6 @@ class Subcategory extends Model
     {
         $query->where('status', 1);
     }
-
     public function category()
     {
         return $this->belongsTo(Category::class);

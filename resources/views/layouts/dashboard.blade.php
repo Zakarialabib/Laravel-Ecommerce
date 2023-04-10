@@ -15,15 +15,12 @@
     <!-- Favicon -->
     <link rel="icon" href="{{ asset('images/' . Helpers::settings('site_favicon')) }}" type="image/x-icon">
 
-    
-    <style>
-        [x-cloak] {
-            display: none;
-        }
-    </style>
+    @include('partials.css')
+
 </head>
 
-<body class="antialiased bg-gray-50 text-body font-body" dir="ltr">
+<body class="antialiased bg-gray-50 text-body font-body">
+    <x-loading-mask />
     <div @resize.window="handleWindowResize">
         <div class="min-h-screen">
             <!-- Sidebar -->
@@ -45,7 +42,7 @@
                         {{ $slot }}
                     @endisset
                 </main>
-                
+
                 <!-- Footer -->
                 <x-copyright />
 

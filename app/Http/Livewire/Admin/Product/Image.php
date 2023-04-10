@@ -53,12 +53,12 @@ class Image extends Component
 
     public function getImagePreviewProperty()
     {
-        return $this->product->image;
+        return $this->product?->image;
     }
 
     public function getGalleryPreviewProperty()
     {
-        return $this->product->gallery;
+        return $this->product?->gallery;
     }
 
     public function saveImage()

@@ -15,8 +15,6 @@
     <div x-ref="quillEditor" {{ $attributes }}>
         {{ $value }}
     </div>
-    
-
 </div>
 
 
@@ -105,7 +103,7 @@
                             ['clean']
                         ]
                     }
-                },
+                }, 
                 bounds: ref,
                 placeholder: '{{ $placeholder ?? 'Write something great!' }}'
             });

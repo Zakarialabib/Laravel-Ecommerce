@@ -11,10 +11,14 @@ class Pagesetting extends Model
     public $table = 'pagesettings';
 
     protected $fillable = [
-        'topbar', 'bottombar', 'topheader', 'bottomfooter',
+        'topbar', 'bottombar', 'topheader', 'bottomfooter', 
         'popular_products', 'flash_deal', 'deal_of_the_day', 'best_sellers',
-        'brands', 'top_big_trending', 'top_brand',
-        'component', 'status', 'featured_banner_id', 'page_id', 'language_id',
+        'brands', 'top_big_trending', 'top_brand', // bool
+        'component',
+        'status', 
+        'featured_banner_id',
+        'page_id',
+        'language_id',
     ];
 
     public function featuredBanner()

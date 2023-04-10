@@ -64,7 +64,7 @@
                         <img src="{{ asset('images/products/' . $preview) }}" class="w-20 h-20">
                         <div class="font-light text-gray-500">
                             <p>Filename: {{ $file }}</p>
-                        </div>
+                        </div> 
                         <div class="relative block leading-tight bg-white hover:bg-gray-100 cursor-pointer inline-flex items-center transition duration-500 ease-in-out group overflow-hidden border-2 w-full pl-3 pr-4 py-2 border-dashed"
                             x-bind:class="{ 'opacity-50': isUploading }">
                             <p class="flex items-center text-sm font-light text-gray-400">

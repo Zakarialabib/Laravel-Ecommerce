@@ -71,7 +71,7 @@ class Create extends Component
 
         $this->emit('refreshIndex');
 
-        $this->alert('success', __('Page created successfully.'));
+        $this->alert('success', __('Page created successfully!'));
 
         $this->createPage = false;
     }

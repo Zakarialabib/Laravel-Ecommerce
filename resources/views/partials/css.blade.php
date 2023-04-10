@@ -11,3 +11,9 @@
     crossorigin="anonymous" referrerpolicy="no-referrer" />
 
 @stack('styles')
+
+<style>
+    [x-cloak] {
+        display: none;
+    }
+</style>

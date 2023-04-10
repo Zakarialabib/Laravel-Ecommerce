@@ -12,6 +12,7 @@ use App\Models\Page;
 use App\Models\Product;
 use App\Models\Subcategory;
 use App\Models\User;
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Log;
 
 class FrontController extends Controller
@@ -127,13 +128,13 @@ class FrontController extends Controller
     public function generateSitemaps()
     {
         try {
-            \Artisan::call('generate:sitemap');
+            Artisan::call('generate:sitemap');
 
-            Log::info('Backup completed successfully!');
+            Log::info('Sitemap generated successfully!');
 
             return back();
         } catch (\Throwable $th) {
-            Log::info('Backup failed!', $th->getMessage());
+            Log::info('Sitemap generation failed!', $th->getMessage());
 
             return back();
         }
