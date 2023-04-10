@@ -162,38 +162,35 @@ class Helpers
             : number_format((float) $value, 2, '.', ',').$symbol;
     }
 
-    /**
-     * @param mixed $input
-     *
-     * @return string|false|void
-     */
-    public function handleUpload($input)
+    public static function handleUpload($image, $width, $height, $productName)
     {
-        if (is_array($input)) {
-            // handle gallery
-            $galleryArray = [];
+        $imageName = Str::slug($productName) . '-' . Str::random(5) . '.' . $image->extension();
 
-            foreach ($input as $key => $value) {
-                $img = Image::make($value->getRealPath())->encode('webp', 85)->resize(1000, 1000, function ($constraint) {
-                    $constraint->aspectRatio();
-                    $constraint->upsize();
-                });
+        $img = Image::make($image->getRealPath())->encode('webp', 85);
 
-                $img->stream();
-                Storage::disk('local_files')->put('products/'.$value->getClientOriginalName(), $img, 'public');
-                $galleryArray[] = $value->getClientOriginalName();
-            }
-
-            return json_encode($galleryArray);
+        // we need to resize image, otherwise it will be cropped
+        if ($img->width() > $width) {
+            $img->resize($width, null, function ($constraint) {
+                $constraint->aspectRatio();
+            });
         }
-        // handle single image
 
-        $img = Image::make($input->getRealPath())->encode('webp', 85)->resize(1000, 1000, function ($constraint) {
-            $constraint->aspectRatio();
-            $constraint->upsize();
-        });
+        if ($img->height() > $height) {
+            $img->resize(null, $height, function ($constraint) {
+                $constraint->aspectRatio();
+            });
+        }
+
+        $watermark = Image::make(public_path('images/logo.png'));
+        $watermark->opacity(25);
+        $watermarkWidth = intval($width / 5);
+        $watermarkHeight = intval($watermarkWidth * $watermark->height() / $watermark->width());
+        $img->insert($watermark, 'bottom-left', 20, 20)->resizeCanvas($width, $height, 'center', false, '#ffffff');
+
         $img->stream();
 
-        Storage::disk('local_files')->put('products/'.$input->getClientOriginalName(), $img, 'public');
+        Storage::disk('local_files')->put('products/' . $imageName, $img, 'public');
+
+        return $imageName;
     }
 }
