@@ -185,28 +185,28 @@
                         <div
                             class="inline-block py-6 px-10 text-left font-bold font-heading text-gray-500 uppercase border-b-2 border-gray-100 hover:border-gray-500 focus:outline-none focus:border-gray-500">
                             <button @click="activeTab = 'description'"
-                                :class="activeTab === 'description' ? 'text-red-400' : ''">
+                                :class="activeTab === 'description' ? 'text-beige-400' : ''">
                                 {{ __('Description') }}
                             </button>
                         </div>
                         <div
                             class="inline-block py-6 px-10 text-left font-bold font-heading text-gray-500 uppercase border-b-2 border-gray-100 hover:border-gray-500 focus:outline-none focus:border-gray-500">
                             <button @click="activeTab = 'reviews'"
-                                :class="activeTab === 'reviews' ? 'text-red-400' : ''">
+                                :class="activeTab === 'reviews' ? 'text-beige-400' : ''">
                                 {{ __('Reviews') }}
                             </button>
                         </div>
                         <div
                             class="inline-block py-6 px-10 text-left font-bold font-heading text-gray-500 uppercase border-b-2 border-gray-100 hover:border-gray-500 focus:outline-none focus:border-gray-500">
                             <button @click="activeTab = 'shipping'"
-                                :class="activeTab === 'shipping' ? 'text-red-400' : ''">
+                                :class="activeTab === 'shipping' ? 'text-beige-400' : ''">
                                 {{ __('Shipping & Returns') }}
                             </button>
                         </div>
                         <div
                             class="inline-block py-6 px-10 text-left font-bold font-heading text-gray-500 uppercase border-b-2 border-gray-100 hover:border-gray-500 focus:outline-none focus:border-gray-500">
                             <button @click="activeTab = 'brands'"
-                                :class="activeTab === 'brands' ? 'text-red-400' : ''">
+                                :class="activeTab === 'brands' ? 'text-beige-400' : ''">
                                 {{ __('Product Brand') }}
                             </button>
                         </div>

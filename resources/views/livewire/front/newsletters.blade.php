@@ -10,7 +10,8 @@
                         class="inline-block w-full pt-8 pb-4 px-8 placeholder-gray-900 border-0 focus:ring-transparent focus:outline-none rounded-md">
                     <x-input-error :messages="$errors->get('email')" for="email" class="mt-2" />
                 </div>
-                <button type="submit" class="inline-block w-auto cursor-pointer hover:bg-red-600 text-white font-bold font-heading py-6 px-8 rounded-md uppercase text-center bg-red-600">
+                <button type="submit"
+                    class="inline-block w-auto cursor-pointer bg-beige-200 hover:bg-beige-400 text-white font-bold font-heading py-4 px-6 rounded-md uppercase text-center">
                     {{ __('Join') }}
                 </button>
             </div>
