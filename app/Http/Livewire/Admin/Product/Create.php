@@ -26,7 +26,6 @@ class Create extends Component
         'createProduct',
         Quill::EVENT_VALUE_UPDATED
     ];
-
     
     public $createProduct = false;
 
@@ -35,6 +34,8 @@ class Create extends Component
     public $image;
 
     public $gallery = [];
+    
+    public $options = [];
 
     public $uploadLink;
 
@@ -57,6 +58,8 @@ class Create extends Component
         'product.category_id' => ['required', 'integer'],
         'product.subcategories' => ['required', 'array', 'min:1'],
         'product.subcategories.*' => ['integer', 'distinct:strict'],
+        'options.*.type' => ['required', 'string', 'in:color,size'],
+        'options.*.value' => ['required_if:options.*.type,color', 'string'],
         'product.brand_id' => ['nullable', 'integer'],
         'product.embeded_video' => ['nullable'],
         'product.condition' => ['nullable'],
@@ -106,9 +109,8 @@ class Create extends Component
     {
         $this->validate();
 
-        // generate code
         $this->product->code = Str::slug($this->product->name, '-');
-        // generate slug from name slug
+
         $this->product->slug = Str::slug($this->product->name);
 
         if ($this->image) {
@@ -117,7 +119,6 @@ class Create extends Component
             $this->product->image = $imageName;
         }
 
-        // gallery
         if ($this->gallery) {
             $gallery = [];
 
@@ -129,6 +130,7 @@ class Create extends Component
             $this->product->gallery = json_encode($gallery);
         }
         
+        $this->product->subcategories = $this->subcategories;
         $this->product->subcategories = $this->subcategories;
 
         $this->product->save();

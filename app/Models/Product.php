@@ -10,6 +10,7 @@ use Gloudemans\Shoppingcart\Contracts\Buyable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 use Illuminate\Support\Str;
@@ -57,7 +58,8 @@ class Product extends Model implements Buyable
         'gallery',
         'embeded_video',
         'category_id',
-        'subcategory_id',
+        'subcategories',
+        'options',
         'brand_id',
         'meta_title',
         'meta_description',
@@ -82,6 +84,7 @@ class Product extends Model implements Buyable
      */
     protected $casts = [
         'subcategories' => 'array',
+        'options' => 'array',
     ];
 
     public function setNameAttribute($value)
@@ -109,9 +112,9 @@ class Product extends Model implements Buyable
         return $this->belongsTo(Brand::class, 'brand_id');
     }
 
-    public function subcategory(): HasManyThrough
+    public function subcategories(): BelongsToMany
     {
-        return $this->hasManyThrough(Subcategory::class, Category::class);
+        return $this->belongsToMany(Subcategory::class);
     }
 
     /**

@@ -28,6 +28,7 @@ return new class () extends Migration {
             $table->tinyInteger('status')->default(true);
             $table->foreignId('category_id')->nullable()->constrained('categories')->nullOnDelete();
             $table->json('subcategories')->nullable();
+            $table->json('options')->nullable();
             $table->foreignId('brand_id')->nullable()->constrained('brands')->nullOnDelete();
             $table->string('meta_title')->nullable();
             $table->string('meta_description')->nullable();

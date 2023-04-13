@@ -53,7 +53,7 @@
                                     </option>
                                 @endforeach
                             </select>
-                            <x-input-error :messages="$errors->get('subcategory_id')" for="subcategory_id" class="mt-2" />
+                            <x-input-error :messages="$errors->get('product.subcategories')" for="subcategories" class="mt-2" />
                         </div>
 
                         <div class="w-full lg:w-1/2 px-3 mb-6 lg:mb-0">
@@ -107,6 +107,11 @@
 
                     <x-accordion title="{{ 'More Details' }}">
                         <div class="flex flex-wrap -mx-2 mb-3">
+
+                            <div class="w-full px-2">
+                                <livewire:admin.product.product-options :options="[]" />
+                            </div>
+                            
                             <div class="lg:w-1/3 sm:w-1/2 px-2">
                                 <x-label for="meta_title" :value="__('Meta Title')" />
                                 <x-input id="meta_title" class="block mt-1 w-full" type="number" name="meta_title"

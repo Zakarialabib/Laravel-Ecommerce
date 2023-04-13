@@ -38,7 +38,10 @@ class Edit extends Component
 
     public $description;
 
+    public $options = [];
+
     public $listeners = [
+        'optionUpdated' => 'updatedOptions',
         'editModal',
         Quill::EVENT_VALUE_UPDATED
     ];
@@ -56,6 +59,9 @@ class Edit extends Component
         'product.category_id' => ['required', 'integer'],
         'product.subcategories' => ['required', 'array', 'min:1'],
         'product.subcategories.*' => ['integer', 'distinct:strict'],
+        'options' => ['array'],
+        'options.*.type' => ['required', 'string'],
+        'options.*.value' => ['required', 'string'],
         'product.brand_id' => ['nullable', 'integer'],
         'product.embeded_video' => ['nullable'],
         'product.condition' => ['nullable'],
@@ -107,7 +113,16 @@ class Edit extends Component
 
         $this->product = Product::findOrFail($id);
 
+        $this->description = $this->product->description;
+
+        $this->options = $this->product->options;
+        
         $this->editModal = true;
+    }
+
+    public function updatedOptions($options)
+    {
+        $this->options = $options;
     }
 
     public function update()
@@ -122,17 +137,18 @@ class Edit extends Component
             $this->product->image = $imageName;
         }
 
-        // gallery image
         if ($this->gallery) {
             $gallery = [];
-        
+
             foreach ($this->gallery as $key => $value) {
                 $imageName = Helpers::handleUpload($value, $this->width, $this->height, $this->product->name);
                 $gallery[] = $imageName;
             }
-        
+
             $this->product->gallery = json_encode($gallery);
         }
+        
+        $this->product->options = $this->options;
 
         $this->product->save();
 
@@ -147,5 +163,4 @@ class Edit extends Component
     {
         return view('livewire.admin.product.edit');
     }
-
 }
