@@ -1,56 +1,30 @@
-<div class="px-6 py-2 bg-red-600 text-white">
-    <div class="flex items-center justify-center md:justify-between">
-        <p class="text-xs text-center font-semibold font-heading hover:text-gray-400 hover:underline">
+<div class="px-6 py-2 bg-gradient-to-r from-beige-400 via-beige-600 to-beige-800">
+    <div class="flex items-center justify-between">
+        <p
+            class="text-xs text-center font-semibold font-heading text-white hover:text-beige-200 hover:underline transition ease-in duration-300">
             BADR LUXURY - SINCE 1983 - THE BEST OF EVERYTHING
         </p>
-        @if (Auth::check())
-            <x-dropdown align="right" width="56">
-                <x-slot name="trigger">
-                    <div class="flex items-center text-white px-4">
-                        <i class="fa fa-caret-down ml-2"></i> {{ Auth::user()->first_name }}
-                    </div>
-                </x-slot>
-
-                <x-slot name="content">
-                    {{-- if admin show dashboard and settings else show logout --}}
-                    @if (Auth::user()->isAdmin())
-                        <x-dropdown-link href="{{ route('admin.dashboard') }}">
-                            {{ __('Dashboard') }}
-                        </x-dropdown-link>
-
-                        <x-dropdown-link :href="route('admin.settings')">
-                            {{ __('Settings') }}
-                        </x-dropdown-link>
-                    @else
-                        <x-dropdown-link href="{{ route('front.myaccount') }}">
-                            {{ __('My account') }}
-                        </x-dropdown-link>
-                    @endif
-
-                    <div class="border-t border-gray-100"></div>
-
-                    <!-- Authentication -->
-                    <form method="POST" action="{{ route('logout') }}">
-                        @csrf
-                        <x-dropdown-link :href="route('logout')"
-                            onclick="event.preventDefault();
-                                    this.closest('form').submit();">
-                            {{ __('Log Out') }}
-                        </x-dropdown-link>
-                    </form>
-                </x-slot>
-            </x-dropdown>
-        @else
-            <button class="flex-shrink-0 hidden md:block px-4">
-                <div class="flex items-center text-white space-x-2">
-                    <a href="{{ route('login') }}"
-                        class="mr-2 text-xs text-center font-semibold font-heading hover:text-gray-400 hover:underline">{{ __('Login') }}
-                    </a>
-                    <a href="{{ route('register') }}"
-                        class="ml-2 text-xs text-center font-semibold font-heading hover:text-gray-400 hover:underline">
-                        {{ __('Register') }}</a>
-                </div>
-            </button>
-        @endif
+        <div class="w-auto flex space-x-3">
+            <a class="inline-flex items-center justify-center w-5 h-5 rounded-full"
+                href="{{ Helpers::settings('social_facebook') }}" target="_blank">
+                <i
+                    class="fab fa-facebook-f text-md text-white hover:text-beige-200  hover:underline transition ease-in duration-300"></i>
+            </a>
+            <a class="inline-flex items-center justify-center w-5 h-5 rounded-full"
+                href="{{ Helpers::settings('social_instagram') }}" target="_blank">
+                <i
+                    class="fab fa-instagram text-md text-white hover:text-beige-200  hover:underline transition ease-in duration-300"></i>
+            </a>
+            <a class="inline-flex items-center justify-center w-5 h-5 rounded-full"
+                href="{{ Helpers::settings('social_twitter') }}" target="_blank">
+                <i
+                    class="fab fa-twitter text-md text-white hover:text-beige-200  hover:underline transition ease-in duration-300"></i>
+            </a>
+            <a class="inline-flex items-center justify-center w-5 h-5 rounded-full"
+                href="{{ Helpers::settings('social_linkedin') }}" target="_blank">
+                <i
+                    class="fab fa-linkedin-in text-md text-white hover:text-beige-200  hover:underline transition ease-in duration-300"></i>
+            </a>
+        </div>
     </div>
 </div>

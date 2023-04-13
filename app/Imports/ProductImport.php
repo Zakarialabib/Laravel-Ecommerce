@@ -8,7 +8,7 @@ use App\Models\Brand;
 use App\Models\Category;
 use App\Models\Product;
 use App\Models\Subcategory;
-use Helpers;
+use App\Helpers;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
 use Maatwebsite\Excel\Concerns\SkipsEmptyRows;
@@ -28,7 +28,7 @@ class ProductImport implements ToCollection, WithHeadingRow, SkipsEmptyRows
                 'slug' => Str::slug($row['nom'], '-').'-'.Str::random(5),
                 'code' => Str::random(10),
                 'category_id' => Category::where('name', $row['categorie'])->first()->id ?? Category::create(['name' => $row['categorie']])->id ?? null,
-                'subcategory_id' => Subcategory::where('name', $row['sous_categorie'])->first()->id ?? Helpers::createSubcategory($row['sous_categorie'], $row['categorie']),
+                'subcategories' => Subcategory::where('name', $row['sous_categorie'])->first()->id ?? Helpers::createSubcategory($row['sous_categorie'], $row['categorie']),
                 'brand_id' => Brand::where('name', $row['marque'])->first()->id ?? Helpers::createBrand(['name' => $row['marque']]),
                 'image' => Helpers::uploadImage($row['image']) ?? 'default.jpg',
                 // 'gallery' => getGalleryFromUrl($row[7]) ?? null,

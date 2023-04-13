@@ -72,8 +72,6 @@
 
         <x-header />
 
-        <x-bottomheader />
-
         @yield('content')
 
         @isset($slot)

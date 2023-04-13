@@ -8,7 +8,7 @@
             class="w-full border-0 focus:ring-transparent bg-gray-100 text-gray-900 text-xs focus:outline-none py-2 mr-4 rounded-md">
         <button type="button" wire:click="clearSearch"
             class="h-full absolute z-20 top-0 right-0 flex items-center px-2 ml-3 text-gray-800 focus:outline-none">
-            <i class="fa fa-times mr-5 text-gray-900"></i>
+            <i class="fa fa-times mr-4 text-gray-900"></i>
         </button>
     </div>
     @if (!empty($search))
