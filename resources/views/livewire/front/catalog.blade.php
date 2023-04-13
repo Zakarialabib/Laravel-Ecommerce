@@ -1,7 +1,7 @@
 <div>
     <div class="w-full px-4 mx-auto">
         <div class="mb-10 items-center justify-between bg-white py-4">
-            <div class="w-full lg:mb-4 px-4 flex flex-wrap justify-between">
+            <div class="w-full px-4 flex flex-wrap justify-between">
                 <div class="py-4 flex items-center flex-wrap">
                     <ul class="flex flex-wrap items-center">
                         <li class="inline-flex items-center">
@@ -13,14 +13,14 @@
                                         d="M10 19v-5h4v5c0 .55.45 1 1 1h3c.55 0 1-.45 1-1v-7h1.7c.46 0 .68-.57.33-.87L12.67 3.6c-.38-.34-.96-.34-1.34 0l-8.36 7.53c-.34.3-.13.87.33.87H5v7c0 .55.45 1 1 1h3c.55 0 1-.45 1-1z" />
                                 </svg>
                             </a>
-                            <span class="mx-4 h-auto text-gray-400 font-medium">/</span>
+                            <span class="mx-2 h-auto text-gray-400 font-medium">/</span>
                         </li>
                         <li class="inline-flex items-center">
                             <a href="{{ URL::current() }}" class="text-gray-600 hover:text-blue-500">
                                 {{ __('Catalog') }}
                             </a>
 
-                            <span class="mx-4 h-auto text-gray-400 font-medium">/</span>
+                            <span class="mx-2 h-auto text-gray-400 font-medium">/</span>
                         </li>
                         <li class="inline-flex items-center ml-2">
                             <p class="lg:text-2xl sm:text-xl font-bold text-gray-600 hover:text-blue-500">
@@ -37,11 +37,6 @@
                                 @if (isset($brand_id))
                                     {{ \App\Helpers::brandName($brand_id) }}
                                     <button type="button" wire:click="clearFilter('brand')"
-                                        class="text-red-500">X</button>
-                                @endif
-                                @if (isset($subcategory_id))
-                                    {{ \App\Helpers::subcategoryName($subcategory_id) }}
-                                    <button type="button" wire:click="clearFilter('subcategory')"
                                         class="text-red-500">X</button>
                                 @endif
                             </p>
@@ -68,87 +63,6 @@
             </div>
         </div>
         <div class="flex flex-wrap -mx-3">
-            <div class="flex flex-wrap w-full lg:hidden px-3">
-                <div class="w-full px-2 mb-4" x-data="{ openFilters: false }">
-                    <div class="py-6 px-3 text-center bg-gray-50">
-                        <div class="flex justify-between mb-8">
-                            <h3 class="text-xl font-bold font-heading">{{ __('Filters') }}</h3>
-                            <button @click="openFilters = !openFilters">
-                                <i class="fa fa-caret-down" aria-hidden="true"></i>
-                            </button>
-                        </div>
-                        <div x-show="openFilters">
-                            <div class="w-full">
-                                <div class="w-full mb-6 text-center">
-                                    <ul class="mb-2 flex overflow-x-scroll">
-                                        @foreach ($this->categories as $category)
-                                            <li class="w-1/2 px-2 mb-2">
-                                                <x-button type="button"
-                                                    wire:click="filterProducts('category', {{ $category->id }})"
-                                                    dangerOutline>
-                                                    {{ $category->name }}
-                                                    <span class="text-sm ml-2">
-                                                        ({{ $category->products->count() }})
-                                                    </span>
-                                                </x-button>
-                                            </li>
-                                        @endforeach
-                                    </ul>
-                                    <ul class="my-6 w-full overflow-x-scroll">
-                                        @foreach ($this->subcategories as $subcategory)
-                                            <li class="w-1/2 px-2 mb-2">
-                                                <x-button type="button"
-                                                    wire:click="filterProducts('subcategory', {{ $subcategory->id }})"
-                                                    dangerOutline>
-                                                    {{ $subcategory->name }}
-                                                    <span class="text-sm ml-2">
-                                                        ({{ $subcategory->products->count() }})
-                                                    </span>
-                                                </x-button>
-                                            </li>
-                                        @endforeach
-                                    </ul>
-                                </div>
-
-                                <div class="mb-6 text-center w-full">
-                                    <p class="font-bold font-heading">{{ __('Price budget') }}</p>
-                                    <div class="mt-6 -mb-2">
-                                        <div class="flex justify-between">
-                                            <span class="inline-block text-lg font-bold font-heading text-blue-300">
-                                                <p class="">{{ __('Min Price') }}</p>
-                                                <x-input type="text" wire:model="minPrice" placeholder="350" />
-                                            </span>
-                                            <span class="inline-block text-lg font-bold font-heading text-blue-300">
-                                                <p class="">{{ __('Max Price') }}</p>
-                                                <x-input type="text" wire:model="maxPrice" placeholder="1000" />
-                                            </span>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="w-full mb-6 text-center">
-                                    <p class="font-bold font-heading">{{ __('Brands') }}</p>
-                                    <div class="mt-6 -mb-2 flex overflow-x-scroll">
-                                        @foreach ($this->brands as $brand)
-                                            <div class="w-1/2 px-2 mb-2">
-                                                <x-button type="button"
-                                                    wire:click="filterProducts('brand', {{ $brand->id }})"
-                                                    warningOutline>
-                                                    {{ $brand->name }}
-                                                    <span class="text-sm ml-2">
-                                                        ({{ $brand->products->count() }})
-                                                    </span>
-                                                </x-button>
-                                            </div>
-                                        @endforeach
-                                    </div>
-                                </div>
-
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
             <div class="hidden lg:block w-1/4 px-3">
                 <div class="mb-6 p-4 bg-gray-50" x-data="{ openCategory: true }">
                     <div class="flex justify-between mb-8">
@@ -246,21 +160,21 @@
             </div>
             <div class="w-full lg:w-3/4 px-4" wire:loading.class.delay="opacity-50">
                 <div itemscope itemtype="https://schema.org/ItemList">
-                <div class="grid gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 mb-10">
-                    @forelse ($products as $product)
-                        <x-product-card :product="$product" />
-                    @empty
-                        <div class="w-full">
-                            <h3 class="text-3xl font-bold font-heading text-blue-900">
-                                {{ __('No products found') }}
-                            </h3>
-                        </div>
-                    @endforelse
+                    <div class="grid gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 mb-10">
+                        @forelse ($products as $product)
+                            <x-product-card :product="$product" />
+                        @empty
+                            <div class="w-full">
+                                <h3 class="text-3xl font-bold font-heading text-blue-900">
+                                    {{ __('No products found') }}
+                                </h3>
+                            </div>
+                        @endforelse
+                    </div>
+                    <div class="text-center">
+                        {{ $products->links() }}
+                    </div>
                 </div>
-                <div class="text-center">
-                    {{ $products->links() }}
-                </div>
-                </div>  
             </div>
         </div>
     </div>
