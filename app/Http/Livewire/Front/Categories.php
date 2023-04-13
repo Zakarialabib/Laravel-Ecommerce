@@ -18,6 +18,10 @@ class Categories extends Component
     use WithPagination;
     use WithSorting;
 
+    public $listeners = [
+        'load-more' => 'loadMore'
+    ];
+
     public int $perPage;
 
     public array $paginationOptions;
@@ -109,6 +113,11 @@ class Categories extends Component
         return Subcategory::active()->get();
     }
 
+    public function loadMore()
+    {
+        $this->perPage += 25;
+    }
+
     public function render(): View|Factory
     {
         $query = Product::active()
@@ -120,21 +129,23 @@ class Categories extends Component
             });
 
         if ($this->sorting === 'name') {
-            $products = $query->orderBy('name', 'asc')->paginate($this->perPage);
+            $query->orderBy('name', 'asc');
         } elseif ($this->sorting === 'name-desc') {
-            $products = $query->orderBy('name', 'desc')->paginate($this->perPage);
+            $query->orderBy('name', 'desc');
         } elseif ($this->sorting === 'price') {
-            $products = $query->orderBy('price', 'asc')->paginate($this->perPage);
+            $query->orderBy('price', 'asc');
         } elseif ($this->sorting === 'price-desc') {
-            $products = $query->orderBy('price', 'desc')->paginate($this->perPage);
+            $query->orderBy('price', 'desc');
         } elseif ($this->sorting === 'date') {
-            $products = $query->orderBy('created_at', 'asc')->paginate($this->perPage);
+            $query->orderBy('created_at', 'asc');
         } elseif ($this->sorting === 'date-desc') {
-            $products = $query->orderBy('created_at', 'desc')->paginate($this->perPage);
-        } else {
-            $products = $query->paginate($this->perPage);
+            $query->orderBy('created_at', 'desc');
         }
 
-        return view('livewire.front.categories', compact('products'));
+        $products = $query->paginate($this->perPage);
+
+        return view('livewire.front.categories', [
+            'products' => $products,
+        ]);
     }
 }

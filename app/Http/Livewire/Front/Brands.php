@@ -18,6 +18,10 @@ class Brands extends Component
 {
     use WithPagination;
     use WithSorting;
+   
+    public $listeners = [
+        'load-more' => 'loadMore'
+   ];
 
     public int $perPage;
 
@@ -99,6 +103,11 @@ class Brands extends Component
         $this->paginationOptions = [25, 50, 100];
     }
 
+    public function loadMore()
+    {
+        $this->perPage += 25;
+    }    
+
     public function render(): View|Factory
     {
         $query = Product::active()
@@ -112,21 +121,23 @@ class Brands extends Component
                 return $query->where('brand_id', $this->brand_id);
             });
 
-        if ($this->sorting === 'name') {
-            $products = $query->orderBy('name', 'asc')->paginate($this->perPage);
-        } elseif ($this->sorting === 'name-desc') {
-            $products = $query->orderBy('name', 'desc')->paginate($this->perPage);
-        } elseif ($this->sorting === 'price') {
-            $products = $query->orderBy('price', 'asc')->paginate($this->perPage);
-        } elseif ($this->sorting === 'price-desc') {
-            $products = $query->orderBy('price', 'desc')->paginate($this->perPage);
-        } elseif ($this->sorting === 'date') {
-            $products = $query->orderBy('created_at', 'asc')->paginate($this->perPage);
-        } elseif ($this->sorting === 'date-desc') {
-            $products = $query->orderBy('created_at', 'desc')->paginate($this->perPage);
-        } else {
+            if ($this->sorting === 'name') {
+                $query->orderBy('name', 'asc');
+            } elseif ($this->sorting === 'name-desc') {
+                $query->orderBy('name', 'desc');
+            } elseif ($this->sorting === 'price') {
+                $query->orderBy('price', 'asc');
+            } elseif ($this->sorting === 'price-desc') {
+                $query->orderBy('price', 'desc');
+            } elseif ($this->sorting === 'date') {
+                $query->orderBy('created_at', 'asc');
+            } elseif ($this->sorting === 'date-desc') {
+                $query->orderBy('created_at', 'desc');
+            }
+        
             $products = $query->paginate($this->perPage);
-        }
+            
+            $this->emit('productsLoaded', $products->count());
 
         return view('livewire.front.brands', compact('products'));
     }
