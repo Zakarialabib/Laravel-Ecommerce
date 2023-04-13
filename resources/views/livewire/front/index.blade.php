@@ -45,14 +45,21 @@
                     {{ __('Choose your favorite choice') }}
                 </h2>
 
-                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 mt-4 gap-4">
+                <div class="flex flex-wrap justify-center gap-4">
                     @foreach ($this->subcategories as $subcategory)
-                        <div class="flex items-center h-48 p-4 rounded-xl shadow-lg bg-white">
-                            <a href="{{ route('front.subcategoryPage', $subcategory->slug) }}" class="w-full">
-                                <h2 class="font-semibold">{{ $subcategory->category?->name }} {{ $subcategory->name }}
-                                </h2>
+                            <a href="{{ route('front.subcategoryPage', $subcategory->slug) }}"
+                                class="relative w-44 h-44" x-data="{ hover: false }" @mouseenter="hover = true"
+                                @mouseleave="hover = false">
+                                <div
+                                    class="absolute top-0 left-0 right-0 bottom-0 rounded-full bg-white shadow-lg transform hover:scale-105 transition-all duration-300">
+                                    <img class="absolute inset-0 w-full h-full object-cover rounded-full transform-gpu transition-all duration-1000 ease-in-out"
+                                        :class="{ 'rotate-0': !hover, 'rotate-360': hover }"
+                                        src="{{ $subcategory->image_url }}" alt="{{ $subcategory->name }}">
+                                </div>
+                                <h2
+                                    class="absolute inset-0 flex items-center justify-center font-semibold text-xl text-gray-800 text-center">
+                                    {{ $subcategory->category?->name }} {{ $subcategory->name }}</h2>
                             </a>
-                        </div>
                     @endforeach
                 </div>
             </div>
@@ -61,25 +68,46 @@
             <div x-data="{ activeTabs: 'featuredProducts' }">
                 <div class="grid gap-4 xl:grid-cols-3 lg:grid-cols-3 md:grid-cols-3 sm:grid-cols-2 mb-10 ">
                     <div class="py-5 px-8 sm:py-2 sm:px-5 text-left font-bold text-gray-500 uppercase border-b-2 border-beige-100 hover:border-beige-500 focus:outline-none focus:border-beige-500 cursor-pointer"
-                        @click="activeTabs = 'featuredProducts'">
-                        <h4 class="inline-block" :class="activeTabs === 'featuredProducts' ? 'text-beige-400' : ''">
+                        @click="activeTabs = 'featuredProducts'"
+                        :class="{
+                            'border-beige-500': activeTabs === 'featuredProducts',
+                            'text-beige-500': activeTabs === 'featuredProducts',
+                            'hover:text-beige-500': activeTabs !== 'featuredProducts'
+                        }">
+                        <h4 class="inline-block" :class="{ 'text-beige-400': activeTabs === 'featuredProducts' }">
                             {{ __('Featured Products') }}
                         </h4>
                     </div>
-                    <div class="py-5 px-8 sm:py-2 sm:px-5 text-left font-bold text-beige-500 uppercase border-b-2 border-beige-100 hover:border-beige-500 focus:outline-none focus:border-beige-500 cursor-pointer"
-                        @click="activeTabs = 'bestOfers'">
-                        <h4 class="inline-block" :class="activeTabs === 'bestOfers' ? 'text-beige-400' : ''">
+                    <div class="py-5 px-8 sm:py-2 sm:px-5 text-left font-bold text-gray-500 uppercase border-b-2 border-beige-100 hover:border-beige-500 focus:outline-none focus:border-beige-500 cursor-pointer"
+                        @click="activeTabs = 'bestOfers'"
+                        :class="{
+                            'border-beige-500': activeTabs === 'bestOfers',
+                            'text-beige-500': activeTabs === 'bestOfers',
+                            'hover:text-beige-500': activeTabs !== 'bestOfers'
+                        }">
+                        <h4 class="inline-block" :class="{ 'text-beige-400': activeTabs === 'bestOfers' }">
                             {{ __('Best Offers') }}
                         </h4>
                     </div>
-                    <div class="py-5 px-8 sm:py-2 sm:px-5 text-left font-bold text-beige-500 uppercase border-b-2 border-beige-100 hover:border-beige-500 focus:outline-none focus:border-beige-500 cursor-pointer"
-                        @click="activeTabs = 'hotProducts'">
-                        <h4 class="inline-block" :class="activeTabs === 'hotProducts' ? 'text-beige-400' : ''">
+                    <div class="py-5 px-8 sm:py-2 sm:px-5 text-left font-bold text-gray-500 uppercase border-b-2 border-beige-100 hover:border-beige-500 focus:outline-none focus:border-beige-500 cursor-pointer"
+                        @click="activeTabs = 'hotProducts'"
+                        :class="{
+                            'border-beige-500': activeTabs === 'hotProducts',
+                            'text-beige-500': activeTabs === 'hotProducts',
+                            'hover:text-beige-500': activeTabs !== 'hotProducts'
+                        }">
+                        <h4 class="inline-block" :class="{ 'text-beige-400': activeTabs === 'hotProducts' }">
                             {{ __('Hot Products') }}
                         </h4>
                     </div>
                 </div>
-                <div x-show="activeTabs === 'featuredProducts'" class="px-5">
+                <div class="px-4" x-show="activeTabs === 'featuredProducts'"
+                    x-transition:enter="transition ease-out duration-300"
+                    x-transition:enter-start="opacity-0 transform scale-90"
+                    x-transition:enter-end="opacity-100 transform scale-100"
+                    x-transition:leave="transition ease-in duration-300"
+                    x-transition:leave-start="opacity-100 transform scale-100"
+                    x-transition:leave-end="opacity-0 transform scale-90">
                     <div role="featuredProducts" aria-labelledby="tab-0" id="tab-panel-0" tabindex="0"
                         class="w-full mb-16">
                         <div class="grid gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 ">
@@ -95,7 +123,13 @@
                         </div>
                     </div>
                 </div>
-                <div x-show="activeTabs === 'bestOfers'" class="px-5">
+                <div class="px-4" x-show="activeTabs === 'bestOfers'"
+                    x-transition:enter="transition ease-out duration-300"
+                    x-transition:enter-start="opacity-0 transform scale-90"
+                    x-transition:enter-end="opacity-100 transform scale-100"
+                    x-transition:leave="transition ease-in duration-300"
+                    x-transition:leave-start="opacity-100 transform scale-100"
+                    x-transition:leave-end="opacity-0 transform scale-90">
                     <div role="bestOfers" aria-labelledby="tab-1" id="tab-panel-1" tabindex="0" class="w-full mb-16">
                         <div class="grid gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 ">
                             @forelse ($this->bestOffers as $product)
@@ -110,7 +144,13 @@
                         </div>
                     </div>
                 </div>
-                <div x-show="activeTabs === 'hotProducts'" class="px-5">
+                <div class="px-4" x-show="activeTabs === 'hotProducts'"
+                    x-transition:enter="transition ease-out duration-300"
+                    x-transition:enter-start="opacity-0 transform scale-90"
+                    x-transition:enter-end="opacity-100 transform scale-100"
+                    x-transition:leave="transition ease-in duration-300"
+                    x-transition:leave-start="opacity-100 transform scale-100"
+                    x-transition:leave-end="opacity-0 transform scale-90">
                     <div role="hotProducts" aria-labelledby="tab-2" id="tab-panel-2" tabindex="0"
                         class="w-full mb-16">
                         <div class="grid gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 ">

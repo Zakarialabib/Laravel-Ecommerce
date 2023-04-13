@@ -12,8 +12,8 @@ window.FilePond = FilePond
 import swal from 'sweetalert2';
 window.Swal = swal;
 
-import Alpine from 'alpinejs'
-import collapse from '@alpinejs/collapse'
+import Alpine from 'alpinejs';
+import collapse from '@alpinejs/collapse';
 import focus from "@alpinejs/focus";
 import intersect from "@alpinejs/intersect";
 
@@ -48,8 +48,6 @@ Alpine.data("mainState", () => {
             lastScrollTop = st <= 0 ? 0 : st; // For Mobile or negative scrolling
         });
     };
-
-    
 
     Alpine.data("loadingMask", () => ({
         pageLoaded: false,
