@@ -3,7 +3,7 @@
         {{-- <div class="w-full mx-auto">
         @livewire('front.step-wizard')
         </div> --}}
-        <div class="w-full mx-auto">
+        <div class="w-full mx-auto bg-gray-900">
             <div class="swiper mySwiper">
                 <div class="swiper-wrapper">
                     <!-- Slides -->
@@ -23,7 +23,7 @@
                                             {!! $slider->details !!}
                                         </p>
                                         @if ($slider->link)
-                                            <a class="inline-block hover:bg-red-400 text-white font-bold font-heading py-6 px-8 rounded-md uppercase transition duration-200 bg-red-500"
+                                            <a class="inline-block text-white font-bold font-heading py-4 px-6 rounded-md uppercase transition ease-in duration-300 bg-beige-500 hover:bg-beige-800 hover:shadow-md"
                                                 href="{{ $slider->link }}">
                                                 {{ 'Discover now' }}
                                             </a>
@@ -43,13 +43,14 @@
             <div class="flex flex-col">
                 <h2 class="text-2xl font-bold text-center mb-4">
                     {{ __('Choose your favorite choice') }}
-                </h2> 
+                </h2>
 
                 <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 mt-4 gap-4">
                     @foreach ($this->subcategories as $subcategory)
-                        <div class="flex items-start p-4 rounded-xl shadow-lg bg-white">
+                        <div class="flex items-center h-48 p-4 rounded-xl shadow-lg bg-white">
                             <a href="{{ route('front.subcategoryPage', $subcategory->slug) }}" class="w-full">
-                                <h2 class="font-semibold">{{ $subcategory->category?->name }} {{ $subcategory->name }}</h2>
+                                <h2 class="font-semibold">{{ $subcategory->category?->name }} {{ $subcategory->name }}
+                                </h2>
                             </a>
                         </div>
                     @endforeach
@@ -58,29 +59,23 @@
         </div>
         <div class="w-full py-5 px-4 mx-auto">
             <div x-data="{ activeTabs: 'featuredProducts' }">
-                <div class="grid gap-4 xl:grid-cols-4 lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 mb-10 ">
-                    <div class="py-5 px-8 sm:py-2 sm:px-5 text-left font-bold text-gray-500 uppercase border-b-2 border-gray-100 hover:border-gray-500 focus:outline-none focus:border-gray-500 cursor-pointer"
+                <div class="grid gap-4 xl:grid-cols-3 lg:grid-cols-3 md:grid-cols-3 sm:grid-cols-2 mb-10 ">
+                    <div class="py-5 px-8 sm:py-2 sm:px-5 text-left font-bold text-gray-500 uppercase border-b-2 border-beige-100 hover:border-beige-500 focus:outline-none focus:border-beige-500 cursor-pointer"
                         @click="activeTabs = 'featuredProducts'">
-                        <h4 class="inline-block" :class="activeTabs === 'featuredProducts' ? 'text-red-400' : ''">
+                        <h4 class="inline-block" :class="activeTabs === 'featuredProducts' ? 'text-beige-400' : ''">
                             {{ __('Featured Products') }}
                         </h4>
                     </div>
-                    <div class="py-5 px-8 sm:py-2 sm:px-5 text-left font-bold text-gray-500 uppercase border-b-2 border-gray-100 hover:border-gray-500 focus:outline-none focus:border-gray-500 cursor-pointer"
+                    <div class="py-5 px-8 sm:py-2 sm:px-5 text-left font-bold text-beige-500 uppercase border-b-2 border-beige-100 hover:border-beige-500 focus:outline-none focus:border-beige-500 cursor-pointer"
                         @click="activeTabs = 'bestOfers'">
-                        <h4 class="inline-block" :class="activeTabs === 'bestOfers' ? 'text-red-400' : ''">
+                        <h4 class="inline-block" :class="activeTabs === 'bestOfers' ? 'text-beige-400' : ''">
                             {{ __('Best Offers') }}
                         </h4>
                     </div>
-                    <div class="py-5 px-8 sm:py-2 sm:px-5 text-left font-bold text-gray-500 uppercase border-b-2 border-gray-100 hover:border-gray-500 focus:outline-none focus:border-gray-500 cursor-pointer"
+                    <div class="py-5 px-8 sm:py-2 sm:px-5 text-left font-bold text-beige-500 uppercase border-b-2 border-beige-100 hover:border-beige-500 focus:outline-none focus:border-beige-500 cursor-pointer"
                         @click="activeTabs = 'hotProducts'">
-                        <h4 class="inline-block" :class="activeTabs === 'hotProducts' ? 'text-red-400' : ''">
+                        <h4 class="inline-block" :class="activeTabs === 'hotProducts' ? 'text-beige-400' : ''">
                             {{ __('Hot Products') }}
-                        </h4>
-                    </div>
-                    <div class="py-5 px-8 sm:py-2 sm:px-5 text-left font-bold text-gray-500 uppercase border-b-2 border-gray-100 hover:border-gray-500 focus:outline-none focus:border-gray-500 cursor-pointer"
-                        @click="activeTabs = 'brands'">
-                        <h4 class="inline-block" :class="activeTabs === 'brands' ? 'text-red-400' : ''">
-                            {{ __('Brands') }}
                         </h4>
                     </div>
                 </div>
@@ -129,43 +124,6 @@
                                 </div>
                             @endforelse
                         </div>
-                    </div>
-                </div>
-                <div x-show="activeTabs === 'brands'" class="px-5">
-                    <div role="brands" aria-labelledby="tab-3" id="tab-panel-3" tabindex="0" class="w-full mb-16">
-                        <div
-                            class="grid gap-2 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 w-full py-10">
-                            @forelse ($this->brands as $brand)
-                                <div class="flex flex-col items-center rounded-md">
-                                    <a class="block mb-5" href="{{ route('front.brandPage', $brand->slug) }}">
-                                        <div class="relative">
-                                            <img class="w-full h-24 object-contain" loading="lazy"
-                                                src="{{ asset('images/brands/' . $brand->image) }}"
-                                                onerror="this.onerror=null; this.remove();" alt="{{ $brand->name }}">
-                                        </div>
-                                    </a>
-                                    <a class="my-2 text-center mb-2"
-                                        href="{{ route('front.brandPage', $brand->slug) }}">
-                                        <h3 class="mb-3 text-3xl font-bold font-heading text-blue-900">
-                                            {{ $brand->name }}
-                                        </h3>
-                                        {{-- count products in brand  --}}
-                                        <p class="text-xl font-bold font-heading text-white">
-                                            <span class="text-blue-900">
-                                                {{ $brand->products->count() }} {{ __('products') }}
-                                            </span>
-                                        </p>
-                                    </a>
-                                </div>
-                            @empty
-                                <div class="w-full">
-                                    <h3 class="text-3xl font-bold font-heading text-blue-900">
-                                        {{ __('No brands found') }}
-                                    </h3>
-                                </div>
-                            @endforelse
-                        </div>
-
                     </div>
                 </div>
             </div>

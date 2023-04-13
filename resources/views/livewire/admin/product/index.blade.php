@@ -53,19 +53,6 @@
             <x-table.th sortable wire:click="sortBy('name')" :direction="$sorts['name'] ?? null">
                 {{ __('Name') }}
             </x-table.th>
-          {{--  <x-table.th>
-                <select wire:model="selectType"  wire:change="$emit('changeSelectType', $event.target.value)">
-                    <option value="category_id" selected>
-                        {{ __('Category') }}
-                    </option>
-                    <option value="subcategory_id">
-                        {{ __('Subcategory') }}
-                    </option>
-                    <option value="brand_id">
-                        {{ __('Brand') }}
-                    </option>
-                </select>
-            </x-table.th>--}}
             <x-table.th sortable wire:click="sortBy('price')" :direction="$sorts['price'] ?? null">
                 {{ __('Price') }} / {{ __('Old Price') }}
             </x-table.th>
