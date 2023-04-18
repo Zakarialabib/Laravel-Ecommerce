@@ -115,14 +115,9 @@ class Edit extends Component
 
         $this->description = $this->product->description;
 
-        $this->options = $this->product->options;
+        $this->options = $this->product->options ?? [['type' => '', 'value' => '']];
         
         $this->editModal = true;
-    }
-
-    public function updatedOptions($options)
-    {
-        $this->options = $options;
     }
 
     public function update()

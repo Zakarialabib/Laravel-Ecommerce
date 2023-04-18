@@ -39,18 +39,15 @@ class ProductOptions extends Component
         $this->options = array_values($this->options);
     }
 
-    public function mount($options)
+    public function mount()
     {
-        if (!empty($options)) {
-            $this->options = $options;
-        } else {
-            $this->options = [
-                [
-                    'type' => '',
-                    'value' => '',
-                ]
-            ];
-        }
+
+        $this->options = [
+            [
+                'type' => '',
+                'value' => '',
+            ]
+        ];
     }
 
     public function render(): View
