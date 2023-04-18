@@ -29,13 +29,13 @@ class Kernel extends ConsoleKernel
         //  some config somewhere
         if (config('backup.schedule') === BackupSchedule::DAILY) {
             $schedule->command('backup:monitor')->daily()->at('17:00');
-            $schedule->command(Backup::class)->daily()->at('17:00');
+            $schedule->command('backup:run')->daily()->at('17:00');
         } elseif (config('backup.schedule') === BackupSchedule::WEEKLY) {
             $schedule->command('backup:monitor')->weekly()->at('17:00');
-            $schedule->command(Backup::class)->weekly()->at('17:00');
+            $schedule->command('backup:run')->weekly()->at('17:00');
         } elseif (config('backup.schedule') === BackupSchedule::MONTHLY) {
             $schedule->command('backup:monitor')->monthly()->at('17:00');
-            $schedule->command(Backup::class)->monthly()->at('17:00');
+            $schedule->command('backup:run')->monthly()->at('17:00');
         }
 
         if (config('sitemap.schedule') === 1) {
