@@ -15,7 +15,7 @@
 @endsection
 
 <div>
-    <div class="py-10">
+    <div class="my-5">
         <div itemtype="https://schema.org/Product" itemscope>
 
             <meta itemprop="name" content="{{ $product->name }}" />
@@ -116,7 +116,7 @@
                                             </svg>
                                         </button>
                                         <input
-                                            class="w-12 m-0 px-2 py-4 text-center md:text-right border-0 focus:ring-transparent focus:outline-none rounded-md"
+                                            class="w-10 m-0 px-2 py-2 text-center md:text-right border-0 focus:ring-transparent focus:outline-none rounded-md"
                                             value="{{ $quantity }}" wire:model="quantity">
                                         <button wire:click="increaseQuantity('{{ $product->id }}')"
                                             class="py-2 hover:text-gray-700">
@@ -131,7 +131,7 @@
                                 </div>
                                 <div>
                                     @if ($product->status == 1)
-                                        <a class="block hover:bg-red-600 text-center text-white font-bold font-heading py-2 px-4 rounded-md uppercase bg-red-600 cursor-pointer"
+                                        <a class="block text-center text-white font-bold font-heading py-2 px-4 rounded-md uppercase bg-beige-400 hover:bg-beige-200 transition cursor-pointer"
                                             wire:click="AddToCart({{ $product->id }}, '{{ $product->name }}', {{ $product->price }})">
                                             {{ __('Add to cart') }}
                                         </a>
@@ -282,8 +282,8 @@
                     </div>
                 </div>
             </div>
-
-            <div class="mx-auto px-4 py-4">
+            
+            <div class="mx-auto px-4 mt-5">
                 <h4 class="mb-2 text-xl font-bold font-heading">
                     {{ __('Related Products') }}
                 </h4>

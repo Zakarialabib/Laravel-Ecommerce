@@ -2,7 +2,7 @@
     <div x-data="{ searchBox: {{ $searchBox ? 'true' : 'false' }} }" class="relative w-full rounded-lg" @click.away="searchBox = false">
         <div class="flex items-center lg:w-[20rem] md:w-[12rem]">
             <button type="button" @click="searchBox = !searchBox"
-                class="h-full absolute z-20 top-0 px-2 flex items-center bg-beige-800 focus:outline-none">
+                class="h-full absolute z-20 top-0 px-2 flex items-center bg-beige-400 hover:bg-beige-200 transition focus:outline-none">
                 <i class="fa fa-search text-gray-100"></i>
             </button>
             <input type="text" wire:model="search" placeholder="{{ __('Search for products') }}" autocomplete=""

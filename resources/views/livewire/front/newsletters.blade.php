@@ -11,7 +11,7 @@
                     <x-input-error :messages="$errors->get('email')" for="email" class="mt-2" />
                 </div>
                 <button type="submit"
-                    class="inline-block w-auto cursor-pointer bg-beige-200 hover:bg-beige-400 text-white font-bold font-heading py-4 px-6 rounded-md uppercase text-center">
+                    class="inline-block w-auto cursor-pointer bg-beige-400 hover:bg-beige-200 text-white font-bold font-heading py-4 px-6 rounded-md uppercase text-center transition">
                     {{ __('Join') }}
                 </button>
             </div>

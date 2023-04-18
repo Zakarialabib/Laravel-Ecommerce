@@ -9,24 +9,24 @@
             <div class="w-full md:w-1/2 pr-2">
                 <label class="font-bold font-heading text-gray-600" for="">{{ __('FullName') }}</label>
                 <input wire:model="name"
-                    class="block w-full mt-4 py-4 px-4 bg-white border border-gray-200 focus:ring-blue-300 focus:border-blue-300 rounded-md"
+                    class="block w-full mt-4 py-2 px-4 bg-white border border-gray-200 focus:ring-blue-300 focus:border-blue-300 rounded-md"
                     type="text">
             </div>
             <div class="w-full md:w-1/2 pr-2">
                 <label class="font-bold font-heading text-gray-600" for="">{{ __('Phone') }}</label>
                 <input wire:model="phone"
-                    class="block w-full mt-4 py-4 px-4 bg-white border border-gray-200 focus:ring-blue-300 focus:border-blue-300 rounded-md"
+                    class="block w-full mt-4 py-2 px-4 bg-white border border-gray-200 focus:ring-blue-300 focus:border-blue-300 rounded-md"
                     type="number">
             </div>
             <div class="w-full">
                 <label class="font-bold font-heading text-gray-600" for="">{{ __('Address') }}</label>
                 <input wire:model="address"
-                    class="block w-full mt-4 py-4 px-4 bg-white border border-gray-200 focus:ring-blue-300 focus:border-blue-300 rounded-md"
+                    class="block w-full mt-4 py-2 px-4 bg-white border border-gray-200 focus:ring-blue-300 focus:border-blue-300 rounded-md"
                     type="text">
             </div>
             <div class="w-full flex py-2 justify-center">
                 <button wire:click="save" wire:loading.attr="disabled"
-                    class="block hover:bg-red-600 text-center text-white font-bold font-heading py-2 px-4 rounded-md uppercase bg-red-600 cursor-pointer">
+                    class="block text-center text-white font-bold font-heading py-2 px-4 rounded-md uppercase bg-beige-400 hover:bg-beige-200 transition cursor-pointer">
                     {{ __('Order Now') }}
                 </button>
             </div>

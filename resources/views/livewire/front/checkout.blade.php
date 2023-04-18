@@ -16,7 +16,7 @@
                             <label class="font-bold font-heading text-gray-600"
                                 for="">{{ __('E-mail address') }}</label>
                             <input wire:model="email"
-                                class="block w-full mt-4 py-4 px-4 bg-white border border-gray-200 focus:ring-blue-300 focus:border-blue-300 rounded-md"
+                                class="block w-full mt-4 py-2 px-4 bg-white border border-gray-200 focus:ring-blue-300 focus:border-blue-300 rounded-md"
                                 type="email">
                             <x-input-error :messages="$errors->get('email')" for="email" class="mt-2" />
                         </div>
@@ -24,7 +24,7 @@
                             <label class="font-bold font-heading text-gray-600"
                                 for="">{{ __('Password') }}</label>
                             <input wire:model="password"
-                                class="block w-full mt-4 py-4 px-4 bg-white border border-gray-200 focus:ring-blue-300 focus:border-blue-300 rounded-md"
+                                class="block w-full mt-4 py-2 px-4 bg-white border border-gray-200 focus:ring-blue-300 focus:border-blue-300 rounded-md"
                                 type="pasword">
                             <x-input-error :messages="$errors->get('password')" for="password" class="mt-2" />
                         </div>
@@ -35,7 +35,7 @@
                             <label class="font-bold font-heading text-gray-600"
                                 for="">{{ __('E-mail address') }}</label>
                             <input wire:model="email"
-                                class="block w-full mt-4 py-4 px-4 bg-white border border-gray-200 focus:ring-blue-300 focus:border-blue-300 rounded-md"
+                                class="block w-full mt-4 py-2 px-4 bg-white border border-gray-200 focus:ring-blue-300 focus:border-blue-300 rounded-md"
                                 type="email">
                             <x-input-error :messages="$errors->get('email')" for="email" class="mt-2" />
                         </div>
@@ -53,7 +53,7 @@
                             <label class="font-bold font-heading text-gray-600"
                                 for="first_name">{{ __('First name') }}</label>
                             <input wire:model="first_name" id="first_name"
-                                class="block w-full mt-4 py-4 px-4 bg-white border border-gray-200 focus:ring-blue-300 focus:border-blue-300 rounded-md"
+                                class="block w-full mt-4 py-2 px-4 bg-white border border-gray-200 focus:ring-blue-300 focus:border-blue-300 rounded-md"
                                 type="text">
                             <x-input-error :messages="$errors->get('first_name')" for="first_name" class="mt-2" />
                         </div>
@@ -61,7 +61,7 @@
                             <label class="font-bold font-heading text-gray-600"
                                 for="last_name">{{ __('Last name') }}</label>
                             <input wire:model="last_name" id="last_name"
-                                class="block w-full mt-4 py-4 px-4 bg-white border border-gray-200 focus:ring-blue-300 focus:border-blue-300 rounded-md"
+                                class="block w-full mt-4 py-2 px-4 bg-white border border-gray-200 focus:ring-blue-300 focus:border-blue-300 rounded-md"
                                 type="text">
                             <x-input-error :messages="$errors->get('last_name')" for="last_name" class="mt-2" />
                         </div>
@@ -69,7 +69,7 @@
                             <label class="font-bold font-heading text-gray-600"
                                 for="phone">{{ __('Phone') }}</label>
                             <input wire:model="phone" id="phone"
-                                class="block w-full mt-4 py-4 px-4 bg-white border border-gray-200 focus:ring-blue-300 focus:border-blue-300 rounded-md"
+                                class="block w-full mt-4 py-2 px-4 bg-white border border-gray-200 focus:ring-blue-300 focus:border-blue-300 rounded-md"
                                 type="number">
                             <x-input-error :messages="$errors->get('phone')" for="phone" class="mt-2" />
                         </div>
@@ -77,7 +77,7 @@
                             <label class="font-bold font-heading text-gray-600"
                                 for="address">{{ __('Address') }}</label>
                             <input wire:model="address" id="address"
-                                class="block w-full mt-4 py-4 px-4 bg-white border border-gray-200 focus:ring-blue-300 focus:border-blue-300 rounded-md"
+                                class="block w-full mt-4 py-2 px-4 bg-white border border-gray-200 focus:ring-blue-300 focus:border-blue-300 rounded-md"
                                 type="text">
                             <x-input-error :messages="$errors->get('address')" for="address" class="mt-2" />
                         </div>
@@ -86,7 +86,7 @@
                             <label class="font-bold font-heading text-gray-600"
                                 for="">{{ __('Country') }}</label>
                             <input wire:model="country" disabled
-                                class="block w-full mt-4 py-4 px-4 bg-white border border-gray-200 focus:ring-blue-300 focus:border-blue-300 rounded-md"
+                                class="block w-full mt-4 py-2 px-4 bg-white border border-gray-200 focus:ring-blue-300 focus:border-blue-300 rounded-md"
                                 type="text">
                             <x-input-error :messages="$errors->get('country')" for="country" class="mt-2" />
                         </div>
@@ -94,7 +94,7 @@
                             <label class="font-bold font-heading text-gray-600"
                                 for="city">{{ __('City') }}</label>
                             <input wire:model="city" id="city"
-                                class="block w-full mt-4 py-4 px-4 bg-white border border-gray-200 focus:ring-blue-300 focus:border-blue-300 rounded-md"
+                                class="block w-full mt-4 py-2 px-4 bg-white border border-gray-200 focus:ring-blue-300 focus:border-blue-300 rounded-md"
                                 type="text">
                             <x-input-error :messages="$errors->get('city')" for="city" class="mt-2" />
                         </div>

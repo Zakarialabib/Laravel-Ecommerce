@@ -11,15 +11,15 @@
                         <div class="swiper-slide">
                             <div class="flex flex-wrap -mx-4 py-10 px-4"
                                 style="background-image: url({{ asset('images/sliders/' . $slider->photo) }});background-size: cover;background-position: center;">
-                                <div class="w-full md:w-1/2 px-4 lg:mb-5 sm:mb-2">
-                                    <div class="max-w-md lg:py-5 py-10 text-white px-2">
-                                        <h5 class="lg:text-2xl sm:text-md font-bold mb-2">
+                                <div class="w-full max-w-md px-10 lg:mb-5 sm:mb-2">
+                                    <div class="lg:py-5 py-10 text-white px-2">
+                                        <h5 class="xl:text-2xl md:text-xl sm:text-md font-bold mb-2">
                                             {{ $slider->subtitle }}
                                         </h5>
-                                        <h2 class="lg:text-6xl sm:text-xl font-semibold font-heading">
+                                        <h2 class="xl:text-6xl md:text-2xl sm:text-xl font-semibold font-heading">
                                             {{ $slider->title }}
                                         </h2>
-                                        <p class="py-10 lg:text-lg sm:text-sm">
+                                        <p class="py-10 xl:text-lg sm:text-sm">
                                             {!! $slider->details !!}
                                         </p>
                                         @if ($slider->link)
@@ -45,21 +45,21 @@
                     {{ __('Choose your favorite choice') }}
                 </h2>
 
-                <div class="flex flex-wrap justify-center gap-4">
+                <div class="flex flex-wrap justify-center overflow-x-scroll gap-4 py-4">
                     @foreach ($this->subcategories as $subcategory)
-                            <a href="{{ route('front.subcategoryPage', $subcategory->slug) }}"
-                                class="relative w-44 h-44" x-data="{ hover: false }" @mouseenter="hover = true"
-                                @mouseleave="hover = false">
-                                <div
-                                    class="absolute top-0 left-0 right-0 bottom-0 rounded-full bg-white shadow-lg transform hover:scale-105 transition-all duration-300">
-                                    <img class="absolute inset-0 w-full h-full object-cover rounded-full transform-gpu transition-all duration-1000 ease-in-out"
-                                        :class="{ 'rotate-0': !hover, 'rotate-360': hover }"
-                                        src="{{ $subcategory->image_url }}" alt="{{ $subcategory->name }}">
-                                </div>
-                                <h2
-                                    class="absolute inset-0 flex items-center justify-center font-semibold text-xl text-gray-800 text-center">
-                                    {{ $subcategory->category?->name }} {{ $subcategory->name }}</h2>
-                            </a>
+                        <a href="{{ route('front.subcategoryPage', $subcategory->slug) }}" class="relative w-44 h-44"
+                            x-data="{ hover: false }" @mouseenter="hover = true" @mouseleave="hover = false">
+                            <div
+                                class="absolute top-0 left-0 right-0 bottom-0 rounded-full bg-white shadow-lg transform hover:scale-105 transition-all duration-300">
+                                <img class="absolute inset-0 w-full h-full object-cover rounded-full transform-gpu transition-all duration-1000 ease-in-out"
+                                    :class="{ 'rotate-0': !hover, 'rotate-360': hover }"
+                                    src="{{ $subcategory->image_url }}" alt="{{ $subcategory->name }}">
+                            </div>
+                            <h2
+                                class="absolute inset-0 flex items-center justify-center text-md text-gray-800 text-center">
+                                {{ $subcategory->name }} {{ __('for') }} {{ $subcategory->category?->name }}
+                            </h2>
+                        </a>
                     @endforeach
                 </div>
             </div>
@@ -101,68 +101,32 @@
                         </h4>
                     </div>
                 </div>
-                <div class="px-4" x-show="activeTabs === 'featuredProducts'"
-                    x-transition:enter="transition ease-out duration-300"
-                    x-transition:enter-start="opacity-0 transform scale-90"
-                    x-transition:enter-end="opacity-100 transform scale-100"
-                    x-transition:leave="transition ease-in duration-300"
-                    x-transition:leave-start="opacity-100 transform scale-100"
-                    x-transition:leave-end="opacity-0 transform scale-90">
+                <div class="px-4" x-show="activeTabs === 'featuredProducts'">
                     <div role="featuredProducts" aria-labelledby="tab-0" id="tab-panel-0" tabindex="0"
                         class="w-full mb-16">
                         <div class="grid gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 ">
-                            @forelse ($this->featuredProducts as $product)
+                            @foreach ($this->featuredProducts as $product)
                                 <x-product-card :product="$product" />
-                            @empty
-                                <div class="w-full">
-                                    <h3 class="text-3xl font-bold font-heading text-blue-900">
-                                        {{ __('No products found') }}
-                                    </h3>
-                                </div>
-                            @endforelse
+                            @endforeach
                         </div>
                     </div>
                 </div>
-                <div class="px-4" x-show="activeTabs === 'bestOfers'"
-                    x-transition:enter="transition ease-out duration-300"
-                    x-transition:enter-start="opacity-0 transform scale-90"
-                    x-transition:enter-end="opacity-100 transform scale-100"
-                    x-transition:leave="transition ease-in duration-300"
-                    x-transition:leave-start="opacity-100 transform scale-100"
-                    x-transition:leave-end="opacity-0 transform scale-90">
+                <div class="px-4" x-show="activeTabs === 'bestOfers'">
                     <div role="bestOfers" aria-labelledby="tab-1" id="tab-panel-1" tabindex="0" class="w-full mb-16">
                         <div class="grid gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 ">
-                            @forelse ($this->bestOffers as $product)
+                            @foreach ($this->bestOffers as $product)
                                 <x-product-card :product="$product" />
-                            @empty
-                                <div class="w-full">
-                                    <h3 class="text-3xl font-bold font-heading text-blue-900">
-                                        {{ __('No products found') }}
-                                    </h3>
-                                </div>
-                            @endforelse
+                            @endforeach
                         </div>
                     </div>
                 </div>
-                <div class="px-4" x-show="activeTabs === 'hotProducts'"
-                    x-transition:enter="transition ease-out duration-300"
-                    x-transition:enter-start="opacity-0 transform scale-90"
-                    x-transition:enter-end="opacity-100 transform scale-100"
-                    x-transition:leave="transition ease-in duration-300"
-                    x-transition:leave-start="opacity-100 transform scale-100"
-                    x-transition:leave-end="opacity-0 transform scale-90">
+                <div class="px-4" x-show="activeTabs === 'hotProducts'">
                     <div role="hotProducts" aria-labelledby="tab-2" id="tab-panel-2" tabindex="0"
                         class="w-full mb-16">
                         <div class="grid gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 ">
-                            @forelse ($this->hotProducts as $product)
+                            @foreach ($this->hotProducts as $product)
                                 <x-product-card :product="$product" />
-                            @empty
-                                <div class="w-full">
-                                    <h3 class="text-3xl font-bold font-heading text-blue-900">
-                                        {{ __('No products found') }}
-                                    </h3>
-                                </div>
-                            @endforelse
+                            @endforeach
                         </div>
                     </div>
                 </div>
@@ -170,7 +134,7 @@
         </div>
         <div class="py-5 px-4 mx-auto bg-gray-100">
             <div class="grid gap-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-4 w-full py-10">
-                @forelse ($this->sections as $section)
+                @foreach ($this->sections as $section)
                     <div class="px-3 mb-6">
                         <div class="relative h-full text-center pt-16 bg-white">
                             <div class="pb-12 border-b">
@@ -186,11 +150,7 @@
                             </div>
                         </div>
                     </div>
-                @empty
-                    <div class="container mx-auto py-10">
-                        <h2 class="text-4xl font-bold font-heading text-center">{{ __('More Coming Soon') }}</h2>
-                    </div>
-                @endforelse
+                @endforeach
             </div>
         </div>
     </div>
