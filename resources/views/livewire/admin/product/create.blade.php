@@ -105,11 +105,11 @@
 
                     </div>
 
-                    <x-accordion title="{{ 'More Details' }}">
-                        <div class="flex flex-wrap -mx-2 mb-3">
+                    <x-accordion title="{{ __('More Details') }}">
+                        <div class="flex flex-wrap px-4 mb-3">
 
                             <div class="w-full px-2">
-                                <livewire:admin.product.product-options :options="[]" />
+                                <livewire:admin.product.product-options />
                             </div>
                             
                             <div class="lg:w-1/3 sm:w-1/2 px-2">
@@ -132,13 +132,13 @@
                                     name="meta_keywords" wire:model="product.meta_keywords" />
                                 <x-input-error :messages="$errors->get('meta_keywords')" for="meta_keywords" class="mt-2" />
                             </div>
-                        </div>
-                        <div class="w-full px-2">
-                            <x-label for="video" :value="__('Embeded Video')" />
-                            <x-input id="embeded_video" class="block mt-1 w-full" type="text"
+                            <div class="w-full">
+                                <x-label for="video" :value="__('Embeded Video')" />
+                                <x-input id="embeded_video" class="block mt-1 w-full" type="text"
                                 name="embeded_video" wire:model="product.embeded_video" />
-                            <x-input-error :messages="$errors->get('product.embeded_video')" for="product.embeded_video" class="mt-2" />
-                        </div>
+                                <x-input-error :messages="$errors->get('product.embeded_video')" for="product.embeded_video" class="mt-2" />
+                                </div>
+                            </div>
                     </x-accordion>
 
                     <div class="flex justify-content w-full px-4">
