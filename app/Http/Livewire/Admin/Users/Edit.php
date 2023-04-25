@@ -15,9 +15,9 @@ class Edit extends Component
     use LivewireAlert;
 
     public $listeners = [
-        'editModal'
+        'editModal',
     ];
-    
+
     public $editModal = false;
 
     public $user;

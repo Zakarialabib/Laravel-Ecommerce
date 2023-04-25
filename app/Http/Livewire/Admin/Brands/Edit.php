@@ -89,7 +89,6 @@ class Edit extends Component
         $this->editModal = false;
     }
 
-
     public function render(): View
     {
         return view('livewire.admin.brands.edit');

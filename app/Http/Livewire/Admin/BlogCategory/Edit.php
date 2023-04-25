@@ -10,13 +10,12 @@ use Livewire\Component;
 use Illuminate\Support\Collection;
 use Illuminate\Contracts\View\View;
 use Illuminate\Support\Facades\Gate;
-use Illuminate\Database\Eloquent\Model;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 
 class Edit extends Component
 {
     use LivewireAlert;
-    
+
     public $blogcategory;
 
     public $editModal = false;
@@ -58,7 +57,7 @@ class Edit extends Component
 
         $this->emit('refreshIndex');
     }
-    
+
     public function getLanguagesProperty(): Collection
     {
         return Language::select('name', 'id')->get();

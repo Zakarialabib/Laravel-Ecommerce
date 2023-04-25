@@ -9,7 +9,7 @@
             <!-- Validation Errors -->
             <x-auth-validation-errors class="mb-4" :errors="$errors" />
             <form wire:submit.prevent="update">
-                <div class="flex flex-wrap space-y-4 px-4">
+                <div class="flex flex-wrap space-y-2 px-2">
                     <div class="lg:w-1/2 md:w-full px-2">
                         <x-label for="title" :value="__('Title')" />
                         <x-input id="title" class="block mt-1 w-full" type="text" name="title"
@@ -37,8 +37,8 @@
                         <x-input-error :messages="$errors->get('shipping.is_pickup')" for="shipping.is_pickup" class="mt-2" />
                     </div>
 
-                    <div class="w-full py-4">
-                        <x-button primary type="submit" wire:loading.attr="disabled">
+                    <div class="w-full px-3">
+                        <x-button primary type="submit" wire:loading.attr="disabled" class="w-full">
                             {{ __('Update') }}
                         </x-button>
                     </div>

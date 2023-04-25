@@ -24,8 +24,8 @@ class Edit extends Component
         'editModal',
     ];
 
-    public array $rules = [
-        'shipping.is_pickup' => ['integer'],
+    protected $rules = [
+        'shipping.is_pickup' => ['nullable', 'boolean'],
         'shipping.title'     => ['required', 'string', 'max:255'],
         'shipping.subtitle'  => ['nullable', 'string'],
         'shipping.cost'      => ['required', 'string'],

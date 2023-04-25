@@ -6,7 +6,6 @@ namespace App\Http\Livewire\Admin\BlogCategory;
 
 use App\Http\Livewire\WithSorting;
 use App\Models\BlogCategory;
-use App\Models\Language;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Support\Facades\Gate;
@@ -25,7 +24,7 @@ class Index extends Component
     ];
 
     public $blogcategory;
-    
+
     public $deleteModal = false;
 
     public int $perPage;
@@ -78,25 +77,25 @@ class Index extends Component
         $this->paginationOptions = [25, 50, 100];
         $this->orderable = (new BlogCategory())->orderable;
     }
-  
-    public function deleteModal(BlogCategory $blogcategory)
+
+    public function deleteModal($blogcategory)
     {
         $this->confirm('Are you sure you want to delete this?', [
-            'toast' => false,
-            'position' => 'center',
+            'toast'             => false,
+            'position'          => 'center',
             'showConfirmButton' => true,
-            'cancelButtonText' => 'Cancel',
-            'onConfirmed' => 'delete',
-            'params' => [$blogcategory->id],
+            'cancelButtonText'  => 'Cancel',
+            'onConfirmed'       => 'delete',
+            'params'            => [$blogcategory->id],
         ]);
     }
 
     public function delete($id)
     {
         abort_if(Gate::denies('blogcategory_delete'), 403);
-    
+
         BlogCategory::findOrFail($id)->delete();
-    
+
         $this->alert('success', __('BlogCategory deleted successfully.'));
     }
 
@@ -120,5 +119,5 @@ class Index extends Component
         $blogcategories = $query->paginate($this->perPage);
 
         return view('livewire.admin.blog-category.index', compact('blogcategories'));
-    }   
+    }
 }

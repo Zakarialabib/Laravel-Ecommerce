@@ -80,6 +80,7 @@ class Edit extends Component
     {
         return BlogCategory::select('title', 'id')->get();
     }
+
     public function getLanguagesProperty()
     {
         return Language::select('name', 'id')->get();

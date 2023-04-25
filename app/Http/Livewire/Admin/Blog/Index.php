@@ -24,7 +24,7 @@ class Index extends Component
     ];
 
     public $blog;
-    
+
     public int $perPage;
 
     public $deleteModal = false;
@@ -78,13 +78,12 @@ class Index extends Component
         $this->orderable = (new Blog())->orderable;
     }
 
-  
     public function delete($id)
     {
         abort_if(Gate::denies('blog_delete'), 403);
-    
+
         Blog::findOrFail($id)->delete();
-    
+
         $this->alert('success', __('Blog deleted successfully.'));
     }
 
@@ -97,18 +96,18 @@ class Index extends Component
         $this->resetSelected();
     }
 
-    public function deleteModal(Blog $blog)
+    public function deleteModal($blog)
     {
         $this->confirm('Are you sure you want to delete this?', [
-            'toast' => false,
-            'position' => 'center',
+            'toast'             => false,
+            'position'          => 'center',
             'showConfirmButton' => true,
-            'cancelButtonText' => 'Cancel',
-            'onConfirmed' => 'delete',
-            'params' => [$blog->id],
+            'cancelButtonText'  => 'Cancel',
+            'onConfirmed'       => 'delete',
+            'params'            => [$blog->id],
         ]);
     }
-    
+
     public function render(): View|Factory
     {
         $query = Blog::advancedFilter([
@@ -121,5 +120,4 @@ class Index extends Component
 
         return view('livewire.admin.blog.index', compact('blogs'));
     }
-
 }

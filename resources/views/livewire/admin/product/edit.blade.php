@@ -1,4 +1,5 @@
 <div>
+    @if($editModal)
     <x-modal wire:model="editModal">
         <x-slot name="title">
             {{ __('Edit Product') }} - {{ $product->name }}
@@ -190,4 +191,5 @@
             </form>
         </x-slot>
     </x-modal>
+    @endif
 </div>

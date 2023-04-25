@@ -38,5 +38,4 @@ class ContactForm extends Mailable
                 'contact' => $this->contact,
             ]);
     }
-
 }

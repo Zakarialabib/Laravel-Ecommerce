@@ -9,14 +9,14 @@
             <x-auth-validation-errors class="mb-4" :errors="$errors" />
 
             <form wire:submit.prevent="update">
-                <div class="flex flex-wrap -mx-3 space-y-0">
-                    <div class="xl:w-1/2 md:w-1/2 px-3">
+                <div class="flex flex-wrap space-y-2 px-2">
+                    <div class="lg:w-1/2 md:w-full px-2">
                         <x-label for="title" :value="__('Title')" />
                         <x-input id="title" class="block mt-1 w-full" type="text" name="title"
                             wire:model.defer="slider.title" />
                         <x-input-error :messages="$errors->get('slider.title')" for="slider.title" class="mt-2" />
                     </div>
-                    <div class="xl:w-1/2 md:w-1/2 px-3">
+                    <div class="lg:w-1/2 md:w-full px-2">
                         <x-label for="language_id" :value="__('Language')" required />
                         <select
                             class="block bg-white text-gray-700 rounded border border-gray-300 mb-1 text-sm w-full focus:shadow-outline-blue focus:border-blue-500"
@@ -27,25 +27,25 @@
                         </select>
                         <x-input-error :messages="$errors->get('slider.language_id')" for="slider.language_id" class="mt-2" />
                     </div>
-                    <div class="xl:w-1/2 md:w-1/2 px-3">
+                    <div class="lg:w-1/2 md:w-full px-2">
                         <x-label for="subtitle" :value="__('Subtitle')" />
                         <x-input id="subtitle" class="block mt-1 w-full" type="text" name="subtitle"
                             wire:model.defer="slider.subtitle" />
                         <x-input-error :messages="$errors->get('slider.subtitle')" for="slider.subtitle" class="mt-2" />
                     </div>
-                    <div class="xl:w-1/2 md:w-1/2 px-3">
+                    <div class="lg:w-1/2 md:w-full px-2">
                         <x-label for="details" :value="__('Details')" />
                         <x-input.textarea wire:model.lazy="slider.details" id="details" />
                         <x-input-error :messages="$errors->get('details')" for="details" class="mt-2" />
                     </div>
-                    <div class="xl:w-1/2 md:w-1/2 px-3">
+                    <div class="lg:w-1/2 md:w-full px-2">
                         <x-label for="bg_color" :value="__('Background Color')" />
                         <x-input id="bg_color" class="block mt-1 w-full" type="color" name="bg_color"
                             wire:model.defer="slider.bg_color" />
                         <x-input-error :messages="$errors->get('slider.bg_color')" for="slider.bg_color" class="mt-2" />
                     </div>
 
-                    <div class="xl:w-1/2 md:w-1/2 px-3">
+                    <div class="lg:w-1/2 md:w-full px-2">
                         <x-label for="link" :value="__('Link')" />
                         <x-input id="link" class="block mt-1 w-full" type="text" name="link"
                             wire:model.defer="slider.link" />
@@ -66,7 +66,7 @@
                     </div>
 
                     <div class="w-full px-3">
-                        <x-button primary class="block" type="submit" wire:loading.attr="disabled">
+                        <x-button primary type="submit" wire:loading.attr="disabled" class="w-full">
                             {{ __('Update') }}
                         </x-button>
                     </div>

@@ -120,14 +120,14 @@ class Index extends Component
         abort_if(Gate::denies('category_delete'), 403);
 
         if ($category->products()->isNotEmpty()) {
-            return back()->withErrors('Can\'t delete beacuse there are products associated with this category.');
+            $this->alert('error', __('Can\'t delete beacuse there are products associated with this category !'));
         }
         $category->delete();
 
         $this->alert('success', __('Category deleted successfully.'));
     }
 
-    public function importExcel()
+    public function importModal()
     {
         abort_if(Gate::denies('category_access'), 403);
 

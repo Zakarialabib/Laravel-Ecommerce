@@ -67,5 +67,4 @@ class Create extends Component
     {
         return Language::select('name', 'id')->get();
     }
-
 }

@@ -10,9 +10,6 @@ use App\Models\Brand;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Support\Facades\Gate;
-use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Str;
-use Intervention\Image\Facades\Image;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Livewire\Component;
 use Livewire\WithFileUploads;
@@ -34,13 +31,13 @@ class Index extends Component
     ];
 
     public $deleteModal = false;
-    
-    public int $perPage;
 
     public $showModal = false;
 
-    public $importModal;
-
+    public $importModal = false;
+    
+    public int $perPage;
+    
     public array $orderable;
 
     public string $search = '';
@@ -121,7 +118,6 @@ class Index extends Component
         return view('livewire.admin.brands.index', compact('brands'));
     }
 
-   
     public function showModal(Brand $brand)
     {
         abort_if(Gate::denies('brand_show'), 403);
@@ -135,15 +131,15 @@ class Index extends Component
         $this->showModal = true;
     }
 
-    public function deleteModal(Brand $brand)
+    public function deleteModal($brand)
     {
         $this->confirm('Are you sure you want to delete this?', [
-            'toast' => false,
-            'position' => 'center',
+            'toast'             => false,
+            'position'          => 'center',
             'showConfirmButton' => true,
-            'cancelButtonText' => 'Cancel',
-            'onConfirmed' => 'delete',
-            'params' => [$brand->id],
+            'cancelButtonText'  => 'Cancel',
+            'onConfirmed'       => 'delete',
+            'params'            => [$brand->id],
         ]);
     }
 
@@ -159,9 +155,9 @@ class Index extends Component
     public function delete($id)
     {
         abort_if(Gate::denies('brand_delete'), 403);
-    
+
         Brand::findOrFail($id)->delete();
-    
+
         $this->alert('success', 'Brand deleted successfully.');
     }
 

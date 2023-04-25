@@ -14,7 +14,7 @@
                     <div class="w-full py-2 px-3">
                         <x-label for="name" :value="__('Name')" />
                         <x-input id="name" class="block mt-1 w-full" type="text" name="name"
-                            wire:model.defer="category.name" />
+                        wire:model.lazy="category.name" />
                         <x-input-error :messages="$errors->get('category.name')" for="category.name" class="mt-2" />
                     </div>
 
@@ -24,9 +24,8 @@
                         <x-input-error :messages="$errors->get('image')" for="image" class="mt-2" />
                     </div>
 
-                    <div class="w-full">
-                        <x-button primary type="submit" wire:loading.attr="disabled"
-                            class="w-full">
+                    <div class="w-full px-3">
+                        <x-button primary type="submit" wire:loading.attr="disabled" class="w-full">
                             {{ __('Create') }}
                         </x-button>
                     </div>

@@ -12,7 +12,7 @@
                     <div class="mt-4 py-2 w-full">
                         <x-label for="name" :value="__('Name')" />
                         <x-input id="name" class="block mt-1 w-full" type="text" name="name"
-                            wire:model.defer="category.name" />
+                            wire:model.lazy="category.name" />
                         <x-input-error :messages="$errors->get('category.name')" for="category.name" class="mt-2" />
                     </div>
 
@@ -23,7 +23,7 @@
                     </div>
 
                     <div class="w-full px-3">
-                        <x-button primary type="submit" wire:loading.attr="disabled">
+                        <x-button primary type="submit" wire:loading.attr="disabled" class="w-full">
                             {{ __('Update') }}
                         </x-button>
                     </div>

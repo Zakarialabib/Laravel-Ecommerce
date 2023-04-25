@@ -90,11 +90,23 @@ class Index extends Component
         return view('livewire.admin.shipping.index', compact('shippings'));
     }
 
-    public function delete(shipping $shipping)
+    public function deleteModal(Shipping $shipping)
+    {
+        $this->confirm('Are you sure you want to delete this?', [
+            'toast'            => false,
+            'position'         => 'center',
+            'showCancelButton' => true,
+            'onConfirmed'      => 'delete',
+            'params'           => [$shipping->id],
+            'onCancelled'      => 'cancelled',
+        ]);
+    }
+
+    public function delete($id)
     {
         // abort_if(Gate::denies('shipping_delete'), 403);
 
-        $shipping->delete();
+        Shipping::findOrFail($id)->delete();
 
         $this->alert('success', __('shipping deleted successfully.'));
     }

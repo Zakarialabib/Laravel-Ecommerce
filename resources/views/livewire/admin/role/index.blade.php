@@ -23,9 +23,6 @@
                 placeholder="{{ __('Search') }}" />
         </div>
     </div>
-    <div wire:loading.delay>
-        Loading...
-    </div>
 
     <div>
         <x-table>
@@ -60,13 +57,10 @@
                         </x-table.td>
                         <x-table.td>
                             <div class="inline-flex">
-                                <a class="font-bold border-transparent uppercase justify-center text-xs py-1 px-2 rounded shadow hover:shadow-md outline-none focus:outline-none focus:ring-2 focus:ring-offset-2 mr-1 ease-linear transition-all duration-150 cursor-pointer text-white bg-green-500 border-green-800 hover:bg-green-600 active:bg-green-700 focus:ring-green-300mr-2"
-                                    href="">
+                                <x-button secondary href="">
                                     {{ __('Edit') }}
                                 </a>
-                                <button
-                                    class="font-bold border-transparent uppercase justify-center text-xs py-2 px-2 rounded shadow hover:shadow-md outline-none focus:outline-none focus:ring-2 focus:ring-offset-2 ease-linear transition-all duration-150 cursor-pointer text-white bg-red-500 border-red-800 hover:bg-red-600 active:bg-red-700 focus:ring-red-300 mr-2"
-                                    type="button" wire:click="confirm('delete', {{ $role->id }})"
+                                <x-button danger type="button" wire:click="emit('deleteModal', {{ $role->id }})" 
                                     wire:loading.attr="disabled">
                                     {{ __('Delete') }}
                                 </button>
@@ -91,13 +85,25 @@
     </div>
 </div>
 
-@push('scripts')
+
+@push('page_scripts')
     <script>
-        Livewire.on('confirm', e => {
-            if (!confirm("{{ __('Are you sure') }}")) {
-                return
-            }
-            @this[e.callback](...e.argv)
-        });
+        document.addEventListener('livewire:load', function() {
+            window.livewire.on('deleteModal', categoryId => {
+                Swal.fire({
+                    title: "Are you sure?",
+                    text: "You won't be able to revert this!",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: "Yes, delete it!",
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        window.livewire.emit('delete', categoryId)
+                    }
+                })
+            })
+        })
     </script>
 @endpush

@@ -40,6 +40,8 @@ class Create extends Component
 
         $this->shipping = new Shipping();
 
+        $this->shipping->is_pickup = false;
+
         $this->createShipping = true;
     }
 

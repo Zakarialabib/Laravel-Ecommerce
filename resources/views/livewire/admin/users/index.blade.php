@@ -145,7 +145,7 @@
         </x-slot>
     </x-modal>
 
-    @livewire('admin.users.create', ['user' => $user])
+    @livewire('admin.users.edit', ['user' => $user])
 
     <livewire:admin.users.create />
 

@@ -58,7 +58,7 @@
                     </x-table.td>
                     <x-table.td>
                         @if ($shipping->is_pickup == true)
-                            <x-badge succes>{{ __('Pickup') }}</x-badge>
+                            <x-badge info>{{ __('Pickup') }}</x-badge>
                         @else
                             <x-badge secondary>{{ __('Delivery') }}</x-badge>
                         @endif
@@ -69,7 +69,7 @@
                                 wire:loading.attr="disabled">
                                 <i class="fas fa-edit"></i>
                             </x-button>
-                            <x-button danger type="button" wire:click="$emit('deleteModal', {{ $shipping->id }})"
+                            <x-button danger type="button" wire:click="deleteModal({{ $shipping->id }})"
                                 wire:loading.attr="disabled">
                                 <i class="fas fa-trash-alt"></i>
                             </x-button>
@@ -100,31 +100,7 @@
         </div>
     </div>
 
-    @if ($editModal)
-        @livewire('admin.shipping.edit', ['shipping' => $shipping])
-    @endif
+    @livewire('admin.shipping.edit', ['shipping' => $shipping])
 
     <livewire:admin.shipping.create />
 </div>
-
-@push('page_scripts')
-    <script>
-        document.addEventListener('livewire:load', function() {
-            window.livewire.on('deleteModal', categoryId => {
-                Swal.fire({
-                    title: __("Are you sure?"),
-                    text: __("You won't be able to revert this!"),
-                    icon: 'warning',
-                    showCancelButton: true,
-                    confirmButtonColor: '#3085d6',
-                    cancelButtonColor: '#d33',
-                    confirmButtonText: __("Yes, delete it!")
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        window.livewire.emit('delete', categoryId)
-                    }
-                })
-            })
-        })
-    </script>
-@endpush
