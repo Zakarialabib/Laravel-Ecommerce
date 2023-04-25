@@ -5,19 +5,15 @@ declare(strict_types=1);
 namespace App\Http\Livewire\Admin\Section;
 
 use App\Http\Livewire\WithSorting;
-use App\Models\Language;
 use App\Models\Section;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\Response;
-use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Gate;
-use Illuminate\Support\Str;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 use Livewire\WithPagination;
-use Throwable;
 
 class Index extends Component
 {
@@ -91,11 +87,6 @@ class Index extends Component
         $this->selected = [];
     }
 
-    public function getLanguagesProperty(): Collection
-    {
-        return Language::select('name', 'id')->get();
-    }
-
     public function mount()
     {
         $this->sortBy = 'id';
@@ -147,6 +138,4 @@ class Index extends Component
          ]);
          $this->alert('success', __('Section Cloned successfully!'));
      }
-
-   
 }

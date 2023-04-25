@@ -13,6 +13,7 @@ use Illuminate\Support\Str;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Livewire\Component;
 use Livewire\WithFileUploads;
+use App\Http\Livewire\Quill;
 
 class Create extends Component
 {
@@ -25,8 +26,11 @@ class Create extends Component
 
     public $createSection = false;
 
+    public $description;
+
     public $listeners = [
         'createSection',
+        Quill::EVENT_VALUE_UPDATED,
     ];
 
     public array $rules = [
@@ -41,6 +45,11 @@ class Create extends Component
         'section.position'       => ['nullable'],
         'section.link'           => ['nullable'],
     ];
+
+    public function quill_value_updated($value)
+    {
+        $this->section->description = $value;
+    }
 
     public function createSection()
     {

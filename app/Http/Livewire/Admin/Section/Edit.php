@@ -6,13 +6,14 @@ namespace App\Http\Livewire\Admin\Section;
 
 use Livewire\Component;
 use Illuminate\Contracts\View\View;
-use Illuminate\Support\Facades\Gate;
-use Illuminate\Database\Eloquent\Model;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
+use Illuminate\Support\Collection;
 use Throwable;
 use App\Models\Section;
 use Illuminate\Support\Str;
 use Livewire\WithFileUploads;
+use App\Models\Language;
+use App\Http\Livewire\Quill;
 
 class Edit extends Component
 {
@@ -20,12 +21,30 @@ class Edit extends Component
     use WithFileUploads;
 
     public $listeners = [
-        'editModal'
+        'editModal',
+        Quill::EVENT_VALUE_UPDATED,
     ];
-    
+
     public $editModal = false;
 
     public $section;
+
+    public $image;
+
+    public $description;
+
+    protected $rules = [
+        'section.language_id' => ['required'],
+        'section.page'        => ['nullable'],
+        'section.title'       => ['nullable', 'string', 'max:255'],
+        'section.subtitle'    => ['nullable', 'string', 'max:255'],
+        'section.description' => ['nullable'],
+    ];
+
+    public function quill_value_updated($value)
+    {
+        $this->section->description = $value;
+    }
 
     public function editModal($section)
     {
@@ -34,6 +53,10 @@ class Edit extends Component
         $this->resetValidation();
 
         $this->section = Section::findOrFail($section);
+
+        $this->image = $this->section->image;
+
+        $this->description = $this->section->description;
 
         $this->editModal = true;
     }
@@ -57,6 +80,11 @@ class Edit extends Component
         } catch (Throwable $th) {
             $this->alert('warning', __('Section was not updated!'));
         }
+    }
+
+    public function getLanguagesProperty(): Collection
+    {
+        return Language::select('name', 'id')->get();
     }
 
     public function render(): View
