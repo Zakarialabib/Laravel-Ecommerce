@@ -27,8 +27,6 @@ class Edit extends Component
 
     public $listeners = ['editModal'];
 
-    public array $listsForFields = [];
-
     protected $rules = [
         'blog.title'       => 'required|min:3|max:255',
         'blog.category_id' => 'required|integer',
@@ -38,11 +36,6 @@ class Edit extends Component
         'blog.meta_title'  => 'nullable|max:100',
         'blog.meta_desc'   => 'nullable|max:200',
     ];
-
-    public function mount()
-    {
-        $this->initListsForFields();
-    }
 
     public function render(): View|Factory
     {
@@ -85,7 +78,7 @@ class Edit extends Component
 
     public function getBlogCategoriesProperty()
     {
-        return   BlogCategory::select('title', 'id')->get();
+        return BlogCategory::select('title', 'id')->get();
     }
     public function getLanguagesProperty()
     {

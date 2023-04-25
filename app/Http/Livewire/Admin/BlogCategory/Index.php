@@ -25,6 +25,8 @@ class Index extends Component
     ];
 
     public $blogcategory;
+    
+    public $deleteModal = false;
 
     public int $perPage;
 

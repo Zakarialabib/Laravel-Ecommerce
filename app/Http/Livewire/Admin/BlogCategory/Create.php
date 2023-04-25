@@ -22,8 +22,6 @@ class Create extends Component
 
     public $listeners = ['createBlogCategory'];
 
-    public array $listsForFields = [];
-
     public $blogcategory;
 
     protected $rules = [
@@ -33,13 +31,6 @@ class Create extends Component
         'blogcategory.meta_desc'   => 'nullable|max:200',
         'blogcategory.language_id' => 'required|integer',
     ];
-
-    public function mount(BlogCategory $blogcategory)
-    {
-        $this->blogcategory = $blogcategory;
-
-        $this->initListsForFields();
-    }
 
     public function render(): View|Factory
     {
@@ -53,6 +44,8 @@ class Create extends Component
         $this->resetErrorBag();
 
         $this->resetValidation();
+
+        $this->blogcategory = new BlogCategory();
 
         $this->createBlogCategory = true;
     }
@@ -70,8 +63,9 @@ class Create extends Component
         $this->emit('refreshIndex');
     }
 
-    protected function initListsForFields(): void
+    public function getLanguagesProperty(): Collection
     {
-        $this->listsForFields['languages'] = Language::pluck('name', 'id')->toArray();
+        return Language::select('name', 'id')->get();
     }
+
 }

@@ -27,8 +27,6 @@ class Create extends Component
 
     public $listeners = ['createBlog'];
 
-    public array $listsForFields = [];
-
     protected $rules = [
         'blog.title'       => 'required|min:3|max:255',
         'blog.category_id' => 'required|integer',

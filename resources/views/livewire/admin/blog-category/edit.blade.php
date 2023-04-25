@@ -12,25 +12,25 @@
                     <div class="xl:w-1/2 md:w-1/2 px-3">
                         <x-label for="title" :value="__('Title')" />
                         <x-input id="title" class="block mt-1 w-full" type="text" name="title"
-                            wire:model.defer="blogcategory.title" />
+                            wire:model.lazy="blogcategory.title" />
                         <x-input-error :messages="$errors->get('blogcategory.title')" for="blogcategory.title" class="mt-2" />
                     </div>
                     <div class="xl:w-1/2 md:w-1/2 px-3">
                         <x-label for="description" :value="__('Description')" />
                         <x-input id="description" class="block mt-1 w-full" type="text" name="description"
-                            wire:model.defer="blogcategory.description" />
+                            wire:model.lazy="blogcategory.description" />
                         <x-input-error :messages="$errors->get('blogcategory.description')" for="blogcategory.description" class="mt-2" />
                         </div>
                     <div class="xl:w-1/2 md:w-1/2 px-3">
                         <x-label for="meta_title" :value="__('Meta Tag')" />
                         <x-input id="meta_title" class="block mt-1 w-full" type="text" name="meta_title"
-                            wire:model.defer="blogcategory.meta_title" />
+                            wire:model.lazy="blogcategory.meta_title" />
                         <x-input-error :messages="$errors->get('blogcategory.meta_title')" for="blogcategory.meta_title" class="mt-2" />
                     </div>
                     <div class="xl:w-1/2 md:w-1/2 px-3">
                         <x-label for="meta_desc" :value="__('Meta Description')" />
                         <x-input id="meta_desc" class="block mt-1 w-full" type="text" name="meta_desc"
-                            wire:model.defer="blogcategory.meta_desc" />
+                            wire:model.lazy="blogcategory.meta_desc" />
                         <x-input-error :messages="$errors->get('blogcategory.meta_desc')" for="blogcategory.meta_desc" class="mt-2" />
                     </div>
                 </div>

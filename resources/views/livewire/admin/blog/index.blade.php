@@ -1,14 +1,6 @@
 <div>
     <div class="flex flex-wrap justify-center">
         <div class="lg:w-1/2 md:w-1/2 sm:w-full flex flex-col my-md-0 my-2">
-            @if ($this->selectedCount)
-                <p class="text-sm items-center leading-5">
-                    <span class="font-medium mr-2">
-                        {{ $this->selectedCount }}
-                    </span>
-                    {{ __('Entries selected') }}
-                </p>
-            @endif
             <div class="my-2 my-md-0">
                 <p class="leading-5 text-black mb-1 text-sm ">
                     {{ __('Show items per page') }}
@@ -20,12 +12,25 @@
                     @endforeach
                 </select>
             </div>
+            @if ($this->selected)
+                <x-button danger type="button" wire:click="deleteSelected" class="mx-3">
+                    <i class="fas fa-trash-alt"></i>
+                </x-button>
+            @endif
+            @if ($this->selectedCount)
+                <p class="text-sm items-center leading-5">
+                    <span class="font-medium ml-2">
+                        {{ $this->selectedCount }}
+                    </span>
+                    {{ __('Entries selected') }}
+                </p>
+            @endif
         </div>
         <div class="lg:w-1/2 md:w-1/2 sm:w-full my-2 my-md-0">
-            <div class="my-2 my-md-0">
-                <input type="text" wire:model.debounce.300ms="search"
-                    class="p-3 leading-5 bg-white text-gray-500 rounded border border-zinc-300 mb-1 text-sm w-full focus:shadow-outline-blue focus:border-blue-500"
-                    placeholder="{{ __('Search') }}" />
+            <div class="flex items-center mr-3 pl-4">
+                <input wire:model="search" type="text"
+                    class="px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow outline-none focus:outline-none focus:shadow-outline w-full pr-10"
+                    placeholder="{{ __('Search...') }}" />
             </div>
         </div>
     </div>
@@ -47,10 +52,10 @@
             </x-table.th>
         </x-slot>
         <x-table.tbody>
-            @forelse($blogs as $id=>$blog)
-                <x-table.tr>
+            @forelse($blogs as $blog)
+                <x-table.tr wire:loading.class.delay="opacity-50" wire:key="row-{{ $blog->id }}">
                     <x-table.td>
-                        {{ $id }}
+                        <input type="checkbox" value="{{ $blog->id }}" wire:model="selected">
                     </x-table.td>
                     <x-table.td>
                         @php
@@ -85,14 +90,16 @@
         </x-table.tbody>
     </x-table>
 
-    <div class="card-body">
+    <div class="p-4">
         <div class="pt-3">
             {{ $blogs->links() }}
         </div>
     </div>
 
-    <livewire:admin.blog.create />
-    
+    <!-- Create Modal -->
+    @livewire('admin.blog.create')
+
+    <!-- Edit Modal -->
     @livewire('admin.blog.edit', ['blog' => $blog])
-    
+
 </div>

@@ -39,7 +39,7 @@
                         <x-label for="language_id" :value="__('Language')" required />
                         <x-select-list
                             class="block bg-white text-gray-700 rounded border border-gray-300 mb-1 text-sm w-full focus:shadow-outline-blue focus:border-blue-500"
-                            id="language_id" name="language_id" wire:model="blogcategory.language_id" :options="$this->listsForFields['languages']" />
+                            id="language_id" name="language_id" wire:model="blogcategory.language_id" :options="$this->languages" />
                         <x-input-error :messages="$errors->get('blogcategory.language_id')" for="blogcategory.language_id" class="mt-2" />
                     </div>
                 </div>

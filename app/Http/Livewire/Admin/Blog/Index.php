@@ -23,9 +23,11 @@ class Index extends Component
         'refreshIndex' => '$refresh',
     ];
 
+    public $blog;
+    
     public int $perPage;
 
-    public $blog;
+    public $deleteModal = false;
 
     public array $orderable;
 
@@ -85,6 +87,7 @@ class Index extends Component
     
         $this->alert('success', __('Blog deleted successfully.'));
     }
+
     public function deleteSelected()
     {
         abort_if(Gate::denies('blog_delete'), 403);
