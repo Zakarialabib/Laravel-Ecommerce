@@ -8,9 +8,16 @@ use App\Models\User;
 use Livewire\Component;
 use Illuminate\Contracts\View\View;
 use Illuminate\Support\Facades\Gate;
+use Jantinnerezo\LivewireAlert\LivewireAlert;
 
 class Edit extends Component
 {
+    use LivewireAlert;
+
+    public $listeners = [
+        'editModal'
+    ];
+    
     public $editModal = false;
 
     public $user;

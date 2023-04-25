@@ -31,14 +31,12 @@ class Index extends Component
 
     public $listeners = [
         'refreshIndex' => '$refresh',
-        'showModal', 'editModal', 'delete',
+        'showModal', 'delete',
     ];
 
     public $showModal = false;
 
     public $refreshIndex;
-
-    public $editModal = false;
 
     public int $perPage;
 
@@ -127,40 +125,6 @@ class Index extends Component
         $slider->save();
 
         $this->alert('success', __('Slider featured successfully!'));
-    }
-
-    public function editModal(Slider $slider)
-    {
-        $this->resetErrorBag();
-
-        $this->resetValidation();
-
-        $this->slider = $slider;
-
-        $this->editModal = true;
-    }
-
-    public function update()
-    {
-        $this->validate();
-
-        if ($this->photo) {
-            $imageName = Str::slug($this->slider->title).'-'.Str::random(5).'.'.$this->photo->extension();
-
-            $img = Image::make($this->photo->getRealPath())->encode('webp', 85);
-
-            $img->stream();
-
-            Storage::disk('local_files')->put('sliders/'.$imageName, $img, 'public');
-
-            $this->slider->photo = $imageName;
-        }
-
-        $this->slider->save();
-
-        $this->alert('success', __('Slider updated successfully.'));
-
-        $this->editModal = false;
     }
 
     public function showModal(Slider $slider)

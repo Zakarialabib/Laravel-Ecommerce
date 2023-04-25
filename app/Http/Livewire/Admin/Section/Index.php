@@ -32,14 +32,12 @@ class Index extends Component
 
     public $listeners = [
         'refreshIndex' => '$refresh',
-        'showModal', 'editModal', 'delete',
+        'showModal',  'delete',
     ];
 
     public $refreshIndex;
 
     public $showModal = false;
-
-    public $editModal = false;
 
     public int $perPage;
 
@@ -150,35 +148,5 @@ class Index extends Component
          $this->alert('success', __('Section Cloned successfully!'));
      }
 
-     public function editModal(Section $section)
-     {
-         $this->resetErrorBag();
-
-         $this->resetValidation();
-
-         $this->section = $section;
-
-         $this->editModal = true;
-     }
-
-     public function update()
-     {
-         try {
-             $this->validate();
-
-             if ($this->image) {
-                 $imageName = Str::slug($this->section->title).'-'.Str::random(3).'.'.$this->image->extension();
-                 $this->image->storeAs('sections', $imageName);
-                 $this->section->image = $imageName;
-             }
-
-             $this->section->save();
-
-             $this->alert('success', __('Section updated successfully!'));
-
-             $this->editModal = false;
-         } catch (Throwable $th) {
-             $this->alert('warning', __('Section was not updated!'));
-         }
-     }
+   
 }
