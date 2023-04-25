@@ -2,8 +2,8 @@
     <div class="flex flex-wrap justify-center">
         <div class="lg:w-1/2 md:w-1/2 sm:w-full flex flex-col my-md-0 my-2">
             @if ($this->selectedCount)
-                <p class="text-sm leading-5">
-                    <span class="font-medium">
+                <p class="text-sm items-center leading-5">
+                    <span class="font-medium mr-2">
                         {{ $this->selectedCount }}
                     </span>
                     {{ __('Entries selected') }}
@@ -69,7 +69,7 @@
                             wire:loading.attr="disabled">
                             <i class="fas fa-edit"></i>
                         </x-button>
-                        <x-button danger type="button" wire:click="$emit('deleteModal', {{ $blog->id }})"
+                        <x-button danger type="button" wire:click="deleteModal({{ $blog->id }})"
                             wire:loading.attr="disabled">
                             <i class="fas fa-trash-alt"></i>
                         </x-button>
@@ -96,25 +96,3 @@
     @livewire('admin.blog.edit', ['blog' => $blog])
     
 </div>
-
-@push('page_scripts')
-    <script>
-        document.addEventListener('livewire:load', function() {
-            window.livewire.on('deleteModal', categoryId => {
-                Swal.fire({
-                    title: 'Are you sure?',
-                    text: "You won't be able to revert this!",
-                    icon: 'warning',
-                    showCancelButton: true,
-                    confirmButtonColor: '#3085d6',
-                    cancelButtonColor: '#d33',
-                    confirmButtonText: 'Yes, delete it!'
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        window.livewire.emit('delete', categoryId)
-                    }
-                })
-            })
-        })
-    </script>
-@endpush

@@ -83,9 +83,12 @@ class Edit extends Component
         $this->editModal = false;
     }
 
-    protected function initListsForFields(): void
+    public function getBlogCategoriesProperty()
     {
-        $this->listsForFields['categories'] = BlogCategory::pluck('title', 'id')->toArray();
-        $this->listsForFields['languages'] = Language::pluck('name', 'id')->toArray();
+        return   BlogCategory::select('title', 'id')->get();
+    }
+    public function getLanguagesProperty()
+    {
+        return Language::select('name', 'id')->get();
     }
 }
