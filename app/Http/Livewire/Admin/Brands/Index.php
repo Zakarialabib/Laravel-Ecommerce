@@ -29,25 +29,17 @@ class Index extends Component
     public $brand;
 
     public $listeners = [
-        'refreshIndex' => '$refresh', 'delete',
-        'showModal', 'editModal', 'importModal',
+        'refreshIndex' => '$refresh',
+        'showModal', 'importModal',
     ];
 
+    public $deleteModal = false;
+    
     public int $perPage;
-
-    public $show;
-
-    public $image;
-
-    public $featured_image;
 
     public $showModal = false;
 
-    public $refreshIndex;
-
     public $importModal;
-
-    public $editModal = false;
 
     public array $orderable;
 
@@ -129,73 +121,7 @@ class Index extends Component
         return view('livewire.admin.brands.index', compact('brands'));
     }
 
-    public function editModal($brand)
-    {
-        abort_if(Gate::denies('brand_update'), 403);
-
-        $this->resetErrorBag();
-
-        $this->resetValidation();
-
-        $this->brand = Brand::findOrfail($brand);
-
-        $this->editModal = true;
-    }
-
-    public function update()
-    {
-        abort_if(Gate::denies('brand_update'), 403);
-
-        $this->validate();
-        // upload image if it does or doesn't exist
-
-        if ($this->image) {
-            // with str slug with name date
-            $imageName = Str::slug($this->brand->name).'-'.Str::random(5).'.'.$this->image->extension();
-            $width = 500;
-            $height = 500;
-
-            $img = Image::make($this->image->getRealPath())->encode('webp', 85);
-
-            // we need to resize image, otherwise it will be cropped
-            if ($img->width() > $width) {
-                $img->resize($width, null, function ($constraint) {
-                    $constraint->aspectRatio();
-                });
-            }
-
-            if ($img->height() > $height) {
-                $img->resize(null, $height, function ($constraint) {
-                    $constraint->aspectRatio();
-                });
-            }
-
-            $img->resizeCanvas($width, $height, 'center', false, '#ffffff');
-
-            $img->stream();
-
-            Storage::disk('local_files')->put('brands/'.$imageName, $img, 'public');
-
-            $this->brand->image = $imageName;
-        }
-
-        if ($this->featured_image) {
-            $imageName = Str::slug($this->brand->name).'-'.date('Y-m-d H:i:s').'.'.$this->featured_image->extension();
-            $this->featured_image->storeAs('brands', $imageName);
-            $this->brand->featured_image = $imageName;
-        }
-
-        $this->brand->save();
-
-        $this->alert('success', __('Brand updated successfully.'));
-
-        $this->resetErrorBag();
-
-        $this->resetValidation();
-
-        $this->editModal = false;
-    }
-
+   
     public function showModal(Brand $brand)
     {
         abort_if(Gate::denies('brand_show'), 403);
@@ -209,6 +135,18 @@ class Index extends Component
         $this->showModal = true;
     }
 
+    public function deleteModal(Brand $brand)
+    {
+        $this->confirm('Are you sure you want to delete this?', [
+            'toast' => false,
+            'position' => 'center',
+            'showConfirmButton' => true,
+            'cancelButtonText' => 'Cancel',
+            'onConfirmed' => 'delete',
+            'params' => [$brand->id],
+        ]);
+    }
+
     public function deleteSelected()
     {
         abort_if(Gate::denies('brand_delete'), 403);
@@ -218,12 +156,12 @@ class Index extends Component
         $this->resetSelected();
     }
 
-    public function delete(Brand $brand)
+    public function delete($id)
     {
         abort_if(Gate::denies('brand_delete'), 403);
-
-        $brand->delete();
-
+    
+        Brand::findOrFail($id)->delete();
+    
         $this->alert('success', 'Brand deleted successfully.');
     }
 
