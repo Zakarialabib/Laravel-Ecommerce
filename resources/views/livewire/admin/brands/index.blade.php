@@ -80,7 +80,7 @@
                                 wire:loading.attr="disabled">
                                 <i class="fas fa-edit"></i>
                             </x-button>
-                            <x-button danger type="button" wire:click="$emit('deleteModal', {{ $brand->id }})"
+                            <x-button danger type="button" wire:click="deleteModal({{ $brand->id }})"
                                 wire:loading.attr="disabled">
                                 <i class="fas fa-trash-alt"></i>
                             </x-button>

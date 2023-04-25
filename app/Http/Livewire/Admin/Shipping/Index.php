@@ -20,6 +20,7 @@ class Index extends Component
 
     public $listeners = [
         'refreshIndex' => '$refresh',
+        'delete'
     ];
 
     public int $perPage;
@@ -90,24 +91,24 @@ class Index extends Component
         return view('livewire.admin.shipping.index', compact('shippings'));
     }
 
-    public function deleteModal(Shipping $shipping)
+    public function deleteModal($page)
     {
-        $this->confirm('Are you sure you want to delete this?', [
-            'toast'            => false,
-            'position'         => 'center',
-            'showCancelButton' => true,
-            'onConfirmed'      => 'delete',
-            'params'           => [$shipping->id],
-            'onCancelled'      => 'cancelled',
+        $this->confirm(__('Are you sure you want to delete this?'), [
+            'toast'             => false,
+            'position'          => 'center',
+            'showConfirmButton' => true,
+            'cancelButtonText'  => __('Cancel'),
+            'onConfirmed' => 'delete',
         ]);
+        $this->page = $page;
     }
 
-    public function delete($id)
+    public function delete()
     {
         // abort_if(Gate::denies('shipping_delete'), 403);
 
-        Shipping::findOrFail($id)->delete();
+        Shipping::findOrFail($this->page)->delete();
 
-        $this->alert('success', __('shipping deleted successfully.'));
+        $this->alert('success', __('Shipping deleted successfully.'));
     }
 }

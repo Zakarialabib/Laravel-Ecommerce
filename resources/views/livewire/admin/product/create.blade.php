@@ -24,11 +24,6 @@
                         </div>
                     </div>
 
-                    <div class="w-full px-3 mb-6 lg:mb-0">
-                        <x-label for="description" :value="__('Description')" />
-                        <livewire:quill :value="$description" />
-                    </div>
-
                     <div class="flex flex-wrap -mx-2 mb-3">
                         <div class="w-full lg:w-1/2 px-3 mb-6 lg:mb-0">
                             <x-label for="category_id" :value="__('Category')" required />
@@ -48,6 +43,7 @@
                             <select multiple id="subcategories" name="subcategories"
                                 class="block bg-white text-gray-700 rounded border border-gray-300 mb-1 text-sm w-full focus:shadow-outline-blue focus:border-blue-500"
                                 wire:model="product.subcategories">
+                                <option value="" disabled>{{ __('Select SubCategory') }}</option>
                                 @foreach ($this->subcategories as $subcategory)
                                     <option value="{{ $subcategory->id }}">{{ $subcategory->name }}
                                     </option>
@@ -77,6 +73,7 @@
                             <select
                                 class="block bg-white text-gray-700 rounded border border-gray-300 mb-1 text-sm w-full focus:shadow-outline-blue focus:border-blue-500"
                                 id="brand_id" name="brand_id" wire:model="product.brand_id">
+                                <option value="" disabled>{{ __('Select Brand') }}</option>
                                 @foreach ($this->brands as $brand)
                                     <option value="{{ $brand->id }}">{{ $brand->name }}</option>
                                 @endforeach
@@ -89,6 +86,11 @@
                             <x-input id="condition" class="block mt-1 w-full" type="text" name="condition"
                                 wire:model="product.condition" />
                             <x-input-error :messages="$errors->get('product.condition')" for="product.condition" class="mt-2" />
+                        </div>
+                        
+                        <div class="w-full px-3 mb-6 lg:mb-0">
+                            <x-label for="description" :value="__('Description')" />
+                            <livewire:quill :value="$description" />
                         </div>
 
                         <div class="w-full px-4 my-2">
@@ -141,8 +143,8 @@
                             </div>
                     </x-accordion>
 
-                    <div class="flex justify-content w-full px-4">
-                        <x-button primary type="submit" wire:loading.attr="disabled" class="blockk">
+                    <div class="w-full px-4">
+                        <x-button primary type="submit" wire:loading.attr="disabled" class="w-full">
                             {{ __('Create') }}
                         </x-button>
                     </div>

@@ -60,8 +60,7 @@
                     </x-table.td>
                     <x-table.td>
                         <div class="flex justify-start space-x-2">
-                            <x-button primary type="button" 
-                            wire:click="$emit('editModal', {{ $category->id }})"
+                            <x-button primary type="button" wire:click="$emit('editModal', {{ $category->id }})"
                                 wire:loading.attr="disabled">
                                 <i class="fas fa-edit"></i>
                             </x-button>
@@ -92,7 +91,7 @@
     @livewire('admin.categories.create')
 
     <!-- Edit Modal -->
-    @livewire('admin.categories.edit', ['user' => $user])
+    @livewire('admin.categories.edit', ['category' => $category])
     
     <!-- Import Modal -->
     <x-modal wire:model="importModal">
@@ -121,25 +120,3 @@
     </x-modal>
 
 </div>
-
-@push('page_scripts')
-    <script>
-        document.addEventListener('livewire:load', function() {
-            window.livewire.on('deleteModal', categoryId => {
-                Swal.fire({
-                    title: __("Are you sure?") ,
-                    text: __("You won't be able to revert this!") ,
-                    icon: 'warning',
-                    showCancelButton: true,
-                    confirmButtonColor: '#3085d6',
-                    cancelButtonColor: '#d33',
-                    confirmButtonText: __("Yes, delete it!") 
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        window.livewire.emit('delete', categoryId)
-                    }
-                })
-            })
-        })
-    </script>
-@endpush

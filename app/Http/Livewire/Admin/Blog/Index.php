@@ -21,6 +21,7 @@ class Index extends Component
 
     public $listeners = [
         'refreshIndex' => '$refresh',
+        'delete'
     ];
 
     public $blog;
@@ -78,11 +79,11 @@ class Index extends Component
         $this->orderable = (new Blog())->orderable;
     }
 
-    public function delete($id)
+    public function delete()
     {
         abort_if(Gate::denies('blog_delete'), 403);
 
-        Blog::findOrFail($id)->delete();
+        Blog::findOrFail($this->blog)->delete();
 
         $this->alert('success', __('Blog deleted successfully.'));
     }
@@ -98,14 +99,14 @@ class Index extends Component
 
     public function deleteModal($blog)
     {
-        $this->confirm('Are you sure you want to delete this?', [
+        $this->confirm(__('Are you sure you want to delete this?'), [
             'toast'             => false,
             'position'          => 'center',
             'showConfirmButton' => true,
-            'cancelButtonText'  => 'Cancel',
-            'onConfirmed'       => 'delete',
-            'params'            => [$blog->id],
+            'cancelButtonText'  => __('Cancel'),
+            'onConfirmed' => 'delete',
         ]);
+        $this->blog = $blog;
     }
 
     public function render(): View|Factory

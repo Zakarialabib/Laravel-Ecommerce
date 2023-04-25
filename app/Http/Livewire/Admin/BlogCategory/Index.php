@@ -21,6 +21,7 @@ class Index extends Component
 
     public $listeners = [
         'refreshIndex' => '$refresh',
+        'delete'
     ];
 
     public $blogcategory;
@@ -80,21 +81,21 @@ class Index extends Component
 
     public function deleteModal($blogcategory)
     {
-        $this->confirm('Are you sure you want to delete this?', [
+        $this->confirm(__('Are you sure you want to delete this?'), [
             'toast'             => false,
             'position'          => 'center',
             'showConfirmButton' => true,
-            'cancelButtonText'  => 'Cancel',
+            'cancelButtonText'  => __('Cancel'),
             'onConfirmed'       => 'delete',
-            'params'            => [$blogcategory->id],
         ]);
+        $this->blogcategory = $blogcategory;
     }
 
-    public function delete($id)
+    public function delete()
     {
         abort_if(Gate::denies('blogcategory_delete'), 403);
 
-        BlogCategory::findOrFail($id)->delete();
+        BlogCategory::findOrFail($this->blogcategory)->delete();
 
         $this->alert('success', __('BlogCategory deleted successfully.'));
     }

@@ -31,7 +31,7 @@ class Index extends Component
 
     public $listeners = [
         'refreshIndex' => '$refresh',
-        'importModal',
+        'importModal', 
     ];
 
     public int $perPage;
@@ -45,10 +45,6 @@ class Index extends Component
     public array $selected = [];
 
     public array $paginationOptions;
-
-    public array $rules = [
-        'category.name' => 'required',
-    ];
 
     protected $queryString = [
         'search' => [

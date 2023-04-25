@@ -28,6 +28,7 @@ class Index extends Component
     public $listeners = [
         'refreshIndex' => '$refresh',
         'showModal', 'importModal',
+        'delete'
     ];
 
     public $deleteModal = false;
@@ -45,12 +46,6 @@ class Index extends Component
     public array $selected = [];
 
     public array $paginationOptions;
-
-    public array $rules = [
-        'brand.name'        => ['required', 'string', 'max:255'],
-        'brand.slug'        => ['required', 'string'],
-        'brand.description' => ['nullable', 'string'],
-    ];
 
     protected $queryString = [
         'search' => [
@@ -94,6 +89,11 @@ class Index extends Component
         $this->selected = [];
     }
 
+    public function confirmed()
+    {
+        $this->emit('delete');
+    }
+
     public function mount()
     {
         $this->sortBy = 'id';
@@ -133,14 +133,14 @@ class Index extends Component
 
     public function deleteModal($brand)
     {
-        $this->confirm('Are you sure you want to delete this?', [
+        $this->confirm(__('Are you sure you want to delete this?'), [
             'toast'             => false,
             'position'          => 'center',
             'showConfirmButton' => true,
-            'cancelButtonText'  => 'Cancel',
-            'onConfirmed'       => 'delete',
-            'params'            => [$brand->id],
+            'cancelButtonText'  => __('Cancel'),
+            'onConfirmed' => 'delete',
         ]);
+        $this->brand = $brand;
     }
 
     public function deleteSelected()
@@ -152,13 +152,13 @@ class Index extends Component
         $this->resetSelected();
     }
 
-    public function delete($id)
+    public function delete()
     {
         abort_if(Gate::denies('brand_delete'), 403);
 
-        Brand::findOrFail($id)->delete();
+        Brand::findOrFail($this->brand)->delete();
 
-        $this->alert('success', 'Brand deleted successfully.');
+        $this->alert('success', __('Brand deleted successfully.'));
     }
 
     public function importModal()
@@ -178,6 +178,6 @@ class Index extends Component
 
         Excel::import(new BrandsImport(), $this->file);
 
-        $this->alert('success', 'Brand imported successfully.');
+        $this->alert('success', __('Brand imported successfully.'));
     }
 }
