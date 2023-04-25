@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Mail;
 
 use Illuminate\Bus\Queueable;
@@ -8,7 +10,8 @@ use Illuminate\Queue\SerializesModels;
 
 class ContactForm extends Mailable
 {
-    use Queueable, SerializesModels;
+    use Queueable;
+    use SerializesModels;
 
     public $contact;
 
@@ -29,6 +32,11 @@ class ContactForm extends Mailable
      */
     public function build()
     {
-        return $this->view('emails.contact-mail');
+        return $this->view('emails.contact-mail')
+            ->subject('Contact Form!')
+            ->with([
+                'contact' => $this->contact,
+            ]);
     }
+
 }
