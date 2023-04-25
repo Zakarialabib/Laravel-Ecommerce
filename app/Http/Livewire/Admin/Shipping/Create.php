@@ -19,10 +19,10 @@ class Create extends Component
     public $shipping;
 
     public array $rules = [
-        'shipping.is_pickup' => ['nullable', 'integer'],
-        'shipping.title' => ['required', 'string', 'max:255'],
-        'shipping.subtitle' => ['nullable', 'string', 'max:255'],
-        'shipping.cost' => ['required', 'string'],
+        'shipping.is_pickup' => ['integer'],
+        'shipping.title'     => ['required', 'string', 'max:255'],
+        'shipping.subtitle'  => ['nullable', 'string', 'max:255'],
+        'shipping.cost'      => ['required', 'string'],
     ];
 
     public function render()

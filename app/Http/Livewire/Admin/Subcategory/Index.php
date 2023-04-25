@@ -43,10 +43,10 @@ class Index extends Component
     public array $paginationOptions;
 
     public array $rules = [
-        'subcategory.name' => ['required', 'string', 'max:255'],
+        'subcategory.name'        => ['required', 'string', 'max:255'],
         'subcategory.category_id' => ['nullable', 'integer'],
         'subcategory.language_id' => ['nullable'],
-        'subcategory.slug' => ['required'],
+        'subcategory.slug'        => ['required'],
     ];
 
     protected $queryString = [
@@ -93,8 +93,8 @@ class Index extends Component
     public function render(): View|Factory
     {
         $query = Subcategory::with('category')->advancedFilter([
-            's' => $this->search ?: null,
-            'order_column' => $this->sortBy,
+            's'               => $this->search ?: null,
+            'order_column'    => $this->sortBy,
             'order_direction' => $this->sortDirection,
         ]);
 

@@ -26,12 +26,12 @@ class Edit extends Component
     public $listeners = ['editModal'];
 
     public array $rules = [
-        'page.title' => ['required', 'string', 'max:255'],
-        'page.slug' => ['required', 'unique:pages', 'max:255'],
-        'page.details' => ['required'],
-        'page.meta_title' => ['nullable|max:255'],
+        'page.title'            => ['required', 'string', 'max:255'],
+        'page.slug'             => ['required', 'unique:pages', 'max:255'],
+        'page.details'          => ['required'],
+        'page.meta_title'       => ['nullable|max:255'],
         'page.meta_description' => ['nullable|max:255'],
-        'page.language_id' => ['nullable|integer'],
+        'page.language_id'      => ['nullable|integer'],
     ];
 
     public function mount(Page $page)

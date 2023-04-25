@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace App\Http\Livewire\Admin\Slider;
 
 use App\Models\Language;
-use App\Models\Slider;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Support\Collection;
@@ -34,14 +33,14 @@ class Create extends Component
     ];
 
     public array $rules = [
-        'slider.title' => ['required', 'string', 'max:255'],
-        'slider.subtitle' => ['nullable', 'string'],
-        'slider.details' => ['nullable', 'string'],
-        'slider.link' => ['nullable', 'string'],
-        'slider.language_id' => ['nullable'],
-        'slider.bg_color' => ['nullable'],
+        'slider.title'         => ['required', 'string', 'max:255'],
+        'slider.subtitle'      => ['nullable', 'string'],
+        'slider.details'       => ['nullable', 'string'],
+        'slider.link'          => ['nullable', 'string'],
+        'slider.language_id'   => ['nullable'],
+        'slider.bg_color'      => ['nullable'],
         'slider.embeded_video' => ['nullable'],
-        'photo' => ['required'],
+        'photo'                => ['required'],
     ];
 
     public function render(): View|Factory

@@ -25,10 +25,10 @@ class Contact extends Component
     ];
 
     protected $rules = [
-        'conversation.name' => 'required',
-        'conversation.email' => 'required|email',
+        'conversation.name'         => 'required',
+        'conversation.email'        => 'required|email',
         'conversation.phone_number' => 'required',
-        'conversation.message' => 'required',
+        'conversation.message'      => 'required',
     ];
 
     public function mount()

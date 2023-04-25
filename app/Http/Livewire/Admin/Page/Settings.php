@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Livewire\Admin\Page;
 
 use Livewire\Component;
@@ -32,12 +34,12 @@ class Settings extends Component
 
     public function toggleTopHeaderModal()
     {
-        $this->topHeaderModal = !$this->topHeaderModal;
+        $this->topHeaderModal = ! $this->topHeaderModal;
     }
 
     public function toggleBottomFooterModal()
     {
-        $this->bottomFooterModal = !$this->bottomFooterModal;
+        $this->bottomFooterModal = ! $this->bottomFooterModal;
     }
 
     public function mount()
@@ -48,12 +50,12 @@ class Settings extends Component
     public function updateSettings()
     {
         $this->validate([
-            'settings.topheader' => 'nullable|string',
+            'settings.topheader'    => 'nullable|string',
             'settings.bottomfooter' => 'nullable|string',
         ]);
 
         $this->settings->update([
-            'topheader' => $this->settings->topheader,
+            'topheader'    => $this->settings->topheader,
             'bottomfooter' => $this->settings->bottomfooter,
         ]);
 

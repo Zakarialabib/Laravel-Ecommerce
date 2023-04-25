@@ -26,13 +26,13 @@ class Account extends Component
     ];
 
     protected $rules = [
-        'email' => 'email',
+        'email'      => 'email',
         'first_name' => 'required|string',
-        'last_name' => 'required|string',
-        'address' => 'max:255',
-        'phone' => 'required|numeric|max:1O',
-        'city' => 'city|string',
-        'country' => 'nullable',
+        'last_name'  => 'required|string',
+        'address'    => 'max:255',
+        'phone'      => 'required|numeric|max:1O',
+        'city'       => 'city|string',
+        'country'    => 'nullable',
     ];
 
     public function mount(User $user)

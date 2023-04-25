@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Livewire\Front;
 
 use App\Mail\ContactForm as MailContactForm;
@@ -25,10 +27,10 @@ class ContactForm extends Component
     ];
 
     protected $rules = [
-        'contact.name' => 'required',
-        'contact.email' => 'required|email',
+        'contact.name'         => 'required',
+        'contact.email'        => 'required|email',
         'contact.phone_number' => 'required',
-        'contact.message' => 'required',
+        'contact.message'      => 'required',
     ];
 
     public function mount(Contact $contact)

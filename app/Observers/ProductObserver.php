@@ -25,8 +25,8 @@ class ProductObserver
 
             // Create a redirection entry for the old slug
             Redirect::create([
-                'old_url' => $oldSlug,
-                'new_url' => $newSlug,
+                'old_url'          => $oldSlug,
+                'new_url'          => $newSlug,
                 'http_status_code' => RedirectionStatus::MOVED_PERMANENTLY,
             ]);
 

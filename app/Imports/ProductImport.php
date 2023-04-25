@@ -21,21 +21,21 @@ class ProductImport implements ToCollection, WithHeadingRow, SkipsEmptyRows
     {
         foreach ($rows as $row) {
             Product::create([
-                'name' => $row['nom'],
-                'description' => $row['description'],
-                'price' => $row['prix'],
-                'old_price' => $row['ancien_prix'] ?? null,
-                'slug' => Str::slug($row['nom'], '-').'-'.Str::random(5),
-                'code' => Str::random(10),
-                'category_id' => Category::where('name', $row['categorie'])->first()->id ?? Category::create(['name' => $row['categorie']])->id ?? null,
+                'name'          => $row['nom'],
+                'description'   => $row['description'],
+                'price'         => $row['prix'],
+                'old_price'     => $row['ancien_prix'] ?? null,
+                'slug'          => Str::slug($row['nom'], '-').'-'.Str::random(5),
+                'code'          => Str::random(10),
+                'category_id'   => Category::where('name', $row['categorie'])->first()->id ?? Category::create(['name' => $row['categorie']])->id ?? null,
                 'subcategories' => Subcategory::whereIn('name', explode(',', $row['sous_categorie']))->pluck('id')->toArray() ?? Helpers::createSubcategories($row['sous_categorie'], $row['categorie']),
-                'brand_id' => Brand::where('name', $row['marque'])->first()->id ?? Helpers::createBrand(['name' => $row['marque']]),
-                'image' => Helpers::uploadImage($row['image']) ?? 'default.jpg',
+                'brand_id'      => Brand::where('name', $row['marque'])->first()->id ?? Helpers::createBrand(['name' => $row['marque']]),
+                'image'         => Helpers::uploadImage($row['image']) ?? 'default.jpg',
                 // 'gallery' => getGalleryFromUrl($row[7]) ?? null,
-                'meta_title' => Str::limit($row['nom'], 60),
+                'meta_title'       => Str::limit($row['nom'], 60),
                 'meta_description' => Str::limit($row['description'], 160),
-                'meta_keywords' => Str::limit($row['nom'], 60),
-                'status' => 0,
+                'meta_keywords'    => Str::limit($row['nom'], 60),
+                'status'           => 0,
             ]);
         }
     }

@@ -21,7 +21,7 @@ class Index extends Component
     use LivewireAlert;
 
     public $listeners = [
-        'refreshIndex' => '$refresh', 'showModal', 'editModal',
+        'refreshIndex' => '$refresh', 'delete',
     ];
 
     public $showModal = false;
@@ -29,8 +29,6 @@ class Index extends Component
     public $user;
 
     public $role;
-
-    public $editModal = false;
 
     public int $perPage;
 
@@ -42,16 +40,14 @@ class Index extends Component
 
     public array $paginationOptions;
 
-    public $refreshIndex;
-
     public array $rules = [
-        'user.name' => 'required|string|max:255',
-        'user.email' => 'required|email|unique:users,email',
-        'user.password' => 'required|string|min:8',
-        'user.phone' => 'required|numeric',
-        'user.city' => 'nullable',
-        'user.country' => 'nullable',
-        'user.address' => 'nullable',
+        'user.name'       => 'required|string|max:255',
+        'user.email'      => 'required|email|unique:users,email',
+        'user.password'   => 'required|string|min:8',
+        'user.phone'      => 'required|numeric',
+        'user.city'       => 'nullable',
+        'user.country'    => 'nullable',
+        'user.address'    => 'nullable',
         'user.tax_number' => 'nullable',
     ];
 
@@ -101,8 +97,8 @@ class Index extends Component
         abort_if(Gate::denies('user_access'), 403);
 
         $query = User::with('roles')->advancedFilter([
-            's' => $this->search ?: null,
-            'order_column' => $this->sortBy,
+            's'               => $this->search ?: null,
+            'order_column'    => $this->sortBy,
             'order_direction' => $this->sortDirection,
         ]);
 
@@ -146,29 +142,5 @@ class Index extends Component
         $this->user = $user;
 
         $this->showModal = true;
-    }
-
-    public function editModal(User $user)
-    {
-        // abort_if(Gate::denies('user_edit'), 403);
-
-        $this->resetErrorBag();
-
-        $this->resetValidation();
-
-        $this->user = $user;
-
-        $this->editModal = true;
-    }
-
-    public function update()
-    {
-        $this->validate();
-
-        $this->user->save();
-
-        $this->alert('success', __('User Updated Successfully'));
-
-        $this->editModal = false;
     }
 }

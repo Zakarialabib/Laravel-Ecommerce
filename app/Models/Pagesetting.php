@@ -11,11 +11,11 @@ class Pagesetting extends Model
     public $table = 'pagesettings';
 
     protected $fillable = [
-        'topbar', 'bottombar', 'topheader', 'bottomfooter', 
+        'topbar', 'bottombar', 'topheader', 'bottomfooter',
         'popular_products', 'flash_deal', 'deal_of_the_day', 'best_sellers',
         'brands', 'top_big_trending', 'top_brand', // bool
         'component',
-        'status', 
+        'status',
         'featured_banner_id',
         'page_id',
         'language_id',

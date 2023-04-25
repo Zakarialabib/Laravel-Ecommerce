@@ -36,6 +36,7 @@ class Helpers
             ->select('id', 'name')
             ->get();
     }
+
     public static function getActiveBrands()
     {
         return Brand::active()
@@ -85,8 +86,8 @@ class Helpers
         }
 
         $image = file_get_contents($image);
-        $name = Str::random(10) . '.jpg';
-        $path = public_path() . '/images/products/' . $name;
+        $name = Str::random(10).'.jpg';
+        $path = public_path().'/images/products/'.$name;
         file_put_contents($path, $image);
 
         return $name;
@@ -105,10 +106,11 @@ class Helpers
         }
 
         $gallery = explode(',', $gallery);
+
         return array_map(function ($image) {
             $image = file_get_contents($image);
-            $name = Str::random(10) . '.jpg';
-            $path = public_path() . '/images/products/' . $name;
+            $name = Str::random(10).'.jpg';
+            $path = public_path().'/images/products/'.$name;
             file_put_contents($path, $image);
 
             return $name;
@@ -124,18 +126,19 @@ class Helpers
     public static function createSubcategories($subcategories, $category)
     {
         $subcategoryIds = [];
+
         foreach (explode(',', $subcategories) as $subcategory) {
             $subcategoryModel = Subcategory::create([
-                'name' => trim($subcategory),
-                'slug' => Str::slug($subcategory, '-'),
+                'name'        => trim($subcategory),
+                'slug'        => Str::slug($subcategory, '-'),
                 'category_id' => Category::where('name', $category)->first()->id,
-                'language' => '3',
+                'language'    => '3',
             ]);
             $subcategoryIds[] = $subcategoryModel->id;
         }
+
         return $subcategoryIds;
     }
-
 
     /**
      * @param mixed $brand
@@ -161,7 +164,7 @@ class Helpers
      */
     public static function format_currency($value, $format = true)
     {
-        if (!$format) {
+        if ( ! $format) {
             return $value;
         }
 
@@ -170,13 +173,13 @@ class Helpers
         $symbol = $currency->symbol;
 
         return $position === 'prefix'
-            ? $symbol . number_format((float) $value, 2, '.', ',')
-            : number_format((float) $value, 2, '.', ',') . $symbol;
+            ? $symbol.number_format((float) $value, 2, '.', ',')
+            : number_format((float) $value, 2, '.', ',').$symbol;
     }
 
     public static function handleUpload($image, $width, $height, $productName)
     {
-        $imageName = Str::slug($productName) . '-' . Str::random(5) . '.' . $image->extension();
+        $imageName = Str::slug($productName).'-'.Str::random(5).'.'.$image->extension();
 
         $img = Image::make($image->getRealPath())->encode('webp', 85);
 
@@ -201,7 +204,7 @@ class Helpers
 
         $img->stream();
 
-        Storage::disk('local_files')->put('products/' . $imageName, $img, 'public');
+        Storage::disk('local_files')->put('products/'.$imageName, $img, 'public');
 
         return $imageName;
     }

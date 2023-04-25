@@ -63,11 +63,11 @@ class Index extends Component
     ];
 
     protected $rules = [
-        'featuredbanner.title' => ['required', 'string', 'max:255'],
-        'featuredbanner.details' => ['nullable', 'string'],
-        'featuredbanner.link' => ['nullable', 'string'],
-        'featuredbanner.product_id' => ['nullable', 'integer'],
-        'featuredbanner.language_id' => ['nullable', 'integer'],
+        'featuredbanner.title'         => ['required', 'string', 'max:255'],
+        'featuredbanner.details'       => ['nullable', 'string'],
+        'featuredbanner.link'          => ['nullable', 'string'],
+        'featuredbanner.product_id'    => ['nullable', 'integer'],
+        'featuredbanner.language_id'   => ['nullable', 'integer'],
         'featuredbanner.embeded_video' => ['nullable'],
     ];
 
@@ -104,8 +104,8 @@ class Index extends Component
     public function render(): View|Factory
     {
         $query = FeaturedBanner::advancedFilter([
-            's' => $this->search ?: null,
-            'order_column' => $this->sortBy,
+            's'               => $this->search ?: null,
+            'order_column'    => $this->sortBy,
             'order_direction' => $this->sortDirection,
         ]);
 

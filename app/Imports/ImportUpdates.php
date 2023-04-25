@@ -13,7 +13,7 @@ class ImportUpdates implements ToModel
     {
         $product = Product::where('code', $row[0])->first();
 
-        if (! $product) {
+        if ( ! $product) {
             return null;
         }
 

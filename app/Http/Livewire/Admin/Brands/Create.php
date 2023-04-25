@@ -33,7 +33,7 @@ class Create extends Component
     public $listeners = ['createBrand'];
 
     public array $rules = [
-        'brand.name' => ['required', 'string', 'max:255'],
+        'brand.name'        => ['required', 'string', 'max:255'],
         'brand.description' => ['nullable', 'string'],
     ];
 

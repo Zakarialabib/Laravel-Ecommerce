@@ -30,16 +30,16 @@ class Create extends Component
     ];
 
     public array $rules = [
-        'section.language_id' => ['required'],
-        'section.page' => ['required'],
-        'section.title' => ['required', 'string', 'max:255'],
+        'section.language_id'    => ['required'],
+        'section.page'           => ['required'],
+        'section.title'          => ['required', 'string', 'max:255'],
         'section.featured_title' => ['nullable', 'string', 'max:255'],
-        'section.subtitle' => ['nullable', 'string', 'max:255'],
-        'section.label' => ['nullable', 'string', 'max:255'],
-        'section.description' => ['nullable'],
-        'section.bg_color' => ['nullable'],
-        'section.position' => ['nullable'],
-        'section.link' => ['nullable'],
+        'section.subtitle'       => ['nullable', 'string', 'max:255'],
+        'section.label'          => ['nullable', 'string', 'max:255'],
+        'section.description'    => ['nullable'],
+        'section.bg_color'       => ['nullable'],
+        'section.position'       => ['nullable'],
+        'section.link'           => ['nullable'],
     ];
 
     public function createSection()
@@ -52,7 +52,6 @@ class Create extends Component
 
         $this->createSection = true;
     }
-
 
     public function render(): View|Factory
     {

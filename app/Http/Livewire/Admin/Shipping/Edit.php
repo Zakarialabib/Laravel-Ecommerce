@@ -25,24 +25,19 @@ class Edit extends Component
     ];
 
     public array $rules = [
-        'shipping.is_pickup' => ['nullable'],
-        'shipping.title' => ['required', 'string', 'max:255'],
-        'shipping.subtitle' => ['nullable', 'string'],
-        'shipping.cost' => ['required', 'string'],
+        'shipping.is_pickup' => ['integer'],
+        'shipping.title'     => ['required', 'string', 'max:255'],
+        'shipping.subtitle'  => ['nullable', 'string'],
+        'shipping.cost'      => ['required', 'string'],
         // 'shipping.language_id' => ['required', 'integer'],
     ];
-
-    public function mount(Shipping $shipping)
-    {
-        $this->shipping = $shipping;
-    }
 
     public function render(): View|Factory
     {
         return view('livewire.admin.shipping.edit');
     }
 
-    public function editModal(Shipping $shipping)
+    public function editModal($shipping)
     {
         // abort_if(Gate::denies('shipping_update'), 403);
 
@@ -50,7 +45,7 @@ class Edit extends Component
 
         $this->resetValidation();
 
-        $this->shipping = $shipping;
+        $this->shipping = Shipping::findOrFail($shipping);
 
         $this->editModal = true;
     }

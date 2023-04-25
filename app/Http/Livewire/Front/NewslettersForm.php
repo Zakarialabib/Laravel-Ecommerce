@@ -12,6 +12,7 @@ use Illuminate\Contracts\View\View;
 use Illuminate\Support\Facades\Mail;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Livewire\Component;
+use Throwable;
 
 class NewslettersForm extends Component
 {
@@ -53,7 +54,7 @@ class NewslettersForm extends Component
             $user_email = $user->email;
 
             Mail::to($user_email)->send(new SubscribedMail());
-        } catch (\Throwable $th) {
+        } catch (Throwable $th) {
             $this->alert('error', __('Error').$th->getMessage());
         }
     }

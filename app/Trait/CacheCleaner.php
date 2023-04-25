@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Trait;
 
 use Illuminate\Support\Facades\Artisan;

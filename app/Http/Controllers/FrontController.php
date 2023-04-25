@@ -14,6 +14,7 @@ use App\Models\Subcategory;
 use App\Models\User;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Log;
+use Throwable;
 
 class FrontController extends Controller
 {
@@ -31,7 +32,7 @@ class FrontController extends Controller
 
     public function productShow($slug)
     {
-        $product = Product::where('slug', $slug)->first() ?? abort(404);;
+        $product = Product::where('slug', $slug)->first() ?? abort(404);
 
         return view('front.product', compact('product'));
     }
@@ -43,7 +44,7 @@ class FrontController extends Controller
 
     public function categoryPage($slug)
     {
-        $category = Category::where('slug', $slug)->first() ?? abort(404);;
+        $category = Category::where('slug', $slug)->first() ?? abort(404);
 
         return view('front.category-page', compact('category'));
     }
@@ -55,7 +56,7 @@ class FrontController extends Controller
 
      public function SubcategoryPage($slug)
      {
-         $subcategory = Subcategory::where('slug', $slug)->first() ?? abort(404);;
+         $subcategory = Subcategory::where('slug', $slug)->first() ?? abort(404);
 
          return view('front.subcategory-page', compact('subcategory'));
      }
@@ -67,7 +68,7 @@ class FrontController extends Controller
 
     public function brandPage($slug)
     {
-        $brand = Brand::where('slug', $slug)->first() ?? abort(404);;
+        $brand = Brand::where('slug', $slug)->first() ?? abort(404);
 
         return view('front.brand-page', compact('brand'));
     }
@@ -101,7 +102,7 @@ class FrontController extends Controller
 
     public function blogPage($slug)
     {
-        $blog = Blog::where('slug', $slug)->first() ?? abort(404);;
+        $blog = Blog::where('slug', $slug)->first() ?? abort(404);
 
         return view('front.blog-page', compact('blog'));
     }
@@ -114,7 +115,8 @@ class FrontController extends Controller
 
     public function dynamicPage($slug)
     {
-        $page = Page::where('slug', $slug)->first() ?? abort(404);;
+        $page = Page::where('slug', $slug)->first() ?? abort(404);
+
         return view('front.dynamic-page', compact('page'));
     }
 
@@ -133,7 +135,7 @@ class FrontController extends Controller
             Log::info('Sitemap generated successfully!');
 
             return back();
-        } catch (\Throwable $th) {
+        } catch (Throwable $th) {
             Log::info('Sitemap generation failed!', $th->getMessage());
 
             return back();

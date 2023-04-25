@@ -30,12 +30,12 @@ class Create extends Component
     public array $listsForFields = [];
 
     protected $rules = [
-        'blog.title' => 'required|min:3|max:255',
+        'blog.title'       => 'required|min:3|max:255',
         'blog.category_id' => 'required|integer',
-        'blog.details' => 'required|min:3',
+        'blog.details'     => 'required|min:3',
         'blog.language_id' => 'nullable|integer',
-        'blog.meta_title' => 'nullable|max:100',
-        'blog.meta_desc' => 'nullable|max:200',
+        'blog.meta_title'  => 'nullable|max:100',
+        'blog.meta_desc'   => 'nullable|max:200',
     ];
 
     public function mount(Blog $blog)

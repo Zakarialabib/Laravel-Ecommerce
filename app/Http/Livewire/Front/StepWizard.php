@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Livewire\Front;
 
 use App\Models\Brand;
@@ -51,6 +53,7 @@ class StepWizard extends Component
         $this->brand_id = $brand_id;
         $this->nextStep();
     }
+
     public function updatedMinPrice($value)
     {
         $this->minPrice = $value;
@@ -72,15 +75,19 @@ class StepWizard extends Component
         switch($filter) {
             case 'category_id':
                 $this->category_id = null;
+
                 break;
             case 'subcategory_id':
                 $this->subcategory_id = null;
+
                 break;
             case 'brand_id':
                 $this->brand_id = null;
+
                 break;
             case 'giftOrSelf':
                 $this->giftOrSelf = null;
+
                 break;
         }
         $this->emit('resetPage');
@@ -122,8 +129,8 @@ class StepWizard extends Component
         }
 
         return view('livewire.front.step-wizard', [
-            'products' => $products->get(),
-            'totalSteps' => 6,
+            'products'    => $products->get(),
+            'totalSteps'  => 6,
             'currentStep' => $this->step,
         ]);
     }

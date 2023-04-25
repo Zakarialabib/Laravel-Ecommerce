@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 
@@ -19,7 +21,7 @@ class CreateFirewallIpsTable extends Migration
             $table->boolean('blocked')->default(1);
             $table->timestamps();
             $table->softDeletes();
-            
+
             $table->index('ip');
         });
     }

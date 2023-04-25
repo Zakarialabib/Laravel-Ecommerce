@@ -29,7 +29,7 @@ class Popups extends Component
 
     public string $ctaUrl;
 
-    protected $listeners = ['showDelay','showDuration','showInterval'];
+    protected $listeners = ['showDelay', 'showDuration', 'showInterval'];
 
     public function showDelay($delay)
     {

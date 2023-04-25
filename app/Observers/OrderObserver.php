@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Observers;
 
 use App\Models\User;
@@ -50,7 +52,7 @@ class OrderObserver
      */
     public function deleted(Order $order)
     {
-        //
+
     }
 
     /**
@@ -61,7 +63,7 @@ class OrderObserver
      */
     public function restored(Order $order)
     {
-        //
+
     }
 
     /**
@@ -72,6 +74,6 @@ class OrderObserver
      */
     public function forceDeleted(Order $order)
     {
-        //
+
     }
 }

@@ -10,7 +10,6 @@ use Illuminate\Support\Facades\Auth;
 
 class AuthController extends Controller
 {
-
     public function login(Request $request)
     {
         $credentials = $request->only('email', 'password');
@@ -18,12 +17,12 @@ class AuthController extends Controller
         if (Auth::attempt($credentials)) {
             $user = Auth::user();
             $token = $user->createToken('inventory', ['read', 'write']);
+
             return response()->json(['api_token' => $token->plainTextToken]);
         } else {
             return response()->json(['error' => 'Invalid login credentials'], 401);
         }
     }
-
 
     /**
      * Display a listing of the resource.
@@ -32,7 +31,7 @@ class AuthController extends Controller
      */
     public function index()
     {
-        //
+
     }
 
     /**
@@ -43,7 +42,7 @@ class AuthController extends Controller
      */
     public function store(Request $request)
     {
-        //
+
     }
 
     /**
@@ -54,7 +53,7 @@ class AuthController extends Controller
      */
     public function show($id)
     {
-        //
+
     }
 
     /**
@@ -66,7 +65,7 @@ class AuthController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+
     }
 
     /**
@@ -77,6 +76,6 @@ class AuthController extends Controller
      */
     public function destroy($id)
     {
-        //
+
     }
 }

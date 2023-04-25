@@ -16,7 +16,7 @@ class SubcategoryPage extends Component
     use WithPagination;
 
     public $listeners = [
-        'load-more' => 'loadMore'
+        'load-more' => 'loadMore',
     ];
 
     public int $perPage = 25;
@@ -34,12 +34,12 @@ class SubcategoryPage extends Component
         $this->subcategory = Subcategory::findOrFail($subcategory->id);
 
         $this->sortingOptions = [
-            'name-asc' => __('Order Alphabetic, A-Z'),
-            'name-desc' => __('Order Alphabetic, Z-A'),
-            'price-asc' => __('Price, low to high'),
+            'name-asc'   => __('Order Alphabetic, A-Z'),
+            'name-desc'  => __('Order Alphabetic, Z-A'),
+            'price-asc'  => __('Price, low to high'),
             'price-desc' => __('Price, high to low'),
-            'date-asc' => __('Date, new to old'),
-            'date-desc' => __('Date, old to new'),
+            'date-asc'   => __('Date, new to old'),
+            'date-desc'  => __('Date, old to new'),
         ];
     }
 
@@ -51,8 +51,8 @@ class SubcategoryPage extends Component
     public function render(): View|Factory
     {
         $query = Product::active()
-            ->where('subcategories', 'like', '%"' . $this->subcategory->id . '"%');
-            
+            ->where('subcategories', 'like', '%"'.$this->subcategory->id.'"%');
+
         if ($this->sorting === 'name') {
             $query->orderBy('name', 'asc');
         } elseif ($this->sorting === 'name-desc') {
@@ -68,7 +68,7 @@ class SubcategoryPage extends Component
         }
 
         $products = $query->paginate($this->perPage);
-        
+
         return view('livewire.front.subcategory-page', [
             'products' => $products,
         ]);

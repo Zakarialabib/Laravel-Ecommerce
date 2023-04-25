@@ -1,10 +1,10 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Livewire\Admin\Settings;
 
-use App\Models\Product;
 use Livewire\Component;
-use Illuminate\Support\Facades\Http;
 
 class ApiToken extends Component
 {
@@ -15,7 +15,7 @@ class ApiToken extends Component
     public function createToken()
     {
         $this->resetErrorBag();
-        
+
         $this->token = auth()->user()->createToken('api-token')->plainTextToken;
     }
 

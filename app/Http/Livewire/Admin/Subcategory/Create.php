@@ -27,7 +27,7 @@ class Create extends Component
     public $subcategory;
 
     public array $rules = [
-        'subcategory.name' => ['required', 'string', 'max:255'],
+        'subcategory.name'        => ['required', 'string', 'max:255'],
         'subcategory.category_id' => ['nullable', 'integer'],
         'subcategory.language_id' => ['nullable'],
     ];
@@ -59,7 +59,7 @@ class Create extends Component
         $this->subcategory->save();
 
         $this->alert('success', __('Subcategory created successfully.'));
-        
+
         $this->emit('refreshIndex');
 
         $this->createSubcategory = false;

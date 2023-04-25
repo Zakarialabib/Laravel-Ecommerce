@@ -19,32 +19,32 @@ class DashboardController extends Controller
     {
         $customData = [
             'today' => [
-                'countCustomers' => User::whereDate('created_at', '>=', Carbon::now())->count(),
-                'ordersCount' => Order::whereDate('created_at', '>=', Carbon::now())->count(),
-                'orderPending' => Order::where('status', '=', 1)->whereDate('created_at', '>=', Carbon::now())->count(),
+                'countCustomers'  => User::whereDate('created_at', '>=', Carbon::now())->count(),
+                'ordersCount'     => Order::whereDate('created_at', '>=', Carbon::now())->count(),
+                'orderPending'    => Order::where('status', '=', 1)->whereDate('created_at', '>=', Carbon::now())->count(),
                 'orderProcessing' => Order::where('status', '=', 2)->whereDate('created_at', '>=', Carbon::now())->count(),
-                'orderCompleted' => Order::where('status', '=', 3)->whereDate('created_at', '>=', Carbon::now())->count(),
+                'orderCompleted'  => Order::where('status', '=', 3)->whereDate('created_at', '>=', Carbon::now())->count(),
             ],
             'month' => [
-                'countCustomers' => User::whereDate('created_at', '>=', Carbon::now()->subMonth())->count(),
-                'ordersCount' => Order::whereDate('created_at', '>=', Carbon::now()->subMonth())->count(),
-                '$orderPending' => Order::where('status', '=', 1)->whereDate('created_at', '>=', Carbon::now()->subMonth())->count(),
+                'countCustomers'  => User::whereDate('created_at', '>=', Carbon::now()->subMonth())->count(),
+                'ordersCount'     => Order::whereDate('created_at', '>=', Carbon::now()->subMonth())->count(),
+                '$orderPending'   => Order::where('status', '=', 1)->whereDate('created_at', '>=', Carbon::now()->subMonth())->count(),
                 'orderProcessing' => Order::where('status', '=', 2)->whereDate('created_at', '>=', Carbon::now()->subMonth())->count(),
-                'orderCompleted' => Order::where('status', '=', 3)->whereDate('created_at', '>=', Carbon::now()->subMonth())->count(),
+                'orderCompleted'  => Order::where('status', '=', 3)->whereDate('created_at', '>=', Carbon::now()->subMonth())->count(),
             ],
             'semi' => [
-                'countCustomers' => User::whereDate('created_at', '>=', Carbon::now()->subMonths(6))->count(),
-                'ordersCount' => Order::whereDate('created_at', '>=', Carbon::now()->subMonths(6))->count(),
-                'orderPending' => Order::where('status', '=', 1)->whereDate('created_at', '>=', Carbon::now()->subMonths(6))->count(),
+                'countCustomers'  => User::whereDate('created_at', '>=', Carbon::now()->subMonths(6))->count(),
+                'ordersCount'     => Order::whereDate('created_at', '>=', Carbon::now()->subMonths(6))->count(),
+                'orderPending'    => Order::where('status', '=', 1)->whereDate('created_at', '>=', Carbon::now()->subMonths(6))->count(),
                 'orderProcessing' => Order::where('status', '=', 2)->whereDate('created_at', '>=', Carbon::now()->subMonths(6))->count(),
-                'orderCompleted' => Order::where('status', '=', 3)->whereDate('created_at', '>=', Carbon::now()->subMonths(6))->count(),
+                'orderCompleted'  => Order::where('status', '=', 3)->whereDate('created_at', '>=', Carbon::now()->subMonths(6))->count(),
             ],
             'year' => [
-                'countCustomers' => User::whereDate('created_at', '>=', Carbon::now()->subYear())->count(),
-                'ordersCount' => Order::whereDate('created_at', '>=', Carbon::now()->subYear())->count(),
-                'orderPending' => Order::where('status', '=', 1)->whereDate('created_at', '>=', Carbon::now()->subYear())->count(),
+                'countCustomers'  => User::whereDate('created_at', '>=', Carbon::now()->subYear())->count(),
+                'ordersCount'     => Order::whereDate('created_at', '>=', Carbon::now()->subYear())->count(),
+                'orderPending'    => Order::where('status', '=', 1)->whereDate('created_at', '>=', Carbon::now()->subYear())->count(),
                 'orderProcessing' => Order::where('status', '=', 2)->whereDate('created_at', '>=', Carbon::now()->subYear())->count(),
-                'orderCompleted' => Order::where('status', '=', 3)->whereDate('created_at', '>=', Carbon::now()->subYear())->count(),
+                'orderCompleted'  => Order::where('status', '=', 3)->whereDate('created_at', '>=', Carbon::now()->subYear())->count(),
             ],
         ];
 

@@ -19,12 +19,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-
-require __DIR__ . '/auth.php';
-require __DIR__ . '/admin.php';
+require __DIR__.'/auth.php';
+require __DIR__.'/admin.php';
 
 Route::group(['middleware' => 'firewall.all'], function () {
-    
     Route::get('/', [FrontController::class, 'index'])->name('front.index');
     Route::get('/catalog', [FrontController::class, 'catalog'])->name('front.catalog');
     Route::get('/categories', [FrontController::class, 'categories'])->name('front.categories');

@@ -33,7 +33,10 @@
                 @include('components.table.sort', ['field' => 'name'])
             </x-table.th>
             <x-table.th>
-                {{ __('Category') }}
+                {{ __('Price') }}
+            </x-table.th>
+            <x-table.th>
+                {{ __('Is pickup') }}
             </x-table.th>
 
             <x-table.th>
@@ -47,7 +50,8 @@
                         <input type="checkbox" value="{{ $shipping->id }}" wire:model="selected">
                     </x-table.td>
                     <x-table.td>
-                        {{ $shipping->title }}
+                        {{ $shipping->title }} <br>
+                        <small>{{ $shipping->subtitle }}</small>
                     </x-table.td>
                     <x-table.td>
                         {{ $shipping->cost }}
@@ -96,8 +100,9 @@
         </div>
     </div>
 
-
-    <livewire:admin.shipping.edit />
+    @if ($editModal)
+        @livewire('admin.shipping.edit', ['shipping' => $shipping])
+    @endif
 
     <livewire:admin.shipping.create />
 </div>
@@ -107,13 +112,13 @@
         document.addEventListener('livewire:load', function() {
             window.livewire.on('deleteModal', categoryId => {
                 Swal.fire({
-                    title: __("Are you sure?") ,
-                    text: __("You won't be able to revert this!") ,
+                    title: __("Are you sure?"),
+                    text: __("You won't be able to revert this!"),
                     icon: 'warning',
                     showCancelButton: true,
                     confirmButtonColor: '#3085d6',
                     cancelButtonColor: '#d33',
-                    confirmButtonText: __("Yes, delete it!") 
+                    confirmButtonText: __("Yes, delete it!")
                 }).then((result) => {
                     if (result.isConfirmed) {
                         window.livewire.emit('delete', categoryId)

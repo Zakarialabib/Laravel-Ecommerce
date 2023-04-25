@@ -80,8 +80,8 @@ class Index extends Component
     public function render(): View|Factory
     {
         $query = Shipping::advancedFilter([
-            's' => $this->search ?: null,
-            'order_column' => $this->sortBy,
+            's'               => $this->search ?: null,
+            'order_column'    => $this->sortBy,
             'order_direction' => $this->sortDirection,
         ]);
 

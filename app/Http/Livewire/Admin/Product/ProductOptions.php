@@ -6,7 +6,6 @@ namespace App\Http\Livewire\Admin\Product;
 
 use Livewire\Component;
 use Illuminate\Contracts\View\View;
-use Illuminate\Support\Facades\Gate;
 
 class ProductOptions extends Component
 {
@@ -17,7 +16,7 @@ class ProductOptions extends Component
         $options = [];
 
         foreach ($options as $option) {
-            if (!empty($option['type']) && !empty($option['value'])) {
+            if ( ! empty($option['type']) && ! empty($option['value'])) {
                 $this->options[] = $option;
             }
         }
@@ -28,7 +27,7 @@ class ProductOptions extends Component
     public function addOption()
     {
         $this->options[] = [
-            'type' => '',
+            'type'  => '',
             'value' => '',
         ];
     }
@@ -41,12 +40,11 @@ class ProductOptions extends Component
 
     public function mount()
     {
-
         $this->options = [
             [
-                'type' => '',
+                'type'  => '',
                 'value' => '',
-            ]
+            ],
         ];
     }
 

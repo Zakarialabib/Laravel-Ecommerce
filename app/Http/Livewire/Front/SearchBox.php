@@ -22,7 +22,7 @@ class SearchBox extends Component
     protected $queryString = [
         'search' => [
             'except' => '',
-            'as' => 'q',
+            'as'     => 'q',
         ],
     ];
 

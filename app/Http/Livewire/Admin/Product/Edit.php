@@ -43,28 +43,28 @@ class Edit extends Component
     public $listeners = [
         'optionUpdated' => 'updatedOptions',
         'editModal',
-        Quill::EVENT_VALUE_UPDATED
+        Quill::EVENT_VALUE_UPDATED,
     ];
 
     protected $rules = [
-        'product.code' => ['nullable'],
-        'product.slug' => ['nullable'],
-        'product.name' => ['required', 'string', 'max:255'],
-        'product.price' => ['required', 'numeric', 'max:2147483647'],
-        'product.old_price' => ['nullable', 'numeric', 'max:2147483647'],
-        'product.description' => ['nullable'],
-        'product.meta_title' => ['nullable', 'string', 'max:255'],
+        'product.code'             => ['nullable'],
+        'product.slug'             => ['nullable'],
+        'product.name'             => ['required', 'string', 'max:255'],
+        'product.price'            => ['required', 'numeric', 'max:2147483647'],
+        'product.old_price'        => ['nullable', 'numeric', 'max:2147483647'],
+        'product.description'      => ['nullable'],
+        'product.meta_title'       => ['nullable', 'string', 'max:255'],
         'product.meta_description' => ['nullable', 'string', 'max:255'],
-        'product.meta_keywords' => ['nullable', 'string', 'min:1'],
-        'product.category_id' => ['required', 'integer'],
-        'product.subcategories' => ['required', 'array', 'min:1'],
-        'product.subcategories.*' => ['integer', 'distinct:strict'],
-        'options' => ['array'],
-        'options.*.type' => ['required', 'string'],
-        'options.*.value' => ['required', 'string'],
-        'product.brand_id' => ['nullable', 'integer'],
-        'product.embeded_video' => ['nullable'],
-        'product.condition' => ['nullable'],
+        'product.meta_keywords'    => ['nullable', 'string', 'min:1'],
+        'product.category_id'      => ['required', 'integer'],
+        'product.subcategories'    => ['required', 'array', 'min:1'],
+        'product.subcategories.*'  => ['integer', 'distinct:strict'],
+        'options'                  => ['array'],
+        'options.*.type'           => ['required', 'string'],
+        'options.*.value'          => ['required', 'string'],
+        'product.brand_id'         => ['nullable', 'integer'],
+        'product.embeded_video'    => ['nullable'],
+        'product.condition'        => ['nullable'],
     ];
 
     public function quill_value_updated($value)
@@ -116,7 +116,7 @@ class Edit extends Component
         $this->description = $this->product->description;
 
         $this->options = $this->product->options ?? [['type' => '', 'value' => '']];
-        
+
         $this->editModal = true;
     }
 
@@ -142,7 +142,7 @@ class Edit extends Component
 
             $this->product->gallery = json_encode($gallery);
         }
-        
+
         $this->product->options = $this->options;
 
         $this->product->save();

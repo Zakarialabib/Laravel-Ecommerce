@@ -26,12 +26,12 @@ class Create extends Component
     public $listeners = ['createPage'];
 
     public array $rules = [
-        'page.title' => ['required', 'string', 'max:255'],
-        'page.slug' => ['required', 'unique:pages', 'max:255'],
-        'page.details' => ['required'],
-        'page.meta_title' => ['nullable|max:255'],
+        'page.title'            => ['required', 'string', 'max:255'],
+        'page.slug'             => ['required', 'unique:pages', 'max:255'],
+        'page.details'          => ['required'],
+        'page.meta_title'       => ['nullable|max:255'],
         'page.meta_description' => ['nullable|max:255'],
-        'page.language_id' => ['nullable'],
+        'page.language_id'      => ['nullable'],
     ];
 
     public function render(): View|Factory

@@ -19,7 +19,7 @@ class Categories extends Component
     use WithSorting;
 
     public $listeners = [
-        'load-more' => 'loadMore'
+        'load-more' => 'loadMore',
     ];
 
     public int $perPage;
@@ -39,9 +39,9 @@ class Categories extends Component
     public $selectedFilters = [];
 
     protected $queryString = [
-        'category_id' => ['except' => '', 'as' => 'c'],
+        'category_id'    => ['except' => '', 'as' => 'c'],
         'subcategory_id' => ['except' => '', 'as' => 's'],
-        'sorting' => ['except' => '', 'as' => 'f'],
+        'sorting'        => ['except' => '', 'as' => 'f'],
     ];
 
     public function updatingPerPage()
@@ -80,10 +80,12 @@ class Categories extends Component
             case 'subcategory':
                 $this->subcategory_id = null;
                 unset($this->selectedFilters['subcategory']);
+
                 break;
             case 'brand':
                 $this->brand_id = null;
                 unset($this->selectedFilters['brand']);
+
                 break;
         }
         $this->resetPage();
@@ -94,12 +96,12 @@ class Categories extends Component
         $this->perPage = 25;
         $this->paginationOptions = [25, 50, 100];
         $this->sortingOptions = [
-            'name-asc' => __('Order Alphabetic, A-Z'),
-            'name-desc' => __('Order Alphabetic, Z-A'),
-            'price-asc' => __('Price, low to high'),
+            'name-asc'   => __('Order Alphabetic, A-Z'),
+            'name-desc'  => __('Order Alphabetic, Z-A'),
+            'price-asc'  => __('Price, low to high'),
             'price-desc' => __('Price, high to low'),
-            'date-asc' => __('Date, new to old'),
-            'date-desc' => __('Date, old to new'),
+            'date-asc'   => __('Date, new to old'),
+            'date-desc'  => __('Date, old to new'),
         ];
     }
 

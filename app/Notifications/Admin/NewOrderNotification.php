@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Notifications\Admin;
 
 use App\Enums\NotificationType;
@@ -9,11 +11,10 @@ use Illuminate\Notifications\Notification;
 
 class NewOrderNotification extends Notification
 {
-    use Queueable, MakeNotification;
+    use Queueable;
+    use MakeNotification;
 
-    /**
-     * New order instance
-     */
+    /** New order instance */
     private $order;
 
     /**
@@ -48,10 +49,10 @@ class NewOrderNotification extends Notification
     public function toArray($notifiable)
     {
         return $this->make([
-            'title' => "__('A new order placed')",
+            'title'    => "__('A new order placed')",
             'subtitle' => "__('Customer Name'): {$this->order->customer->name}",
-            'link' => "/admin/orders/{$this->order->id}",
-            'type' => NotificationType::INFO(),
+            'link'     => "/admin/orders/{$this->order->id}",
+            'type'     => NotificationType::INFO(),
         ]);
     }
 }

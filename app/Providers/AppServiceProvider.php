@@ -45,7 +45,7 @@ class AppServiceProvider extends ServiceProvider
     /** @return \App\Models\Language|\Illuminate\Database\Eloquent\Model|array|null */
     private function getLanguages()
     {
-        if (! Schema::hasTable('languages')) {
+        if ( ! Schema::hasTable('languages')) {
             return;
         }
 

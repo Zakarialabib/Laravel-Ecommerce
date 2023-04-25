@@ -22,13 +22,13 @@ return new class () extends Migration {
             $table->string('bottomBar')->nullable();
             $table->string('topHeader')->nullable();
             $table->string('bottomFooter')->nullable();
-            
+
             $table->boolean('themeColor')->default(false);
             $table->boolean('popularProducts')->default(false);
             $table->boolean('flashDeal')->default(false);
             $table->boolean('bestSellers')->default(false);
             $table->boolean('topBrands')->default(false);
-            
+
             $table->string('status')->default(true);
             $table->foreignId('featured_banner_id')->nullable()->constrained('featured_banners')->nullOnDelete();
             $table->foreignId('page_id')->nullable()->constrained('pages')->nullOnDelete();

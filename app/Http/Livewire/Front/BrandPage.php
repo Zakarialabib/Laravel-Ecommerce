@@ -18,17 +18,17 @@ class BrandPage extends Component
     use WithPagination;
 
     public $listeners = [
-        'load-more' => 'loadMore'
-   ];
+        'load-more' => 'loadMore',
+    ];
 
     public int $perPage;
 
     public array $paginationOptions;
-    
+
     public array $sortingOptions;
 
     public $brand;
-    
+
     public $sorting;
 
     public $category_id;
@@ -38,8 +38,6 @@ class BrandPage extends Component
     public $filterProductCategories;
 
     public $filterProductSubcategories;
-
-  
 
     public function filterProductCategories($category_id)
     {
@@ -59,23 +57,23 @@ class BrandPage extends Component
         $this->perPage = 25;
         $this->paginationOptions = [25, 50, 100];
         $this->sortingOptions = [
-            'name-asc' => __('Order Alphabetic, A-Z'),
-            'name-desc' => __('Order Alphabetic, Z-A'),
-            'price-asc' => __('Price, low to high'),
+            'name-asc'   => __('Order Alphabetic, A-Z'),
+            'name-desc'  => __('Order Alphabetic, Z-A'),
+            'price-asc'  => __('Price, low to high'),
             'price-desc' => __('Price, high to low'),
-            'date-asc' => __('Date, new to old'),
-            'date-desc' => __('Date, old to new'),
+            'date-asc'   => __('Date, new to old'),
+            'date-desc'  => __('Date, old to new'),
         ];
     }
-  
+
     public function loadMore()
     {
         $this->perPage += 25;
-    }    
-  
+    }
+
     public function render(): View|Factory
     {
-       $query = Product::active()
+        $query = Product::active()
             ->where('brand_id', $this->brand->id)
             ->when($this->category_id, function ($query) {
                 return $query->where('category_id', $this->category_id);
@@ -84,27 +82,26 @@ class BrandPage extends Component
                 return $query->where('subcategories', $this->subcategory_id);
             });
 
-            if ($this->sorting === 'name') {
-                $query->orderBy('name', 'asc');
-            } elseif ($this->sorting === 'name-desc') {
-                $query->orderBy('name', 'desc');
-            } elseif ($this->sorting === 'price') {
-                $query->orderBy('price', 'asc');
-            } elseif ($this->sorting === 'price-desc') {
-                $query->orderBy('price', 'desc');
-            } elseif ($this->sorting === 'date') {
-                $query->orderBy('created_at', 'asc');
-            } elseif ($this->sorting === 'date-desc') {
-                $query->orderBy('created_at', 'desc');
-            }
-    
-            $brandproducts = $query->paginate($this->perPage);
+        if ($this->sorting === 'name') {
+            $query->orderBy('name', 'asc');
+        } elseif ($this->sorting === 'name-desc') {
+            $query->orderBy('name', 'desc');
+        } elseif ($this->sorting === 'price') {
+            $query->orderBy('price', 'asc');
+        } elseif ($this->sorting === 'price-desc') {
+            $query->orderBy('price', 'desc');
+        } elseif ($this->sorting === 'date') {
+            $query->orderBy('created_at', 'asc');
+        } elseif ($this->sorting === 'date-desc') {
+            $query->orderBy('created_at', 'desc');
+        }
+
+        $brandproducts = $query->paginate($this->perPage);
 
         $this->emit('productsLoaded', $brandproducts->count());
-        
+
         return view('livewire.front.brand-page', compact('brandproducts'));
     }
-
 
     public function getCategoriesProperty()
     {

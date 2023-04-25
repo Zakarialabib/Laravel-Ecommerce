@@ -45,10 +45,10 @@ class Index extends Component
     public array $listsForFields = [];
 
     public array $rules = [
-        'blogcategory.title' => ['required', 'string', 'max:255'],
+        'blogcategory.title'       => ['required', 'string', 'max:255'],
         'blogcategory.description' => ['nullable'],
-        'blogcategory.meta_title' => ['nullable'],
-        'blogcategory.meta_desc' => ['nullable'],
+        'blogcategory.meta_title'  => ['nullable'],
+        'blogcategory.meta_desc'   => ['nullable'],
         'blogcategory.language_id' => ['required', 'integer'],
     ];
 
@@ -97,8 +97,8 @@ class Index extends Component
     public function render(): View|Factory
     {
         $query = BlogCategory::advancedFilter([
-            's' => $this->search ?: null,
-            'order_column' => $this->sortBy,
+            's'               => $this->search ?: null,
+            'order_column'    => $this->sortBy,
             'order_direction' => $this->sortDirection,
         ]);
 

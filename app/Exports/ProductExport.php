@@ -16,10 +16,12 @@ class ProductExport implements FromView
 
     /** @var mixed */
     protected $models;
+
     public function __construct()
     {
         // Your constructor code here
     }
+
     public function query()
     {
         if ($this->models) {

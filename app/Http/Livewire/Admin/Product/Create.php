@@ -24,9 +24,9 @@ class Create extends Component
 
     public $listeners = [
         'createProduct',
-        Quill::EVENT_VALUE_UPDATED
+        Quill::EVENT_VALUE_UPDATED,
     ];
-    
+
     public $createProduct = false;
 
     public $product;
@@ -34,7 +34,7 @@ class Create extends Component
     public $image;
 
     public $gallery = [];
-    
+
     public $options = [];
 
     public $uploadLink;
@@ -48,24 +48,25 @@ class Create extends Component
     public array $listsForFields = [];
 
     protected $rules = [
-        'product.name' => ['required', 'string', 'max:255'],
-        'product.price' => ['required', 'numeric', 'max:2147483647'],
-        'product.old_price' => ['required', 'numeric', 'max:2147483647'],
-        'description' => ['nullable'],
-        'product.meta_title' => ['nullable', 'string', 'max:255'],
+        'product.name'             => ['required', 'string', 'max:255'],
+        'product.price'            => ['required', 'numeric', 'max:2147483647'],
+        'product.old_price'        => ['required', 'numeric', 'max:2147483647'],
+        'description'              => ['nullable'],
+        'product.meta_title'       => ['nullable', 'string', 'max:255'],
         'product.meta_description' => ['nullable', 'string', 'max:255'],
-        'product.meta_keywords' => ['nullable', 'string', 'min:1'],
-        'product.category_id' => ['required', 'integer'],
-        'product.subcategories' => ['required', 'array', 'min:1'],
-        'product.subcategories.*' => ['integer', 'distinct:strict'],
-        'options.*.type' => ['required', 'string', 'in:color,size'],
-        'options.*.value' => ['required_if:options.*.type,color', 'string'],
-        'product.brand_id' => ['nullable', 'integer'],
-        'product.embeded_video' => ['nullable'],
-        'product.condition' => ['nullable'],
+        'product.meta_keywords'    => ['nullable', 'string', 'min:1'],
+        'product.category_id'      => ['required', 'integer'],
+        'product.subcategories'    => ['required', 'array', 'min:1'],
+        'product.subcategories.*'  => ['integer', 'distinct:strict'],
+        'options.*.type'           => ['required', 'string', 'in:color,size'],
+        'options.*.value'          => ['required_if:options.*.type,color', 'string'],
+        'product.brand_id'         => ['nullable', 'integer'],
+        'product.embeded_video'    => ['nullable'],
+        'product.condition'        => ['nullable'],
     ];
 
-    public function quill_value_updated($value){
+    public function quill_value_updated($value)
+    {
         $this->description = $value;
     }
 
@@ -123,13 +124,13 @@ class Create extends Component
             $gallery = [];
 
             foreach ($this->gallery as $image) {
-                $imageName = Str::slug($this->product->name) . '.' . $image->extension();
+                $imageName = Str::slug($this->product->name).'.'.$image->extension();
                 $image->storeAs('products', $imageName);
                 $gallery[] = $imageName;
             }
             $this->product->gallery = json_encode($gallery);
         }
-        
+
         $this->product->subcategories = $this->subcategories;
         $this->product->subcategories = $this->subcategories;
 

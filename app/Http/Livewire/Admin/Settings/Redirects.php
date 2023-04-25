@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Livewire\Admin\Settings;
 
 use App\Http\Livewire\WithSorting;
@@ -9,7 +11,6 @@ use Illuminate\Contracts\View\View;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Livewire\Component;
 use Livewire\WithPagination;
-use App\Enums\RedirectionStatus;
 
 class Redirects extends Component
 {
@@ -90,7 +91,7 @@ class Redirects extends Component
     public function update()
     {
         $this->validate();
-        
+
         $this->redirect->save();
 
         $this->alert('warning', __('Redirect updated successfully!'));
@@ -110,8 +111,8 @@ class Redirects extends Component
     public function render(): View|Factory
     {
         $query = Redirect::advancedFilter([
-            's' => $this->search ?: null,
-            'order_column' => $this->sortBy,
+            's'               => $this->search ?: null,
+            'order_column'    => $this->sortBy,
             'order_direction' => $this->sortDirection,
         ]);
 

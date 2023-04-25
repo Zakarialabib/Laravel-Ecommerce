@@ -72,13 +72,13 @@ class ProductShow extends Component
              'success',
              __('Product added to cart successfully!'),
              [
-                 'position' => 'center',
-                 'timer' => 3000,
-                 'toast' => true,
-                 'text' => '',
+                 'position'          => 'center',
+                 'timer'             => 3000,
+                 'toast'             => true,
+                 'text'              => '',
                  'confirmButtonText' => 'Ok',
-                 'cancelButtonText' => 'Cancel',
-                 'showCancelButton' => false,
+                 'cancelButtonText'  => 'Cancel',
+                 'showCancelButton'  => false,
                  'showConfirmButton' => false,
              ]
          );

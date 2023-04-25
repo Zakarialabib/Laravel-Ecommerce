@@ -49,12 +49,12 @@ class Template extends Component
     {
         try {
             $page = [
-                'title' => $this->selectedTemplate['title'],
-                'slug' => $this->selectedTemplate['slug'],
-                'details' => $this->selectedTemplate['details'],
-                'meta_title' => $this->selectedTemplate['meta_title'],
+                'title'            => $this->selectedTemplate['title'],
+                'slug'             => $this->selectedTemplate['slug'],
+                'details'          => $this->selectedTemplate['details'],
+                'meta_title'       => $this->selectedTemplate['meta_title'],
                 'meta_description' => $this->selectedTemplate['meta_description'],
-                'photo' => $this->selectedTemplate['image'],
+                'photo'            => $this->selectedTemplate['image'],
             ];
 
             Page::create($page);
