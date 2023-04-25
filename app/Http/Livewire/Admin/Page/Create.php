@@ -11,6 +11,7 @@ use Illuminate\Support\Str;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Livewire\Component;
 use Livewire\WithFileUploads;
+use App\Http\Livewire\Quill;
 
 class Create extends Component
 {
@@ -23,14 +24,24 @@ class Create extends Component
 
     public $image;
 
-    public $listeners = ['createPage'];
+    public $description;
 
-    public array $rules = [
+    public $listeners = [
+        'createPage',
+        Quill::EVENT_VALUE_UPDATED,
+    ];
+
+    public function quill_value_updated($value)
+    {
+        $this->page->details = $value;
+    }
+
+    protected $rules = [
         'page.title'            => ['required', 'string', 'max:255'],
         'page.slug'             => ['required', 'unique:pages', 'max:255'],
         'page.details'          => ['required'],
-        'page.meta_title'       => ['nullable|max:255'],
-        'page.meta_description' => ['nullable|max:255'],
+        'page.meta_title'       => ['nullable', 'max:255'],
+        'page.meta_description' => ['nullable', 'max:255'],
         'page.language_id'      => ['nullable'],
     ];
 

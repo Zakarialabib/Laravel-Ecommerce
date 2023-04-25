@@ -11,6 +11,7 @@ use Illuminate\Support\Str;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Livewire\Component;
 use Livewire\WithFileUploads;
+use App\Http\Livewire\Quill;
 
 class Edit extends Component
 {
@@ -23,21 +24,26 @@ class Edit extends Component
 
     public $image;
 
-    public $listeners = ['editModal'];
+    public $description;
 
-    public array $rules = [
-        'page.title'            => ['required', 'string', 'max:255'],
-        'page.slug'             => ['required', 'unique:pages', 'max:255'],
-        'page.details'          => ['required'],
-        'page.meta_title'       => ['nullable|max:255'],
-        'page.meta_description' => ['nullable|max:255'],
-        'page.language_id'      => ['nullable|integer'],
+    public $listeners = [
+        'editModal',
+        Quill::EVENT_VALUE_UPDATED,
     ];
 
-    public function mount(Page $page)
+    public function quill_value_updated($value)
     {
-        $this->page = $page;
+        $this->page->details = $value;
     }
+
+   protected $rules = [
+       'page.title'            => ['required', 'string', 'max:255'],
+       'page.slug'             => ['required', 'max:255'],
+       'page.details'          => ['required'],
+       'page.meta_title'       => ['nullable', 'max:255'],
+       'page.meta_description' => ['nullable', 'max:255'],
+       'page.language_id'      => ['nullable', 'integer'],
+   ];
 
     public function render(): View|Factory
     {
@@ -46,13 +52,17 @@ class Edit extends Component
         return view('livewire.admin.page.edit');
     }
 
-    public function editModal($id)
+    public function editModal($page)
     {
         $this->resetErrorBag();
 
         $this->resetValidation();
 
-        $this->page = Page::where('id', $id)->firstOrFail();
+        $this->page = Page::findOrFail($page);
+
+        $this->image = $this->page->image;
+
+        $this->description = $this->page->details;
 
         $this->editModal = true;
     }
@@ -63,10 +73,10 @@ class Edit extends Component
 
         $this->page->slug = Str::slug($this->page->name);
 
-        if ($this->photo) {
-            $imageName = Str::slug($this->page->name).'-'.date('Y-m-d H:i:s').'.'.$this->photo->extension();
-            $this->photo->storeAs('pages', $imageName);
-            $this->page->photo = $imageName;
+        if ($this->image) {
+            $imageName = Str::slug($this->page->name).'-'.date('Y-m-d H:i:s').'.'.$this->image->extension();
+            $this->image->storeAs('pages', $imageName);
+            $this->page->image = $imageName;
         }
 
         $this->page->save();

@@ -18,9 +18,10 @@ class Index extends Component
 
     public $listeners = [
         'refreshIndex' => '$refresh',
-        'delete',
     ];
 
+    public $deleteModal = false;
+    
     public int $perPage;
 
     public array $orderable;
@@ -87,12 +88,36 @@ class Index extends Component
         return view('livewire.admin.page.index', compact('pages'));
     }
 
-    public function delete(Page $page)
+    public function delete($id)
     {
         abort_if(Gate::denies('page_delete'), 403);
 
-        $page->delete();
+        Page::findOrFail($id)->delete();
+
+        $this->alert('success', __('Page deleted successfully.'));
+    }
+
+    public function deleteSelected()
+    {
+        abort_if(Gate::denies('page_delete'), 403);
+
+        Page::whereIn('id', $this->selected)->delete();
+
+        $this->resetSelected();
 
         $this->alert('success', 'Page deleted successfully.');
     }
+
+    public function deleteModal($page)
+    {
+        $this->confirm('Are you sure you want to delete this?', [
+            'toast'             => false,
+            'position'          => 'center',
+            'showConfirmButton' => true,
+            'cancelButtonText'  => 'Cancel',
+            'onConfirmed'       => 'delete',
+            'params'            => [$page->id],
+        ]);
+    }
+
 }

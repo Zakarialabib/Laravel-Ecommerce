@@ -53,23 +53,16 @@
                         </a>
                     </x-table.td>
                     <x-table.td>
-                        <x-dropdown
-                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-32 p-1">
-                            <x-slot name="trigger">
-                                <button type="button"
-                                    class="px-4 text-base font-semibold text-gray-500 hover:text-sky-800">
-                                    <i class="fas fa-angle-double-down"></i>
-                                </button>
-                            </x-slot>
-                            <x-slot name="content">
-                                <x-dropdown-link wire:click="$emit('editModal', {{ $page->id }})"> <i class="fas fa-edit"></i>
-                                    {{ __('Edit') }}
-                                </x-dropdown-link>
-                                <x-dropdown-link wire:click="$emit('deleteModal', {{ $page->id }})"><i class="fas fa-trash-alt"></i>
-                                    {{ __('Delete') }}
-                                </x-dropdown-link>
-                            </x-slot>
-                        </x-dropdown>
+                        <div class="inline-flex">
+                            <x-button info type="button" wire:click="$emit('editModal', {{ $page->id }})"
+                                wire:loading.attr="disabled">
+                                <i class="fas fa-edit"></i>
+                            </x-button>
+                            <x-button danger type="button" wire:click="$emit('deleteModal', {{ $page->id }})"
+                                wire:loading.attr="disabled">
+                                <i class="fas fa-trash-alt"></i>
+                            </x-button>
+                        </div>
                     </x-table.td>
                 </x-table.tr>
             @empty
