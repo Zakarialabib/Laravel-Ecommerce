@@ -24,7 +24,7 @@ class Edit extends Component
     public $image;
 
     public $listeners = [
-        'editCategory',
+        'editModal',
     ];
 
     protected $rules = [
@@ -39,7 +39,7 @@ class Edit extends Component
 
         $this->resetValidation();
 
-        $this->category = Category::find($category);
+        $this->category = Category::findOrFail($category);
 
         $this->editModal = true;
     }

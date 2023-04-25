@@ -25,6 +25,22 @@ class Edit extends Component
         'editModal',
     ];
 
+    protected $rules = [
+        'brand.name'        => ['required', 'string', 'max:255'],
+        'brand.slug'        => ['required', 'string'],
+        'brand.description' => ['nullable', 'string'],
+    ];
+
+       public function getImagePreviewProperty()
+    {
+        return $this->brand?->image;
+    }
+
+    public function getFeaturedImagePreviewProperty()
+    {
+        return $this->brand?->featured_image;
+    }
+
     public function editModal($brand)
     {
         abort_if(Gate::denies('brand_update'), 403);

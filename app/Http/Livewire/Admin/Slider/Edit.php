@@ -30,7 +30,7 @@ class Edit extends Component
 
     public $slider;
 
-    public $image;
+    public $photo;
 
     public $description;
 
