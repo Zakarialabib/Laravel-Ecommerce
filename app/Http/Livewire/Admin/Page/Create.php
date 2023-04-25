@@ -34,11 +34,6 @@ class Create extends Component
         'page.language_id' => ['nullable'],
     ];
 
-    public function mount(Page $page)
-    {
-        $this->page = $page;
-    }
-
     public function render(): View|Factory
     {
         // abort_if(Gate::denies('page_create'), 403);
@@ -51,6 +46,8 @@ class Create extends Component
         $this->resetErrorBag();
 
         $this->resetValidation();
+
+        $this->page = new Page();
 
         $this->createPage = true;
     }

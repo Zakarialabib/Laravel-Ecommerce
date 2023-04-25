@@ -64,7 +64,7 @@
             </x-table.th>
             <x-table.th>
                 {{ __('Actions') }}
-            </x-table.th>
+            </x-table.th> 
         </x-slot>
         <x-table.tbody>
             @forelse($products as $product)
@@ -78,17 +78,17 @@
                     </x-table.td>
                     <x-table.td>
                         <button type="button" wire:click="$emit('showModal',{{ $product->id }})">
-                        {{ Str::limit($product->name, 55) }} -
-                        <span class="mx-2 text-red-500 text-xs">{{ $product->brand?->name }}</span>
+                            {{ Str::limit($product->name, 55) }} -
+                            <span class="mx-2 text-red-500 text-xs">{{ $product->brand?->name }}</span>
                         </button>
                         <a class="ml-2 text-blue-500" href="{{ route('front.product', $product->slug) }}"
                             target="_blank">
                             <i class="fas fa-eye"></i>
                         </a>
                     </x-table.td>
-                    {{--<x-table.td>
+                    {{-- <x-table.td>
                         <livewire:select :model="$product" key="{{ $product->id }}" />
-                    </x-table.td>--}}
+                    </x-table.td> --}}
 
                     <x-table.td>
                         {{ $product->price }}DH
@@ -165,7 +165,9 @@
     <!-- End Show Modal -->
 
     <!-- Edit Modal -->
-    @livewire('admin.product.edit', ['product' => $product])
+    @if ($editModal)
+        @livewire('admin.product.edit', ['product' => $product])
+    @endif
     <!-- End Edit Modal -->
 
     <!-- Highlighted Modal -->
@@ -227,13 +229,13 @@
         document.addEventListener('livewire:load', function() {
             window.livewire.on('deleteModal', productId => {
                 Swal.fire({
-                    title: __("Are you sure?") ,
-                    text: __("You won't be able to revert this!") ,
+                    title: __("Are you sure?"),
+                    text: __("You won't be able to revert this!"),
                     icon: 'warning',
                     showCancelButton: true,
                     confirmButtonColor: '#3085d6',
                     cancelButtonColor: '#d33',
-                    confirmButtonText: __("Yes, delete it!") 
+                    confirmButtonText: __("Yes, delete it!")
                 }).then((result) => {
                     if (result.isConfirmed) {
                         window.livewire.emit('delete', productId)

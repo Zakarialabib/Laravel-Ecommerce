@@ -125,7 +125,7 @@ class Index extends Component
       // Section  Delete
       public function delete(Section $section)
       {
-          abort_if(Gate::denies('section_delete'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+        //   abort_if(Gate::denies('section_delete'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
           $section->delete();
 

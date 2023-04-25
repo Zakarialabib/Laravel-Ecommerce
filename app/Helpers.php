@@ -39,7 +39,7 @@ class Helpers
     public static function getActiveBrands()
     {
         return Brand::active()
-            ->select('id', 'name','slug')
+            ->select('id', 'name', 'slug')
             ->get();
     }
 
@@ -85,8 +85,8 @@ class Helpers
         }
 
         $image = file_get_contents($image);
-        $name = Str::random(10).'.jpg';
-        $path = public_path().'/images/products/'.$name;
+        $name = Str::random(10) . '.jpg';
+        $path = public_path() . '/images/products/' . $name;
         file_put_contents($path, $image);
 
         return $name;
@@ -107,8 +107,8 @@ class Helpers
         $gallery = explode(',', $gallery);
         return array_map(function ($image) {
             $image = file_get_contents($image);
-            $name = Str::random(10).'.jpg';
-            $path = public_path().'/images/products/'.$name;
+            $name = Str::random(10) . '.jpg';
+            $path = public_path() . '/images/products/' . $name;
             file_put_contents($path, $image);
 
             return $name;
@@ -121,15 +121,21 @@ class Helpers
      *
      * @return mixed
      */
-    public static function createSubcategory($subcategory, $category)
+    public static function createSubcategories($subcategories, $category)
     {
-        return Subcategory::create([
-            'name' => $subcategory,
-            'slug' => Str::slug($subcategory, '-'),
-            'categpry_id' => Category::where('name', $category)->first()->id,
-            'language' => '3',
-        ])->id;
+        $subcategoryIds = [];
+        foreach (explode(',', $subcategories) as $subcategory) {
+            $subcategoryModel = Subcategory::create([
+                'name' => trim($subcategory),
+                'slug' => Str::slug($subcategory, '-'),
+                'category_id' => Category::where('name', $category)->first()->id,
+                'language' => '3',
+            ]);
+            $subcategoryIds[] = $subcategoryModel->id;
+        }
+        return $subcategoryIds;
     }
+
 
     /**
      * @param mixed $brand
@@ -155,7 +161,7 @@ class Helpers
      */
     public static function format_currency($value, $format = true)
     {
-        if (! $format) {
+        if (!$format) {
             return $value;
         }
 
@@ -164,8 +170,8 @@ class Helpers
         $symbol = $currency->symbol;
 
         return $position === 'prefix'
-            ? $symbol.number_format((float) $value, 2, '.', ',')
-            : number_format((float) $value, 2, '.', ',').$symbol;
+            ? $symbol . number_format((float) $value, 2, '.', ',')
+            : number_format((float) $value, 2, '.', ',') . $symbol;
     }
 
     public static function handleUpload($image, $width, $height, $productName)

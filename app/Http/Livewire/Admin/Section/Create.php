@@ -48,13 +48,11 @@ class Create extends Component
 
         $this->resetValidation();
 
+        $this->section = new Section();
+
         $this->createSection = true;
     }
 
-    public function mount(Section $section)
-    {
-        $this->section = $section;
-    }
 
     public function render(): View|Factory
     {

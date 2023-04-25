@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Enums;
 
-enum BackupSchedule: string
+enum BackupSchedule : string
 {
     case DAILY = '0';
 

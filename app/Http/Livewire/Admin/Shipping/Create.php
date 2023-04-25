@@ -25,12 +25,7 @@ class Create extends Component
         'shipping.cost' => ['required', 'string'],
     ];
 
-    public function mount(Shipping $shipping)
-    {
-        $this->shipping = $shipping;
-    }
-
-    public function render(): View|Factory
+    public function render()
     {
         // abort_if(Gate::denies('shipping_create'), 403);
 
@@ -42,6 +37,8 @@ class Create extends Component
         $this->resetErrorBag();
 
         $this->resetValidation();
+
+        $this->shipping = new Shipping();
 
         $this->createShipping = true;
     }

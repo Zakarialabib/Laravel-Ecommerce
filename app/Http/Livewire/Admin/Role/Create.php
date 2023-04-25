@@ -41,6 +41,7 @@ class Create extends Component
         $this->validate();
 
         $this->role->save();
+        
         $this->role->permissions()->sync($this->permissions);
 
         // $this->alert('success', __('Role created successfully!') );

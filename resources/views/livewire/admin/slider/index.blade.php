@@ -45,7 +45,7 @@
             @forelse($sliders as $slider)
                 <x-table.tr>
                     <x-table.td>
-                        {{-- {{ $id }} --}}
+                        <input type="checkbox" value="{{ $slider->id }}" wire:model="selected">
                     </x-table.td>
                     <x-table.td>
                         @if ($slider->photo)

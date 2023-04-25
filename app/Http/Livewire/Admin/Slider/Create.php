@@ -44,11 +44,6 @@ class Create extends Component
         'photo' => ['required'],
     ];
 
-    public function mount(Slider $slider)
-    {
-        $this->slider = $slider;
-    }
-
     public function render(): View|Factory
     {
         abort_if(Gate::denies('slider_create'), 403);
@@ -58,7 +53,11 @@ class Create extends Component
 
     public function createSlider()
     {
-        $this->reset();
+        $this->resetErrorBag();
+
+        $this->resetValidation();
+
+        $this->slider = new PSliderage();
 
         $this->createSlider = true;
     }
