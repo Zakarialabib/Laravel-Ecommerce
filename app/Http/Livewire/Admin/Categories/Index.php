@@ -10,7 +10,6 @@ use App\Models\Category;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Support\Facades\Gate;
-use Illuminate\Support\Str;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Livewire\Component;
 use Livewire\WithFileUploads;
@@ -28,22 +27,16 @@ class Index extends Component
 
     public $name;
 
-    public $image;
-
     public $file;
 
     public $listeners = [
         'refreshIndex' => '$refresh',
-        'editModal', 'importModal',
+        'importModal',
     ];
 
     public int $perPage;
 
-    public $refreshIndex;
-
     public $importModal;
-
-    public $editModal = false;
 
     public array $orderable;
 
@@ -109,38 +102,6 @@ class Index extends Component
         $categories = $query->paginate($this->perPage);
 
         return view('livewire.admin.categories.index', compact('categories'));
-    }
-
-    public function editModal(Category $category)
-    {
-        //abort_if(Gate::denies('category_edit'), 403);
-
-        $this->resetErrorBag();
-
-        $this->resetValidation();
-
-        $this->category = $category;
-
-        $this->editModal = true;
-    }
-
-    public function update()
-    {
-        //abort_if(Gate::denies('category_edit'), 403);
-
-        $this->validate();
-
-        if ($this->image) {
-            $imageName = Str::slug($this->category->name).'-'.Str::random(3).'.'.$this->image->extension();
-            $this->image->storeAs('categories', $imageName);
-            $this->category->image = $imageName;
-        }
-
-        $this->category->save();
-
-        $this->editModal = false;
-
-        $this->alert('success', __('Category updated successfully.'));
     }
 
     public function deleteSelected()
