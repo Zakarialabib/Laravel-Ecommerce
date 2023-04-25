@@ -133,9 +133,9 @@
         </div>
     </div>
 
-    @if ($editModal)
-        @livewire('admin.section.edit', ['section' => $section])
-    @endif
+
+    @livewire('admin.section.edit', ['section' => $section])
+
 
     <livewire:admin.section.create />
 </div>

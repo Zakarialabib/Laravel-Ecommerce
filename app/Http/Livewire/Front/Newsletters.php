@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Mail;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Illuminate\Contracts\View\View;
 use Illuminate\Contracts\View\Factory;
+use Illuminate\Support\Facades\Log;
 use Throwable;
 
 class Newsletters extends Component
@@ -63,7 +64,8 @@ class Newsletters extends Component
 
             Mail::to($user_email)->send(new SubscribedMail());
         } catch (Throwable $th) {
-            //throw $th;
+            $this->alert('error', __('Something went wrong. Please try again.'));
+            Log::error($th->getMessage());
         }
     }
 }

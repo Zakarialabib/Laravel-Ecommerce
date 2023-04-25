@@ -116,9 +116,7 @@
     </div>
 
     <!-- Edit Modal -->
-    @if ($editModal)
-        @livewire('admin.slider.edit', ['slider' => $slider])
-    @endif
+    @livewire('admin.slider.edit', ['slider' => $slider])
     <!-- End Edit Modal -->
 
 

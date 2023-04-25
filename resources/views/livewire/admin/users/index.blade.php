@@ -145,11 +145,7 @@
         </x-slot>
     </x-modal>
 
-    
-
-    @if($editModal)
     @livewire('admin.users.create', ['user' => $user])
-    @endif
 
     <livewire:admin.users.create />
 

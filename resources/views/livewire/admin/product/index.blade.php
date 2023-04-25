@@ -165,9 +165,7 @@
     <!-- End Show Modal -->
 
     <!-- Edit Modal -->
-    @if ($editModal)
-        @livewire('admin.product.edit', ['product' => $product])
-    @endif
+    @livewire('admin.product.edit', ['product' => $product])
     <!-- End Edit Modal -->
 
     <!-- Highlighted Modal -->

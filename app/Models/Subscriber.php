@@ -15,9 +15,7 @@ class Subscriber extends Model
         'email', 'id',
     ];
 
-    public $timestamps = false;
-
-    protected $filterable = [
+    public $filterable = [
         'email', 'id',
     ];
 
