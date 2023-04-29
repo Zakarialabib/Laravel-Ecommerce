@@ -74,24 +74,51 @@ class Helpers
     }
 
     /**
-     * @param mixed $image
+     * Uploads an image from a URL and returns the file name.
      *
-     * @return string|null
+     * @param string $image_url The URL of the image to upload.
+     * @param string $productName The name of the product.
+     * @param int $size The size of the square to resize the image to.
+     *
+     * @return string|null The name of the uploaded file, or null if the upload failed.
      */
-    public static function uploadImage($image)
+    public static function uploadImage($image_url, $productName, $size = 800)
     {
-        // Path cannot be empty
-        if (empty($image)) {
+        // Check if the URL is valid
+        if (!filter_var($image_url, FILTER_VALIDATE_URL) || !in_array(pathinfo($image_url, PATHINFO_EXTENSION), ['jpg', 'jpeg', 'webp' , 'png'])) {
             return null;
         }
 
-        $image = file_get_contents($image);
-        $name = Str::random(10).'.jpg';
-        $path = public_path().'/images/products/'.$name;
-        file_put_contents($path, $image);
+        // Download the image
+        $image_content = file_get_contents($image_url);
+
+        // Generate a unique file name
+        $name = Str::slug($productName).'-'.Str::random(5).'.jpg';
+        
+        $img = Image::make($image_content)->encode('webp', 85);
+
+        // we need to resize image, otherwise it will be cropped
+        if ($img->width() > $size) {
+            $img->resize($size, null, function ($constraint) {
+                $constraint->aspectRatio();
+            });
+        }
+
+        if ($img->height() > $size) {
+            $img->resize(null, $size, function ($constraint) {
+                $constraint->aspectRatio();
+            });
+        }
+
+        $img->resizeCanvas($size, $size, 'center', false, '#ffffff');
+
+        $img->stream();
+
+        Storage::disk('local_files')->put('products/'.$name, $img, 'public');
 
         return $name;
     }
+
 
     /**
      * @param mixed $gallery
@@ -115,6 +142,22 @@ class Helpers
 
             return $name;
         }, $gallery);
+    }
+
+    /**
+     * @param mixed $category
+     *
+     * @return mixed
+     */
+    public static function createCategory($category)
+    {
+        // Make sure $category is a string
+        $category = implode('', $category);
+
+        return Category::create([
+            'name' => $category,
+            'slug' => Str::slug($category, '-'),
+        ])->id;
     }
 
     /**
