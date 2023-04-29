@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Http\Livewire\Front;
 
 use App\Models\Product;
+use App\Models\Brand;
 use App\Models\Subcategory;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
@@ -28,6 +29,35 @@ class SubcategoryPage extends Component
     public array $sortingOptions;
 
     public $subcategory;
+    
+    public $brand_id;
+
+    public function getBrandsProperty()
+    {
+        return Brand::active()->get();
+    }
+
+    public function filterProducts($type, $value)
+    {
+        switch ($type) {
+            case 'brand':
+                $this->brand_id = $value;
+
+                break;
+        }
+        $this->resetPage();
+    }
+
+    public function clearFilter($filter)
+    {
+        switch ($filter) {
+            case 'brand':
+                $this->brand_id = null;
+
+                break;
+        }
+        $this->resetPage();
+    }
 
     public function mount($subcategory)
     {
@@ -51,7 +81,10 @@ class SubcategoryPage extends Component
     public function render(): View|Factory
     {
         $query = Product::active()
-            ->where('subcategories', 'like', '%"'.$this->subcategory->id.'"%');
+            ->where('subcategories', 'like', '%"'.$this->subcategory->id.'"%')
+            ->when($this->brand_id, function ($query) {
+                return $query->where('brand_id', $this->brand_id);
+            });
 
         if ($this->sorting === 'name') {
             $query->orderBy('name', 'asc');

@@ -8,6 +8,7 @@ use App\Http\Livewire\WithSorting;
 use App\Models\Category;
 use App\Models\Product;
 use App\Models\Subcategory;
+use App\Models\Brand;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Livewire\Component;
@@ -58,7 +59,6 @@ class Categories extends Component
                 break;
             case 'subcategory':
                 $this->subcategory_id = [$value];
-                $this->selectedFilters['subcategory'] = Subcategory::find($value)->name;
 
                 break;
             case 'brand':
@@ -107,12 +107,17 @@ class Categories extends Component
 
     public function getCategoriesProperty()
     {
-        return Category::active()->with('subcategories')->get();
+        return Category::active()->get();
     }
 
     public function getSubcategoriesProperty()
     {
         return Subcategory::active()->get();
+    }
+  
+    public function getBrandsProperty()
+    {
+        return Brand::active()->get();
     }
 
     public function loadMore()
@@ -128,6 +133,9 @@ class Categories extends Component
             })
             ->when($this->subcategory_id, function ($query) {
                 return $query->whereIn('subcategories', $this->subcategory_id);
+            })
+            ->when($this->brand_id, function ($query) {
+                return $query->where('brand_id', $this->brand_id);
             });
 
         if ($this->sorting === 'name') {

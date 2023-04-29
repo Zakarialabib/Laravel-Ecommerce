@@ -79,7 +79,7 @@ class BrandPage extends Component
                 return $query->where('category_id', $this->category_id);
             })
             ->when($this->subcategory_id, function ($query) {
-                return $query->where('subcategories', $this->subcategory_id);
+                return $query->whereIn('subcategories', $this->subcategory_id);
             });
 
         if ($this->sorting === 'name') {
