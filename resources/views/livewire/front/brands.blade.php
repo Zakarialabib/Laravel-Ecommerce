@@ -8,53 +8,50 @@
 <div>
     <div class="w-full px-4 mx-auto">
         <div class="mb-4 items-center justify-between bg-white py-2">
-            <div class="w-full mb-4 px-4 flex flex-wrap justify-between">
-                <div class="py-4 flex items-center flex-wrap">
-                    <ul class="flex flex-wrap items-center">
-                        <li class="inline-flex items-center">
-                            <a href="/" class="text-gray-600 hover:text-blue-500">
-                                <svg class="w-5 h-auto fill-current mx-2 text-gray-400"
-                                    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#000000">
-                                    <path d="M0 0h24v24H0V0z" fill="none" />
-                                    <path
-                                        d="M10 19v-5h4v5c0 .55.45 1 1 1h3c.55 0 1-.45 1-1v-7h1.7c.46 0 .68-.57.33-.87L12.67 3.6c-.38-.34-.96-.34-1.34 0l-8.36 7.53c-.34.3-.13.87.33.87H5v7c0 .55.45 1 1 1h3c.55 0 1-.45 1-1z" />
-                                </svg>
-                            </a>
-                            <span class="mx-2 h-auto text-gray-400 font-medium">/</span>
-                        </li>
-                        <li class="inline-flex items-center">
-                            <a href="{{ URL::current() }}" class="text-gray-600 hover:text-blue-500">
-                                {{ __('Brands') }}
-                            </a>
+            <div class="w-full md:px-4 sm:px-2 flex flex-wrap justify-between">
+                <ul class="flex flex-wrap items-center gap-2 py-4 md:py-2 ">
+                    <li class="inline-flex">
+                        <a href="/" class="text-gray-600 hover:text-blue-500">
+                            <svg class="w-5 h-auto fill-current mx-2 text-gray-400" xmlns="http://www.w3.org/2000/svg"
+                                viewBox="0 0 24 24" fill="#000000">
+                                <path d="M0 0h24v24H0V0z" fill="none" />
+                                <path
+                                    d="M10 19v-5h4v5c0 .55.45 1 1 1h3c.55 0 1-.45 1-1v-7h1.7c.46 0 .68-.57.33-.87L12.67 3.6c-.38-.34-.96-.34-1.34 0l-8.36 7.53c-.34.3-.13.87.33.87H5v7c0 .55.45 1 1 1h3c.55 0 1-.45 1-1z" />
+                            </svg>
+                        </a>
+                        <span class="mx-2 h-auto text-gray-400 font-medium">/</span>
+                    </li>
+                    <li class="inline-flex">
+                        <a href="{{ URL::current() }}" class="text-gray-600 hover:text-blue-500">
+                            {{ __('Brands') }}
+                        </a>
 
-                            <span class="mx-2 h-auto text-gray-400 font-medium">/</span>
-                        </li>
-                        <li class="inline-flex items-center ml-2">
-                            <p class="lg:text-2xl sm:text-xl font-bold text-gray-600 hover:text-blue-500">
-                                {{ $products->count() }} {{ __('Watches') }}
-                            </p>
-                        </li>
-                        <li>
-                            <p class="mx-4 space-x-2">
-                                @if (isset($category_id))
-                                    {{ \App\Helpers::categoryName($category_id) }}
-                                    <button type="button" wire:click="clearFilter('category')"
-                                        class="text-red-500">X</button>
-                                @endif
-                                @if (isset($brand_id))
-                                    {{ \App\Helpers::brandName($brand_id) }}
-                                    <button type="button" wire:click="clearFilter('brand')"
-                                        class="text-red-500">X</button>
-                                @endif
-                                @if (isset($subcategory_id))
-                                    {{ \App\Helpers::subcategoryName($subcategory_id) }}
-                                    <button type="button" wire:click="clearFilter('subcategory')"
-                                        class="text-red-500">X</button>
-                                @endif
-                            </p>
-                        </li>
-                    </ul>
-                </div>
+                        <span class="mx-2 h-auto text-gray-400 font-medium">/</span>
+                    </li>
+                    <li class="inline-flex">
+                        <p class="lg:text-2xl sm:text-xl font-bold text-gray-600 hover:text-blue-500">
+                            {{ $products->count() }} {{ __('Watches') }}
+                        </p>
+                    </li>
+                    <li>
+                        <p class="mx-4 space-x-2">
+                            @if (isset($category_id))
+                                {{ \App\Helpers::categoryName($category_id) }}
+                                <button type="button" wire:click="clearFilter('category')"
+                                    class="text-red-500">X</button>
+                            @endif
+                            @if (isset($brand_id))
+                                {{ \App\Helpers::brandName($brand_id) }}
+                                <button type="button" wire:click="clearFilter('brand')" class="text-red-500">X</button>
+                            @endif
+                            @if (isset($subcategory_id))
+                                {{ \App\Helpers::subcategoryName($subcategory_id) }}
+                                <button type="button" wire:click="clearFilter('subcategory')"
+                                    class="text-red-500">X</button>
+                            @endif
+                        </p>
+                    </li>
+                </ul>
 
                 <div class="w-full sm:w-auto flex justify-center my-2 overflow-x-scroll">
                     <button @click="showSidebar = true" type="button"
@@ -66,14 +63,14 @@
                     </button>
 
                     <select wire:model="perPage" name="perPage"
-                        class="px-4 py-2 bg-white text-gray-700 rounded border border-zinc-300 text-xs focus:shadow-outline-blue focus:border-blue-500">
+                        class="lg:px-4 md:px-2 py-2 bg-white text-gray-700 rounded border border-gray-100 text-xs focus:shadow-outline-blue focus:border-beige-500">
                         @foreach ($paginationOptions as $value)
                             <option value="{{ $value }}">{{ $value }}</option>
                         @endforeach
                     </select>
 
                     <select
-                        class="px-4 py-2 bg-white text-gray-700 rounded border border-zinc-300 text-xs focus:shadow-outline-blue focus:border-blue-500"
+                        class="lg:px-4 md:px-2 py-2 bg-white text-gray-700 rounded border border-gray-100 text-xs focus:shadow-outline-blue focus:border-beige-500"
                         id="sortBy" wire:model="sorting">
                         <option selected>{{ __('Choose filters') }}</option>
                         @foreach ($sortingOptions as $value => $label)
@@ -81,6 +78,7 @@
                         @endforeach
                     </select>
                 </div>
+
             </div>
         </div>
 
@@ -116,6 +114,7 @@
                         @endforeach
                     </ul>
                 </div>
+                <div class="border-t border-gray-900 mt-4 py-2"></div>
                 <div class="py-4" x-data="{ openSubcategory: true }">
                     <div class="flex justify-between mb-4">
                         <h3 class="text-xl font-bold font-heading">{{ __('Subcategory') }}</h3>
@@ -145,22 +144,21 @@
                         </div>
                     @endif
                 </div>
-
+                <div class="border-t border-gray-900 mt-4 py-2"></div>
                 <div class="py-4">
                     <h3 class="mb-8 text-2xl font-bold font-heading">{{ __('Price budget') }}</h3>
-                    <div>
-                        <div class="flex md:flex-col justify-between">
-                            <span class="inline-block text-lg font-bold font-heading text-blue-300">
-                                <p class="">{{ __('Min Price') }}</p>
-                                <x-input type="text" wire:model="minPrice" placeholder="350" />
-                            </span>
-                            <span class="inline-block text-lg font-bold font-heading text-blue-300">
-                                <p class="">{{ __('Max Price') }}</p>
-                                <x-input type="text" wire:model="maxPrice" placeholder="1000" />
-                            </span>
-                        </div>
+                    <div class="flex flex-col justify-between  gap-2">
+                        <span class="inline-block text-lg font-bold font-heading text-blue-300">
+                            <p class="">{{ __('Min Price') }}</p>
+                            <x-input type="text" wire:model="minPrice" placeholder="350" />
+                        </span>
+                        <span class="inline-block text-lg font-bold font-heading text-blue-300">
+                            <p class="">{{ __('Max Price') }}</p>
+                            <x-input type="text" wire:model="maxPrice" placeholder="1000" />
+                        </span>
                     </div>
                 </div>
+                <div class="border-t border-gray-900 mt-4 py-2"></div>
                 <div class="py-4" x-data="{ openbrands: true }">
                     <div class="flex justify-between mb-4">
                         <h3 class="text-xl font-bold font-heading">{{ __('Brands') }}</h3>
@@ -188,7 +186,6 @@
                         </div>
                     @endif
                 </div>
-
             </div>
             <div class="hidden lg:block w-1/4 px-3">
                 <div class="mb-6 p-4 bg-gray-50" x-data="{ openCategory: true }">
@@ -289,7 +286,8 @@
                 </div>
             </div>
             <div class="w-full lg:w-3/4 px-4" x-data="{ loading: false }">
-                <div class="grid gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 mb-10" id="product-container">
+                <div class="grid gap-6 lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 
+ xs:grid-cols-2 mb-10" id="product-container">
                     @forelse ($products as $product)
                         <x-product-card :product="$product" />
                     @empty
