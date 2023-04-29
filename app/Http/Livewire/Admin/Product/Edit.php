@@ -60,8 +60,8 @@ class Edit extends Component
         'product.subcategories'    => ['required', 'array', 'min:1'],
         'product.subcategories.*'  => ['integer', 'distinct:strict'],
         'options'                  => ['array'],
-        'options.*.type'           => ['required', 'string'],
-        'options.*.value'          => ['required', 'string'],
+        'options.*.type'           => ['string', 'max:255'],
+        'options.*.value'          => ['string', 'max:255'],
         'product.brand_id'         => ['nullable', 'integer'],
         'product.embeded_video'    => ['nullable'],
         'product.condition'        => ['nullable'],
@@ -103,6 +103,20 @@ class Edit extends Component
         $this->product->subcategories;
     }
 
+    public function addOption()
+    {
+        $this->options[] = [
+            'type'  => '',
+            'value' => '',
+        ];
+    }
+
+    public function removeOption($index)
+    {
+        unset($this->options[$index]);
+        $this->options = array_values($this->options);
+    }
+    
     public function editModal($id)
     {
         abort_if(Gate::denies('product_update'), 403);
