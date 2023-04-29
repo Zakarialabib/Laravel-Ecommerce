@@ -27,9 +27,9 @@
                             {{ __('Update products with Code') }}</button>
                     </li>
                 </ul>
-                <div class="w-full pt-4">
+                <div class="w-full">
                     <div x-show="openTab === 1">
-                        <div class="w-full px-3 py-2">
+                        <div class="w-full py-2">
                             <x-table-responsive>
                                 <x-table.tr>
                                     <x-table.th>{{ __('Name') }}</x-table.th>
@@ -99,26 +99,27 @@
 
                             </x-table-responsive>
                             <form wire:submit.prevent="import">
-                                <div class="w-full px-3 my-2">
-                                    <x-label for="import_file" :value="__('Import')" />
-                                    <x-input id="file" class="block mt-1 w-full" type="file" name="file"
-                                        wire:model.defer="import" />
-                                    <x-input-error :messages="$errors->get('file')" for="file" class="mt-2" />
-                                </div>
-
-                                <div class="w-full px-3">
-                                    <x-button primary type="submit" class="block" wire:loading.attr="disabled">
-                                        {{ __('Import') }}
-                                    </x-button>
-                                    <span wire:loading.delay wire:target="import">
-                                        {{ __('Loading...') }}
-                                    </span>
+                                <div class="flex flex-wrap gap-4">
+                                    <div class="w-1/2 my-2">
+                                        <x-label for="import_file" :value="__('Import')" />
+                                        <x-input id="file" class="block mt-1 w-full" type="file" name="file"
+                                            wire:model.defer="file" />
+                                        <x-input-error :messages="$errors->get('file')" for="file" class="mt-2" />
+                                    </div>
+                                    <div class="w-1/2 my-2">
+                                        <x-button primary type="submit" class="block" wire:loading.attr="disabled">
+                                            {{ __('Import') }}
+                                        </x-button>
+                                        <span wire:loading.delay wire:target="import">
+                                            {{ __('Loading...') }}
+                                        </span>
+                                    </div>
                                 </div>
                             </form>
                         </div>
                     </div>
                     <div x-show="openTab === 2">
-                        <div class="w-full px-3 py-2">
+                        <div class="w-full py-2">
                             <x-table-responsive>
                                 <x-table.tr>
                                     <x-table.th>{{ __('Code') }}</x-table.th>

@@ -6,7 +6,7 @@
                 <i class="fa fa-search text-gray-100"></i>
             </button>
             <input type="text" wire:model="search" placeholder="{{ __('Search for products') }}" autocomplete=""
-                class="w-full border-0 focus:ring-transparent bg-gray-100 text-gray-900 text-xs focus:outline-none py-2 px-10 rounded-md">
+                class="w-full border-0 focus:ring-transparent bg-gray-100 text-gray-900 text-xs focus:outline-none py-2 pl-10 pr-5 rounded-md">
             <button type="button" wire:click="clearSearch"
                 class="h-full absolute z-20 top-0 text-md font-bold right-0 flex items-center text-gray-800 focus:outline-none">
                 <i class="fa fa-times mr-4 text-gray-900"></i>

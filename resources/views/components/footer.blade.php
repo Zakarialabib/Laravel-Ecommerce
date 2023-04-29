@@ -64,20 +64,20 @@
         <div class="w-full lg:w-2/5 px-4 order-first lg:order-1 mb-100">
             <livewire:front.newsletters-form />
             <div class="w-full flex flex-wrap lg:justify-between sm:justify-center mb-4">
-                <div class="w-full md:w-auto flex">
-                    <a class="inline-flex items-center justify-center w-12 h-12 mr-2 rounded-full"
+                <div class="w-full md:w-auto flex justify-center items-center gap-4">
+                    <a class="inline-flex w-12 h-12"
                         href="{{ Helpers::settings('social_facebook') }}" target="_blank">
                         <i class="fab fa-facebook-f text-xl text-white hover:text-beige-200 transition"></i>
                     </a>
-                    <a class="inline-flex items-center justify-center w-12 h-12 mr-2 rounded-full"
+                    <a class="inline-flex w-12 h-12"
                         href="{{ Helpers::settings('social_instagram') }}" target="_blank">
                         <i class="fab fa-instagram text-xl text-white hover:text-beige-200 transition"></i>
                     </a>
-                    <a class="inline-flex items-center justify-center w-12 h-12 rounded-full"
+                    <a class="inline-flex w-12 h-12"
                         href="{{ Helpers::settings('social_twitter') }}" target="_blank">
                         <i class="fab fa-twitter text-xl text-white hover:text-beige-200 transition"></i>
                     </a>
-                    <a class="inline-flex items-center justify-center w-12 h-12 rounded-full"
+                    <a class="inline-flex w-12 h-12"
                         href="{{ Helpers::settings('social_linkedin') }}" target="_blank">
                         <i class="fab fa-linkedin-in text-xl text-white hover:text-beige-200 transition"></i>
                     </a>

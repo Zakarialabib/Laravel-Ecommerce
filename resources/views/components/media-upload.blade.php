@@ -63,22 +63,8 @@
                     <div class="flex items-center space-x-4">
                         <img src="{{ asset('images/products/' . $preview) }}" class="w-20 h-20">
                         <div class="font-light text-gray-500">
-                            <p>Filename: {{ $file }}</p>
+                            <p>{{ $preview }}</p>
                         </div> 
-                        <div class="relative block leading-tight bg-white hover:bg-gray-100 cursor-pointer inline-flex items-center transition duration-500 ease-in-out group overflow-hidden border-2 w-full pl-3 pr-4 py-2 border-dashed"
-                            x-bind:class="{ 'opacity-50': isUploading }">
-                            <p class="flex items-center text-sm font-light text-gray-400">
-                                <i class="fa fa-upload w-6 h-6 p-1 mr-3 text-gray-500 border rounded-full shadow "></i>
-                                {{ __('Upload a file or Image') }} | {{ $types ?? 'Any File' }}
-                            </p>
-                            <div class="absolute
-                            inset-0 h-full flex items-center justify-center pointer-events-none"
-                                x-bind:class="{ 'opacity-0': !isUploading, 'opacity-100': isUploading }">
-                                <i class="fa fa-spinner fa-spin w-6 h-6 text-gray-500"></i>
-                                <progress max="100" x-bind:value="progress"
-                                    class="w-full h-1 overflow-hidden bg-red-500 rounded"></progress>
-                            </div>
-                        </div>
                     </div>
                 @endif
                 <div class="relative block leading-tight bg-white hover:bg-gray-100 cursor-pointer inline-flex items-center transition duration-500 ease-in-out group overflow-hidden border-2 w-full pl-3 pr-4 py-2 border-dashed"

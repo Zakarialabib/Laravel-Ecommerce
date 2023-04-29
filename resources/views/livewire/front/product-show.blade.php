@@ -31,10 +31,9 @@
                         <div itemprop="offers" itemscope itemtype="http://schema.org/Offer">
                             <div class="mb-5 pb-5 border-b">
                                 <span class="text-gray-500">
-                                    {{ $product->category?->name }} /
+                                    {{ $product->category?->name }} / 
                                     @isset($product->brand)
-                                        <a
-                                            href="{{ route('front.brandPage', $product->brand?->slug) }}">{{ $product->brand?->name }}</a>
+                                        <a href="{{ route('front.brandPage', $product->brand?->slug) }}">{{ $product->brand?->name }}</a>
                                     @endisset
                                     <div itemprop="brand" itemtype="https://schema.org/Brand" itemscope>
                                         <meta itemprop="brand" content="{{ $product->brand?->name }}" />

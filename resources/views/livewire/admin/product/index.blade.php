@@ -1,21 +1,18 @@
 <div>
     <div class="flex flex-wrap justify-center">
-        <div class="lg:w-1/2 md:w-1/2 sm:w-full flex flex-wrap my-md-0 my-2">
+        <div class="lg:w-1/2 md:w-1/2 sm:w-full flex flex-wrap items-center gap-2 my-2">
             <select wire:model="perPage" name="perPage"
                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-32 p-1">
                 @foreach ($paginationOptions as $value)
                     <option value="{{ $value }}">{{ $value }}</option>
                 @endforeach
             </select>
-            <x-button secondary type="button" wire:click="selectAll" class="ml-3">
-                {{ 'Select All' }}
-            </x-button>
             @if ($this->selected)
-                <x-button danger type="button" wire:click="deleteSelected" class="ml-3">
+                <x-button danger type="button" wire:click="deleteSelected" wire:loading.attr="disabled">
                     <i class="fas fa-trash"></i>
                 </x-button>
 
-                <x-button primary type="button" wire:click="promoAllProducts" class="ml-3">
+                <x-button primary type="button" wire:click="promoAllProducts" wire:loading.attr="disabled">
                     <i class="fas fa-percent"></i>
                 </x-button>
                 <x-button success type="button" wire:click="downloadSelected" wire:loading.attr="disabled">
@@ -45,7 +42,7 @@
     <x-table>
         <x-slot name="thead">
             <x-table.th>
-                <input type="checkbox" wire:click="selectPage" />
+                <input type="checkbox" wire:click="selectAll" />
             </x-table.th>
             <x-table.th>
                 {{ __('Image') }}
