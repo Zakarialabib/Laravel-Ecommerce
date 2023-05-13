@@ -161,7 +161,7 @@
                 slidesPerView: "auto",
                 spaceBetween: 30,
                 speed: 400,
-                autoHeight: true
+                autoHeight: true,
                 loop: true,
                 pagination: {
                     el: '.swiper-pagination',

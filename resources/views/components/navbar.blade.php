@@ -13,8 +13,8 @@
     </div>
 
     <div class="flex items-center gap-3">
-        <div class="md:flex hidden flex-wrap items-center">
-            <x-button href="{{ route('front.index')}}" secondary id="fullScreen">
+        <div class="md:flex hidden flex-wrap space-x-2 items-center">
+            <x-button href="{{ route('front.index')}}" secondary>
                 <i class="fa fa-eye w-4 h-4"></i>
             </x-button>
             <x-button type="button" secondary id="fullScreen">
