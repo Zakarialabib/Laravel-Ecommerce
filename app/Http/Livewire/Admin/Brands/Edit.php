@@ -6,6 +6,7 @@ namespace App\Http\Livewire\Admin\Brands;
 
 use App\Models\Brand;
 use Livewire\Component;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Contracts\View\View;
 use Illuminate\Support\Facades\Gate;
 use Intervention\Image\Facades\Image;
