@@ -103,7 +103,7 @@
                                     <span
                                         class="inline-block px-2 py-2 text-sm font-bold font-heading text-beige-500 hover:underline">
                                         {{ $subcategory->name }} <small>
-                                            ({{ $subcategory->products()->active()->count() }})
+                                            {{-- ({{ $subcategory->products()->active()->count() }}) --}}
                                         </small>
                                     </span>
                                 </button>
@@ -175,7 +175,7 @@
                                     <span
                                         class="inline-block px-2 py-2 text-sm font-bold font-heading text-beige-500 hover:underline">
                                         {{ $subcategory->name }} <small>
-                                            ({{ $subcategory->products()->active()->count() }})
+                                            {{-- ({{ $subcategory->products()->active()->count() }}) --}}
                                         </small>
                                     </span>
                                 </button>
