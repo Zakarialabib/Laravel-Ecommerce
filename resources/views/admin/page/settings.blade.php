@@ -36,12 +36,6 @@
                     </a>
                 </div>
             </div>
-            <div class="float-right">
-                {{-- <x-button primary type="button" onclick="Livewire.emit('createTemplate')">
-                    {{ __('Create from template') }}
-                </x-button>
-                --}}
-            </div>
         </div>
     </section>
 

@@ -52,7 +52,7 @@ class Edit extends Component
         'product.name'             => ['required', 'string', 'max:255'],
         'product.price'            => ['required', 'numeric', 'max:2147483647'],
         'product.old_price'        => ['nullable', 'numeric', 'max:2147483647'],
-        'product.description'      => ['nullable'],
+        'description'      => ['nullable'],
         'product.meta_title'       => ['nullable', 'string', 'max:255'],
         'product.meta_description' => ['nullable', 'string', 'max:255'],
         'product.meta_keywords'    => ['nullable', 'string', 'min:1'],

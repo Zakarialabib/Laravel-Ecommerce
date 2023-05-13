@@ -33,21 +33,22 @@
                             <x-input-error :messages="$errors->get('selectedTemplate.details')" for="selectedTemplate.details" class="mt-2" />
                         </div>
 
-                        <div class="xl:w-1/2 md:w-1/2 px-3">
+                        <div class="xl:w-1/2 md:w-full px-2">
                             <x-label for="meta_title" :value="__('Meta title')" />
                             <x-input id="meta_title" class="block mt-1 w-full" type="text" name="meta_title"
                                 wire:model.lazy="selectedTemplate.meta_title" />
                             <x-input-error :messages="$errors->get('selectedTemplate.meta_title')" for="selectedTemplate.meta_title" class="mt-2" />
                         </div>
-                        <div class="xl:w-1/2 md:w-1/2 px-3">
+                        <div class="xl:w-1/2 md:w-full px-2">
                             <x-label for="meta_description" :value="__('Meta description')" />
                             <x-input id="meta_description" class="block mt-1 w-full" type="text"
                                 name="meta_description" wire:model.lazy="selectedTemplate.meta_description" />
                             <x-input-error :messages="$errors->get('selectedTemplate.meta_description')" for="selectedTemplate.meta_description" class="mt-2" />
                         </div>
 
+                        <x-button primary class="w-full my-2" type="submit">{{ __('Create') }}</x-button>
                     </div>
-                    <x-button primary class="w-full" type="submit">{{ __('Create') }}</x-button>
+                    
                 </form>
             @endif
         </x-slot>

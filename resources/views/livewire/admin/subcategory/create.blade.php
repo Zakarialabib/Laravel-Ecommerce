@@ -43,6 +43,12 @@
                         <x-input-error :messages="$errors->get('subcategory.language_id')" for="subcategory.language_id" class="mt-2" />
                     </div>
 
+                    <div class="w-full py-2 px-2">
+                        <x-label for="image" :value="__('Image')" />
+                        <x-fileupload wire:model="image" :file="$image" accept="image/jpg,image/jpeg,image/png" />
+                        <x-input-error :messages="$errors->get('image')" for="image" class="mt-2" />
+                    </div>
+
                     <div class="w-full px-2">
                         <x-button primary type="submit" class="w-full" wire:loading.attr="disabled">
                             {{ __('Create') }}

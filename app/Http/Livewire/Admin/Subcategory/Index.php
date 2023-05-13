@@ -22,17 +22,19 @@ class Index extends Component
     use LivewireAlert;
 
     public $listeners = [
-        'editModal', 'refreshIndex' => '$refresh',
+        'refreshIndex' => '$refresh',
         'delete',
     ];
 
     public int $perPage;
 
     public $subcategory;
-
-    public $editModal = false;
+    
+    public $deleteModal = false;
 
     public $refreshIndex;
+    
+    public $image;
 
     public array $orderable;
 
@@ -41,13 +43,6 @@ class Index extends Component
     public array $selected = [];
 
     public array $paginationOptions;
-
-    public array $rules = [
-        'subcategory.name'        => ['required', 'string', 'max:255'],
-        'subcategory.category_id' => ['nullable', 'integer'],
-        'subcategory.language_id' => ['nullable'],
-        'subcategory.slug'        => ['required'],
-    ];
 
     protected $queryString = [
         'search' => [
@@ -74,6 +69,11 @@ class Index extends Component
     public function updatingPerPage()
     {
         $this->resetPage();
+    }
+
+    public function confirmed()
+    {
+        $this->emit('delete');
     }
 
     public function resetSelected()
@@ -103,40 +103,29 @@ class Index extends Component
         return view('livewire.admin.subcategory.index', compact('subcategories'));
     }
 
-    public function editModal(Subcategory $subcategory)
+   
+
+    public function deleteModal($subcategory)
     {
-        abort_if(Gate::denies('subcategory_update'), 403);
-
-        $this->resetErrorBag();
-
-        $this->resetValidation();
-
+        $this->confirm(__('Are you sure you want to delete this?'), [
+            'toast'             => false,
+            'position'          => 'center',
+            'showConfirmButton' => true,
+            'cancelButtonText'  => __('Cancel'),
+            'onConfirmed' => 'delete',
+        ]);
         $this->subcategory = $subcategory;
-
-        $this->editModal = true;
     }
 
-    public function update()
-    {
-        abort_if(Gate::denies('subcategory_update'), 403);
-
-        $this->validate();
-
-        $this->subcategory->save();
-
-        $this->editModal = false;
-
-        $this->alert('success', __('Subcategory updated successfully'));
-    }
-
-    public function delete(Subcategory $subcategory)
+    public function delete()
     {
         abort_if(Gate::denies('subcategory_delete'), 403);
 
-        $subcategory->delete();
+        Subcategory::findOrFail($this->subcategory)->delete();
 
         $this->alert('success', __('Subcategory deleted successfully.'));
     }
+
 
     public function getCategoriesProperty()
     {

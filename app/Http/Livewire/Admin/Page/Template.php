@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Http\Livewire\Admin\Page;
 
 use App\Models\Page;
+use App\Models\PageSetting;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Livewire\Component;
 use Livewire\WithFileUploads;
@@ -47,8 +48,8 @@ class Template extends Component
 
     public function create()
     {
-        try {
-            $page = [
+        // try {
+            $pageTemplate = [
                 'title'            => $this->selectedTemplate['title'],
                 'slug'             => $this->selectedTemplate['slug'],
                 'details'          => $this->selectedTemplate['details'],
@@ -57,18 +58,23 @@ class Template extends Component
                 'photo'            => $this->selectedTemplate['image'],
             ];
 
-            Page::create($page);
+            $page = Page::create($pageTemplate);
 
-            $this->pages[] = $page;
+            // dd($page);
+
+            $pageSettings = new PageSetting([
+                'page_id'       => $page->id,
+                // 'language_id' => $page->language_id ?? null,
+            ]);
 
             $this->emit('refreshIndex');
 
             $this->createTemplate = false;
 
             $this->alert('success', __('Page created successfully!'));
-        } catch (Throwable $th) {
-            $this->alert('warning', __('Page Was not created!'));
-        }
+        // } catch (Throwable $th) {
+        //     $this->alert('warning', __('Page Was not created!'));
+        // }
     }
 
     public function render()

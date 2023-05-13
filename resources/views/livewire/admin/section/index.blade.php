@@ -106,7 +106,7 @@
                                 wire:loading.attr="disabled">
                                 <i class="fas fa-edit"></i>
                             </x-button>
-                            <x-button danger type="button" wire:click="$emit('deleteModal', {{ $section->id }})"
+                            <x-button danger type="button" wire:click="deleteModal({{ $section->id }})"
                                 wire:loading.attr="disabled">
                                 <i class="fas fa-trash-alt"></i>
                             </x-button>
@@ -140,24 +140,3 @@
     <livewire:admin.section.create />
 </div>
 
-@push('scripts')
-    <script>
-        document.addEventListener('livewire:load', function() {
-            window.livewire.on('deleteModal', sectionId => {
-                Swal.fire({
-                    title: __("Are you sure?"),
-                    text: __("You won't be able to revert this!"),
-                    icon: 'warning',
-                    showCancelButton: true,
-                    confirmButtonColor: '#3085d6',
-                    cancelButtonColor: '#d33',
-                    confirmButtonText: __("Yes, delete it!")
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        window.livewire.emit('delete', sectionId)
-                    }
-                })
-            })
-        })
-    </script>
-@endpush

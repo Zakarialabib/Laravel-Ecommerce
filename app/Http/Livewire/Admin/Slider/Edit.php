@@ -79,7 +79,9 @@ class Edit extends Component
         }
 
         $this->slider->save();
-
+        
+        $this->emit('refreshIndex');
+        
         $this->alert('success', __('Slider updated successfully.'));
 
         $this->editModal = false;

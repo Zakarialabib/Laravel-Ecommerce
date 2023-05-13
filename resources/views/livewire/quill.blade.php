@@ -1,16 +1,22 @@
 <div>
-    <!-- Include stylesheet -->
-    <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
-
     <!-- Create the editor container -->
     <div id="{{ $quillId }}" wire:ignore></div>
+</div>
 
+@pushOnce('styles')
+<!-- Include stylesheet -->
+<link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
+@endPushOnce
+
+@pushOnce('scripts')
     <!-- Include the Quill library -->
     <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
+@endPushOnce
 
-    <!-- Initialize Quill editor -->
-    <script>
-        const quill = new Quill('#{{ $quillId }}', {
+@push('scripts')
+     <!-- Initialize Quill editor -->
+     <script>
+        var quill = new Quill('#{{ $quillId }}', {
             theme: 'snow',
             modules: {
                 toolbar: {
@@ -59,10 +65,4 @@
             @this.set('value', value)
         })
     </script>
-
-    <script>
-        addEventListener("trix-blur", function(event) {
-            @this.set('value', trixEditor.getAttribute('value'))
-        })
-    </script>
-</div>
+@endpush

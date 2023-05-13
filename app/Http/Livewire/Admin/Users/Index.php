@@ -25,6 +25,7 @@ class Index extends Component
     ];
 
     public $showModal = false;
+    public $deleteModal = false;
 
     public $user;
 
@@ -83,6 +84,11 @@ class Index extends Component
         $this->selected = [];
     }
 
+    public function confirmed()
+    {
+        $this->emit('delete');
+    }
+
     public function mount()
     {
         $this->sortBy = 'id';
@@ -126,6 +132,18 @@ class Index extends Component
         User::whereIn('id', $this->selected)->delete();
 
         $this->resetSelected();
+    }
+
+    public function deleteModal($user)
+    {
+        $this->confirm(__('Are you sure you want to delete this?'), [
+            'toast'             => false,
+            'position'          => 'center',
+            'showConfirmButton' => true,
+            'cancelButtonText'  => __('Cancel'),
+            'onConfirmed' => 'delete',
+        ]);
+        $this->user = $user;
     }
 
     public function delete(User $user)

@@ -32,14 +32,14 @@
                             <x-input.textarea wire:model="selectedTemplate.description" id="description" />
                             <x-input-error :messages="$errors->get('selectedTemplate.description')" for="selectedTemplate.description" class="mt-2" />
                         </div>
-                        <div class="xl:w-1/2 md:w-1/2 px-3">
+                        <div class="xl:w-1/2 md:w-full px-2">
                             <x-label for="bg_color" :value="__('Background Color')" />
                             <input id="bg_color" class="block mt-1 w-full" type="color" name="bg_color"
                                 wire:model.defer="selectedTemplate.bg_color" />
                             <x-input-error :messages="$errors->get('selectedTemplate.bg_color')" for="selectedTemplate.bg_color" class="mt-2" />
                         </div>
     
-                        <div class="xl:w-1/2 md:w-1/2 px-3">
+                        <div class="xl:w-1/2 md:w-full px-2">
                             <x-label for="link" :value="__('Link')" />
                             <x-input id="link" class="block mt-1 w-full" type="text" name="link"
                                 wire:model.defer="selectedTemplate.link" />

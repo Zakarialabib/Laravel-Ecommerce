@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Http\Livewire\Admin\Page;
 
 use App\Models\Page;
+use App\Models\PageSetting;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Support\Str;
@@ -24,7 +25,7 @@ class Create extends Component
 
     public $image;
 
-    public $description;
+    public $details;
 
     public $listeners = [
         'createPage',
@@ -38,7 +39,7 @@ class Create extends Component
 
     protected $rules = [
         'page.title'            => ['required', 'string', 'max:255'],
-        'page.slug'             => ['required', 'unique:pages', 'max:255'],
+        'page.slug'             => ['required', 'max:255'],
         'page.details'          => ['required'],
         'page.meta_title'       => ['nullable', 'max:255'],
         'page.meta_description' => ['nullable', 'max:255'],
@@ -60,6 +61,8 @@ class Create extends Component
 
         $this->page = new Page();
 
+        $this->description = $this->page->details;
+
         $this->createPage = true;
     }
 
@@ -76,6 +79,12 @@ class Create extends Component
         }
 
         $this->page->save();
+
+        $pageSettings = new PageSetting([
+            'page_id'       => $this->page->id,
+            'language_id' => $this->page->language_id,
+        ]);
+    
 
         $this->emit('refreshIndex');
 

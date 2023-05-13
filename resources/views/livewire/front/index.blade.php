@@ -1,8 +1,5 @@
 <div>
     <div class="relative mx-auto mb-5">
-        {{-- <div class="w-full mx-auto">
-        @livewire('front.step-wizard')
-        </div> --}}
         <div class="w-full mx-auto bg-gray-900">
             <div class="swiper mySwiper">
                 <div class="swiper-wrapper">
@@ -38,7 +35,7 @@
                 <div class="swiper-button-prev"></div>
                 <div class="swiper-button-next"></div>
             </div>
-        </div>
+        </div> 
         <div class="w-full py-5 px-4 mx-auto">
             <div class="flex flex-col">
                 <h2 class="text-2xl font-bold text-center mb-4">
@@ -53,7 +50,7 @@
                                 class="absolute top-0 left-0 right-0 bottom-0 rounded-full bg-white shadow-lg transform hover:scale-105 transition-all duration-300">
                                 <img class="absolute inset-0 w-full h-full object-cover rounded-full transform-gpu transition-all duration-1000 ease-in-out"
                                     :class="{ 'rotate-0': !hover, 'rotate-360': hover }"
-                                    src="{{ $subcategory->image_url }}" alt="{{ $subcategory->name }}">
+                                    src="{{ $subcategory->image }}" alt="{{ $subcategory->name }}">
                             </div>
                             <h2
                                 class="absolute inset-0 flex items-center justify-center text-md text-gray-800 text-center">
@@ -163,6 +160,8 @@
             var swiper = new Swiper(".mySwiper", {
                 slidesPerView: "auto",
                 spaceBetween: 30,
+                speed: 400,
+                autoHeight: true
                 loop: true,
                 pagination: {
                     el: '.swiper-pagination',

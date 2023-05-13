@@ -61,7 +61,7 @@
             </x-table.th>
             <x-table.th>
                 {{ __('Actions') }}
-            </x-table.th> 
+            </x-table.th>
         </x-slot>
         <x-table.tbody>
             @forelse($products as $product)
@@ -72,16 +72,20 @@
                     <x-table.td>
                         <img src="{{ asset('images/products/' . $product->image) }}" alt="{{ $product->name }}"
                             class="w-10 h-10 rounded-full object-cover">
+                        <button
+                            onclick="classifyImage('{{ asset('images/products/' . $product->image) }}').then(result => document.getElementById('result-{{ $product->id }}').innerText = result)">Classify</button>
+                        <p id="result-{{ $product->id }}"></p>
                     </x-table.td>
                     <x-table.td>
                         <button type="button" wire:click="$emit('showModal',{{ $product->id }})">
-                            {{ Str::limit($product->name, 55) }} -
-                            <span class="mx-2 text-red-500 text-xs">{{ $product->brand?->name }}</span>
+                            {{ Str::limit($product->name, 55) }} 
                         </button>
                         <a class="ml-2 text-blue-500" href="{{ route('front.product', $product->slug) }}"
                             target="_blank">
                             <i class="fas fa-eye"></i>
                         </a>
+                        <br>
+                        <span class="text-red-500 text-xs">{{ $product->brand?->name }}</span>
                     </x-table.td>
                     {{-- <x-table.td>
                         <livewire:select :model="$product" key="{{ $product->id }}" />
@@ -132,7 +136,7 @@
                                     <i class="fas fa-edit"></i>
                                     {{ __('Edit') }}
                                 </x-dropdown-link>
-                                <x-dropdown-link wire:click="$emit('deleteModal', {{ $product->id }})"
+                                <x-dropdown-link wire:click="deleteModal({{ $product->id }})"
                                     wire:loading.attr="disabled">
                                     <i class="fas fa-trash-alt"></i>
                                     {{ __('Delete') }}
@@ -218,25 +222,3 @@
     </x-modal>
 
 </div>
-
-@push('scripts')
-    <script>
-        document.addEventListener('livewire:load', function() {
-            window.livewire.on('deleteModal', productId => {
-                Swal.fire({
-                    title: __("Are you sure?"),
-                    text: __("You won't be able to revert this!"),
-                    icon: 'warning',
-                    showCancelButton: true,
-                    confirmButtonColor: '#3085d6',
-                    cancelButtonColor: '#d33',
-                    confirmButtonText: __("Yes, delete it!")
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        window.livewire.emit('delete', productId)
-                    }
-                })
-            })
-        })
-    </script>
-@endpush

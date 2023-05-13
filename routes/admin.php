@@ -55,8 +55,8 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth', 'r
 
     Route::get('/featuredBanners', [FeaturedBannerController::class, 'index'])->name('featuredBanners');
     Route::get('/pages', [PageController::class, 'index'])->name('pages');
-    Route::get('/page/create', [PageController::class, 'create'])->name('page.create');
     Route::get('/order-forms', [PageController::class, 'orderForms'])->name('orderforms');
+    Route::get('/page/settings', [PageController::class, 'settings'])->name('page.settings');
 
     Route::get('/sliders', [SliderController::class, 'index'])->name('sliders');
 

@@ -45,6 +45,8 @@ class Index extends Component
 
     public array $paginationOptions;
 
+    public $deleteModal = false;
+
     protected $queryString = [
         'search' => [
             'except' => '',
@@ -85,6 +87,11 @@ class Index extends Component
     public function resetSelected()
     {
         $this->selected = [];
+    }
+
+    public function confirmed()
+    {
+        $this->emit('delete');
     }
 
     public function mount()
@@ -135,9 +142,32 @@ class Index extends Component
         $this->showModal = true;
     }
 
-    public function delete(Slider $slider)
+    public function deleteModal($slider)
     {
-        $slider->delete();
+        $this->confirm(__('Are you sure you want to delete this?'), [
+            'toast'             => false,
+            'position'          => 'center',
+            'showConfirmButton' => true,
+            'cancelButtonText'  => __('Cancel'),
+            'onConfirmed' => 'delete',
+        ]);
+        $this->slider = $slider;
+    }
+
+    public function deleteSelected()
+    {
+        abort_if(Gate::denies('slider_delete'), 403);
+
+        Slider::whereIn('id', $this->selected)->delete();
+
+        $this->resetSelected();
+    }
+
+    public function delete()
+    {
+        abort_if(Gate::denies('slider_delete'), 403);
+
+        Slider::findOrFail($this->slider)->delete();
 
         $this->alert('success', __('Slider deleted successfully.'));
     }

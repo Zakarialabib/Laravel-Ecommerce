@@ -26,6 +26,7 @@
         "filepond": "^4.30.4",
         "perfect-scrollbar": "^1.5.5",
         "ponyfill": "^0.0.1",
+        "quill": "^1.3.7",
         "sweetalert2": "^11.6.1",
         "tailwindcss-tables": "^0.4.0"
     }

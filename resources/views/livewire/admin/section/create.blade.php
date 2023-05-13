@@ -10,7 +10,7 @@
 
             <form enctype="multipart/form-data" wire:submit.prevent="save">
                 <div class="flex flex-wrap space-y-2 px-2">
-                    <div class="lg:w-1/2 md:w-full px-2">
+                    <div class="xl:w-1/2 md:w-full px-2">
                         <x-label for="language_id" :value="__('Language')" />
                         <select
                             class="block bg-white text-gray-700 rounded border border-gray-300 mb-1 text-sm w-full focus:shadow-outline-blue focus:border-blue-500"

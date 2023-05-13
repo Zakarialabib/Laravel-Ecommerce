@@ -92,7 +92,7 @@
                                 <i class="fas fa-edit"></i>
                             </x-button>
                             <x-button danger type="button"
-                                wire:click="$emit('deleteModal', {{ $featuredbanner->id }})"
+                                wire:click="deleteModal({{ $featuredbanner->id }})"
                                 wire:loading.attr="disabled">
                                 <i class="fas fa-trash-alt"></i>
                             </x-button>
@@ -128,13 +128,13 @@
 
                 <form wire:submit.prevent="update">
                     <div class="flex flex-wrap -mx-3 space-y-0">
-                        <div class="xl:w-1/2 md:w-1/2 px-3">
+                        <div class="xl:w-1/2 md:w-full px-2">
                             <x-label for="title" :value="__('Title')" />
                             <x-input id="title" class="block mt-1 w-full" type="text" name="title"
                                 wire:model.defer="featuredbanner.title" />
                             <x-input-error :messages="$errors->get('featuredbanner.title')" for="featuredbanner.title" class="mt-2" />
                         </div>
-                        <div class="xl:w-1/2 md:w-1/2 px-3">
+                        <div class="xl:w-1/2 md:w-full px-2">
                             <x-label for="language_id" :value="__('Language')" required />
                             <x-select-list
                                 class="block bg-white text-gray-700 rounded border border-gray-300 mb-1 text-sm w-full focus:shadow-outline-blue focus:border-blue-500"
@@ -142,7 +142,7 @@
                                 :options="$this->listsForFields['languages']" />
                             <x-input-error :messages="$errors->get('featuredbanner.language_id')" for="featuredbanner.language_id" class="mt-2" />
                         </div>
-                        <div class="xl:w-1/2 md:w-1/2 px-3">
+                        <div class="xl:w-1/2 md:w-full px-2">
                             <x-label for="product_id" :value="__('Product')" />
                             <x-select-list
                                 class="block bg-white text-gray-700 rounded border border-gray-300 mb-1 text-sm w-full focus:shadow-outline-blue focus:border-blue-500"
@@ -151,13 +151,13 @@
                             <x-input-error :messages="$errors->get('featuredbanner.product_id')" for="featuredbanner.product_id" class="mt-2" />
                         </div>
 
-                        <div class="xl:w-1/2 md:w-1/2 px-3">
+                        <div class="xl:w-1/2 md:w-full px-2">
                             <x-label for="details" :value="__('Details')" />
                             <x-input id="details" class="block mt-1 w-full" type="text" name="details"
                                 wire:model.defer="featuredbanner.details" />
                             <x-input-error :messages="$errors->get('featuredbanner.details')" for="featuredbanner.details" class="mt-2" />
                         </div>
-                        <div class="xl:w-1/2 md:w-1/2 px-3">
+                        <div class="xl:w-1/2 md:w-full px-2">
                             <x-label for="link" :value="__('Link')" />
                             <x-input id="link" class="block mt-1 w-full" type="text" name="link"
                                 wire:model.defer="featuredbanner.link" />
@@ -191,25 +191,3 @@
     <livewire:admin.featured-banner.create />
 
 </div>
-
-@push('scripts')
-    <script>
-        document.addEventListener('livewire:load', function() {
-            window.livewire.on('deleteModal', featuredbannerId => {
-                Swal.fire({
-                    title: __("Are you sure?") ,
-                    text: __("You won't be able to revert this!") ,
-                    icon: 'warning',
-                    showCancelButton: true,
-                    confirmButtonColor: '#3085d6',
-                    cancelButtonColor: '#d33',
-                    confirmButtonText: __("Yes, delete it!") 
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        window.livewire.emit('delete', featuredbannerId)
-                    }
-                })
-            })
-        })
-    </script>
-@endpush

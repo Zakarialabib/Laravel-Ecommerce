@@ -34,6 +34,8 @@ class Index extends Component
     public $refreshIndex;
 
     public $showModal = false;
+    
+    public $deleteModal = false;
 
     public int $perPage;
 
@@ -87,6 +89,11 @@ class Index extends Component
         $this->selected = [];
     }
 
+    public function confirmed()
+    {
+        $this->emit('delete');
+    }
+
     public function mount()
     {
         $this->sortBy = 'id';
@@ -112,15 +119,27 @@ class Index extends Component
     }
 
       // Section  Delete
-      public function delete(Section $section)
+      public function delete()
       {
-          //   abort_if(Gate::denies('section_delete'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+        abort_if(Gate::denies('section_delete'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-          $section->delete();
+          Subcategory::findOrFail($this->section)->delete();
 
           $this->alert('warning', __('Section Deleted successfully!'));
       }
 
+
+      public function deleteModal($section)
+      {
+          $this->confirm(__('Are you sure you want to delete this?'), [
+              'toast'             => false,
+              'position'          => 'center',
+              'showConfirmButton' => true,
+              'cancelButtonText'  => __('Cancel'),
+              'onConfirmed' => 'delete',
+          ]);
+          $this->section = $section;
+      }
      // Section  Clone
      public function clone(Section $section)
      {

@@ -28,6 +28,9 @@
             <x-table.th>
                 <input type="checkbox" wire:model="selectPage" />
             </x-table.th>
+            <x-table.th>
+                {{ __('Image') }}
+            </x-table.th>
             <x-table.th sortable wire:click="sortBy('name')" :direction="$sorts['name'] ?? null">
                 {{ __('Name') }}
                 @include('components.table.sort', ['field' => 'name'])
@@ -47,6 +50,10 @@
                         <input type="checkbox" value="{{ $subcategory->id }}" wire:model="selected">
                     </x-table.td>
                     <x-table.td>
+                        <img src="{{ asset('images/subcategories/' . $subcategory->image) }}" alt="{{ $subcategory->name }}"
+                        class="w-10 h-10 rounded-full object-cover">
+                    </x-table.td>
+                    <x-table.td>
                         {{ $subcategory->name }}
                     </x-table.td>
                     <x-table.td>
@@ -58,7 +65,7 @@
                                 wire:loading.attr="disabled">
                                 <i class="fas fa-edit"></i>
                             </x-button>
-                            <x-button danger type="button" wire:click="$emit('deleteModal', {{ $subcategory->id }})"
+                            <x-button danger type="button" wire:click="deleteModal({{ $subcategory->id }})"
                                 wire:loading.attr="disabled">
                                 <i class="fas fa-trash-alt"></i>
                             </x-button>
@@ -90,87 +97,10 @@
     </div>
     
     <!-- Edit Modal -->
-    <x-modal wire:model="editModal">
-        <x-slot name="title">
-            {{ __('Edit Category') }}
-        </x-slot>
-
-        <x-slot name="content">
-            <!-- Validation Errors -->
-            <x-auth-validation-errors class="mb-4" :errors="$errors" />
-            <form wire:submit.prevent="update">
-                <div class="space-y-4 px-4">
-
-                    <div class="px-2 w-1/2 sm:w-full">
-                        <x-label for="name" :value="__('Name')" />
-                        <x-input id="name" class="block mt-1 w-full" type="text" name="name"
-                            wire:model.defer="subcategory.name" />
-                        <x-input-error :messages="$errors->get('subcategory.name')" for="subcategory.name" class="mt-2" />
-                    </div>
-                    <div class="px-2 w-1/2 sm:w-full">
-                        <x-label for="slug" :value="__('Slug')" />
-                        <x-input id="slug" class="block mt-1 w-full" type="text" name="slug"
-                            wire:model.defer="subcategory.slug" />
-                        <x-input-error :messages="$errors->get('subcategory.slug')" for="subcategory.slug" class="mt-2" />
-                    </div>
-
-                    <div class="mt-4 px-2 w-1/2 sm:w-full">
-                        <x-label for="category_id" :value="__('Category')" required />
-                        <select
-                            class="block bg-white text-gray-700 rounded border border-gray-300 mb-1 text-sm w-full focus:shadow-outline-blue focus:border-blue-500"
-                            id="category_id" name="category_id" wire:model="subcategory.category_id">
-                            <option value="">{{ __('Select Category') }}</option>
-                            @foreach ($this->categories as $category)
-                                <option value="{{ $category->id }}">{{ $category->name }}</option>
-                            @endforeach
-                            <x-input-error :messages="$errors->get('subcategory.category_id')" for="subcategory.category_id" class="mt-2" />
-                        </select>
-                    </div>
-
-                    <div class="mt-4 px-2 w-1/2 sm:w-full">
-                        <x-label for="language_id" :value="__('Language')" required />
-                        <select
-                            class="block bg-white text-gray-700 rounded border border-gray-300 mb-1 text-sm w-full focus:shadow-outline-blue focus:border-blue-500"
-                            id="language_id" name="language_id" wire:model="subcategory.language_id">
-                            @foreach ($this->languages as $language)
-                                <option value="{{ $language->id }}">{{ $language->name }}</option>
-                            @endforeach
-                        </select>
-                        <x-input-error :messages="$errors->get('subcategory.language_id')" for="subcategory.language_id" class="mt-2" />
-                    </div>
-
-                    <div class="w-full px-3">
-                        <x-button primary type="submit" wire:loading.attr="disabled">
-                            {{ __('Update') }}
-                        </x-button>
-                    </div>
-                </div>
-            </form>
-        </x-slot>
-    </x-modal>
+    
+    @livewire('admin.subcategory.edit', ['subcategory'=>$subcategory])
+    
     <!-- End Edit Modal -->
 
     <livewire:admin.subcategory.create />
 </div>
-
-@push('page_scripts')
-    <script>
-        document.addEventListener('livewire:load', function() {
-            window.livewire.on('deleteModal', subcategoryId => {
-                Swal.fire({
-                    title: __("Are you sure?") ,
-                    text: __("You won't be able to revert this!") ,
-                    icon: 'warning',
-                    showCancelButton: true,
-                    confirmButtonColor: '#3085d6',
-                    cancelButtonColor: '#d33',
-                    confirmButtonText: __("Yes, delete it!") 
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        window.livewire.emit('delete', subcategoryId)
-                    }
-                })
-            })
-        })
-    </script>
-@endpush
