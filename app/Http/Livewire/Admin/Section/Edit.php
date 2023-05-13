@@ -75,6 +75,8 @@ class Edit extends Component
             $this->section->save();
 
             $this->alert('success', __('Section updated successfully!'));
+            
+            $this->emit('refreshIndex');
 
             $this->editModal = false;
         } catch (Throwable $th) {

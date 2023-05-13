@@ -69,9 +69,9 @@ class Edit extends Component
 
         $this->blog->save();
 
-        $this->emit('refreshIndex');
-
         $this->alert('success', __('Blog updated successfully.'));
+        
+        $this->emit('refreshIndex');
 
         $this->editModal = false;
     }

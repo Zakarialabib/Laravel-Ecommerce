@@ -81,9 +81,9 @@ class Edit extends Component
 
         $this->page->save();
 
-        $this->emit('refreshIndex');
-
         $this->alert('success', __('Page updated successfully.'));
+        
+        $this->emit('refreshIndex');
 
         $this->editModal = false;
     }

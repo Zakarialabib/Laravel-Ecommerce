@@ -133,9 +133,9 @@ class Create extends Component
 
         $this->brand->save();
 
-        $this->emit('refreshIndex');
-
         $this->alert('success', __('Brand created successfully.'));
+        
+        $this->emit('refreshIndex');
 
         $this->createBrand = false;
     }

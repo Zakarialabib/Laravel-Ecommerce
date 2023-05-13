@@ -58,9 +58,11 @@ class Edit extends Component
 
         $this->category->save();
 
-        $this->editModal = false;
-
         $this->alert('success', __('Category updated successfully.'));
+        
+        $this->emit('refreshIndex');
+        
+        $this->editModal = false;
     }
 
     public function render(): View

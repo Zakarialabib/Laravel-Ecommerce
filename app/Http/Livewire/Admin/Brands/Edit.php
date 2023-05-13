@@ -10,9 +10,14 @@ use Illuminate\Contracts\View\View;
 use Illuminate\Support\Facades\Gate;
 use Intervention\Image\Facades\Image;
 use Illuminate\Support\Str;
+use Livewire\WithFileUploads;
+use Jantinnerezo\LivewireAlert\LivewireAlert;
 
 class Edit extends Component
 {
+    use LivewireAlert;
+    use WithFileUploads;
+
     public $brand;
 
     public $editModal = false;
@@ -97,10 +102,8 @@ class Edit extends Component
         $this->brand->save();
 
         $this->alert('success', __('Brand updated successfully.'));
-
-        $this->resetErrorBag();
-
-        $this->resetValidation();
+        
+        $this->emit('refreshIndex');
 
         $this->editModal = false;
     }

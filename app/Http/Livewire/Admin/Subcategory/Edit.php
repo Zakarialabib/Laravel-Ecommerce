@@ -71,9 +71,9 @@ class Edit extends Component
 
         $this->subcategory->save();
 
-        $this->emit('refreshIndex');
-
         $this->alert('success', __('Subcategory updated successfully'));
+        
+        $this->emit('refreshIndex');
         
         $this->editModal = false;
 

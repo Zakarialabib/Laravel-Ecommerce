@@ -62,6 +62,8 @@ class Edit extends Component
         ]);
 
         $this->alert('success', __('User Updated Successfully'));
+        
+        $this->emit('refreshIndex');
 
         $this->editModal = false;
     }
