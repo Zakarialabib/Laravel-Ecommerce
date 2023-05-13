@@ -5,8 +5,6 @@ declare(strict_types=1);
 namespace App\Http\Livewire\Admin\Subcategory;
 
 use App\Http\Livewire\WithSorting;
-use App\Models\Category;
-use App\Models\Language;
 use App\Models\Subcategory;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
@@ -127,13 +125,5 @@ class Index extends Component
     }
 
 
-    public function getCategoriesProperty()
-    {
-        return Category::select('name', 'id')->get();
-    }
-
-    public function getLanguagesProperty()
-    {
-        return Language::select('name', 'id')->get();
-    }
+  
 }

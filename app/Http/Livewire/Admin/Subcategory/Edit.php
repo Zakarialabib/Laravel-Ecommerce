@@ -7,11 +7,13 @@ namespace App\Http\Livewire\Admin\Subcategory;
 use Livewire\Component;
 use Illuminate\Contracts\View\View;
 use Illuminate\Support\Facades\Gate;
-use App\Models\Subcategory;
-use Illuminate\Support\Str;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
-use Livewire\WithFileUploads;
 use Intervention\Image\Facades\Image;
+use Illuminate\Support\Str;
+use Livewire\WithFileUploads;
+use App\Models\Subcategory;
+use App\Models\Category;
+use App\Models\Language;
 
 class Edit extends Component
 {
@@ -79,8 +81,19 @@ class Edit extends Component
 
     }
 
+    public function getCategoriesProperty()
+    {
+        return Category::select('name', 'id')->get();
+    }
+
+    public function getLanguagesProperty()
+    {
+        return Language::select('name', 'id')->get();
+    }
+
     public function render(): View
     {
         return view('livewire.admin.subcategory.edit');
     }
+
 }
