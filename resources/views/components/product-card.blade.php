@@ -1,14 +1,16 @@
 @props(['product'])
+
 <div itemprop="itemListElement" itemscope itemtype="https://schema.org/Product">
-    <div itemprop="brand" content="{{ $product->brand }}"></div>
+    <div itemprop="brand" content="{{ $product->brand->name }}"></div>
     <div itemprop="sku" content="{{ $product->code }}"></div>
     <div itemprop="description" content="{{ $product->description }}"></div>
 
     <div class="mb-5 bg-white rounded-lg shadow-2xl sm:w-full">
         <div class="relative text-left">
             <a href="{{ route('front.product', $product->slug) }}" class="flex justify-center" itemprop="url">
-                <img class="lg:h-[250px] md:h-[150px] object-fill py-2" src="{{ asset('images/products/' . $product->image) }}"
-                    onerror="this.onerror=null; this.remove();" alt="{{ $product->name }}" loading="lazy" />
+                <img class="lg:h-[250px] md:h-[150px] object-fill py-2"
+                    src="{{ asset('images/products/' . $product->image) }}"
+                    alt="{{ $product->name }}" loading="lazy" />
                 <meta itemprop="image" content="{{ asset('images/products/' . $product->image) }}" />
             </a>
 

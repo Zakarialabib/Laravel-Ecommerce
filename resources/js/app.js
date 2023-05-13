@@ -17,6 +17,9 @@ import collapse from '@alpinejs/collapse';
 import focus from "@alpinejs/focus";
 import intersect from "@alpinejs/intersect";
 
+import swiper from 'swiper';
+window.Swiper = swiper;
+
 Alpine.plugin(focus);
 Alpine.plugin(intersect);
 
