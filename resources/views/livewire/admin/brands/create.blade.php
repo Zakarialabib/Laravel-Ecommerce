@@ -17,12 +17,14 @@
                             wire:model.lazy="brand.name" />
                         <x-input-error :messages="$errors->get('brand.name')" for="brand.name" class="mt-2" />
                     </div>
+
                     <div class="lg:w-1/2 sm:w-full px-2">
-                        <x-label for="slug" :value="__('Slug')" />
-                        <x-input id="slug" class="block mt-1 w-full" type="text" name="slug"
-                            wire:model.lazy="brand.slug" />
-                        <x-input-error :messages="$errors->get('brand.slug')" for="brand.slug" class="mt-2" />
+                        <x-label for="origin" :value="__('Origin')" />
+                        <x-input id="origin" class="block mt-1 w-full" type="text" name="origin"
+                            wire:model.lazy="brand.origin" />
+                        <x-input-error :messages="$errors->get('brand.origin')" for="brand.origin" class="mt-2" />
                     </div>
+                    
                     <div class="w-full px-2">
                         <x-label for="description" :value="__('Description')" />
                         <x-input.textarea wire:model.lazy="brand.description" id="description" />

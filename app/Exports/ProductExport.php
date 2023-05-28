@@ -28,12 +28,12 @@ class ProductExport implements FromView
             return Product::query()->whereIn('id', $this->models);
         }
 
-        return Product::query()->with('category');
+        return Product::query()->with('category','brand');
     }
 
     public function view(): View
     {
-        return view('pdf.products', [
+        return view('export.products', [
             'data' => $this->query()->get(),
         ]);
     }

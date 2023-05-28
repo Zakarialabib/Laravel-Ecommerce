@@ -153,29 +153,31 @@
     </div>
 </div>
 
-@once
-    @push('scripts')
-        <script>
-            var swiper = new Swiper(".mySwiper", {
-                slidesPerView: "auto",
-                spaceBetween: 30,
-                speed: 400,
-                autoHeight: true,
-                loop: true,
-                pagination: {
-                    el: '.swiper-pagination',
-                    clickable: true,
-                },
-                // Navigation arrows
-                navigation: {
-                    nextEl: '.swiper-button-next',
-                    prevEl: '.swiper-button-prev',
-                },
-            });
-        </script>
-    @endpush
 
-    @push('styles')
-        <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
-    @endpush
-@endonce
+@push('scripts')
+    <script>
+        document.addEventListener('livewire:load', function() {
+        var swiper = widnow.Swiper(".mySwiper", {
+            slidesPerView: "auto",
+            spaceBetween: 30,
+            speed: 400,
+            autoHeight: true,
+            loop: true,
+            pagination: {
+                el: '.swiper-pagination',
+                clickable: true,
+            },
+            navigation: {
+                nextEl: '.swiper-button-next',
+                prevEl: '.swiper-button-prev',
+            },
+        });
+    })
+    </script>
+@endpush
+
+
+@push('styles')
+    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
+@endpush
+

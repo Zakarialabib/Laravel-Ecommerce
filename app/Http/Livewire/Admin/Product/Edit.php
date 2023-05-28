@@ -67,9 +67,9 @@ class Edit extends Component
         'product.condition'        => ['nullable'],
     ];
 
-    public function quill_value_updated($value)
+    public function QuillValueUpdated($value)
     {
-        $this->product->description = $value;
+        $this->description = $value;
     }
 
     public function getImagePreviewProperty()
@@ -103,6 +103,12 @@ class Edit extends Component
         $this->product->subcategories;
     }
 
+    public function fetchSubcategories()
+    {
+        $selectedCategory = $this->product['category_id'];
+        $this->subcategories = Subcategory::where('category_id', $selectedCategory)->get();
+    }
+
     public function addOption()
     {
         $this->options[] = [
@@ -128,6 +134,8 @@ class Edit extends Component
         $this->product = Product::findOrFail($id);
 
         $this->description = $this->product->description;
+
+        $this->fetchSubcategories();
 
         $this->options = $this->product->options ?? [['type' => '', 'value' => '']];
 

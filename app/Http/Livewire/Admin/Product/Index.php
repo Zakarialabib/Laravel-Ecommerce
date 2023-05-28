@@ -7,6 +7,9 @@ namespace App\Http\Livewire\Admin\Product;
 use App\Exports\ProductExport;
 use App\Http\Livewire\WithSorting;
 use App\Models\Product;
+use App\Models\Category;
+use App\Models\Brand;
+use App\Models\Subcategory;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Support\Facades\Gate;
@@ -31,8 +34,8 @@ class Index extends Component
         'delete', 'downloadAll',
         'exportAll',
     ];
-
-    public $selectType;
+    
+    public $deleteModal = false;
 
     public $promoAllProducts = false;
 
@@ -51,7 +54,10 @@ class Index extends Component
     public array $orderable;
 
     public $selectAll;
-
+    public $category_id;
+    public $subcategoryIds;
+    public $brand_id;
+    
     public $file;
 
     public float $price;
@@ -94,6 +100,11 @@ class Index extends Component
         $this->selected = [];
     }
 
+    public function confirmed()
+    {
+        $this->emit('delete');
+    }
+
     public function mount()
     {
         $this->sortBy = 'id';
@@ -102,7 +113,9 @@ class Index extends Component
         $this->paginationOptions = [25, 50, 100];
         $this->orderable = (new Product())->orderable;
         $this->file = null;
-        $this->selectType = 'category_id';
+        // if ($this->product) {
+        //     $this->updateSelected();
+        // }
     }
 
     public function render(): View|Factory
@@ -123,11 +136,24 @@ class Index extends Component
         return view('livewire.admin.product.index', compact('products'));
     }
 
-    public function delete(Product $product)
+
+    public function deleteModal($product)
+    {
+        $this->confirm(__('Are you sure you want to delete this?'), [
+            'toast'             => false,
+            'position'          => 'center',
+            'showConfirmButton' => true,
+            'cancelButtonText'  => __('Cancel'),
+            'onConfirmed'       => 'delete',
+        ]);
+        $this->product = $product;
+    }
+
+    public function delete()
     {
         abort_if(Gate::denies('product_delete'), 403);
 
-        $product->delete();
+        Product::findOrFail($this->product)->delete();
 
         $this->alert('success', __('Product deleted successfully.'));
     }
@@ -188,7 +214,7 @@ class Index extends Component
          $this->promoAllProducts = true;
      }
 
-     public function updateSelected()
+     public function discountSelected()
      {
          $products = Product::whereIn('id', $this->selected)->get();
 
@@ -216,6 +242,60 @@ class Index extends Component
          $this->copyOldPriceToPrice = '';
          $this->percentage = '';
      }
+
+    public function getCategoriesProperty()
+    {
+        return Category::select('id', 'name')->get();
+    }
+
+    public function getBrandsProperty()
+    {
+        return Brand::select('name', 'id')->get();
+    }
+
+    public function getSubcategoriesProperty()
+    {
+        return Subcategory::select('name', 'id')->get();
+    }
+
+    public function updateSelected($field, $productId)
+    {
+        try {        
+            $this->product = Product::find($productId);
+        
+            switch ($field) {
+                case 'category':
+                    $this->product->category_id = $this->category_id;
+                    break;
+                case 'brand':
+                    $this->product->brand_id = $this->brand_id;
+                    break;
+                case 'subcategoryIds':
+                    $this->product->subcategories = $this->subcategories;
+                    break;
+                
+                default:
+                    # code...
+                    break;
+            }
+        
+            $this->product->save();
+            
+            $this->alert('success', __('Product updated successfully.'));
+        } catch (\Throwable $th) {
+            $this->alert('error', __('Something is missing.'));
+        }
+    }
+
+    public function expand(Product $product)
+    {
+
+        $this->category_id = $this->product->category_id;
+        $this->brand_id = $this->product->brand_id;
+        $this->subcategoryIds = $this->product->subcategories;
+        // dd($this->all());
+
+    }
 
       public function downloadSelected()
       {

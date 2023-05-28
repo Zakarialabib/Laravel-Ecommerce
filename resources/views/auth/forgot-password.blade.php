@@ -34,7 +34,6 @@
                     </x-button>
                 </div>
             </form>
-            </x-auth-card>
         </div>
 
         <div class="lg:w-1/2 sm:w-full relative pb-full md:flex md:pb-0">

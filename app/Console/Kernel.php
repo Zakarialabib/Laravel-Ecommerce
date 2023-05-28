@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace App\Console;
 
 use App\Enums\BackupSchedule;
-use App\Console\Commands\Backup;
 use App\Console\Commands\GenerateSitemap;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
@@ -13,7 +12,6 @@ use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 class Kernel extends ConsoleKernel
 {
     protected $commands = [
-        Backup::class,
         GenerateSitemap::class,
     ];
 
@@ -26,16 +24,15 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        //  some config somewhere
         if (config('backup.schedule') === BackupSchedule::DAILY) {
-            $schedule->command('backup:monitor')->daily()->at('17:00');
-            $schedule->command('backup:run')->daily()->at('17:00');
+            $schedule->command('backup:clean')->daily()->at('01:00');
+            $schedule->command('backup:run')->daily()->at('01:30');
         } elseif (config('backup.schedule') === BackupSchedule::WEEKLY) {
-            $schedule->command('backup:monitor')->weekly()->at('17:00');
-            $schedule->command('backup:run')->weekly()->at('17:00');
+            $schedule->command('backup:clean')->weekly()->at('01:30');
+            $schedule->command('backup:run')->weekly()->at('01:30');
         } elseif (config('backup.schedule') === BackupSchedule::MONTHLY) {
-            $schedule->command('backup:monitor')->monthly()->at('17:00');
-            $schedule->command('backup:run')->monthly()->at('17:00');
+            $schedule->command('backup:clean')->monthly()->at('01:00');
+            $schedule->command('backup:run')->monthly()->at('01:30');
         }
 
         if (config('sitemap.schedule') === 1) {

@@ -1,5 +1,5 @@
 <div>
-    <h2 class="mb-14 text-5xl font-bold font-heading">{{ __('Checkout') }}</h2>
+    <h2 class="mb-14 mt-4 text-center text-5xl font-bold font-heading">{{ __('Checkout') }}</h2>
     <div class="flex flex-wrap -mx-4">
         <div class="w-full lg:w-1/2 px-4">
             <form wire:submit.prevent="checkout">
@@ -44,7 +44,7 @@
 
                 <div class="flex my-5 items-center">
                     <span
-                        class="inline-flex mr-8 items-center justify-center w-12 h-12 rounded-full bg-purple-300 text-white">2</span>
+                        class="inline-flex mr-8 items-center justify-center w-12 h-12 rounded-full bg-beige-500 text-white">2</span>
                     <h3 class="text-2xl font-bold font-heading">{{ __('Shipping informations') }}</h3>
                 </div>
                 <div class="flex mb-5 items-center">
@@ -160,7 +160,7 @@
                                                 class="inline-flex items-center px-4 font-semibold font-heading text-gray-500 border border-gray-200 focus:ring-blue-300 focus:border-blue-300 rounded-md">
                                                 <div class="flex items-center space-x-2">
                                                     @if (!empty($item->price))
-                                                        <p class="text-lg text-blue-500 font-bold font-heading">
+                                                        <p class="text-lg bg-beige-500 text-white font-bold font-heading">
                                                             {{ $item->price }} DH
                                                         </p>
                                                     @endif

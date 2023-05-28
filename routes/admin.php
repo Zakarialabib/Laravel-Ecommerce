@@ -21,6 +21,7 @@ use App\Http\Controllers\Admin\ShippingController;
 use App\Http\Controllers\Admin\SliderController;
 use App\Http\Controllers\Admin\SmptController;
 use App\Http\Controllers\Admin\UsersController;
+use App\Http\Livewire\Admin\Backup\Index as BackupIndex;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -64,6 +65,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth', 'r
     Route::get('/blog/category', [BlogCategoryController::class, 'index'])->name('blogcategories');
 
     Route::get('/settings', [SettingController::class, 'index'])->name('settings');
+    Route::get('/backup', BackupIndex::class)->name('setting.backup');
     Route::get('/shipping', [ShippingController::class, 'index'])->name('setting.shipping');
     Route::get('/popupsettings', [SettingController::class, 'popupsettings'])->name('setting.popupsettings');
     Route::get('/redirects', [SettingController::class, 'redirects'])->name('setting.redirects');

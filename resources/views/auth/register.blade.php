@@ -15,7 +15,7 @@
                     <div class="flex flex-wrap mx-2">
                         <!-- First Name -->
                         <div class="lg:w-1/2 sm:w-full px-2">
-                            <x-label for="first_name" :value="__('File name')" required />
+                            <x-label for="first_name" :value="__('First name')" required />
 
                             <x-input id="first_name" class="block mt-1 w-full" type="text" name="first_name"
                                 :value="old('first_name')" required autofocus />
@@ -43,18 +43,26 @@
                                 :value="old('phone')" required />
                         </div>
                     
+                        <!-- Country -->
+                        <div class="lg:w-1/2 sm:w-full px-2">
+                            <x-label for="country" :value="__('Country')" required />
+
+                            <x-input id="country" class="block mt-1 w-full" type="text" name="country"
+                                :value="old('country')" required />
+                        </div>
+                      
                         <!-- City -->
                         <div class="lg:w-1/2 sm:w-full px-2">
                             <x-label for="city" :value="__('City')" required />
 
-                            <x-input id="city" class="block mt-1 w-full" type="email" name="city"
+                            <x-input id="city" class="block mt-1 w-full" type="text" name="city"
                                 :value="old('city')" required />
                         </div>
 
                         <!-- Address -->
                         <div class="lg:w-1/2 sm:w-full px-2">
                             <x-label for="address" :value="__('Address')" required />
-                            <x-input id="address" class="block mt-1 w-full" type="number" name="address"
+                            <x-input id="address" class="block mt-1 w-full" type="text" name="address"
                                 :value="old('address')" required />
                         </div>
                     

@@ -71,6 +71,8 @@
         <x-topheader />
 
         <x-header />
+        
+        <x-bottomheader />
 
         @yield('content')
 

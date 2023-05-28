@@ -50,6 +50,18 @@
                             </x-table.tr>
                             <x-table.tr>
                                 <x-table.th>
+                                    {{ __('Subcategories') }}
+                                </x-table.th>
+                                <x-table.td>
+                                    <div class="flex flex-wrap space-x-2">
+                                        @foreach ($product?->subcategories ?? [] as $subcategory)
+                                            {{-- <div class="px-2">{{ $subcategory->name }}</div> --}}
+                                        @endforeach
+                                    </div>
+                                </x-table.td>
+                            </x-table.tr>
+                            <x-table.tr>
+                                <x-table.th>
                                     {{ __('Old Price') }}
                                 </x-table.th>
                                 <x-table.td>

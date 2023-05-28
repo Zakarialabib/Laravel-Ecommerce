@@ -52,6 +52,7 @@ class Create extends Component
         'product.price'            => ['required', 'numeric', 'max:2147483647'],
         'product.old_price'        => ['required', 'numeric', 'max:2147483647'],
         'description'              => ['nullable'],
+        'image'              => ['image', 'required'],
         'product.meta_title'       => ['nullable', 'string', 'max:255'],
         'product.meta_description' => ['nullable', 'string', 'max:255'],
         'product.meta_keywords'    => ['nullable', 'string', 'min:1'],
@@ -65,7 +66,7 @@ class Create extends Component
         'product.condition'        => ['nullable'],
     ];
 
-    public function quill_value_updated($value)
+    public function QuillValueUpdated($value)
     {
         $this->description = $value;
     }
@@ -77,7 +78,7 @@ class Create extends Component
 
     public function updatedProductSubcategories()
     {
-        $this->product->subcategories()->sync($this->product->subcategories);
+        $this->product->subcategories;
     }
 
     public function getImagePreviewProperty()
@@ -89,6 +90,13 @@ class Create extends Component
     {
         return $this->product->gallery;
     }
+
+    public function fetchSubcategories()
+    {
+        $selectedCategory = $this->product['category_id'];
+        $this->subcategories = Subcategory::where('category_id', $selectedCategory)->get();
+    }
+
 
     public function render(): View|Factory
     {
@@ -132,7 +140,7 @@ class Create extends Component
         }
 
         $this->product->subcategories = $this->subcategories;
-        $this->product->subcategories = $this->subcategories;
+        $this->product->description = $this->description;
 
         $this->product->save();
 

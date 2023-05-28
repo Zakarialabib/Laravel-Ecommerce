@@ -1,25 +1,25 @@
 <nav aria-label="secondary" x-data="{ open: false }"
-    class="sticky top-0 z-10 flex items-center justify-between px-4 py-4 transition-transform duration-500 bg-gray-100"
+    class="sticky top-0 z-10 flex items-center justify-between px-4 py-4 transition-transform duration-500 shadow"
     :class="{
         '-translate-y-full': scrollingDown,
         'translate-y-0': scrollingUp,
     }">
 
     <div class="flex items-center gap-3">
-        <x-button type="button" iconOnly secondary srText="Open main menu" @click="isSidebarOpen = !isSidebarOpen">
-            <x-icons.menu x-show="!isSidebarOpen" aria-hidden="true" class="w-5 h-5" />
-            <x-icons.x x-show="isSidebarOpen" aria-hidden="true" class="w-5 h-5" />
-        </x-button>
+        <button type="button" class="text-black" srText="Open main menu" @click="isSidebarOpen = !isSidebarOpen">
+            <x-icons.menu x-show="!isSidebarOpen" aria-hidden="true" class="w-7 h-7" />
+            <x-icons.x x-show="isSidebarOpen" aria-hidden="true" class="w-7 h-7" />
+        </button>
     </div>
 
-    <div class="flex items-center gap-3">
-        <div class="md:flex hidden flex-wrap space-x-2 items-center">
-            <x-button href="{{ route('front.index')}}" secondary>
-                <i class="fa fa-eye w-4 h-4"></i>
-            </x-button>
-            <x-button type="button" secondary id="fullScreen">
-                <i class="fa fa-expand w-4 h-4"></i>
-            </x-button>
+    <div class="flex items-center gap-4">
+        <div class="md:flex hidden flex-wrap space-x-4 items-center">
+            <button href="{{ route('front.index')}}" class="text-gray-800" >
+                <i class="fa fa-eye w-6 h-6"></i>
+            </button>
+            <button type="button" class="text-gray-800"  id="fullScreen">
+                <i class="fa fa-expand w-6 h-6"></i>
+            </button>
         </div>
 
         <x-language-dropdown />

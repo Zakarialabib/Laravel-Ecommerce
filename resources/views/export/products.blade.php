@@ -11,6 +11,8 @@
                         <tr>
                             <th>{{ __('Code') }}</th>
                             <th>{{ __('Name') }}</th>
+                            <th>{{ __('Brand') }}</th>
+                            <th>{{ __('Category') }}</th>
                             <th>{{ __('Price') }}</th>
                             <th>{{ __('Old price') }}</th>
                         </tr>
@@ -20,6 +22,8 @@
                             <tr>
                                 <td>{{ $row->code  }}</td>
                                 <td>{{ $row->name  }}</td>
+                                <td>{{ $row->brand->name  }}</td>
+                                <td>{{ $row->category->name  }}</td>
                                 <td>{{ $row->price  }}</td>
                                 <td>{{ $row->old_price }}</td>
                             </tr>

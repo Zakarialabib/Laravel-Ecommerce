@@ -61,7 +61,10 @@
                         <input type="checkbox" value="{{ $brand->id }}" wire:model="selected">
                     </x-table.td>
                     <x-table.td>
+                        <button wire:click="$emit('showModal',{{ $brand->id }})" 
+                            class="text-blue-500 underline">
                         {{ $brand->name }}
+                        </button>
                     </x-table.td>
                     <x-table.td>
                         {{ $brand->slug }}
@@ -108,5 +111,7 @@
 
     <!-- Edit Modal -->
     @livewire('admin.brands.edit', ['brand' => $brand])
+    
+    @livewire('admin.brands.show', ['brand' => $brand])
     
 </div>

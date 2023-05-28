@@ -44,7 +44,7 @@ class Edit extends Component
         'slider.embeded_video' => ['nullable'],
     ];
 
-    public function quill_value_updated($value)
+    public function QuillValueUpdated($value)
     {
         $this->slider->details = $value;
     }

@@ -53,9 +53,6 @@
             <x-table.th sortable wire:click="sortBy('price')" :direction="$sorts['price'] ?? null">
                 {{ __('Price') }} / {{ __('Old Price') }}
             </x-table.th>
-            <x-table.th>
-                {{ __('Image') }}
-            </x-table.th>
             <x-table.th sortable wire:click="sortBy('status')" :direction="$sorts['status'] ?? null">
                 {{ __('Status') }}
             </x-table.th>
@@ -70,26 +67,72 @@
                         <input type="checkbox" value="{{ $product->id }}" wire:model="selected">
                     </x-table.td>
                     <x-table.td>
-                        <img src="{{ asset('images/products/' . $product->image) }}" alt="{{ $product->name }}"
-                            class="w-10 h-10 rounded-full object-cover">
-                        <button
-                            onclick="classifyImage('{{ asset('images/products/' . $product->image) }}').then(result => document.getElementById('result-{{ $product->id }}').innerText = result)">Classify</button>
-                        <p id="result-{{ $product->id }}"></p>
+                        <button type="button" wire:click="$emit('imageModal', {{ $product->id }})"
+                            wire:key="image-{{ $product->id }}">
+                            <img src="{{ asset('images/products/' . $product->image) }}" alt="{{ $product->name }}"
+                                class="w-10 h-10 rounded-full object-cover">
+                        </button>
                     </x-table.td>
                     <x-table.td>
-                        <button type="button" wire:click="$emit('showModal',{{ $product->id }})">
-                            {{ Str::limit($product->name, 55) }} 
-                        </button>
-                        <a class="ml-2 text-blue-500" href="{{ route('front.product', $product->slug) }}"
-                            target="_blank">
-                            <i class="fas fa-eye"></i>
-                        </a>
+                        <div x-data="{ expanded: false }">
+                            <a class="mr-2 text-blue-500" href="{{ route('front.product', $product->slug) }}"
+                                target="_blank">
+                                <i class="fas fa-eye"></i>
+                            </a>
+                            <button type="button" @click="expanded = !expanded"
+                                class="text-blue-500 hover:underline">{{ Str::limit($product->name, 55) }} (+)</button>
+                            <div x-show="expanded" class="mt-2">
+                                <div class="flex items-center mb-2">
+                                    <span class="mr-2 font-semibold">{{ __('Category') }}:</span>
+                                    <select class="block w-full px-2 py-1 text-sm border border-gray-300 rounded-lg"
+                                        wire:model.lazy="category_id"
+                                        wire:change="updateSelected('category', {{ $product->id }})">
+                                        <option value="">{{ __('Select Category') }}</option>
+                                        @foreach ($this->categories as $category)
+                                            <option
+                                                value="{{ $category->id }}"@if ($product->category_id == $category->id) selected @endif>
+                                                {{ $category->name }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div class="flex items-center mb-2">
+                                    <span class="mr-2 font-semibold">{{ __('Subcategories') }}:</span>
+                                    <select multiple
+                                        class="block w-full px-2 py-1 text-sm border border-gray-300 rounded-lg"
+                                        wire:model.lazy="subcategoryIds"
+                                        wire:change="updateSelected('subcategories', {{ $product->id }})">
+                                        <option value="">{{ __('Select Subcategories') }}</option>
+                                        @foreach ($this->subcategories as $subcategory)
+                                            <option value="{{ $subcategory->id }}"
+                                                @if (in_array($subcategory->id, $product->subcategories ?? [])) selected @endif>
+                                                {{ $subcategory->name }}
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div class="flex items-center mb-2">
+                                    <span class="mr-2 font-semibold">{{ __('Brand') }}:</span>
+                                    <select class="block w-full px-2 py-1 text-sm border border-gray-300 rounded-lg"
+                                        wire:model.lazy="brand_id"
+                                        wire:change="updateSelected('brand', {{ $product->id }})">
+                                        <option value="">{{ __('Select Brand') }}</option>
+                                        @foreach ($this->brands as $brand)
+                                            <option value="{{ $brand->id }}"
+                                                @if ($product->brand_id == $brand->id) selected @endif>
+                                                {{ $brand->name }}
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                </div>
+
+                            </div>
+                        </div>
+
                         <br>
-                        <span class="text-red-500 text-xs">{{ $product->brand?->name }}</span>
+                        <span class="text-red-500 text-xs">{{ $product->category ? $product->category->name : 'Not linked, please enter a category' }}</span> - 
+                        <span class="text-red-500 text-xs">{{ $product->brand ? $product->brand->name : 'Not linked, please enter a brand' }}</span>
+
                     </x-table.td>
-                    {{-- <x-table.td>
-                        <livewire:select :model="$product" key="{{ $product->id }}" />
-                    </x-table.td> --}}
 
                     <x-table.td>
                         {{ $product->price }}DH
@@ -97,12 +140,7 @@
                             // {{ $product->old_price }}DH
                         @endif
                     </x-table.td>
-                    <x-table.td>
-                        <x-button type="button" success wire:click="$emit('imageModal', {{ $product->id }})"
-                            wire:key="image-{{ $product->id }}">
-                            <i class="fas fa-image"></i>
-                        </x-button>
-                    </x-table.td>
+
                     <x-table.td>
                         <livewire:toggle-button :model="$product" field="status" key="{{ $product->id }}" />
                     </x-table.td>
@@ -185,7 +223,7 @@
             {{ __('Promo Selected Products') }}
         </x-slot>
         <x-slot name="content">
-            <form wire:submit.prevent="updateSelected">
+            <form wire:submit.prevent="discountSelected">
                 <div class="w-full mx-auto">
                     <div class="flex flex-wrap px-4">
 
@@ -220,5 +258,4 @@
             </form>
         </x-slot>
     </x-modal>
-
 </div>

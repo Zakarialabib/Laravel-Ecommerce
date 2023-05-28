@@ -13,15 +13,15 @@ class Brand extends Model
     use HasAdvancedFilter;
 
     public $orderable = [
-        'id', 'name', 'description', 'image', 'slug', 'status', 'featured_image', 'meta_title', 'meta_description',
+        'id', 'name', 'slug', 'status', 
     ];
 
     protected $filterable = [
-        'id', 'name', 'description', 'image', 'slug', 'status', 'featured_image', 'meta_title', 'meta_description',
+        'id', 'name', 'slug', 'status', 
     ];
 
     protected $fillable = [
-        'name', 'description', 'image', 'slug', 'status', 'featured_image', 'meta_title', 'meta_description',
+        'name', 'description', 'origin', 'image', 'slug', 'status', 'featured_image', 'meta_title', 'meta_description',
     ];
 
     /**

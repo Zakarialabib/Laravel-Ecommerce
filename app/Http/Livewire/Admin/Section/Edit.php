@@ -41,7 +41,7 @@ class Edit extends Component
         'section.description' => ['nullable'],
     ];
 
-    public function quill_value_updated($value)
+    public function QuillValueUpdated($value)
     {
         $this->section->description = $value;
     }

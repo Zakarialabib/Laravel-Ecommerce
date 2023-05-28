@@ -17,6 +17,7 @@
         "laravel/tinker": "^2.7",
         "livewire/livewire": "^2.10",
         "maatwebsite/excel": "^3.1",
+        "masbug/flysystem-google-drive-ext": "^2.2",
         "psr/simple-cache": "^2.0",
         "realrashid/sweet-alert": "^5.1",
         "shreesthapit/corewebvitals": "^1.01",

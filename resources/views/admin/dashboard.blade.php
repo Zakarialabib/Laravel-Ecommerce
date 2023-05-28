@@ -1,7 +1,7 @@
 @section('title', __('Dashboard'))
 <x-dashboard-layout>
     <div>
-        <div class="bg-white">
+        <div class="px-6">
             <div class="md:inline-flex float-right pt-2 pb-5 sm:flex sm:flex-wrap">
                 <x-button type="button" primary data-date="today" class="js-date mr-2 active">
                     {{ __('Today') }}
@@ -147,7 +147,9 @@
 
         </div>
 
-        <div class="flex flex-row my-4">
+        @livewire('admin.stats.transactions')
+
+        <div class="flex flex-row px-6 my-4">
             <div class="lg:w-1/2 md:w-full6">
                 <x-card>
                     <h5 class="font-bold py-2 text-xl">{{ __('Recent Order(s)') }}</h5>

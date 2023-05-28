@@ -2,7 +2,7 @@
 
 <div>
     <label class="block mt-4 text-sm">
-        <div class="w-full p-2 bg-gray-100 border border-zinc-300 border-dashed rounded" x-data="{ isUploading: false, progress: 0 }"
+        <div class="w-full p-2 bg-gray-100 border border-gray-300 border-dashed rounded" x-data="{ isUploading: false, progress: 0 }"
             x-on:livewire-upload-start="isUploading = true" x-on:livewire-upload-finish="isUploading = false"
             x-on:livewire-upload-error="isUploading = false"
             x-on:livewire-upload-progress="progress = $event.detail.progress">

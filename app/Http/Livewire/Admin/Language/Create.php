@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Http\Livewire\Language;
+namespace App\Http\Livewire\Admin\Language;
 
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Livewire\Component;
@@ -51,6 +51,6 @@ class Create extends Component
 
     public function render()
     {
-        return view('livewire.language.create');
+        return view('livewire.admin.language.create');
     }
 }

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Http\Livewire\Language;
+namespace App\Http\Livewire\Admin\Language;
 
 use Livewire\Component;
 use File;
@@ -54,6 +54,6 @@ class Edit extends Component
 
     public function render()
     {
-        return view('livewire.language.edit');
+        return view('livewire.admin.language.edit');
     }
 }

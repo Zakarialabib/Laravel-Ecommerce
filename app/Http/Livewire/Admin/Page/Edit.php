@@ -31,7 +31,7 @@ class Edit extends Component
         Quill::EVENT_VALUE_UPDATED,
     ];
 
-    public function quill_value_updated($value)
+    public function QuillValueUpdated($value)
     {
         $this->page->details = $value;
     }

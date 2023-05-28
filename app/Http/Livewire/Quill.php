@@ -8,7 +8,7 @@ use Livewire\Component;
 
 class Quill extends Component
 {
-    public const EVENT_VALUE_UPDATED = 'quill_value_updated';
+    public const EVENT_VALUE_UPDATED = 'QuillValueUpdated';
 
     public $value;
 

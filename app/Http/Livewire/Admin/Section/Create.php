@@ -46,7 +46,7 @@ class Create extends Component
         'section.link'           => ['nullable'],
     ];
 
-    public function quill_value_updated($value)
+    public function QuillValueUpdated($value)
     {
         $this->section->description = $value;
     }

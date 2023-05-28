@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Support\Facades\Storage;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -40,6 +41,7 @@ class AppServiceProvider extends ServiceProvider
         Settings::observe(SettingsObserver::class);
 
         // Model::shouldBeStrict(! $this->app->isProduction());
+
     }
 
     /** @return \App\Models\Language|\Illuminate\Database\Eloquent\Model|array|null */

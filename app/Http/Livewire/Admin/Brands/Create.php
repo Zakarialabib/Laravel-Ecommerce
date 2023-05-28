@@ -34,6 +34,7 @@ class Create extends Component
 
     protected $rules = [
         'brand.name'        => ['required', 'string', 'max:255'],
+        'brand.origin'        => ['nullable', 'string', 'max:255'],
         'brand.description' => ['nullable', 'string'],
     ];
 
@@ -130,6 +131,9 @@ class Create extends Component
             $this->featured_image->storeAs('brands', $imageName);
             $this->brand->featured_image = $imageName;
         }
+
+        $this->brand->meta_title = $this->brand->name;
+        $this->brand->meta_description = $this->brand->description;
 
         $this->brand->save();
 

@@ -101,7 +101,7 @@ class Settings extends Component
    
     public function updatePageSettings($id)
     {
-        $this->settings = PageSettings::where('page_id', $id)->first();
+        $this->settings = PageSetting::where('page_id', $id)->first();
 
         $this->validate([
             'settings.header'    => 'nullable|string',

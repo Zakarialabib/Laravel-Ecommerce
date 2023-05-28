@@ -29,8 +29,9 @@
                             <x-label for="category_id" :value="__('Category')" required />
                             <select
                                 class="block bg-white text-gray-700 rounded border border-gray-300 mb-1 text-sm w-full focus:shadow-outline-blue focus:border-blue-500"
-                                id="category_id" name="category_id" wire:model="product.category_id">
-                                <option value="" disabled>{{ __('Select Category') }}</option>
+                                id="category_id" name="category_id" wire:model="product.category_id"
+                                wire:change="fetchSubcategories">
+                                <option value="">{{ __('Select Category') }}</option>
                                 @foreach ($this->categories as $category)
                                     <option value="{{ $category->id }}">{{ $category->name }}</option>
                                 @endforeach
@@ -73,7 +74,7 @@
                             <select
                                 class="block bg-white text-gray-700 rounded border border-gray-300 mb-1 text-sm w-full focus:shadow-outline-blue focus:border-blue-500"
                                 id="brand_id" name="brand_id" wire:model="product.brand_id">
-                                <option value="" disabled>{{ __('Select Brand') }}</option>
+                                <option value="">{{ __('Select Brand') }}</option>
                                 @foreach ($this->brands as $brand)
                                     <option value="{{ $brand->id }}">{{ $brand->name }}</option>
                                 @endforeach

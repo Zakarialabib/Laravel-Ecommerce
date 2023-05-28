@@ -24,9 +24,10 @@ class Edit extends Component
 
     public array $rules = [
         'user.first_name' => 'required|string|max:255',
-        'user.email'      => 'required|email|unique:users,email',
+        'user.email'      => 'required|email',
         'user.password'   => 'required|string|min:8',
         'user.phone'      => 'required|numeric',
+        'user.password_confirmation' => 'password',
         'user.city'       => 'nullable',
         'user.country'    => 'nullable',
         'user.address'    => 'nullable',

@@ -37,6 +37,25 @@ class Helpers
             ->get();
     }
 
+    public static function formatBytes($bytes)
+    {
+        $units = ['B', 'KB', 'MB', 'GB', 'TB'];
+
+        $bytes = max($bytes, 0);
+        $pow = floor(($bytes ? log($bytes) : 0) / log(1024));
+        $pow = min($pow, count($units) - 1);
+
+        $bytes /= (1 << (10 * $pow));
+
+        return round($bytes, 2) . ' ' . $units[$pow];
+    }
+
+    public static function formatDate($timestamp)
+    {
+        return date('F j, Y, g:i a', $timestamp);
+    }
+
+
     public static function getActiveBrands()
     {
         return Brand::active()
@@ -221,7 +240,7 @@ class Helpers
             });
         }
 
-        $watermark = Image::make(public_path('images/logo.png'));
+        $watermark = Image::make(public_path('images/logo/logo.png'));
         $watermark->opacity(25);
         $watermarkWidth = intval($width / 5);
         $watermarkHeight = intval($watermarkWidth * $watermark->height() / $watermark->width());

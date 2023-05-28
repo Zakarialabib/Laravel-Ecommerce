@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html x-data="mainState" :class="{ dark: isDarkMode, rtl: isRtl }" class="scroll-smooth"
+<html x-data="mainState" :class="{ dark: isDarkMode }" class="scroll-smooth"
     lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 
 <head>

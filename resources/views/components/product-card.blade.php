@@ -1,7 +1,7 @@
 @props(['product'])
 
 <div itemprop="itemListElement" itemscope itemtype="https://schema.org/Product">
-    <div itemprop="brand" content="{{ $product->brand->name }}"></div>
+    <div itemprop="brand" content="{{ $product?->brand?->name }}"></div>
     <div itemprop="sku" content="{{ $product->code }}"></div>
     <div itemprop="description" content="{{ $product->description }}"></div>
 
@@ -92,3 +92,4 @@
         </div>
     </div>
 </div>
+ 

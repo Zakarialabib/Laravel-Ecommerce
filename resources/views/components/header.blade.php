@@ -1,4 +1,4 @@
-<div x-data="{ isMenuOpen: false, isSidebar: false }">
+<div x-data="{ isSidebar: false }">
     <div class="relative">
         <nav class="flex bg-beige-100 border-b">
             <div class="px-4 py-5 flex w-full items-center justify-between">
@@ -8,23 +8,6 @@
                         src="{{ asset('images/' . Helpers::settings('site_logo')) }}" loading="lazy"
                         alt="{{ Helpers::settings('site_title') }}" />
                 </a>
-
-                <div class="hidden md:flex text-beige-800 items-center justify-center space-x-4">
-                    @foreach (\App\Helpers::getActiveCategories() as $category)
-                        <a href="{{ route('front.categories') }}?c={{ $category->id }}"
-                            class="lg:text-md md:text-sm text-center uppercase font-semibold font-heading hover:text-beige-400 hover:underline">
-                            {{ $category->name }}
-                        </a>
-                    @endforeach
-                    <button type="button"
-                        class="lg:text-md md:text-sm text-center uppercase font-semibold font-heading hover:text-beige-400 hover:underline"
-                        x-on:click="isMenuOpen = !isMenuOpen" mouseenter="isMenuOpen = true"
-                        @click.away="isMenuOpen = false">
-                        {{ __('Brands') }} <small
-                            class="inline-block align-middle text-gray-600 opacity-75">&#9660;</small>
-                    </button>
-                </div>
-
 
                 <div class="hidden md:flex items-center text-beige-800 gap-4">
 
@@ -106,29 +89,7 @@
                 </svg>
             </button>
         </nav>
-        <div class="absolute z-10 top-full left-0 w-full max-w-screen-xl bg-white rounded-md shadow-lg""
-            x-show.transition="isMenuOpen" x-transition:enter="transition ease-out duration-200"
-            x-transition:enter-start="opacity-0 transform scale-90"
-            x-transition:enter-end="opacity-100 transform scale-100"
-            x-transition:leave="transition ease-in duration-150"
-            x-transition:leave-start="opacity-100 transform scale-100"
-            x-transition:leave-end="opacity-0 transform scale-90" x-cloak>
-            <div class="grid grid-cols-3 gap-4 p-6">
-                @foreach (\App\Helpers::getActiveBrands() as $brand)
-                    <a class="block mb-5" href="{{ route('front.brandPage', $brand->slug) }}">
-                        <p class="mb-3 text-lg font-bold font-heading text-blue-900">
-                            {{ $brand->name }}
-                        </p>
-                        <div class="relative">
-                            <img class="w-full h-24 object-contain" loading="lazy"
-                                src="{{ asset('images/brands/' . $brand->image) }}"
-                                onerror="this.onerror=null; this.remove();" alt="{{ $brand->name }}">
-                        </div>
-                    </a>
-                @endforeach
-            </div>
-        </div>
-
+      
         <div class="fixed top-0 left-0 bottom-0 w-5/6 max-w-sm z-50 overflow-y-scroll" 
             x-show="isSidebar"
             x-transition:enter="transition ease-out duration-300" x-transition:enter-start="-translate-x-full"

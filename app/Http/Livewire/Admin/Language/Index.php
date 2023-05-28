@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Http\Livewire\Language;
+namespace App\Http\Livewire\Admin\Language;
 
 use Livewire\Component;
 use App\Models\Language;
@@ -17,17 +17,9 @@ class Index extends Component
 
     public $language;
 
-    public $deleteModal = false;
-    
     protected $listeners = [
         'refreshIndex' => '$refresh',
-        'delete'
     ];
-    
-    public function confirmed()
-    {
-        $this->emit('delete');
-    }
 
     public function mount()
     {
@@ -36,7 +28,7 @@ class Index extends Component
 
     public function render()
     {
-        return view('livewire.language.index');
+        return view('livewire.admin.language.index');
     }
 
     public function onSetDefault($id)
@@ -61,25 +53,10 @@ class Index extends Component
         $this->alert('success', __('Translation updated successfully!'));
     }
 
-    public function delete()
+    public function delete(Language $language)
     {
-        abort_if(Gate::denies('language_delete'), Response::HTTP_FORBIDDEN, '403 Forbidden');
-        
-        Language::findOrFail($this->section)->delete();
+        $language->delete();
 
         $this->alert('warning', __('Language deleted successfully!'));
     }
-
-    public function deleteModal($language)
-    {
-        $this->confirm(__('Are you sure you want to delete this?'), [
-            'toast'             => false,
-            'position'          => 'center',
-            'showConfirmButton' => true,
-            'cancelButtonText'  => __('Cancel'),
-            'onConfirmed' => 'delete',
-        ]);
-        $this->language = $language;
-    }
-
 }

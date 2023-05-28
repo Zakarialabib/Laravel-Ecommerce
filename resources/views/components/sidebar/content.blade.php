@@ -124,6 +124,7 @@
             @can('setting_access')
             <x-sidebar.sublink title="{{ __('Settings') }}" href="{{ route('admin.settings') }}" :active="request()->routeIs('admin.settings')" />
             @endcan
+            <x-sidebar.sublink title="{{ __('Backup') }}" href="{{ route('admin.setting.backup') }}" :active="request()->routeIs('admin.setting.backup')" />
             <x-sidebar.sublink title="{{ __('Shipping') }}" href="{{ route('admin.setting.shipping') }}" :active="request()->routeIs('admin.setting.shipping')" />
             <x-sidebar.sublink title="{{ __('Popup Settings') }}" href="{{ route('admin.setting.popupsettings') }}" :active="request()->routeIs('admin.setting.popupsettings')" />
             <x-sidebar.sublink title="{{ __('Redirects') }}" href="{{ route('admin.setting.redirects') }}" :active="request()->routeIs('admin.setting.redirects')" />

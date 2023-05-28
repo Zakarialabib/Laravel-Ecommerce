@@ -29,7 +29,8 @@
                             <x-label for="category_id" :value="__('Category')" required />
                             <select
                                 class="block bg-white text-gray-700 rounded border border-gray-300 mb-1 text-sm w-full focus:shadow-outline-blue focus:border-blue-500"
-                                id="category_id" name="category_id" wire:model="product.category_id">
+                                id="category_id" name="category_id" wire:model="product.category_id"
+                                wire:change="fetchSubcategories">
                                 <option value="">{{ __('Select Category') }}</option>
                                 @foreach ($this->categories as $category)
                                     <option value="{{ $category->id }}"
@@ -41,17 +42,18 @@
 
                         <div class="sm:w-full lg:w-1/2 px-3 ">
                             <x-label for="subcategory" :value="__('Subcategory')" />
-                            <select multiple id="subcategories" name="subcategories"
+                            <select id="subcategories" name="subcategories"
                                 class="block bg-white text-gray-700 rounded border border-gray-300 mb-1 text-sm w-full focus:shadow-outline-blue focus:border-blue-500"
-                                wire:model="product.subcategories">
+                                wire:model="product.subcategories" multiple>
                                 @foreach ($this->subcategories as $subcategory)
                                     <option value="{{ $subcategory->id }}"
-                                        @if ($product?->subcategories == $subcategory->id) selected @endif>{{ $subcategory->name }}
+                                        @if (in_array($subcategory->id, $product->subcategories ?? [])) selected @endif>
+                                        {{ $subcategory->name }}
                                     </option>
                                 @endforeach
                             </select>
                             <x-input-error :messages="$errors->get('product.subcategories')" for="subcategories" class="mt-2" />
-                        </div>
+                        </div>                        
 
                         <div class="sm:w-full lg:w-1/2 px-3 ">
                             <x-label for="price" :value="__('Price')" required />
@@ -66,7 +68,6 @@
                             <x-input id="old_price" class="block mt-1 w-full" type="number" name="old_price"
                                 wire:model="product.old_price" />
                             <x-input-error :messages="$errors->get('product.old_price')" for="product.old_price" class="mt-2" />
-
                         </div>
 
                         <div class="sm:w-full lg:w-1/2 px-3 ">
