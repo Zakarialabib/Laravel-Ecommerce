@@ -35,7 +35,7 @@
                 <div class="swiper-button-prev"></div>
                 <div class="swiper-button-next"></div>
             </div>
-        </div> 
+        </div>
         <div class="w-full py-5 px-4 mx-auto">
             <div class="flex flex-col">
                 <h2 class="text-2xl font-bold text-center mb-4">
@@ -50,12 +50,14 @@
                                 class="absolute top-0 left-0 right-0 bottom-0 rounded-full bg-white shadow-lg transform hover:scale-105 transition-all duration-300">
                                 <img class="absolute inset-0 w-full h-full object-cover rounded-full transform-gpu transition-all duration-1000 ease-in-out"
                                     :class="{ 'rotate-0': !hover, 'rotate-360': hover }"
-                                    src="{{ $subcategory->image }}" alt="{{ $subcategory->name }}">
+                                    src="{{ asset('images/subcategories/' . $subcategory->image) }}"
+                                    alt="{{ $subcategory->name }}">
+                                <div class="absolute inset-0 flex items-center justify-center text-center">
+                                    <p class="text-md text-white  w-full font-bold bg-black opacity-75 shadow ">
+                                        {{ $subcategory->name }} {{ __('for') }}
+                                        {{ $subcategory->category?->name }}</p>
+                                </div>
                             </div>
-                            <h2
-                                class="absolute inset-0 flex items-center justify-center text-md text-gray-800 text-center">
-                                {{ $subcategory->name }} {{ __('for') }} {{ $subcategory->category?->name }}
-                            </h2>
                         </a>
                     @endforeach
                 </div>
@@ -157,22 +159,22 @@
 @push('scripts')
     <script>
         document.addEventListener('livewire:load', function() {
-        var swiper = widnow.Swiper(".mySwiper", {
-            slidesPerView: "auto",
-            spaceBetween: 30,
-            speed: 400,
-            autoHeight: true,
-            loop: true,
-            pagination: {
-                el: '.swiper-pagination',
-                clickable: true,
-            },
-            navigation: {
-                nextEl: '.swiper-button-next',
-                prevEl: '.swiper-button-prev',
-            },
-        });
-    })
+            var swiper = widnow.Swiper(".mySwiper", {
+                slidesPerView: "auto",
+                spaceBetween: 30,
+                speed: 400,
+                autoHeight: true,
+                loop: true,
+                pagination: {
+                    el: '.swiper-pagination',
+                    clickable: true,
+                },
+                navigation: {
+                    nextEl: '.swiper-button-next',
+                    prevEl: '.swiper-button-prev',
+                },
+            });
+        })
     </script>
 @endpush
 
@@ -180,4 +182,3 @@
 @push('styles')
     <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
 @endpush
-

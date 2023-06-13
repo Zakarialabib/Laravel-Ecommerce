@@ -28,18 +28,17 @@ class Edit extends Component
 
     public $listeners = [
         'editModal',
-        Quill::EVENT_VALUE_UPDATED,
+        'trix:valueUpdated' => 'onTrixValueUpdate',
     ];
 
-    public function QuillValueUpdated($value)
+    public function onTrixValueUpdate(string $value): void
     {
-        $this->page->details = $value;
+        $this->description = $value;
     }
 
    protected $rules = [
        'page.title'            => ['required', 'string', 'max:255'],
-       'page.slug'             => ['required', 'max:255'],
-       'page.details'          => ['required'],
+       'description'          => ['required'],
        'page.meta_title'       => ['nullable', 'max:255'],
        'page.meta_description' => ['nullable', 'max:255'],
        'page.language_id'      => ['nullable', 'integer'],
@@ -70,8 +69,6 @@ class Edit extends Component
     public function update()
     {
         $this->validate();
-
-        $this->page->slug = Str::slug($this->page->name);
 
         if ($this->image) {
             $imageName = Str::slug($this->page->name).'-'.date('Y-m-d H:i:s').'.'.$this->image->extension();

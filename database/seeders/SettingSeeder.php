@@ -13,15 +13,11 @@ class SettingSeeder extends Seeder
     protected $settings = [
         [
             'key'   => 'company_name',
-            'value' => 'APPECOM',
+            'value' => 'AppEcom',
         ],
         [
-            'key'   => 'site_title',
-            'value' => 'APPECOM',
-        ],
-        [
-            'key'   => 'company_email_address',
-            'value' => 'connect@zakarialabib.com',
+            'key'   => 'company_email',
+            'value' => 'zakarialabib@gmail.com',
         ],
         [
             'key'   => 'company_phone',
@@ -29,19 +25,20 @@ class SettingSeeder extends Seeder
         ],
         [
             'key'   => 'company_address',
-            'value' => 'Casablanca, Maroc',
+            'value' => 'Tanger, Maroc',
+        ],
+        [
+            'key'   => 'company_tax',
+            'value' => '0000000',
         ],
         [
             'key'   => 'currency_code',
             'value' => 'MAD',
         ],
+      
         [
-            'key'   => 'currency_symbol',
-            'value' => 'DH',
-        ],
-        [
-            'key'   => 'currency_position',
-            'value' => 'right',
+            'key'   => 'site_title',
+            'value' => 'AppEcom',
         ],
         [
             'key'   => 'site_logo',
@@ -52,8 +49,12 @@ class SettingSeeder extends Seeder
             'value' => '',
         ],
         [
-            'key'   => 'page_status',
-            'value' => '1',
+            'key'   => 'currency_symbol',
+            'value' => 'DH',
+        ],
+        [
+            'key'   => 'currency_position',
+            'value' => 'right',
         ],
         [
             'key'   => 'footer_copyright_text',
@@ -61,11 +62,11 @@ class SettingSeeder extends Seeder
         ],
         [
             'key'   => 'seo_meta_title',
-            'value' => 'APPECOM',
+            'value' => 'AppEcom',
         ],
         [
             'key'   => 'seo_meta_description',
-            'value' => 'APPECOM',
+            'value' => 'AppEcom',
         ],
         [
             'key'   => 'social_facebook',
@@ -104,28 +105,8 @@ class SettingSeeder extends Seeder
             'value' => 'Site is under maintenance',
         ],
         [
-            'key'   => 'site_return',
-            'value' => '0',
-        ],
-        [
-            'key'   => 'site_refund',
-            'value' => '0',
-        ],
-        [
-            'key'   => 'site_terms',
-            'value' => '0',
-        ],
-        [
-            'key'   => 'site_privacy',
-            'value' => '0',
-        ],
-        [
-            'key'   => 'site_about',
-            'value' => '0',
-        ],
-        [
-            'key'   => 'site_contact',
-            'value' => '0',
+            'key'   => 'default_language',
+            'value' => 'fr',
         ],
     ];
 

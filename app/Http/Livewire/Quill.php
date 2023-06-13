@@ -14,7 +14,7 @@ class Quill extends Component
 
     public $quillId;
 
-    public function mount($value = '')
+    public function mount($value)
     {
         $this->value = $value;
         $this->quillId = 'quill-'.uniqid();

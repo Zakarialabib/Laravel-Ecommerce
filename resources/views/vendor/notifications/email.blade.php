@@ -3,7 +3,7 @@
 @if (! empty($greeting))
 # {{ $greeting }}
 @else
-# @lang('Hello!')
+# {{__('Hello!')}}
 @endif
 
 {{-- Intro Lines --}}

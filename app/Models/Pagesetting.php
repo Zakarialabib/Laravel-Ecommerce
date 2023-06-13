@@ -7,7 +7,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use App\Support\HasAdvancedFilter;
 
-class Pagesetting extends Model
+class PageSetting extends Model
 {
     use HasAdvancedFilter;
 

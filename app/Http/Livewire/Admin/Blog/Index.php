@@ -64,6 +64,11 @@ class Index extends Component
     {
         $this->resetPage();
     }
+    
+    public function confirmed()
+    {
+        $this->emit('delete');
+    }
 
     public function resetSelected()
     {

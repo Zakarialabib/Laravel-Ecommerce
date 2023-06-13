@@ -10,11 +10,14 @@ use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Livewire\Component;
 use Livewire\WithPagination;
+use Illuminate\Support\Facades\Gate;
+use Jantinnerezo\LivewireAlert\LivewireAlert;
 
 class Index extends Component
 {
     use WithPagination;
     use WithSorting;
+    use LivewireAlert;
 
     public $listeners = [
         'refreshIndex' => '$refresh',
@@ -91,7 +94,7 @@ class Index extends Component
 
     public function delete()
     {
-        abort_if(Gate::denies('page_delete'), 403);
+        // abort_if(Gate::denies('page_delete'), 403);
 
         Page::findOrFail($this->page)->delete();
 
@@ -100,13 +103,18 @@ class Index extends Component
 
     public function deleteSelected()
     {
-        abort_if(Gate::denies('page_delete'), 403);
+        // abort_if(Gate::denies('page_delete'), 403);
 
         Page::whereIn('id', $this->selected)->delete();
 
         $this->resetSelected();
 
         $this->alert('success', __('Page deleted successfully.'));
+    }
+
+    public function confirmed()
+    {
+        $this->emit('delete');
     }
 
     public function deleteModal($page)

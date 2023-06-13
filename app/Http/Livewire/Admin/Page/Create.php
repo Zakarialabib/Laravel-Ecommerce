@@ -25,7 +25,7 @@ class Create extends Component
 
     public $image;
 
-    public $details;
+    public $description;
 
     public $listeners = [
         'createPage',
@@ -34,13 +34,13 @@ class Create extends Component
 
     public function QuillValueUpdated($value)
     {
-        $this->page->details = $value;
+        $this->description = $value;
     }
 
     protected $rules = [
         'page.title'            => ['required', 'string', 'max:255'],
         'page.slug'             => ['required', 'max:255'],
-        'page.details'          => ['required'],
+        'description'          => ['required'],
         'page.meta_title'       => ['nullable', 'max:255'],
         'page.meta_description' => ['nullable', 'max:255'],
         'page.language_id'      => ['nullable'],
@@ -61,8 +61,6 @@ class Create extends Component
 
         $this->page = new Page();
 
-        $this->description = $this->page->details;
-
         $this->createPage = true;
     }
 
@@ -77,6 +75,8 @@ class Create extends Component
             $this->photo->storeAs('pages', $imageName);
             $this->page->photo = $imageName;
         }
+
+        $this->page->details = $this->description;
 
         $this->page->save();
 

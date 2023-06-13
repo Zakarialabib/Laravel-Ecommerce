@@ -29,21 +29,14 @@ class Index extends Component
         'delete',
     ];
 
-    public function render()
+   
+
+    public function settingsModal()
     {
-        $backups = Storage::allFiles(env('APP_NAME'));
-
-        return view('livewire.admin.backup.index', [
-            'backups' => $backups,
-        ])->extends('layouts.dashboard');
+        // $this->backup_status = settings()->backup_status;
+        // $this->backup_schedule = settings()->backup_schedule;
+        $this->settingsModal = true;
     }
-
-       public function settingsModal()
-        {
-            // $this->backup_status = settings()->backup_status;
-            // $this->backup_schedule = settings()->backup_schedule;
-            $this->settingsModal = true;
-        }
 
     public function saveToDriveManually($filename)
     {
@@ -108,5 +101,14 @@ class Index extends Component
                 @unlink($path);
             }
         }
+    }
+
+    public function render()
+    {
+        $backups = Storage::allFiles(env('APP_NAME'));
+
+        return view('livewire.admin.backup.index', [
+            'backups' => $backups,
+        ])->extends('layouts.dashboard');
     }
 }

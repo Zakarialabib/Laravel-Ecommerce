@@ -15,15 +15,11 @@
                         <x-label for="title" :value="__('Title')" required />
                         <x-input wire:model.lazy="page.title" type="text" id="title" required />
                     </div>
-                    <div class="lg:w-1/2 sm:w-full px-2">
-                        <x-label for="slug" :value="__('Slug')" required />
-                        <x-input wire:model.lazy="page.slug" type="text" id="slug" required />
-                    </div>
 
                     <div class="w-full px-2">
-                        <x-label for="details" :value="__('Details')" />
-                        <livewire:quill :value="$description" />
-                        <x-input-error :messages="$errors->get('page.details')" for="page.details" class="mt-2" />
+                        <x-label for="description" :value="__('Details')" />
+                        @livewire('trix', ['value' => $description])
+                        <x-input-error :messages="$errors->get('description')" for="description" class="mt-2" />
                     </div>
                     
                     <div class="w-full py-2 px-3">

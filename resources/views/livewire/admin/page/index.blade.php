@@ -11,6 +11,11 @@
                         <option value="{{ $value }}">{{ $value }}</option>
                     @endforeach
                 </select>
+                @if ($this->selected)
+                    <x-button danger type="button" wire:click="deleteSelected" wire:loading.attr="disabled">
+                        <i class="fas fa-trash"></i>
+                    </x-button>
+                @endif
             </div>
         </div>
         <div class="lg:w-1/2 md:w-1/2 sm:w-full my-2 my-md-0">
@@ -21,8 +26,6 @@
             </div>
         </div>
     </div>
-
-    
 
     <x-table>
         <x-slot name="thead">
@@ -39,21 +42,21 @@
             </x-table.th>
         </x-slot>
         <x-table.tbody>
-            @forelse($pages as $id=>$page)
-                <x-table.tr>
+            @forelse($pages as $page)
+                <x-table.tr wire:loading.class.delay="opacity-50" wire:key="row-{{ $page->id }}">
                     <x-table.td>
-                        {{ $id }}
+                        <input type="checkbox" value="{{ $page->id }}" wire:model="selected">
                     </x-table.td>
                     <x-table.td>
                         {{ $page->title }}
                     </x-table.td>
                     <x-table.td>
-                        <a href="{{ route('front.dynamicPage' , $page->slug )}}" target="_blank">
+                        <a class="hover:text-blue-500" href="{{ route('front.dynamicPage', $page->slug) }}" target="_blank">
                             {{ $page->slug }}
                         </a>
                     </x-table.td>
                     <x-table.td>
-                        <div class="inline-flex">
+                        <div class="inline-flex space-x-2">
                             <x-button info type="button" wire:click="$emit('editModal', {{ $page->id }})"
                                 wire:loading.attr="disabled">
                                 <i class="fas fa-edit"></i>
@@ -88,7 +91,7 @@
             {{ $pages->links() }}
         </div>
     </div>
-    
+
     <livewire:admin.page.edit />
 
     <livewire:admin.page.create />
