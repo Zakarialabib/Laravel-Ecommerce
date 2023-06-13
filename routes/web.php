@@ -5,6 +5,8 @@ declare(strict_types=1);
 use App\Http\Controllers\ErrorController;
 use App\Http\Controllers\FrontController;
 use App\Http\Controllers\UploadController;
+use App\Http\Controllers\PaypalController;
+use App\Http\Controllers\StripeController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -43,7 +45,19 @@ Route::group(['middleware' => 'firewall.all'], function () {
 
     Route::middleware('auth')->group(function () {
         Route::get('/mon-compte', [FrontController::class, 'myaccount'])->name('front.myaccount');
+        // Paypal
+        Route::get('/paywithpaypal', [PaypalController::class, 'payWithPaypal'])->name('paywithpaypal');
+        Route::get('/paypal', [PaypalController::class, 'getPaymentStatus'])->name('status');
+        Route::get('/paypal-response/{code}', [PaypalController::class, 'getResponse'])->name('paypalResponse');
+        Route::get('/commande', [FrontController::class, 'commande'])->name('commande');
+
+        // Stripe
+        Route::get('stripe', [StripeController::class, 'stripe'])->name('stripe.intent');
+        Route::post('payment', [StripeController::class, 'stripePost'])->name('stripe.pay');
+        Route::get('/reponse-de-paiement-stripe', [StripeController::class, 'reponseStripe']);
+
     });
+    
 
     Route::post('/uploads', [UploadController::class, 'upload'])->name('upload');
 });

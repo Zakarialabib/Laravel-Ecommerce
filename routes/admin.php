@@ -22,6 +22,7 @@ use App\Http\Controllers\Admin\SliderController;
 use App\Http\Controllers\Admin\SmptController;
 use App\Http\Controllers\Admin\UsersController;
 use App\Http\Livewire\Admin\Backup\Index as BackupIndex;
+use App\Http\Livewire\Admin\PaymentGateways\Index as PaymentGatewaysIndex;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -78,4 +79,6 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth', 'r
     Route::get('/roles', [RolesController::class, 'index'])->name('roles');
     Route::get('/permissions', [UsersController::class, 'permissions'])->name('permissions');
     Route::get('/currencies', [SettingController::class, 'currencies'])->name('currencies');
+    Route::get('/paymentgateways', PaymentGatewaysIndex::class)->name('paymentgateways');
+
 });
