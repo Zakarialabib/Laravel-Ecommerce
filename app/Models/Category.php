@@ -6,11 +6,13 @@ namespace App\Models;
 
 use App\Support\HasAdvancedFilter;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Category extends Model
 {
     use HasAdvancedFilter;
-
+    use SoftDeletes;
+    
     public const StatusInActive = 0;
 
     public const StatusActive = 1;

@@ -123,7 +123,7 @@ class Index extends Component
       {
         abort_if(Gate::denies('section_delete'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-          Subcategory::findOrFail($this->section)->delete();
+          Section::findOrFail($this->section)->delete();
 
           $this->alert('warning', __('Section Deleted successfully!'));
       }

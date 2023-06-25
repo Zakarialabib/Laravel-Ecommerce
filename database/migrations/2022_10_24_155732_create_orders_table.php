@@ -40,6 +40,7 @@ return new class () extends Migration {
             $table->string('shipping_zip')->nullable();
             $table->string('shipping_state')->nullable();
             $table->string('shipping_country')->nullable();
+            $table->softDeletes();
             $table->timestamps();
         });
     }

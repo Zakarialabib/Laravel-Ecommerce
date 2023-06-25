@@ -7,11 +7,12 @@ namespace App\Models;
 use App\Support\HasAdvancedFilter;
 use Illuminate\Database\Eloquent\Model;
 use App\Enums\OrderStatus;
-
+use Illuminate\Database\Eloquent\SoftDeletes;
 class Order extends Model
 {
     use HasAdvancedFilter;
-
+    use SoftDeletes;
+    
     public const STATUS_PENDING = 0;
 
     public const STATUS_PROCESSING = 1;

@@ -21,6 +21,7 @@ return new class () extends Migration {
             $table->string('subtitle')->nullable();
             $table->decimal('cost', 10, 2)->default(false);
             $table->boolean('status')->default(true);
+            $table->softDeletes();
             $table->timestamps();
         });
     }

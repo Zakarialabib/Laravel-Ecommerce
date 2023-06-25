@@ -6,22 +6,42 @@ namespace App\Models;
 
 use App\Support\HasAdvancedFilter;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Builder;
 
 class EmailTemplate extends Model
 {
     use HasAdvancedFilter;
 
-    public $orderable = [
-        'id', 'email_type', 'email_subject', 'email_body', 'status',
+    public const ATTRIBUTES = [
+        'id',
+        'name',
+        'type',
+        'subject',
     ];
 
-    public $filterable = [
-        'id', 'email_type', 'email_subject', 'email_body', 'status',
-    ];
-
-    public $timestamps = false;
+    public $orderable = self::ATTRIBUTES;
+    public $filterable = self::ATTRIBUTES;
 
     protected $fillable = [
-        'id', 'email_type', 'email_subject', 'email_body', 'status',
+        'id', 
+        'name',
+        'description',
+        'message',
+        'default',
+        'placeholders',
+        'type',
+        'subject',
+        'status',
     ];
+
+    public function scopeDefault(Builder $query)
+    {
+        return $query->where('default', true);
+    }
+
+    public function scopeActive(Builder $query)
+    {
+        return $query->where('status', 'active');
+    }
+
 }

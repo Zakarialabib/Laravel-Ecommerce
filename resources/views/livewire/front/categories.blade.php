@@ -6,7 +6,7 @@
 @endsection
 
 <div>
-    <div class="w-full px-4 mx-auto" x-data="{ showSidebar: false }">
+    <div class="w-full px-4 mx-auto" x-data="{ showSidebar: false }"> 
         <div class="mb-4 items-center justify-between bg-white py-2">
             <div class="w-full md:px-4 sm:px-2 flex flex-wrap justify-between">
                 <ul class="flex flex-wrap items-center gap-2 py-4 md:py-2 ">

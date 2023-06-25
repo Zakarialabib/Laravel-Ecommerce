@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Http\Livewire\Admin\Email;
 
-use App\Http\Livewire\WithSorting;
+use App\Http\Livewire\Utils\WithSorting;
 use App\Models\EmailTemplate;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
@@ -18,15 +18,19 @@ class Index extends Component
 
     public int $perPage;
 
+    public $email;
+
     public array $orderable;
 
     public string $search = '';
 
     public array $selected = [];
 
+    protected $listeners = [
+        'refreshIndex' => '$refresh'
+    ];
+    
     public array $paginationOptions;
-
-    public array $listsForFields = [];
 
     protected $queryString = [
         'search' => [
@@ -79,7 +83,7 @@ class Index extends Component
 
         $emails = $query->paginate($this->perPage);
 
-        return view('livewire.admin.email.index', compact('emails'));
+        return view('livewire.admin.email.index', compact('emails'))->extends('layouts.dashboard');
     }
 
      // Blog Category  Delete

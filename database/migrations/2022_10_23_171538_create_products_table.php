@@ -44,6 +44,7 @@ return new class () extends Migration {
             $table->tinyInteger('is_discount')->default(false);
             $table->date('discount_date')->nullable();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
