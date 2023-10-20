@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Http\Livewire\Admin\Email;
 
-use App\Http\Livewire\Utils\WithSorting;
+use App\Http\Livewire\WithSorting;
 use App\Models\EmailTemplate;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;

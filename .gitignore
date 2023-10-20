@@ -9,7 +9,8 @@ Homestead.yaml
 Homestead.json
 /.vagrant
 .phpunit.result.cache
-config/database.php
 *.stub
 *.xlsx
 composer.lock
+/.idea
+/.vscode
