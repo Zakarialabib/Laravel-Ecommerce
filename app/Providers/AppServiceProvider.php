@@ -32,7 +32,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        if (env('APP_ENV') === 'production') {
+        if (app()->isProduction()) {
             URL::forceScheme('https');
         }
 
@@ -47,14 +47,25 @@ class AppServiceProvider extends ServiceProvider
     /** @return \App\Models\Language|\Illuminate\Database\Eloquent\Model|array|null */
     private function getLanguages()
     {
-        if ( ! Schema::hasTable('languages')) {
+        if ($this->isConnected() && !Schema::hasTable('languages')) {
             return;
         }
+        if ($this->isConnected()) {
+            return cache()->rememberForever('languages', function () {
+                return Session::has('language')
+                    ? Language::pluck('name', 'code')->toArray()
+                    : Language::where('is_default', 1)->first();
+            });
+        }
+    }
 
-        return cache()->rememberForever('languages', function () {
-            return Session::has('language')
-                ? Language::pluck('name', 'code')->toArray()
-                : Language::where('is_default', 1)->first();
-        });
+    private function isConnected(): bool
+    {
+        try {
+            \DB::connection()->getPDO();
+            return true;
+        } catch (\Exception $e) {
+            return false;
+        }
     }
 }

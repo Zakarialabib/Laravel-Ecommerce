@@ -13,3 +13,4 @@ config/database.php
 *.stub
 *.xlsx
 composer.lock
+public/vendor/livewire/
