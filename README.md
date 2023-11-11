@@ -28,6 +28,13 @@ Our upcoming API release will allow you to effortlessly sync your inventory and 
     -   Password: `password`
 9.  Enjoy!
 
+## Demo
+
+Login with the following credentials
+    - Demo : http://ecom.hotech.ma/
+    -   Email: `admin@ggmail.com`
+    -   Password: `password`
+    
 ## Screenshots
 
 - Home
