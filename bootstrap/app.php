@@ -2,56 +2,88 @@
 
 declare(strict_types=1);
 
-/*
-|--------------------------------------------------------------------------
-| Create The Application
-|--------------------------------------------------------------------------
-|
-| The first thing we will do is create a new Laravel application instance
-| which serves as the "glue" for all the components of Laravel, and is
-| the IoC container for the system binding all of the various parts.
-|
-*/
+use App\Http\Middleware\AuthGate;
+use App\Http\Middleware\AuthRole;
+use App\Http\Middleware\CheckApproved;
+use App\Http\Middleware\HTTPSConnection;
+use App\Http\Middleware\Locale;
+use App\Http\Middleware\MaintenanceMode;
+use App\Http\Middleware\RedirectIfAuthenticated;
+use App\Http\Middleware\SuperAdmin;
+use App\Providers\RouteServiceProvider;
+use Illuminate\Cache\RateLimiting\Limit;
+use Illuminate\Foundation\Application;
+use Illuminate\Foundation\Configuration\Exceptions;
+use Illuminate\Foundation\Configuration\Middleware;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\RateLimiter;
 
-$app = new Illuminate\Foundation\Application(
-    $_ENV['APP_BASE_PATH'] ?? dirname(__DIR__)
-);
+return Application::configure(basePath: dirname(__DIR__))
+    ->withRouting(
+        // routes/web.php also requires routes/auth.php and routes/admin.php
+        web: __DIR__.'/../routes/web.php',
+        api: __DIR__.'/../routes/api.php',
+        commands: __DIR__.'/../routes/console.php',
+        channels: __DIR__.'/../routes/channels.php',
+        health: '/up',
+    )
+    ->withMiddleware(function (Middleware $middleware): void {
+        // Guests hitting an "auth" route land on the named login route.
+        $middleware->redirectGuestsTo(fn (Request $request) => route('login'));
 
-/*
-|--------------------------------------------------------------------------
-| Bind Important Interfaces
-|--------------------------------------------------------------------------
-|
-| Next, we need to bind some important interfaces into the container so
-| we will be able to resolve them when needed. The kernels serve the
-| incoming requests to this application from both the web and CLI.
-|
-*/
+        // Authenticated users hitting a "guest" route go to their dashboard.
+        $middleware->redirectUsersTo(
+            fn (Request $request) => $request->user()?->isAdmin()
+                ? RouteServiceProvider::ADMIN_HOME
+                : RouteServiceProvider::CLIENT_HOME
+        );
 
-$app->singleton(
-    Illuminate\Contracts\Http\Kernel::class,
-    App\Http\Kernel::class
-);
+        // Do not trim/convert credential fields.
+        $middleware->trimStrings(except: [
+            'current_password',
+            'password',
+            'password_confirmation',
+        ]);
 
-$app->singleton(
-    Illuminate\Contracts\Console\Kernel::class,
-    App\Console\Kernel::class
-);
+        // Livewire 4 serves its endpoints under /livewire-{hash}/*.
+        $middleware->validateCsrfTokens(except: [
+            'livewire/*',
+            'livewire-*/*',
+        ]);
 
-$app->singleton(
-    Illuminate\Contracts\Debug\ExceptionHandler::class,
-    App\Exceptions\Handler::class
-);
+        // Web group additions (framework defaults already cover cookies,
+        // session, errors-from-session, CSRF and route bindings).
+        $middleware->web(append: [
+            AuthGate::class,
+            Locale::class,
+        ]);
 
-/*
-|--------------------------------------------------------------------------
-| Return The Application
-|--------------------------------------------------------------------------
-|
-| This script returns the application instance. The instance is given to
-| the calling script so we can separate the building of the instances
-| from the actual running of the application and sending responses.
-|
-*/
+        $middleware->api(prepend: [
+            'throttle:api',
+        ]);
 
-return $app;
+        $middleware->alias([
+            'role'      => AuthRole::class,
+            'guest'     => RedirectIfAuthenticated::class,
+            'super'     => SuperAdmin::class,
+            'approved'  => CheckApproved::class,
+            'https'     => HTTPSConnection::class,
+            'maintenance' => MaintenanceMode::class,
+        ]);
+    })
+    ->withExceptions(function (Exceptions $exceptions): void {
+        $exceptions->dontFlash([
+            'current_password',
+            'password',
+            'password_confirmation',
+        ]);
+
+        $exceptions->shouldRenderJsonWhen(
+            fn (Request $request) => $request->is('api/*') || $request->expectsJson(),
+        );
+    })
+    ->booted(function (): void {
+        RateLimiter::for('api', fn (Request $request) => Limit::perMinute(60)
+            ->by($request->user()?->id ?: $request->ip()));
+    })
+    ->create();
