@@ -6,7 +6,7 @@ namespace App\Http\Livewire\Admin\Page;
 
 use App\Models\Page;
 use App\Models\PageSetting;
-use Jantinnerezo\LivewireAlert\LivewireAlert;
+use Jantinnerezo\LivewireAlert\Concerns\SweetAlert2 as LivewireAlert;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 use Throwable;

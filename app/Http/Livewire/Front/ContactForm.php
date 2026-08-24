@@ -8,7 +8,7 @@ use App\Mail\ContactForm as MailContactForm;
 use App\Models\Contact;
 use App\Models\User;
 use Illuminate\Support\Facades\Mail;
-use Jantinnerezo\LivewireAlert\LivewireAlert;
+use Jantinnerezo\LivewireAlert\Concerns\SweetAlert2 as LivewireAlert;
 use Livewire\Component;
 
 class ContactForm extends Component

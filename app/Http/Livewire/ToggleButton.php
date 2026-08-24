@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Http\Livewire;
 
 use Illuminate\Database\Eloquent\Model;
-use Jantinnerezo\LivewireAlert\LivewireAlert;
+use Jantinnerezo\LivewireAlert\Concerns\SweetAlert2 as LivewireAlert;
 use Livewire\Component;
 
 class ToggleButton extends Component

@@ -6,7 +6,7 @@ namespace App\Http\Livewire\Admin\Settings;
 
 use App\Http\Livewire\WithSorting;
 use App\Models\Popup;
-use Jantinnerezo\LivewireAlert\LivewireAlert;
+use Jantinnerezo\LivewireAlert\Concerns\SweetAlert2 as LivewireAlert;
 use Livewire\Component;
 use Livewire\WithPagination;
 use Throwable;

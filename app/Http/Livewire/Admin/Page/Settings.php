@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Http\Livewire\Admin\Page;
 
 use Livewire\Component;
-use Jantinnerezo\LivewireAlert\LivewireAlert;
+use Jantinnerezo\LivewireAlert\Concerns\SweetAlert2 as LivewireAlert;
 use App\Models\PageSetting;
 use App\Http\Livewire\WithSorting;
 use Illuminate\Contracts\View\Factory;

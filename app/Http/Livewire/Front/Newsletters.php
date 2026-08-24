@@ -9,7 +9,7 @@ use App\Models\Subscriber;
 use App\Models\User;
 use App\Mail\SubscribedMail;
 use Illuminate\Support\Facades\Mail;
-use Jantinnerezo\LivewireAlert\LivewireAlert;
+use Jantinnerezo\LivewireAlert\Concerns\SweetAlert2 as LivewireAlert;
 use Illuminate\Contracts\View\View;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Support\Facades\Log;

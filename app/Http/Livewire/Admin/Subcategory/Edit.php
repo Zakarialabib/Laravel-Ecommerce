@@ -7,7 +7,7 @@ namespace App\Http\Livewire\Admin\Subcategory;
 use Livewire\Component;
 use Illuminate\Contracts\View\View;
 use Illuminate\Support\Facades\Gate;
-use Jantinnerezo\LivewireAlert\LivewireAlert;
+use Jantinnerezo\LivewireAlert\Concerns\SweetAlert2 as LivewireAlert;
 use Intervention\Image\Facades\Image;
 use Illuminate\Support\Str;
 use Livewire\WithFileUploads;

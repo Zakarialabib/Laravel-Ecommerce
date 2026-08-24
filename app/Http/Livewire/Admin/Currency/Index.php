@@ -7,7 +7,7 @@ namespace App\Http\Livewire\Admin\Currency;
 use App\Http\Livewire\WithSorting;
 use App\Models\Currency;
 use Illuminate\Support\Facades\Gate;
-use Jantinnerezo\LivewireAlert\LivewireAlert;
+use Jantinnerezo\LivewireAlert\Concerns\SweetAlert2 as LivewireAlert;
 use Livewire\Component;
 use Livewire\WithPagination;
 
