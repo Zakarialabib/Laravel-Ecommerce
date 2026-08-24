@@ -4,81 +4,85 @@ declare(strict_types=1);
 
 namespace App\Http\Livewire\Admin\Customer;
 
-use App\Http\Livewire\WithSorting;
 use App\Models\User;
+use App\Http\Livewire\WithSorting;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
+use Livewire\Attributes\Computed;
+use Livewire\Attributes\Layout;
+use Livewire\Attributes\Title;
+use Livewire\Attributes\Url;
 use Livewire\Component;
 use Livewire\WithPagination;
 
+#[Layout('layouts.dashboard')]
+#[Title('Customer')]
 class Index extends Component
 {
     use WithPagination;
     use WithSorting;
+    use AuthorizesRequests;
 
-    public int $perPage;
-
-    public array $orderable;
-
+    #[Url]
     public string $search = '';
 
+    #[Url]
+    public int $perPage = 25;
+
+    /** @var array<int, string> */
+    public array $paginationOptions = [25, 50, 100];
+
+    /** @var array<int, string> */
     public array $selected = [];
 
-    public array $paginationOptions;
-
-    public array $listsForFields = [];
-
-    protected $queryString = [
-        'search' => [
-            'except' => '',
-        ],
-        'sortBy' => [
-            'except' => 'id',
-        ],
-        'sortDirection' => [
-            'except' => 'desc',
-        ],
-    ];
-
-    public function getSelectedCountProperty()
+    public function mount(): void
     {
-        return count($this->selected);
+        $this->authorize('customer_access');
     }
 
-    public function updatingSearch()
+    #[Computed]
+    public function orderable(): array
     {
-        $this->resetPage();
+        return (new User())->orderable;
     }
 
-    public function updatingPerPage()
+    #[Computed]
+    public function users(): \Illuminate\Pagination\LengthAwarePaginator
+    {
+        return User::advancedFilter([
+            's'               => $this->search ?: null,
+            'order_column'    => $this->sortBy,
+            'order_direction' => $this->sortDirection,
+        ])->paginate($this->perPage);
+    }
+
+    public function updatingSearch(): void
     {
         $this->resetPage();
     }
 
-    public function resetSelected()
+    public function updatingPerPage(): void
+    {
+        $this->resetPage();
+    }
+
+    public function resetSelected(): void
     {
         $this->selected = [];
     }
 
-    public function mount()
+   #[Computed]
+    public function selectedCount(): int
     {
-        $this->sortBy = 'id';
-        $this->sortDirection = 'desc';
-        $this->perPage = 25;
-        $this->paginationOptions = [25, 50, 100];
-        $this->orderable = (new User())->orderable;
+        return count($this->selected);
     }
 
     public function render(): View|Factory
     {
-        $query = User::advancedFilter([
-            's'               => $this->search ?: null,
-            'order_column'    => $this->sortBy,
-            'order_direction' => $this->sortDirection,
+        return view('livewire.admin.customer.index', [
+            'users' => $this->users,
+            'paginationOptions' => $this->paginationOptions,
         ]);
-
-        $customers = $query->paginate($this->perPage);
-
-        return view('livewire.admin.customer.index', compact('customers'));
     }
 }

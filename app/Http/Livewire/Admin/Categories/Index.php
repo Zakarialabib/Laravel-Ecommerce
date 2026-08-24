@@ -4,146 +4,85 @@ declare(strict_types=1);
 
 namespace App\Http\Livewire\Admin\Categories;
 
-use App\Http\Livewire\WithSorting;
-use App\Imports\CategoriesImport;
 use App\Models\Category;
+use App\Http\Livewire\WithSorting;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
-use Illuminate\Support\Facades\Gate;
-use Jantinnerezo\LivewireAlert\Concerns\SweetAlert2 as LivewireAlert;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
+use Livewire\Attributes\Computed;
+use Livewire\Attributes\Layout;
+use Livewire\Attributes\Title;
+use Livewire\Attributes\Url;
 use Livewire\Component;
-use Livewire\WithFileUploads;
 use Livewire\WithPagination;
-use Maatwebsite\Excel\Facades\Excel;
 
+#[Layout('layouts.dashboard')]
+#[Title('Categories')]
 class Index extends Component
 {
     use WithPagination;
     use WithSorting;
-    use LivewireAlert;
-    use WithFileUploads;
+    use AuthorizesRequests;
 
-    public $category;
-
-    public $name;
-
-    public $file;
-
-    public $listeners = [
-        'refreshIndex' => '$refresh',
-        'importModal', 
-    ];
-
-    public int $perPage;
-
-    public $importModal;
-
-    public array $orderable;
-
+    #[Url]
     public string $search = '';
 
+    #[Url]
+    public int $perPage = 25;
+
+    /** @var array<int, string> */
+    public array $paginationOptions = [25, 50, 100];
+
+    /** @var array<int, string> */
     public array $selected = [];
 
-    public array $paginationOptions;
-
-    protected $queryString = [
-        'search' => [
-            'except' => '',
-        ],
-        'sortBy' => [
-            'except' => 'id',
-        ],
-        'sortDirection' => [
-            'except' => 'desc',
-        ],
-    ];
-
-    public function getSelectedCountProperty()
+    public function mount(): void
     {
-        return count($this->selected);
+        $this->authorize('categories_access');
     }
 
-    public function updatingSearch()
+    #[Computed]
+    public function orderable(): array
     {
-        $this->resetPage();
+        return (new Category())->orderable;
     }
 
-    public function updatingPerPage()
+    #[Computed]
+    public function categorys(): \Illuminate\Pagination\LengthAwarePaginator
+    {
+        return Category::advancedFilter([
+            's'               => $this->search ?: null,
+            'order_column'    => $this->sortBy,
+            'order_direction' => $this->sortDirection,
+        ])->paginate($this->perPage);
+    }
+
+    public function updatingSearch(): void
     {
         $this->resetPage();
     }
 
-    public function resetSelected()
+    public function updatingPerPage(): void
+    {
+        $this->resetPage();
+    }
+
+    public function resetSelected(): void
     {
         $this->selected = [];
     }
 
-    public function mount()
+   #[Computed]
+    public function selectedCount(): int
     {
-        $this->sortBy = 'id';
-        $this->sortDirection = 'desc';
-        $this->perPage = 100;
-        $this->paginationOptions = [25, 50, 100];
-        $this->orderable = (new Category())->orderable;
+        return count($this->selected);
     }
 
     public function render(): View|Factory
     {
-        $query = Category::advancedFilter([
-            's'               => $this->search ?: null,
-            'order_column'    => $this->sortBy,
-            'order_direction' => $this->sortDirection,
+        return view('livewire.admin.categories.index', [
+            'categorys' => $this->categorys,
+            'paginationOptions' => $this->paginationOptions,
         ]);
-
-        $categories = $query->paginate($this->perPage);
-
-        return view('livewire.admin.categories.index', compact('categories'));
-    }
-
-    public function deleteSelected()
-    {
-        abort_if(Gate::denies('category_delete'), 403);
-
-        Category::whereIn('id', $this->selected)->delete();
-
-        $this->alert('success', __('Category deleted successfully.'));
-
-        $this->resetSelected();
-    }
-
-    public function delete(Category $category)
-    {
-        abort_if(Gate::denies('category_delete'), 403);
-
-        if ($category->products()->isNotEmpty()) {
-            $this->alert('error', __('Can\'t delete beacuse there are products associated with this category !'));
-        }
-        $category->delete();
-
-        $this->alert('success', __('Category deleted successfully.'));
-    }
-
-    public function importModal()
-    {
-        abort_if(Gate::denies('category_access'), 403);
-
-        $this->importModal = true;
-    }
-
-    public function import()
-    {
-        abort_if(Gate::denies('category_access'), 403);
-
-        $this->validate([
-            'file' => 'required|mimes:xlsx,xls,csv,txt',
-        ]);
-
-        $file = $this->file('file');
-
-        Excel::import(new CategoriesImport(), $file);
-
-        $this->alert('success', __('Categories imported successfully.'));
-
-        $this->importModal = false;
     }
 }

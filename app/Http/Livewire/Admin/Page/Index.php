@@ -4,94 +4,88 @@ declare(strict_types=1);
 
 namespace App\Http\Livewire\Admin\Page;
 
-use App\Http\Livewire\WithSorting;
 use App\Models\Page;
+use App\Http\Livewire\WithSorting;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
+use Livewire\Attributes\Computed;
+use Livewire\Attributes\Layout;
+use Livewire\Attributes\Title;
+use Livewire\Attributes\Url;
 use Livewire\Component;
 use Livewire\WithPagination;
-use Illuminate\Support\Facades\Gate;
-use Jantinnerezo\LivewireAlert\Concerns\SweetAlert2 as LivewireAlert;
 
+#[Layout('layouts.dashboard')]
+#[Title('Page')]
 class Index extends Component
 {
     use WithPagination;
     use WithSorting;
-    use LivewireAlert;
+    use AuthorizesRequests;
 
-    public $listeners = [
-        'refreshIndex' => '$refresh',
-        'delete'
-    ];
-
-    public $deleteModal = false;
-    
-    public int $perPage;
-
-    public array $orderable;
-
+    #[Url]
     public string $search = '';
 
+    #[Url]
+    public int $perPage = 25;
+
+    /** @var array<int, string> */
+    public array $paginationOptions = [25, 50, 100];
+
+    /** @var array<int, string> */
     public array $selected = [];
 
-    public array $paginationOptions;
-
-    public array $listsForFields = [];
-
-    protected $queryString = [
-        'search' => [
-            'except' => '',
-        ],
-        'sortBy' => [
-            'except' => 'id',
-        ],
-        'sortDirection' => [
-            'except' => 'desc',
-        ],
-    ];
-
-    public function getSelectedCountProperty()
+    public function mount(): void
     {
-        return count($this->selected);
+        $this->authorize('page_access');
     }
 
-    public function updatingSearch()
+    #[Computed]
+    public function orderable(): array
     {
-        $this->resetPage();
+        return (new Page())->orderable;
     }
 
-    public function updatingPerPage()
+    #[Computed]
+    public function pages(): \Illuminate\Pagination\LengthAwarePaginator
+    {
+        return Page::advancedFilter([
+            's'               => $this->search ?: null,
+            'order_column'    => $this->sortBy,
+            'order_direction' => $this->sortDirection,
+        ])->paginate($this->perPage);
+    }
+
+    public function updatingSearch(): void
     {
         $this->resetPage();
     }
 
-    public function resetSelected()
+    public function updatingPerPage(): void
+    {
+        $this->resetPage();
+    }
+
+    public function resetSelected(): void
     {
         $this->selected = [];
     }
 
-    public function mount()
+   #[Computed]
+    public function selectedCount(): int
     {
-        $this->sortBy = 'id';
-        $this->sortDirection = 'desc';
-        $this->perPage = 25;
-        $this->paginationOptions = [25, 50, 100];
-        $this->orderable = (new Page())->orderable;
+        return count($this->selected);
     }
 
     public function render(): View|Factory
     {
-        $query = Page::advancedFilter([
-            's'               => $this->search ?: null,
-            'order_column'    => $this->sortBy,
-            'order_direction' => $this->sortDirection,
+        return view('livewire.admin.page.index', [
+            'pages' => $this->pages,
+            'paginationOptions' => $this->paginationOptions,
         ]);
-
-        $pages = $query->paginate($this->perPage);
-
-        return view('livewire.admin.page.index', compact('pages'));
     }
-
+    
     public function delete()
     {
         // abort_if(Gate::denies('page_delete'), 403);

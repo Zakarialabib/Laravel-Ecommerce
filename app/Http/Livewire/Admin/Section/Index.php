@@ -37,7 +37,7 @@ class Index extends Component
     
     public $deleteModal = false;
 
-    public int $perPage;
+    public int $perPage = 100;
 
     public array $orderable;
 

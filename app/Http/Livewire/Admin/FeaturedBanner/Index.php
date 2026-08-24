@@ -4,116 +4,88 @@ declare(strict_types=1);
 
 namespace App\Http\Livewire\Admin\FeaturedBanner;
 
-use App\Http\Livewire\WithSorting;
 use App\Models\FeaturedBanner;
-use App\Models\Language;
-use App\Models\Product;
+use App\Http\Livewire\WithSorting;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
-use Illuminate\Support\Str;
-use Jantinnerezo\LivewireAlert\Concerns\SweetAlert2 as LivewireAlert;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
+use Livewire\Attributes\Computed;
+use Livewire\Attributes\Layout;
+use Livewire\Attributes\Title;
+use Livewire\Attributes\Url;
 use Livewire\Component;
-use Livewire\WithFileUploads;
 use Livewire\WithPagination;
 
+#[Layout('layouts.dashboard')]
+#[Title('Featured Banner')]
 class Index extends Component
 {
     use WithPagination;
     use WithSorting;
-    use LivewireAlert;
-    use WithFileUploads;
+    use AuthorizesRequests;
 
-    public $featuredbanner;
-
-    public $image;
-
-    public $listeners = [
-        'refreshIndex' => '$refresh',
-        'showModal', 'editModal', 'delete',
-    ];
-
-    public $showModal = false;
-
-    public $refreshIndex;
-
-    public $editModal = false;
-
-    public int $perPage;
-
-    public array $orderable;
-
+    #[Url]
     public string $search = '';
 
+    #[Url]
+    public int $perPage = 25;
+
+    /** @var array<int, string> */
+    public array $paginationOptions = [25, 50, 100];
+
+    /** @var array<int, string> */
     public array $selected = [];
 
-    public array $paginationOptions;
-
-    public array $listsForFields = [];
-
-    protected $queryString = [
-        'search' => [
-            'except' => '',
-        ],
-        'sortBy' => [
-            'except' => 'id',
-        ],
-        'sortDirection' => [
-            'except' => 'desc',
-        ],
-    ];
-
-    protected $rules = [
-        'featuredbanner.title'         => ['required', 'string', 'max:255'],
-        'featuredbanner.details'       => ['nullable', 'string'],
-        'featuredbanner.link'          => ['nullable', 'string'],
-        'featuredbanner.product_id'    => ['nullable', 'integer'],
-        'featuredbanner.language_id'   => ['nullable', 'integer'],
-        'featuredbanner.embeded_video' => ['nullable'],
-    ];
-
-    public function getSelectedCountProperty()
+    public function mount(): void
     {
-        return count($this->selected);
+        $this->authorize('featuredbanner_access');
     }
 
-    public function updatingSearch()
+    #[Computed]
+    public function orderable(): array
+    {
+        return (new FeaturedBanner())->orderable;
+    }
+
+    #[Computed]
+    public function featuredBanners(): \Illuminate\Pagination\LengthAwarePaginator
+    {
+        return FeaturedBanner::advancedFilter([
+            's'               => $this->search ?: null,
+            'order_column'    => $this->sortBy,
+            'order_direction' => $this->sortDirection,
+        ])->paginate($this->perPage);
+    }
+
+    public function updatingSearch(): void
     {
         $this->resetPage();
     }
 
-    public function updatingPerPage()
+    public function updatingPerPage(): void
     {
         $this->resetPage();
     }
 
-    public function resetSelected()
+    public function resetSelected(): void
     {
         $this->selected = [];
     }
 
-    public function mount()
+   #[Computed]
+    public function selectedCount(): int
     {
-        $this->sortBy = 'id';
-        $this->sortDirection = 'desc';
-        $this->perPage = 25;
-        $this->paginationOptions = [25, 50, 100];
-        $this->orderable = (new FeaturedBanner())->orderable;
-        $this->initListsForFields();
+        return count($this->selected);
     }
 
     public function render(): View|Factory
     {
-        $query = FeaturedBanner::advancedFilter([
-            's'               => $this->search ?: null,
-            'order_column'    => $this->sortBy,
-            'order_direction' => $this->sortDirection,
+        return view('livewire.admin.featuredbanner.index', [
+            'featuredBanners' => $this->featuredBanners,
+            'paginationOptions' => $this->paginationOptions,
         ]);
-
-        $featuredbanners = $query->paginate($this->perPage);
-
-        return view('livewire.admin.featured-banner.index', compact('featuredbanners'));
     }
-
+    
     public function setFeatured($id)
     {
         FeaturedBanner::where('featured', '=', true)->update(['featured' => false]);

@@ -4,88 +4,80 @@ declare(strict_types=1);
 
 namespace App\Http\Livewire\Admin\Email;
 
-use App\Http\Livewire\WithSorting;
 use App\Models\EmailTemplate;
+use App\Http\Livewire\WithSorting;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
+use Livewire\Attributes\Computed;
+use Livewire\Attributes\Layout;
+use Livewire\Attributes\Title;
+use Livewire\Attributes\Url;
 use Livewire\Component;
 use Livewire\WithPagination;
 
+#[Layout('layouts.dashboard')]
+#[Title('Email')]
 class Index extends Component
 {
     use WithPagination;
     use WithSorting;
+    use AuthorizesRequests;
 
-    public int $perPage;
-
-    public $email;
-
-    public array $orderable;
-
+    #[Url]
     public string $search = '';
 
+    #[Url]
+    public int $perPage = 25;
+
+    /** @var array<int, string> */
+    public array $paginationOptions = [25, 50, 100];
+
+    /** @var array<int, string> */
     public array $selected = [];
 
-    protected $listeners = [
-        'refreshIndex' => '$refresh'
-    ];
-    
-    public array $paginationOptions;
-
-    protected $queryString = [
-        'search' => [
-            'except' => '',
-        ],
-        'sortBy' => [
-            'except' => 'id',
-        ],
-        'sortDirection' => [
-            'except' => 'desc',
-        ],
-    ];
-
-    public function getSelectedCountProperty()
+    public function mount(): void
     {
-        return count($this->selected);
+        $this->authorize('email_access');
     }
 
-    public function updatingSearch()
+    #[Computed]
+    public function orderable(): array
+    {
+        return (new EmailTemplate())->orderable;
+    }
+
+    #[Computed]
+    public function emailTemplates(): \Illuminate\Pagination\LengthAwarePaginator
+    {
+        return EmailTemplate::advancedFilter([
+            's'               => $this->search ?: null,
+            'order_column'    => $this->sortBy,
+            'order_direction' => $this->sortDirection,
+        ])->paginate($this->perPage);
+    }
+
+    public function updatingSearch(): void
     {
         $this->resetPage();
     }
 
-    public function updatingPerPage()
+    public function updatingPerPage(): void
     {
         $this->resetPage();
     }
 
-    public function resetSelected()
+    public function resetSelected(): void
     {
         $this->selected = [];
     }
 
-    public function mount()
+   #[Computed]
+    public function selectedCount(): int
     {
-        $this->sortBy = 'id';
-        $this->sortDirection = 'desc';
-        $this->perPage = 100;
-        $this->paginationOptions = [25, 50, 100];
-        $this->orderable = (new EmailTemplate())->orderable;
+        return count($this->selected);
     }
-
-    public function render(): View|Factory
-    {
-        $query = EmailTemplate::advancedFilter([
-            's'               => $this->search ?: null,
-            'order_column'    => $this->sortBy,
-            'order_direction' => $this->sortDirection,
-        ]);
-
-        $emails = $query->paginate($this->perPage);
-
-        return view('livewire.admin.email.index', compact('emails'))->extends('layouts.dashboard');
-    }
-
+    
      // Blog Category  Delete
      public function delete(EmailTemplate $email)
      {
@@ -93,4 +85,12 @@ class Index extends Component
 
          $email->delete();
      }
+
+    public function render(): View|Factory
+    {
+        return view('livewire.admin.email.index', [
+            'emailTemplates' => $this->emailTemplates,
+            'paginationOptions' => $this->paginationOptions,
+        ]);
+    }
 }
