@@ -16,7 +16,7 @@ use Livewire\Attributes\Url;
 use Livewire\Component;
 use Livewire\WithPagination;
 
-#[Layout('layouts::dashboard')]
+#[Layout('layouts.dashboard')]
 #[Title('{{ title }}')]
 class Index extends Component
 {
@@ -24,14 +24,10 @@ class Index extends Component
     use WithSorting;
     use AuthorizesRequests;
 
+    // sortBy / sortDirection are owned by the WithSorting trait (both #[Url]).
+
     #[Url]
     public string $search = '';
-
-    #[Url]
-    public string $sortBy = 'id';
-
-    #[Url]
-    public string $sortDirection = 'desc';
 
     #[Url]
     public int $perPage = 25;
@@ -57,10 +53,16 @@ class Index extends Component
     public function {{ var_plural }}(): \Illuminate\Pagination\LengthAwarePaginator
     {
         return {{ model_short }}::advancedFilter([
-            's'               => $this->search ?: null,
-            'order_column'    => $this->sortBy,
+            's' => $this->search ?: null,
+            'order_column' => $this->sortBy,
             'order_direction' => $this->sortDirection,
         ])->paginate($this->perPage);
+    }
+
+    #[Computed]
+    public function selectedCount(): int
+    {
+        return count($this->selected);
     }
 
     public function updatingSearch(): void
@@ -78,13 +80,13 @@ class Index extends Component
         $this->selected = [];
     }
 
-    public function getSelectedCountProperty(): int
-    {
-        return count($this->selected);
-    }
-
     public function render(): View|Factory
     {
-        return view('{{ view }}');
+        // Blades reference the list + paginationOptions as bare $vars, so pass
+        // them explicitly (the #[Layout] path does not auto-share view vars).
+        return view('{{ view }}', [
+            '{{ var_plural }}' => $this->{{ var_plural }},
+            'paginationOptions' => $this->paginationOptions,
+        ]);
     }
 }
