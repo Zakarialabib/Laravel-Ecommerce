@@ -19,6 +19,20 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | Serializable Classes
+    |--------------------------------------------------------------------------
+    |
+    | Laravel 13 hardening: restrict which classes may be unserialized out of
+    | the cache. `false` blocks object deserialization entirely, which also
+    | prevents whole Eloquent models resurrecting as __PHP_Incomplete_Class.
+    | Cache arrays (e.g. $model->attributesToArray()) instead of models.
+    |
+    */
+
+    'serializable_classes' => false,
+
+    /*
+    |--------------------------------------------------------------------------
     | Cache Stores
     |--------------------------------------------------------------------------
     |
