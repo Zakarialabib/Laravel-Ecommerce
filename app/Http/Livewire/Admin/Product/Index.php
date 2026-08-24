@@ -14,11 +14,17 @@ use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Support\Facades\Gate;
 use Jantinnerezo\LivewireAlert\Concerns\SweetAlert2 as LivewireAlert;
+use Livewire\Attributes\Computed;
+use Livewire\Attributes\Layout;
+use Livewire\Attributes\Title;
+use Livewire\Attributes\Url;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 use Livewire\WithPagination;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
 
+#[Layout('layouts.dashboard')]
+#[Title('Products')]
 class Index extends Component
 {
     use WithPagination;
@@ -47,7 +53,8 @@ class Index extends Component
 
     public $percentageMethod;
 
-    public int $perPage;
+    #[Url]
+    public int $perPage = 25;
 
     public $refreshIndex;
 
@@ -62,25 +69,15 @@ class Index extends Component
 
     public float $price;
 
+    #[Url]
     public string $search = '';
 
     public array $selected = [];
 
-    public array $paginationOptions;
+    public array $paginationOptions = [25, 50, 100];
 
-    protected $queryString = [
-        'search' => [
-            'except' => '',
-        ],
-        'sortBy' => [
-            'except' => 'id',
-        ],
-        'sortDirection' => [
-            'except' => 'desc',
-        ],
-    ];
-
-    public function getSelectedCountProperty()
+    #[Computed]
+    public function selectedCount(): int
     {
         return count($this->selected);
     }
@@ -243,17 +240,20 @@ class Index extends Component
          $this->percentage = '';
      }
 
-    public function getCategoriesProperty()
+    #[Computed]
+    public function categories(): \Illuminate\Database\Eloquent\Collection
     {
         return Category::select('id', 'name')->get();
     }
 
-    public function getBrandsProperty()
+    #[Computed]
+    public function brands(): \Illuminate\Database\Eloquent\Collection
     {
         return Brand::select('name', 'id')->get();
     }
 
-    public function getSubcategoriesProperty()
+    #[Computed]
+    public function subcategories(): \Illuminate\Database\Eloquent\Collection
     {
         return Subcategory::select('name', 'id')->get();
     }
@@ -293,8 +293,6 @@ class Index extends Component
         $this->category_id = $this->product->category_id;
         $this->brand_id = $this->product->brand_id;
         $this->subcategoryIds = $this->product->subcategories;
-        // dd($this->all());
-
     }
 
       public function downloadSelected()

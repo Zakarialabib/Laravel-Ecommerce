@@ -10,9 +10,13 @@ use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Support\Facades\Storage;
 use Jantinnerezo\LivewireAlert\Concerns\SweetAlert2 as LivewireAlert;
+use Livewire\Attributes\Layout;
+use Livewire\Attributes\Title;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 
+#[Layout('layouts.dashboard')]
+#[Title('Settings')]
 class Index extends Component
 {
     use WithFileUploads;
