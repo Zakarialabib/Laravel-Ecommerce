@@ -8,7 +8,7 @@ use App\Models\Brand;
 use App\Models\Category;
 use App\Models\Subcategory;
 use Illuminate\Database\Eloquent\Model;
-use Jantinnerezo\LivewireAlert\LivewireAlert;
+use Jantinnerezo\LivewireAlert\Concerns\SweetAlert2 as LivewireAlert;
 use Livewire\Component;
 
 class Select extends Component

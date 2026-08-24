@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Http\Livewire\Admin\Shipping;
 
 use App\Models\Shipping;
-use Jantinnerezo\LivewireAlert\LivewireAlert;
+use Jantinnerezo\LivewireAlert\Concerns\SweetAlert2 as LivewireAlert;
 use Livewire\Component;
 
 class Create extends Component

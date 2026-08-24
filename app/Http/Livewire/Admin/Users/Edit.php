@@ -8,7 +8,7 @@ use App\Models\User;
 use Livewire\Component;
 use Illuminate\Contracts\View\View;
 use Illuminate\Support\Facades\Gate;
-use Jantinnerezo\LivewireAlert\LivewireAlert;
+use Jantinnerezo\LivewireAlert\Concerns\SweetAlert2 as LivewireAlert;
 
 class Edit extends Component
 {

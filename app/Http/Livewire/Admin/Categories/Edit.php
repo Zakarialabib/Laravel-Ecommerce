@@ -9,7 +9,7 @@ use Illuminate\Contracts\View\View;
 use Illuminate\Support\Facades\Gate;
 use App\Models\Category;
 use Illuminate\Support\Str;
-use Jantinnerezo\LivewireAlert\LivewireAlert;
+use Jantinnerezo\LivewireAlert\Concerns\SweetAlert2 as LivewireAlert;
 use Livewire\WithFileUploads;
 
 class Edit extends Component

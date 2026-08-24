@@ -4,107 +4,88 @@ declare(strict_types=1);
 
 namespace App\Http\Livewire\Admin\Currency;
 
-use App\Http\Livewire\WithSorting;
 use App\Models\Currency;
-use Illuminate\Support\Facades\Gate;
-use Jantinnerezo\LivewireAlert\LivewireAlert;
+use App\Http\Livewire\WithSorting;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
+use Livewire\Attributes\Computed;
+use Livewire\Attributes\Layout;
+use Livewire\Attributes\Title;
+use Livewire\Attributes\Url;
 use Livewire\Component;
 use Livewire\WithPagination;
 
+#[Layout('layouts.dashboard')]
+#[Title('Currency')]
 class Index extends Component
 {
     use WithPagination;
     use WithSorting;
-    use LivewireAlert;
+    use AuthorizesRequests;
 
-    public $currency;
-
-    public int $perPage;
-
-    public $listeners = [
-        'showModal', 'editModal',
-        'refreshIndex' => '$refresh',
-    ];
-
-    public $showModal = false;
-
-    public $refreshIndex;
-
-    public $editModal = false;
-
-    public array $orderable;
-
+    #[Url]
     public string $search = '';
 
+    #[Url]
+    public int $perPage = 25;
+
+    /** @var array<int, string> */
+    public array $paginationOptions = [25, 50, 100];
+
+    /** @var array<int, string> */
     public array $selected = [];
 
-    public array $paginationOptions;
-
-    public $selectPage;
-
-    public array $rules = [
-        'currency.name'          => 'required|string|max:255',
-        'currency.code'          => 'required|string|max:255',
-        'currency.symbol'        => 'required|string|max:255',
-        'currency.exchange_rate' => 'required|numeric',
-    ];
-
-    protected $queryString = [
-        'search' => [
-            'except' => '',
-        ],
-        'sortBy' => [
-            'except' => 'id',
-        ],
-        'sortDirection' => [
-            'except' => 'desc',
-        ],
-    ];
-
-    public function getSelectedCountProperty()
+    public function mount(): void
     {
-        return count($this->selected);
+        $this->authorize('currency_access');
     }
 
-    public function updatingSearch()
+    #[Computed]
+    public function orderable(): array
+    {
+        return (new Currency())->orderable;
+    }
+
+    #[Computed]
+    public function currencys(): \Illuminate\Pagination\LengthAwarePaginator
+    {
+        return Currency::advancedFilter([
+            's'               => $this->search ?: null,
+            'order_column'    => $this->sortBy,
+            'order_direction' => $this->sortDirection,
+        ])->paginate($this->perPage);
+    }
+
+    public function updatingSearch(): void
     {
         $this->resetPage();
     }
 
-    public function updatingPerPage()
+    public function updatingPerPage(): void
     {
         $this->resetPage();
     }
 
-    public function resetSelected()
+    public function resetSelected(): void
     {
         $this->selected = [];
     }
 
-    public function mount()
+    #[Computed]
+    public function selectedCount(): int
     {
-        $this->sortBy = 'id';
-        $this->sortDirection = 'desc';
-        $this->perPage = 100;
-        $this->paginationOptions = [25, 50, 100];
-        $this->orderable = (new Currency())->orderable;
+        return count($this->selected);
     }
 
-    public function render()
+    public function render(): View|Factory
     {
-        abort_if(Gate::denies('currency_access'), 403);
-
-        $query = Currency::advancedFilter([
-            's'               => $this->search ?: null,
-            'order_column'    => $this->sortBy,
-            'order_direction' => $this->sortDirection,
+        return view('livewire.admin.currency.index', [
+            'currencys' => $this->currencys,
+            'paginationOptions' => $this->paginationOptions,
         ]);
-
-        $currencies = $query->paginate($this->perPage);
-
-        return view('livewire.currency.index', compact('currencies'));
     }
-
+    
     public function showModal(Currency $currency)
     {
         abort_if(Gate::denies('currency_show'), 403);

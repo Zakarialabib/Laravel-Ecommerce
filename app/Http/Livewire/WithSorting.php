@@ -4,10 +4,14 @@ declare(strict_types=1);
 
 namespace App\Http\Livewire;
 
+use Livewire\Attributes\Url;
+
 trait WithSorting
 {
+    #[Url]
     public $sortBy = 'id';
 
+    #[Url]
     public $sortDirection = 'desc';
 
     public function sortBy($field)

@@ -31,15 +31,97 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | Layout
+    | Component Locations
     |--------------------------------------------------------------------------
-    | The default layout view that will be used when rendering a component via
-    | Route::get('/some-endpoint', SomeComponent::class);. In this case the
-    | the view returned by SomeComponent will be wrapped in "layouts.app"
+    |
+    | Livewire 4: where single-file (SFC) and multi-file (MFC) view-based
+    | components are looked up.
     |
     */
 
-    'layout' => 'layouts.app',
+    'component_locations' => [
+        resource_path('views/components'),
+        resource_path('views/livewire'),
+    ],
+
+    /*
+    |--------------------------------------------------------------------------
+    | Component Namespaces
+    |--------------------------------------------------------------------------
+    |
+    | Livewire 4: custom namespaces for view-based components, e.g.
+    | <livewire:layouts::app /> resolves to resources/views/layouts/app.
+    |
+    */
+
+    'component_namespaces' => [
+        'layouts' => resource_path('views/layouts'),
+    ],
+
+    /*
+    |--------------------------------------------------------------------------
+    | Layout
+    |--------------------------------------------------------------------------
+    | The default layout view used when rendering a full-page component via
+    | Route::livewire('/some-endpoint', SomeComponent::class). Renamed from
+    | 'layout' to 'component_layout' in Livewire 4 and now namespaced, so
+    | "layouts::app" points at resources/views/layouts/app.blade.php.
+    |
+    */
+
+    'component_layout' => 'layouts::app',
+
+    /*
+    |--------------------------------------------------------------------------
+    | Component Placeholder
+    |--------------------------------------------------------------------------
+    |
+    | Livewire 4 replacement for the v3 'lazy_placeholder' key: the view
+    | rendered while a lazy-loaded component boots.
+    |
+    */
+
+    'component_placeholder' => null,
+
+    /*
+    |--------------------------------------------------------------------------
+    | Make Command Defaults
+    |--------------------------------------------------------------------------
+    |
+    | 'class' keeps `make:livewire` generating the class + view pair this
+    | app already uses, instead of Livewire 4's new single-file default.
+    |
+    */
+
+    'make_command' => [
+        'type'  => 'class',
+        'emoji' => false,
+    ],
+
+    /*
+    |--------------------------------------------------------------------------
+    | Smart wire:key
+    |--------------------------------------------------------------------------
+    |
+    | Defaults to true in Livewire 4. You still need explicit wire:key in
+    | loops; this only guards deeply nested components.
+    |
+    */
+
+    'smart_wire_keys' => true,
+
+    /*
+    |--------------------------------------------------------------------------
+    | CSP Safe Mode
+    |--------------------------------------------------------------------------
+    |
+    | Enable to use the Alpine CSP build and avoid 'unsafe-eval'. This
+    | restricts complex JS expressions inside wire: directives.
+    |
+    */
+
+    'csp_safe' => false,
+
 
     /*
     |--------------------------------------------------------------------------

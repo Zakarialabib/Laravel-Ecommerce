@@ -7,7 +7,7 @@ namespace App\Http\Livewire\Admin\Product;
 use App\Models\Product;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
-use Jantinnerezo\LivewireAlert\LivewireAlert;
+use Jantinnerezo\LivewireAlert\Concerns\SweetAlert2 as LivewireAlert;
 use Livewire\Component;
 use Throwable;
 

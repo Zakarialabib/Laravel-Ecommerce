@@ -8,7 +8,7 @@ use Livewire\Component;
 use File;
 use App;
 use App\Models\Language;
-use Jantinnerezo\LivewireAlert\LivewireAlert;
+use Jantinnerezo\LivewireAlert\Concerns\SweetAlert2 as LivewireAlert;
 
 class Edit extends Component
 {

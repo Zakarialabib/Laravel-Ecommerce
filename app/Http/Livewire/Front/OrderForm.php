@@ -8,7 +8,7 @@ use App\Helpers;
 use App\Models\OrderForms;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
-use Jantinnerezo\LivewireAlert\LivewireAlert;
+use Jantinnerezo\LivewireAlert\Concerns\SweetAlert2 as LivewireAlert;
 use Livewire\Component;
 use App\Mail\OrderFormMail;
 use Illuminate\Support\Facades\Mail;

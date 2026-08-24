@@ -10,11 +10,17 @@ use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Gate;
-use Jantinnerezo\LivewireAlert\LivewireAlert;
+use Jantinnerezo\LivewireAlert\Concerns\SweetAlert2 as LivewireAlert;
+use Livewire\Attributes\Computed;
+use Livewire\Attributes\Layout;
+use Livewire\Attributes\Title;
+use Livewire\Attributes\Url;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 use Livewire\WithPagination;
 
+#[Layout('layouts.dashboard')]
+#[Title('Sections')]
 class Index extends Component
 {
     use WithPagination;
@@ -37,39 +43,23 @@ class Index extends Component
     
     public $deleteModal = false;
 
-    public int $perPage;
+    #[Url]
+    public int $perPage = 100;
 
     public array $orderable;
 
+    #[Url]
     public string $search = '';
 
     public array $selected = [];
 
-    public array $paginationOptions;
+    public array $paginationOptions = [25, 50, 100];
 
+    #[Url]
     public $language_id;
 
-    protected $queryString = [
-        'search' => [
-            'except' => '',
-        ],
-        'sortBy' => [
-            'except' => 'id',
-        ],
-        'sortDirection' => [
-            'except' => 'desc',
-        ],
-    ];
-
-    protected $rules = [
-        'section.language_id' => 'required',
-        'section.page'        => 'required',
-        'section.title'       => 'nullable',
-        'section.subtitle'    => 'nullable',
-        'section.description' => 'nullable',
-    ];
-
-    public function getSelectedCountProperty()
+    #[Computed]
+    public function selectedCount(): int
     {
         return count($this->selected);
     }

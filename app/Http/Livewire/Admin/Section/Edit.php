@@ -6,7 +6,7 @@ namespace App\Http\Livewire\Admin\Section;
 
 use Livewire\Component;
 use Illuminate\Contracts\View\View;
-use Jantinnerezo\LivewireAlert\LivewireAlert;
+use Jantinnerezo\LivewireAlert\Concerns\SweetAlert2 as LivewireAlert;
 use Illuminate\Support\Collection;
 use Throwable;
 use App\Models\Section;

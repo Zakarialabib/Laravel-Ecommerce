@@ -4,63 +4,88 @@ declare(strict_types=1);
 
 namespace App\Http\Livewire\Admin\Menu;
 
-use App\Http\Livewire\WithSorting;
 use App\Models\Menu;
+use App\Http\Livewire\WithSorting;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
-use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
+use Livewire\Attributes\Computed;
+use Livewire\Attributes\Layout;
+use Livewire\Attributes\Title;
+use Livewire\Attributes\Url;
 use Livewire\Component;
 use Livewire\WithPagination;
-use Jantinnerezo\LivewireAlert\LivewireAlert;
+
+#[Layout('layouts.dashboard')]
+#[Title('Menu')]
 class Index extends Component
 {
     use WithPagination;
     use WithSorting;
-    use LivewireAlert;
+    use AuthorizesRequests;
+
+    #[Url]
+    public string $search = '';
+
+    #[Url]
+    public int $perPage = 25;
+
+    /** @var array<int, string> */
+    public array $paginationOptions = [25, 50, 100];
+
+    /** @var array<int, string> */
+    public array $selected = [];
+
+    public function mount(): void
+    {
+        $this->authorize('menu_access');
+    }
+
+    #[Computed]
+    public function orderable(): array
+    {
+        return (new Menu())->orderable;
+    }
+
+    #[Computed]
+    public function menus(): \Illuminate\Pagination\LengthAwarePaginator
+    {
+        return Menu::advancedFilter([
+            's'               => $this->search ?: null,
+            'order_column'    => $this->sortBy,
+            'order_direction' => $this->sortDirection,
+        ])->paginate($this->perPage);
+    }
+
+    public function updatingSearch(): void
+    {
+        $this->resetPage();
+    }
+
+    public function updatingPerPage(): void
+    {
+        $this->resetPage();
+    }
+
+    public function resetSelected(): void
+    {
+        $this->selected = [];
+    }
+
+   #[Computed]
+    public function selectedCount(): int
+    {
+        return count($this->selected);
+    }
+
+    public function render(): View|Factory
+    {
+        return view('livewire.admin.menu.index', [
+            'menus' => $this->menus,
+            'paginationOptions' => $this->paginationOptions,
+        ]);
+    }
     
-    public string $perPage = '100';
-
-    protected $listeners = [
-        'refreshIndex' => '$refresh'
-    ];
-
-    public $menu;
-    public $menus;
-    public $name;
-    public $label;
-    public $url;
-    public $type;
-    public $parent_id;
-    public $new_window;
-
-    protected $rules = [
-        'menus.*.name' => 'required',
-        'menus.*.type' => 'required',
-        'menus.*.label' => 'required',
-        'menus.*.url' => 'required',
-        'menus.*.parent_id' => 'nullable|exists:menus,id',
-        'menus.*.new_window' => 'boolean',
-    ];
-
-    public function mount()
-    {
-        $this->menus = Menu::orderBy('sort_order')->get()->toArray();
-        $this->resetErrorBag();
-        $this->resetValidation();
-    }
-
-    public function render()
-    {
-        $menus = $this->getMenus();
-
-        return view('livewire.admin.menu.index', compact('menus'))->extends('layouts.dashboard');
-    }
-
-    protected function getMenus()
-    {
-        return Menu::query()->paginate($this->perPage);
-    }
-
     public function update()
     {
         $validatedData = $this->validate();
@@ -180,6 +205,4 @@ class Index extends Component
         $this->mount();
         $this->alert('success', __('Menu deleted successfully.'));
     }
-
-    
 }

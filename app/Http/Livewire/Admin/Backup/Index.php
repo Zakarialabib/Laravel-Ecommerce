@@ -6,10 +6,12 @@ namespace App\Http\Livewire\Admin\Backup;
 
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Storage;
-use Jantinnerezo\LivewireAlert\LivewireAlert;
+use Jantinnerezo\LivewireAlert\Concerns\SweetAlert2 as LivewireAlert;
+use Livewire\Attributes\Title;
 use Livewire\Component;
 use Throwable;
 
+#[Title('Backups')]
 class Index extends Component
 {
     use LivewireAlert;
@@ -29,28 +31,11 @@ class Index extends Component
         'delete',
     ];
 
-   
-
     public function settingsModal()
     {
         // $this->backup_status = settings()->backup_status;
         // $this->backup_schedule = settings()->backup_schedule;
         $this->settingsModal = true;
-    }
-
-    public function saveToDriveManually($filename)
-    {
-        $fileData = Storage::get($filename);
-        Storage::cloud()->put(env('APP_NAME') . '/' . $filename, $fileData);
-
-        $this->alert('success', __('Backup saved to Google Drive successfully!'));
-    }
-    
-    public function getContentsProperty()
-    {
-        $mainDisk = Storage::disk('google_backups');
-
-        return $mainDisk->listContents('', true /* is_recursive */);
     }
 
     public function generate()
@@ -78,11 +63,6 @@ class Index extends Component
             //     'backup_status'   => $this->backup_status,
             //     'backup_schedule' => $this->backup_schedule,
             // ]);
-
-            Config::set('filesystems.disks.google.clientId', $this->clientId);
-            Config::set('filesystems.disks.google.clientSecret', $this->clientSecret);
-            Config::set('filesystems.disks.google.refreshToken', $this->refreshToken);
-            Config::set('filesystems.disks.google.folderId', $this->folderId);
 
             $this->alert('success', __('Settings backuped saved.'));
 

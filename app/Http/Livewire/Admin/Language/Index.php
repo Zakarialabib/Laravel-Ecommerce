@@ -4,16 +4,21 @@ declare(strict_types=1);
 
 namespace App\Http\Livewire\Admin\Language;
 
-use Livewire\Component;
 use App\Models\Language;
 use Artisan;
-use Jantinnerezo\LivewireAlert\LivewireAlert;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
+use Jantinnerezo\LivewireAlert\Concerns\SweetAlert2 as LivewireAlert;
+use Livewire\Attributes\Computed;
+use Livewire\Attributes\Layout;
+use Livewire\Attributes\Title;
+use Livewire\Component;
 
+#[Layout('layouts.dashboard')]
+#[Title('Languages')]
 class Index extends Component
 {
     use LivewireAlert;
-
-    public $languages = [];
 
     public $language;
 
@@ -21,14 +26,22 @@ class Index extends Component
         'refreshIndex' => '$refresh',
     ];
 
-    public function mount()
+    public function mount(): void
     {
-        $this->languages = Language::all()->toArray();
+        //
     }
 
-    public function render()
+    #[Computed]
+    public function languages(): \Illuminate\Database\Eloquent\Collection
     {
-        return view('livewire.admin.language.index');
+        return Language::all();
+    }
+
+    public function render(): View|Factory
+    {
+        return view('livewire.admin.language.index', [
+            'languages' => $this->languages,
+        ]);
     }
 
     public function onSetDefault($id)

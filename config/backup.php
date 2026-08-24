@@ -8,7 +8,7 @@ return [
          * The name of this application. You can use this name to monitor
          * the backups.
          */
-        'name' => config('GOOGLE_DRIVE_BACKUP_FOLDER' , ''),
+        'name' => config('LOCAL_BACKUP_FOLDER' , ''),
         'status' => env('BACKUP_STATUS',0),
         'schedule' => 1, // 1 DAILY 2 WEEKLY 3 MONTHLY
 
@@ -119,7 +119,6 @@ return [
              */
             'disks' => [
                 'local',
-                'google_backups',
             ],
         ],
 

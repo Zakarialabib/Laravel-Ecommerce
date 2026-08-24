@@ -7,7 +7,7 @@ namespace App\Http\Livewire\Admin\Language;
 use Livewire\Component;
 use App\Models\Language;
 use App;
-use Jantinnerezo\LivewireAlert\LivewireAlert;
+use Jantinnerezo\LivewireAlert\Concerns\SweetAlert2 as LivewireAlert;
 
 class EditTranslation extends Component
 {
