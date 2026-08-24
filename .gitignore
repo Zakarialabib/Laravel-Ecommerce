@@ -15,3 +15,4 @@ composer.lock
 /.idea
 /.vscode
 package-lock.json
+public/vendor/
